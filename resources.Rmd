@@ -1,0 +1,96 @@
+---
+title: "Resources"
+output:
+  bookdown::html_document2:
+    toc: false
+    includes:
+      in_header: assets/header.html
+      after_body: assets/footer.html
+---
+
+<br>
+
+This page contains links to the data we're using in our workshop, and a sample of a few useful resources online and in print. This is by no means a comprehensive list, but hopefully a launching pad for useful website and books. All of these examples provide code you can try!
+
+## {.tabset .tabset-fade .tabset-pills}
+
+### Live Coding
+
+<br>
+
+`r icon::fa("code", color="darkpurple", size=1.5, pull="left")`: For live-coding, we will save whatever code we run to a live webpage via Dropbox. This will update every time we save our code, which means you can refresh the page to see whatever code we are typing, copy it, and download this file at anytime. Please bookmark and open the appropriate link in your favorite web-browser. 
+
+ - [**Day 1**](https://dl.dropboxusercontent.com/s/dxvv3az1t11vnqc/2020-10-13_cabw_r_livecode.R?dl=0)
+ 
+ - [**Day 2**](https://dl.dropboxusercontent.com/s/1qb54zz7bexqoj8/2020-10-14_cabw_r_livecode.R?dl=0)
+ 
+ 
+
+### Lesson Datasets
+
+This is a list of the data sources used in this workshop.
+
+<br>
+
+#### *`r icon::fa("database", color="slateblue", size=1.5, pull="left")` Lesson Datasets*
+
+ - [Full Dataset as a zipped folder](https://github.com/ucd-cws/CABW2020_R_training/raw/main/data/datazip.zip). Inside you'll find these files:
+    - **Longitude-Latitude Data:** [`latlon.csv`](https://raw.githubusercontent.com/ucd-cws/CABW2020_R_training/main/data/latlon.csv)
+    - **CSCI Data:** [`cscidat.csv`](https://raw.githubusercontent.com/ucd-cws/CABW2020_R_training/main/data/cscidat.csv)
+    - **ASCI Data:** [`ascidat.csv`](https://raw.githubusercontent.com/ucd-cws/CABW2020_R_training/main/data/ascidat.csv)
+ - Spatial Data (generated using [this lesson](https://ucd-cws.github.io/CABW2020_R_training/m3_1_usaboundaries.html) ) is available as a [zipped folder here](https://github.com/ucd-cws/CABW2020_R_training/raw/main/data/ca_spatial_data.zip). This folder contains:
+    - **states_boundaries.shp** (along with associated .prj, .dbf, .shx)
+    - **states_boundaries.kml** A google earth kml file
+    - **ca_counties_boundaries.geojson** A geojson of counties in CA
+
+
+### Resources
+
+<br>
+
+#### *`r icon::fa("r-project", color="steelblue", size=1.5, pull="left")` Lessons & Tutorials*
+
+* [Software Carpentry: **R for Reproducible Scientific Analysis**](http://data-lessons.github.io/gapminder-R/)
+* [Data Carpentry: **R for Data Analysis and Visualization of Ecological Data**](http://www.datacarpentry.org/R-ecology-lesson/)
+* [Data Carpentry: **Data Organization in Spreadsheets**](http://www.datacarpentry.org/spreadsheet-ecology-lesson/)
+* [**RStudio Webinars**, many topics](https://www.rstudio.com/resources/webinars/)
+* [Topical cheatsheets from **RStudio**, also viewed from the help menu](http://www.rstudio.com/resources/cheatsheets/)
+* [Cheatsheet from CRAN of **base R functions**](http://cran.r-project.org/doc/contrib/Short-refcard.pdf) 
+
+<br>
+
+#### *`r icon::fa("book", color="black", size=1.5, pull="left")` eBooks/Courses*
+
+* [Jenny Bryan's **Stat545.com**](http://stat545.com/)
+* [Garrett Grolemund and Hadley Wickham's **R For Data Science**](http://r4ds.had.co.nz/)
+* [Chester Ismay and Albert Y. Kim's **Modern DiveR**](https://ismayc.github.io/moderndiver-book/)
+* [Julia Silge and David Robinson **Text Mining with R**](http://tidytextmining.com/)
+* [Hadley Wickham's **Advanced R**](http://adv-r.had.co.nz/)
+
+<br>
+
+#### *`r icon::fa("github", color="gray50", size=1.5, pull="left")` Git/Github* 
+
+* [Jenny Bryan's **Happy Git and Github for the useR**](http://happygitwithr.com/)
+* [Coding Club **Intro to Github**](https://ourcodingclub.github.io/2017/02/27/git.html)
+
+
+### Feedback
+
+<br>
+
+`r icon::fa("comment", color="darkpurple", size=1.5, pull="left")`: We would like your input to make this a better learning experience for participants and instructors. We'll use this form at set points throughout the workshop to get your feedback on what has worked or not worked.
+
+ - [Short Survey Here!](https://forms.gle/g55hdNVyEHfKxbFA6)
+
+## {-}
+
+<br>
+
+(ref:AHRemoteR) *Artwork by @allison_horst*
+
+```{r remoteLearning, eval=TRUE, echo=FALSE, out.width='100%', fig.cap='(ref:AHRemoteR)'}
+
+knitr::include_graphics(path = "https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/monster_support.jpg")
+
+```

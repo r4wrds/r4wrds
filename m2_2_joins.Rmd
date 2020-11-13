@@ -1,0 +1,289 @@
+---
+title: "Joining Data"
+output: 
+  bookdown::html_document2:
+    code_fold: show
+    includes:
+      in_header: assets/header.html
+      after_body: assets/footer.html
+---
+
+```{r setup, include=FALSE, purl=FALSE, message=FALSE}
+
+knitr::opts_chunk$set(echo = FALSE)
+library(knitr)
+library(icon)
+library(here)
+library(flair)
+suppressPackageStartupMessages(library(dplyr))
+
+```
+
+<style>
+  .title{
+    display: none;
+  }
+</style>
+
+<br>
+<br>
+
+:::obj
+
+ **Objectives for this section:**
+ 
+ - understand how to join datasets by shared columns or IDs
+ - have a general sense of the variety of join types
+ - join some data and save it
+ 
+:::
+
+<br>
+
+## Joining Data
+
+We often need to take several datasets and merge them into a single dataset that we can use for analysis. This "**join**" can at times be tricky, and can be made more so if we aren't exactly sure what data matches up between the two datasets. Sometimes joining data can resemble more of a gridlock than a clean and seamless merge.
+
+<br>
+
+(ref:gridlockWiki) Merging Data? *(source Wikipedia Commons)*
+
+<center>
+```{r gridlock, fig.cap="(ref:gridlockWiki)", out.width="60%"}
+
+knitr::include_graphics("https://upload.wikimedia.org/wikipedia/commons/8/82/New_York_City_Gridlock.jpg")
+
+```
+</center>
+<br>
+
+## Common Variables
+
+<br>
+The trick that makes this all possible, is having one or more shared pieces of data across the two (or more) datasets. This may be an ID column, or a specific observation or data type. Importantly, these data can actually have different column names, but they should be formatted in the same way across each dataset! 
+
+While this may seem daunting at first, it's not! R has some excellent tools built into the **`{dplyr}`** package that make joining datasets fairly straightforward. First let's import some data we can use to join. Here we will build off of the dataset we used in the [previous lesson](m2_1_working_w_xls.html). 
+
+Let's read in both the `csci_clean` and `sites_clean` datasets. If you recall, we saved these as `.csv`, `.rds`, `.xlsx`, and `.rda`. For now, let's use the `rda` option as it will be fastest.
+
+:::challenge
+
+**Challenge 1**
+
+ - Read in the `csci_sites_clean.rda` file
+ - How many rows are there in each object?
+ 
+:::
+
+<br>
+
+<details>
+  <summary class="challenge-ans-title">**Click for Answers!**</summary>
+  <div class="challenge-ans-body">
+
+```{r readRDA, echo=TRUE}
+
+load("data/csci_sites_clean.rda")
+
+nrow(csci_clean) # gives just the number of rows
+nrow(sites_clean) # gives just the number of rows
+
+```
+
+  </div>
+</details> 
+
+<br>
+
+### **Inspect the Data**
+
+Let's quickly take a look at the columns in our datasets and see what looks similar. To do this we can inspect our data with either `head` or `names` or `str`. All will tell us similar information.
+
+(ref:AHmeetdata) *Artwork by @allison_horst*
+
+
+```{r AHmeetData, echo=FALSE, out.width="80%", fig.cap="(ref:AHmeetdata)"}
+
+include_graphics("https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/make-your-own-stats-cartoons/ex_2.png")
+
+```
+
+
+```{r structure, eval=TRUE, echo=TRUE}
+
+str(csci_clean)
+str(sites_clean)
+
+```
+
+<br> 
+
+What do we see? Looks like we have the same data type in the *`StationID`* column in `sites_clean` and the *`StationCode`* column in `csci_clean`. They are just named differently.
+
+<br>
+
+## Join Types
+
+There are quite a few different join types that are available via the **{dplyr}** package. Here are some great animations by [Garrick Aden-Buie](https://www.garrickadenbuie.com/project/tidyexplain/#usage) that may help illustrate the various join types. 
+
+<br>
+
+### **Left Join**
+
+All rows from `x`, and all columns from `x` and `y`. Rows in `x` with no match in `y` will have `NA` values in the new columns.
+
+```{r leftjoin, echo=FALSE, out.width='70%'}
+
+include_graphics("images/left-join.gif")
+
+```
+
+
+### **Inner Join**
+
+All rows from `x` where there are matching values in `y`, and all columns from `x` and `y`.
+
+```{r innerjoin, echo=FALSE, out.width='70%'}
+
+include_graphics("images/inner-join.gif")
+
+```
+
+
+### **Full Join**
+
+All rows and all columns from both `x` and `y`. Where there are not matching values, returns NA for the one missing.
+
+```{r fulljoin, echo=FALSE, out.width='70%'}
+
+include_graphics("images/full-join.gif")
+
+```
+
+### **Semi Join**
+
+All rows from `x` where there are matching values in `y`, keeping just columns from `x`. Also known as a *filtering* join because you are basically filtering one dataframe, using another dataframe as the match.
+
+```{r semijoin, echo=FALSE, out.width='70%'}
+
+include_graphics("images/semi-join.gif")
+
+```
+
+
+### **Anti Join**
+
+Also a *filtering join*. This keeps all rows from `x` where there are not matching values in `y`, keeping just columns from `x`. Really handy to find out which data is **not** joining, or may be missing from one or both datasets.
+
+```{r antijoin, echo=FALSE, out.width='70%'}
+
+include_graphics("images/anti-join.gif")
+
+```
+
+
+
+```{r, eval=F, echo=F}
+# join animations with tidyexplain: https://www.garrickadenbuie.com/project/tidyexplain/
+# code here: https://github.com/gadenbuie/tidyexplain/tree/master/R
+# animations here:
+# https://github.com/gadenbuie/tidyexplain/tree/master/images
+
+```
+
+<br>
+
+## Join Our Data
+
+For our purposes, let's assume we have some data (our CSCI data: `csci_clean`) that we want to make a map of to visualize things. But the site information (`sites_clean`) is in a separate dataframe or file! This happens all the time. Databases keep different tables, and to avoid redundancy in data, there may be one table that just has site location information and maybe a description of each site, and a table where the actual data collected at the site lives. 
+
+Let's join our site table with our CSCI table to make a single dataset that contains both the scores for our bioassessment data, and our site localities. This will help us plot and map the data later. Remember to keep track of how many rows and columns we have in each of our datasets.
+
+Let's use an `inner_join()` here, because we only want to keep sites that have matching Site ID codes between the CSCI data and the Sites data. If the *join* column (our Site ID) is named the exact same in each table, this is easy. We could use something like this:
+
+```{r innerJoinSame, eval = FALSE, echo=TRUE}
+
+# load dplyr package
+library(dplyr)
+
+# join data by common column: same name
+csci_sites_match <- inner_join(csci_clean, sites_clean)
+
+```
+    
+```
+Error: `by` must be supplied when `x` and `y` have no common variables.
+ℹ use by = character()` to perform a cross-join.
+Run `rlang::last_error()` to see where the error occurred.
+```
+
+Uh-oh. But look! This error message is pretty descriptive, it tells us the two pieces we are working with (x=`csci_clean` and y=`sites_clean`) don't have a common column name (or `variable`). Then it gives us a suggestion, `use by = character()`. Let's try that and see what it looks like!
+
+```{r innerJoinDiff, eval=TRUE, echo=TRUE, warning=FALSE}
+
+# join data by common column: different name
+csci_sites_match <- inner_join(csci_clean, sites_clean,
+                               # now the by, remember x col first, then y
+                               by=c("StationCode"="StationID"))
+
+# now we have lat and lon in our dataframe with the data!
+str(csci_sites_match)
+
+```
+
+<br>
+
+Great! But what about the site that **didn't** join? What if we want to find out which one it was, so we can figure out why, or go collect data there?
+<br>
+
+ > **The Anti Join**
+
+Let's use an Anti-join and quickly look at the sites that didn't match. Notice, `sites_clean` has the extra record, so we need to list it first and figure out what was missing. 
+
+```{r antiJoin, echo=T, eval=T}
+
+anti_join(sites_clean, csci_clean,
+          by=c("StationID"="StationCode"))
+
+```
+
+
+Notice we had to list both `sites_clean` first, as well as the `sites_clean` stationID column first. 
+
+<br>
+
+:::challenge
+
+**Challenge 2**
+
+ - If we switched the objects we used in the `anti_join` (as above in the original `inner_join`), R would return zero records. Why? 
+
+:::
+
+<br>
+
+<details>
+  <summary class="challenge-ans-title">**Click for Answers!**</summary>
+  <div class="challenge-ans-body">
+  
+  Because the `csci_clean` has `1612` records, and the `sites_clean` has `1613` records, and *all* the csci records joined when we used the `inner_join`, there are no records in `csci_clean` that didn't join with the `sites_clean`. So R will return zero records!
+  
+  </div>
+</details>
+
+<br>
+
+## Save it Out!
+
+Remember how to do this? Let's save this as a `.RData` file for now.
+
+```{r saveOut, echo=T}
+
+# list our data object, and then the filepath and name
+# remember to use a relative path!
+save(csci_sites_match, file = "data/csci_sites_match.rda")
+
+```
+
+
+Great work! Let's [move to the next lesson](m2_3_using_sf.html).

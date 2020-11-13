@@ -1,0 +1,322 @@
+---
+title: "Importing Data"
+output: 
+  bookdown::html_document2:
+    code_fold: show
+    includes:
+      in_header: assets/header.html
+      after_body: assets/footer.html
+---
+
+```{r setup, include=FALSE, warning=FALSE, purl=FALSE, message=FALSE}
+options(repos = "http://cran.rstudio.com/")
+knitr::opts_chunk$set(echo = TRUE, tidy = FALSE, message = FALSE, warning = FALSE)
+library(knitr)
+library(dplyr)
+library(flair)
+
+```
+
+<br>
+
+:::obj
+
+ **Objectives for this section:**
+ 
+ - get organized at the start of each new project
+ - create and save an .R script
+ - import data from a `.csv`
+ 
+:::
+
+<br>
+
+## Getting organized
+
+Today, as you learn new concepts and utilities in R, we will also be teaching you how to set up your workflow so that you and your collaborators can use R more efficiently. By taking the time at the very beginning of a project to maintain code that is well organized and clear, you will create analyses that are more reproducible and shareable. And, when you come back to your files years later, you can pick back up right where you left off.
+
+Before you start working on a new dataset in RStudio, it is very important that you create a place to store your files. Starting off organized and staying organized in R will make *future you* so much happier. So, we're going to encourage that you take a moment now to organize your files and keep things tidy.
+
+<br> 
+
+### RStudio projects
+
+I strongly encourage you to use RStudio projects when you are working with R.  The RStudio project provides a central location for working on a particular task.  It helps with file management and is portable because all the files live in the same project.  RStudio projects also remember history - what commands you used and what data objects are in your *Environment*.  
+
+To create a new project, click on the **File** menu at the top of the RStudio window and select **`New project...`**
+
+
+```{r out.width = "100%", fig.cap = '*Beginning a new project in RStudio.*', echo=FALSE}
+knitr::include_graphics(here::here("images", "rstudio_proj.jpg"))
+```
+
+<br>
+
+Select **`New Directory`** > **`New Project`**. Title this project "**cabw_r_workshop**" (we will use this directory for the rest of today's workshop), and save it on your computer in a place that is logical and easy for you to find in the future. Then, click "**Create Project**." In the RStudio window that just opened, you should now see your working directory printed along the top of the screen (e.g., `~/Desktop/cabw_r_workshop`).
+
+Now, we can use this project for our data and any scripts we create.  
+
+<br>
+
+### Scripting
+
+Up until this point, we have been working in the *Console*. In most cases, you will not enter and execute code directly in the *Console* but rather type and edit code in a script and then send it to the *Console* when you're ready to run it.  The key difference here is that a script can be saved and shared.
+
+To open a new script, navigate to the File menu, and select **`New File`** > **`R Script`**:
+
+```{r out.width = "100%", echo=FALSE, fig.cap = '*Opening a new script in RStudio.*'}
+knitr::include_graphics(here::here("images", "rstudio_script.jpg"))
+```
+
+Save that file into your newly created project and name it **`cabw_script_day1.R`**. It'll just be a blank text file at this point.
+
+A script works similarly to the *Console*, but it does have a few key differences. The first, is that you can add text that is not able to be run. This text is referred to as annotations or comments, and it is denoted by using a pound symbol or hashtag (`#`) prior to the text. Let's use this to add a title, name, and date to our new script.
+
+```{r heading}
+
+# CABW 2020 Bioassessment R Tutorial
+# Firstname Lastname
+# October 13, 2020
+
+```
+
+
+Let's practice making variables in our script or *`.R`* file. Type the following into your script:
+
+```{r variable}
+
+#### Variables ####
+
+# Create a new variable.
+fish <- 10 + 45
+
+```
+
+
+After you write your script it can be sent to the Console to run the code in R. Any variables you create in your script will not be available in your working environment until this is done. There are two ways to send code to the console. First, you can hit the `Run` button at the top right of the scripting window. Second, and preferred, you can use <kbd>Ctrl</kbd>+<kbd>enter</kbd> or <kbd>&#8984;</kbd>+<kbd>Enter</kbd> on a Mac. Both approaches will send the selected line to the console, then move to the next line in your script. You can also highlight and send an entire block of code. If you'd like to run all the code in your script at once, you can use <kbd>Ctrl</kbd> or <kbd>&#8984;</kbd>+<kbd>shift</kbd> +<kbd>enter</kbd>.
+
+```{r out.width = "100%", echo=FALSE, fig.cap = '*Running code in RStudio.*'}
+knitr::include_graphics(here::here("images", "rstudio_run.jpg"))
+```
+
+Place your cursor on the line where you've created the `fish` variable, and run the line of code. Check to be certain that this variable has now appeared in your *Environment*.
+
+Add the following lines of code to your script, and then run each one:
+
+```{r variables}
+
+# Create additional variables.
+nitrogen <- 79 - 15
+algae <- fish * nitrogen
+
+```
+
+
+For the remainder of the workshop, we'll use this script (**`cabw_script_day1.R`**) instead of the *Console*. For comparison, working in the *Console* is like sending a lot of text messages, but working in this new script file is more like working in Word--you can save, edit, and track your changes, not to mention more easily collaborate with others to write files.
+
+:::challenge
+
+**PRACTICE**  
+
+1. Create variables named `riffle` and `pool` in your script, and assign a number to each. 
+
+1. Annotate your variables with a comment using the `#` notation so *future you (or colleagues and collaborators)* understands what you've done.
+
+1. Run each of your new variables to be sure they appear in your **`Environment`**.
+
+1. Save your script.
+
+:::
+
+
+<details>
+  <summary class="challenge-ans-title">**Click for Answers!**</summary>
+  <div class="challenge-ans-body">
+```{r}
+
+# Let's make a variable named riffle and assign a number to it
+riffle <- 100
+
+# let's make a variable named pool and assign a list of numbers
+# to make a list of anything, we use "c( )" for "concatenate" or "combine"
+pool <- c(10, 20, 30)
+
+# And we can save with Cmd + S or Ctrl + S, or File > Save!
+
+```
+  
+  </div>
+</details>
+ 
+<br>
+
+If you have any difficulty completing the above 4 steps, please send a message to Ryan, Heili, or one of the workshop assistants in the chat.
+
+We have demonstrated that scripts are just as powerful as the *Console*, and they are much more useful, because they can be re-used, shared, and re-run, making any analysis reproducible. Think of all the mouse clicks it may take to make or do something, and imagine instead using `**Run**` once on a script to recreate an entire history of those clicks. So, let's continue working in the script by loading packages and datasets we'll use for this workshop.
+
+### Installing packages
+
+At the beginning of most of your scripts, you will need to tell R which **packages** or **libraries** (lots of pieces of code we can use for specific tasks) it needs to use to run the code below. So, we're going to install and load some additional packages for this week's workshop.
+
+In the *Console*, type and run the following lines of code:
+
+`install.packages("sf")`
+
+`install.packages("mapview")`
+
+`install.packages("viridis")`
+
+`install.packages("USAboundaries")`
+
+We run these installations in the *Console*, because they only need to happen once per person, and once installed, R will recognize them in perpetuity. 
+
+### Loading Libraries
+
+An important note, a package is a library of functions (which are code that we can use to do specific tasks with). Packages *usually* have a theme or a group of functions that are oriented around a similar topic. Some may just be a bunch of functions that are all useful in different ways, like a utility belt. Either way, we **`install`** a package once per R version, and we load our **`library`** once per R session (so each time we want to work in a script in R).
+
+Let's add the following to our script file and run each line to attach our libraries of functions for use today. For now, we will just be using the {[tidyverse](https://www.tidyverse.org/)} package.
+
+```{r packages, echo = TRUE, message = FALSE}
+
+# Load packages into R so they are accessible for our session:
+library("tidyverse")
+
+```
+
+## Getting your data into R
+
+It is the rare case when you manually enter your data in R, not to mention impractical for most datasets. Most data analysis workflows typically begin with importing a dataset from an external source. This means committing a dataset to memory (i.e., storing it as a variable) as one of R's data structure formats.
+
+You should have downloaded today's dataset already, but if not, the data are available [here](https://github.com/ucd-cws/CABW2020_R_training/raw/main/data/datazip.zip).  The data are in a zipped folder.  Download the file to your computer (anywhere).  
+
+Create a new folder in your **`cabw_r_workshop`** project named **`data`** and move the `datazip.zip` file into this location. You will need to unzip this folder with whatever option you have for your system (Unzip, 7Zip, etc). Now, you should see them appear in the *Files* tab under the **`data`** folder in the lower right hand corner of your RStudio window - this means the files are now a part of the same working directory as your script.
+
+Flat data files (text only, rectangular format) present the least complications on import because there is very little to assume about the structure of the data. On import, R tries to guess the data type for each column, and this is fairly unambiguous with flat files.The base installation of R comes with some easy to use functions for importing flat files, but we're going to use the `read_csv()` function from the `readr` package, which you've already loaded in through the {[tidyverse](https://www.tidyverse.org/)}. R comes with a built in function `read.csv()`, but we're going to use `read_csv()` because it handles a few defaults more cleanly, and can be slightly faster reading in data.
+
+Now that we have the data downloaded and extracted to our data folder, we'll use `read_csv()` to import two files.
+
+1. Type the following in your script. Note the use of **relative file paths** within your project.
+
+    ```{r data}
+    
+    # Load CSCI and ASCI datasets.
+    cscidat <- read_csv('data/cscidat.csv')
+    ascidat <- read_csv('data/ascidat.csv')
+
+    ```
+
+1. Send the commands to the console with <kbd>Ctrl</kbd> or <kbd>&#8984;</kbd>+<kbd>Enter</kbd>.
+
+1. Verify that the data imported correctly by viewing the datasets in a spreadsheet style in a new window:
+
+    ```{r view, eval=FALSE, echo=TRUE}
+    
+    # examine datasets in new windows
+    View(cscidat)
+    View(ascidat)
+
+    ```
+
+### Inspect the Data
+
+Let's explore the datasets a bit.  There are many useful functions for exploring the characteristics of a dataset.  This is always a good idea when you first import something.  
+
+```{r explore}
+
+# get the dimensions
+dim(cscidat)
+dim(ascidat)
+
+# get the column names
+names(cscidat)
+names(ascidat)
+
+# see the first six rows
+head(cscidat)
+head(ascidat)
+
+# get the overall structure
+str(cscidat)
+str(ascidat)
+
+```
+
+## Data structures in R
+
+There are many formats for storing data and R is no exception. We will introduce some of these types of data below.
+
+### Vectors (one-dimensional data)
+
+The basic data format in R is a vector - a one-dimensional grouping of elements that have the same type.  These are all vectors and they are created with the `c()` function:
+
+```{r vectors}
+
+# double vector
+dbl_var <- c(1, 2.5, 4.5)
+
+# integer vector
+int_var <- c(1L, 6L, 10L)
+
+# logical vector
+log_var <- c(TRUE, FALSE, TRUE, FALSE)
+
+# character vector
+chr_var <- c("a", "b", "c")
+
+```
+
+The four types of vectors are `double` (or numeric), `integer`, `logical`, and `character`.  You can explore the type using the following functions:
+
+```{r type}
+
+# display vector type
+class(dbl_var)
+
+# display vector length
+length(log_var)
+
+```
+
+These properties are useful for not only describing an object, but they define limits on which functions or types of operations that can be used.  For example, some functions require a character input while others require a numeric input. Similarly, vectors of different types or properties may not play well together. Let's look at some examples:
+
+```{r vector error}
+
+# take the mean of a character vector
+mean(chr_var)
+
+# adding two numeric vectors of different lengths
+vec1 <- c(1, 2, 3, 4)
+vec2 <- c(2, 3, 5)
+vec1 + vec2
+
+```
+
+### 2-dimensional data
+
+A collection of vectors represented as a single data object are often described as two-dimensional data.  A more common way of storing two-dimensional data is in a data frame (i.e., `data.frame`).  Think of them like your standard spreadsheet, where each column describes a variable and rows link observations between columns. An example would be our `ascidat` loaded above.
+
+The only constraints required to make a data frame are:
+
+1. Each column contains the same type of data
+
+1. The number of observations in each column is equal.
+
+You can call vectors within a data frame by using the `$` to refer to a certain column. Type the following into your script to see how this works:
+
+```{r columns}
+
+# calculate the mean CSCI value of the entire dataset
+mean(cscidat$csci)
+
+# assign the vector containing sampling site information to a new variable
+Sites <- cscidat$site
+
+```
+
+This concludes the "importing data" section of our R tutorial today. If you are experiencing any issues, errors, or have a question, please take this moment to send Ryan, Heili, or one of the workshop assistants a message in the chat.
+
+```{r out.width = "100%", echo=FALSE, fig.cap = '*Illustration by @allison_horst.*'}
+knitr::include_graphics(here::here("images", "debugging.jpg"))
+```
+
+Great work! Let's [move to the next lesson](m1_2_wrangling.html).

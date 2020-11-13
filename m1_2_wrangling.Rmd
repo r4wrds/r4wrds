@@ -1,0 +1,337 @@
+---
+title: "Wrangling Data"
+output: 
+  bookdown::html_document2:
+    code_fold: show
+    includes:
+      in_header: assets/header.html
+      after_body: assets/footer.html
+---
+
+```{r setup, include=FALSE, purl=FALSE, message=FALSE}
+options(repos = "http://cran.rstudio.com/")
+knitr::opts_chunk$set(echo = TRUE, tidy = FALSE, message = FALSE, warning = FALSE)
+library(knitr)
+library(dplyr)
+library(here)
+```
+
+<br>
+<br>
+
+:::obj
+
+ **Objectives for this section:**
+ 
+ - learn how to tidy and manipulate datasets
+ - use the pipe (`%>%`) to combine operations
+ 
+:::
+
+<br>
+
+## Data wrangling with **{dplyr}**
+
+Data wrangling is the part of any data analysis that will take the most time. While it may not necessarily be fun, it is foundational to all the work that follows. Often, it also takes significantly longer than actually performing the data analysis or creating a data visualization, so do not panic if, in the future, you find yourself spending a lot of time on this single step. For the purpose of condensing today's lessons, we will be working with a fairly tidy dataset. But there are many online resources available to help you in your own work, should you be handed a project with a particularly gnarly dataset.
+
+```{r out.width = "100%", echo=F, fig.cap = '*Image from "R for Data Science" by Garrett Grolemund and Hadley Wickham.*'}
+knitr::include_graphics(here::here("images", "data-science-wrangle.png"))
+```
+
+<br>
+
+The data wrangling process includes data import, tidying, and transformation.  The process directly feeds into, and is not mutually exclusive with, the *understanding* or modeling side of data exploration.  More generally, data wrangling is the manipulation or combination of datasets for the purpose of analysis.  
+
+**All wrangling is based on a purpose.**  No one wrangles for the sake of wrangling (usually), so the process always begins by answering the following two questions:
+
+* What do my input data look like?
+* What should my data look like given what I want to do?
+
+At the most basic level, going from what your data looks like to what it should look like will require a few key operations.  Some common examples:
+
+* Selecting specific variables
+* Filtering observations by some criteria
+* Adding or modifying existing variables
+* Renaming variables
+* Arranging rows by a variable
+* Summarizing a variable conditional on others
+
+The **`{dplyr}`** package provides easy tools for these common data manipulation tasks and is a core package from the [{tidyverse}](https://www.tidyverse.org/) suite of packages. The philosophy of **`{dplyr}`** is that **one** function does **one** thing and the name of the function says what it does. 
+
+We'll start this lesson by working in the script we created in the previous section: **`cabw_script_day1.R`**.
+
+Below your code that imports the dataset, let's make a new section! Go to **`Code`** > **`Insert Section`**, and type your new section header `Wrangling and Plotting`. We can also use keyboard shortcuts for this (`Ctrl` or `⌘` + `Shift` + `R`). You should notice how this now appears in an expandable table of contents on the right hand side of your script pane (look for the tiny button that has little gray horizontal lines on it). This feature can be very helpful in keep your scripts organized.
+
+Alright, let's get wrangling!
+
+### (*Re*)-Load Our Data
+
+Any reproducible analysis should be able to start from scratch, and rebuild all the parts, sometimes over and over again. For that reason, it's a good habit to get into to **Restart your R Session**. Sometimes this solves issues, sometimes it's just good to make sure everything runs up to the point you are working. Let's do that now!
+
+ 1. Go to **`Session`** > **`Restart R`**!
+ 2. Check your `Environment` tab...it should be empty!
+ 3. Now we need to re-load our library, and re-load our data.
+ 
+:::challenge
+
+**Challenge 1**  
+
+1. Load {tidyverse} package into R.
+
+1. Load or read the `csci` and `asci` datasets into R. Comment your code!
+
+1. Save your script.
+
+:::
+
+<details>
+  <summary class="challenge-ans-title">**Click for Answers!**</summary>
+  <div class="challenge-ans-body">
+```{r challenge1}
+
+# load the library
+library(tidyverse)
+
+# Load CSCI and ASCI datasets.
+cscidat <- read_csv('data/cscidat.csv')
+ascidat <- read_csv('data/ascidat.csv')
+
+# check environment, both are there!
+
+```
+  
+  </div>
+</details>
+ 
+<br>
+
+
+### Selecting
+
+Our goal with the datasets we have loaded in is to combine the bioassessment scores by each unique location, date, and replicate, while keeping only the data we need for our plots. 
+
+The `select` function lets you retain or exclude columns.
+
+```{r dplyr1, echo=TRUE, eval=TRUE}
+# first, select some chosen columns
+dplyr_sel1 <- select(cscidat, SampleID_old, New_Lat, New_Long, CSCI)
+
+# examine those columns
+head(dplyr_sel1)
+
+# select everything but CSCI and COMID: the "-" sign indicates "not"
+dplyr_sel2 <- select(cscidat, -CSCI, -COMID)
+head(dplyr_sel2)
+
+# select columns that contain the letter c
+dplyr_sel3 <- select(cscidat, matches('c'))
+head(dplyr_sel3)
+
+# Note, these datasets should all be appearing in your Environment pane in the upper right hand corner of your screen as you continue.
+
+```
+
+<br>
+
+### Filtering
+
+After selecting columns, you'll probably want to remove observations that don't fit some criteria.  For example, maybe you want to remove CSCI scores less than some threshold, find stations above a certain latitude, or both.
+
+```{r dplyr2, echo=TRUE, eval=TRUE}
+# get CSCI scores greater than 0.79
+dplyr_filt1 <- filter(cscidat, CSCI > 0.79)
+head(dplyr_filt1)
+
+# get CSCI scores above latitude 37N
+dplyr_filt2 <- filter(cscidat, New_Lat > 37)
+head(dplyr_filt2)
+
+# use both filters
+dplyr_filt3 <- filter(cscidat, CSCI > 0.79 & New_Lat > 37)
+head(dplyr_filt3)
+
+# You can use "&" to signify "and" and "|" to signify "or" in your wrangling statements.
+```
+
+```{r out.width = "100%", echo=FALSE, fig.cap = '*Illustration by @allison_horst.*'}
+knitr::include_graphics(here::here("images", "filter.jpg"))
+```
+
+Filtering can take a bit of time to master because there are several ways to tell R what you want. To use filtering effectively, you have to know how to select the observations that you want using the comparison operators. R provides the standard suite: `>`, `>=`, `<`, `<=`, `!=` (not equal), and `==` (equal). Remember to use `=` instead of `==` when testing for equality!
+
+
+### Mutating
+
+Now that we've seen how to select columns and filter observations of a data frame, maybe we want to add a new column. In dplyr, `mutate` allows us to add new columns. These can be vectors you are adding *or* based on expressions applied to existing columns. For instance, maybe we want to convert a numeric column into a categorical using certain criteria *or* maybe we want to make a new column based on some arithmetic on other columns.
+
+```{r mutate, eval=TRUE, echo=TRUE}
+# get observed taxa
+dplyr_mut1 <- mutate(cscidat, observed = OE * E)
+head(dplyr_mut1)
+
+# add a column for lo/hi csci scores
+dplyr_mut2 <- mutate(cscidat, CSCIcat = ifelse(CSCI <= 0.79, 'lo', 'hi'))
+head(dplyr_mut2)
+
+# Note: "ifelse" statements can be very helpful for conditional assignments. Their basic structure is if *the criteria* is met, then print 'this', if not, then print 'that'.
+
+# So, the actual statement may look something like:
+# ifelse(*the criteria*, 'this', 'that')
+```
+
+
+```{r out.width = "100%", echo=FALSE, fig.cap = '*Illustration by @allison_horst.*'}
+knitr::include_graphics(here::here("images", "mutate.png"))
+```
+
+### More functions
+
+Some other useful dplyr functions include `arrange` to sort the observations (rows) by a column and `rename` to (you guessed it) rename a column.
+
+```{r arrange, eval=TRUE, echo=TRUE}
+# arrange by CSCI scores
+dplyr_arr <- arrange(cscidat, CSCI)
+head(dplyr_arr)
+
+# rename lat/lon (note the format of newName = oldName)
+dplyr_rnm <- rename(cscidat, 
+                    lat = New_Lat,
+                    lon = New_Long
+                    )
+head(dplyr_rnm)
+```
+
+### Some More Practice?
+
+Let's take a look at some practice challenges to work on the various functions we've described above. Let's clean up our CSCI dataset in preparation to join with our ASCI dataset.  We'll select columns we want and rename columns with odd names to create a more tidy dataset.
+
+:::challenge
+
+**Challenge 2**
+
+ - Select the unique sample ID column (`SampleID_old`), latitude (`New_Lat`), longitude (`New_Long`), and `CSCI` columns. Reassign these columns to a new dataset named `cscidat_trim`, so we don't overwrite the existing dataset.
+
+:::
+
+<details>
+  <summary class="challenge-ans-title">**Click for Answers!**</summary>
+  <div class="challenge-ans-body">
+  
+  ```{r challenge2, echo=T}
+      cscidat_trim <- select(cscidat, SampleID_old, New_Lat, New_Long, CSCI)
+    ```
+    
+  </div>
+</details>
+
+<br><br>
+
+:::challenge
+
+**Challenge 3**
+
+ - Rename the `SampleID_old` column to `id`, `New_Lat` to `lat`, and `New_Long` to `lon`.
+
+:::
+
+<details>
+  <summary class="challenge-ans-title">**Click for Answers!**</summary>
+  <div class="challenge-ans-body">
+
+```{r challenge3, echo=T}
+cscidat_trim <- rename(cscidat, 
+                       id = SampleID_old, 
+                       lat = New_Lat, 
+                       lon = New_Long
+)
+```
+
+
+  </div>
+</details>
+
+<br><br>
+
+
+## Piping using the tidyverse
+
+Each of the functions we learned above - `select()`, `filter()`, `mutate()`, and more - can be used on their own. However, a particularly powerful application of the `{tidyverse}` package is the ability to "pipe" or perform multiple functions all in one go.
+
+In order to do so, you must use the symbols **`%>%`**, otherwise known as a pipe. When placed between functions in your code, this allows you to perform multiple operations on a single dataset.
+
+Typically, piping will assume the following format:
+
+```{r piping, eval = FALSE}
+<NEW DATASET> <- <OLD DATASET> %>%
+  <FIRST_FUNCTION> %>%
+  <SECOND_FUNCTION> %>%
+  <THIRD_FUNCTION> %>%
+    etc.
+```
+
+So, if you wanted to perform many of the operations we practiced above, we could use **`%>%`** to create a new dataset (`csci_new`) by typing the following:
+
+```{r, piping2}
+
+csci_new <- cscidat %>% # Use the original dataset and then...
+    select(CSCI, COMID, New_Lat) %>% # select only CSCI, COMID, and latitude columns and then...
+    filter(New_Lat > 37) %>% # filter for Latitudes above 37 and then...
+    mutate(CSCIcat = ifelse(CSCI <= 0.79, 'lo', 'hi')) # new column with categories according to CSCI.
+
+```
+
+### More Practice!
+
+Let's practice piping just a bit more before we move onto plotting our data. 
+
+:::challenge
+
+**Challenge 4**
+
+1. Using the piping technique and the `ascidat` dataset, create a new dataset called `asci_new` that includes: 
+- Site type and ASCI
+- Only sites identified as "Reference"
+- A new column with ASCI scores multiplied by 10
+
+1. Check the dimensions of the new dataset (Hint: Use the `View()` function).
+
+1. Save your script!
+
+:::
+
+<br>
+
+<details>
+  <summary class="challenge-ans-title">**Click for Answers!**</summary>
+  <div class="challenge-ans-body">
+
+```{r ascipractice}
+
+asci_new <- ascidat %>% # Use the original dataset and then...
+  select(ASCI, site_type) %>% # select only ASCI and site type columns and then...
+  filter(site_type == "Reference") %>% # filter for reference sites only and then...
+  mutate(ASCI_10 = ASCI*10) # new column with ASCI values multiplied by 10.
+
+dim(asci_new)
+
+```
+
+  </div>
+</details>
+
+<br>    
+
+
+This concludes the "wrangling data" section of our R workshop today. If you are experiencing any problems or have a question, please send Ryan, Heili, or one of the workshop assistants a message in the chat.
+
+If you would like to learn more about the possibilities withing the dplyr package, here are some additional resources:
+
+* [dplyr GitHub repo](https://github.com/hadley/dplyr)
+* [CRAN page: vignettes here](http://cran.rstudio.com/web/packages/dplyr/)
+* [Cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)
+
+```{r out.width = "100%", echo=F, fig.cap = '*Illustration by @allison_horst.*'}
+knitr::include_graphics(here::here("images", "relocate.png"))
+```
+
+Great work! Let's [move to the next lesson](m1_3_plotting.html).

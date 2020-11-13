@@ -1,0 +1,190 @@
+---
+title: "Getting State & County Boundaries"
+output: 
+  bookdown::html_document2:
+    code_fold: show
+    includes:
+      in_header: assets/header.html
+      after_body: assets/footer.html
+---
+
+```{r setup, include=FALSE, purl=FALSE, message=FALSE}
+
+knitr::opts_chunk$set(echo = TRUE)
+library(knitr)
+
+```
+
+<style>
+  .title{
+    display: none;
+  }
+</style>
+
+<br>
+<br>
+
+:::obj
+
+ **Objectives:**
+ 
+ - Use {`USAboundaries`} package to download and save boundary data for State and Counties
+ - save out data in different spatial formats: (`.shp`, `.geojson`, `.kml`, `.csv`)
+ 
+:::
+
+<br>
+
+## Downloading US Boundaries
+
+There are several options to do this, and many work equally well. We'll demonstrate one possible option here, the `USAboundaries` package.
+
+<br>
+
+### **Loading Spatial Packages**
+
+Make sure you load the following packages
+
+```{r loadsf, echo=T, eval=T}
+
+# load packages or "libraries"
+library(tidyverse) # wrangling/plotting tools
+library(sf) # "simple features" spatial package for vector based data
+library(USAboundaries) # data for USA boundaries
+
+```
+
+
+<br>
+
+### **Get State Boundary Data**
+
+Now lets grab some data using a package called `USAboundaries`, which allows us to quickly download county or state outlines, in `sf` formats. Very handy for making some quick professional maps. 
+
+First we'll grab a State boundary for CA, OR, and NV so we can filter these down later.
+
+```{r getCA, echo=T, eval=T}
+
+library(USAboundaries)
+
+# Pick a State
+state_names <- c("california", "oregon", "nevada") # a vector of names
+
+# Download STATE data and add projection
+states <- us_states(resolution = "high", states = state_names) # what does resolution do?
+
+st_crs(states) # double check the CRS
+
+# make a quick plot!
+plot(states$geometry)
+
+```
+
+<br>
+
+### **Save as `.shp`**
+
+A commonly used geospatial file format is the **shapefile**. Unfortunately this file type usually contains 4-5 or more associated files for each spatial object. So, when saving out as `.shp`, expect to see at least 4 files with the same name but different file extensions. All will be needed to spatially orient and read the data back in.
+
+
+```{r toSHP, echo=T, eval=T}
+
+# save out as "shp"
+st_write(states, "data/states_boundaries.shp",
+         delete_dsn = TRUE) # setting to TRUE allows overwrite
+
+```
+
+<br>
+
+### **Save as `.kml`**
+
+`kml` or *Keyhole Markup Language* is an XML format which is used by Google Earth and other programs. It can contain multiple layers (similar to `.gpx`), and retains the CRS associated with the data. Here we are writing a single layer (our states). But we could easily add (or `append=TRUE`) additional data like points or lines to this same file.
+
+```{r toKML, echo=T, eval=T}
+
+# save out as "kml"
+st_write(states, "data/states_boundaries.kml", 
+         delete_dsn = TRUE) # setting to TRUE allows overwrite
+
+# to read it back in...
+states <- st_read("data/states_boundaries.kml")
+
+```
+
+<br>
+
+### **Get County Boundaries**
+
+Let's get counties for all of California, and then filter to a single county. Notice we give the `us_counties` function only one state, but could easily pass a vector of states as we did in the section above. 
+
+```{r getCAcounties, echo=T, eval=T}
+
+# Download outlines of all the counties for California
+ca_counties<-us_counties(resolution = "high", states = "CA") 
+
+# Pick a county of interest
+#co_names <- c("El Dorado")  
+
+# filter to just that county:
+#eldor_co <- filter(ca_counties, name==co_names)
+
+# save out
+#st_write(eldor_co, "data/eldorado_county_boundary.shp")
+```
+
+<br>
+
+### **Save as `.geojson`**
+
+An open source file type that requires a single file, is compatible with vector data, and is based on JSON. There are other packages that can be used to read/write these files, but we'll stick with `sf` here.
+
+```{r toGEOJSON, echo=T, eval=T}
+
+st_write(ca_counties, "data/ca_counties_boundaries.geojson", 
+         delete_dsn = TRUE)
+
+```
+
+
+### **Save as `.csv`**
+
+We can always fall back on writing to a comma-delimited file, but with the inclusion of a `geometry` column as WKT (Well-known-text). This means the spatial data is written into the `.csv`, and then will need to be read in as such. Note, this format has a smaller file size compared with `geojson` and is comparable to `.kml`.
+
+One downside is typically the CRS information isn't retained in the csv, so you need to know what CRS the data has and then set the CRS using `st_set_crs`
+
+```{r toWKT, eval=T, echo=T}
+
+# This writes the geometry column as a WKT (all in one column)
+st_write(ca_counties, "data/ca_counties_boundaries.csv", 
+         layer_options = "GEOMETRY=AS_WKT",
+         delete_dsn = TRUE)
+
+# to read in:
+ca_counties2 <- st_read("data/ca_counties_boundaries.csv", 
+                        stringsAsFactors = FALSE, 
+                        as_tibble = TRUE,
+                        options="GEOM_POSSIBLE_NAMES=WKT") %>% 
+  # drop the WKT column
+  dplyr::select(-WKT)
+
+# also need to set the CRS:
+ca_counties2 <- st_set_crs(ca_counties2, 4326)
+
+```
+
+<br>
+
+Make sure this all worked by previewing with `tmap`.
+
+```{r tmap, eval=T, message=FALSE, warning=FALSE}
+
+library(tmap)
+tmap_mode(mode = "view")
+
+tmap::tm_shape(ca_counties2) +
+  tm_polygons(alpha=0.1, col="seagreen") +
+  tm_shape(states) + 
+  tm_polygons(lwd=2, border.col = "gray10", alpha = 0, col=NA)
+```
+

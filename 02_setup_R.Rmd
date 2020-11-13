@@ -1,0 +1,238 @@
+---
+title: "Using R for bioassessment data: What, why, and how"
+output: 
+  bookdown::html_document2:
+    code_fold: show
+    includes:
+      in_header: assets/header.html
+      after_body: assets/footer.html
+---
+
+```{r setup, include=FALSE, purl=FALSE, message=FALSE}
+
+options(repos = "http://cran.rstudio.com/")
+knitr::opts_chunk$set(echo = TRUE, tidy = FALSE, message = FALSE, warning = FALSE)
+library(knitr)
+library(dplyr)
+
+```
+
+## Goals and Motivation
+
+[R](https://www.r-project.org/) is a language for statistical computing as well as a general purpose programming language. Increasingly, it has become one of the primary languages used in data science and for data analysis across many of the natural sciences.
+
+Thank you for taking the time out of your busy schedule to join us for this training. We hope you will find this workshop both fun and helpful, and we appreciate your patience as we encounter any bumps in our new virtual format! Also, we would like to thank [Allison Horst](https://twitter.com/allison_horst) for allowing us to use her incredible monste**R**s and R illustrations that you will see included in this tutorial.
+
+The goals of this training are to expose you to fundamentals and to develop an appreciation of what's possible with this software.  We also provide resources that you can use for follow-up learning on your own. You should be able to answer these questions at the end of this section:
+
+* What is R/RStudio and why should I use it?
+* Where can I find additional learning and help resources? 
+
+### Why should I invest time in R?
+
+There are many programming languages available and each has it's specific benefits. R was originally created as a statistical programming language but now it is largely viewed as a 'data science' language.
+
+R is also an open-source programming language - not only is it free, but this means anybody can contribute to it's development.
+
+## R/RStudio fundamentals
+
+In the old days, the only way to use R was directly from the Console - this is a bare bones way of running R only with direct input of commands. Now, [RStudio](https://www.rstudio.com/) is the go-to Interactive Development Environment (IDE) for R. Think of it like a car that is built around an engine. It is integrated with the console (engine) and includes many other features to improve the user's experience. 
+
+Let's get familiar with RStudio before we go on.  
+
+### Open R and RStudio
+
+If you haven't done so already, download and install RStudio from the link above (version 1.3.1073).  After it's installed, find the RStudio shortcut and fire it up.  You should see something like this:
+
+```{r out.width = "100%", echo=F, fig.cap = '*The RStudio window.*'}
+knitr::include_graphics(here::here("images", "rstudio.png"))
+```
+
+There are four panes in RStudio (starting from the bottom left and moving clockwise): 
+
+* Console
+* Source
+* Environment, History, etc.
+* Files, Plots, etc.
+
+### Executing code in RStudio
+
+The first part of RStudio that we will be working in is called the *Console*. This is the part of the application that tells you what R is running and it performs many of the same commands as you would be able to do in a calculator or in Microsoft Excel.
+
+Type the following text into the console, press `enter`, and you should see the following results:
+
+```{r}
+
+4
+
+```
+
+```{r}
+
+4+8
+
+```
+
+You can also create variables with custom values. In this case the first part of the code is a name of your choosing. Ideally it should have some meaning, but the only rules are that it can't start with a number and must not have any spaces. The second bit, `<-`, is the assignment operator. This tells R to take the result of whatever is on the right side of the `<-` and store it in a new object.
+
+Type the following into your *Console* and press `enter` after each one to see their output:
+
+
+```{r}
+
+stream <- 4
+
+```
+
+
+
+```{r}
+
+pebble <- 8
+
+```
+
+
+You might notice is no output in the *Console* for the lines of code you have just run. Instead, they have been stored in your *Environment* in the top right pane of your RStudio window. Because they have been stored, you can run these variables by typing their name in the *Console* and pressing `enter`.
+
+There are two possible outcomes when you run code.  First, the code will simply print output directly in the console, as it did with the calculations you entered above.  Second, there is no output because you have stored it as a variable in the *Environment*.  The *Environment* is the collection of named objects that are stored in memory for your current R session.  Anything stored in memory will be accessible by it's name without running the original script that was used to create it.  
+
+Add the variables you just created together, and examine the output:
+
+
+```{r}
+
+stream + pebble
+
+```
+
+
+You can also create new variables using existing variables like so:
+
+```{r}
+
+habitat <- stream + pebble
+
+```
+
+
+Try to call the variable by typing:
+
+`habitatt`
+
+```{r}
+
+print("Error: object 'habitatt' not found")
+
+```
+
+
+This line of code will give you an error, because you must type your variable names exactly as they appear. Please keep in mind that R is also **case-sensitive**.
+
+Try to call the variable once more in the *Console* using the correct spelling:
+
+
+```{r}
+
+habitat
+
+```
+
+
+**Please note:** Clicking on the broom button in the *Environment* will permanently clear out your existing variables. Only do this if you are certain you want to remove/reset all saved variables and datasets. 
+
+In this same pane in the RStudio window is the *History* tab, which will record all the code you've run, and the *Connections* tab will show connections to other databases, etc.
+
+### Installing packages
+
+Immediately below the *Environment* is the third section of RStudio, where all of your *Packages* are stored. The base install of R is quite powerful, but you will soon have a need to go beyond this. Packages provide this ability. They are a standardized way of extending R with new methods, techniques, and programming functionality.
+
+### CRAN
+
+One of the reasons for R's popularity is CRAN, [The Comprehensive R Archive Network](http://cran.r-project.org/).  This is where you download R and also where you can gain access to additional packages.  All of the packages we'll be using during this tutorial will be downloaded from CRAN.  As of `r format(Sys.time(), "%Y-%m-%d")`, there are `r nrow(available.packages())` on CRAN! 
+
+### Installing tidyverse
+
+When a package gets installed, that means the source code is downloaded and put into your library. Let's give it a shot using the [tidyverse](https://tidyverse.tidyverse.org/index.html), a set of packages assembled for data tidying and visualization purposes.
+
+We're going to use our very first function - `install.packages()` - to install this package. Type the following into your *Console* and press `enter`:
+
+`install.packages("tidyverse")`
+
+You should see it appear in the *Packages* tab. To find it, you can either scroll through the list, or type the package name into the search bar at the top of the pane.
+
+In order to use a package, you must attach it to your current workspace. To attach the `tidyverse`, type the following into your *Console* and press `Enter`:
+
+`library(tidyverse)`
+
+Now your package is loaded, and ready to use. You can be certain your package is attached if there is a check mark next to the package name in the *Packages* tab. 
+
+The remaining tabs in this pane allow you to see the *Files* that are associated with your code, the *Plots* you've created, *Help* documents for when you get stuck, and view additional HTML content you might create with the *Viewer* tab.
+
+Great job! You've opened up RStudio, learned about some basic functionalities, and now you're ready to get going on your first R project!
+
+<br>
+
+## Additional R Resources
+
+### Getting Help
+
+Being able to find help and interpret that help is probably one of the most important skills for learning a new language.  R is no different. Help on functions and packages can be accessed directly from R, can be found on CRAN and other official R resources, searched on Google, found on StackOverflow, or from any number of fantastic online resources.
+
+### Help from the console
+
+Getting help from the console is straightforward and can be done numerous ways.
+
+```{r help_from_console, eval=FALSE, echo=TRUE}
+# Using the help command/shortcut
+# When you know the name of a function
+help("print") # Help on the print command
+?print # Help on the print command using the `?` shortcut
+
+# When you know the name of the package
+help(package = "dplyr") # Help on the package `dplyr`
+
+# Don't know the exact name or just part of it
+apropos("print") # Returns all available functions with "print" in the name
+??print # shortcut, but also searches demos and vignettes in a formatted page
+```
+
+### Official R Resources
+
+In addition to help from within R itself, CRAN and the R-Project have many resources available for support.  Two of the most notable are the mailing lists and the [task views](http://cran.r-project.org/web/views/).
+
+- [R Help Mailing List](https://stat.ethz.ch/mailman/listinfo/r-help): The main mailing list for R help.
+- [R-sig-ecology](https://stat.ethz.ch/mailman/listinfo/r-sig-ecology): A special interest group for use of R in ecology. Less daunting than the main help with participation from some big names in ecological modelling and statistics.
+- [Environmetrics Task View](http://cran.r-project.org/web/views/Environmetrics.html): Task views are great in that they provide an annotated list of packages relevant to a particular field. This one is maintained by Gavin Simpson and has great info on packages relevant to much of the work at EPA.
+- [Spatial Analysis Task View](http://cran.r-project.org/web/views/Spatial.html): One that lists all the relevant packages for spatial analysis, GIS, and Remote Sensing in R. 
+
+There are also a number of platforms created to support communities using R and RStudio including [RStudio Community](https://community.rstudio.com/latest), [RLadies](https://rladies.org/) and [RStudioEDU](https://twitter.com/RStudioEDU). Following #rstats on Twitter is also an excellent way to stay informed of RStudio updates and new package developments.
+
+```{r out.width = "100%", echo=F, fig.cap = '*Illustration by @allison_horst.*'}
+knitr::include_graphics(here::here("images", "friends.png"))
+```
+
+### Google and StackOverflow
+
+While the resources already mentioned are useful, often the quickest way is to just turn to Google. Google works great if you search for a given package or function name. You can also type in the error you are experiencing verbatim - chances are, someone before you has encountered the *exact* same problem.
+
+Blind googling can require a bit of strategy to get the info you want.  Some pointers:
+
+* Always preface the search with "r"
+* Understand which sources are reliable
+* Take note of the number of hits and date of a web page
+* When in doubt, search with the exact error message (see here for [details](https://cran.r-project.org/doc/manuals/R-lang.html#Exception-handling) about warnings vs errors)
+
+### Other Resources
+
+Below are just a few more resources I like:
+
+- [R For Cats](http://rforcats.net/): Basic introduction site, meant to be a gentle and light-hearted introduction
+- [Stat 545](https://stat545.com/): Course materials for Jenny Bryan's introduction to data science course developed at the University of British Columbia.
+- [Data Carpentry: R for Data Analysis and Visualization of Ecological Data](http://www.datacarpentry.org/R-ecology-lesson/): Carpentry lesson for folks using ecological data in R.
+- [What They Forgot to Teach you About R](https://rstats.wtf/): Great lessons from Jenny Bryan and Jim Hester about data organization, basic R workflows, and more.
+- [R For Data Science](https://r4ds.had.co.nz/): Web home of Hadley Wickham and Garret Grolemund's introduction to R textbook.
+- [Advanced R](http://adv-r.had.co.nz/): Web home of Hadley Wickham's new book.  Gets into more advanced topics, but also covers the basics in a great way.
+- [Stats the Way I Like It](https://statsthewayilikeit.com/): Course materials for Allison Horst's introduction to environmental data science course developed at the University of California Santa Barbara.
+- [CRAN Cheatsheets](http://cran.r-project.org/doc/contrib/Short-refcard.pdf): A good cheat sheet from the official source
+- [RStudio Cheatsheets](http://www.rstudio.com/resources/cheatsheets/): Additional cheat sheets from RStudio.

@@ -1,0 +1,461 @@
+---
+title: "Spreadsheet to R"
+output: 
+  bookdown::html_document2:
+    code_fold: show
+    includes:
+      in_header: assets/header.html
+      after_body: assets/footer.html
+---
+
+```{r setup, include=FALSE, purl=FALSE, message=FALSE}
+
+knitr::opts_chunk$set(echo = FALSE)
+library(knitr)
+library(icon)
+library(here)
+library(flair)
+
+```
+<style>
+  .title{
+    display: none;
+  }
+</style>
+
+<br>
+<br>
+
+:::obj
+
+ **Objectives for this section:**
+ 
+ - look at a messy spreadsheet & understand how to make it tidy
+ - read (import) data into R from different spreadsheet tabs
+ - write data to a `.xlsx` spreadsheet, or a standalone `.csv`!
+ 
+:::
+
+<br>
+
+## Spreadsheet Madness to Tidy Data
+
+Spreadsheets surround us and exist in nearly every facet and field. While learning how to use `r icon::fa("globe-americas", color="steelblue")` will make life easier and more reproducible, spreadsheets won't go away, and there will always still be a messy dataset that comes your way.
+
+So let's talk about what tidy data should look like, and then take a look at a messy real-life spreadsheet, and figure out what could be done to make it **tidy**!  
+
+(ref:AHtidyplot) *Illustration by @allison_horst, from Hadley Wickham's talk "The Joy of Functional Programming (for Data Science)"*
+
+```{r tidyplotgraphic, eval=TRUE, out.width='100%', fig.cap='(ref:AHtidyplot)'}
+
+# these are all from Allison Horst: https://github.com/allisonhorst/stats-illustrations
+
+# CITE AS: "Artwork by @allison_horst"
+
+
+# rmarkdown wizard
+# https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/rmarkdown_wizards.png
+
+# sf blank
+#knitr::include_graphics(path="https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-blanks/sf_blank.png")
+
+# data wrangler: cite with "Illustrations from Hadley Wickham's talk "The Joy of Functional Programming (for Data Science)"
+
+knitr::include_graphics(path="https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/data_cowboy.png")
+
+# all about case
+#knitr::include_graphics(path="https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/other-stats-artwork/coding_cases.png")
+
+```
+
+
+<br>
+
+### **What is Tidy Data?**
+
+Typically when we look at data, we should always want it to be in a "tidy" format. To be in a tidy format, we want to have each **column** as a unique variable, and each **row** as a unique observation of data. 
+
+(ref:tidyData1) *Illustrations from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst*
+
+```{r tidydata, echo=FALSE, fig.cap="(ref:tidyData1)"}
+
+include_graphics("https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/tidydata_1.jpg")
+
+```
+
+<br>
+
+### **Look at a Messy Dataset**
+
+Let's take a look at this **messy** dataset which is based on data from the [Using R lesson](m1_1_using_R.html). 
+
+ - You can either download this file directly ([DOWNLOAD `r icon::fa("download")`](https://github.com/ucd-cws/CABW2020_R_training/raw/main/data/csci_spreadsheet.xlsx)) and view on your computer
+ - Or just follow along with the screenshots below!
+
+<br>
+
+```{r messytab, out.width='100%'}
+
+include_graphics(paste0(here::here(), "/images/messy_spreadsheet.png"))
+
+```
+
+ 
+ <br>
+
+:::challenge
+
+**CHALLENGE 1**  
+
+ - **What issues do you notice about the first tab?**
+ - **What could we do to make this tidy?**
+
+:::
+
+<br>
+
+<details>
+  <summary class="challenge-ans-title">**Click for Answers!**</summary>
+  <div class="challenge-ans-body">
+ - Multiple tables on one sheet
+ - Figure embedded in the same sheet
+ - Tables start on different rows
+ - Table on far left doesn't have column headers so no idea what the data may be
+ - Mixed data (see last column in middle table)
+ - Dates could be easily switched if order unknown
+  </div>
+</details> 
+
+<br>
+
+<details><summary class="extra-practice-title">Extra Practice</summary>
+  <div class="extra-practice-body">
+*If you are interested in an excellent lesson on how to improve your spreadsheet skills, checkout the excellent lesson via [Data Carpentry: Data Organization in Spreadsheets for Ecologists](https://datacarpentry.org/spreadsheet-ecology-lesson/). This lesson should be read by anyone and everyone who uses spreadsheets (which is everyone), so go take a look!*
+  </div>
+</details
+
+<br>
+<br>
+
+## Import Data from (Excel) Spreadsheets
+
+Now that we have a general sense about what we may be up against, let's take a look at how to get some data in a spreadsheet into R. For this we will need a few new packages! The R environment has many packages, and there may be others with similar capabilities, but let's stick with these for now.
+
+```{r, echo=TRUE, eval=TRUE}
+
+library(tidyverse)
+library(openxlsx)
+library(readxl)
+
+```
+
+<br>
+
+### **Read data from a single tab**
+
+To start, let's try to read in the first tab (the *`messy`* one) in our worksheet. The `readxl::read_excel` function is pretty straightforward for this, requiring us to know where the spreadsheet lives on our computer (our `path`), and the tab or `sheet` of interest. **Arguments** to the function are in yellow, and **input values** are in blue.
+
+```{r readTab1, eval=TRUE, message=FALSE, include=FALSE}
+
+# load data
+messy <- readxl::read_excel(path = "data/csci_spreadsheet.xlsx", sheet = 1)
+
+```
+
+
+```{r, echo=FALSE, message=FALSE}
+
+decorate_chunk('readTab1') %>% 
+  flair_args(background="#FFBF00") %>% 
+  flair("data/csci_spreadsheet.xlsx", background="#6FCFEB") %>%
+  flair("1", background="#6FCFEB")
+
+
+```
+
+<br>
+
+Uh-oh. Something isn't quite right here. Take a look at the interactive table below. Scroll to the right. What happened?
+
+<br>
+
+<br>
+
+```{r showTab1, eval=TRUE, echo=FALSE, message=FALSE}
+
+# load data
+messy <- readxl::read_excel(path = "data/csci_spreadsheet.xlsx", sheet = 1, )
+
+library(DT)
+DT::datatable(messy, caption = "Table 1. The 'messy' datasheet tab")
+
+```
+
+<br>
+
+Ultimately the function `read_excel` did its job and read in our data. However, because our data table is not tidy, this would take a fair bit of extra wrangling to get the data into some sort of useable shape for analysis, plotting, etc.
+
+So the take-home lesson here is that critically thinking about how data is entered and stored can save an immense amount of time in the long run, and it also makes it much easier to use a variety of tools when analyzing data. 
+
+### **Read in Some Tidy Data!**
+
+Ok, since we know that the data in tab 1 is a mess, let's imagine that someone has cleaned this all up, and sent us a new version, with the tidy data in tabs 2 and 3. Let's read these in!
+
+:::challenge
+
+**CHALLENGE 2**  
+
+ - **Read in sheet 2 (`csci_clean`) and assign it to an object named "`csci`"**
+ - **Read in sheet 3 (`sites_latlon`) and assign it to an object named "`sites`**
+
+:::
+
+
+<br>
+
+<details>
+  <summary class="challenge-ans-title">**Click for Answers!**</summary>
+
+  <div class="challenge-ans-body">
+  
+  The only parts we need to change from the code above, are the sheet numbers, and the name of the objects.
+
+  <br>
+  
+```{r getSheets, echo=TRUE, eval=TRUE, collapse=TRUE}
+
+csci <- readxl::read_excel(path = "data/csci_spreadsheet.xlsx", sheet = 2)
+sites <- readxl::read_excel(path = "data/csci_spreadsheet.xlsx", sheet = 3)
+```
+  </div>
+</details> 
+
+
+<br>  
+
+
+## Inspect & Wrangle the Data
+
+It's always a good idea to take a look at the data and make sure:
+
+ - we understand what all the pieces represent
+ - all the data is accounted for
+ - we know what sort of missing data or wrangling we may need to do
+
+(ref:dplyrWrangle) *Artwork by @allison_horst*
+
+```{r dplyrWrangler, fig.cap="(ref:dplyrWrangle)", out.width='80%'}
+
+# dplyr go wrangling data
+include_graphics(path="https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/dplyr_wrangling.png")
+
+```
+
+<br>
+
+### **Inspect the `sites` Data**
+ 
+For our **`sites`** data, we have a set of bioassessment sites with `StationID` and latitude and longitude coordinates (awkwardly named `New_Lat` and `New_Long`). Here we can use **`glimpse()`** and **`head()`** as a way to look at the data types and columns present in the dataset.
+
+```{r inspectSites, echo=TRUE, eval=TRUE}
+
+glimpse(sites)
+
+head(sites)
+
+```
+
+<br>
+
+Based on this, we know there are 1,613 rows (so 1,613 **sites**), and 3 columns. We know the `StationID` column is a *character* data class, and the other columns are numeric (or *double* which essentially means numbers with decimals).
+
+<br>
+
+### **Inspect the `csci` Data**
+
+<br>
+
+The **`csci`** dataframe has the `SampleID_old` and `_old.1` columns, the `StationCode`, and the bioassessment data for each sample (which contains a date). See [cite here] for more info on CSCI and the derivative metrics that it provides. 
+
+<br>
+
+<details><summary class="extra-practice-title">More Info on CSCI!</summary>
+  <div class="extra-practice-body">
+*There's an R package built for working with bioassessment data, and for calculating the CSCI. For more information about CSCI see [here for the tech memo](https://www.waterboards.ca.gov/water_issues/programs/swamp/bioassessment/docs/csci_tech_memo.pdf) and the [R package here](http://sccwrp.github.io/CSCI/).*
+  </div>
+</details
+
+<br>
+<br>
+
+We can see the `csci` dataset is again, a mix of `character` and `double` data classes.
+
+```{r inspectCSCI, echo=TRUE, eval=TRUE}
+
+# structure (str) is similar to glimpse
+str(csci)
+
+```
+
+Let's use `summary` to look at the data a little differently. 
+
+```{r inspectCSCI2, echo=TRUE, eval=TRUE}
+
+# summary gives a quick assessment of numeric/date/factor data classes.
+summary(csci[,c(3:7)])
+```
+
+
+Notice there are a few NA's in there! We'll keep those in mind as we move forward. 
+
+<br>
+
+### **Tidy our Data**
+
+The typical steps for data analysis are usually something like:
+
+ - read the data in
+ - inspect the data
+ - tidy/wrangle the data
+ - save clean data
+ - make plots/do analysis
+ - report
+ - rinse and repeat
+ 
+ <br>
+ 
+ Using the same tools and process for each dataset can be immensely powerful.
+ 
+(ref:tidyData3) *Illustrations from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst*
+
+```{r tidyData3, fig.cap="(ref:tidyData3)", out.width='90%'}
+
+include_graphics(path="https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/tidydata_3.jpg")
+
+```
+
+
+ 
+For now, we'll keep this to a bare minimum, but sometimes the "cleaning & tidying" can require substantial time! Again, the cleaner and tidier the data in, the easier things will be. 
+ 
+Building on what we worked on in the first part of this workshop, let's go ahead and use the `dplyr` package to do a few things, and then we'll save our data out for the next steps.
+
+First, let's drop any NA's from the `csci` data. Using a `dplyr::filter` is a great option.
+
+```{r dropNas, echo=TRUE, eval=TRUE}
+
+csci_clean <- dplyr::filter(csci, !is.na(CSCI)) 
+
+dim(csci_clean) # how many rows did we drop?
+
+```
+
+Next, let's rename a couple of the columns in the `sites` dataframe. Let's simplify the `New_Lat` and `New_Long` columns.
+
+
+
+```{r renameLatLon, echo=TRUE, eval=FALSE}
+
+sites_clean <- dplyr::rename(csci, lat = New_Lat, lon = New_Long)
+# What happened?
+```
+
+Let's try that again!
+
+```{r renameLatLonCorrect, echo=TRUE, eval=TRUE}
+sites_clean <- dplyr::rename(sites, lat = New_Lat, lon = New_Long)
+head(sites_clean)
+```
+
+<br>
+
+## Save it Out!
+
+Let's show how to save this back out as:
+
+ - a `csv`
+ - an **RData** file (`.RData` or `.rda`)
+ - an **RDS** file (`.RDS` or `.rds`)
+ - a spreadsheet (`.xlsx`)
+ 
+
+The good thing is these mostly all involve the same basic code, with just a few minor tweaks.
+
+<br>
+
+### Save to **`csv`**
+
+Compared to a workbook, using `csv` is typically a better option. These files can be opened on any operating system, and they have a specific format which makes it harder to "untidy" things. Note, here we need to write two separate csv's, one for each of our objects (`csci_clean` and `sites_clean`).
+
+We can save to `csv` using either a tidyverse function `write_csv`, or the base R function `write.csv`. The main difference between the two, is the `write_csv` does not write row.names. Feel free to try both and open the file to see what's different.
+
+```{r csv, echo=TRUE, message=FALSE}
+
+readr::write_csv(csci_clean, path="data/csci_clean.csv")
+readr::write_csv(sites_clean, path="data/sites_clean.csv")
+
+# or try write.csv
+# write.csv(csci_clean, file = "data/csci_cleaned.csv")
+
+# we use read.csv() or read_csv() to read this back into R
+
+```
+
+<br>
+
+### Save to **`.RData`**
+
+`RData` files are a compressed `R` specific format, with some distinct advantages. For one, we can save multiple objects to a single `.rda` file. Another big benefit, is the data retains whatever format and structure that exists in your R environment...it will appear exactly as it was when you saved it. So, if you are going to be working in R exclusively, or working with folks who will be working in R, this can be a handy way to share data or analysis. These objects can be many things! One thing to note, whatever the object is named when it is saved will be what it is named when you reload this file back into R.
+
+<br>
+
+```{r rda, echo=TRUE}
+
+save(csci_clean, sites_clean, file = "data/csci_sites_clean.rda")
+
+# we use load() to read this back into R
+
+```
+
+<br>
+
+### Save to **`.RDS`**
+
+`.RDS` or `.rds` files are similar in type to `.rda`. They are R specific, they are compressed, *but* they are limited to a single object, *and* you can name this object whatever you choose when you re-import/read it back into R. Remember the difference between them by thinking of the **S** as "**_single_**" for a single object per `.rd`**`s`** and the **A** as **_all_** objects  (should you want to save everything into an `.rd`**`a`**).
+
+```{r rds, echo=TRUE}
+
+saveRDS(csci_clean, file="data/csci_clean.rds")
+saveRDS(sites_clean, file="data/sites_clean.rds")
+# we use readRDS() to read this back into R
+
+```
+
+<br>
+
+### Save to **`xlsx`**
+
+Here we can use the [`openxlsx`](https://ycphs.github.io/openxlsx/index.html) package to write our data. This is basically a 4-step process, first create a workbook, then create worksheets we can put our data in, then write the data to those worksheets, then save/write the whole workbook! 
+
+```{r xlsx, echo=TRUE, message=TRUE}
+
+library(openxlsx) 
+
+wb <- createWorkbook() # first create the workbook
+
+# then create the worksheets we want to write data to
+addWorksheet(wb, sheetName = "csci_clean", gridLines = TRUE)
+addWorksheet(wb, sheetName = "sites_clean", gridLines = TRUE)
+
+# now we add our cleaned data
+writeDataTable(wb=wb, sheet=1, x = csci_clean, withFilter = FALSE)
+writeDataTable(wb=wb, sheet=2, x = sites_clean, withFilter = FALSE)
+
+# now we save our data 
+saveWorkbook(wb, "data/csci_sites_clean_spreadsheet.xlsx", overwrite = TRUE)
+
+```
+
+<br>
+
+Great work! Let's [move to the next lesson](m2_2_joins.html).

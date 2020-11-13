@@ -1,0 +1,99 @@
+---
+title: "Helpful WateR Packages"
+output: 
+  bookdown::html_document2:
+    toc: false
+    code_fold: show
+    includes:
+      in_header: assets/header.html
+      after_body: assets/footer.html
+---
+
+```{r setup, include=FALSE, purl=FALSE, message=FALSE}
+
+knitr::opts_chunk$set(echo = TRUE)
+library(knitr)
+
+```
+
+<style>
+  .title{
+    display: none;
+  }
+</style>
+
+<br>
+<br>
+
+
+## Helpful Water**R** Packages
+
+Whether working with aquatic bioassessment data, delineating watersheds, or simply trying to make a map of some study sites, there are many packages in R that can assist you.
+
+This is by no means a comprehensive list of packages, but it is a place to start for packages that can be useful for geospatial mapping, retrieving hydrologic data, or analysis.
+
+## {.tabset .tabset-fade .tabset-pills}
+
+### Downloading *Hydro* Data
+
+```{r, eval=F, echo=T}
+
+library(dataRetrieval) # great for retrieving USGS & NWIS water data
+library(sharpshootR) # great for retrieving CDEC water data
+library(nhdplusTools) # getting and working with NHD data
+library(USAboundaries) # US boundaries 
+library(elevatr) # elevation DEM data 
+library(rnaturalearth) # global boundaries and associated spatial data
+library(rnoaa) # NOAA climate data
+library(rnrfa) # UK River data archive
+library(spData) # spatial data examples
+library(raster) # getData() pulls many raster datasets from elev, climate, admin
+
+
+```
+
+
+### Geospatial Mapping 
+
+```{r, eval=F, echo=T}
+
+# GENERAL
+library(sf) # the go-to spatial package in R, especially for vector data
+library(units) # to rescale or convert your units
+
+
+# INTERACTIVE
+library(mapview) # interactive maps simplified
+library(tmap) # either interactive OR static publication ready maps
+library(leaflet) # interactive maps with more control, a bit more complex
+library(mapedit) # allows interactive editing of maps and saving as sf objects
+library(leafpm) # allows interactive editing of maps and saving as sf objects
+
+# STATIC
+library(ggplot2) # static publication-ready maps
+library(ggspatial) # for plotting sf layers in ggplot, add compass, scale bar, etc
+library(ggmap) # for adding Google base layers to ggplot map. **Requires registration**
+library(ggthemes) # extra options in ggplot for color palettes and themes
+library(ggrepel) # handy for adding labels to maps
+library(rayshader) # 3D maps in R
+
+# RASTER packages
+library(raster) # the default package for all things raster
+library(stars) # the "sf" version of raster
+
+
+
+```
+
+
+### Wrangling & Analysis
+
+```{r, eval=F, echo=T}
+
+library(tidyverse) # wrangling data
+library(purrr) # helpful for applying functions over lists 
+library(lubridate) # really useful for working with dates & times 
+
+
+```
+
