@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Setting Up RStudio Cloud</title>
+
+<script src="site_libs/header-attrs-2.5/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<link href="site_libs/ionicons-2.0.1/css/ionicons.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="site_libs_extra/academicons-1.8.0/css/academicons.css"/>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">WRDS R Intro</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home fa-1.5x"></span>
+     
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="ion ion-hammer"></span>
+     
+    Setup
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="00_install_R.html">
+        <span class="fa fa-laptop"></span>
+         
+        Installing R/RStudio
+      </a>
+    </li>
+    <li>
+      <a href="01_RStudio_cloud.html">
+        <span class="fa fa-cloud"></span>
+         
+        Setting up RStudio Cloud
+      </a>
+    </li>
+    <li>
+      <a href="02_setup_R.html">
+        <span class="fa fa-map-signs"></span>
+         
+        Getting Started
+      </a>
+    </li>
+    <li>
+      <a href="03_project_management.html">
+        <span class="fa fa-sitemap"></span>
+         
+        Project Management
+      </a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-bicycle fa-1x"></span>
+     
+    1: Data In, Plot Out!
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Lesson 1:</li>
+    <li>
+      <a href="m1_1_using_R.html">
+        <span class="fa fa-download"></span>
+         
+        Importing Data
+      </a>
+    </li>
+    <li class="dropdown-header">Lesson 2:</li>
+    <li>
+      <a href="m1_2_wrangling.html">
+        <span class="fa fa-magic"></span>
+         
+        Wrangling Data
+      </a>
+    </li>
+    <li class="dropdown-header">Lesson 3:</li>
+    <li>
+      <a href="m1_3_plotting.html">
+        <span class="fa fa-area-chart"></span>
+         
+        Plotting with ggplot
+      </a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-car"></span>
+     
+    2: Excel to a Map
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Lesson 1:</li>
+    <li>
+      <a href="m2_1_working_w_xls.html">
+        <span class="fa fa-table"></span>
+         
+        Working from Excel
+      </a>
+    </li>
+    <li class="dropdown-header">Lesson 2:</li>
+    <li>
+      <a href="m2_2_joins.html">
+        <span class="fa fa-object-ungroup"></span>
+         
+        Joining Data
+      </a>
+    </li>
+    <li class="dropdown-header">Lesson 3:</li>
+    <li>
+      <a href="m2_3_using_sf.html">
+        <span class="fa fa-map-pin"></span>
+         
+        Using {sf}
+      </a>
+    </li>
+    <li class="dropdown-header">Lesson 4:</li>
+    <li>
+      <a href="m2_4_mapping_w_sf.html">
+        <span class="fa fa-map fa-1x"></span>
+         
+        Make a Map!
+      </a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-space-shuttle fa-1x"></span>
+     
+    And Beyond
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="m3_1_usaboundaries.html">
+        <span class="fa fa-code-branch"></span>
+         
+        Getting US Boundaries
+      </a>
+    </li>
+    <li>
+      <a href="m3_2_nhdtoolsPlus.html">
+        <span class="fa fa-tint"></span>
+         
+        Downloading NHD River Data
+      </a>
+    </li>
+    <li>
+      <a href="http://usgs-r.github.io/dataRetrieval/articles/nldi.html">
+        <span class="fa fa-road"></span>
+         
+        Query the NLDI Network
+      </a>
+    </li>
+    <li>
+      <a href="m3_3_useful_water_pkgs.html">
+        <span class="fa fa-archive"></span>
+         
+        Helpful Packages
+      </a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="resources.html">
+    <span class="fa fa-list"></span>
+     
+    Resources
+  </a>
+</li>
+<li>
+  <a href="https://github.com/ryanpeek/WRDS_intro/">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Setting Up RStudio Cloud</h1>
+
+</div>
+
+
+<style>
+  .title{
+    display: none;
+  }
+</style>
+<p><br>
+<br></p>
+<div id="setting-up-rstudio-cloud" class="section level2">
+<h2>Setting up RStudio Cloud</h2>
+<p>If or when it just isn’t feasible to install R and RStudio on your computer or device, don’t worry! There is an alternate option. We can use <a href="https://rstudio.cloud/">RStudio Cloud</a>, which is free, and provides about 15 hours per month of free and functional computing time in a virtual RStudio environment.</p>
+<p>What does this mean? It basically means you can use and do whatever you would like in R in an online browser window.</p>
+<div id="pros" class="section level3 unlisted unnumbered">
+<h3>Pros</h3>
+<ul>
+<li>Platform or operating system independent</li>
+<li>install any and all packages that you need or want</li>
+<li>can import and export data, code, results, to/from the cloud or your computer</li>
+<li>its all online!! So it’s all backed up there the next time you login</li>
+</ul>
+</div>
+<div id="cons" class="section level3 unlisted unnumbered">
+<h3>Cons</h3>
+<ul>
+<li>it’s all online! So you need a stable internet connection</li>
+<li>the free account provides 15 hours of computing time per month</li>
+</ul>
+<p><br><br></p>
+</div>
+</div>
+<div id="signing-up" class="section level2">
+<h2>Signing Up</h2>
+<p>To set everything up, we need to sign up and create a new account.</p>
+<ol style="list-style-type: decimal">
+<li>Go to <strong><a href="https://rstudio.cloud/" class="uri">https://rstudio.cloud/</a></strong></li>
+<li>Sign up with an email and create a password of your choosing</li>
+<li>Sign In!</li>
+</ol>
+<p><br></p>
+<p><img src="images/rstudio_sign_up.png" width="100%" />
+<br><br>
+<img src="images/rstudio_sign_in.png" width="191" height="70%" /></p>
+<p><br></p>
+</div>
+<div id="navigating-inside-the-cloud" class="section level2">
+<h2>Navigating inside the Cloud</h2>
+<p>Once you log in, you should look for a few things. On the left hand side, you should see column that displays your “<strong>Spaces</strong>” (where your RProjects will live), a place you can check for <strong>Learning</strong>, as well as some additional info on the system status and terms and conditions.</p>
+<p><br></p>
+<p><img src="images/rstudio_cloud_main_menu.png" width="100%" /></p>
+<p><br></p>
+<p>On the right hand side, you should see a small chart showing your <strong>Account Usage</strong>. This is what you want to keep track of. Depending on how much time you spend actually running code, your time will vary, but the standard free account provides 15 hours per month.</p>
+<p><img src="images/rstudio_cloud_right_hand_menu.png" width="50%" /></p>
+<div id="getting-setup" class="section level3">
+<h3><strong>Getting Setup!</strong></h3>
+<ol style="list-style-type: decimal">
+<li>Click on <strong><code>New Project</code></strong>, and wait a second for things to initialize.</li>
+<li>Name your project <strong><code>CABW_R</code></strong></li>
+<li>Copy and install the packages we’ll need. This can take a few minutes, so grab a cup of coffee or tea!</li>
+</ol>
+<pre><code>install.packages(&quot;tidyverse&quot;)
+install.packages(&quot;sf&quot;)
+install.packages(&quot;mapview&quot;)
+install.packages(&quot;viridis&quot;)
+install.packages(&quot;USAboundaries&quot;)
+install.packages(&quot;openxlsx&quot;)
+install.packages(&quot;readxl&quot;)
+install.packages(&quot;lubridate&quot;)</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Check everything is installed…you should get <strong><code>TRUE</code></strong>’s if everything worked.</li>
+</ol>
+<pre><code>c(&quot;tidyverse&quot;, &quot;sf&quot;, &quot;viridis&quot;, &quot;mapview&quot;, &quot;USAboundaries&quot;) %in% installed.packages()</code></pre>
+</div>
+</div>
+
+<!DOCTYPE html>
+
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+<div class="foot">
+	<hr> 
+	<p style="text-align: center;">
+	  <span style="color: #808080; display: inline-block; width: 58%;">
+	  &#9781 &nbsp;<i>Website design by <a href="https://ryanpeek.org/">Ryan Peek</i></a> &nbsp;  
+    <a href="https://github.com/Cal-SFS/" class="fa fa-github">Cal-SFS</a> &nbsp; &#9781
+    </span>
+  </p>
+</div>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

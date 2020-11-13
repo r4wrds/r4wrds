@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Wrangling Data</title>
+
+<script src="site_libs/header-attrs-2.5/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<link href="site_libs/ionicons-2.0.1/css/ionicons.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="site_libs_extra/academicons-1.8.0/css/academicons.css"/>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">WRDS R Intro</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home fa-1.5x"></span>
+     
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="ion ion-hammer"></span>
+     
+    Setup
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="00_install_R.html">
+        <span class="fa fa-laptop"></span>
+         
+        Installing R/RStudio
+      </a>
+    </li>
+    <li>
+      <a href="01_RStudio_cloud.html">
+        <span class="fa fa-cloud"></span>
+         
+        Setting up RStudio Cloud
+      </a>
+    </li>
+    <li>
+      <a href="02_setup_R.html">
+        <span class="fa fa-map-signs"></span>
+         
+        Getting Started
+      </a>
+    </li>
+    <li>
+      <a href="03_project_management.html">
+        <span class="fa fa-sitemap"></span>
+         
+        Project Management
+      </a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-bicycle fa-1x"></span>
+     
+    1: Data In, Plot Out!
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Lesson 1:</li>
+    <li>
+      <a href="m1_1_using_R.html">
+        <span class="fa fa-download"></span>
+         
+        Importing Data
+      </a>
+    </li>
+    <li class="dropdown-header">Lesson 2:</li>
+    <li>
+      <a href="m1_2_wrangling.html">
+        <span class="fa fa-magic"></span>
+         
+        Wrangling Data
+      </a>
+    </li>
+    <li class="dropdown-header">Lesson 3:</li>
+    <li>
+      <a href="m1_3_plotting.html">
+        <span class="fa fa-area-chart"></span>
+         
+        Plotting with ggplot
+      </a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-car"></span>
+     
+    2: Excel to a Map
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Lesson 1:</li>
+    <li>
+      <a href="m2_1_working_w_xls.html">
+        <span class="fa fa-table"></span>
+         
+        Working from Excel
+      </a>
+    </li>
+    <li class="dropdown-header">Lesson 2:</li>
+    <li>
+      <a href="m2_2_joins.html">
+        <span class="fa fa-object-ungroup"></span>
+         
+        Joining Data
+      </a>
+    </li>
+    <li class="dropdown-header">Lesson 3:</li>
+    <li>
+      <a href="m2_3_using_sf.html">
+        <span class="fa fa-map-pin"></span>
+         
+        Using {sf}
+      </a>
+    </li>
+    <li class="dropdown-header">Lesson 4:</li>
+    <li>
+      <a href="m2_4_mapping_w_sf.html">
+        <span class="fa fa-map fa-1x"></span>
+         
+        Make a Map!
+      </a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-space-shuttle fa-1x"></span>
+     
+    And Beyond
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="m3_1_usaboundaries.html">
+        <span class="fa fa-code-branch"></span>
+         
+        Getting US Boundaries
+      </a>
+    </li>
+    <li>
+      <a href="m3_2_nhdtoolsPlus.html">
+        <span class="fa fa-tint"></span>
+         
+        Downloading NHD River Data
+      </a>
+    </li>
+    <li>
+      <a href="http://usgs-r.github.io/dataRetrieval/articles/nldi.html">
+        <span class="fa fa-road"></span>
+         
+        Query the NLDI Network
+      </a>
+    </li>
+    <li>
+      <a href="m3_3_useful_water_pkgs.html">
+        <span class="fa fa-archive"></span>
+         
+        Helpful Packages
+      </a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="resources.html">
+    <span class="fa fa-list"></span>
+     
+    Resources
+  </a>
+</li>
+<li>
+  <a href="https://github.com/ryanpeek/WRDS_intro/">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Wrangling Data</h1>
+
+</div>
+
+
+<p><br>
+<br></p>
+<div class="obj">
+<p><strong>Objectives for this section:</strong></p>
+<ul>
+<li>learn how to tidy and manipulate datasets</li>
+<li>use the pipe (<code>%&gt;%</code>) to combine operations</li>
+</ul>
+</div>
+<p><br></p>
+<div id="data-wrangling-with-dplyr" class="section level2">
+<h2>Data wrangling with <strong>{dplyr}</strong></h2>
+<p>Data wrangling is the part of any data analysis that will take the most time. While it may not necessarily be fun, it is foundational to all the work that follows. Often, it also takes significantly longer than actually performing the data analysis or creating a data visualization, so do not panic if, in the future, you find yourself spending a lot of time on this single step. For the purpose of condensing today’s lessons, we will be working with a fairly tidy dataset. But there are many online resources available to help you in your own work, should you be handed a project with a particularly gnarly dataset.</p>
+<div class="figure"><span id="fig:unnamed-chunk-1"></span>
+<img src="images/data-science-wrangle.png" alt="*Image from &quot;R for Data Science&quot; by Garrett Grolemund and Hadley Wickham.*" width="100%" />
+<p class="caption">
+Figure 1: <em>Image from “R for Data Science” by Garrett Grolemund and Hadley Wickham.</em>
+</p>
+</div>
+<p><br></p>
+<p>The data wrangling process includes data import, tidying, and transformation. The process directly feeds into, and is not mutually exclusive with, the <em>understanding</em> or modeling side of data exploration. More generally, data wrangling is the manipulation or combination of datasets for the purpose of analysis.</p>
+<p><strong>All wrangling is based on a purpose.</strong> No one wrangles for the sake of wrangling (usually), so the process always begins by answering the following two questions:</p>
+<ul>
+<li>What do my input data look like?</li>
+<li>What should my data look like given what I want to do?</li>
+</ul>
+<p>At the most basic level, going from what your data looks like to what it should look like will require a few key operations. Some common examples:</p>
+<ul>
+<li>Selecting specific variables</li>
+<li>Filtering observations by some criteria</li>
+<li>Adding or modifying existing variables</li>
+<li>Renaming variables</li>
+<li>Arranging rows by a variable</li>
+<li>Summarizing a variable conditional on others</li>
+</ul>
+<p>The <strong><code>{dplyr}</code></strong> package provides easy tools for these common data manipulation tasks and is a core package from the <a href="https://www.tidyverse.org/">{tidyverse}</a> suite of packages. The philosophy of <strong><code>{dplyr}</code></strong> is that <strong>one</strong> function does <strong>one</strong> thing and the name of the function says what it does.</p>
+<p>We’ll start this lesson by working in the script we created in the previous section: <strong><code>cabw_script_day1.R</code></strong>.</p>
+<p>Below your code that imports the dataset, let’s make a new section! Go to <strong><code>Code</code></strong> &gt; <strong><code>Insert Section</code></strong>, and type your new section header <code>Wrangling and Plotting</code>. We can also use keyboard shortcuts for this (<code>Ctrl</code> or <code>⌘</code> + <code>Shift</code> + <code>R</code>). You should notice how this now appears in an expandable table of contents on the right hand side of your script pane (look for the tiny button that has little gray horizontal lines on it). This feature can be very helpful in keep your scripts organized.</p>
+<p>Alright, let’s get wrangling!</p>
+<div id="re-load-our-data" class="section level3">
+<h3>(<em>Re</em>)-Load Our Data</h3>
+<p>Any reproducible analysis should be able to start from scratch, and rebuild all the parts, sometimes over and over again. For that reason, it’s a good habit to get into to <strong>Restart your R Session</strong>. Sometimes this solves issues, sometimes it’s just good to make sure everything runs up to the point you are working. Let’s do that now!</p>
+<ol style="list-style-type: decimal">
+<li>Go to <strong><code>Session</code></strong> &gt; <strong><code>Restart R</code></strong>!</li>
+<li>Check your <code>Environment</code> tab…it should be empty!</li>
+<li>Now we need to re-load our library, and re-load our data.</li>
+</ol>
+<div class="challenge">
+<p><strong>Challenge 1</strong></p>
+<ol style="list-style-type: decimal">
+<li><p>Load {tidyverse} package into R.</p></li>
+<li><p>Load or read the <code>csci</code> and <code>asci</code> datasets into R. Comment your code!</p></li>
+<li><p>Save your script.</p></li>
+</ol>
+</div>
+<details>
+<summary class="challenge-ans-title">
+<strong>Click for Answers!</strong>
+</summary>
+<div class="challenge-ans-body">
+<pre class="r"><code># load the library
+library(tidyverse)
+
+# Load CSCI and ASCI datasets.
+cscidat &lt;- read_csv(&#39;data/cscidat.csv&#39;)
+ascidat &lt;- read_csv(&#39;data/ascidat.csv&#39;)
+
+# check environment, both are there!</code></pre>
+</div>
+</details>
+<p><br></p>
+</div>
+<div id="selecting" class="section level3">
+<h3>Selecting</h3>
+<p>Our goal with the datasets we have loaded in is to combine the bioassessment scores by each unique location, date, and replicate, while keeping only the data we need for our plots.</p>
+<p>The <code>select</code> function lets you retain or exclude columns.</p>
+<pre class="r"><code># first, select some chosen columns
+dplyr_sel1 &lt;- select(cscidat, SampleID_old, New_Lat, New_Long, CSCI)
+
+# examine those columns
+head(dplyr_sel1)</code></pre>
+<pre><code>## # A tibble: 6 x 4
+##   SampleID_old        New_Lat New_Long  CSCI
+##   &lt;chr&gt;                 &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;
+## 1 000CAT148_8.10.10_1    39.1    -120. 0.988
+## 2 000CAT228_8.10.10_1    39.1    -120. 0.981
+## 3 102PS0139_8.9.10_1     42.0    -123. 1.07 
+## 4 103CDCHHR_9.14.10_1    41.8    -124. 1.09 
+## 5 103FC1106_7.15.14_1    41.9    -124. 0.997
+## 6 103FCA168_7.24.13_1    41.6    -124. 1.06</code></pre>
+<pre class="r"><code># select everything but CSCI and COMID: the &quot;-&quot; sign indicates &quot;not&quot;
+dplyr_sel2 &lt;- select(cscidat, -CSCI, -COMID)
+head(dplyr_sel2)</code></pre>
+<pre><code>## # A tibble: 6 x 8
+##   SampleID_old        StationCode New_Lat New_Long     E    OE  pMMI SampleID_old.1     
+##   &lt;chr&gt;               &lt;chr&gt;         &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;              
+## 1 000CAT148_8.10.10_1 000CAT148      39.1    -120.  16.1 0.931 1.04  000CAT148_8.10.10_1
+## 2 000CAT228_8.10.10_1 000CAT228      39.1    -120.  16.1 0.973 0.990 000CAT228_8.10.10_1
+## 3 102PS0139_8.9.10_1  102PS0139      42.0    -123.  15.5 1.09  1.05  102PS0139_8.9.10_1 
+## 4 103CDCHHR_9.14.10_1 103CDCHHR      41.8    -124.  21.1 1.09  1.08  103CDCHHR_9.14.10_1
+## 5 103FC1106_7.15.14_1 103FC1106      41.9    -124.  16.8 1.08  0.916 103FC1106_7.15.14_1
+## 6 103FCA168_7.24.13_1 103FCA168      41.6    -124.  19.1 1.09  1.03  103FCA168_7.24.13_1</code></pre>
+<pre class="r"><code># select columns that contain the letter c
+dplyr_sel3 &lt;- select(cscidat, matches(&#39;c&#39;))
+head(dplyr_sel3)</code></pre>
+<pre><code>## # A tibble: 6 x 3
+##   StationCode    COMID  CSCI
+##   &lt;chr&gt;          &lt;dbl&gt; &lt;dbl&gt;
+## 1 000CAT148    8942501 0.988
+## 2 000CAT228    8942503 0.981
+## 3 102PS0139   23936337 1.07 
+## 4 103CDCHHR   22226836 1.09 
+## 5 103FC1106   22226634 0.997
+## 6 103FCA168   22226990 1.06</code></pre>
+<pre class="r"><code># Note, these datasets should all be appearing in your Environment pane in the upper right hand corner of your screen as you continue.</code></pre>
+<p><br></p>
+</div>
+<div id="filtering" class="section level3">
+<h3>Filtering</h3>
+<p>After selecting columns, you’ll probably want to remove observations that don’t fit some criteria. For example, maybe you want to remove CSCI scores less than some threshold, find stations above a certain latitude, or both.</p>
+<pre class="r"><code># get CSCI scores greater than 0.79
+dplyr_filt1 &lt;- filter(cscidat, CSCI &gt; 0.79)
+head(dplyr_filt1)</code></pre>
+<pre><code>## # A tibble: 6 x 10
+##   SampleID_old        StationCode New_Lat New_Long    COMID     E    OE  pMMI  CSCI SampleID_old.1     
+##   &lt;chr&gt;               &lt;chr&gt;         &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;              
+## 1 000CAT148_8.10.10_1 000CAT148      39.1    -120.  8942501  16.1 0.931 1.04  0.988 000CAT148_8.10.10_1
+## 2 000CAT228_8.10.10_1 000CAT228      39.1    -120.  8942503  16.1 0.973 0.990 0.981 000CAT228_8.10.10_1
+## 3 102PS0139_8.9.10_1  102PS0139      42.0    -123. 23936337  15.5 1.09  1.05  1.07  102PS0139_8.9.10_1 
+## 4 103CDCHHR_9.14.10_1 103CDCHHR      41.8    -124. 22226836  21.1 1.09  1.08  1.09  103CDCHHR_9.14.10_1
+## 5 103FC1106_7.15.14_1 103FC1106      41.9    -124. 22226634  16.8 1.08  0.916 0.997 103FC1106_7.15.14_1
+## 6 103FCA168_7.24.13_1 103FCA168      41.6    -124. 22226990  19.1 1.09  1.03  1.06  103FCA168_7.24.13_1</code></pre>
+<pre class="r"><code># get CSCI scores above latitude 37N
+dplyr_filt2 &lt;- filter(cscidat, New_Lat &gt; 37)
+head(dplyr_filt2)</code></pre>
+<pre><code>## # A tibble: 6 x 10
+##   SampleID_old        StationCode New_Lat New_Long    COMID     E    OE  pMMI  CSCI SampleID_old.1     
+##   &lt;chr&gt;               &lt;chr&gt;         &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;              
+## 1 000CAT148_8.10.10_1 000CAT148      39.1    -120.  8942501  16.1 0.931 1.04  0.988 000CAT148_8.10.10_1
+## 2 000CAT228_8.10.10_1 000CAT228      39.1    -120.  8942503  16.1 0.973 0.990 0.981 000CAT228_8.10.10_1
+## 3 102PS0139_8.9.10_1  102PS0139      42.0    -123. 23936337  15.5 1.09  1.05  1.07  102PS0139_8.9.10_1 
+## 4 103CDCHHR_9.14.10_1 103CDCHHR      41.8    -124. 22226836  21.1 1.09  1.08  1.09  103CDCHHR_9.14.10_1
+## 5 103FC1106_7.15.14_1 103FC1106      41.9    -124. 22226634  16.8 1.08  0.916 0.997 103FC1106_7.15.14_1
+## 6 103FCA168_7.24.13_1 103FCA168      41.6    -124. 22226990  19.1 1.09  1.03  1.06  103FCA168_7.24.13_1</code></pre>
+<pre class="r"><code># use both filters
+dplyr_filt3 &lt;- filter(cscidat, CSCI &gt; 0.79 &amp; New_Lat &gt; 37)
+head(dplyr_filt3)</code></pre>
+<pre><code>## # A tibble: 6 x 10
+##   SampleID_old        StationCode New_Lat New_Long    COMID     E    OE  pMMI  CSCI SampleID_old.1     
+##   &lt;chr&gt;               &lt;chr&gt;         &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;              
+## 1 000CAT148_8.10.10_1 000CAT148      39.1    -120.  8942501  16.1 0.931 1.04  0.988 000CAT148_8.10.10_1
+## 2 000CAT228_8.10.10_1 000CAT228      39.1    -120.  8942503  16.1 0.973 0.990 0.981 000CAT228_8.10.10_1
+## 3 102PS0139_8.9.10_1  102PS0139      42.0    -123. 23936337  15.5 1.09  1.05  1.07  102PS0139_8.9.10_1 
+## 4 103CDCHHR_9.14.10_1 103CDCHHR      41.8    -124. 22226836  21.1 1.09  1.08  1.09  103CDCHHR_9.14.10_1
+## 5 103FC1106_7.15.14_1 103FC1106      41.9    -124. 22226634  16.8 1.08  0.916 0.997 103FC1106_7.15.14_1
+## 6 103FCA168_7.24.13_1 103FCA168      41.6    -124. 22226990  19.1 1.09  1.03  1.06  103FCA168_7.24.13_1</code></pre>
+<pre class="r"><code># You can use &quot;&amp;&quot; to signify &quot;and&quot; and &quot;|&quot; to signify &quot;or&quot; in your wrangling statements.</code></pre>
+<div class="figure"><span id="fig:unnamed-chunk-2"></span>
+<img src="images/filter.jpg" alt="*Illustration by @allison_horst.*" width="100%" />
+<p class="caption">
+Figure 2: <em>Illustration by <span class="citation">@allison_horst</span>.</em>
+</p>
+</div>
+<p>Filtering can take a bit of time to master because there are several ways to tell R what you want. To use filtering effectively, you have to know how to select the observations that you want using the comparison operators. R provides the standard suite: <code>&gt;</code>, <code>&gt;=</code>, <code>&lt;</code>, <code>&lt;=</code>, <code>!=</code> (not equal), and <code>==</code> (equal). Remember to use <code>=</code> instead of <code>==</code> when testing for equality!</p>
+</div>
+<div id="mutating" class="section level3">
+<h3>Mutating</h3>
+<p>Now that we’ve seen how to select columns and filter observations of a data frame, maybe we want to add a new column. In dplyr, <code>mutate</code> allows us to add new columns. These can be vectors you are adding <em>or</em> based on expressions applied to existing columns. For instance, maybe we want to convert a numeric column into a categorical using certain criteria <em>or</em> maybe we want to make a new column based on some arithmetic on other columns.</p>
+<pre class="r"><code># get observed taxa
+dplyr_mut1 &lt;- mutate(cscidat, observed = OE * E)
+head(dplyr_mut1)</code></pre>
+<pre><code>## # A tibble: 6 x 11
+##   SampleID_old        StationCode New_Lat New_Long    COMID     E    OE  pMMI  CSCI SampleID_old.1      observed
+##   &lt;chr&gt;               &lt;chr&gt;         &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;                  &lt;dbl&gt;
+## 1 000CAT148_8.10.10_1 000CAT148      39.1    -120.  8942501  16.1 0.931 1.04  0.988 000CAT148_8.10.10_1     14.9
+## 2 000CAT228_8.10.10_1 000CAT228      39.1    -120.  8942503  16.1 0.973 0.990 0.981 000CAT228_8.10.10_1     15.7
+## 3 102PS0139_8.9.10_1  102PS0139      42.0    -123. 23936337  15.5 1.09  1.05  1.07  102PS0139_8.9.10_1      16.9
+## 4 103CDCHHR_9.14.10_1 103CDCHHR      41.8    -124. 22226836  21.1 1.09  1.08  1.09  103CDCHHR_9.14.10_1     23. 
+## 5 103FC1106_7.15.14_1 103FC1106      41.9    -124. 22226634  16.8 1.08  0.916 0.997 103FC1106_7.15.14_1     18.1
+## 6 103FCA168_7.24.13_1 103FCA168      41.6    -124. 22226990  19.1 1.09  1.03  1.06  103FCA168_7.24.13_1     20.9</code></pre>
+<pre class="r"><code># add a column for lo/hi csci scores
+dplyr_mut2 &lt;- mutate(cscidat, CSCIcat = ifelse(CSCI &lt;= 0.79, &#39;lo&#39;, &#39;hi&#39;))
+head(dplyr_mut2)</code></pre>
+<pre><code>## # A tibble: 6 x 11
+##   SampleID_old        StationCode New_Lat New_Long    COMID     E    OE  pMMI  CSCI SampleID_old.1      CSCIcat
+##   &lt;chr&gt;               &lt;chr&gt;         &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;               &lt;chr&gt;  
+## 1 000CAT148_8.10.10_1 000CAT148      39.1    -120.  8942501  16.1 0.931 1.04  0.988 000CAT148_8.10.10_1 hi     
+## 2 000CAT228_8.10.10_1 000CAT228      39.1    -120.  8942503  16.1 0.973 0.990 0.981 000CAT228_8.10.10_1 hi     
+## 3 102PS0139_8.9.10_1  102PS0139      42.0    -123. 23936337  15.5 1.09  1.05  1.07  102PS0139_8.9.10_1  hi     
+## 4 103CDCHHR_9.14.10_1 103CDCHHR      41.8    -124. 22226836  21.1 1.09  1.08  1.09  103CDCHHR_9.14.10_1 hi     
+## 5 103FC1106_7.15.14_1 103FC1106      41.9    -124. 22226634  16.8 1.08  0.916 0.997 103FC1106_7.15.14_1 hi     
+## 6 103FCA168_7.24.13_1 103FCA168      41.6    -124. 22226990  19.1 1.09  1.03  1.06  103FCA168_7.24.13_1 hi</code></pre>
+<pre class="r"><code># Note: &quot;ifelse&quot; statements can be very helpful for conditional assignments. Their basic structure is if *the criteria* is met, then print &#39;this&#39;, if not, then print &#39;that&#39;.
+
+# So, the actual statement may look something like:
+# ifelse(*the criteria*, &#39;this&#39;, &#39;that&#39;)</code></pre>
+<div class="figure"><span id="fig:unnamed-chunk-3"></span>
+<img src="images/mutate.png" alt="*Illustration by @allison_horst.*" width="100%" />
+<p class="caption">
+Figure 3: <em>Illustration by <span class="citation">@allison_horst</span>.</em>
+</p>
+</div>
+</div>
+<div id="more-functions" class="section level3">
+<h3>More functions</h3>
+<p>Some other useful dplyr functions include <code>arrange</code> to sort the observations (rows) by a column and <code>rename</code> to (you guessed it) rename a column.</p>
+<pre class="r"><code># arrange by CSCI scores
+dplyr_arr &lt;- arrange(cscidat, CSCI)
+head(dplyr_arr)</code></pre>
+<pre><code>## # A tibble: 6 x 10
+##   SampleID_old        StationCode New_Lat New_Long    COMID     E     OE   pMMI  CSCI SampleID_old.1     
+##   &lt;chr&gt;               &lt;chr&gt;         &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;              
+## 1 206PS0073_7.20.10_1 206PS0073      38.1    -123.  1669863 13.3  0.150  0.0663 0.108 206PS0073_7.20.10_1
+## 2 205R01390_5.23.13_1 205R01390      37.5    -122. 17692585 13.1  0.152  0.0852 0.119 205R01390_5.23.13_1
+## 3 205R00878_4.24.13_1 205R00878      37.6    -122. 17691075 14.0  0.214  0.0336 0.124 205R00878_4.24.13_1
+## 4 801S03971_6.16.14_1 801S03971      33.7    -118. 20355412  8.23 0.0729 0.231  0.152 801S03971_6.16.14_1
+## 5 204R00383_6.11.12_1 204R00383      37.7    -122.  2804015 10.7  0.281  0.0325 0.157 204R00383_6.11.12_1
+## 6 204R00583_6.13.12_1 204R00583      37.6    -122.  2804187 13.3  0.278  0.0448 0.162 204R00583_6.13.12_1</code></pre>
+<pre class="r"><code># rename lat/lon (note the format of newName = oldName)
+dplyr_rnm &lt;- rename(cscidat, 
+                    lat = New_Lat,
+                    lon = New_Long
+                    )
+head(dplyr_rnm)</code></pre>
+<pre><code>## # A tibble: 6 x 10
+##   SampleID_old        StationCode   lat   lon    COMID     E    OE  pMMI  CSCI SampleID_old.1     
+##   &lt;chr&gt;               &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;              
+## 1 000CAT148_8.10.10_1 000CAT148    39.1 -120.  8942501  16.1 0.931 1.04  0.988 000CAT148_8.10.10_1
+## 2 000CAT228_8.10.10_1 000CAT228    39.1 -120.  8942503  16.1 0.973 0.990 0.981 000CAT228_8.10.10_1
+## 3 102PS0139_8.9.10_1  102PS0139    42.0 -123. 23936337  15.5 1.09  1.05  1.07  102PS0139_8.9.10_1 
+## 4 103CDCHHR_9.14.10_1 103CDCHHR    41.8 -124. 22226836  21.1 1.09  1.08  1.09  103CDCHHR_9.14.10_1
+## 5 103FC1106_7.15.14_1 103FC1106    41.9 -124. 22226634  16.8 1.08  0.916 0.997 103FC1106_7.15.14_1
+## 6 103FCA168_7.24.13_1 103FCA168    41.6 -124. 22226990  19.1 1.09  1.03  1.06  103FCA168_7.24.13_1</code></pre>
+</div>
+<div id="some-more-practice" class="section level3">
+<h3>Some More Practice?</h3>
+<p>Let’s take a look at some practice challenges to work on the various functions we’ve described above. Let’s clean up our CSCI dataset in preparation to join with our ASCI dataset. We’ll select columns we want and rename columns with odd names to create a more tidy dataset.</p>
+<div class="challenge">
+<p><strong>Challenge 2</strong></p>
+<ul>
+<li>Select the unique sample ID column (<code>SampleID_old</code>), latitude (<code>New_Lat</code>), longitude (<code>New_Long</code>), and <code>CSCI</code> columns. Reassign these columns to a new dataset named <code>cscidat_trim</code>, so we don’t overwrite the existing dataset.</li>
+</ul>
+</div>
+<details>
+<summary class="challenge-ans-title">
+<strong>Click for Answers!</strong>
+</summary>
+<div class="challenge-ans-body">
+<pre class="r"><code>    cscidat_trim &lt;- select(cscidat, SampleID_old, New_Lat, New_Long, CSCI)</code></pre>
+</div>
+</details>
+<p><br><br></p>
+<div class="challenge">
+<p><strong>Challenge 3</strong></p>
+<ul>
+<li>Rename the <code>SampleID_old</code> column to <code>id</code>, <code>New_Lat</code> to <code>lat</code>, and <code>New_Long</code> to <code>lon</code>.</li>
+</ul>
+</div>
+<details>
+<summary class="challenge-ans-title">
+<strong>Click for Answers!</strong>
+</summary>
+<div class="challenge-ans-body">
+<pre class="r"><code>cscidat_trim &lt;- rename(cscidat, 
+                       id = SampleID_old, 
+                       lat = New_Lat, 
+                       lon = New_Long
+)</code></pre>
+</div>
+</details>
+<p><br><br></p>
+</div>
+</div>
+<div id="piping-using-the-tidyverse" class="section level2">
+<h2>Piping using the tidyverse</h2>
+<p>Each of the functions we learned above - <code>select()</code>, <code>filter()</code>, <code>mutate()</code>, and more - can be used on their own. However, a particularly powerful application of the <code>{tidyverse}</code> package is the ability to “pipe” or perform multiple functions all in one go.</p>
+<p>In order to do so, you must use the symbols <strong><code>%&gt;%</code></strong>, otherwise known as a pipe. When placed between functions in your code, this allows you to perform multiple operations on a single dataset.</p>
+<p>Typically, piping will assume the following format:</p>
+<pre class="r"><code>&lt;NEW DATASET&gt; &lt;- &lt;OLD DATASET&gt; %&gt;%
+  &lt;FIRST_FUNCTION&gt; %&gt;%
+  &lt;SECOND_FUNCTION&gt; %&gt;%
+  &lt;THIRD_FUNCTION&gt; %&gt;%
+    etc.</code></pre>
+<p>So, if you wanted to perform many of the operations we practiced above, we could use <strong><code>%&gt;%</code></strong> to create a new dataset (<code>csci_new</code>) by typing the following:</p>
+<pre class="r"><code>csci_new &lt;- cscidat %&gt;% # Use the original dataset and then...
+    select(CSCI, COMID, New_Lat) %&gt;% # select only CSCI, COMID, and latitude columns and then...
+    filter(New_Lat &gt; 37) %&gt;% # filter for Latitudes above 37 and then...
+    mutate(CSCIcat = ifelse(CSCI &lt;= 0.79, &#39;lo&#39;, &#39;hi&#39;)) # new column with categories according to CSCI.</code></pre>
+<div id="more-practice" class="section level3">
+<h3>More Practice!</h3>
+<p>Let’s practice piping just a bit more before we move onto plotting our data.</p>
+<div class="challenge">
+<p><strong>Challenge 4</strong></p>
+<ol style="list-style-type: decimal">
+<li>Using the piping technique and the <code>ascidat</code> dataset, create a new dataset called <code>asci_new</code> that includes:</li>
+</ol>
+<ul>
+<li>Site type and ASCI</li>
+<li>Only sites identified as “Reference”</li>
+<li>A new column with ASCI scores multiplied by 10</li>
+</ul>
+<ol style="list-style-type: decimal">
+<li><p>Check the dimensions of the new dataset (Hint: Use the <code>View()</code> function).</p></li>
+<li><p>Save your script!</p></li>
+</ol>
+</div>
+<p><br></p>
+<details>
+<summary class="challenge-ans-title">
+<strong>Click for Answers!</strong>
+</summary>
+<div class="challenge-ans-body">
+<pre class="r"><code>asci_new &lt;- ascidat %&gt;% # Use the original dataset and then...
+  select(ASCI, site_type) %&gt;% # select only ASCI and site type columns and then...
+  filter(site_type == &quot;Reference&quot;) %&gt;% # filter for reference sites only and then...
+  mutate(ASCI_10 = ASCI*10) # new column with ASCI values multiplied by 10.
+
+dim(asci_new)</code></pre>
+<pre><code>## [1] 737   3</code></pre>
+</div>
+</details>
+<p><br></p>
+<p>This concludes the “wrangling data” section of our R workshop today. If you are experiencing any problems or have a question, please send Ryan, Heili, or one of the workshop assistants a message in the chat.</p>
+<p>If you would like to learn more about the possibilities withing the dplyr package, here are some additional resources:</p>
+<ul>
+<li><a href="https://github.com/hadley/dplyr">dplyr GitHub repo</a></li>
+<li><a href="http://cran.rstudio.com/web/packages/dplyr/">CRAN page: vignettes here</a></li>
+<li><a href="https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf">Cheatsheet</a></li>
+</ul>
+<div class="figure"><span id="fig:unnamed-chunk-4"></span>
+<img src="images/relocate.png" alt="*Illustration by @allison_horst.*" width="100%" />
+<p class="caption">
+Figure 4: <em>Illustration by <span class="citation">@allison_horst</span>.</em>
+</p>
+</div>
+<p>Great work! Let’s <a href="m1_3_plotting.html">move to the next lesson</a>.</p>
+</div>
+</div>
+
+<!DOCTYPE html>
+
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+<div class="foot">
+	<hr> 
+	<p style="text-align: center;">
+	  <span style="color: #808080; display: inline-block; width: 58%;">
+	  &#9781 &nbsp;<i>Website design by <a href="https://ryanpeek.org/">Ryan Peek</i></a> &nbsp;  
+    <a href="https://github.com/Cal-SFS/" class="fa fa-github">Cal-SFS</a> &nbsp; &#9781
+    </span>
+  </p>
+</div>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

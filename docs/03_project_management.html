@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Project Management: Let’s Get Organized</title>
+
+<script src="site_libs/header-attrs-2.5/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
+<link href="site_libs/font-awesome-5.3.1/css/fontawesome-all.min.css" rel="stylesheet" />
+<link href="site_libs/ionicons-2.0.1/css/ionicons.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="site_libs_extra/academicons-1.8.0/css/academicons.css"/>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">WRDS R Intro</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home fa-1.5x"></span>
+     
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="ion ion-hammer"></span>
+     
+    Setup
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="00_install_R.html">
+        <span class="fa fa-laptop"></span>
+         
+        Installing R/RStudio
+      </a>
+    </li>
+    <li>
+      <a href="01_RStudio_cloud.html">
+        <span class="fa fa-cloud"></span>
+         
+        Setting up RStudio Cloud
+      </a>
+    </li>
+    <li>
+      <a href="02_setup_R.html">
+        <span class="fa fa-map-signs"></span>
+         
+        Getting Started
+      </a>
+    </li>
+    <li>
+      <a href="03_project_management.html">
+        <span class="fa fa-sitemap"></span>
+         
+        Project Management
+      </a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-bicycle fa-1x"></span>
+     
+    1: Data In, Plot Out!
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Lesson 1:</li>
+    <li>
+      <a href="m1_1_using_R.html">
+        <span class="fa fa-download"></span>
+         
+        Importing Data
+      </a>
+    </li>
+    <li class="dropdown-header">Lesson 2:</li>
+    <li>
+      <a href="m1_2_wrangling.html">
+        <span class="fa fa-magic"></span>
+         
+        Wrangling Data
+      </a>
+    </li>
+    <li class="dropdown-header">Lesson 3:</li>
+    <li>
+      <a href="m1_3_plotting.html">
+        <span class="fa fa-area-chart"></span>
+         
+        Plotting with ggplot
+      </a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-car"></span>
+     
+    2: Excel to a Map
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Lesson 1:</li>
+    <li>
+      <a href="m2_1_working_w_xls.html">
+        <span class="fa fa-table"></span>
+         
+        Working from Excel
+      </a>
+    </li>
+    <li class="dropdown-header">Lesson 2:</li>
+    <li>
+      <a href="m2_2_joins.html">
+        <span class="fa fa-object-ungroup"></span>
+         
+        Joining Data
+      </a>
+    </li>
+    <li class="dropdown-header">Lesson 3:</li>
+    <li>
+      <a href="m2_3_using_sf.html">
+        <span class="fa fa-map-pin"></span>
+         
+        Using {sf}
+      </a>
+    </li>
+    <li class="dropdown-header">Lesson 4:</li>
+    <li>
+      <a href="m2_4_mapping_w_sf.html">
+        <span class="fa fa-map fa-1x"></span>
+         
+        Make a Map!
+      </a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-space-shuttle fa-1x"></span>
+     
+    And Beyond
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="m3_1_usaboundaries.html">
+        <span class="fa fa-code-branch"></span>
+         
+        Getting US Boundaries
+      </a>
+    </li>
+    <li>
+      <a href="m3_2_nhdtoolsPlus.html">
+        <span class="fa fa-tint"></span>
+         
+        Downloading NHD River Data
+      </a>
+    </li>
+    <li>
+      <a href="http://usgs-r.github.io/dataRetrieval/articles/nldi.html">
+        <span class="fa fa-road"></span>
+         
+        Query the NLDI Network
+      </a>
+    </li>
+    <li>
+      <a href="m3_3_useful_water_pkgs.html">
+        <span class="fa fa-archive"></span>
+         
+        Helpful Packages
+      </a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="resources.html">
+    <span class="fa fa-list"></span>
+     
+    Resources
+  </a>
+</li>
+<li>
+  <a href="https://github.com/ryanpeek/WRDS_intro/">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Project Management: Let’s Get Organized</h1>
+
+</div>
+
+
+<p><br></p>
+<div class="obj">
+<p><strong>Learning objectives</strong></p>
+<ul>
+<li>Understand motivation for using scripts and data management</li>
+<li>Know how to organize code, data, and results</li>
+<li>Know the basics of file paths and directory structures</li>
+<li>Be able to create and use an RStudio project</li>
+</ul>
+</div>
+<p><br></p>
+<div id="where-am-i" class="section level2">
+<h2>Where Am I?</h2>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/3/39/Messy_storage_room_with_boxes.jpg" /></p>
+<p>Any time you’re working on your computer, you are navigating amidst a forest of files and folders. One of the best habits you can form (whether you are using R or not!), is <strong>intentionally keeping a clear structure</strong>, no matter what project or task you face.</p>
+<p>This becomes especially important when using computer programming like <i class="fab  fa-r-project " style="color:steelblue;"></i> in your work. You will need to tell R, very specifically, where you are and where your files are in the forest of your computer. Where you are is typically referred to as the <strong>working directory</strong>. In <i class="fab  fa-r-project " style="color:steelblue;"></i>, think of this as your homebase, and everything is <em>relative</em> to this folder/location on your computer.</p>
+<p><br></p>
+<div id="the-working-directory" class="section level3">
+<h3>The Working Directory</h3>
+<p>The working directory could be something like “<code>Myname/Documents</code>”, or it could be something more specific like “<code>MyName/Documents/Projects/2020</code>”. You can always check with <code>getwd()</code>! Importantly, everything you do should be relative to that working directory.</p>
+<p>That means we really <strong>don’t</strong> want to use things like <code>setwd()</code> (set working directory) to locate a file or folder on our computer, or use a hard path (i.e., a full path like <code>C:/MyUserName/My_Documents/A_Folder_You_May_Have/But_This_One_You_Definitely_Dont/</code>). That’s because this will pretty much <strong>never</strong> work on anyone’s computer other than your own, and sometimes it may not even work on your computer if you change a file name or folder! We really want to set a good habit, to make things reproducible for others, and for our future self.</p>
+<p><br>
+<br></p>
+</div>
+</div>
+<div id="file-paths" class="section level2">
+<h2>File Paths</h2>
+<p>In R, file paths are always wrapped in quotes. There are 2 basic kinds of file paths:</p>
+<ul>
+<li><p><strong>Absolute</strong>: Absolute paths list out the full file path, usually starting with your username, which you can also refer to using the shortcut ~. So instead of <code>C:/MyName/Documents</code> or <code>/Users/MyName/Documents</code>, you can type <code>~/Documents</code>. <strong>But generally, the only place an absolute path will work is your computer! It will break on anyone else computer, or anytime you move or rename something!</strong></p></li>
+<li><p><strong>Relative</strong>: Relative paths are relative to your working directory. So if R thinks we’re in that <code>~/MyName/Documents/Projects/2020</code> folder, and we want to access a file in a folder inside it called <code>data</code>, we can type <code>data/my_file</code> instead of <code>~MyName/Documents/Projects/2020/data</code>.</p></li>
+</ul>
+<p><br></p>
+<div id="using-the-here-package" class="section level3">
+<h3>Using the <strong><a href="https://here.r-lib.org/">{here}</a></strong> package</h3>
+<p>Good news! There’s a package that can make this easier. The <strong>{here}</strong> package makes it easy to create a path <em>relative</em> to the top-level directory (the place where your current project is or any time you call <code>here()</code>). In addition, we can use <code>here()</code> to build a relative path to a file for saving or loading. Let’s say we’re working in our <code>MyName/Documents/Projects/2020</code> folder.</p>
+<pre class="r"><code>library(here)
+
+# identify your working directory.
+here()
+#&gt; [1] /Users/MyName/Documents/Projects/2020
+
+# load a file from `MyName/Documents/Projects/2020/data/superdata.csv`
+read.csv(here(&quot;data&quot;, &quot;superdata.csv&quot;))</code></pre>
+<div class="figure"><span id="fig:here"></span>
+<img src="https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/here.png" alt="*Illustration by @allison_horst.*" width="90%" />
+<p class="caption">
+Figure 1: <em>Illustration by <span class="citation">@allison_horst</span>.</em>
+</p>
+</div>
+<p><br></p>
+</div>
+</div>
+<div id="use-project-workflows" class="section level2">
+<h2>Use Project Workflows</h2>
+<p>What do we mean by “using projects”? Think of a general pattern or structure that we can use for each work project we have. This approach isn’t just specific to R. Any good data scientist will generally have a folder structure and organization scheme they follow, no matter what programming language they use.</p>
+<p>But the general idea is to always keep the same structure, and naming schemes, for every project. Do this every single time with every single project you make, in order to make it a habit. This will save you time and brainpower! Imagine quickly moving between tasks or projects with minimal time spent “<em>trying to find where things are and get oriented</em>”. You’ll always know where things should be!</p>
+<p>Here’s some sage advice from Jenny Bryan and Jim Hester from <a href="https://rstats.wtf/">What They Forgot to Teach you About R</a> (worth checking out!):</p>
+<ul>
+<li>File system discipline: put all the files related to a single project in a designated folder.</li>
+<li>This applies to data, code, figures, notes, etc.</li>
+<li>Depending on project complexity, you might enforce further organization into subfolders.</li>
+<li>Use a standard naming convention for files &amp; folders (<em>no spaces!</em>).</li>
+<li>Working directory intentionality: when working on project A, make sure working directory is set to project A’s folder.</li>
+<li>Don’t use absolute paths!</li>
+<li>File path discipline: all paths are relative and, by default, relative to the project’s folder.</li>
+</ul>
+<p><br></p>
+<div id="rstudio-projects" class="section level3">
+<h3>RStudio Projects</h3>
+<p>Within the R environment, something that makes project management and organization much easier is the use of RStudio Projects (<code>.Rproj</code>). Within RStudio, this is baked in and pretty easy to do. One of the nicest parts of using <strong>RProjects</strong> is that they automatically set the working directory to the folder containing the <code>.RProj</code> file. You can make any existing folder an RProject folder, or make a new one!</p>
+<p><br></p>
+<details>
+<summary class="extra-practice-title">
+Extra Practice
+</summary>
+<div class="extra-practice-body">
+Avoid using <code>setwd()</code>! More reasons and rational <a href="https://rstats.wtf/project-oriented-workflow.html#setwd">linked here</a>
+</div>
+</details
+
+<br>
+<p><br></p>
+</div>
+<div id="always-start-r-as-a-blank-slate" class="section level3">
+<h3>Always start R as a blank slate</h3>
+<p>When you quit R, do not save the workspace to an <code>.Rdata</code> file. When you launch, do not reload the workspace from an <code>.Rdata</code> file.</p>
+<p>In fact, we should all make our default setting a blank slate. We should only be loading and working on data and code that we knowingly and willingly open or import into R.</p>
+<blockquote>
+<p>In RStudio, set this via <em>Tools &gt; Global Options</em></p>
+</blockquote>
+
+<div class="figure"><span id="fig:tidyplotgraphic"></span>
+<img src="images/rstudio-workspace-default.png" alt="Change defaults to never save your workspace to .RData! (Credit to Jenny Bryan and Jim Hester at rstats.wtf)" width="100%" />
+<p class="caption">
+Figure 2: <em>Change defaults to never save your workspace to <code>.RData</code>! (Credit to Jenny Bryan and Jim Hester at <a href="https://rstats.wtf/save-source.html">rstats.wtf</a>)</em>
+</p>
+</div>
+<p><br></p>
+</div>
+</div>
+<div id="best-practices-organization-tips" class="section level2">
+<h2>Best Practices: Organization Tips</h2>
+<p>Although there is no “best” way to lay out a project, there are some general principles to adhere to that will make project management easier.</p>
+<p><br></p>
+<div id="safe-file-naming" class="section level3">
+<h3>Safe File Naming</h3>
+<p>This is really important and will make life easier for everyone in the long run. Jenny Bryan has the best set of slides on this, so take a few minutes and go read them. Then be the change!</p>
+<blockquote>
+<p><a href="https://speakerdeck.com/jennybc/how-to-name-files">Slides You Need to Read</a></p>
+</blockquote>
+<p><strong>TL&amp;DR</strong></p>
+<ul>
+<li>File names should be machine readable (i.e., no spaces)</li>
+<li>Human readable (<code>01_import_clean_data.R</code>)</li>
+<li>Makes default ordering easy (i.e., dates are always <code>YYYY-MM-DD</code>)</li>
+</ul>
+<p><br></p>
+</div>
+<div id="treat-raw-data-as-read-only" class="section level3">
+<h3>Treat raw data as <strong><code>read only</code></strong></h3>
+<p>This is probably the most important tip for making a project reproducible and hassle free. Raw data should never be edited, because you don’t want to permanently change your starting point in an analysis, and you want to have a record of any changes you make to data. Therefore, treat your raw data as “read only”, perhaps even making a <strong><code>raw_data</code></strong> directory that is never modified. If you do some data cleaning or modification, save the modified file separate from the raw data, and ideally keep all the modifying actions in a script so that you can review and revise them as needed in the future.</p>
+<p><br></p>
+</div>
+<div id="treat-generated-output-as-disposable" class="section level3">
+<h3>Treat generated output as disposable</h3>
+<p>Anything generated by your scripts should be treated as disposable: it should all be able to be regenerated with code. Don’t get attached to anything other than your raw data, and your code! There are lots of different ways to manage this output, and what’s best may depend on the particular kind of project.</p>
+<p><br></p>
+</div>
+<div id="basic-folders-for-every-project" class="section level3">
+<h3>Basic Folders for Every Project</h3>
+<p>At a minimum, it’s useful to have separate directories for each of the following:</p>
+<ul>
+<li><strong><code>data</code></strong>: Ideally keep data in a <code>.csv</code> format, because these simple and universal data. You may have other specialized formats as well. This is generally where original, raw data lives.</li>
+<li><strong><code>data_output</code></strong>: This is where you save any data or analysis outputs. Any time you clean, tidy, summarize, or otherwise manipulate the data and save it out, it should end up somewhere clearly different than the raw data location.</li>
+<li><strong><code>scripts</code></strong>: In the <i class="fab  fa-r-project " style="color:darkblue;"></i> world, this is generally <code>.R</code> files. However, maybe you have <code>.do</code> files if Stata is your thing, <code>.py</code> files for Python, etc. Using a sequential numbering file naming scheme can be useful. Remember to pad with a zero to make file sorting/ordering easy.</li>
+<li><strong><code>results</code></strong>: This could be for model results, data analysis, slides, whatever. Some folks may like to keep figures in this folder, others may like to make a specific <code>figures</code> folder.</li>
+<li><strong><code>documents</code></strong>: This is a place you can keep documents, papers, pdfs, etc. Typically where files with <code>.docx</code>, <code>.Rmd</code> (for RMarkdown), and <code>.pdf</code> or even <code>.html</code> may live.</li>
+</ul>
+<p><br></p>
+<div class="figure"><span id="fig:workingStructure"></span>
+<img src="https://gge-ucd.github.io/R-DAVIS/img/working-directory-structure.png" alt="*An example project folder structure*" width="90%" />
+<p class="caption">
+Figure 3: <em>An example project folder structure</em>
+</p>
+</div>
+<p><br>
+<br>
+<em>Lesson adapted from <a href="https://gge-ucd.github.io/R-DAVIS/index.html">R-DAVIS</a>, Jenny Bryan and Jim Hester’s <a href="rstats.wtf">What they forgot to teach you about R</a>, and the <a href="https://datacarpentry.org/R-ecology-lesson/index.html">Data Carpentry: R for data analysis and visualization of Ecological Data</a> lessons</em>.</p>
+</div>
+</div>
+
+<!DOCTYPE html>
+
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+<div class="foot">
+	<hr> 
+	<p style="text-align: center;">
+	  <span style="color: #808080; display: inline-block; width: 58%;">
+	  &#9781 &nbsp;<i>Website design by <a href="https://ryanpeek.org/">Ryan Peek</i></a> &nbsp;  
+    <a href="https://github.com/Cal-SFS/" class="fa fa-github">Cal-SFS</a> &nbsp; &#9781
+    </span>
+  </p>
+</div>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

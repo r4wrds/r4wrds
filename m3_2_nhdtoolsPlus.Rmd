@@ -135,7 +135,7 @@ tmap::tm_shape(ds_div, name = "DS Diversions") +
 
  > Here we pull upstream mainstem streamlines from a USGS Gage and a X/Y COMID.
 
-```{r getUM}
+```{r getUM, eval=F}
 
 # pull mainstems from a USGS gage
 us_main <- navigate_nldi(nldi_feature = nldi_nwis,
@@ -170,13 +170,13 @@ us_gages <- navigate_nldi(nldi_feature = nldi_nwis,
 
 We can plot this all together!
 
-```{r plot}
+```{r plot, eval=F}
 
 plot(basin$geometry, border = alpha("darkblue", alpha = 0.5), lwd=2)
 plot(ds_main$geometry, col="darkblue", lwd=3, add=T)
 plot(ds_div$geometry, col="skyblue", add=T)
 plot(us_main$geometry, col="dodgerblue", add=T)
-plot(us_tribs$geometry, col="purple", add=T)
+#plot(us_tribs$geometry, col="purple", add=T)
 plot(us_gages$geometry, bg="maroon", pch=21, add=T)
 
 ```

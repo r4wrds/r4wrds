@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Importing Data</title>
+
+<script src="site_libs/header-attrs-2.5/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<link href="site_libs/ionicons-2.0.1/css/ionicons.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="site_libs_extra/academicons-1.8.0/css/academicons.css"/>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">WRDS R Intro</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home fa-1.5x"></span>
+     
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="ion ion-hammer"></span>
+     
+    Setup
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="00_install_R.html">
+        <span class="fa fa-laptop"></span>
+         
+        Installing R/RStudio
+      </a>
+    </li>
+    <li>
+      <a href="01_RStudio_cloud.html">
+        <span class="fa fa-cloud"></span>
+         
+        Setting up RStudio Cloud
+      </a>
+    </li>
+    <li>
+      <a href="02_setup_R.html">
+        <span class="fa fa-map-signs"></span>
+         
+        Getting Started
+      </a>
+    </li>
+    <li>
+      <a href="03_project_management.html">
+        <span class="fa fa-sitemap"></span>
+         
+        Project Management
+      </a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-bicycle fa-1x"></span>
+     
+    1: Data In, Plot Out!
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Lesson 1:</li>
+    <li>
+      <a href="m1_1_using_R.html">
+        <span class="fa fa-download"></span>
+         
+        Importing Data
+      </a>
+    </li>
+    <li class="dropdown-header">Lesson 2:</li>
+    <li>
+      <a href="m1_2_wrangling.html">
+        <span class="fa fa-magic"></span>
+         
+        Wrangling Data
+      </a>
+    </li>
+    <li class="dropdown-header">Lesson 3:</li>
+    <li>
+      <a href="m1_3_plotting.html">
+        <span class="fa fa-area-chart"></span>
+         
+        Plotting with ggplot
+      </a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-car"></span>
+     
+    2: Excel to a Map
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Lesson 1:</li>
+    <li>
+      <a href="m2_1_working_w_xls.html">
+        <span class="fa fa-table"></span>
+         
+        Working from Excel
+      </a>
+    </li>
+    <li class="dropdown-header">Lesson 2:</li>
+    <li>
+      <a href="m2_2_joins.html">
+        <span class="fa fa-object-ungroup"></span>
+         
+        Joining Data
+      </a>
+    </li>
+    <li class="dropdown-header">Lesson 3:</li>
+    <li>
+      <a href="m2_3_using_sf.html">
+        <span class="fa fa-map-pin"></span>
+         
+        Using {sf}
+      </a>
+    </li>
+    <li class="dropdown-header">Lesson 4:</li>
+    <li>
+      <a href="m2_4_mapping_w_sf.html">
+        <span class="fa fa-map fa-1x"></span>
+         
+        Make a Map!
+      </a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-space-shuttle fa-1x"></span>
+     
+    And Beyond
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="m3_1_usaboundaries.html">
+        <span class="fa fa-code-branch"></span>
+         
+        Getting US Boundaries
+      </a>
+    </li>
+    <li>
+      <a href="m3_2_nhdtoolsPlus.html">
+        <span class="fa fa-tint"></span>
+         
+        Downloading NHD River Data
+      </a>
+    </li>
+    <li>
+      <a href="http://usgs-r.github.io/dataRetrieval/articles/nldi.html">
+        <span class="fa fa-road"></span>
+         
+        Query the NLDI Network
+      </a>
+    </li>
+    <li>
+      <a href="m3_3_useful_water_pkgs.html">
+        <span class="fa fa-archive"></span>
+         
+        Helpful Packages
+      </a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="resources.html">
+    <span class="fa fa-list"></span>
+     
+    Resources
+  </a>
+</li>
+<li>
+  <a href="https://github.com/ryanpeek/WRDS_intro/">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Importing Data</h1>
+
+</div>
+
+
+<p><br></p>
+<div class="obj">
+<p><strong>Objectives for this section:</strong></p>
+<ul>
+<li>get organized at the start of each new project</li>
+<li>create and save an .R script</li>
+<li>import data from a <code>.csv</code></li>
+</ul>
+</div>
+<p><br></p>
+<div id="getting-organized" class="section level2">
+<h2>Getting organized</h2>
+<p>Today, as you learn new concepts and utilities in R, we will also be teaching you how to set up your workflow so that you and your collaborators can use R more efficiently. By taking the time at the very beginning of a project to maintain code that is well organized and clear, you will create analyses that are more reproducible and shareable. And, when you come back to your files years later, you can pick back up right where you left off.</p>
+<p>Before you start working on a new dataset in RStudio, it is very important that you create a place to store your files. Starting off organized and staying organized in R will make <em>future you</em> so much happier. So, we’re going to encourage that you take a moment now to organize your files and keep things tidy.</p>
+<p><br></p>
+<div id="rstudio-projects" class="section level3">
+<h3>RStudio projects</h3>
+<p>I strongly encourage you to use RStudio projects when you are working with R. The RStudio project provides a central location for working on a particular task. It helps with file management and is portable because all the files live in the same project. RStudio projects also remember history - what commands you used and what data objects are in your <em>Environment</em>.</p>
+<p>To create a new project, click on the <strong>File</strong> menu at the top of the RStudio window and select <strong><code>New project...</code></strong></p>
+<div class="figure"><span id="fig:unnamed-chunk-1"></span>
+<img src="images/rstudio_proj.jpg" alt="*Beginning a new project in RStudio.*" width="100%" />
+<p class="caption">
+Figure 1: <em>Beginning a new project in RStudio.</em>
+</p>
+</div>
+<p><br></p>
+<p>Select <strong><code>New Directory</code></strong> &gt; <strong><code>New Project</code></strong>. Title this project “<strong>cabw_r_workshop</strong>” (we will use this directory for the rest of today’s workshop), and save it on your computer in a place that is logical and easy for you to find in the future. Then, click “<strong>Create Project</strong>.” In the RStudio window that just opened, you should now see your working directory printed along the top of the screen (e.g., <code>~/Desktop/cabw_r_workshop</code>).</p>
+<p>Now, we can use this project for our data and any scripts we create.</p>
+<p><br></p>
+</div>
+<div id="scripting" class="section level3">
+<h3>Scripting</h3>
+<p>Up until this point, we have been working in the <em>Console</em>. In most cases, you will not enter and execute code directly in the <em>Console</em> but rather type and edit code in a script and then send it to the <em>Console</em> when you’re ready to run it. The key difference here is that a script can be saved and shared.</p>
+<p>To open a new script, navigate to the File menu, and select <strong><code>New File</code></strong> &gt; <strong><code>R Script</code></strong>:</p>
+<div class="figure"><span id="fig:unnamed-chunk-2"></span>
+<img src="images/rstudio_script.jpg" alt="*Opening a new script in RStudio.*" width="100%" />
+<p class="caption">
+Figure 2: <em>Opening a new script in RStudio.</em>
+</p>
+</div>
+<p>Save that file into your newly created project and name it <strong><code>cabw_script_day1.R</code></strong>. It’ll just be a blank text file at this point.</p>
+<p>A script works similarly to the <em>Console</em>, but it does have a few key differences. The first, is that you can add text that is not able to be run. This text is referred to as annotations or comments, and it is denoted by using a pound symbol or hashtag (<code>#</code>) prior to the text. Let’s use this to add a title, name, and date to our new script.</p>
+<pre class="r"><code># CABW 2020 Bioassessment R Tutorial
+# Firstname Lastname
+# October 13, 2020</code></pre>
+<p>Let’s practice making variables in our script or <em><code>.R</code></em> file. Type the following into your script:</p>
+<pre class="r"><code>#### Variables ####
+
+# Create a new variable.
+fish &lt;- 10 + 45</code></pre>
+<p>After you write your script it can be sent to the Console to run the code in R. Any variables you create in your script will not be available in your working environment until this is done. There are two ways to send code to the console. First, you can hit the <code>Run</code> button at the top right of the scripting window. Second, and preferred, you can use <kbd>Ctrl</kbd>+<kbd>enter</kbd> or <kbd>⌘</kbd>+<kbd>Enter</kbd> on a Mac. Both approaches will send the selected line to the console, then move to the next line in your script. You can also highlight and send an entire block of code. If you’d like to run all the code in your script at once, you can use <kbd>Ctrl</kbd> or <kbd>⌘</kbd>+<kbd>shift</kbd> +<kbd>enter</kbd>.</p>
+<div class="figure"><span id="fig:unnamed-chunk-3"></span>
+<img src="images/rstudio_run.jpg" alt="*Running code in RStudio.*" width="100%" />
+<p class="caption">
+Figure 3: <em>Running code in RStudio.</em>
+</p>
+</div>
+<p>Place your cursor on the line where you’ve created the <code>fish</code> variable, and run the line of code. Check to be certain that this variable has now appeared in your <em>Environment</em>.</p>
+<p>Add the following lines of code to your script, and then run each one:</p>
+<pre class="r"><code># Create additional variables.
+nitrogen &lt;- 79 - 15
+algae &lt;- fish * nitrogen</code></pre>
+<p>For the remainder of the workshop, we’ll use this script (<strong><code>cabw_script_day1.R</code></strong>) instead of the <em>Console</em>. For comparison, working in the <em>Console</em> is like sending a lot of text messages, but working in this new script file is more like working in Word–you can save, edit, and track your changes, not to mention more easily collaborate with others to write files.</p>
+<div class="challenge">
+<p><strong>PRACTICE</strong></p>
+<ol style="list-style-type: decimal">
+<li><p>Create variables named <code>riffle</code> and <code>pool</code> in your script, and assign a number to each.</p></li>
+<li><p>Annotate your variables with a comment using the <code>#</code> notation so <em>future you (or colleagues and collaborators)</em> understands what you’ve done.</p></li>
+<li><p>Run each of your new variables to be sure they appear in your <strong><code>Environment</code></strong>.</p></li>
+<li><p>Save your script.</p></li>
+</ol>
+</div>
+<details>
+<summary class="challenge-ans-title">
+<strong>Click for Answers!</strong>
+</summary>
+<div class="challenge-ans-body">
+<pre class="r"><code># Let&#39;s make a variable named riffle and assign a number to it
+riffle &lt;- 100
+
+# let&#39;s make a variable named pool and assign a list of numbers
+# to make a list of anything, we use &quot;c( )&quot; for &quot;concatenate&quot; or &quot;combine&quot;
+pool &lt;- c(10, 20, 30)
+
+# And we can save with Cmd + S or Ctrl + S, or File &gt; Save!</code></pre>
+</div>
+</details>
+<p><br></p>
+<p>If you have any difficulty completing the above 4 steps, please send a message to Ryan, Heili, or one of the workshop assistants in the chat.</p>
+<p>We have demonstrated that scripts are just as powerful as the <em>Console</em>, and they are much more useful, because they can be re-used, shared, and re-run, making any analysis reproducible. Think of all the mouse clicks it may take to make or do something, and imagine instead using <code>**Run**</code> once on a script to recreate an entire history of those clicks. So, let’s continue working in the script by loading packages and datasets we’ll use for this workshop.</p>
+</div>
+<div id="installing-packages" class="section level3">
+<h3>Installing packages</h3>
+<p>At the beginning of most of your scripts, you will need to tell R which <strong>packages</strong> or <strong>libraries</strong> (lots of pieces of code we can use for specific tasks) it needs to use to run the code below. So, we’re going to install and load some additional packages for this week’s workshop.</p>
+<p>In the <em>Console</em>, type and run the following lines of code:</p>
+<p><code>install.packages("sf")</code></p>
+<p><code>install.packages("mapview")</code></p>
+<p><code>install.packages("viridis")</code></p>
+<p><code>install.packages("USAboundaries")</code></p>
+<p>We run these installations in the <em>Console</em>, because they only need to happen once per person, and once installed, R will recognize them in perpetuity.</p>
+</div>
+<div id="loading-libraries" class="section level3">
+<h3>Loading Libraries</h3>
+<p>An important note, a package is a library of functions (which are code that we can use to do specific tasks with). Packages <em>usually</em> have a theme or a group of functions that are oriented around a similar topic. Some may just be a bunch of functions that are all useful in different ways, like a utility belt. Either way, we <strong><code>install</code></strong> a package once per R version, and we load our <strong><code>library</code></strong> once per R session (so each time we want to work in a script in R).</p>
+<p>Let’s add the following to our script file and run each line to attach our libraries of functions for use today. For now, we will just be using the {<a href="https://www.tidyverse.org/">tidyverse</a>} package.</p>
+<pre class="r"><code># Load packages into R so they are accessible for our session:
+library(&quot;tidyverse&quot;)</code></pre>
+</div>
+</div>
+<div id="getting-your-data-into-r" class="section level2">
+<h2>Getting your data into R</h2>
+<p>It is the rare case when you manually enter your data in R, not to mention impractical for most datasets. Most data analysis workflows typically begin with importing a dataset from an external source. This means committing a dataset to memory (i.e., storing it as a variable) as one of R’s data structure formats.</p>
+<p>You should have downloaded today’s dataset already, but if not, the data are available <a href="https://github.com/ucd-cws/CABW2020_R_training/raw/main/data/datazip.zip">here</a>. The data are in a zipped folder. Download the file to your computer (anywhere).</p>
+<p>Create a new folder in your <strong><code>cabw_r_workshop</code></strong> project named <strong><code>data</code></strong> and move the <code>datazip.zip</code> file into this location. You will need to unzip this folder with whatever option you have for your system (Unzip, 7Zip, etc). Now, you should see them appear in the <em>Files</em> tab under the <strong><code>data</code></strong> folder in the lower right hand corner of your RStudio window - this means the files are now a part of the same working directory as your script.</p>
+<p>Flat data files (text only, rectangular format) present the least complications on import because there is very little to assume about the structure of the data. On import, R tries to guess the data type for each column, and this is fairly unambiguous with flat files.The base installation of R comes with some easy to use functions for importing flat files, but we’re going to use the <code>read_csv()</code> function from the <code>readr</code> package, which you’ve already loaded in through the {<a href="https://www.tidyverse.org/">tidyverse</a>}. R comes with a built in function <code>read.csv()</code>, but we’re going to use <code>read_csv()</code> because it handles a few defaults more cleanly, and can be slightly faster reading in data.</p>
+<p>Now that we have the data downloaded and extracted to our data folder, we’ll use <code>read_csv()</code> to import two files.</p>
+<ol style="list-style-type: decimal">
+<li><p>Type the following in your script. Note the use of <strong>relative file paths</strong> within your project.</p>
+<pre class="r"><code># Load CSCI and ASCI datasets.
+cscidat &lt;- read_csv(&#39;data/cscidat.csv&#39;)
+ascidat &lt;- read_csv(&#39;data/ascidat.csv&#39;)</code></pre></li>
+<li><p>Send the commands to the console with <kbd>Ctrl</kbd> or <kbd>⌘</kbd>+<kbd>Enter</kbd>.</p></li>
+<li><p>Verify that the data imported correctly by viewing the datasets in a spreadsheet style in a new window:</p>
+<pre class="r"><code># examine datasets in new windows
+View(cscidat)
+View(ascidat)</code></pre></li>
+</ol>
+<div id="inspect-the-data" class="section level3">
+<h3>Inspect the Data</h3>
+<p>Let’s explore the datasets a bit. There are many useful functions for exploring the characteristics of a dataset. This is always a good idea when you first import something.</p>
+<pre class="r"><code># get the dimensions
+dim(cscidat)</code></pre>
+<pre><code>## [1] 1613   10</code></pre>
+<pre class="r"><code>dim(ascidat)</code></pre>
+<pre><code>## [1] 2585    3</code></pre>
+<pre class="r"><code># get the column names
+names(cscidat)</code></pre>
+<pre><code>##  [1] &quot;SampleID_old&quot;   &quot;StationCode&quot;    &quot;New_Lat&quot;        &quot;New_Long&quot;       &quot;COMID&quot;          &quot;E&quot;              &quot;OE&quot;             &quot;pMMI&quot;           &quot;CSCI&quot;          
+## [10] &quot;SampleID_old.1&quot;</code></pre>
+<pre class="r"><code>names(ascidat)</code></pre>
+<pre><code>## [1] &quot;id&quot;        &quot;site_type&quot; &quot;ASCI&quot;</code></pre>
+<pre class="r"><code># see the first six rows
+head(cscidat)</code></pre>
+<pre><code>## # A tibble: 6 x 10
+##   SampleID_old        StationCode New_Lat New_Long    COMID     E    OE  pMMI  CSCI SampleID_old.1     
+##   &lt;chr&gt;               &lt;chr&gt;         &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;              
+## 1 000CAT148_8.10.10_1 000CAT148      39.1    -120.  8942501  16.1 0.931 1.04  0.988 000CAT148_8.10.10_1
+## 2 000CAT228_8.10.10_1 000CAT228      39.1    -120.  8942503  16.1 0.973 0.990 0.981 000CAT228_8.10.10_1
+## 3 102PS0139_8.9.10_1  102PS0139      42.0    -123. 23936337  15.5 1.09  1.05  1.07  102PS0139_8.9.10_1 
+## 4 103CDCHHR_9.14.10_1 103CDCHHR      41.8    -124. 22226836  21.1 1.09  1.08  1.09  103CDCHHR_9.14.10_1
+## 5 103FC1106_7.15.14_1 103FC1106      41.9    -124. 22226634  16.8 1.08  0.916 0.997 103FC1106_7.15.14_1
+## 6 103FCA168_7.24.13_1 103FCA168      41.6    -124. 22226990  19.1 1.09  1.03  1.06  103FCA168_7.24.13_1</code></pre>
+<pre class="r"><code>head(ascidat)</code></pre>
+<pre><code>## # A tibble: 6 x 3
+##   id                  site_type     ASCI
+##   &lt;chr&gt;               &lt;chr&gt;        &lt;dbl&gt;
+## 1 000CAT148_8.10.10_1 Reference    1.20 
+## 2 000CAT228_8.10.10_1 Reference    1.15 
+## 3 102PS0139_8.9.10_1  Intermediate 0.935
+## 4 102PS0177_8.28.12_1 Reference    1.20 
+## 5 102PS0177_8.28.12_2 Reference    1.21 
+## 6 103CDCHHR_9.14.10_1 Reference    0.837</code></pre>
+<pre class="r"><code># get the overall structure
+str(cscidat)</code></pre>
+<pre><code>## tibble [1,613 × 10] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+##  $ SampleID_old  : chr [1:1613] &quot;000CAT148_8.10.10_1&quot; &quot;000CAT228_8.10.10_1&quot; &quot;102PS0139_8.9.10_1&quot; &quot;103CDCHHR_9.14.10_1&quot; ...
+##  $ StationCode   : chr [1:1613] &quot;000CAT148&quot; &quot;000CAT228&quot; &quot;102PS0139&quot; &quot;103CDCHHR&quot; ...
+##  $ New_Lat       : num [1:1613] 39.1 39.1 42 41.8 41.9 ...
+##  $ New_Long      : num [1:1613] -120 -120 -123 -124 -124 ...
+##  $ COMID         : num [1:1613] 8942501 8942503 23936337 22226836 22226634 ...
+##  $ E             : num [1:1613] 16.1 16.1 15.5 21.1 16.8 ...
+##  $ OE            : num [1:1613] 0.931 0.973 1.09 1.09 1.078 ...
+##  $ pMMI          : num [1:1613] 1.045 0.99 1.054 1.083 0.916 ...
+##  $ CSCI          : num [1:1613] 0.988 0.981 1.072 1.087 0.997 ...
+##  $ SampleID_old.1: chr [1:1613] &quot;000CAT148_8.10.10_1&quot; &quot;000CAT228_8.10.10_1&quot; &quot;102PS0139_8.9.10_1&quot; &quot;103CDCHHR_9.14.10_1&quot; ...
+##  - attr(*, &quot;spec&quot;)=
+##   .. cols(
+##   ..   SampleID_old = col_character(),
+##   ..   StationCode = col_character(),
+##   ..   New_Lat = col_double(),
+##   ..   New_Long = col_double(),
+##   ..   COMID = col_double(),
+##   ..   E = col_double(),
+##   ..   OE = col_double(),
+##   ..   pMMI = col_double(),
+##   ..   CSCI = col_double(),
+##   ..   SampleID_old.1 = col_character()
+##   .. )</code></pre>
+<pre class="r"><code>str(ascidat)</code></pre>
+<pre><code>## tibble [2,585 × 3] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+##  $ id       : chr [1:2585] &quot;000CAT148_8.10.10_1&quot; &quot;000CAT228_8.10.10_1&quot; &quot;102PS0139_8.9.10_1&quot; &quot;102PS0177_8.28.12_1&quot; ...
+##  $ site_type: chr [1:2585] &quot;Reference&quot; &quot;Reference&quot; &quot;Intermediate&quot; &quot;Reference&quot; ...
+##  $ ASCI     : num [1:2585] 1.195 1.151 0.935 1.197 1.209 ...
+##  - attr(*, &quot;spec&quot;)=
+##   .. cols(
+##   ..   id = col_character(),
+##   ..   site_type = col_character(),
+##   ..   ASCI = col_double()
+##   .. )</code></pre>
+</div>
+</div>
+<div id="data-structures-in-r" class="section level2">
+<h2>Data structures in R</h2>
+<p>There are many formats for storing data and R is no exception. We will introduce some of these types of data below.</p>
+<div id="vectors-one-dimensional-data" class="section level3">
+<h3>Vectors (one-dimensional data)</h3>
+<p>The basic data format in R is a vector - a one-dimensional grouping of elements that have the same type. These are all vectors and they are created with the <code>c()</code> function:</p>
+<pre class="r"><code># double vector
+dbl_var &lt;- c(1, 2.5, 4.5)
+
+# integer vector
+int_var &lt;- c(1L, 6L, 10L)
+
+# logical vector
+log_var &lt;- c(TRUE, FALSE, TRUE, FALSE)
+
+# character vector
+chr_var &lt;- c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;)</code></pre>
+<p>The four types of vectors are <code>double</code> (or numeric), <code>integer</code>, <code>logical</code>, and <code>character</code>. You can explore the type using the following functions:</p>
+<pre class="r"><code># display vector type
+class(dbl_var)</code></pre>
+<pre><code>## [1] &quot;numeric&quot;</code></pre>
+<pre class="r"><code># display vector length
+length(log_var)</code></pre>
+<pre><code>## [1] 4</code></pre>
+<p>These properties are useful for not only describing an object, but they define limits on which functions or types of operations that can be used. For example, some functions require a character input while others require a numeric input. Similarly, vectors of different types or properties may not play well together. Let’s look at some examples:</p>
+<pre class="r"><code># take the mean of a character vector
+mean(chr_var)</code></pre>
+<pre><code>## [1] NA</code></pre>
+<pre class="r"><code># adding two numeric vectors of different lengths
+vec1 &lt;- c(1, 2, 3, 4)
+vec2 &lt;- c(2, 3, 5)
+vec1 + vec2</code></pre>
+<pre><code>## [1] 3 5 8 6</code></pre>
+</div>
+<div id="dimensional-data" class="section level3">
+<h3>2-dimensional data</h3>
+<p>A collection of vectors represented as a single data object are often described as two-dimensional data. A more common way of storing two-dimensional data is in a data frame (i.e., <code>data.frame</code>). Think of them like your standard spreadsheet, where each column describes a variable and rows link observations between columns. An example would be our <code>ascidat</code> loaded above.</p>
+<p>The only constraints required to make a data frame are:</p>
+<ol style="list-style-type: decimal">
+<li><p>Each column contains the same type of data</p></li>
+<li><p>The number of observations in each column is equal.</p></li>
+</ol>
+<p>You can call vectors within a data frame by using the <code>$</code> to refer to a certain column. Type the following into your script to see how this works:</p>
+<pre class="r"><code># calculate the mean CSCI value of the entire dataset
+mean(cscidat$csci)</code></pre>
+<pre><code>## [1] NA</code></pre>
+<pre class="r"><code># assign the vector containing sampling site information to a new variable
+Sites &lt;- cscidat$site</code></pre>
+<p>This concludes the “importing data” section of our R tutorial today. If you are experiencing any issues, errors, or have a question, please take this moment to send Ryan, Heili, or one of the workshop assistants a message in the chat.</p>
+<div class="figure"><span id="fig:unnamed-chunk-5"></span>
+<img src="images/debugging.jpg" alt="*Illustration by @allison_horst.*" width="100%" />
+<p class="caption">
+Figure 4: <em>Illustration by <span class="citation">@allison_horst</span>.</em>
+</p>
+</div>
+<p>Great work! Let’s <a href="m1_2_wrangling.html">move to the next lesson</a>.</p>
+</div>
+</div>
+
+<!DOCTYPE html>
+
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+<div class="foot">
+	<hr> 
+	<p style="text-align: center;">
+	  <span style="color: #808080; display: inline-block; width: 58%;">
+	  &#9781 &nbsp;<i>Website design by <a href="https://ryanpeek.org/">Ryan Peek</i></a> &nbsp;  
+    <a href="https://github.com/Cal-SFS/" class="fa fa-github">Cal-SFS</a> &nbsp; &#9781
+    </span>
+  </p>
+</div>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

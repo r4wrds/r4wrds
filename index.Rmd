@@ -1,5 +1,5 @@
 ---
-title: CABW-R
+title: WRDS-R Intro
 output: 
   bookdown::html_document2:
     includes:
@@ -19,7 +19,7 @@ knitr::opts_chunk$set(echo = TRUE)
 <br>
 
 
-# Welcome to the 2020 CABW/CalSFS R Workshop!
+# Welcome to the WRDS-R Intro Workshop!
 
 (ref:AHRemoteR) *Artwork by @allison_horst*
 
@@ -53,47 +53,7 @@ What we want you to be able to do:
 
 We will be following the [SFS Code of Conduct](https://freshwater-science.org/about/society-governance/code-of-conduct) throughout our workshop.
 
-Here is our tentative schedule for each day. This is subject to change as we'll adjust things as we go.
 
-### Schedule
-
-**Tuesday, Oct 13: Using R with bioassessment data: what, why, and how**
-
-  - __2:15 - 2:30__: Intro & Getting Started
-  - __2:30 - 3:00__: [Importing Data](https://ucd-cws.github.io/CABW2020_R_training/m1_1_using_R.html)
-  - __3:05 - 3:35__: [Wrangling Data](https://ucd-cws.github.io/CABW2020_R_training/m1_2_wrangling.html)
-  - __3:40 - 4:00__: [Plotting with ggplot](https://ucd-cws.github.io/CABW2020_R_training/m1_3_plotting.html)
-  - __4:00 - 4:15__: Discussion & Questions
-
-<br>
-
- > [Video of Day 1](https://youtu.be/ankX2mGNXNs)
-
-<br>
-
-**Wednesday, Oct 14: From Excel to a Map with R**
-
-  - __2:15 - 2:25__: Intro & Getting Started
-  - __2:25 - 2:50__: [Working from Excel](https://ucd-cws.github.io/CABW2020_R_training/m2_1_working_w_xls.html)
-  - __2:55 - 3:15__: [Joining Data](https://ucd-cws.github.io/CABW2020_R_training/m2_2_joins.html)
-  - __3:20 - 3:50__: [Using {sf}](https://ucd-cws.github.io/CABW2020_R_training/m2_3_using_sf.html)
-  - __3:55 - 4:10__: [Making Maps](https://ucd-cws.github.io/CABW2020_R_training/m2_4_mapping_w_sf.html)
-
-<br>
-
- > [Video of Day 2](https://youtu.be/Lmxy4TzCkOM)
- 
-<br>
-
-## Instructors
-
-<br>
-
-* [Ryan Peek](https://ryanpeek.org/) ([rapeek "at" ucdavis "dot" edu](mailto:rapeek@ucdavis.edu)) - Ryan is currently working as a post-doctoral researcher at the Center for Watershed Sciences at UC Davis. His interests focus on integrations of amphibian and fish ecology, genomics, hydrology and hydropower, food web dynamics, and environmental flow management of rivers and streams in California. He is a [Carpentries](https://carpentries.org/) Instructor and co-coordinator for the [Davis R Users' Group](https://d-rug.github.io/).
-
-* [Heili Lowman](https://www.heililowman.com/) ([heilil "at" sccwrp "dot" org](mailto:heilil@sccwrp.org)) - Heili is a Scientist at the Southern California Coastal Water Research Project. Her research projects focus on the biogeochemistry of ecological margins – sediment/water, land/ocean, wildland/urban – and are coupled with a passion for teaching, mentorship, and scientific communication. Heili is the leader of the [SCCWRP Tidy Tuesday](https://github.com/hlowman/TidyTuesday) series, a member of [RLadies](https://rladies.org/), and enjoys traveling, cooking, and spending time with her cats.
-
-<br>
 
 ## Software requirements
 
@@ -111,7 +71,7 @@ All source materials for this website can be accessed at https://github.com/ucd-
 
 ## Attribution
 
-Content in these lessons was been modified and/or adapted from Marc Weber (USEPA), Ryan Hill (USEPA), Jeffrey Hollister (USEPA), [Data Carpentry: R for data analysis and visualization of Ecological Data](https://datacarpentry.org/R-ecology-lesson/index.html), the USGS-R training curriculum [here](https://github.com/USGS-R/training-curriculum), the NCEAS Open Science for Synthesis workshop [here](https://nceas.github.io/oss-2017/index.html), [Mapping in R](https://ryanpeek.org/mapping-in-R-workshop/), and the wonderful text [R for data science](https://github.com/hadley/r4ds).
+Content in these lessons was been modified and/or adapted from [Data Carpentry: R for data analysis and visualization of Ecological Data](https://datacarpentry.org/R-ecology-lesson/index.html), the USGS-R training curriculum [here](https://github.com/USGS-R/training-curriculum), the NCEAS Open Science for Synthesis workshop [here](https://nceas.github.io/oss-2017/index.html), [Mapping in R](https://ryanpeek.org/mapping-in-R-workshop/), and the wonderful text [R for data science](https://github.com/hadley/r4ds).
 
 
 ---

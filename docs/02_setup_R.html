@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Using R for bioassessment data: What, why, and how</title>
+
+<script src="site_libs/header-attrs-2.5/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<link href="site_libs/ionicons-2.0.1/css/ionicons.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="site_libs_extra/academicons-1.8.0/css/academicons.css"/>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">WRDS R Intro</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home fa-1.5x"></span>
+     
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="ion ion-hammer"></span>
+     
+    Setup
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="00_install_R.html">
+        <span class="fa fa-laptop"></span>
+         
+        Installing R/RStudio
+      </a>
+    </li>
+    <li>
+      <a href="01_RStudio_cloud.html">
+        <span class="fa fa-cloud"></span>
+         
+        Setting up RStudio Cloud
+      </a>
+    </li>
+    <li>
+      <a href="02_setup_R.html">
+        <span class="fa fa-map-signs"></span>
+         
+        Getting Started
+      </a>
+    </li>
+    <li>
+      <a href="03_project_management.html">
+        <span class="fa fa-sitemap"></span>
+         
+        Project Management
+      </a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-bicycle fa-1x"></span>
+     
+    1: Data In, Plot Out!
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Lesson 1:</li>
+    <li>
+      <a href="m1_1_using_R.html">
+        <span class="fa fa-download"></span>
+         
+        Importing Data
+      </a>
+    </li>
+    <li class="dropdown-header">Lesson 2:</li>
+    <li>
+      <a href="m1_2_wrangling.html">
+        <span class="fa fa-magic"></span>
+         
+        Wrangling Data
+      </a>
+    </li>
+    <li class="dropdown-header">Lesson 3:</li>
+    <li>
+      <a href="m1_3_plotting.html">
+        <span class="fa fa-area-chart"></span>
+         
+        Plotting with ggplot
+      </a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-car"></span>
+     
+    2: Excel to a Map
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Lesson 1:</li>
+    <li>
+      <a href="m2_1_working_w_xls.html">
+        <span class="fa fa-table"></span>
+         
+        Working from Excel
+      </a>
+    </li>
+    <li class="dropdown-header">Lesson 2:</li>
+    <li>
+      <a href="m2_2_joins.html">
+        <span class="fa fa-object-ungroup"></span>
+         
+        Joining Data
+      </a>
+    </li>
+    <li class="dropdown-header">Lesson 3:</li>
+    <li>
+      <a href="m2_3_using_sf.html">
+        <span class="fa fa-map-pin"></span>
+         
+        Using {sf}
+      </a>
+    </li>
+    <li class="dropdown-header">Lesson 4:</li>
+    <li>
+      <a href="m2_4_mapping_w_sf.html">
+        <span class="fa fa-map fa-1x"></span>
+         
+        Make a Map!
+      </a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-space-shuttle fa-1x"></span>
+     
+    And Beyond
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="m3_1_usaboundaries.html">
+        <span class="fa fa-code-branch"></span>
+         
+        Getting US Boundaries
+      </a>
+    </li>
+    <li>
+      <a href="m3_2_nhdtoolsPlus.html">
+        <span class="fa fa-tint"></span>
+         
+        Downloading NHD River Data
+      </a>
+    </li>
+    <li>
+      <a href="http://usgs-r.github.io/dataRetrieval/articles/nldi.html">
+        <span class="fa fa-road"></span>
+         
+        Query the NLDI Network
+      </a>
+    </li>
+    <li>
+      <a href="m3_3_useful_water_pkgs.html">
+        <span class="fa fa-archive"></span>
+         
+        Helpful Packages
+      </a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="resources.html">
+    <span class="fa fa-list"></span>
+     
+    Resources
+  </a>
+</li>
+<li>
+  <a href="https://github.com/ryanpeek/WRDS_intro/">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Using R for bioassessment data: What, why, and how</h1>
+
+</div>
+
+
+<div id="goals-and-motivation" class="section level2">
+<h2>Goals and Motivation</h2>
+<p><a href="https://www.r-project.org/">R</a> is a language for statistical computing as well as a general purpose programming language. Increasingly, it has become one of the primary languages used in data science and for data analysis across many of the natural sciences.</p>
+<p>Thank you for taking the time out of your busy schedule to join us for this training. We hope you will find this workshop both fun and helpful, and we appreciate your patience as we encounter any bumps in our new virtual format! Also, we would like to thank <a href="https://twitter.com/allison_horst">Allison Horst</a> for allowing us to use her incredible monste<strong>R</strong>s and R illustrations that you will see included in this tutorial.</p>
+<p>The goals of this training are to expose you to fundamentals and to develop an appreciation of what’s possible with this software. We also provide resources that you can use for follow-up learning on your own. You should be able to answer these questions at the end of this section:</p>
+<ul>
+<li>What is R/RStudio and why should I use it?</li>
+<li>Where can I find additional learning and help resources?</li>
+</ul>
+<div id="why-should-i-invest-time-in-r" class="section level3">
+<h3>Why should I invest time in R?</h3>
+<p>There are many programming languages available and each has it’s specific benefits. R was originally created as a statistical programming language but now it is largely viewed as a ‘data science’ language.</p>
+<p>R is also an open-source programming language - not only is it free, but this means anybody can contribute to it’s development.</p>
+</div>
+</div>
+<div id="rrstudio-fundamentals" class="section level2">
+<h2>R/RStudio fundamentals</h2>
+<p>In the old days, the only way to use R was directly from the Console - this is a bare bones way of running R only with direct input of commands. Now, <a href="https://www.rstudio.com/">RStudio</a> is the go-to Interactive Development Environment (IDE) for R. Think of it like a car that is built around an engine. It is integrated with the console (engine) and includes many other features to improve the user’s experience.</p>
+<p>Let’s get familiar with RStudio before we go on.</p>
+<div id="open-r-and-rstudio" class="section level3">
+<h3>Open R and RStudio</h3>
+<p>If you haven’t done so already, download and install RStudio from the link above (version 1.3.1073). After it’s installed, find the RStudio shortcut and fire it up. You should see something like this:</p>
+<div class="figure"><span id="fig:unnamed-chunk-1"></span>
+<img src="images/rstudio.png" alt="*The RStudio window.*" width="100%" />
+<p class="caption">
+Figure 1: <em>The RStudio window.</em>
+</p>
+</div>
+<p>There are four panes in RStudio (starting from the bottom left and moving clockwise):</p>
+<ul>
+<li>Console</li>
+<li>Source</li>
+<li>Environment, History, etc.</li>
+<li>Files, Plots, etc.</li>
+</ul>
+</div>
+<div id="executing-code-in-rstudio" class="section level3">
+<h3>Executing code in RStudio</h3>
+<p>The first part of RStudio that we will be working in is called the <em>Console</em>. This is the part of the application that tells you what R is running and it performs many of the same commands as you would be able to do in a calculator or in Microsoft Excel.</p>
+<p>Type the following text into the console, press <code>enter</code>, and you should see the following results:</p>
+<pre class="r"><code>4</code></pre>
+<pre><code>## [1] 4</code></pre>
+<pre class="r"><code>4+8</code></pre>
+<pre><code>## [1] 12</code></pre>
+<p>You can also create variables with custom values. In this case the first part of the code is a name of your choosing. Ideally it should have some meaning, but the only rules are that it can’t start with a number and must not have any spaces. The second bit, <code>&lt;-</code>, is the assignment operator. This tells R to take the result of whatever is on the right side of the <code>&lt;-</code> and store it in a new object.</p>
+<p>Type the following into your <em>Console</em> and press <code>enter</code> after each one to see their output:</p>
+<pre class="r"><code>stream &lt;- 4</code></pre>
+<pre class="r"><code>pebble &lt;- 8</code></pre>
+<p>You might notice is no output in the <em>Console</em> for the lines of code you have just run. Instead, they have been stored in your <em>Environment</em> in the top right pane of your RStudio window. Because they have been stored, you can run these variables by typing their name in the <em>Console</em> and pressing <code>enter</code>.</p>
+<p>There are two possible outcomes when you run code. First, the code will simply print output directly in the console, as it did with the calculations you entered above. Second, there is no output because you have stored it as a variable in the <em>Environment</em>. The <em>Environment</em> is the collection of named objects that are stored in memory for your current R session. Anything stored in memory will be accessible by it’s name without running the original script that was used to create it.</p>
+<p>Add the variables you just created together, and examine the output:</p>
+<pre class="r"><code>stream + pebble</code></pre>
+<pre><code>## [1] 12</code></pre>
+<p>You can also create new variables using existing variables like so:</p>
+<pre class="r"><code>habitat &lt;- stream + pebble</code></pre>
+<p>Try to call the variable by typing:</p>
+<p><code>habitatt</code></p>
+<pre class="r"><code>print(&quot;Error: object &#39;habitatt&#39; not found&quot;)</code></pre>
+<pre><code>## [1] &quot;Error: object &#39;habitatt&#39; not found&quot;</code></pre>
+<p>This line of code will give you an error, because you must type your variable names exactly as they appear. Please keep in mind that R is also <strong>case-sensitive</strong>.</p>
+<p>Try to call the variable once more in the <em>Console</em> using the correct spelling:</p>
+<pre class="r"><code>habitat</code></pre>
+<pre><code>## [1] 12</code></pre>
+<p><strong>Please note:</strong> Clicking on the broom button in the <em>Environment</em> will permanently clear out your existing variables. Only do this if you are certain you want to remove/reset all saved variables and datasets.</p>
+<p>In this same pane in the RStudio window is the <em>History</em> tab, which will record all the code you’ve run, and the <em>Connections</em> tab will show connections to other databases, etc.</p>
+</div>
+<div id="installing-packages" class="section level3">
+<h3>Installing packages</h3>
+<p>Immediately below the <em>Environment</em> is the third section of RStudio, where all of your <em>Packages</em> are stored. The base install of R is quite powerful, but you will soon have a need to go beyond this. Packages provide this ability. They are a standardized way of extending R with new methods, techniques, and programming functionality.</p>
+</div>
+<div id="cran" class="section level3">
+<h3>CRAN</h3>
+<p>One of the reasons for R’s popularity is CRAN, <a href="http://cran.r-project.org/">The Comprehensive R Archive Network</a>. This is where you download R and also where you can gain access to additional packages. All of the packages we’ll be using during this tutorial will be downloaded from CRAN. As of 2020-11-13, there are 16557 on CRAN!</p>
+</div>
+<div id="installing-tidyverse" class="section level3">
+<h3>Installing tidyverse</h3>
+<p>When a package gets installed, that means the source code is downloaded and put into your library. Let’s give it a shot using the <a href="https://tidyverse.tidyverse.org/index.html">tidyverse</a>, a set of packages assembled for data tidying and visualization purposes.</p>
+<p>We’re going to use our very first function - <code>install.packages()</code> - to install this package. Type the following into your <em>Console</em> and press <code>enter</code>:</p>
+<p><code>install.packages("tidyverse")</code></p>
+<p>You should see it appear in the <em>Packages</em> tab. To find it, you can either scroll through the list, or type the package name into the search bar at the top of the pane.</p>
+<p>In order to use a package, you must attach it to your current workspace. To attach the <code>tidyverse</code>, type the following into your <em>Console</em> and press <code>Enter</code>:</p>
+<p><code>library(tidyverse)</code></p>
+<p>Now your package is loaded, and ready to use. You can be certain your package is attached if there is a check mark next to the package name in the <em>Packages</em> tab.</p>
+<p>The remaining tabs in this pane allow you to see the <em>Files</em> that are associated with your code, the <em>Plots</em> you’ve created, <em>Help</em> documents for when you get stuck, and view additional HTML content you might create with the <em>Viewer</em> tab.</p>
+<p>Great job! You’ve opened up RStudio, learned about some basic functionalities, and now you’re ready to get going on your first R project!</p>
+<p><br></p>
+</div>
+</div>
+<div id="additional-r-resources" class="section level2">
+<h2>Additional R Resources</h2>
+<div id="getting-help" class="section level3">
+<h3>Getting Help</h3>
+<p>Being able to find help and interpret that help is probably one of the most important skills for learning a new language. R is no different. Help on functions and packages can be accessed directly from R, can be found on CRAN and other official R resources, searched on Google, found on StackOverflow, or from any number of fantastic online resources.</p>
+</div>
+<div id="help-from-the-console" class="section level3">
+<h3>Help from the console</h3>
+<p>Getting help from the console is straightforward and can be done numerous ways.</p>
+<pre class="r"><code># Using the help command/shortcut
+# When you know the name of a function
+help(&quot;print&quot;) # Help on the print command
+?print # Help on the print command using the `?` shortcut
+
+# When you know the name of the package
+help(package = &quot;dplyr&quot;) # Help on the package `dplyr`
+
+# Don&#39;t know the exact name or just part of it
+apropos(&quot;print&quot;) # Returns all available functions with &quot;print&quot; in the name
+??print # shortcut, but also searches demos and vignettes in a formatted page</code></pre>
+</div>
+<div id="official-r-resources" class="section level3">
+<h3>Official R Resources</h3>
+<p>In addition to help from within R itself, CRAN and the R-Project have many resources available for support. Two of the most notable are the mailing lists and the <a href="http://cran.r-project.org/web/views/">task views</a>.</p>
+<ul>
+<li><a href="https://stat.ethz.ch/mailman/listinfo/r-help">R Help Mailing List</a>: The main mailing list for R help.</li>
+<li><a href="https://stat.ethz.ch/mailman/listinfo/r-sig-ecology">R-sig-ecology</a>: A special interest group for use of R in ecology. Less daunting than the main help with participation from some big names in ecological modelling and statistics.</li>
+<li><a href="http://cran.r-project.org/web/views/Environmetrics.html">Environmetrics Task View</a>: Task views are great in that they provide an annotated list of packages relevant to a particular field. This one is maintained by Gavin Simpson and has great info on packages relevant to much of the work at EPA.</li>
+<li><a href="http://cran.r-project.org/web/views/Spatial.html">Spatial Analysis Task View</a>: One that lists all the relevant packages for spatial analysis, GIS, and Remote Sensing in R.</li>
+</ul>
+<p>There are also a number of platforms created to support communities using R and RStudio including <a href="https://community.rstudio.com/latest">RStudio Community</a>, <a href="https://rladies.org/">RLadies</a> and <a href="https://twitter.com/RStudioEDU">RStudioEDU</a>. Following #rstats on Twitter is also an excellent way to stay informed of RStudio updates and new package developments.</p>
+<div class="figure"><span id="fig:unnamed-chunk-10"></span>
+<img src="images/friends.png" alt="*Illustration by @allison_horst.*" width="100%" />
+<p class="caption">
+Figure 2: <em>Illustration by <span class="citation">@allison_horst</span>.</em>
+</p>
+</div>
+</div>
+<div id="google-and-stackoverflow" class="section level3">
+<h3>Google and StackOverflow</h3>
+<p>While the resources already mentioned are useful, often the quickest way is to just turn to Google. Google works great if you search for a given package or function name. You can also type in the error you are experiencing verbatim - chances are, someone before you has encountered the <em>exact</em> same problem.</p>
+<p>Blind googling can require a bit of strategy to get the info you want. Some pointers:</p>
+<ul>
+<li>Always preface the search with “r”</li>
+<li>Understand which sources are reliable</li>
+<li>Take note of the number of hits and date of a web page</li>
+<li>When in doubt, search with the exact error message (see here for <a href="https://cran.r-project.org/doc/manuals/R-lang.html#Exception-handling">details</a> about warnings vs errors)</li>
+</ul>
+</div>
+<div id="other-resources" class="section level3">
+<h3>Other Resources</h3>
+<p>Below are just a few more resources I like:</p>
+<ul>
+<li><a href="http://rforcats.net/">R For Cats</a>: Basic introduction site, meant to be a gentle and light-hearted introduction</li>
+<li><a href="https://stat545.com/">Stat 545</a>: Course materials for Jenny Bryan’s introduction to data science course developed at the University of British Columbia.</li>
+<li><a href="http://www.datacarpentry.org/R-ecology-lesson/">Data Carpentry: R for Data Analysis and Visualization of Ecological Data</a>: Carpentry lesson for folks using ecological data in R.</li>
+<li><a href="https://rstats.wtf/">What They Forgot to Teach you About R</a>: Great lessons from Jenny Bryan and Jim Hester about data organization, basic R workflows, and more.</li>
+<li><a href="https://r4ds.had.co.nz/">R For Data Science</a>: Web home of Hadley Wickham and Garret Grolemund’s introduction to R textbook.</li>
+<li><a href="http://adv-r.had.co.nz/">Advanced R</a>: Web home of Hadley Wickham’s new book. Gets into more advanced topics, but also covers the basics in a great way.</li>
+<li><a href="https://statsthewayilikeit.com/">Stats the Way I Like It</a>: Course materials for Allison Horst’s introduction to environmental data science course developed at the University of California Santa Barbara.</li>
+<li><a href="http://cran.r-project.org/doc/contrib/Short-refcard.pdf">CRAN Cheatsheets</a>: A good cheat sheet from the official source</li>
+<li><a href="http://www.rstudio.com/resources/cheatsheets/">RStudio Cheatsheets</a>: Additional cheat sheets from RStudio.</li>
+</ul>
+</div>
+</div>
+
+<!DOCTYPE html>
+
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+<div class="foot">
+	<hr> 
+	<p style="text-align: center;">
+	  <span style="color: #808080; display: inline-block; width: 58%;">
+	  &#9781 &nbsp;<i>Website design by <a href="https://ryanpeek.org/">Ryan Peek</i></a> &nbsp;  
+    <a href="https://github.com/Cal-SFS/" class="fa fa-github">Cal-SFS</a> &nbsp; &#9781
+    </span>
+  </p>
+</div>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

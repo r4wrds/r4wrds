@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Using {sf} in R</title>
+
+<script src="site_libs/header-attrs-2.5/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
+<link href="site_libs/font-awesome-5.3.1/css/fontawesome-all.min.css" rel="stylesheet" />
+<link href="site_libs/ionicons-2.0.1/css/ionicons.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="site_libs_extra/academicons-1.8.0/css/academicons.css"/>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">WRDS R Intro</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home fa-1.5x"></span>
+     
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="ion ion-hammer"></span>
+     
+    Setup
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="00_install_R.html">
+        <span class="fa fa-laptop"></span>
+         
+        Installing R/RStudio
+      </a>
+    </li>
+    <li>
+      <a href="01_RStudio_cloud.html">
+        <span class="fa fa-cloud"></span>
+         
+        Setting up RStudio Cloud
+      </a>
+    </li>
+    <li>
+      <a href="02_setup_R.html">
+        <span class="fa fa-map-signs"></span>
+         
+        Getting Started
+      </a>
+    </li>
+    <li>
+      <a href="03_project_management.html">
+        <span class="fa fa-sitemap"></span>
+         
+        Project Management
+      </a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-bicycle fa-1x"></span>
+     
+    1: Data In, Plot Out!
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Lesson 1:</li>
+    <li>
+      <a href="m1_1_using_R.html">
+        <span class="fa fa-download"></span>
+         
+        Importing Data
+      </a>
+    </li>
+    <li class="dropdown-header">Lesson 2:</li>
+    <li>
+      <a href="m1_2_wrangling.html">
+        <span class="fa fa-magic"></span>
+         
+        Wrangling Data
+      </a>
+    </li>
+    <li class="dropdown-header">Lesson 3:</li>
+    <li>
+      <a href="m1_3_plotting.html">
+        <span class="fa fa-area-chart"></span>
+         
+        Plotting with ggplot
+      </a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-car"></span>
+     
+    2: Excel to a Map
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Lesson 1:</li>
+    <li>
+      <a href="m2_1_working_w_xls.html">
+        <span class="fa fa-table"></span>
+         
+        Working from Excel
+      </a>
+    </li>
+    <li class="dropdown-header">Lesson 2:</li>
+    <li>
+      <a href="m2_2_joins.html">
+        <span class="fa fa-object-ungroup"></span>
+         
+        Joining Data
+      </a>
+    </li>
+    <li class="dropdown-header">Lesson 3:</li>
+    <li>
+      <a href="m2_3_using_sf.html">
+        <span class="fa fa-map-pin"></span>
+         
+        Using {sf}
+      </a>
+    </li>
+    <li class="dropdown-header">Lesson 4:</li>
+    <li>
+      <a href="m2_4_mapping_w_sf.html">
+        <span class="fa fa-map fa-1x"></span>
+         
+        Make a Map!
+      </a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-space-shuttle fa-1x"></span>
+     
+    And Beyond
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="m3_1_usaboundaries.html">
+        <span class="fa fa-code-branch"></span>
+         
+        Getting US Boundaries
+      </a>
+    </li>
+    <li>
+      <a href="m3_2_nhdtoolsPlus.html">
+        <span class="fa fa-tint"></span>
+         
+        Downloading NHD River Data
+      </a>
+    </li>
+    <li>
+      <a href="http://usgs-r.github.io/dataRetrieval/articles/nldi.html">
+        <span class="fa fa-road"></span>
+         
+        Query the NLDI Network
+      </a>
+    </li>
+    <li>
+      <a href="m3_3_useful_water_pkgs.html">
+        <span class="fa fa-archive"></span>
+         
+        Helpful Packages
+      </a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="resources.html">
+    <span class="fa fa-list"></span>
+     
+    Resources
+  </a>
+</li>
+<li>
+  <a href="https://github.com/ryanpeek/WRDS_intro/">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Using <code>{sf}</code> in R</h1>
+
+</div>
+
+
+<style>
+  .title{
+    display: none;
+  }
+</style>
+<p><br>
+<br></p>
+<div class="obj">
+<p><strong>Objectives for this section:</strong></p>
+<ul>
+<li>make a spatial {<code>sf</code>} dataframe from X and Y columns (e.g., lat &amp; lon)</li>
+<li>introduce some of the many features of {<code>sf</code>} for spatial analysis</li>
+<li>read and write spatial data using {<code>sf</code>} (<code>.shp</code>, <code>.gpx</code>, <code>.kml</code>, )</li>
+</ul>
+</div>
+<p><br></p>
+<div id="geospatial-r-using-sf" class="section level2">
+<h2>Geospatial R: using <code>{sf}</code></h2>
+<p>R is open source software, and more and more, it has become useful for analysis, visualization, and even writing. More recently, it has become a powerful tool for working with spatial data, making maps, etc. This is because it’s free (open source), it can do nearly everything that a GUI type program can do (e.g., ArcGIS or QGIS), and you can write a script to do the same analysis many times over, saving time on repetitive tasks and making it clear how you did what you did.</p>
+<p>There are a variety of spatial mapping/plotting packages in R. However, the best option being used widely for vector-based spatial data in R is the <a href="http://r-spatial.github.io/sf/"><strong><code>{sf}</code></strong></a> package. <strong><code>{sf}</code></strong> is a powerful, clean, and fairly straightforward approach because it is fast and it can do most if not all of the tasks commonly done in other geospatial software programs. Even better, <strong><code>{sf}</code></strong> spatial objects are simply <code>data.frames</code> with a <em>sticky</em> geometry column, which makes it much easier to manipulate, tidy, join, and wrangle data. Basically all the geometry information gets compacted into a single column, and that column follows the data, no matter how you work with the data.</p>
+<p><br></p>
+<center>
+
+<div class="figure"><span id="fig:sfIllustration"></span>
+<img src="https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/sf.png" alt="Artwork by @allison_horst" width="90%" />
+<p class="caption">
+Figure 1: <em>Artwork by <span class="citation">@allison_horst</span></em>
+</p>
+</div>
+</center>
+<p><br></p>
+<div id="installing-loading-spatial-packages" class="section level3">
+<h3><strong>Installing &amp; Loading Spatial Packages</strong></h3>
+<p>The one caveat to using spatial packages in R is getting things installed and setup. Do this once, and you are good to go! But sometimes it can be a bit tricky. Ideally, we’ve all worked through this already, and so you have <strong><code>{sf}</code></strong> installed on your device currently. If you have already done this step, great! take a minute to look at the <a href="http://r-spatial.github.io/sf/"><strong><code>{sf}</code></strong> webpage</a> and the various vignettes that are available (see <a href="https://r-spatial.github.io/sf/articles/sf1.html"><strong>Articles</strong></a> tab).</p>
+<p>If you haven’t installed things, make sure you grab the following packages</p>
+<pre class="r"><code># install packages if you haven&#39;t already
+#install.packages(c(&quot;sf&quot;,&quot;mapview&quot;, &quot;tmap&quot;, &quot;USAboundaries&quot;))
+
+# load packages or &quot;libraries&quot;
+library(tidyverse) # wrangling/plotting tools
+library(viridis) # nice color palette
+library(sf) # &quot;simple features&quot; spatial package for vector based data
+library(mapview) # interactive web mapping
+library(tmap) # static/interactive mapping
+library(USAboundaries) # data for USA boundaries</code></pre>
+<p><br></p>
+</div>
+<div id="load-data" class="section level3">
+<h3><strong>Load Data</strong></h3>
+<p>Once we’ve got our libraries loaded, we need to import some data. We’ll be using the data we saved <a href="m2_2_joins.html">from the previous lesson</a>. We’ll use the <code>data/csci_sites_match.rda</code> file, which since we are following the <a href="02_project_management.html">data management/organization tips</a>, we are in an RStudio Project, and we have a <code>data</code> folder with our data file inside!</p>
+<pre class="r"><code># Notice the relative path
+load(file = &quot;data/csci_sites_match.rda&quot;)</code></pre>
+<p><br></p>
+</div>
+<div id="inspect-the-data" class="section level3">
+<h3><strong>Inspect the Data</strong></h3>
+<p>If we look at a summary of the latitude and longitude, what do we notice?</p>
+<pre class="r"><code>summary(csci_sites_match)</code></pre>
+<pre><code>##  SampleID_old       StationCode            COMID                 E                OE              pMMI             CSCI        SampleID_old.1    
+##  Length:1612        Length:1612        Min.   :   342459   Min.   : 3.677   Min.   :0.0000   Min.   :0.0126   Min.   :0.1081   Length:1612       
+##  Class :character   Class :character   1st Qu.:  8272201   1st Qu.: 7.742   1st Qu.:0.6972   1st Qu.:0.5446   1st Qu.:0.6320   Class :character  
+##  Mode  :character   Mode  :character   Median : 17682434   Median :10.163   Median :0.9238   Median :0.7940   Median :0.8662   Mode  :character  
+##                                        Mean   : 44289436   Mean   :11.029   Mean   :0.8737   Mean   :0.7607   Mean   :0.8172                     
+##                                        3rd Qu.: 20364949   3rd Qu.:13.516   3rd Qu.:1.0735   3rd Qu.:0.9862   3rd Qu.:1.0182                     
+##                                        Max.   :948090773   Max.   :24.021   Max.   :1.4164   Max.   :1.4146   Max.   :1.3797                     
+##       lat             lon        
+##  Min.   :32.55   Min.   :-124.1  
+##  1st Qu.:34.10   1st Qu.:-121.8  
+##  Median :36.53   Median :-119.3  
+##  Mean   :36.46   Mean   :-119.8  
+##  3rd Qu.:38.75   3rd Qu.:-117.8  
+##  Max.   :42.00   Max.   :-116.2</code></pre>
+<p><br></p>
+<div class="challenge">
+<p><strong>Challenge 1</strong></p>
+<p>For X/Y data (latitude, longitude, UTM Northing or Easting, etc), why might it be important to inspect these data before plotting?</p>
+</div>
+<details>
+<summary class="challenge-ans-title">
+<strong>Click for Answers!</strong>
+</summary>
+<div class="challenge-ans-body">
+<p>For data from the North American continent, and especially when using lat/long coordinates, keep an eye on <strong>longitude</strong>. It typically should be <code>negative</code>. A common snafu that can occur is a few values (or all) from the longitude column may remain positive, which means the data typically plots somewhere in the Indian Ocean. Make sure all your longitudes are negative (if in the US and using lat/longs). A similar issue that can arise may be a data entry error, where a UTM value is missing a digit, or a switch in digits occurs (i.e., 38.7 vs. 37.8). All more reason to check the range of your spatial data and make sure it makes sense!</p>
+<p>Here’s one way to fix or make sure you have all negative longitude (again, assuming we are working with data from N. America, and it’s <strong>WGS84</strong> datum).</p>
+<pre class="r"><code>csci_sites_match$lon &lt;- abs(csci_sites_match$lon) * -1 # make all values negative
+
+range(csci_sites_match$lon)</code></pre>
+</div>
+</details>
+<p><br></p>
+</div>
+</div>
+<div id="making-data-spatial-adding-the-geometry-column" class="section level2">
+<h2>Making Data Spatial (Adding the <code>geometry</code> column)</h2>
+<p>Once we have vetted our data, let’s make it <em>spatial</em> and create a few quick test plots. To make an <strong><code>{sf}</code></strong> object, we are creating a <code>geometry</code> column. This contains all the geospatial information we need, and it lives within the dataframe. Perhaps most importantly is that its “sticky”, meaning whatever we do to our data (tidy, filter, mutate etc) the associated <code>geometry</code> column will stick with the data. What’s awesome is this column can contain anything from information for a point to a line to a complex polygon. All in one column. <em>To make this, we need to know two important pieces…</em></p>
+<ul>
+<li>Which columns contain the geospatial coordinates in (either name or column number)?</li>
+<li>What <a href="http://spatialreference.org/ref/epsg/">projection</a> or <a href="http://epsg.io/">EPSG (CRS, SRID, etc)</a> is the data in/or that we want to use?</li>
+</ul>
+<p><br></p>
+<div id="datums-projections-crs" class="section level3">
+<h3><strong>Datums, Projections, &amp; CRS?</strong></h3>
+<p>One of the trickier things to figure out when working with spatial data is how it should be oriented or “projected” onto the earth’s surface. Different parts of the world work in different Coordinate Reference Systems, or CRS. A really nice example of how this all works can be found via the <a href="https://datacarpentry.org/organization-geospatial/03-crs/">Data Carpentry Geospatial Lesson</a>. Here’s the oversimplified way to think about it in relation to fruit!</p>
+<p>Imagine an orange (or any ellipsoid fruit: <i class="fas  fa-lemon " style="color:gold1;"></i>). The  <i class="fas  fa-globe-americas " style="color:steelblue;"></i> isn’t a perfect sphere! This is the <strong>datum</strong>, the underlying shape we use to represent our geographic space. Now, if we wanted to place a point on our fruit-shaped Earth, we could drape a piece of fabric over the ellipsoid shape and use it to draw our points or lines on. However, the fabric (or <strong>projection</strong>) isn’t quite big enough to cover the whole globe, so near the edges things get messy, and you need to stretch things a bit to make it work. At the center of the fabric there’s very little stretching and this is where things are most accurate. When working with spatial data, we typically want to find a <strong>datum</strong> and a <strong>projection</strong> (if applicable) that will give the least amount of stretching for the location/region we’re working in. There are generally two kinds of CRS: <em>geographic</em>, and <em>projected</em>.</p>
+<ul>
+<li><p><strong>Geographic Coordinate Systems</strong> use Latitude and Longitude and a <strong>datum</strong> to identify where the center of the fabric will be placed on our orange-shaped Earth.</p></li>
+<li><p><strong>Projected Coordinate Systems</strong> essentially convert the 3-dimensional orange into a 2-dimensional grid with X and Y points (Easting and Northing). Now we are taking just the orange peel of our globe, and trying to flatten it out. Projected Coordinate Systems are much more specific to a given region of the world because they must distort things to make the conversion work.</p></li>
+</ul>
+<p>There are CRS codes that we can use to represent all these things, and {<code>sf</code>} makes this easy to integrate into our data.</p>
+<p>A few common CRS Projections used in California for state/federal work:</p>
+<ul>
+<li><strong>Projected</strong>: <a href="http://epsg.io/3310">NAD83 California Albers: EPSG 3310</a></li>
+<li><strong>Projected</strong>: <a href="http://spatialreference.org/ref/sr-org/10/">NAD83 California Teal Albers: SR-ORG:10</a></li>
+<li><strong>Geographic</strong>: <a href="http://epsg.io/4326">WGS84 Lat Lon: EPSG 4326</a></li>
+</ul>
+<p><br></p>
+<details>
+<summary class="extra-practice-title">
+<b>Extra Info!</b>
+</summary>
+<div class="extra-practice-body">
+<p>This is a complicated subject and don’t expect to learn it all at once. For more details, we definitely recommend reading through Robin Lovelace’s Geocomputation in R book, especially the sections on CRS and Reprojecting your data.</p>
+<ul>
+<li><a href="https://geocompr.robinlovelace.net/spatial-class.html#crs-intro">Section 2.4 on Coordinate Reference Systems (CRS)</a></li>
+<li><a href="https://geocompr.robinlovelace.net/reproj-geo-data.html">Section 6.1 on Reprojecting Data</a>
+</div>
+</details>
+<br></li>
+</ul>
+<p><br></p>
+</div>
+<div id="making-a-sf-dataframe" class="section level3">
+<h3><strong>Making a <code>{sf}</code> dataframe</strong></h3>
+<p>To make a dataframe with X and Y coordinates into an <strong><code>{sf}</code></strong> dataframe (so it’s spatial and we can do all kinds of cool spatial/mapping operations), we can use the <code>st_as_sf()</code> function. We will also add a CRS projection so the data will show up in the right part of the world.</p>
+<pre class="r"><code># make data sf object: 
+df_sf &lt;- st_as_sf(csci_sites_match,
+                  coords = c(&quot;lon&quot;, &quot;lat&quot;), # note we put lon (or X) first!
+                  #coords = c(10, 9), # can use numbers here too
+                  remove = F, # don&#39;t remove these lat/lon cols from the dataframe
+                  crs = 4326) # add projection (this is WGS84)</code></pre>
+<p><br></p>
+</div>
+<div id="transform-to-different-projection" class="section level3">
+<h3><strong>Transform to different projection?</strong></h3>
+<p>Now that our data is in this format, it’s pretty easy to transform/convert to another spatial projection. Here we can check our current CRS, then switch the projection over to something different.</p>
+<pre class="r"><code># check CRS first:
+st_crs(df_sf)</code></pre>
+<pre><code>## Coordinate Reference System:
+##   User input: EPSG:4326 
+##   wkt:
+## GEOGCRS[&quot;WGS 84&quot;,
+##     DATUM[&quot;World Geodetic System 1984&quot;,
+##         ELLIPSOID[&quot;WGS 84&quot;,6378137,298.257223563,
+##             LENGTHUNIT[&quot;metre&quot;,1]]],
+##     PRIMEM[&quot;Greenwich&quot;,0,
+##         ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
+##     CS[ellipsoidal,2],
+##         AXIS[&quot;geodetic latitude (Lat)&quot;,north,
+##             ORDER[1],
+##             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
+##         AXIS[&quot;geodetic longitude (Lon)&quot;,east,
+##             ORDER[2],
+##             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
+##     USAGE[
+##         SCOPE[&quot;unknown&quot;],
+##         AREA[&quot;World&quot;],
+##         BBOX[-90,-180,90,180]],
+##     ID[&quot;EPSG&quot;,4326]]</code></pre>
+<pre class="r"><code># change CRS using st_transform
+df_sf_albers &lt;- st_transform(df_sf, crs=3310)
+
+# check that it changed
+st_crs(df_sf_albers)</code></pre>
+<pre><code>## Coordinate Reference System:
+##   User input: EPSG:3310 
+##   wkt:
+## PROJCRS[&quot;NAD83 / California Albers&quot;,
+##     BASEGEOGCRS[&quot;NAD83&quot;,
+##         DATUM[&quot;North American Datum 1983&quot;,
+##             ELLIPSOID[&quot;GRS 1980&quot;,6378137,298.257222101,
+##                 LENGTHUNIT[&quot;metre&quot;,1]]],
+##         PRIMEM[&quot;Greenwich&quot;,0,
+##             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
+##         ID[&quot;EPSG&quot;,4269]],
+##     CONVERSION[&quot;California Albers&quot;,
+##         METHOD[&quot;Albers Equal Area&quot;,
+##             ID[&quot;EPSG&quot;,9822]],
+##         PARAMETER[&quot;Latitude of false origin&quot;,0,
+##             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433],
+##             ID[&quot;EPSG&quot;,8821]],
+##         PARAMETER[&quot;Longitude of false origin&quot;,-120,
+##             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433],
+##             ID[&quot;EPSG&quot;,8822]],
+##         PARAMETER[&quot;Latitude of 1st standard parallel&quot;,34,
+##             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433],
+##             ID[&quot;EPSG&quot;,8823]],
+##         PARAMETER[&quot;Latitude of 2nd standard parallel&quot;,40.5,
+##             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433],
+##             ID[&quot;EPSG&quot;,8824]],
+##         PARAMETER[&quot;Easting at false origin&quot;,0,
+##             LENGTHUNIT[&quot;metre&quot;,1],
+##             ID[&quot;EPSG&quot;,8826]],
+##         PARAMETER[&quot;Northing at false origin&quot;,-4000000,
+##             LENGTHUNIT[&quot;metre&quot;,1],
+##             ID[&quot;EPSG&quot;,8827]]],
+##     CS[Cartesian,2],
+##         AXIS[&quot;easting (X)&quot;,east,
+##             ORDER[1],
+##             LENGTHUNIT[&quot;metre&quot;,1]],
+##         AXIS[&quot;northing (Y)&quot;,north,
+##             ORDER[2],
+##             LENGTHUNIT[&quot;metre&quot;,1]],
+##     USAGE[
+##         SCOPE[&quot;unknown&quot;],
+##         AREA[&quot;USA - California&quot;],
+##         BBOX[32.53,-124.45,42.01,-114.12]],
+##     ID[&quot;EPSG&quot;,3310]]</code></pre>
+<p><br></p>
+<div class="challenge">
+<p><strong>Challenge 2</strong></p>
+<p>How do we know data is in a <strong>Geographic</strong> or <strong>Projected</strong> Coordinate System? Where can we see this information using the <code>st_crs()</code> function?</p>
+</div>
+<p><br></p>
+<details>
+<summary class="challenge-ans-title">
+<strong>Click for Answers!</strong>
+</summary>
+<div class="challenge-ans-body">
+<p>When we use <code>st_crs()</code> the output has a lot of information! A couple quick things we should look at for information. The 4th line down should start with either <strong><code>GEOGCRS</code></strong> or <strong><code>PROJCRS</code></strong>. This is the place we want to look to figure out if we are using a <em>Geographic</em> or <em>Projected</em> CRS. The information that comes after the <code>[</code>, i.e.,</p>
+<pre><code>## PROJCRS[&quot;NAD83 / California Albers&quot;]</code></pre>
+<p>tells us the CRS name…sometimes these are descriptive, sometimes not.</p>
+<p>The one other important bit to be aware of is what units the CRS is in…look for something that says <code>LENGTHUNIT</code> (there may be multiple spots, but we want the line after <code>ELLIPSOID</code>), and see what it says. For example, for the EPSG:3310, our unit of measure is <code>LENGTHUNIT["metre",1]</code>, which is meters. Useful to know when doing geospatial operations on your data!</p>
+</div>
+</details>
+<p><br></p>
+</div>
+</div>
+<div id="importing-spatial-data-with-sf" class="section level2">
+<h2>Importing Spatial Data with <code>{sf}</code></h2>
+<p>The great thing about <code>sf</code> is that it generally makes reading (and writing!) spatial data pretty easy. Let’s import a few more pieces of data in different formats, just to practice getting other data into R. Note, if you want to know more about how these data were created, check out the <i class="fas  fa-rocket " style="color:maroon;"></i> <a href="m3_1_usaboundaries.html">lesson</a>.</p>
+<div id="read-in-a-shapefile" class="section level3">
+<h3><strong>Read in a Shapefile</strong></h3>
+<p>First let’s read in a shapefile. This is one of the more common geospatial datatypes. Note, there are two functions to read in data with <code>sf</code>, <code>st_read</code>, and <code>read_sf</code>. See the differences below. Here we’ll read in a shapefile with a few west coast states we can work with.</p>
+<pre class="r"><code>states &lt;- st_read(&quot;data/states_boundaries.shp&quot;,
+        stringsAsFactors = FALSE, 
+        as_tibble = TRUE)</code></pre>
+<pre><code>## Reading layer `states_boundaries&#39; from data source `/Users/ryanpeek/Documents/github/WEBSITES/WRDS_intro/data/states_boundaries.shp&#39; using driver `ESRI Shapefile&#39;
+## Simple feature collection with 3 features and 12 fields
+## geometry type:  MULTIPOLYGON
+## dimension:      XY
+## bbox:           xmin: -124.5662 ymin: 32.53416 xmax: -114.0396 ymax: 46.29204
+## geographic CRS: WGS 84</code></pre>
+<pre class="r"><code># note, read_sf is the same as above, but it is &quot;quiet&quot; 
+# so it doesn&#39;t print out the details, and uses the other arguments above as defaults
+# read_sf(&quot;data/states_boundaries.shp)</code></pre>
+<p>Take a look at the data, notice all the attributes (columns), and a single <code>geometry</code> column where the spatial data lives.
+<br></p>
+</div>
+<div id="read-in-a-geojson" class="section level3">
+<h3><strong>Read in a <code>geojson</code></strong></h3>
+<p>We’ll follow the same process as above, but this time for California counties, and a <code>geojson</code> file.</p>
+<pre class="r"><code>counties &lt;- st_read(&quot;data/ca_counties_boundaries.geojson&quot;,
+        stringsAsFactors = FALSE, 
+        as_tibble = TRUE)</code></pre>
+<pre><code>## Reading layer `ca_counties_boundaries&#39; from data source `/Users/ryanpeek/Documents/github/WEBSITES/WRDS_intro/data/ca_counties_boundaries.geojson&#39; using driver `GeoJSON&#39;
+## Simple feature collection with 58 features and 12 fields
+## geometry type:  MULTIPOLYGON
+## dimension:      XY
+## bbox:           xmin: -124.4096 ymin: 32.53416 xmax: -114.1312 ymax: 42.00952
+## geographic CRS: WGS 84</code></pre>
+<pre class="r"><code># check the CRS
+st_crs(counties)</code></pre>
+<pre><code>## Coordinate Reference System:
+##   User input: WGS 84 
+##   wkt:
+## GEOGCRS[&quot;WGS 84&quot;,
+##     DATUM[&quot;World Geodetic System 1984&quot;,
+##         ELLIPSOID[&quot;WGS 84&quot;,6378137,298.257223563,
+##             LENGTHUNIT[&quot;metre&quot;,1]]],
+##     PRIMEM[&quot;Greenwich&quot;,0,
+##         ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
+##     CS[ellipsoidal,2],
+##         AXIS[&quot;geodetic latitude (Lat)&quot;,north,
+##             ORDER[1],
+##             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
+##         AXIS[&quot;geodetic longitude (Lon)&quot;,east,
+##             ORDER[2],
+##             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
+##     ID[&quot;EPSG&quot;,4326]]</code></pre>
+<p>Success! Onward…
+<br></p>
+</div>
+</div>
+<div id="plotting-sf-data" class="section level2">
+<h2>Plotting <code>{sf}</code> Data</h2>
+<p>Now we have some different data layers, and we can make a few quick plots to see how our data looks. There are a few options that we’ll cover, including using <code>ggplot</code>, but let’s look at the simplest option first. We can use the base <code>plot</code> function, but there are a few things to be aware of!</p>
+<p><br></p>
+<div id="plotting-with-plot" class="section level3">
+<h3><strong>Plotting with <code>plot</code></strong></h3>
+<p>If we try to view our <code>{sf}</code> dataframe in a plot by running:</p>
+<p><code>plot(df_sf)</code></p>
+<p>We see something like this:</p>
+<p><img src="images/plot_df_sf.png" /></p>
+<p>Base-plotting functions work with <strong><code>{sf}</code></strong>, but <code>plot(your_sf_object)</code> will default to plotting a facet or map for <strong>every column</strong> of data in your dataframe. Avoid that by specifying <code>st_coordinates()</code> or <code>$geometry</code> to ensure only the spatial data gets plotted.</p>
+<p><br></p>
+<pre class="r"><code># single layer
+plot(df_sf$geometry)</code></pre>
+<p><img src="m2_3_using_sf_files/figure-html/singleSF1-1.png" width="672" /></p>
+<pre class="r"><code># same as plot(st_coordinates(df_sf))
+
+# add some flair
+plot(df_sf$geometry, col = &quot;orange&quot;)</code></pre>
+<p><img src="m2_3_using_sf_files/figure-html/singleSF1-2.png" width="672" /></p>
+<p><br></p>
+<div class="challenge">
+<p><strong>Challenge 3</strong></p>
+<ul>
+<li><strong>How can we find out how to change the shape of the points using the <code>plot</code> function?</strong></li>
+</ul>
+</div>
+<p><br></p>
+<details>
+<summary class="challenge-ans-title">
+<strong>Click for Answers!</strong>
+</summary>
+<div class="challenge-ans-body">
+
+<p><strong>Ultimately we can make our plots as fancy as we want. But to figure the above question out, I’d recommend these options:</strong></p>
+<ul>
+<li>Google: <em>“[R] how to change shape of points using plot”</em></li>
+<li>Use built-in R help: <code>?plot</code> or <code>?points</code></li>
+<li>Which may help you find <strong><code>pch</code></strong>…try <code>?pch</code> and scroll to the bottom.
+</div>
+</details></li>
+</ul>
+<p><br></p>
+</div>
+<div id="fancying-up-your-baseplot" class="section level3">
+<h3><strong>Fancying up your (<code>base</code>)Plot</strong></h3>
+<p>Let’s add a few additional features to our map, using the baseplotting <code>plot()</code> function, and adding an <code>ifelse</code> statement to plot different colors for CSCI scores above or below 0.75. If you haven’t used an <code>ifelse</code> statement before, it works as follows: <code>ifelse(</code> <em><code>if something is true</code></em>, <em><code>do something</code></em>, ELSE IF NOT TRUE: <em><code>do something else</code></em><code>)</code>.</p>
+<pre class="r"><code># this is better
+plot(df_sf$geometry, 
+     pch=16, 
+     # purple dots are CSCI &gt; 0.75, yellow are &lt;0.75
+     col=ifelse(df_sf$CSCI&gt;0.75, adjustcolor(&quot;purple4&quot;, alpha=0.7), &quot;gold&quot;), 
+     cex=1.5, 
+     xlab = &quot;Longitude&quot;, ylab=&quot;Latitude&quot;)
+# add a title
+graphics::title(&quot;CSCI ( &gt;0.75=purple, &lt;0.75=yellow)&quot;)</code></pre>
+<p><img src="m2_3_using_sf_files/figure-html/singleSF2-1.png" width="672" /></p>
+<p>Ok, so now we can make our data spatial, we can look at some preliminary plots, but what’s next?</p>
+<p><br><br></p>
+</div>
+</div>
+<div id="spatial-operations" class="section level2">
+<h2>Spatial Operations</h2>
+<p>What about other spatial data or operations? The <code>sf</code> package can do nearly all the same things you can do in GIS software, like <strong>buffer</strong>, <strong>crop</strong>, <strong>clip</strong>, <strong>merge</strong>, etc. For a full list and some nice vignettes, check out the <code>sf</code> page: <a href="https://r-spatial.github.io/sf/" class="uri">https://r-spatial.github.io/sf/</a>, and click on the <strong>Articles</strong> tab.</p>
+<p>There’s simply too much to show and not enough time, but below are a few options including:</p>
+<ul>
+<li>how to crop or clip one spatial dataset using another spatial dataset</li>
+<li>how to create a buffer around data</li>
+</ul>
+<p><br></p>
+<div id="crop-points-to-a-single-county" class="section level3">
+<h3><strong>Crop points to a Single County</strong></h3>
+<p>First we want to select a single county to use for our analysis. Next we want to clip our point data (CSCI) down to only points that fall inside El Dorado County. The quickest way to do this is using <code>st_intersection()</code>.</p>
+<ol style="list-style-type: decimal">
+<li><code>filter</code> our data down from the counties dataset. Find the column that contains the county names to do this.</li>
+</ol>
+<pre class="r"><code>eldor_co &lt;- filter(counties, name==&quot;El Dorado&quot;)
+# compare rows in the counties object with the rows in the eldor_co...</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Now we can use <code>st_intersection</code> to the clip or crop our <strong>points</strong> layer (<code>df_sf</code>) by our <strong>polygon</strong> layer (<code>eldor_co</code>). Take a look at a plot to make sure it worked!</li>
+</ol>
+<pre class="r"><code># we list the thing we want to crop first, then what we crop by second
+eldor_pts &lt;- st_intersection(df_sf, eldor_co)</code></pre>
+<pre><code>## although coordinates are longitude/latitude, st_intersection assumes that they are planar</code></pre>
+<pre><code>## Warning: attribute variables are assumed to be spatially constant throughout all geometries</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Make a quick plot to verify the clipped data worked. Gray points are <em>outside</em> the county line, purple points fall completely <em>inside</em> the county line.</li>
+</ol>
+<pre class="r"><code># plot
+plot(eldor_co$geometry)
+plot(df_sf$geometry, add=T, bg=&quot;gray&quot;, pch=21) # all the points
+plot(eldor_pts$geometry, add=T, bg =&quot;purple&quot;, pch=21) # just the points we cropped</code></pre>
+<p><img src="m2_3_using_sf_files/figure-html/quickPlot-1.png" width="672" /></p>
+</div>
+<div id="buffer-a-polygon" class="section level3">
+<h3><strong>Buffer a Polygon</strong></h3>
+<p>Let’s add one additional tool into the mix. <code>st_buffer</code> which allows us to buffer our data. Since our data was originally <em>lat/lon</em>, the units of distance are in <em>degrees</em>, which can make it hard to translate into a precise buffer distance. However, we transformed our CSCI data into a <strong>Projected</strong> CRS, which uses <em>meters</em> as the unit of distance. So let’s use that layer as a start, and add a 500 meter buffer around the county boundary to see if we pick up any additional CSCI points when we crop the data.</p>
+<p>We can use the CRS from another layer to transform or “re-project” our data. Let’s transform El Dorado County into the same CRS as our projected CSCI points (<code>df_sf_albers</code>).</p>
+<pre class="r"><code># double check CRS
+st_crs(df_sf_albers)</code></pre>
+<pre><code>## Coordinate Reference System:
+##   User input: EPSG:3310 
+##   wkt:
+## PROJCRS[&quot;NAD83 / California Albers&quot;,
+##     BASEGEOGCRS[&quot;NAD83&quot;,
+##         DATUM[&quot;North American Datum 1983&quot;,
+##             ELLIPSOID[&quot;GRS 1980&quot;,6378137,298.257222101,
+##                 LENGTHUNIT[&quot;metre&quot;,1]]],
+##         PRIMEM[&quot;Greenwich&quot;,0,
+##             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
+##         ID[&quot;EPSG&quot;,4269]],
+##     CONVERSION[&quot;California Albers&quot;,
+##         METHOD[&quot;Albers Equal Area&quot;,
+##             ID[&quot;EPSG&quot;,9822]],
+##         PARAMETER[&quot;Latitude of false origin&quot;,0,
+##             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433],
+##             ID[&quot;EPSG&quot;,8821]],
+##         PARAMETER[&quot;Longitude of false origin&quot;,-120,
+##             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433],
+##             ID[&quot;EPSG&quot;,8822]],
+##         PARAMETER[&quot;Latitude of 1st standard parallel&quot;,34,
+##             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433],
+##             ID[&quot;EPSG&quot;,8823]],
+##         PARAMETER[&quot;Latitude of 2nd standard parallel&quot;,40.5,
+##             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433],
+##             ID[&quot;EPSG&quot;,8824]],
+##         PARAMETER[&quot;Easting at false origin&quot;,0,
+##             LENGTHUNIT[&quot;metre&quot;,1],
+##             ID[&quot;EPSG&quot;,8826]],
+##         PARAMETER[&quot;Northing at false origin&quot;,-4000000,
+##             LENGTHUNIT[&quot;metre&quot;,1],
+##             ID[&quot;EPSG&quot;,8827]]],
+##     CS[Cartesian,2],
+##         AXIS[&quot;easting (X)&quot;,east,
+##             ORDER[1],
+##             LENGTHUNIT[&quot;metre&quot;,1]],
+##         AXIS[&quot;northing (Y)&quot;,north,
+##             ORDER[2],
+##             LENGTHUNIT[&quot;metre&quot;,1]],
+##     USAGE[
+##         SCOPE[&quot;unknown&quot;],
+##         AREA[&quot;USA - California&quot;],
+##         BBOX[32.53,-124.45,42.01,-114.12]],
+##     ID[&quot;EPSG&quot;,3310]]</code></pre>
+<pre class="r"><code># transform the county to same CRS
+eldor_co_albers &lt;- st_transform(eldor_co, crs = st_crs(df_sf_albers))
+
+# now buffer by 5 kilometers! (remember, units are in meters)
+eldor_co_buff_5km &lt;- st_buffer(eldor_co_albers, dist = 5000)</code></pre>
+<p>Let’s plot this to see how it looks.</p>
+<pre class="r"><code>plot(eldor_co_buff_5km$geometry, col=&quot;skyblue&quot;, border=&quot;steelblue&quot;)
+plot(eldor_co_albers$geometry, lty=2, add=T) #original</code></pre>
+<p><img src="m2_3_using_sf_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<div class="challenge">
+<p><strong>Challenge 4</strong></p>
+<ul>
+<li><strong>Crop the CSCI point data (<code>df_sf_albers</code>) by the new buffered county layer (<code>eldor_co_buff_5km</code>)</strong> and call it <code>eldor_pts_5km</code>.</li>
+<li><strong>How many additional CSCI points are in <code>eldor_pts_5km</code> vs. the original <code>eldor_pts</code>?</strong></li>
+</ul>
+</div>
+<p><br></p>
+<details>
+<summary class="challenge-ans-title">
+<strong>Click for Answers!</strong>
+</summary>
+<div class="challenge-ans-body">
+<p>To do this we use the <code>st_intersection</code> function, and then inspect how many <strong>rows</strong> each of the point datasets contain.</p>
+<pre class="r"><code>eldor_pts_5km &lt;- st_intersection(df_sf_albers, eldor_co_buff_5km)</code></pre>
+<pre><code>## Warning: attribute variables are assumed to be spatially constant throughout all geometries</code></pre>
+<pre class="r"><code># look at number of rows in new - old
+nrow(eldor_pts_5km) - nrow(eldor_pts)</code></pre>
+<pre><code>## [1] 8</code></pre>
+<pre class="r"><code># so 8 additional CSCI stations were included in this layer.</code></pre>
+</div>
+</details>
+<p><br></p>
+</div>
+<div id="save-and-export" class="section level3">
+<h3>Save and Export</h3>
+<p>We’ve only skimmed the surface, but let’s save these pieces and move to the next lesson on making some nice maps!</p>
+<pre class="r"><code>save(df_sf_albers, df_sf, eldor_co, eldor_co_albers, eldor_co_buff_5km, eldor_pts_5km, eldor_pts, file = &quot;data/m2_3_out_eldorado_sf.rda&quot;)</code></pre>
+<p><br></p>
+<p>Great work! Let’s <a href="m2_4_mapping_w_sf.html">move to the next lesson</a>.</p>
+</div>
+</div>
+
+<!DOCTYPE html>
+
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+<div class="foot">
+	<hr> 
+	<p style="text-align: center;">
+	  <span style="color: #808080; display: inline-block; width: 58%;">
+	  &#9781 &nbsp;<i>Website design by <a href="https://ryanpeek.org/">Ryan Peek</i></a> &nbsp;  
+    <a href="https://github.com/Cal-SFS/" class="fa fa-github">Cal-SFS</a> &nbsp; &#9781
+    </span>
+  </p>
+</div>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

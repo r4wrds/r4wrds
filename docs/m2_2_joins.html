@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Joining Data</title>
+
+<script src="site_libs/header-attrs-2.5/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<link href="site_libs/ionicons-2.0.1/css/ionicons.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="site_libs_extra/academicons-1.8.0/css/academicons.css"/>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">WRDS R Intro</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home fa-1.5x"></span>
+     
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="ion ion-hammer"></span>
+     
+    Setup
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="00_install_R.html">
+        <span class="fa fa-laptop"></span>
+         
+        Installing R/RStudio
+      </a>
+    </li>
+    <li>
+      <a href="01_RStudio_cloud.html">
+        <span class="fa fa-cloud"></span>
+         
+        Setting up RStudio Cloud
+      </a>
+    </li>
+    <li>
+      <a href="02_setup_R.html">
+        <span class="fa fa-map-signs"></span>
+         
+        Getting Started
+      </a>
+    </li>
+    <li>
+      <a href="03_project_management.html">
+        <span class="fa fa-sitemap"></span>
+         
+        Project Management
+      </a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-bicycle fa-1x"></span>
+     
+    1: Data In, Plot Out!
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Lesson 1:</li>
+    <li>
+      <a href="m1_1_using_R.html">
+        <span class="fa fa-download"></span>
+         
+        Importing Data
+      </a>
+    </li>
+    <li class="dropdown-header">Lesson 2:</li>
+    <li>
+      <a href="m1_2_wrangling.html">
+        <span class="fa fa-magic"></span>
+         
+        Wrangling Data
+      </a>
+    </li>
+    <li class="dropdown-header">Lesson 3:</li>
+    <li>
+      <a href="m1_3_plotting.html">
+        <span class="fa fa-area-chart"></span>
+         
+        Plotting with ggplot
+      </a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-car"></span>
+     
+    2: Excel to a Map
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Lesson 1:</li>
+    <li>
+      <a href="m2_1_working_w_xls.html">
+        <span class="fa fa-table"></span>
+         
+        Working from Excel
+      </a>
+    </li>
+    <li class="dropdown-header">Lesson 2:</li>
+    <li>
+      <a href="m2_2_joins.html">
+        <span class="fa fa-object-ungroup"></span>
+         
+        Joining Data
+      </a>
+    </li>
+    <li class="dropdown-header">Lesson 3:</li>
+    <li>
+      <a href="m2_3_using_sf.html">
+        <span class="fa fa-map-pin"></span>
+         
+        Using {sf}
+      </a>
+    </li>
+    <li class="dropdown-header">Lesson 4:</li>
+    <li>
+      <a href="m2_4_mapping_w_sf.html">
+        <span class="fa fa-map fa-1x"></span>
+         
+        Make a Map!
+      </a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-space-shuttle fa-1x"></span>
+     
+    And Beyond
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="m3_1_usaboundaries.html">
+        <span class="fa fa-code-branch"></span>
+         
+        Getting US Boundaries
+      </a>
+    </li>
+    <li>
+      <a href="m3_2_nhdtoolsPlus.html">
+        <span class="fa fa-tint"></span>
+         
+        Downloading NHD River Data
+      </a>
+    </li>
+    <li>
+      <a href="http://usgs-r.github.io/dataRetrieval/articles/nldi.html">
+        <span class="fa fa-road"></span>
+         
+        Query the NLDI Network
+      </a>
+    </li>
+    <li>
+      <a href="m3_3_useful_water_pkgs.html">
+        <span class="fa fa-archive"></span>
+         
+        Helpful Packages
+      </a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="resources.html">
+    <span class="fa fa-list"></span>
+     
+    Resources
+  </a>
+</li>
+<li>
+  <a href="https://github.com/ryanpeek/WRDS_intro/">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Joining Data</h1>
+
+</div>
+
+
+<style>
+  .title{
+    display: none;
+  }
+</style>
+<p><br>
+<br></p>
+<div class="obj">
+<p><strong>Objectives for this section:</strong></p>
+<ul>
+<li>understand how to join datasets by shared columns or IDs</li>
+<li>have a general sense of the variety of join types</li>
+<li>join some data and save it</li>
+</ul>
+</div>
+<p><br></p>
+<div id="joining-data" class="section level2">
+<h2>Joining Data</h2>
+<p>We often need to take several datasets and merge them into a single dataset that we can use for analysis. This “<strong>join</strong>” can at times be tricky, and can be made more so if we aren’t exactly sure what data matches up between the two datasets. Sometimes joining data can resemble more of a gridlock than a clean and seamless merge.</p>
+<p><br></p>
+
+<center>
+<div class="figure"><span id="fig:gridlock"></span>
+<img src="https://upload.wikimedia.org/wikipedia/commons/8/82/New_York_City_Gridlock.jpg" alt="Merging Data? (source Wikipedia Commons)" width="60%" />
+<p class="caption">
+Figure 1: Merging Data? <em>(source Wikipedia Commons)</em>
+</p>
+</div>
+</center>
+<p><br></p>
+</div>
+<div id="common-variables" class="section level2">
+<h2>Common Variables</h2>
+<p><br>
+The trick that makes this all possible, is having one or more shared pieces of data across the two (or more) datasets. This may be an ID column, or a specific observation or data type. Importantly, these data can actually have different column names, but they should be formatted in the same way across each dataset!</p>
+<p>While this may seem daunting at first, it’s not! R has some excellent tools built into the <strong><code>{dplyr}</code></strong> package that make joining datasets fairly straightforward. First let’s import some data we can use to join. Here we will build off of the dataset we used in the <a href="m2_1_working_w_xls.html">previous lesson</a>.</p>
+<p>Let’s read in both the <code>csci_clean</code> and <code>sites_clean</code> datasets. If you recall, we saved these as <code>.csv</code>, <code>.rds</code>, <code>.xlsx</code>, and <code>.rda</code>. For now, let’s use the <code>rda</code> option as it will be fastest.</p>
+<div class="challenge">
+<p><strong>Challenge 1</strong></p>
+<ul>
+<li>Read in the <code>csci_sites_clean.rda</code> file</li>
+<li>How many rows are there in each object?</li>
+</ul>
+</div>
+<p><br></p>
+<details>
+<summary class="challenge-ans-title">
+<strong>Click for Answers!</strong>
+</summary>
+<div class="challenge-ans-body">
+<pre class="r"><code>load(&quot;data/csci_sites_clean.rda&quot;)
+
+nrow(csci_clean) # gives just the number of rows</code></pre>
+<pre><code>## [1] 1612</code></pre>
+<pre class="r"><code>nrow(sites_clean) # gives just the number of rows</code></pre>
+<pre><code>## [1] 1613</code></pre>
+</div>
+</details>
+<p><br></p>
+<div id="inspect-the-data" class="section level3">
+<h3><strong>Inspect the Data</strong></h3>
+<p>Let’s quickly take a look at the columns in our datasets and see what looks similar. To do this we can inspect our data with either <code>head</code> or <code>names</code> or <code>str</code>. All will tell us similar information.</p>
+
+<div class="figure"><span id="fig:AHmeetData"></span>
+<img src="https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/make-your-own-stats-cartoons/ex_2.png" alt="Artwork by @allison_horst" width="80%" />
+<p class="caption">
+Figure 2: <em>Artwork by <span class="citation">@allison_horst</span></em>
+</p>
+</div>
+<pre class="r"><code>str(csci_clean)</code></pre>
+<pre><code>## tibble [1,612 × 8] (S3: tbl_df/tbl/data.frame)
+##  $ SampleID_old  : chr [1:1612] &quot;000CAT148_8.10.10_1&quot; &quot;000CAT228_8.10.10_1&quot; &quot;102PS0139_8.9.10_1&quot; &quot;103CDCHHR_9.14.10_1&quot; ...
+##  $ StationCode   : chr [1:1612] &quot;000CAT148&quot; &quot;000CAT228&quot; &quot;102PS0139&quot; &quot;103CDCHHR&quot; ...
+##  $ COMID         : num [1:1612] 8942501 8942503 23936337 22226836 22226634 ...
+##  $ E             : num [1:1612] 16.1 16.1 15.5 21.1 16.8 ...
+##  $ OE            : num [1:1612] 0.931 0.973 1.09 1.09 1.078 ...
+##  $ pMMI          : num [1:1612] 1.045 0.99 1.054 1.083 0.916 ...
+##  $ CSCI          : num [1:1612] 0.988 0.981 1.072 1.087 0.997 ...
+##  $ SampleID_old.1: chr [1:1612] &quot;000CAT148_8.10.10_1&quot; &quot;000CAT228_8.10.10_1&quot; &quot;102PS0139_8.9.10_1&quot; &quot;103CDCHHR_9.14.10_1&quot; ...</code></pre>
+<pre class="r"><code>str(sites_clean)</code></pre>
+<pre><code>## tibble [1,613 × 3] (S3: tbl_df/tbl/data.frame)
+##  $ StationID: chr [1:1613] &quot;000CAT148&quot; &quot;000CAT228&quot; &quot;102PS0139&quot; &quot;103CDCHHR&quot; ...
+##  $ lat      : num [1:1613] 39.1 39.1 42 41.8 41.9 ...
+##  $ lon      : num [1:1613] -120 -120 -123 -124 -124 ...</code></pre>
+<p><br></p>
+<p>What do we see? Looks like we have the same data type in the <em><code>StationID</code></em> column in <code>sites_clean</code> and the <em><code>StationCode</code></em> column in <code>csci_clean</code>. They are just named differently.</p>
+<p><br></p>
+</div>
+</div>
+<div id="join-types" class="section level2">
+<h2>Join Types</h2>
+<p>There are quite a few different join types that are available via the <strong>{dplyr}</strong> package. Here are some great animations by <a href="https://www.garrickadenbuie.com/project/tidyexplain/#usage">Garrick Aden-Buie</a> that may help illustrate the various join types.</p>
+<p><br></p>
+<div id="left-join" class="section level3">
+<h3><strong>Left Join</strong></h3>
+<p>All rows from <code>x</code>, and all columns from <code>x</code> and <code>y</code>. Rows in <code>x</code> with no match in <code>y</code> will have <code>NA</code> values in the new columns.</p>
+<p><img src="images/left-join.gif" width="70%" /></p>
+</div>
+<div id="inner-join" class="section level3">
+<h3><strong>Inner Join</strong></h3>
+<p>All rows from <code>x</code> where there are matching values in <code>y</code>, and all columns from <code>x</code> and <code>y</code>.</p>
+<p><img src="images/inner-join.gif" width="70%" /></p>
+</div>
+<div id="full-join" class="section level3">
+<h3><strong>Full Join</strong></h3>
+<p>All rows and all columns from both <code>x</code> and <code>y</code>. Where there are not matching values, returns NA for the one missing.</p>
+<p><img src="images/full-join.gif" width="70%" /></p>
+</div>
+<div id="semi-join" class="section level3">
+<h3><strong>Semi Join</strong></h3>
+<p>All rows from <code>x</code> where there are matching values in <code>y</code>, keeping just columns from <code>x</code>. Also known as a <em>filtering</em> join because you are basically filtering one dataframe, using another dataframe as the match.</p>
+<p><img src="images/semi-join.gif" width="70%" /></p>
+</div>
+<div id="anti-join" class="section level3">
+<h3><strong>Anti Join</strong></h3>
+<p>Also a <em>filtering join</em>. This keeps all rows from <code>x</code> where there are not matching values in <code>y</code>, keeping just columns from <code>x</code>. Really handy to find out which data is <strong>not</strong> joining, or may be missing from one or both datasets.</p>
+<p><img src="images/anti-join.gif" width="70%" /></p>
+<p><br></p>
+</div>
+</div>
+<div id="join-our-data" class="section level2">
+<h2>Join Our Data</h2>
+<p>For our purposes, let’s assume we have some data (our CSCI data: <code>csci_clean</code>) that we want to make a map of to visualize things. But the site information (<code>sites_clean</code>) is in a separate dataframe or file! This happens all the time. Databases keep different tables, and to avoid redundancy in data, there may be one table that just has site location information and maybe a description of each site, and a table where the actual data collected at the site lives.</p>
+<p>Let’s join our site table with our CSCI table to make a single dataset that contains both the scores for our bioassessment data, and our site localities. This will help us plot and map the data later. Remember to keep track of how many rows and columns we have in each of our datasets.</p>
+<p>Let’s use an <code>inner_join()</code> here, because we only want to keep sites that have matching Site ID codes between the CSCI data and the Sites data. If the <em>join</em> column (our Site ID) is named the exact same in each table, this is easy. We could use something like this:</p>
+<pre class="r"><code># load dplyr package
+library(dplyr)
+
+# join data by common column: same name
+csci_sites_match &lt;- inner_join(csci_clean, sites_clean)</code></pre>
+<pre><code>Error: `by` must be supplied when `x` and `y` have no common variables.
+ℹ use by = character()` to perform a cross-join.
+Run `rlang::last_error()` to see where the error occurred.</code></pre>
+<p>Uh-oh. But look! This error message is pretty descriptive, it tells us the two pieces we are working with (x=<code>csci_clean</code> and y=<code>sites_clean</code>) don’t have a common column name (or <code>variable</code>). Then it gives us a suggestion, <code>use by = character()</code>. Let’s try that and see what it looks like!</p>
+<pre class="r"><code># join data by common column: different name
+csci_sites_match &lt;- inner_join(csci_clean, sites_clean,
+                               # now the by, remember x col first, then y
+                               by=c(&quot;StationCode&quot;=&quot;StationID&quot;))
+
+# now we have lat and lon in our dataframe with the data!
+str(csci_sites_match)</code></pre>
+<pre><code>## tibble [1,612 × 10] (S3: tbl_df/tbl/data.frame)
+##  $ SampleID_old  : chr [1:1612] &quot;000CAT148_8.10.10_1&quot; &quot;000CAT228_8.10.10_1&quot; &quot;102PS0139_8.9.10_1&quot; &quot;103CDCHHR_9.14.10_1&quot; ...
+##  $ StationCode   : chr [1:1612] &quot;000CAT148&quot; &quot;000CAT228&quot; &quot;102PS0139&quot; &quot;103CDCHHR&quot; ...
+##  $ COMID         : num [1:1612] 8942501 8942503 23936337 22226836 22226634 ...
+##  $ E             : num [1:1612] 16.1 16.1 15.5 21.1 16.8 ...
+##  $ OE            : num [1:1612] 0.931 0.973 1.09 1.09 1.078 ...
+##  $ pMMI          : num [1:1612] 1.045 0.99 1.054 1.083 0.916 ...
+##  $ CSCI          : num [1:1612] 0.988 0.981 1.072 1.087 0.997 ...
+##  $ SampleID_old.1: chr [1:1612] &quot;000CAT148_8.10.10_1&quot; &quot;000CAT228_8.10.10_1&quot; &quot;102PS0139_8.9.10_1&quot; &quot;103CDCHHR_9.14.10_1&quot; ...
+##  $ lat           : num [1:1612] 39.1 39.1 42 41.8 41.9 ...
+##  $ lon           : num [1:1612] -120 -120 -123 -124 -124 ...</code></pre>
+<p><br></p>
+<p>Great! But what about the site that <strong>didn’t</strong> join? What if we want to find out which one it was, so we can figure out why, or go collect data there?
+<br></p>
+<blockquote>
+<p><strong>The Anti Join</strong></p>
+</blockquote>
+<p>Let’s use an Anti-join and quickly look at the sites that didn’t match. Notice, <code>sites_clean</code> has the extra record, so we need to list it first and figure out what was missing.</p>
+<pre class="r"><code>anti_join(sites_clean, csci_clean,
+          by=c(&quot;StationID&quot;=&quot;StationCode&quot;))</code></pre>
+<pre><code>## # A tibble: 1 x 3
+##   StationID   lat   lon
+##   &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;
+## 1 205R00154  37.2 -122.</code></pre>
+<p>Notice we had to list both <code>sites_clean</code> first, as well as the <code>sites_clean</code> stationID column first.</p>
+<p><br></p>
+<div class="challenge">
+<p><strong>Challenge 2</strong></p>
+<ul>
+<li>If we switched the objects we used in the <code>anti_join</code> (as above in the original <code>inner_join</code>), R would return zero records. Why?</li>
+</ul>
+</div>
+<p><br></p>
+<details>
+<summary class="challenge-ans-title">
+<strong>Click for Answers!</strong>
+</summary>
+<div class="challenge-ans-body">
+<p>Because the <code>csci_clean</code> has <code>1612</code> records, and the <code>sites_clean</code> has <code>1613</code> records, and <em>all</em> the csci records joined when we used the <code>inner_join</code>, there are no records in <code>csci_clean</code> that didn’t join with the <code>sites_clean</code>. So R will return zero records!</p>
+</div>
+</details>
+<p><br></p>
+</div>
+<div id="save-it-out" class="section level2">
+<h2>Save it Out!</h2>
+<p>Remember how to do this? Let’s save this as a <code>.RData</code> file for now.</p>
+<pre class="r"><code># list our data object, and then the filepath and name
+# remember to use a relative path!
+save(csci_sites_match, file = &quot;data/csci_sites_match.rda&quot;)</code></pre>
+<p>Great work! Let’s <a href="m2_3_using_sf.html">move to the next lesson</a>.</p>
+</div>
+
+<!DOCTYPE html>
+
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+<div class="foot">
+	<hr> 
+	<p style="text-align: center;">
+	  <span style="color: #808080; display: inline-block; width: 58%;">
+	  &#9781 &nbsp;<i>Website design by <a href="https://ryanpeek.org/">Ryan Peek</i></a> &nbsp;  
+    <a href="https://github.com/Cal-SFS/" class="fa fa-github">Cal-SFS</a> &nbsp; &#9781
+    </span>
+  </p>
+</div>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
