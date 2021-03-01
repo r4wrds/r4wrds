@@ -27,7 +27,7 @@ Our goal is for you to learn how to use these tools so you can get stuff done. Y
 
  5. Download Data for the Workshop
 
-We've tried to provide some extra details below that are appropriate for either Windows or MacOSX operating systems. For additional installation options, see [here](https://datacarpentry.org/R-ecology-lesson/index.html#install-r-and-rstudio).
+Below, we provide extra details appropriate for Windows and MacOSX operating systems. For additional installation options, see [here](https://datacarpentry.org/R-ecology-lesson/index.html#install-r-and-rstudio).
 
 ## Step 1. Install &nbsp;[<img src="https://cran.r-project.org/Rlogo.svg" alt="R" width="7%">&nbsp;](https://cran.rstudio.com/)
 
@@ -37,34 +37,34 @@ R is the underlying statistical computing environment, or the engine we use to d
 Go to [CRAN and download](https://cran.rstudio.com/bin/windows/base/) the R installer for Windows. Make sure to choose the latest stable version (v4.0.4 as of Mar 2021). Download the <font color="#0072B2">`.exe`</font> file and double click to install.
 
  - You can click next through the standard dialogs and accept most defaults. But at the destination
-screen, please verify that it is installing it to `C:\Program Files\R` (*version number may vary*), and **you may need administrative privileges to do this if it's not your personal computer.**
+screen, please verify that R is installing `C:\Program Files\R` (*version number may vary*), and **you may need administrative privileges to do this if you're not working on your personal computer.**
 
 At the "Select Components" screen, you can accept the default and install both 32-bit and 64-bit versions.
 
 ![](images/install_arch_window.png#inline-img "select architecture")
 
-At this screen, uncheck 'Create a desktop icon' because non-admin users in Windows will be unable to delete it.
+At this screen, uncheck "Create a desktop icon" because non-admin users in Windows will be unable to delete it.
 
 ![](images/install_tasks.png#inline-img "uncheck desktop icon")
 
 ### *MacOS*: Download and install R
 
- - Download and install R from the CRAN website [here](https://cran.r-project.org/bin/macosx/). 
+ - Download and install R from the CRAN website [here](https://cran.r-project.org/bin/macosx/)
  - Select the `.pkg` file for the latest R version
- - Double click on the downloaded file to install R
- - It is also a good idea to install [XQuartz](https://www.xquartz.org/) if you don't have it (it is needed by some packages)
+ - Double click on the downloaded file to install R and follow the setup steps 
+ - Install [XQuartz](https://www.xquartz.org/) if you don't already have it (some packages require it)
 
 
 ## Step 2. Install &nbsp;[<img src="https://d33wubrfki0l68.cloudfront.net/62bcc8535a06077094ca3c29c383e37ad7334311/a263f/assets/img/logo.svg" alt="RStudio Desktop" width="14%">&nbsp;](https://www.rstudio.com/products/rstudio/download/)
 
-Using R alone is possible, but less ideal (and less fun!). RStudio is an open-source graphical integrated development environment or **IDE** that makes using R much easier and more interactive. We will only be using the *free RStudio Desktop version*.
+Using R alone is possible, but less ideal (and less fun!). RStudio is an open-source graphical **I**ntegrated **D**evelopment **E**nvironment or **IDE** that makes using R much easier and more interactive. In this course, we will use the *free RStudio Desktop version*.
 
 ### *Windows*: Download and install RStudio Desktop (free)
 
- - Download and install from [RStudio](https://www.rstudio.com/products/rstudio/download/)
+ - Download and install from [RStudio](https://rstudio.com/products/rstudio/download/#download)
  - Select **RStudio x.yy.zz - Windows Vista/7/8/10** (where x, y, z are version numbers)
  - Double-click the installer. It will ask for your administrator credentials to install, so you may need IT assistance if using a work computer.
- - Accept all the default options for the RStudio install.
+ - Accept all the default options for the RStudio install
 
 ### *macOS*: Download and install RStudio Desktop (free)
 
@@ -88,7 +88,7 @@ Once installed, RStudio should be accessible from the start menu.  Start up RStu
     version$version.string
     ```
 
- - **Verify your installed R version**: Ideally you should be running the latest stable release (`v4.0.4` as of March 2021). If you have an older version, please install the newest version using the instructions above.
+ - **Verify your installed R version is `v4.0.4`**: Ideally you should be running the latest stable release (`v4.0.4` as of March 2021). If you have an older version, please install the newest version using the instructions above.
 
  - Here is what a current R version looks like.
  
@@ -108,7 +108,7 @@ followed by a list of the packages you are trying to install. This is usually fo
 Do you want to install from sources the package which needs compilation? (Yes/no/cancel)
 ``` 
 
-After that message you will typically want/need to type "**Yes**". 
+After that message type "**Yes**" and hit "**Enter**" on the keyboard. 
 
 The core set of packages we will need are as follows. There may be a few more we need to install during the course, but this should be the majority.
 
@@ -160,7 +160,7 @@ brew install gdal
 
 ### Install Spatial R Packages
 
-After this has successfully installed, you can return to the RStudio console, and install the following packages:
+After this has successfully installed, return to the RStudio "Console", and install the following packages by typing the following into the console and pressing "return" on the keyboard:
 
 ```{r spatialPkgs, eval=FALSE, echo=TRUE}
 
@@ -176,7 +176,7 @@ library(sf)
 ```
 
 <aside>
-Additional geospatial installation instructions can be found [here](https://datacarpentry.org/geospatial-workshop/setup.html), but try the listed approaches first.
+Additional geospatial installation instructions can be found [here](https://datacarpentry.org/geospatial-workshop/setup.html), but try the listed approach first.
 </aside>
 
 
@@ -191,10 +191,10 @@ We'll be working with a few different datasets for this workshop (see [here](htt
 
 Just to make sure each package installed successfully, do the following:
 
-1. Open up RStudio.
-2. Find the "Console."  This is usually the left part RStudio.
+1. Open up RStudio
+2. Find the "Console."  This is usually the bottom left pane in RStudio
 3. In the "Console", find the R Prompt (the part that starts with `>`)
-4. Type in (or copy and paste from here will also work) the following command at the R Prompt and hit return.  
+4. Type in (or copy and paste from here will also work) the following command at the R Prompt and hit return  
 
 ```{r checkPkg, code_folding=TRUE}
 
