@@ -1,19 +1,8 @@
 name: "WRDS_R_intro"
-output_dir: docs
-output:
-  bookdown::html_document2:
-    theme: cosmo
-    number_sections: false
-    highlight: textmate
-    toc: true
-    toc_float:
-        collapsed: true
-    css: styles.css
-    lib_dir: site_libs
-    self_contained: no
-    include:
-        in_header: assets/header.html
-        after_body: assets/footer.html
+title: "R for Water Resources Data Science"
+description: |
+  R for Water Resources Data Science
+output_dir: "_site"
 navbar:
   title: "WRDS R Intro"
   type: inverse
@@ -91,3 +80,4 @@ navbar:
     href: resources.html
   - icon: fa-github fa-lg
     href: https://github.com/ryanpeek/WRDS_intro/
+output: distill::distill_article
