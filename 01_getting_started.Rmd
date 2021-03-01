@@ -1,11 +1,9 @@
 ---
-title: "Using R for bioassessment data: What, why, and how"
+title: "Getting Started with R"
 output: 
-  bookdown::html_document2:
-    code_fold: show
-    includes:
-      in_header: assets/header.html
-      after_body: assets/footer.html
+  output: 
+  distill::distill_article:
+    toc: true
 ---
 
 ```{r setup, include=FALSE, purl=FALSE, message=FALSE}
