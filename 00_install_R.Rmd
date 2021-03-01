@@ -5,9 +5,6 @@ description: |
 output: 
   distill::distill_article:
     toc: true
-    includes:
-      in_header: assets/header.html
-      after_body: assets/footer.html
 ---
 
 ```{r setup, include=FALSE}
@@ -196,7 +193,7 @@ Just to make sure each package installed successfully, do the following:
 3. In the "Console", find the R Prompt (the part that starts with `>`)
 4. Type in (or copy and paste from here will also work) the following command at the R Prompt and hit return  
 
-```{r checkPkg, code_folding=TRUE}
+```{r checkPkg}
 
 # check that these packages are installed successfully:
 c("tidyverse", "sf", "viridis", "mapview") %in% installed.packages()
