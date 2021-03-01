@@ -56,16 +56,11 @@ In this course, we will practice:
 We will follow the [SFS Code of Conduct](https://freshwater-science.org/about/society-governance/code-of-conduct) throughout our workshop.
 
 
-
-## Software requirements
-
-Please setup a computer/laptop with the latest version of RStudio and R installed.  Download the compressed [data](https://github.com/ucd-cws/CABW2020_R_training/raw/main/data/datazip.zip) folder and make sure it is accessible on your computer.  The [setup instructions](01_setup_R.html) will guide you through the rest of the process.  Take note of the required R packages that you must also download and install.  Please contact the instructors with any questions or issues related to setup.  
-
 <br>
 
 ## Source content
 
-All source materials for this website can be accessed at **[final GH location, perhaps CAOpenWater/wrds]**
+All source materials for this website can be accessed at **[final GH location, perhaps CAOpenWater/wrds]**.
 
 <br>
 
@@ -76,4 +71,4 @@ Content in these lessons has been modified and/or adapted from [Data Carpentry: 
 
 ---
 
-*site updated: ```r format(Sys.time(), "%Y-%m-%d %H:%M")```*
+*site last updated: ```r format(Sys.time(), "%Y-%m-%d %H:%M")```*
