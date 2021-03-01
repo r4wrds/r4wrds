@@ -41,3 +41,5 @@ vignettes/*.pdf
 
 # ignore _site builds so we can see what files are changing - we can remove this for deploy
 _site
+
+docs/*
