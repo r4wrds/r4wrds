@@ -2,7 +2,7 @@ name: "WRDS_R_intro"
 title: "R for Water Resources Data Science"
 description: |
   R for Water Resources Data Science
-output_dir: "_site"
+output_dir: "docs"
 navbar:
   title: "WRDS R Intro"
   type: inverse
