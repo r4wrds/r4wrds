@@ -1,0 +1,194 @@
+---
+title: "Project Management: Let's Get Organized"
+output: 
+  bookdown::html_document2:
+    code_fold: show
+    includes:
+      in_header: assets/header.html
+      after_body: assets/footer.html
+---
+
+```{r setup, include=FALSE, purl=FALSE, message=FALSE}
+
+knitr::opts_chunk$set(echo = FALSE)
+library(knitr)
+
+```
+
+<br> 
+
+:::obj
+
+**Learning objectives**
+ 
+ - Understand motivation for using scripts and data management
+ - Know how to organize code, data, and results
+ - Know the basics of file paths and directory structures
+ - Be able to create and use an RStudio project
+ 
+:::
+
+<br>
+
+## Where Am I?
+
+![](https://upload.wikimedia.org/wikipedia/commons/3/39/Messy_storage_room_with_boxes.jpg)
+
+Any time you’re working on your computer, you are navigating amidst a forest of files and folders. One of the best habits you can form (whether you are using R or not!), is **intentionally keeping a clear structure**, no matter what project or task you face.
+
+This becomes especially important when using computer programming like `r icon::fa("r-project", color="steelblue")` in your work. You will need to tell R, very specifically, where you are and where your files are in the forest of your computer. Where you are is typically referred to as the **working directory**. In `r icon::fa("r-project", color="steelblue")`, think of this as your homebase, and everything is *relative* to this folder/location on your computer.
+
+<br>
+
+### The Working Directory
+
+The working directory could be something like "`Myname/Documents`", or it could be something more specific like  "`MyName/Documents/Projects/2020`". You can always check with `getwd()`! Importantly, everything you do should be relative to that working directory. 
+
+That means we really **don't** want to use things like `setwd()` (set working directory) to locate a file or folder on our computer, or use a hard path (i.e., a full path like `C:/MyUserName/My_Documents/A_Folder_You_May_Have/But_This_One_You_Definitely_Dont/`). That's because this will pretty much **never** work on anyone's computer other than your own, and sometimes it may not even work on your computer if you change a file name or folder! We really want to set a good habit, to make things reproducible for others, and for our future self. 
+
+<br>
+<br>
+
+## File Paths
+
+In R, file paths are always wrapped in quotes. There are 2 basic kinds of file paths: 
+ 
+ - **Absolute**: Absolute paths list out the full file path, usually starting with your username, which you can also refer to using the shortcut ~. So instead of `C:/MyName/Documents` or `/Users/MyName/Documents`, you can type `~/Documents`. **But generally, the only place an absolute path will work is your computer! It will break on anyone else computer, or anytime you move or rename something!**
+ 
+ - **Relative**: Relative paths are relative to your working directory. So if R thinks we’re in that `~/MyName/Documents/Projects/2020` folder, and we want to access a file in a folder inside it called `data`, we can type `data/my_file` instead of `~MyName/Documents/Projects/2020/data`. 
+
+<br>
+
+### Using the **[{here}](https://here.r-lib.org/)** package
+
+Good news! There's a package that can make this easier. The **{here}** package makes it easy to create a path *relative* to the top-level directory (the place where your current project is or any time you call `here()`). In addition, we can use `here()` to build a relative path to a file for saving or loading. Let's say we're working in our `MyName/Documents/Projects/2020` folder.
+
+```{r, eval=FALSE, echo=TRUE}
+
+library(here)
+
+# identify your working directory.
+here()
+#> [1] /Users/MyName/Documents/Projects/2020
+
+# load a file from `MyName/Documents/Projects/2020/data/superdata.csv`
+read.csv(here("data", "superdata.csv"))
+
+
+```
+
+
+```{r here, out.width = "90%", echo=FALSE, fig.cap='*Illustration by @allison_horst.*'}
+
+knitr::include_graphics("https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/here.png")
+
+```
+
+<br>
+
+## Use Project Workflows
+
+What do we mean by "using projects"? Think of a general pattern or structure that we can use for each work project we have. This approach isn't just specific to R. Any good data scientist will generally have a folder structure and organization scheme they follow, no matter what programming language they use.
+
+But the general idea is to always keep the same structure, and naming schemes, for every project. Do this every single time with every single project you make, in order to make it a habit. This will save you time and brainpower! Imagine quickly moving between tasks or projects with minimal time spent "*trying to find where things are and get oriented*". You'll always know where things should be!
+
+Here's some sage advice from Jenny Bryan and Jim Hester from [What They Forgot to Teach you About R](https://rstats.wtf/) (worth checking out!):
+
+ - File system discipline: put all the files related to a single project in a designated folder.
+ - This applies to data, code, figures, notes, etc.
+ - Depending on project complexity, you might enforce further organization into subfolders.
+ - Use a standard naming convention for files & folders (*no spaces!*).
+ - Working directory intentionality: when working on project A, make sure working directory is set to project A’s folder.
+ - Don't use absolute paths!
+ - File path discipline: all paths are relative and, by default, relative to the project’s folder.
+
+<br>
+
+### RStudio Projects
+
+Within the R environment, something that makes project management and organization much easier is the use of RStudio Projects (`.Rproj`). Within RStudio, this is baked in and pretty easy to do. One of the nicest parts of using **RProjects** is that they automatically set the working directory to the folder containing the `.RProj` file. You can make any existing folder an RProject folder, or make a new one!
+
+<br>
+
+<details><summary class="extra-practice-title">Extra Practice</summary>
+  <div class="extra-practice-body">
+Avoid using `setwd()`! More reasons and rational [linked here](https://rstats.wtf/project-oriented-workflow.html#setwd)
+  </div>
+</details
+
+<br>
+<br>
+
+### Always start R as a blank slate
+
+When you quit R, do not save the workspace to an `.Rdata` file. When you launch, do not reload the workspace from an `.Rdata` file.
+
+In fact, we should all make our default setting a blank slate. We should only be loading and working on data and code that we knowingly and willingly open or import into R.
+
+ > In RStudio, set this via *Tools > Global Options*
+ 
+(ref:workspaceDef) *Change defaults to never save your workspace to `.RData`! (Credit to Jenny Bryan and Jim Hester at [rstats.wtf](https://rstats.wtf/save-source.html))*
+
+```{r tidyplotgraphic, eval=TRUE, out.width='100%', fig.cap='(ref:workspaceDef)'}
+
+knitr::include_graphics(path="images/rstudio-workspace-default.png")
+
+
+``` 
+
+<br>
+
+## Best Practices: Organization Tips
+
+Although there is no “best” way to lay out a project, there are some general principles to adhere to that will make project management easier. 
+
+<br>
+
+### Safe File Naming
+
+This is really important and will make life easier for everyone in the long run. Jenny Bryan has the best set of slides on this, so take a few minutes and go read them. Then be the change!
+
+ > [Slides You Need to Read](https://speakerdeck.com/jennybc/how-to-name-files)
+ 
+**TL&DR**
+ 
+ - File names should be machine readable (i.e., no spaces)
+ - Human readable (`01_import_clean_data.R`)
+ - Makes default ordering easy (i.e., dates are always `YYYY-MM-DD`)
+
+<br>
+
+### Treat raw data as **`read only`**
+
+This is probably the most important tip for making a project reproducible and hassle free. Raw data should never be edited, because you don't want to permanently change your starting point in an analysis, and you want to have a record of any changes you make to data. Therefore, treat your raw data as “read only”, perhaps even making a **`raw_data`** directory that is never modified. If you do some data cleaning or modification, save the modified file separate from the raw data, and ideally keep all the modifying actions in a script so that you can review and revise them as needed in the future.
+
+<br>
+
+### Treat generated output as disposable
+
+Anything generated by your scripts should be treated as disposable: it should all be able to be regenerated with code. Don't get attached to anything other than your raw data, and your code! There are lots of different ways to manage this output, and what’s best may depend on the particular kind of project. 
+
+<br>
+
+### Basic Folders for Every Project
+
+At a minimum, it’s useful to have separate directories for each of the following:
+
+ - **`data`**: Ideally keep data in a `.csv` format, because these simple and universal data. You may have other specialized formats as well. This is generally where original, raw data lives.
+ - **`data_output`**: This is where you save any data or analysis outputs. Any time you clean, tidy, summarize, or otherwise manipulate the data and save it out, it should end up somewhere clearly different than the raw data location.
+ - **`scripts`**: In the `r icon::fa("r-project", color="darkblue")` world, this is generally `.R` files. However, maybe you have `.do` files if Stata is your thing, `.py` files for Python, etc. Using a sequential numbering file naming scheme can be useful. Remember to pad with a zero to make file sorting/ordering easy.
+ - **`results`**: This could be for model results, data analysis, slides, whatever. Some folks may like to keep figures in this folder, others may like to make a specific `figures` folder.
+ - **`documents`**: This is a place you can keep documents, papers, pdfs, etc. Typically where files with `.docx`, `.Rmd` (for RMarkdown), and `.pdf` or even `.html` may live.
+ 
+ <br>
+ 
+```{r workingStructure, out.width="90%", eval=T, echo=FALSE, fig.cap="*An example project folder structure*"}
+
+knitr::include_graphics("https://gge-ucd.github.io/R-DAVIS/img/working-directory-structure.png")
+
+```
+ 
+
+<br>
+<br>
+*Lesson adapted from [R-DAVIS](https://gge-ucd.github.io/R-DAVIS/index.html), Jenny Bryan and Jim Hester's [What they forgot to teach you about R](rstats.wtf), and the [Data Carpentry: R for data analysis and visualization of Ecological Data](https://datacarpentry.org/R-ecology-lesson/index.html) lessons*.

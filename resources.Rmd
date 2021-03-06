@@ -1,11 +1,10 @@
 ---
 title: "Resources"
-output:
-  bookdown::html_document2:
+description: |
+  Continue along your journey in mastering R
+site: 
+  distill::distill_website:
     toc: false
-    includes:
-      in_header: assets/header.html
-      after_body: assets/footer.html
 ---
 
 <br>

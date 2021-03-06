@@ -31,16 +31,18 @@ knitr::include_graphics(path = "https://raw.githubusercontent.com/allisonhorst/s
 
 **Course Modules**
 
-In this course, we will practice:
+In this course, we will:
 
-* [Data and file management: understanding RProjects and file paths](00_install_R.html)
-* Understanding and identifying different data formats (i.e., wide, long, tidy) and data structures (i.e., vectors, dataframes, lists) 
-* Importing and exporting various water resources data
-* Strategies for Exploratory Data Analysis (EDA)
-* Strategies for troubleshooting (reading documentation, intro to reprex)
-* Transforming data with {`dplyr`}
-* Data visualization with {`ggplot2`}
-* Data presentation and communication with {`RMarkdown`}
+1. [Install R and RStudio](00_install_R.html)
+2. [Get oriented in RStudio](01_getting_started.Rmd)
+3. Practice data and file management: understand RProjects and file paths  
+4. Understand and identify different data formats (i.e., wide, long, tidy) and data structures (i.e., vectors, dataframes, lists) 
+5. Import and export various water resources data
+6. Explore strategies for Exploratory Data Analysis (EDA)
+7. Explore strategies for troubleshooting (reading documentation, intro to reprex)
+8. Transform data with {`dplyr`}
+9. Visualize data with {`ggplot2`}
+10. Practice data presentation and communication with {`RMarkdown`}
 
 
 :::
