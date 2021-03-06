@@ -1,0 +1,233 @@
+---
+title: "Importing and Exporting Data"
+description: |
+  A journey of ten thousand steps begins with a single <font color="#009E73">**import**</font> and ends with an <font color="#0072B2">**export**</font>.
+output: 
+  distill::distill_article:
+    toc: true
+---
+
+
+<br> 
+
+:::obj
+
+**Learning objectives**
+ 
+ - Know the basics of how a function works
+ - Understand how to read (import) data into R
+ - Explore data within R using `View()`
+ - Understand how to write (export) data from R
+ - Understand how to read and write different data formats (e.g., excel, csv, shp, rds, dbf, access)
+ 
+:::
+
+<br>
+
+## What's a function?
+
+Functions are how work gets done in `R`, and before we jump into reading and writing data, we need to know how functions work because we will use functions to perform these tasks.
+
+A **function** takes any number of **arguments** and, performs some transformations, and returns an **output**. 
+
+For example, the `R` function `sum()` takes any number of numeric arguments and adds them together (recall you can view the documentation for `sum()` by entering `?sum`). Let's add 1 and 2 like so:  
+
+```{r function-example-sum}
+
+sum(1, 2)
+
+```
+
+In `R`, we can create sequences easily. If we wanted to create a sequence of numbers from 1 to 10, we can use the function `seq()`, which takes 3 arguments: `from` (start value), `to` (end value), and `by` (increment of the sequence). 
+
+```{r sequence}
+
+seq(0, 10, 1)
+
+```
+
+Because creating sequences incremented by 1 are so common, there's a special shorthand for these sequences, `1:10`. Let's take the sum of the sequence from 1 to 10 by providing it as an argument to the function `sum()`:
+
+```{r sequence-sum}
+
+sum(1:10)
+
+```
+
+
+`sum()` and `seq()` are two of many functions you'll encounter in `R`. Like all functions, they take inputs (arguments) and return an output. To take advantage of functions, we need to apply them to our data. Let's now use import and export functions in R to explore some water resources data.  
+
+<br>
+
+## Read (import) data
+
+Data come in many formats, and `R` has utilities for reading and writing all kinds of data. In this lesson, we'll explore some of the most common data formats you'll encounter in the wild, and the functions used to import these data.
+
+### comma separated value (csv) file 
+
+The comma separated value, or csv, is a simple and effective way to store tabular data. To read a csv file, we first import the {`readr`} library, which contains the function `read_csv()`. We also load {`here`} in order to easily navigate our working directory. Let's read a file from our `data` folder that contains station information for groundwater level monitoring sites in California. 
+
+```{r}
+library(here)
+library(readr)
+
+# read the "stations" csv, save it as an object called "stations", and print the object
+stations <- read_csv(here("data", "gwl" ,"stations.csv"))
+stations
+
+```
+
+The printed output shows us the first few rows of the stations data we just read, but if we wanted to dig a bit deeper and see more than 10 rows and 7 columns of data, we can use the function `View()`, which in RStudio opens a data viewer. 
+
+```{r view-data}
+
+View(stations)
+
+```
+
+Within the viewer, we can search the dataset, sort rows, and scroll through the tabular data to inspect it.
+
+
+
+<br>  
+
+### Excel file format (xlsx and xls)
+
+Excel files are very common, and R has great utilities for reading in and processing excel files. [Calenviroscreen data](https://oehha.ca.gov/calenviroscreen) comes in excel format, which we can read in like so:
+
+```{r import-excel, warning=FALSE}
+library(readxl)
+ces <- read_xlsx(here("data", "calenviroscreen", "ces3results.xlsx"))
+head(ces, 10) # print the first 10 rows
+```
+
+By default, `read_xlsx()` reads in the first sheet. However, there may be many sheets in an excel file. If we want to read in a different sheet, we can tell R to look elsewhere.
+
+
+:::challenge
+
+**Challenge N**
+
+1. open the documentation for `read_xlsx()` using `?` (Hint: type `?read_xlsx` in the console and hit enter)
+2. read through the Arguments to get a sense of what else the function can do
+3. Read in sheet number 2 of "ces3results.xlsx" and pick the number of lines to skip to read in the data. 
+
+:::
+
+<br>
+
+<details>
+  <summary class="challenge-ans-title">**Click for Answers!**</summary>
+  <div class="challenge-ans-body">
+
+```{r import-excel-challenge}
+metadata <- read_xlsx(here("data", "calenviroscreen", "ces3results.xlsx"), 
+                      sheet = 2, 
+                      skip  = 6)
+metadata
+```
+
+  </div>
+</details>
+
+
+<br>
+
+### ArcGIS file format (shp)
+
+Geospatial data is ubiquitous. So is the ArcGIS data format, the shapefile. A georeferenced shapefile is, at minimum made of 4 files: .shp, .prj, .dbf, and .shx. 
+
+```{r, read-shp}
+
+# unzip Sacramento county shapefile
+unzip(here("data", "shp", "sac_county_shp.zip"), exdir = here("data", "shp"))
+
+# read the shapefile
+library(sf)
+sac_county <- st_read(here("data", "shp", "sac_county.shp"))
+
+```
+
+
+```{r plot-sac}
+
+library(ggplot2)
+ggplot(sac_county) + geom_sf()
+
+```
+
+
+### dbf
+
+.dbf files are one kind of database file. If you've ever opened a shapefile with attribute information, you've used a .dbf file. The `forgiegn` package allows us to read .dbf files into R. Since this is a new package, we need to install it with `install.packages("foreign")`. 
+
+We've been loading entire packages with the `library()` function, but you can also call a function from a package without loading it by using `<package_name>::<function_name>` syntax. Let's load the .dbf file from our Sacramento County polygon.  
+
+```{r import-dbf}
+foreign::read.dbf(here("data","shp","sac_county.dbf"))
+```
+
+
+### rds and .rda (.RData)
+
+`.rds` and .rda (shorthand for .RData) are a special R-based data formats used to store R objects. These files can be read in just like another other import function. Let's use it to import the groundwater level station data we read in earlier. Note that a .rds file can hold any R object.
+
+```{r}
+
+```
+
+
+### access
+
+```{r}
+
+```
+
+
+## Write (export) data
+
+
+```{r}
+
+```
+
+
+
+
+:::challenge
+
+**Challenge N**
+
+1. create an object called `breakfast` and assign it a string with what you had for breakfast. 
+2. write that object to `breakfast.rds` file in `/results`
+3. verify this worked by reading the string back in and inspecting it
+
+:::
+
+<br>
+
+<details>
+  <summary class="challenge-ans-title">**Click for Answers!**</summary>
+  <div class="challenge-ans-body">
+
+```{r }
+
+# create a string and write it to an rds file
+breakfast <- "green eggs and ham"
+
+# write_rds takes two arguments: the object to write and location to wite it
+write_rds(breakfast, here("results", "breakfast.rds"))
+
+# read the rds file back into R and save it as a variable
+my_breakfast <- read_rds(here("results", "breakfast.rds"))
+
+# use the `cat()` function (concatenate) to announce your breakfast
+cat("Today for breakfast I ate", my_breakfast)
+
+```
+
+  </div>
+</details>
+
+<br>  
+
