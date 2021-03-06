@@ -6,74 +6,74 @@ output_dir: "docs"
 navbar:
   title: "WRDS R Intro"
   type: inverse
-  left:
-  - text:
-    icon: fa-home fa-1.5x
-    href: index.html
-  - text: "Setup"
-    icon: ion-hammer
-    menu:
-    - text: "Installing R/RStudio"
-      icon: fa-laptop
-      href: 00_install_R.html
-    - text: "Setting up RStudio Cloud"
-      icon: fa-cloud
-      href: 01_RStudio_cloud.html
-    - text: "Getting Started"
-      icon: fa-map-signs
-      href: 02_setup_R.html
-    - text: "Project Management"
-      icon: fa-sitemap
-      href: 03_project_management.html
-  - text: "1: Data In, Plot Out!"
-    icon: fa-bicycle fa-1x
-    menu:
-    - text: "Lesson 1:"
-    - text: "Importing Data"
-      icon: fa-download
-      href: m1_1_using_R.html
-    - text: "Lesson 2:"
-    - text: "Wrangling Data"
-      icon: fa-magic
-      href: m1_2_wrangling.html
-    - text: "Lesson 3:"
-    - text: "Plotting with ggplot"
-      icon: fa-area-chart
-      href: m1_3_plotting.html
-  - text: "2: Excel to a Map"
-    icon: fa-car
-    menu:
-    - text: "Lesson 1:"
-    - text: "Working from Excel"
-      icon: fa-table
-      href: m2_1_working_w_xls.html
-    - text: "Lesson 2:"
-    - text: "Joining Data"
-      icon: fa-object-ungroup
-      href: m2_2_joins.html
-    - text: "Lesson 3:"
-    - text: "Using {sf}"
-      icon: fa-map-pin
-      href: m2_3_using_sf.html
-    - text: "Lesson 4:"
-    - text: "Make a Map!"
-      icon: fa-map fa-1x
-      href: m2_4_mapping_w_sf.html
-  - text: "And Beyond"
-    icon: fa-space-shuttle fa-1x
-    menu:
-    - text: "Getting US Boundaries"
-      icon: fa-code-branch
-      href: m3_1_usaboundaries.html
-    - text: "Downloading NHD River Data"
-      icon: fa-tint
-      href: m3_2_nhdtoolsPlus.html
-    - text: "Query the NLDI Network"
-      icon: fa-road
-      href: http://usgs-r.github.io/dataRetrieval/articles/nldi.html
-    - text: "Helpful Packages"
-      icon: fa-archive
-      href: m3_3_useful_water_pkgs.html
+  # left:
+  # - text:
+  #   icon: fa-home fa-1.5x
+  #   href: index.html
+  # - text: "Setup"
+  #   icon: ion-hammer
+  #   menu:
+  #   - text: "Installing R/RStudio"
+  #     icon: fa-laptop
+  #     href: 00_install_R.html
+  #   - text: "Setting up RStudio Cloud"
+  #     icon: fa-cloud
+  #     href: 01_RStudio_cloud.html
+  #   - text: "Getting Started"
+  #     icon: fa-map-signs
+  #     href: 02_setup_R.html
+  #   - text: "Project Management"
+  #     icon: fa-sitemap
+  #     href: 03_project_management.html
+  # - text: "1: Data In, Plot Out!"
+  #   icon: fa-bicycle fa-1x
+  #   menu:
+  #   - text: "Lesson 1:"
+  #   - text: "Importing Data"
+  #     icon: fa-download
+  #     href: m1_1_using_R.html
+  #   - text: "Lesson 2:"
+  #   - text: "Wrangling Data"
+  #     icon: fa-magic
+  #     href: m1_2_wrangling.html
+  #   - text: "Lesson 3:"
+  #   - text: "Plotting with ggplot"
+  #     icon: fa-area-chart
+  #     href: m1_3_plotting.html
+  # - text: "2: Excel to a Map"
+  #   icon: fa-car
+  #   menu:
+  #   - text: "Lesson 1:"
+  #   - text: "Working from Excel"
+  #     icon: fa-table
+  #     href: m2_1_working_w_xls.html
+  #   - text: "Lesson 2:"
+  #   - text: "Joining Data"
+  #     icon: fa-object-ungroup
+  #     href: m2_2_joins.html
+  #   - text: "Lesson 3:"
+  #   - text: "Using {sf}"
+  #     icon: fa-map-pin
+  #     href: m2_3_using_sf.html
+  #   - text: "Lesson 4:"
+  #   - text: "Make a Map!"
+  #     icon: fa-map fa-1x
+  #     href: m2_4_mapping_w_sf.html
+  # - text: "And Beyond"
+  #   icon: fa-space-shuttle fa-1x
+  #   menu:
+  #   - text: "Getting US Boundaries"
+  #     icon: fa-code-branch
+  #     href: m3_1_usaboundaries.html
+  #   - text: "Downloading NHD River Data"
+  #     icon: fa-tint
+  #     href: m3_2_nhdtoolsPlus.html
+  #   - text: "Query the NLDI Network"
+  #     icon: fa-road
+  #     href: http://usgs-r.github.io/dataRetrieval/articles/nldi.html
+  #   - text: "Helpful Packages"
+  #     icon: fa-archive
+  #     href: m3_3_useful_water_pkgs.html
   right:
   - text: "Resources"
     icon: fa-list
