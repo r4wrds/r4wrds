@@ -66,7 +66,7 @@ Data come in many formats, and `R` has utilities for reading and writing all kin
 
 ### csv (comma separated values) 
 
-The comma separated value, or csv, is a simple and effective way to store tabular data. To read a csv file, we first import the {`readr`} library, which contains the function `read_csv()`. We also load {`here`} in order to easily navigate our working directory. Let's read a file from our `data` folder that contains station information for groundwater level monitoring sites in California. 
+The comma separated value, or csv, is a simple and effective way to store tabular data. To read a csv file, we first import the {`readr`} library, which contains the function `read_csv()`. We also load {`here`} in order to easily navigate our working directory. Let's read a file from our `data/gwl` folder that contains station information for groundwater level monitoring sites in California. We use the "relative path" created by `here()`, which encode the much longer "absolute path". You can also type "data/" and press **Tab** with your cursor just after the "/" to view all files in that path.
 
 ```{r read-csv}
 library(here)
@@ -77,6 +77,7 @@ stations <- read_csv(here("data", "gwl" ,"stations.csv"))
 stations
 
 ```
+
 R tells us upon import that this data has 43,807 rows and 15 columns. We can verify this with the `nrow()` and `ncol()` functions, and the `dim()` function:
 
 ```{r col-row-len}
@@ -105,7 +106,7 @@ View(stations)
 
 Within the viewer, we can search the data.frame, sort rows, and scroll through the data to inspect it.
 
-A data.frame is made of many vectors of the same length. We can access a column using the `$` operator, and subset the vector with bracket notation `[`. To access the first entry in the `WELL_TYPE` column: 
+A data.frame is made of many vectors of the same length. We can access a column using the `$` operator, and subset the vector with bracket notation `[`. To access the first row in the `WELL_TYPE` column: 
 
 ```{r dollar-sign}
 
