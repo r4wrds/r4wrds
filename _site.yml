@@ -83,3 +83,4 @@ navbar:
 output:
   distill::distill_article:
     highlight: rstudio
+    css: styles.css
