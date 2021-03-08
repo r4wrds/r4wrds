@@ -106,7 +106,7 @@ View(stations)
 
 Within the viewer, we can search the data.frame, sort rows, and scroll through the data to inspect it.
 
-A data.frame is made of many vectors of the same length. We can access a column using the `$` operator, and subset the vector with bracket notation `[`. To access the first element in the `WELL_TYPE` column: 
+A data.frame is made of many vectors of the same length. We can access a column using the `$` operator, and subset the vector with bracket notation `[`. To access the first row in the `WELL_TYPE` column: 
 
 ```{r dollar-sign}
 
