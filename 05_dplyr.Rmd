@@ -1,0 +1,127 @@
+---
+title: "Wrangling Data with dplyr"
+description: | 
+  Making data analysis fun!
+output: 
+  distill::distill_article:
+    toc: true
+---
+
+```{r setup, include=FALSE, purl=FALSE, message=FALSE}
+
+library(knitr)
+library(here)
+
+```
+
+:::obj
+
+**Learning objectives**
+ 
+ - Learn how to tidy and manipulate datasets
+ - Understand how to use the pipe (`%>%`) to chain operations together
+ - Understand the basic tools of tidying and transforming data
+ - Learn the core {dplyr} verbs (`select`, `filter`, `group_by`, `summarize`)
+
+:::
+
+## Data wrangling with **{dplyr}**
+
+Data wrangling is the part of any data analysis that will take the most time. While it may not necessarily be fun, it is foundational to all the work that follows. Often, it also takes significantly longer than actually performing the data analysis or creating a data visualization, so do not panic if, in the future, you find yourself spending a lot of time on this single step. 
+
+(ref:AHtidyplot) *Illustration by @allison_horst, from Hadley Wickham's talk "The Joy of Functional Programming (for Data Science)"*
+
+
+```{r tidywrangle, eval=TRUE, echo=FALSE, out.width='100%', fig.cap='(ref:AHtidyplot)'}
+
+# these are all from Allison Horst: https://github.com/allisonhorst/stats-illustrations
+# CITE AS: "Artwork by @allison_horst"
+
+knitr::include_graphics(here("images", "data_cowboy.png"))
+
+```
+
+The data wrangling process includes data import, tidying, and transformation.  The process directly feeds into, and is not mutually exclusive with, the *understanding* or modeling side of data exploration.  More generally, data wrangling is the manipulation or combination of datasets for the purpose of analysis.  
+
+```{r out.width = "100%", echo=F, fig.cap = '*Image from "R for Data Science" by Garrett Grolemund and Hadley Wickham.*'}
+knitr::include_graphics(here("images", "data-science-wrangle.png"))
+```
+
+**All wrangling is based on a purpose.**  No one wrangles for the sake of wrangling (usually), so the process always begins by answering the following two questions:
+
+* What do my input data look like?
+* What should my data look like given what I want to do?
+
+At the most basic level, going from what your data looks like to what it should look like will require a few key operations.  Some common examples:
+
+* Selecting specific variables
+* Filtering observations by some criteria
+* Adding or modifying existing variables
+* Renaming variables
+* Arranging rows by a variable
+* Summarizing a variable conditional on others
+
+The **`{dplyr}`** package provides easy tools for these common data manipulation tasks and is a core package from the [{tidyverse}](https://www.tidyverse.org/) suite of packages. The philosophy of **`{dplyr}`** is that **one** function does **one** thing and the name of the function says what it does. 
+
+Below your code that imports the dataset, let's make a new section! Go to **`Code`** > **`Insert Section`**, and type your new section header `Wrangling Data`. We can also use keyboard shortcuts for this (`Ctrl` or `⌘` + `Shift` + `R`). You should notice how this now appears in an expandable table of contents on the right hand side of your script pane (look for the tiny button that has little gray horizontal lines on it). This feature can be very helpful in keep your scripts organized.
+
+Alright, let's get wrangling!
+
+Any reproducible analysis should be able to start from scratch, and rebuild all the parts, sometimes over and over again. For that reason, it's a good habit to get into to **Restart your R Session**. Sometimes this solves issues, sometimes it's just good to make sure everything runs up to the point you are working. Let's do that now!
+
+ 1. Go to **`Session`** > **`Restart R`**!
+ 2. Check your `Environment` tab...it should be empty!
+ 3. Now we need to re-load our library, and re-load our data.
+
+
+```{r load-data}
+library(here)
+
+# read the stations.csv file and assign it to an object "stations"
+stations <- read.csv(here("data", "gwl", "stations.csv"))
+```
+
+
+
+:::challenge
+
+<font color="#009E73">**Challenge 1**</font> 
+
+1. Create an character vector called `meals` and assign it a string with what you plan to have for for breakfast, lunch, and dinner today.  
+2. Create a numeric vector called `cost` with the approximate cost in dollars of each meal.  
+3. Calculate the cost each meal if you ate that and only that for 365 days a year (Hint: multiply `cost` by 365, then take the `sum()`).  
+4. **Bonus**: Paste together a string that announces this cost.  
+
+:::
+
+<br>
+
+<details>
+  <summary class="challenge-ans-title"><font color="#0072B2">**Click for Answers!**</font></summary>
+  <div class="challenge-ans-body">
+
+```{r challenge-1}
+# create a string of three meals
+meals <- c("eggs, toast and coffee", "pizza", "tacos and salad")
+
+# cost of each meal in dollars
+cost <- c(2.25, 5.50, 8.95)
+
+# annual cost
+annual_cost <- cost * 365
+sum(annual_cost)
+
+# bonus
+paste("Three meals a day costs", sum(annual_cost), "per year.")
+```
+
+  </div>
+</details>
+
+
+
+## Basic data structures
+
+
+
+*Lesson adapted from [R for Data Science](https://r4ds.had.co.nz/)*.
