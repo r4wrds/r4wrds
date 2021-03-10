@@ -18,7 +18,7 @@ library(dplyr)
 
 # Welcome!
 
-The goals of this training are to expose you to fundamentals and to develop an appreciation of what is possible with R. Importantly, we hope to instill the idea that data science should be transferable and reproducible, no matter the specific tools (i.e., R) or the dataset used. Reproduciblity is a framework and mindset. An introductory course will not make you an expert, but hopefully it will draw you in, build excitement about using reproducible approaches to your own work, and show you how to be more efficient and less stressed when faced with messy real-world data!
+The goals of this training are to expose you to fundamentals and to develop an appreciation of what is possible with R. Importantly, we hope to instill the idea that data science should be transferable and reproducible, no matter the specific tools (i.e., R) or the dataset used. Reproducibility is a framework and mindset. An introductory course will not make you an expert, but hopefully it will draw you in, build excitement about using reproducible approaches to your own work, and show you how to be more efficient and less stressed when faced with messy real-world data!
 
 We hope you will find this workshop both fun and helpful, and we appreciate your patience as we continue to develop this course, both virtually and elsewhere! We would also like to thank [Allison Horst](https://twitter.com/allison_horst) for allowing us to use her incredible monste**R**s and R illustrations that you will see included throughout this course. 
 

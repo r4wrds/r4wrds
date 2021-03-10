@@ -1,7 +1,7 @@
 ---
 title: "Variable Storage & Data Structures"
 description: | 
-  Getting to know the building blocks of data science in R
+  The building blocks of data science in R
 output: 
   distill::distill_article:
     toc: true
@@ -27,7 +27,7 @@ library(knitr)
 
 ## Assignment
 
-R is an object oriented programming language, which means that it is oriented around objects which can be data (e.g., data.frames, vectors, lists) or code (e.g., functions). We've actually been using assignment already to create variables, or objects. In the previous lesson, we read in csv files and assigned them to a variable using the assignment operator `<-` (shortcut: `Alt` + `-`). Avoid using `=`, which will also work but cause confusion later ([here's a blog post on the history behind `<-` for later](https://colinfay.me/r-assignment/)). 
+R is an object oriented programming language, which means that it is oriented around objects which can be data (e.g., data.frames, vectors, lists) or code (e.g., functions). We've already been using assignment to create variables, or objects. In the previous lesson, we read in csv files and **assigned** them to a variable using the assignment operator, `<-` (RStudio shortcut: `Alt` + `-`). Avoid using `=` for assignment which will also work but cause confusion later ([here's a blog post on the history behind `<-`](https://colinfay.me/r-assignment/)). 
 
 When assigning an object, avoid overly simplistic names (e.g., `x`, `y`), and rather, pick concise names that describes the object and improve code interpretability. Let's read in our groundwater level station data and *assign* it to the variable name `stations`.
 
@@ -75,9 +75,11 @@ This function `str()` tells us the structure of the data. It gives us:
 
 ## Basic object classes
 
-Every object in R has a `class` property, and each property defines what functions will work on it. Understanding how to check the class of an object and figure out what functions can be applied to what object classes is paramount. Many bugs are the result of functions applied to the wrong object class.
+Every object in R has a `class` property, and each property defines what functions will work on it. Many bugs result from functions applied to the wrong object class, so it's important to know how to check the class of an object and figure out what functions can be applied to it. 
 
-Let's check the class of the object we created above:
+There are more base object classes in R, like matrices and arrays, but in this course we will focus on vectors, and devote most of our attention to a special type of list called the `data.frame` or `tibble`.  
+
+Let's check the class of the objects we created above with the `class()` function:
 
 ```{r class-data}
 class(stations)
@@ -93,9 +95,10 @@ class(river_name)
 
 ```
 
+
 As expected, `stations` is a data.frame, `stations$SITE_CODE` is a vector of *character*, and `river_name` is a single value of class *character*. **Vectors** are objects where every entry in that object is the **same type of data**. Sometimes, these are called **atomic vectors** because each part of the vector is the same.
 
-There are 4 major classes of vectors, arranged in order of complexity:
+There are 4 major classes of atomic vectors, arranged below in order of complexity.  
 
 * **logical** (`TRUE`, `FALSE`)  
 * **numeric** (contains both integer and double, but we will only cover double)  
@@ -106,7 +109,7 @@ Use the `c()` (**concatenate or combine**) function to create vectors. Let's use
 
 ```{r c}
 
-# logical: is the river dry or not at the time of measurement
+# logical: is the river dry at the time of measurement
 dry <- c(TRUE, FALSE, FALSE)
 
 # flow measured at each reach in cfs
@@ -134,7 +137,7 @@ class(reach)
 
 ### logical (boolean)
 
-Logical vectors (also called booleans) are the most simple type of atomic vectors, and can take one of three values: `TRUE`, `FALSE`, or `NA`. They can be output as the result of logical tests.
+Logical vectors (also called booleans) are the most simple type of atomic vectors, and can take one of three values: `TRUE`, `FALSE`, or `NA`. Logical vectors are output as the result of logical tests.
 
 <aside> There are many ways to query or use logical tests for data. In other languages like SQL, these are words like **AND**, **OR** **IN**. In R, we use **`&`** = AND, **`|`** for OR, and **`%in%`** for IN. For more on this see [Fig 5.1 in R4DS](https://r4ds.had.co.nz/transform.html#logical-operators). </aside>
 
@@ -155,8 +158,11 @@ Imagine you wanted to transform the numeric flow data you have from cubic feet p
 
 ```{r numeric-vectorized}
 
-# convert each element of "flow" from csf to gpm by multiplying by 448.83
-flow * 448.83
+# convert each element of "flow" from cfs to gpm by multiplying by 448.83
+flow_gpm <- flow * 448.83
+
+# print the result
+flow_gpm
 
 ```
 
@@ -167,7 +173,8 @@ If our factor variable `month` was an ordinary character vector, it would not so
 
 ```{r factor-sort}
 
-sort( c("July", "January", "February") )
+date_character <- c("July", "January", "February")
+sort( date_character )
 
 ```
 
@@ -175,13 +182,32 @@ The above is out of order, but if we define the **levels** that these ordinal va
 
 ```{r factor-sort-2}
 
+# create a factor by specifying the levels (order) of the variable
+date <- factor(c("July", "January", "February"), levels = month.name)
 sort(date)
 
 ```
 
 ### character (string)
 
-Characters vectors are flexible and can store strings of any length. There are many ways to work with strings from [basic string manipulation](https://r4ds.had.co.nz/strings.html), all the way to [natural language processing](https://www.tidytextmining.com/) that we don't have time to cover in this course.
+Character vectors can store arbitrary strings. There are many ways to work with strings from [basic string manipulation](https://r4ds.had.co.nz/strings.html), all the way to [natural language processing](https://www.tidytextmining.com/) that we don't have time to cover in this course, but you should know that they exist. 
+
+Create strings by enclosing them with quotation marks. It doesn't matter if you use single or double quotes, just be sure to use the same quote style for a single character string!  
+
+```{r char-quote}
+
+# create a character vector of length 1 using single quotes
+hello <- 'Why helloooo'
+
+# create a character vector of length 2 using double quotes
+instructors <- c("Rich", "Ryan")
+
+# paste the vectors together
+paste(hello, instructors)
+
+```
+
+Notice that when we pasted together a vector of length 1 with a vector of length 2, we got an output character vector of length 2. This concept is called "recycling" (because the shorter length vector was used twice, or recycled) and will come back later in this module.  
 
 
 :::challenge
@@ -191,6 +217,7 @@ Characters vectors are flexible and can store strings of any length. There are m
 1. Create an character vector called `meals` and assign it a string with what you plan to have for for breakfast, lunch, and dinner today.  
 2. Create a numeric vector called `cost` with the approximate cost in dollars of each meal.  
 3. Calculate the cost each meal if you ate that and only that for 365 days a year (Hint: multiply `cost` by 365, then take the `sum()`).  
+4. **Bonus**: Paste together a string that announces this cost.  
 
 :::
 
@@ -210,6 +237,9 @@ cost <- c(2.25, 5.50, 8.95)
 # annual cost
 annual_cost <- cost * 365
 sum(annual_cost)
+
+# bonus
+paste("It costs", sum(annual_cost), "per year to feed a Rich.")
 ```
 
   </div>
@@ -273,7 +303,7 @@ riv <- data.frame(reach, date, dry, flow)
 riv
 ```
 
-We can access any column from the data frame as a vector using the `$` notation. In RStudio, typing `$` also brings up an auto-complete, and we can see all of the columns in the data.frame.
+We can access any column from the data frame as a vector using the `$` notation. In RStudio, typing `$` also brings up an auto-complete, and we can see all of the columns in the `data.frame`.
 
 <aside> 
 ```{r, out.width='80%', echo=FALSE, fig.cap="Use $ to access columns"}
@@ -287,7 +317,7 @@ riv$flow
 
 ```
 
-We can also use `$` notation to remove a column, or add a **new column**.  
+We can also use `$` to remove a column if we assign an existing column to a value of `NULL`, or add a **new column** by entering a new column name not already present, and assigning it a value.  
 
 ```{r df-rm-col}
 
@@ -306,25 +336,26 @@ riv
 
 ```
 
-When we pass a vector to a `data.frame` with length less than the total number of rows of the `data.frame`, R will try to "recycle" the vector.
+When we assign a vector to a `data.frame` with length less than the total number of rows of the `data.frame`, R will try to "recycle" the vector.
 
 ```{r df-recycling, eval = FALSE}
 
 # add a vector "tech" for the "field technician" to be recycled
-riv$tech <- c("Rich", "Ryan")
+tech <- c("Rich", "Ryan")
+riv$tech <- tech
 
 ```
 
-Uh oh! This won't work because the length of the vector we attempted to add to the `data.frame` isn't equal to the number of rows or a multiple of the number of rows.
+Uh oh! This won't work because the length of the vector we attempted to add (2) to the `data.frame` isn't equal to, or a multiple of, the number of rows (3).
 
 ```{r df-recycling-2}
 
 nrow(riv) # total rows is 3
-nrow(riv) == length(c("Rich", "Ryan"))
+nrow(riv) == length(tech)
 
 ```
 
-However, if we add a vector to the `data.frame` with length 1:  
+However, if we add a vector to the `data.frame` with length 1 (which is a multiple of 3):  
 
 ```{r, df-recycling-3}
 
@@ -347,7 +378,7 @@ stations_df <- data.frame(stations)
 class(stations_df)
 ```
 
-`tibble`s have a dimension (rows and columns) which we can determine.
+`tibble`s are essentially spreadsheets in R, flat, 2D rectangular data made of rows and columns. We can check the number of rows and columns in a `tibble`. 
 
 ```{r df-dim}
 
@@ -357,11 +388,11 @@ ncol(stations)
 
 ```
 
-A `tibble` combines lists into columns, so its length is the same as its number of rows.
+A `tibble` combines lists into columns, so its length is the same as its number of columns.  
 
 ```{r, df-length}
 
-length(stations)
+length(stations) 
 
 ```
 
@@ -371,8 +402,9 @@ length(stations)
 <font color="#009E73">**Challenge 2**</font> 
 
 1. Extract the "LATITUDE" column from `stations`, assign it to a variable called `lat`, and calculate the mean latitude.  
-2. Add a column to `riv` called "depth" with values 1, 2, 3. Add another column called "width" with values 10, 10, 10. Take advantage of recycling.  
-3. Add a new variable called "area" to `riv` which is `riv$depth * riv$width`.  
+2. Assign a column to `riv` called "depth" with values 1, 2, 3. 
+3. Assign another column called "width" with values 10, 10, 10. Take advantage of recycling when creating the "width" column.  
+4. Assign a new variable called "area" to `riv` which is the product of "depth" and "width" (Hint: `riv$depth * riv$width`).  
 
 :::
 
@@ -383,13 +415,13 @@ length(stations)
   <div class="challenge-ans-body">
 
 ```{r challenge-2}
-# cextract LATITUDE and calculate the mean value
+# extract LATITUDE and calculate the mean value
 lat <- stations$LATITUDE
 mean(lat)
 
 # add depth and width to riv
 riv$depth <- c(1, 2, 3)
-riv$width <- 10
+riv$width <- 10 # this vector of length 1 is recycled 
 
 # calculate area and add it to riv
 riv$area <- riv$depth * riv$width
