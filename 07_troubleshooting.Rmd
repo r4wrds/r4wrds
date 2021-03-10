@@ -1,0 +1,146 @@
+---
+title: "Strategies for Troubleshooting"
+description: | 
+  How to get Unstuck... because we all get stuck at times
+output: 
+  distill::distill_article:
+    toc: true
+---
+
+```{r setup, include=FALSE, purl=FALSE, message=FALSE}
+
+library(knitr)
+
+```
+
+:::obj
+
+**Learning objectives**
+
+ - Interpreting error messages 
+ - Understand classes
+ - Where to get help  
+ - Minimal, reproducible example
+ - How to search for and ask questions
+
+
+:::
+
+
+
+## Error messages
+
+Interpreting error messages is a part of working with R. Getting errors is normal and expected. There are a few seasoned approaches to "get unstuck" when you encounter errors in R, which this module will address. 
+
+<aside>
+```{r bryan-aside, out.width='80%', echo=FALSE, fig.cap = "[Jenny Bryan's rstudio::conf(2020) talk](https://www.youtube.com/watch?v=vgYS-F8opgE) is a deeper dive into debugging."}
+knitr::include_graphics("images/bryan_try_again.png") 
+```
+</aside>
+
+
+## Class
+
+In R, every object has a **class**, which defines the operations we can perform on it. We can check the class of an object with the `class()` function. 
+
+<aside> Recall the classes of atomic vectors (logical, numeric, factor, character) from the [module on data structures](04_data_structures.html#basic-object-classes). </aside>
+
+
+
+## Use built-in help
+
+interpret `?function`
+
+package documentation
+
+
+
+
+## Minimal reproducible example
+
+Good exercise to boil down problem.
+
+
+
+## Searching for and asking questions
+
+### Google
+
+google with [R] + [package name] + [object type] + error
+
+[screenshot]  
+
+### community.rstudio
+
+### StackOverflow
+
+Associated stack sites (stats, geo). Don't be discouraged. 
+
+
+
+
+
+
+```{r, out.width='80%', echo=FALSE}
+
+# knitr::include_graphics("images/")
+
+```
+
+
+
+
+
+:::challenge
+
+<font color="#009E73">**Challenge 1**</font> 
+
+1. A common dplyr error and another join error since they just finished those 
+
+:::
+
+<br>
+
+<details>
+  <summary class="challenge-ans-title"><font color="#0072B2">**Click for Answers!**</font></summary>
+  <div class="challenge-ans-body">
+
+```{r challenge-1}
+
+```
+
+  </div>
+</details>
+
+
+
+<aside> 
+```{r, out.width='80%', echo=FALSE, fig.cap="Use $ to access columns"}
+# knitr::include_graphics("")
+```
+</aside>
+
+
+
+:::challenge
+
+<font color="#009E73">**Challenge 2**</font> 
+
+1. 
+
+:::
+
+<br>
+
+<details>
+  <summary class="challenge-ans-title"><font color="#0072B2">**Click for Answers!**</font></summary>
+  <div class="challenge-ans-body">
+
+```{r challenge-2}
+
+```
+
+  </div>
+</details>
+
+
