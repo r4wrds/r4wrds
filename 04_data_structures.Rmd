@@ -71,7 +71,7 @@ This function `str()` tells us the structure of the data. It gives us:
  - the column names (the part after `$`) 
  - the **data class** (`int`=integer, `num`=numeric, `chr`=character)
  - the number of rows in our dataset (or the length of the vector)
- - finally, the the first 5 values for that vector.
+ - finally, the the first 5 values for that vector 
 
 ## Basic object classes
 
@@ -139,7 +139,7 @@ class(reach)
 
 Logical vectors (also called booleans) are the most simple type of atomic vectors, and can take one of three values: `TRUE`, `FALSE`, or `NA`. Logical vectors are output as the result of logical tests.
 
-<aside> There are many ways to query or use logical tests for data. In other languages like SQL, these are words like **AND**, **OR** **IN**. In R, we use **`&`** = AND, **`|`** for OR, and **`%in%`** for IN. For more on this see [Fig 5.1 in R4DS](https://r4ds.had.co.nz/transform.html#logical-operators). </aside>
+<aside> There are many ways to query or use logical tests for data. In other languages like SQL, these are words like **AND**, **OR** **IN**. In R, we use **`&`** for AND, **`|`** for OR, and **`%in%`** for IN. For more on this see [Fig 5.1 in R4DS](https://r4ds.had.co.nz/transform.html#logical-operators). </aside>
 
 ```{r logical-test}
 
@@ -192,7 +192,7 @@ sort(date)
 
 Character vectors can store arbitrary strings. There are many ways to work with strings from [basic string manipulation](https://r4ds.had.co.nz/strings.html), all the way to [natural language processing](https://www.tidytextmining.com/) that we don't have time to cover in this course, but you should know that they exist. 
 
-Create strings by enclosing them with quotation marks. It doesn't matter if you use single or double quotes, just be sure to use the same quote style for a single character string!  
+Create strings by enclosing them with quotation marks. It doesn't matter if you use single (') or double quotes ("), just be sure to use the same quote style for a single character string!  
 
 ```{r char-quote}
 
@@ -239,7 +239,7 @@ annual_cost <- cost * 365
 sum(annual_cost)
 
 # bonus
-paste("It costs", sum(annual_cost), "per year to feed a Rich.")
+paste("Three meals a day costs", sum(annual_cost), "per year.")
 ```
 
   </div>
@@ -274,7 +274,9 @@ length(l)
 
 ```
 
-We can access list elements with double bracket notation `[[`. 
+<aside> We can also name a list, for example, `names(l) <- c("dry", "reach", "flow", "string")` and then access list elements by **name** instead of index, like so: `l[["dry"]]`  </aside>
+
+We can access list elements with double bracket notation `[[` and the index (think row number) of the element we want. 
 
 ```{r list-access}
 
@@ -341,8 +343,7 @@ When we assign a vector to a `data.frame` with length less than the total number
 ```{r df-recycling, eval = FALSE}
 
 # add a vector "tech" for the "field technician" to be recycled
-tech <- c("Rich", "Ryan")
-riv$tech <- tech
+riv$tech <- c("Rich", "Ryan")
 
 ```
 
@@ -351,7 +352,7 @@ Uh oh! This won't work because the length of the vector we attempted to add (2) 
 ```{r df-recycling-2}
 
 nrow(riv) # total rows is 3
-nrow(riv) == length(tech)
+nrow(riv) == length(c("Rich", "Ryan"))
 
 ```
 
