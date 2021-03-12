@@ -173,88 +173,66 @@ You may create your reprex with the intention of sharing it with others, but fin
 
 ## Searching for answers and asking questions
 
-```{r code-hero, out.width='80%', echo=FALSE,}
+Sometimes, knowing how to check object classes, read help documentation, and abstract your coding error into a minimal, reproducible example just isn't enough to solve the problem. Even the best programmers reach this point, and when you reach this point, you'll probably turn to the internet for answers. Here we present some guidance on how and where to ask questions and search for answers.
+
+```{r code-hero, out.width='80%', echo=FALSE, fig.cap = "Learning to code doesn't need to be a solitary experience. Online and in-real-life comunities of practice can support you on your jouRney."}
 knitr::include_graphics("images/code_hero.jpg")
 ```
 
 
 ### Google
 
-google with [R] + [package name] + [object type] + error
+Say you encountered this error:  
 
-[screenshot]  
+```{r error-filter, out.width='80%', echo=FALSE}
+knitr::include_graphics("images/error_filter.png")
+```
+
+When you use Google as a jumping off point to search for R help, follow this formula:
+
+> **[R] + [package name] + [object type] + [error]**
+
+```{r error-google, out.width='80%', echo=FALSE, fig.cap = "Authoratitive answers to R programming errors are out there in the wild, and these webpages will usually have the following information: R, package name, object type, error message."}
+knitr::include_graphics("images/error_google.png")
+```
+
+You may find posts on any number of sites including community.rstudio, Stack Overflow, listservs, package documentation, blog posts, or otherwise. 
+
+If you're having an error, chances are someone else has had the same problem before and you can solve your problem just by asking the right question and reading. 
+
+If you're unable to find an answer by reading, the next thing to do is create a reprex and ask a question. When doing this, we recommend two places to ask questions.
+
 
 ### community.rstudio
 
+community.rstudio is a beginner-friendly, safe space to ask questions and learn. Unlike Stack Exchange Sites (e.g., Stack Overflow, Cross Validated, and GIS Stack Exchange), community.rstudio is exclusively for R-based help.
+
+It's free to create a user account and post questions in the forum. Present your problem in the form of a [reprex](#minimal-reproducible-example) and you enable others to help you, and thus be most likely to receive help. People answering questions on the site generally want to help. Your job is to make it as easy as possible for them to copy/paste your code into their environment so they can take a crack at your error.  
+
+```{r community-rstudio, echo=FALSE, fig.cap = "[community.rtudio.com](https://community.rstudio.com/) is an online question and answer site for R questions."}
+knitr::include_graphics("images/community_rstudio.png")
+```
+
+
 ### StackOverflow
 
-Associated stack sites (stats, geo). Don't be discouraged. 
+Stack Overflow is an online question and answer site for programming questions of all kinds -- you can find questions and answers in just about every language, and its extensive use makes it the de facto hub for finding old posts that may address your error. Like community.rstudio, you can sign up for a free account to ask and answer questions. 
 
+Stack Overflow can be a more intimidating to ask questions, especially because the structure of the site allows users to upvote and downvote questions. Beginners who don't ask questions in the form of a reprex are often downvoted, and this can feel discouraging.
 
+Upvotes and downvotes influence a user's "Reputation" and over time, users can accumulate "Reputation" points to remove ads, unlock moderation privileges, and even put bounties on questions to draw more attention to them. 
 
+Don't be afraid of Stack Overflow. The majority of people who frequent the site are genuinely curious people who like solving coding problems, and it's a great way to share a tough problem you're stuck on and have people across the world try to solve it. The instructors of this course have learned so much from spending time on Stack Overflow. 
 
+When posting a question on Stack Overflow, follow these tips to ensure a positive response:  
 
+1. Do research to make sure the same question hasn't already been asked, otherwise, it may be downvoted or closed.  
+2. If your question is novel, be sure to ask it in the form of a [reprex](#minimal-reproducible-example) to enable others to actually work on your problem. This is the expectation from more senior site users.  
+3. Thank others for expressing interest in your question by upvoting helpful answers and comments.  
+4. If a legitimate answer to your problem is posted, thank the person by "Accepting" their answer with the green check mark. This rewards the person with "Reputation" points for solving your problem, it rewards you with "Reputation" points too, and it directs the attention of future visitors to the page to the "Accepted solution".
 
-```{r, out.width='80%', echo=FALSE}
-
-# knitr::include_graphics("images/")
-
+```{r stackoverflow, echo=FALSE}
+knitr::include_graphics("images/stackoverflow.png")
 ```
 
-
-
-
-
-:::challenge
-
-<font color="#009E73">**Challenge 1**</font> 
-
-1. A common dplyr error and another join error since they just finished those 
-
-:::
-
-<br>
-
-<details>
-  <summary class="challenge-ans-title"><font color="#0072B2">**Click for Answers!**</font></summary>
-  <div class="challenge-ans-body">
-
-```{r challenge-1}
-
-```
-
-  </div>
-</details>
-
-
-
-<aside> 
-```{r, out.width='80%', echo=FALSE, fig.cap="Use $ to access columns"}
-# knitr::include_graphics("")
-```
-</aside>
-
-
-
-:::challenge
-
-<font color="#009E73">**Challenge 2**</font> 
-
-1. 
-
-:::
-
-<br>
-
-<details>
-  <summary class="challenge-ans-title"><font color="#0072B2">**Click for Answers!**</font></summary>
-  <div class="challenge-ans-body">
-
-```{r challenge-2}
-
-```
-
-  </div>
-</details>
-
-
+Stack Overflow is for general programming questions, but you may find that your question is more statistical in nature, or geospatial. In these cases, associated Stack Exchange sites for statistics ([Cross validated](https://stats.stackexchange.com/)), geospatial ([GIS Stack Exchange](https://gis.stackexchange.com/)), and [other topics](https://stackexchange.com/sites) are great places to seek out domain specific expertise.
