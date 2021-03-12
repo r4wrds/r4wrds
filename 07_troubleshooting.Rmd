@@ -136,14 +136,16 @@ From top to bottom, these sections can be interpreted as follows. Once you under
 |`See Also` | Related functions |
 |`Examples` | Working examples to copy and paste that demonstrate the function in action |
 
-<aside> Although the table to the left is based on the help for a **function**, some packages ship with **objects** like `data.frame`s that also have documentation. These objects don't have Arguments or a Value, since unlike functions, they don't take inputs and create outputs. For example, see the built-in dataset `?iris`. </aside>
+<aside> Although the table to the left is based on the help for a **function**, some packages ship with **objects** like `data.frame`s that also have documentation. These objects don't have Arguments or a Value, since unlike functions, they don't take inputs and create outputs. For example, see the built-in dataset `?rivers`. </aside>
 
 :::challenge
 
 <font color="#009E73">**Challenge 1**</font> 
 
-1. Read the help for `ggplot`, `mutate`, and `filter` (make sure you click on `dplyr`'s filter).
-2. Read the help for two other functions you've encountered in this course.  
+1. Read the help for the `ggplot` function from the `{ggplot2}` package. 
+    - Hint: try using **`?ggplot2::ggplot`.** Here the "**`::`**" allows us to specify a *`{package}::{function}`*
+2. Read the help for two functions from `{dplyr}`: `mutate` and `filter`. Are there other packages with a `filter` function? How do you know?
+3. Read the help for two other functions you've encountered in this course.  
 
 :::
 
@@ -175,7 +177,7 @@ You may create your reprex with the intention of sharing it with others, but fin
 
 Sometimes, knowing how to check object classes, read help documentation, and abstract your coding error into a minimal, reproducible example just isn't enough to solve the problem. Even the best programmers reach this point, and when you reach this point, you'll probably turn to the internet for answers. Here we present some guidance on how and where to ask questions and search for answers.
 
-```{r code-hero, out.width='80%', echo=FALSE, fig.cap = "Learning to code doesn't need to be a solitary experience. Online and in-real-life comunities of practice can support you on your jouRney."}
+```{r code-hero, out.width='80%', echo=FALSE, fig.cap = "Learning to code doesn't need to be a solitary experience. Online and in-real-life comunities of practice can support you on your jouRney. Artwork by @allison_horst"}
 knitr::include_graphics("images/code_hero.jpg")
 ```
 
@@ -188,6 +190,10 @@ Say you encountered this error:
 knitr::include_graphics("images/error_filter.png")
 ```
 
+```{r r-error, out.width='80%', echo=FALSE, fig.cap="Embrace the error message! It may even tell you something useful. Artwork by @allison_horst"}
+knitr::include_graphics("images/r_error.jpeg")
+```
+
 When you use Google as a jumping off point to search for R help, follow this formula:
 
 > **[R] + [package name] + [object type] + [error]**
@@ -198,14 +204,14 @@ knitr::include_graphics("images/error_google.png")
 
 You may find posts on any number of sites including community.rstudio, Stack Overflow, listservs, package documentation, blog posts, or otherwise. 
 
-If you're having an error, chances are someone else has had the same problem before and you can solve your problem just by asking the right question and reading. 
+If you're having an error, chances are someone else has had the same problem before and you can solve your problem just by asking the right question. Take note of the date that a post was written, and whenever possible, try to find/read more recent answers first. Sometimes there may be answers available but they are applicable to much older versions of R (or to out of date packages or functions) because they are from many years ago.
 
-If you're unable to find an answer by reading, the next thing to do is create a reprex and ask a question. When doing this, we recommend two places to ask questions.
+If you're *still* unable to find an answer by reading, the next thing to do is create a reprex and ask a question. When doing this, we recommend two places to ask questions.
 
 
-### community.rstudio
+### [community.RStudio](https://community.rstudio.com/latest)
 
-community.rstudio is a beginner-friendly, safe space to ask questions and learn. Unlike Stack Exchange Sites (e.g., Stack Overflow, Cross Validated, and GIS Stack Exchange), community.rstudio is exclusively for R-based help.
+[community.rstudio.com](https://community.rstudio.com/latest) is a beginner-friendly, safe space to ask questions and learn. Unlike Stack Exchange Sites (e.g., Stack Overflow, Cross Validated, and GIS Stack Exchange), community.rstudio is exclusively for R-based help.
 
 It's free to create a user account and post questions in the forum. Present your problem in the form of a [reprex](#minimal-reproducible-example) and you enable others to help you, and thus be most likely to receive help. People answering questions on the site generally want to help. Your job is to make it as easy as possible for them to copy/paste your code into their environment so they can take a crack at your error.  
 
