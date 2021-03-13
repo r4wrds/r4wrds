@@ -79,6 +79,14 @@ head(stations)
 
 ```
 
+You can also pass a URL to `read_csv()`.
+
+```{r}
+# read the "stations" csv from the Github URL
+stations <- read_csv("https://raw.githubusercontent.com/richpauloo/wrds/main/data/gwl/stations.csv")
+```
+
+
 R tells us upon import that this data has 43,807 rows and 15 columns. We can verify this with the `nrow()` and `ncol()` functions, and the `dim()` function:
 
 ```{r col-row-len}
