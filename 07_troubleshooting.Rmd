@@ -63,12 +63,12 @@ class("a string")
 class(tibble(x = 1:10, y = "a string"))
 ```
 
-Knowing the class of object you're working with can help orient questions you may ask online, and will also help you interpret built-in documentation.  
+Knowing the class of the objects you're working with can help orient questions you may ask online, and will also help you interpret built-in documentation.  
 
 
 ## Using built-in help
 
-One of the best features about R is the standardized package documentation. Once you learn how to read package documentation, you'll be able to read about functions in any package and learn what arguments they take, the class of arguments they expect (incorrect objects passed to functions is common error), and the object and object class they output. 
+One of the best features about R is the standardized package documentation. Once you learn how to interpret package documentation, you'll be able to read about functions in any package and learn what arguments they take, the class of arguments they expect (incorrect objects passed to functions is a common error), and the object and object class they output. 
 
 To illustrate, below is an example of an error that we can diagnose by consulting the help for `?mean`.
 
@@ -112,7 +112,7 @@ mean(numbers)
 
 ## Reading R help documentation
 
-R help documentation is standardized, and thus predictable. Let's cover the anatomy of R help documentation, discussing each of the key sections and how to interpret them. Using help documentation for the function `?mean` once again:  
+R help documentation is standardized, and thus predictable. Let's cover the anatomy of R help documentation, discussing each of the key sections and how to interpret them. As before, below is the help documentation for the function `?mean`:  
 
 ```{r help-anatomy, out.width='80%', echo=FALSE,}
 knitr::include_graphics("images/help_anatomy.png")
@@ -120,7 +120,7 @@ knitr::include_graphics("images/help_anatomy.png")
 
 <br> 
 
-From top to bottom, these sections can be interpreted as follows. Once you understand this predictable structure of help documentation, you can interpret the documentation for new functions and expand your R vocabulary! This structure is the same across different R packages. 
+Once you understand this predictable structure of help documentation, you can interpret the documentation for new functions and expand your R vocabulary! This structure is the same across different R packages. From top to bottom, these sections can be interpreted as follows: 
 
 <br>
 
@@ -153,9 +153,9 @@ From top to bottom, these sections can be interpreted as follows. Once you under
 
 ## Minimal reproducible example
 
-More often than not, errors you encounter will not be the result of using the `mean()` function incorrectly, but due to unwieldy, large, and complicated data processing steps string together. Sometimes, the sheer amount of data you may want to process may be so large that it takes minutes until your code finally errors, and it becomes time-consuming to debug.
+More often than not, errors you encounter will not be the result of using the `mean()` function incorrectly, but due to unwieldy, large, and complicated data processing steps strung together. Sometimes, the sheer amount of data you want to process may be so large that it takes minutes until your code finally errors, and it becomes time-consuming to debug.
 
-<aside> There's even an [R package](https://reprex.tidyverse.org/articles/reprex-dos-and-donts.html) designed to help R users create reprex. Many people have weighed in on the best way to create a reprex, including the developer of many of the R packages you've used in this course, who shares [their thoughts here](https://gist.github.com/hadley/270442). </aside>
+<aside> There's even an [R package](https://reprex.tidyverse.org/articles/reprex-dos-and-donts.html) designed to help R users create reprexes. Many people have weighed in on the best way to create a reprex, including the developer of many of the R packages you've used in this course, who shares [their thoughts here](https://gist.github.com/hadley/270442). </aside>
 
 A tried and true approach to solving errors is to create a **minimal, reproducible example**, or a **reprex** for short. 
 
@@ -167,15 +167,15 @@ Thus, we can think of a reprex in terms of:
 
 1. **Packages**: loads all needed packages at the top of the script.  
 2. **Data**: Uses a minimal dataset to capture the scope of the problem, so that the code solution can scale to the entire dataset later. Uses a dataset that everyone has access to. If not using a built-in dataset like `mtcars`, use `dput()` to "dump" your data into a form that can be copy/pasted and assigned to a variable.  
-3. **Code**: Concisely describe the expected output and share a minimal code example highlighting the error using the minimal data.  
-4. **Environment**: If you're sharing the reprex with others, run `SessionInfo()` in the console and copy and paste this into your reprex. Some errors can be diagnosed by looking at this information. 
+3. **Code**: Concisely describes the expected output and shares a minimal code example highlighting the error using the minimal data.  
+4. **Environment**: If you're sharing the reprex with others, run `SessionInfo()` in the console and copy/paste this into your reprex. Some errors can be diagnosed by looking at this information. 
 
-You may create your reprex with the intention of sharing it with others, but find that in creating it, you actually solve your problem! That is not uncommon. The exercise of boiling a problem down to its most essential parts often sparks new ways of approaching a problem, or seeing it for what it really is.  
+You may create your reprex with the intention of sharing it with others, but find that in creating it, you actually solve your problem! That is not uncommon. The exercise of boiling a problem down to its most essential parts often sparks new ways of approaching a problem and seeing it for what it really is.  
 
 
 ## Searching for answers and asking questions
 
-Sometimes, knowing how to check object classes, read help documentation, and abstract your coding error into a minimal, reproducible example just isn't enough to solve the problem. Even the best programmers reach this point, and when you reach this point, you'll probably turn to the internet for answers. Here we present some guidance on how and where to ask questions and search for answers.
+Sometimes, knowing how to check object classes, read help documentation, and abstract your code's error into a minimal, reproducible example just isn't enough to solve the problem. Even the best programmers reach this point, and when you too reach this point, you'll probably turn to the internet for answers. Here we present some guidance on *how* and *where* to ask questions and seek answers.
 
 ```{r code-hero, out.width='80%', echo=FALSE, fig.cap = "Learning to code doesn't need to be a solitary experience. Online and in-real-life comunities of practice can support you on your jouRney. Artwork by @allison_horst"}
 knitr::include_graphics("images/code_hero.jpg")
@@ -202,18 +202,18 @@ When you use Google as a jumping off point to search for R help, follow this for
 knitr::include_graphics("images/error_google.png")
 ```
 
-You may find posts on any number of sites including community.rstudio, Stack Overflow, listservs, package documentation, blog posts, or otherwise. 
+You may find posts on any number of sites including community.RStudio, Stack Overflow, listservs, package documentation, blog posts, or otherwise. 
 
-If you're having an error, chances are someone else has had the same problem before and you can solve your problem just by asking the right question. Take note of the date that a post was written, and whenever possible, try to find/read more recent answers first. Sometimes there may be answers available but they are applicable to much older versions of R (or to out of date packages or functions) because they are from many years ago.
+If you're having an error, chances are someone else has had the same problem before and you can solve your problem just by asking the right question. Take note of the date that a post was written, and whenever possible, try to find and read more recent answers first. Sometimes there may be answers available but because they were written many years ago, they are applicable to much older versions of R, or out-of-date packages and functions.
 
 If you're *still* unable to find an answer by reading, the next thing to do is create a reprex and ask a question. When doing this, we recommend two places to ask questions.
 
 
 ### [community.RStudio](https://community.rstudio.com/latest)
 
-[community.rstudio.com](https://community.rstudio.com/latest) is a beginner-friendly, safe space to ask questions and learn. Unlike Stack Exchange Sites (e.g., Stack Overflow, Cross Validated, and GIS Stack Exchange), community.rstudio is exclusively for R-based help.
+[community.rstudio.com](https://community.rstudio.com/latest) is a beginner-friendly, safe space to ask questions and learn. Unlike Stack Exchange Sites (e.g., Stack Overflow, Cross Validated, and GIS Stack Exchange), community.RStudio is exclusively for R-based help.
 
-It's free to create a user account and post questions in the forum. Present your problem in the form of a [reprex](#minimal-reproducible-example) and you enable others to help you, and thus be most likely to receive help. People answering questions on the site generally want to help. Your job is to make it as easy as possible for them to copy/paste your code into their environment so they can take a crack at your error.  
+It's free to create a user account and post questions in the forum. Present your problem in the form of a [reprex](#minimal-reproducible-example) -- this will enable others to help you, and is the form of question most likely to receive help. People answering questions on the site generally want to help. Your job is to make it as easy as possible for them to copy/paste your code into their environment so they can take a crack at your error.  
 
 ```{r community-rstudio, echo=FALSE, fig.cap = "[community.rtudio.com](https://community.rstudio.com/) is an online question and answer site for R questions."}
 knitr::include_graphics("images/community_rstudio.png")
@@ -222,9 +222,9 @@ knitr::include_graphics("images/community_rstudio.png")
 
 ### StackOverflow
 
-Stack Overflow is an online question and answer site for programming questions of all kinds -- you can find questions and answers in just about every language, and its extensive use makes it the de facto hub for finding old posts that may address your error. Like community.rstudio, you can sign up for a free account to ask and answer questions. 
+Stack Overflow is an online question and answer site for programming questions of all kinds -- you can find questions and answers in just about every language, and its extensive use makes it the de facto hub for finding old posts that may address your error. Like community.RStudio, you can sign up for a free account to ask and answer questions. 
 
-Stack Overflow can be a more intimidating to ask questions, especially because the structure of the site allows users to upvote and downvote questions. Beginners who don't ask questions in the form of a reprex are often downvoted, and this can feel discouraging.
+Stack Overflow can be a more intimidating place to ask questions, especially because the structure of the site allows users to upvote and downvote questions. Beginners who don't ask questions in the form of a reprex are often downvoted, and this can feel discouraging.
 
 Upvotes and downvotes influence a user's "Reputation" and over time, users can accumulate "Reputation" points to remove ads, unlock moderation privileges, and even put bounties on questions to draw more attention to them. 
 
@@ -241,4 +241,4 @@ When posting a question on Stack Overflow, follow these tips to ensure a positiv
 knitr::include_graphics("images/stackoverflow.png")
 ```
 
-Stack Overflow is for general programming questions, but you may find that your question is more statistical in nature, or geospatial. In these cases, associated Stack Exchange sites for statistics ([Cross validated](https://stats.stackexchange.com/)), geospatial ([GIS Stack Exchange](https://gis.stackexchange.com/)), and [other topics](https://stackexchange.com/sites) are great places to seek out domain specific expertise.
+Stack Overflow is for general programming questions, but you may find that your question is more statistical or geospatial in nature. In these cases, associated Stack Exchange sites for statistics ([Cross validated](https://stats.stackexchange.com/)), geospatial ([GIS Stack Exchange](https://gis.stackexchange.com/)), and [other topics](https://stackexchange.com/sites) are great places to seek out domain-specific expertise.
