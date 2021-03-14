@@ -1,7 +1,7 @@
 ---
 title: "Wrangling Data with dplyr"
 description: | 
-  Making data analysis fun!
+  Making data tidying and transformation fun!
 output: 
   distill::distill_article:
     toc: true
@@ -11,6 +11,7 @@ output:
 
 library(knitr)
 library(here)
+suppressPackageStartupMessages(library(tidyverse))
 
 ```
 
@@ -18,16 +19,15 @@ library(here)
 
 **Learning objectives**
  
- - Learn how to tidy and manipulate datasets
+ - Learn how to approach tidying and transforming datasets
  - Understand how to use the pipe (`%>%`) to chain operations together
- - Understand the basic tools of tidying and transforming data
- - Learn the core {dplyr} verbs (`select`, `filter`, `group_by`, `summarize`)
+ - Learn the core **`{dplyr}`** tools including functions (`select`, `filter`, `group_by`, `summarize`)
 
 :::
 
 ## Data wrangling with **{dplyr}**
 
-Data wrangling is the part of any data analysis that will take the most time. While it may not necessarily be fun, it is foundational to all the work that follows. Often, it also takes significantly longer than actually performing the data analysis or creating a data visualization, so do not panic if, in the future, you find yourself spending a lot of time on this single step. 
+Data wrangling is the part of any data analysis that will take the most time. While it may not necessarily be fun, it is foundational to all the work that follows. Often, it also takes significantly longer than actually performing the data analysis or creating a data visualization, so do not panic if, in the future, you find yourself spending a lot of time on this phase. Once you learn some core approaches and tools, you can deal with nearly any dataset you may face!
 
 (ref:AHtidyplot) *Illustration by @allison_horst, from Hadley Wickham's talk "The Joy of Functional Programming (for Data Science)"*
 
@@ -41,16 +41,18 @@ knitr::include_graphics(here("images", "data_cowboy.png"))
 
 ```
 
-The data wrangling process includes data import, tidying, and transformation.  The process directly feeds into, and is not mutually exclusive with, the *understanding* or modeling side of data exploration.  More generally, data wrangling is the manipulation or combination of datasets for the purpose of analysis.  
+The data wrangling process includes data import, tidying, and transformation.  The process directly feeds into the *understanding* or modeling side of data exploration, but in a iterative way.  More generally, data wrangling is the manipulation or combination of datasets for the purpose of analysis, and often you have to rinse and repeat this process.  
 
 ```{r out.width = "100%", echo=F, fig.cap = '*Image from "R for Data Science" by Garrett Grolemund and Hadley Wickham.*'}
 knitr::include_graphics(here("images", "data-science-wrangle.png"))
 ```
 
-**All wrangling is based on a purpose.**  No one wrangles for the sake of wrangling (usually), so the process always begins by answering the following two questions:
+ > **All data wrangling is based on a purpose.**  
+ 
+No one wrangles for the sake of wrangling (usually), so the process always begins by answering the following two questions:
 
 * What do my input data look like?
-* What should my data look like given what I want to do?
+* What *should* my output data look like given what I want to do?
 
 At the most basic level, going from what your data looks like to what it should look like will require a few key operations.  Some common examples:
 
@@ -63,23 +65,37 @@ At the most basic level, going from what your data looks like to what it should 
 
 The **`{dplyr}`** package provides easy tools for these common data manipulation tasks and is a core package from the [{tidyverse}](https://www.tidyverse.org/) suite of packages. The philosophy of **`{dplyr}`** is that **one** function does **one** thing and the name of the function says what it does. 
 
-Below your code that imports the dataset, let's make a new section! Go to **`Code`** > **`Insert Section`**, and type your new section header `Wrangling Data`. We can also use keyboard shortcuts for this (`Ctrl` or `⌘` + `Shift` + `R`). You should notice how this now appears in an expandable table of contents on the right hand side of your script pane (look for the tiny button that has little gray horizontal lines on it). This feature can be very helpful in keep your scripts organized.
+## Getting Started (from Scratch)!
 
-Alright, let's get wrangling!
-
-Any reproducible analysis should be able to start from scratch, and rebuild all the parts, sometimes over and over again. For that reason, it's a good habit to get into to **Restart your R Session**. Sometimes this solves issues, sometimes it's just good to make sure everything runs up to the point you are working. Let's do that now!
+Any reproducible analysis should be easily repeated. Using code or a script allows us to rebuild all the parts, sometimes over and over again. For that reason, it's a good habit to get into to **Restart your R Session** before you kick off a new coding adventure. Sometimes this solves issues, sometimes it's just good to make sure everything runs up to the point you are working. Let's do that now!
 
  1. Go to **`Session`** > **`Restart R`**!
  2. Check your `Environment` tab...it should be empty!
- 3. Now we need to re-load our library, and re-load our data.
+ 3. Now we can importing libraries and data.
 
+### Import Data 
+
+First we need to load our libraries or functions that we'll be using. Let's do that now. We'll load up our `{here}` and the `{tidyverse}` packages (which includes `{dplyr}` and `{ggplot2}`).
+
+```{r load-libs, eval=FALSE}
+library(here)
+library(tidyverse)
+
+```
+
+Next we can import our `.csv` of the groundwater stations data. 
+
+<aside> We can use either `read.csv` or `read_csv` functions. What's the main difference between the two? Hint, check `class(stations)` for each method.
+</aside>
 
 ```{r load-data}
-library(here)
 
 # read the stations.csv file and assign it to an object "stations"
 stations <- read.csv(here("data", "gwl", "stations.csv"))
 ```
+
+
+Below your code that imports the dataset, let's make a new section! Go to **`Code`** > **`Insert Section`**, and type your new section header `Wrangling Data`. We can also use keyboard shortcuts for this (`Ctrl` or `⌘` + `Shift` + `R`). You should notice how this now appears in an expandable table of contents on the right hand side of your script pane (look for the tiny button that has little gray horizontal lines on it). This feature can be very helpful in keep your scripts organized.
 
 
 
