@@ -47,35 +47,49 @@ The data wrangling process includes data import, tidying, and transformation.  T
 knitr::include_graphics(here("images", "data-science-wrangle.png"))
 ```
 
+### Have an Objective
+
  > **All data wrangling is based on a purpose.**  
  
 No one wrangles for the sake of wrangling (usually), so the process always begins by answering the following two questions:
 
-* What do my input data look like?
-* What *should* my output data look like given what I want to do?
+ 1. What do my input data look like?
+ 2. What *should* my output data look like given what I want to do?
 
-At the most basic level, going from what your data looks like to what it should look like will require a few key operations.  Some common examples:
+### Learn some Core Tools for Common Operations
 
-* Selecting specific variables
-* Filtering observations by some criteria
-* Adding or modifying existing variables
-* Renaming variables
-* Arranging rows by a variable
-* Summarizing a variable conditional on others
+At the most basic level, going from what your data looks like to what you want it look like will require a few key operations. The more we can learn how to do these operations using common tools, the easier this will be no matter the data that we face. 
+
+<aside> *Tidy data* is an important part of being able to re-use these tools! See this great [blog](https://www.openscapes.org/blog/2020/10/12/tidy-data/) (by Lowndes & Horst) 
+</aside>
+
+```{r, echo=FALSE, out.width='80%', fig.cap="Illustrations from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst."}
+
+knitr::include_graphics("images/tidydata_4.jpg")
+
+```
+
+Common operations that occur during data wrangling:
+
+* **Selecting** specific variables
+* **Filtering** observations by some criteria
+* Adding or modifying (**mutating**) existing variables 
+* **Renaming** variables
+* **Arranging** rows by a variable
+* **Summarizing** a variable conditional on others
 
 The **`{dplyr}`** package provides easy tools for these common data manipulation tasks and is a core package from the [{tidyverse}](https://www.tidyverse.org/) suite of packages. The philosophy of **`{dplyr}`** is that **one** function does **one** thing and the name of the function says what it does. 
 
-## Getting Started (from Scratch)!
+### Starting from Scratch
 
-Any reproducible analysis should be easily repeated. Using code or a script allows us to rebuild all the parts, sometimes over and over again. For that reason, it's a good habit to get into to **Restart your R Session** before you kick off a new coding adventure. Sometimes this solves issues, sometimes it's just good to make sure everything runs up to the point you are working. Let's do that now!
+Any reproducible analysis should be easily repeated. Using code or a script allows us to rebuild all the parts, sometimes over and over again. For that reason, it's a good habit to **Restart your R Session** before you kick off a new coding adventure. Sometimes this solves issues, sometimes it's just good to make sure everything runs up to the point you are working. Let's do that now!
 
  1. Go to **`Session`** > **`Restart R`**!
  2. Check your `Environment` tab...it should be empty!
- 3. Now we can importing libraries and data.
 
-### Import Data 
+### Import Libraries and Data 
 
-First we need to load our libraries or functions that we'll be using. Let's do that now. We'll load up our `{here}` and the `{tidyverse}` packages (which includes `{dplyr}` and `{ggplot2}`).
+First we need to load our libraries that we'll be using. Let's use `{here}` and the `{tidyverse}` packages (which includes `{dplyr}` and `{ggplot2}`).
 
 ```{r load-libs, eval=FALSE}
 library(here)
@@ -83,7 +97,7 @@ library(tidyverse)
 
 ```
 
-Next we can import our `.csv` of the groundwater stations data. 
+Next we can import a `.csv` of groundwater monitoring stations across California^[see [here for more about this data]()]. 
 
 <aside> We can use either `read.csv` or `read_csv` functions. What's the main difference between the two? Hint, check `class(stations)` for each method.
 </aside>
@@ -92,21 +106,138 @@ Next we can import our `.csv` of the groundwater stations data.
 
 # read the stations.csv file and assign it to an object "stations"
 stations <- read.csv(here("data", "gwl", "stations.csv"))
+
 ```
 
+Below your code that imports the dataset, let's make a new section! Go to **`Code`** > **`Insert Section`**, and type your new section header `Wrangling Data`. We can also use keyboard shortcuts for this (`Ctrl` or `⌘` + `Shift` + `R`). You should notice how this now appears in an expandable table of contents on the right hand side of your script pane (look for the tiny button that has little gray horizontal lines on it). This feature can be very helpful in keeping you and your scripts organized.
 
-Below your code that imports the dataset, let's make a new section! Go to **`Code`** > **`Insert Section`**, and type your new section header `Wrangling Data`. We can also use keyboard shortcuts for this (`Ctrl` or `⌘` + `Shift` + `R`). You should notice how this now appears in an expandable table of contents on the right hand side of your script pane (look for the tiny button that has little gray horizontal lines on it). This feature can be very helpful in keep your scripts organized.
+## `filter` rows you want
 
+One of the most common steps to slicing data is **filtering rows** of a dataframe. We can filter by a variable (e.g., column name) or by a condition (i.e., only values greater than 100). Remember, `{dplyr}` is designed so that *one* function does *one* thing, and the name of the function says what it does. 
+
+Let's filter this large list of potential groundwater station locations (n=`r nrow(stations)` total!) to just stations from Sacramento County. We'll use `filter()`.
+
+```{r dplyr-filt1, echo=TRUE, eval=TRUE}
+
+stations_sac <- filter(stations, COUNTY_NAME == "Sacramento")
+nrow(stations_sac)
+```
+
+What happened? `filter()` requires the data, and then any number of filtering options. We provided just one. Here the `==` means "equal to", while a single `=` would mean `is`. 
+
+We can also combine filter conditions in the same call! Let's also add another condition that we only want `Residential` wells (a category of the `WELL_USE` column). We can get a count of how many categories of `WELL_USE` have observations (or rows) in the `stations_sac` data.frame using the `table()` function. Then we can combine multiple conditions in our `filter` with a `,` (in `filter`, commas are another way to say `AND`).
+
+```{r dplyr-filt2, echo=TRUE, eval=TRUE}
+
+# get what the categories of WELL_USE are in Sacramento County:
+table(stations_sac$WELL_USE)
+
+# combine conditions with "," which is equivalent to AND
+stations_sac <- filter(stations, COUNTY_NAME == "Sacramento", WELL_USE == "Residential")
+nrow(stations_sac)
+```
+
+We can mix and match these `filter` conditions however we choose. What if we want to select multiple counties? The `%in%` is a great way to provide a list of things you want `filter` to use to see if there's a match within your data.frame. Let's filter to 3 counties: Sacramento, Placer, and El Dorado.
+
+```{r dplyr-filt3, echo=TRUE, eval=TRUE}
+
+# filter to multiple counties
+stations_multcounties <- filter(stations, COUNTY_NAME %in% 
+                                  c("Sacramento", "Placer", "El Dorado"))
+
+```
+
+<aside> To quote or not to quote? Inside tidyverse functions like `filter` we typically **don't** need to quote variable names (columns) but we **do** need to quote specific values.
+</aside>
+
+What happened? We used a list (using the `c()` to combine different possible values of `COUNTY_NAME`) to specify what data we wanted to keep. 
+
+### `filter` rows you don't want
+
+We can also *exclude* rows based on conditions. To exclude, we can use negate something with the `!` symbol in front of the condition we want to use. Let's exclude all stations from Yolo County. Here we show 3 ways to to do the same thing!
+
+```{r dplyr-filt4, echo=TRUE, eval=TRUE}
+
+# include everything except Yolo County...3 different ways
+stations_trim <- filter(stations, !COUNTY_NAME %in% c("Yolo"))
+stations_trim <- filter(stations, !COUNTY_NAME == "Yolo")
+stations_trim <- filter(stations, COUNTY_NAME != "Yolo")
+
+```
+
+## `select` columns
+
+We can also select specify columns or variables of interest using the `select()` function. Similar to `filter`, we pass the data, and the conditions we want to use subset our data. Let's select only `STN_ID`, `LATITUDE`, `LONGITUDE`, and `COUNTY_NAME`.
+
+```{r dplyr-sel1, echo=TRUE, eval=TRUE}
+
+# select specific columns to keep
+stations_sel1 <- select(stations, c(STN_ID, LATITUDE, LONGITUDE, COUNTY_NAME))
+names(stations_sel1) # names of columns
+```
+
+Remember we don't have to quote the variable names here! What if we want to just remove a column? We can use the same structure, but put a "**`-`**" in front of our list or condition.
+
+```{r dplyr-sel2, echo=TRUE, eval=TRUE}
+
+# select columns to drop
+stations_sel2 <- select(stations, -c(LATITUDE:BASIN_NAME, COUNTY_NAME))
+ncol(stations_sel2) # how many columns?
+```
+
+Here we used the `:` to say columns from `LATITUDE` *through* `BASIN_NAME` *and* `COUNTY_NAME`.
+
+There are some very powerful options that exist within `select()`, including the ability to rename columns, or select by things that relate to the column names. Let's select columns that start with "W" or contain "NAME".
+
+```{r dplyr-sel3, echo=TRUE, eval=TRUE}
+
+# select columns to drop
+stations_sel3 <- select(stations, starts_with("W"), contains("NAME"))
+names(stations_sel2)
+```
+
+## The Pipe ( `%>%` ) 
+
+We now have two ways to slice and dice our data, filter rows and select by columns. A very useful tool you may have seen is something called a "pipe". In R, this is represented by this symbol: **`%>%`**
+
+The pipe is a way to chain multiple commands together, and it passes the result of the first command to the second command. This can be particularly helpful in R when you don't need to (or want to) assign temporary steps to your code. For example, let's filter, select, and rename a column without the `%>%`, and then do it with the `%>%`.
+
+```{r dplyr-nopipe, echo=TRUE}
+
+# filter
+stations_multcounty1 <- filter(stations, COUNTY_NAME %in% 
+                                  c("Sacramento", "Placer"))
+
+# select
+stations_multcounty2 <- select(stations_multcounty1, starts_with("W"), contains("NAME"), contains("ID"))
+
+# rename the STN_ID to station_id: rename(new_col_name, old_col_name)
+stations_multcounty3 <- rename(stations_multcounty2, station_id=STN_ID)
+
+```
+
+Now we can try with the `%>%`. Notice we don't need to explicity define the data set for each step, because it is being "piped" from the previous step.
+
+```{r dplyr-pipe, echo=TRUE}
+
+# filter, select, and rename
+stations_multcounty <- stations %>%
+  filter(COUNTY_NAME %in% c("Sacramento", "Placer")) %>% 
+  select(starts_with("W"), contains("NAME"), contains("ID")) %>%
+  rename(station_id=STN_ID)
+
+```
+
+We piped (`%>%`) result of the `filter()` to `select()`, and then piped the result of that to `rename()`. Since we assigned all of this at the very beginning to `stations_multcounty`, that's our final output.
 
 
 :::challenge
 
-<font color="#009E73">**Challenge 1**</font> 
+<font color="#009E73">**Challenge 1: You Try!**</font> 
 
-1. Create an character vector called `meals` and assign it a string with what you plan to have for for breakfast, lunch, and dinner today.  
-2. Create a numeric vector called `cost` with the approximate cost in dollars of each meal.  
-3. Calculate the cost each meal if you ate that and only that for 365 days a year (Hint: multiply `cost` by 365, then take the `sum()`).  
-4. **Bonus**: Paste together a string that announces this cost.  
+1. Using the `stations` dataset, filter to only **`Residential`** wells that have a `WELL_DEPTH` > 1000 feet.  
+2. Select only `STN_ID`, `WELL_DEPTH`, `WELL_NAME`, `BASIN_NAME`, and `COUNTY_NAME` columns in the dataframe. 
+3. How many records are in Los Angeles?   
 
 :::
 
@@ -117,27 +248,44 @@ Below your code that imports the dataset, let's make a new section! Go to **`Cod
   <div class="challenge-ans-body">
 
 ```{r challenge-1}
-# create a string of three meals
-meals <- c("eggs, toast and coffee", "pizza", "tacos and salad")
+# filter
+challenge1 <- stations %>% 
+  filter(WELL_USE=="Residential", WELL_DEPTH > 1000) %>% 
+  select(STN_ID, WELL_DEPTH, ends_with("NAME"))
+names(challenge1)
 
-# cost of each meal in dollars
-cost <- c(2.25, 5.50, 8.95)
+table(challenge1$COUNTY_NAME)
+  
 
-# annual cost
-annual_cost <- cost * 365
-sum(annual_cost)
-
-# bonus
-paste("Three meals a day costs", sum(annual_cost), "per year.")
 ```
 
   </div>
 </details>
 
+## `mutate` existing data
 
+`mutate` is a function that modifies existing data, either by adding a new column, or modifying existing columns. When using `mutate` we expect R to return some modified version of our input data.frame...but it should still be a version of the original data.frame.
 
-## Basic data structures
+`mutate` allows us to pass other functions or data into our data.frame, and is a powerful way to clean and tidy our data.
 
+Let's create a new `WELL_DEPTH_m` column which converts the existing `WELL_DEPTH` column to meters. We pass the new column name and then the function or operation we want to peform to make the new column (or modify an existing column).
 
+```{r mutate1, eval=TRUE, echo=TRUE}
 
-*Lesson adapted from [R for Data Science](https://r4ds.had.co.nz/)*.
+stations_mutate1 <- stations %>% 
+  mutate(WELL_DEPTH_m = WELL_DEPTH * 0.3048)
+
+```
+
+Let's use `ggplot2` to check and see if this worked? We can use the `%>%` here too!
+
+```{r mut1ggplot1, eval=TRUE, echo=TRUE}
+
+stations_mutate1 %>% ggplot() + 
+  # this in feet
+  geom_point(aes(x=STN_ID, y=WELL_DEPTH), color="cyan4", alpha=0.5) +
+  # this in meters
+  geom_point(aes(x=STN_ID, y=WELL_DEPTH_m), color="maroon", pch=21, alpha=0.8)
+
+```
+
