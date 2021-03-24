@@ -111,9 +111,16 @@ stations <- read.csv(here("data", "gwl", "stations.csv"))
 
 Below your code that imports the dataset, let's make a new section! Go to **`Code`** > **`Insert Section`**, and type your new section header `Wrangling Data`. We can also use keyboard shortcuts for this (`Ctrl` or `⌘` + `Shift` + `R`). You should notice how this now appears in an expandable table of contents on the right hand side of your script pane (look for the tiny button that has little gray horizontal lines on it). This feature can be very helpful in keeping you and your scripts organized.
 
-## `filter` rows you want
+## `filter` rows
 
 One of the most common steps to slicing data is **filtering rows** of a dataframe. We can filter by a variable (e.g., column name) or by a condition (i.e., only values greater than 100). Remember, `{dplyr}` is designed so that *one* function does *one* thing, and the name of the function says what it does. 
+
+```{r filterArt, eval=TRUE, echo=FALSE, out.width='80%', fig.cap="Artwork by @allison_horst"}
+
+knitr::include_graphics("images/filter.jpg")
+
+```
+
 
 Let's filter this large list of potential groundwater station locations (n=`r nrow(stations)` total!) to just stations from Sacramento County. We'll use `filter()`.
 
@@ -154,7 +161,7 @@ What happened? We used a list (using the `c()` to combine different possible val
 
 ### `filter` rows you don't want
 
-We can also *exclude* rows based on conditions. To exclude, we can use negate something with the `!` symbol in front of the condition we want to use. Let's exclude all stations from Yolo County. Here we show 3 ways to to do the same thing!
+We can also *exclude* rows based on conditions. To exclude, we can negate something with the `!` symbol in front of the condition we want to use. Let's exclude all stations from Yolo County. Here we show 3 ways to to do the same thing!
 
 ```{r dplyr-filt4, echo=TRUE, eval=TRUE}
 
@@ -168,6 +175,7 @@ stations_trim <- filter(stations, COUNTY_NAME != "Yolo")
 ## `select` columns
 
 We can also select specify columns or variables of interest using the `select()` function. Similar to `filter`, we pass the data, and the conditions we want to use subset our data. Let's select only `STN_ID`, `LATITUDE`, `LONGITUDE`, and `COUNTY_NAME`.
+
 
 ```{r dplyr-sel1, echo=TRUE, eval=TRUE}
 
@@ -209,14 +217,15 @@ stations_multcounty1 <- filter(stations, COUNTY_NAME %in%
                                   c("Sacramento", "Placer"))
 
 # select
-stations_multcounty2 <- select(stations_multcounty1, starts_with("W"), contains("NAME"), contains("ID"))
+stations_multcounty2 <- select(stations_multcounty1, starts_with("W"), 
+                               contains("NAME"), contains("ID"))
 
 # rename the STN_ID to station_id: rename(new_col_name, old_col_name)
 stations_multcounty3 <- rename(stations_multcounty2, station_id=STN_ID)
 
 ```
 
-Now we can try with the `%>%`. Notice we don't need to explicity define the data set for each step, because it is being "piped" from the previous step.
+Now we can try with the `%>%`. Notice we don't need to explicitly define the data set for each step, because it is being "piped" from the previous step.
 
 ```{r dplyr-pipe, echo=TRUE}
 
@@ -228,7 +237,7 @@ stations_multcounty <- stations %>%
 
 ```
 
-We piped (`%>%`) result of the `filter()` to `select()`, and then piped the result of that to `rename()`. Since we assigned all of this at the very beginning to `stations_multcounty`, that's our final output.
+We piped (`%>%`) the data to `filter()`, and the result of the `filter()` to `select()`, and then piped the result of that to `rename()`. Since we assigned all of this at the very beginning to `stations_multcounty`, that's our final output. We could also use a reverse assign ` -> ` and assign our object at the end of the pipes, it really is up to you.
 
 
 :::challenge
@@ -266,7 +275,7 @@ table(challenge1$COUNTY_NAME)
 
 `mutate` is a function that modifies existing data, either by adding a new column, or modifying existing columns. When using `mutate` we expect R to return some modified version of our input data.frame...but it should still be a version of the original data.frame.
 
-```{r mutateFig, out.width='80%', echo=FALSE, fig.cap="Artwork by @allison_horst"}
+```{r mutateFig, out.width='70%', echo=FALSE, fig.cap="Artwork by @allison_horst"}
 
 knitr::include_graphics("images/mutate.png")
 
@@ -327,4 +336,61 @@ ggplot(data=stations_base1) +
 
 ## `group_by` and `summarize` into new data.frame
 
-The final core "verbs" we want to be sure folks are aware of, are `group_by` and `summarize`. These are really useful to tranform your data into an entirely **new** dataset.
+The final core `{dplyr}` "verbs" we want to be sure folks are aware of, are `group_by` and `summarize`. These are really useful to transform your data into an entirely **new** dataset, and to do many operations based on different columns (variables) within your dataset.
+
+For example let's say we want to get a count of how many records exist for each county. We can use `group_by` and `count`.
+
+```{r grpby1, eval=T, echo=T}
+
+cnt_by_county <- stations %>% 
+  group_by(COUNTY_NAME) %>% count()
+
+head(cnt_by_county)
+```
+
+What happened? `group_by()` will group the data based on whatever variable or variables you include within that function. Once our `data.frame` is grouped, there are many options and functions we can apply, including things like `count()`, `tally()`, and `summarize()`.
+
+Let's look at this a bit more. What if we really only want the 5 counties with the most observations? We can add two additional options here. The `arrange()` function will sort our data by a variable(s) of our choice, and we can use `desc()` to specify we want that data in descending order. We then pipe that to `head()` and ask for just the first 5 rows.
+
+```{r grpby2, eval=T, echo=T}
+
+stations %>% 
+  group_by(COUNTY_NAME) %>% count() %>% # count by COUNTY_NAME
+  arrange(desc(n)) %>% # sort by column n in descending order
+  head(5) # return the first 5 rows
+
+```
+
+### Summarizing Data
+
+Similar to `mutate`, `summarize` allows us to create new columns. The difference is `summarize` creates a completely new dataframe based on the `group_by`. So we only use `summarize` following a `group_by`. Here we can do a similar analysis to what we did above, but now we can customize our columns and what we want to calculate. We'll also plot the top 10 records and add a title.
+
+```{r grpby3, eval=T, echo=T}
+
+stations %>% 
+  group_by(COUNTY_NAME) %>% 
+  summarize(total_records = n()) %>% 
+  arrange(desc(total_records)) %>% # need to specify the column name "total_records"
+  head(10) %>% # return the first 10 rows 
+  ggplot() + geom_col(aes(x=COUNTY_NAME, y=total_records)) +
+  labs(title="Groundwater Stations in CA", 
+       subtitle="Top 10 Counties")
+
+```
+
+We can add additional groups or columns depending on what we are interested in. Here we add another group (`WELL_USE`), but let's filter out all `WELL_USE` that are blank (""), *Unknown*, or *Other*, and arrange by `total_records` and `WELL_USE`. We'll also add `facets` to our ggplot!
+
+```{r grpby4, eval=T, echo=T}
+
+stations %>% 
+  filter(!WELL_USE %in% c("Unknown", "Other", "")) %>%
+  group_by(COUNTY_NAME, WELL_USE) %>% 
+  summarize(total_records = n()) %>% 
+  arrange(desc(total_records)) %>% 
+  #head(20) %>% # return the first 10 rows 
+  ggplot() + geom_col(aes(x=COUNTY_NAME, y=total_records)) +
+  labs(title="Groundwater Stations in CA") +
+       #subtitle="Top 10 Counties") +
+  facet_wrap(.~WELL_USE, scales = "free")
+
+```
