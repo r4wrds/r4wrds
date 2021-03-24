@@ -235,7 +235,7 @@ We piped (`%>%`) result of the `filter()` to `select()`, and then piped the resu
 
 <font color="#009E73">**Challenge 1: You Try!**</font> 
 
-1. Using the `stations` dataset, filter to only **`Residential`** wells that have a `WELL_DEPTH` > 1000 feet.  
+1. Using the `stations` dataset, filter to only **`Residential`** wells that have a `WELL_DEPTH > 1000` feet.  
 2. Select only `STN_ID`, `WELL_DEPTH`, `WELL_NAME`, `BASIN_NAME`, and `COUNTY_NAME` columns in the dataframe. 
 3. How many records are in Los Angeles?   
 
@@ -266,6 +266,13 @@ table(challenge1$COUNTY_NAME)
 
 `mutate` is a function that modifies existing data, either by adding a new column, or modifying existing columns. When using `mutate` we expect R to return some modified version of our input data.frame...but it should still be a version of the original data.frame.
 
+```{r mutateFig, out.width='80%', echo=FALSE, fig.cap="Artwork by @allison_horst"}
+
+knitr::include_graphics("images/mutate.png")
+
+```
+
+
 `mutate` allows us to pass other functions or data into our data.frame, and is a powerful way to clean and tidy our data.
 
 Let's create a new `WELL_DEPTH_m` column which converts the existing `WELL_DEPTH` column to meters. We pass the new column name and then the function or operation we want to peform to make the new column (or modify an existing column).
@@ -279,7 +286,7 @@ stations_mutate1 <- stations %>%
 
 Let's use `ggplot2` to check and see if this worked? We can use the `%>%` here too!
 
-```{r mut1ggplot1, eval=TRUE, echo=TRUE}
+```{r mut1ggplot1, eval=TRUE, echo=TRUE, warning=FALSE}
 
 stations_mutate1 %>% ggplot() + 
   # this in feet
@@ -289,3 +296,35 @@ stations_mutate1 %>% ggplot() +
 
 ```
 
+Great, this looks about right! It is rarely a bad idea to "visualize" your outcomes whenever possible, these are great ways to double check things are happening as you intend when data wrangling. 
+
+<details>
+  <summary class="extra-practice-title">Extra Practice</summary>
+  <div class="extra-practice-body">
+Let's pause a moment and do this *without* the tidyverse so we can have a chance to see both methods. There are many positives about knowing different approaches, and also when troubleshooting, it can be helpful to understand different ways of doing the same thing. Can you spot a few differences?
+
+```{r baseR-mutate, echo=TRUE, eval=FALSE}
+
+# filter and select (subset)
+stations_basefilter <- stations[stations$WELL_USE=="Residential" & 
+                                  stations$WELL_DEPTH > 1000,
+                                c(1, 4, grep("NAME",colnames(stations)))] 
+
+# mutate
+stations_base1 <- stations # make a copy so we don't alter original data
+stations_base1$WELL_DEPTH_m <- stations_base1$WELL_DEPTH * 0.3048
+
+# ggplot
+ggplot(data=stations_base1) + 
+  geom_point(aes(x=STN_ID, y=WELL_DEPTH), color="cyan4", alpha=0.5) +
+  # this in meters
+  geom_point(aes(x=STN_ID, y=WELL_DEPTH_m), color="maroon", pch=21, alpha=0.8)
+
+```
+
+  </div>
+</details>
+
+## `group_by` and `summarize` into new data.frame
+
+The final core "verbs" we want to be sure folks are aware of, are `group_by` and `summarize`. These are really useful to tranform your data into an entirely **new** dataset.
