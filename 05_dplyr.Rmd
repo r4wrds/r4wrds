@@ -132,7 +132,7 @@ nrow(stations_sac)
 
 What happened? `filter()` requires the data, and then any number of filtering options. We provided just one. Here the `==` means "equal to", while a single `=` would mean `is`. 
 
-We can also combine filter conditions in the same call! Let's also add another condition that we only want `Residential` wells (a category of the `WELL_USE` column). We can get a count of how many categories of `WELL_USE` have observations (or rows) in the `stations_sac` data.frame using the `table()` function. Then we can combine multiple conditions in our `filter` with a `,` (in `filter`, commas are another way to say `AND`).
+We can also combine filter conditions in the same call! Let's also add another condition that we only want `Residential` wells (a category of the `WELL_USE` column). We can get a count of how many categories of `WELL_USE` have observations (or rows) in the `stations_sac` dataframe using the `table()` function. Then we can combine multiple conditions in our `filter` with a `,` (in `filter`, commas are another way to say `AND`).
 
 ```{r dplyr-filt2, echo=TRUE, eval=TRUE}
 
@@ -144,7 +144,7 @@ stations_sac <- filter(stations, COUNTY_NAME == "Sacramento", WELL_USE == "Resid
 nrow(stations_sac)
 ```
 
-We can mix and match these `filter` conditions however we choose. What if we want to select multiple counties? The `%in%` is a great way to provide a list of things you want `filter` to use to see if there's a match within your data.frame. Let's filter to 3 counties: Sacramento, Placer, and El Dorado.
+We can mix and match these `filter` conditions however we choose. What if we want to select multiple counties? The `%in%` is a great way to provide a list of things you want `filter` to use to see if there's a match within your dataframe. Let's filter to 3 counties: Sacramento, Placer, and El Dorado.
 
 ```{r dplyr-filt3, echo=TRUE, eval=TRUE}
 
@@ -159,7 +159,7 @@ stations_multcounties <- filter(stations, COUNTY_NAME %in%
 
 What happened? We used a list (using the `c()` to combine different possible values of `COUNTY_NAME`) to specify what data we wanted to keep. 
 
-### `filter` rows you don't want
+### Exclude rows
 
 We can also *exclude* rows based on conditions. To exclude, we can negate something with the `!` symbol in front of the condition we want to use. Let's exclude all stations from Yolo County. Here we show 3 ways to to do the same thing!
 
@@ -273,7 +273,7 @@ table(challenge1$COUNTY_NAME)
 
 ## `mutate` existing data
 
-`mutate` is a function that modifies existing data, either by adding a new column, or modifying existing columns. When using `mutate` we expect R to return some modified version of our input data.frame...but it should still be a version of the original data.frame.
+`mutate` is a function that modifies existing data, either by adding a new column, or modifying existing columns. When using `mutate` we expect R to return some modified version of our input dataframe... but it should still be a version of the original dataframe.
 
 ```{r mutateFig, out.width='70%', echo=FALSE, fig.cap="Artwork by @allison_horst"}
 
@@ -282,7 +282,7 @@ knitr::include_graphics("images/mutate.png")
 ```
 
 
-`mutate` allows us to pass other functions or data into our data.frame, and is a powerful way to clean and tidy our data.
+`mutate` allows us to pass other functions or data into our dataframe, and is a powerful way to clean and tidy our data.
 
 Let's create a new `WELL_DEPTH_m` column which converts the existing `WELL_DEPTH` column to meters. We pass the new column name and then the function or operation we want to peform to make the new column (or modify an existing column).
 
@@ -334,11 +334,11 @@ ggplot(data=stations_base1) +
   </div>
 </details>
 
-## `group_by` and `summarize` into new data.frame
+## `group_by` & `summarize`
 
 The final core `{dplyr}` "verbs" we want to be sure folks are aware of, are `group_by` and `summarize`. These are really useful to transform your data into an entirely **new** dataset, and to do many operations based on different columns (variables) within your dataset.
 
-For example let's say we want to get a count of how many records exist for each county. We can use `group_by` and `count`.
+For example let's say we want to get a count of how many records exist for each county. We can use **`group_by`** and **`count`**.
 
 ```{r grpby1, eval=T, echo=T}
 
@@ -348,7 +348,7 @@ cnt_by_county <- stations %>%
 head(cnt_by_county)
 ```
 
-What happened? `group_by()` will group the data based on whatever variable or variables you include within that function. Once our `data.frame` is grouped, there are many options and functions we can apply, including things like `count()`, `tally()`, and `summarize()`.
+What happened? `group_by()` will group the data based on whatever variable or variables you include within that function. Once our `dataframe` is grouped, there are many options and functions we can apply, including things like `count()`, `tally()`, and `summarize()`.
 
 Let's look at this a bit more. What if we really only want the 5 counties with the most observations? We can add two additional options here. The `arrange()` function will sort our data by a variable(s) of our choice, and we can use `desc()` to specify we want that data in descending order. We then pipe that to `head()` and ask for just the first 5 rows.
 
@@ -378,19 +378,95 @@ stations %>%
 
 ```
 
-We can add additional groups or columns depending on what we are interested in. Here we add another group (`WELL_USE`), but let's filter out all `WELL_USE` that are blank (""), *Unknown*, or *Other*, and arrange by `total_records` and `WELL_USE`. We'll also add `facets` to our ggplot!
+<aside> This is a plot to consider rotating the axis labels. How do we do that? Practice your web-search skills or visit the [ggplot2 help page](https://ggplot2.tidyverse.org/index.html). *Hint: look at `theme(axis.text.x = )`*
+</aside>
+
+We can add additional groups or columns depending on what we are interested in. Let's try the following:
+
+ - find the mean well depth by each `WELL_USE` category using **`summarize`**
+ - **`filter`** to only groups that have more than 10 stations and no NA's (*for NA's, we can use the `is.na()` function, and the negate or `!` symbol we used previously*)
+ - Let's pipe this to ggplot and make a boxplot to visualize the result
 
 ```{r grpby4, eval=T, echo=T}
 
 stations %>% 
-  filter(!WELL_USE %in% c("Unknown", "Other", "")) %>%
   group_by(COUNTY_NAME, WELL_USE) %>% 
-  summarize(total_records = n()) %>% 
-  arrange(desc(total_records)) %>% 
-  #head(20) %>% # return the first 10 rows 
-  ggplot() + geom_col(aes(x=COUNTY_NAME, y=total_records)) +
-  labs(title="Groundwater Stations in CA") +
-       #subtitle="Top 10 Counties") +
-  facet_wrap(.~WELL_USE, scales = "free")
+  summarize(mean_well_depth = mean(WELL_DEPTH),
+            total_records = n()) %>% 
+  filter(total_records > 10, !is.na(mean_well_depth)) %>% 
+  ggplot() + 
+  geom_boxplot(aes(x=WELL_USE, y=mean_well_depth), fill="seagreen", alpha=0.5) +
+  labs(title="Mean Well Depth for Groundwater Stations in CA",
+       subtitle="For groups with >10 stations",
+       x="Well Use", y="Mean Well Depth (ft)")
 
 ```
+
+ What happened? We grouped by two different variables, and then applied functions (or transformed the data) to those groups using `summarize`, then we filtered, and visualized. The order of these steps can influence your analysis and result, so it's good to consider when you want to filter and when you want to group_by/summarize things. Let's try a challenge!
+ 
+:::challenge
+
+<font color="#009E73">**Challenge 2: You Try!**</font> 
+
+1. Using the code we ran above, figure out how to make this boxplot without the "`Unknown`" and blank (`""`) `WELL_USE` categories. 
+2. Try adding points as another layer over your boxplot using `geom_jitter`.
+3. For a bonus challenge, try adding a caption with information about this dataset, and plotting these data in meters instead of feet.
+
+:::
+
+<br>
+
+<details>
+  <summary class="challenge-ans-title"><font color="#0072B2">**Click for Answers!**</font></summary>
+  <div class="challenge-ans-body">
+
+```{r challenge-2}
+
+stations %>% 
+  filter(WELL_USE!="", WELL_USE!="Unknown") %>% 
+  group_by(COUNTY_NAME, WELL_USE) %>% 
+  summarize(mean_well_depth = mean(WELL_DEPTH),
+            mean_well_depth_m = mean_well_depth * 0.3048,
+            total_records = n()) %>% 
+  filter(total_records > 10, !is.na(mean_well_depth_m)) %>%
+  ggplot() + 
+  geom_boxplot(aes(x=WELL_USE, y=mean_well_depth_m), fill="seagreen", alpha=0.5) +
+  # add jittered points
+  geom_jitter(aes(x=WELL_USE, y=mean_well_depth_m), color="forestgreen", alpha=0.5) +
+  # add labels and caption
+  labs(title="Mean Well Depth for Groundwater Stations in CA",
+       subtitle="For groups with >10 stations",
+       caption = "These are Groundwater Station data from...",
+       x="Well Use", y="Mean Well Depth (ft)")
+
+```
+
+  </div>
+</details>
+
+### Remember to `ungroup`
+
+A common blunder that can impact downstream analyses, or even the current analysis you may want to do is forgetting to ungroup. `{dplyr}` is smart, and will do exactly as you program it to do, but when you use `group_by`, your output dataframe **will retain those groups** for future use. This can be helpful in some cases, but it's important to keep an eye on and be aware of (for when it's *not* helpful). We can always use `class()` to better check this. Let's try some code from above and check with `class()`.
+
+```{r ungroup, eval=T, echo=T}
+
+stations %>% 
+  filter(WELL_USE!="", WELL_USE!="Unknown") %>% 
+  group_by(COUNTY_NAME, WELL_USE) %>% 
+  summarize(mean_well_depth = mean(WELL_DEPTH),
+            total_records = n()) %>% 
+  filter(total_records > 10, !is.na(mean_well_depth)) -> stations_by_cnty_use
+
+class(stations_by_cnty_use)
+
+```
+
+Here we can see the `grouped_df` title, which tells us this is a **grouped** dataset. We can easily *ungroup* with the concisely named `ungroup()` function. This isn't required, but it's a good habit to get into (or be aware of).
+
+```{r ungroup2, eval=T, eval=T}
+
+stations_by_cnty_use <- ungroup(stations_by_cnty_use)
+class(stations_by_cnty_use)
+```
+
+Congratulations! You've made it through `{dplyr}`. There are many more great options and tricks you can learn about `{dplyr}`, but hopefully this will get you going.
