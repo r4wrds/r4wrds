@@ -27,7 +27,7 @@ suppressPackageStartupMessages(library(tidyverse))
 
 ## Data wrangling with **{dplyr}**
 
-Data wrangling is the part of any data analysis that will take the most time. While it may not necessarily be fun, it is foundational to all the work that follows. Often, it also takes significantly longer than actually performing the data analysis or creating a data visualization, so do not panic if, in the future, you find yourself spending a lot of time on this phase. Once you learn some core approaches and tools, you can deal with nearly any dataset you may face!
+Data wrangling is usually the part of any data analysis project that takes the most time. Although it may not necessarily be fun, it is foundational to all the work that follows. Often, data wrangling also takes significantly longer than actually performing the data analysis or creating a data visualization, so do not panic if, in the future, you find yourself spending a lot of time on this phase. Once you learn some core approaches and tools, you can deal with nearly any dataset you may face!
 
 (ref:AHtidyplot) *Illustration by @allison_horst, from Hadley Wickham's talk "The Joy of Functional Programming (for Data Science)"*
 
@@ -41,7 +41,7 @@ knitr::include_graphics(here("images", "data_cowboy.png"))
 
 ```
 
-The data wrangling process includes data import, tidying, and transformation.  The process directly feeds into the *understanding* or modeling side of data exploration, but in a iterative way.  More generally, data wrangling is the manipulation or combination of datasets for the purpose of analysis, and often you have to rinse and repeat this process.  
+The data wrangling process includes data import, tidying, and transformation.  The process directly feeds into the *understanding* or modeling side of data exploration, but in a iterative way.  More generally, data wrangling is the manipulation or combination of datasets for the purpose of analysis, and often you have to rinse and repeat this process as your understanding of the data changes, and as your modeling and visualization needs also changes.  
 
 ```{r out.width = "100%", echo=F, fig.cap = '*Image from "R for Data Science" by Garrett Grolemund and Hadley Wickham.*'}
 knitr::include_graphics(here("images", "data-science-wrangle.png"))
@@ -53,12 +53,12 @@ knitr::include_graphics(here("images", "data-science-wrangle.png"))
  
 No one wrangles for the sake of wrangling (usually), so the process always begins by answering the following two questions:
 
- 1. What do my input data look like?
- 2. What *should* my output data look like given what I want to do?
+ 1. What do my **input** data look like?
+ 2. What *should* my **output** data look like given what I want to do?
 
 ### Learn some Core Tools for Common Operations
 
-At the most basic level, going from what your data looks like to what you want it look like will require a few key operations. The more we can learn how to do these operations using common tools, the easier this will be no matter the data that we face. 
+At the most basic level, going from what your data looks like to what you want it look like will require a few key operations. The more we practice these operations with common tools, the easier this will be no matter the size or complexity of data that we face. 
 
 <aside> *Tidy data* is an important part of being able to re-use these tools! See this great [blog](https://www.openscapes.org/blog/2020/10/12/tidy-data/) (by Lowndes & Horst) 
 </aside>
@@ -71,25 +71,25 @@ knitr::include_graphics("images/tidydata_4.jpg")
 
 Common operations that occur during data wrangling:
 
-* **Selecting** specific variables
-* **Filtering** observations by some criteria
-* Adding or modifying (**mutating**) existing variables 
-* **Renaming** variables
-* **Arranging** rows by a variable
-* **Summarizing** a variable conditional on others
+* **`select`** specific variables
+* **`filter`** observations by some criteria
+* Add or modify (**`mutate`**) existing variables 
+* **`rename`** variables
+* **`arrange`** rows by a variable
+* **`summarize`** a variable conditional on others
 
 The **`{dplyr}`** package provides easy tools for these common data manipulation tasks and is a core package from the [{tidyverse}](https://www.tidyverse.org/) suite of packages. The philosophy of **`{dplyr}`** is that **one** function does **one** thing and the name of the function says what it does. 
 
-### Starting from Scratch
+### Start from Scratch
 
-Any reproducible analysis should be easily repeated. Using code or a script allows us to rebuild all the parts, sometimes over and over again. For that reason, it's a good habit to **Restart your R Session** before you kick off a new coding adventure. Sometimes this solves issues, sometimes it's just good to make sure everything runs up to the point you are working. Let's do that now!
+Any reproducible analysis should be easily repeated. Using code in a script allows us to rebuild every step of the data analysis from scratch -- from data import, to data wrangling, to visualization and modeling -- sometimes over and over again. For that reason, it's a good habit to **Restart your R Session** before you begin a new coding adventure. Sometimes this solves issues, sometimes it's just good to make sure everything runs up to the point you are working. Let's do that now!
 
  1. Go to **`Session`** > **`Restart R`**!
  2. Check your `Environment` tab...it should be empty!
 
 ### Import Libraries and Data 
 
-First we need to load our libraries that we'll be using. Let's use `{here}` and the `{tidyverse}` packages (which includes `{dplyr}` and `{ggplot2}`).
+First we need to load the libraries that we'll be using. Let's use `{here}` and the `{tidyverse}` packages (which includes `{dplyr}` and `{ggplot2}`).
 
 ```{r load-libs, eval=FALSE}
 library(here)
@@ -97,7 +97,7 @@ library(tidyverse)
 
 ```
 
-Next we can import a `.csv` of groundwater monitoring stations across California^[see [here for more about this data]()]. 
+Next we import a `.csv` of groundwater monitoring stations across California^[see [here for more about this data](https://data.cnra.ca.gov/dataset/periodic-groundwater-level-measurements)]. 
 
 <aside> We can use either `read.csv` or `read_csv` functions. What's the main difference between the two? Hint, check `class(stations)` for each method.
 </aside>
@@ -113,7 +113,7 @@ Below your code that imports the dataset, let's make a new section! Go to **`Cod
 
 ## `filter` rows
 
-One of the most common steps to slicing data is **filtering rows** of a dataframe. We can filter by a variable (e.g., column name) or by a condition (i.e., only values greater than 100). Remember, `{dplyr}` is designed so that *one* function does *one* thing, and the name of the function says what it does. 
+One of the most common steps to slicing data is to **filter rows** of a dataframe. We can filter by a variable (e.g., column name) or by a condition (i.e., only values greater than 100). Remember, `{dplyr}` is designed so that *one* function does *one* thing, and the name of the function says what it does. 
 
 ```{r filterArt, eval=TRUE, echo=FALSE, out.width='80%', fig.cap="Artwork by @allison_horst"}
 
@@ -122,7 +122,7 @@ knitr::include_graphics("images/filter.jpg")
 ```
 
 
-Let's filter this large list of potential groundwater station locations (n=`r nrow(stations)` total!) to just stations from Sacramento County. We'll use `filter()`.
+Let's filter this large dataframe of potential groundwater station locations (n=`r nrow(stations)` total!) to just stations from Sacramento County with `filter()`.
 
 ```{r dplyr-filt1, echo=TRUE, eval=TRUE}
 
@@ -132,7 +132,7 @@ nrow(stations_sac)
 
 What happened? `filter()` requires the data, and then any number of filtering options. We provided just one. Here the `==` means "equal to", while a single `=` would mean `is`. 
 
-We can also combine filter conditions in the same call! Let's also add another condition that we only want `Residential` wells (a category of the `WELL_USE` column). We can get a count of how many categories of `WELL_USE` have observations (or rows) in the `stations_sac` dataframe using the `table()` function. Then we can combine multiple conditions in our `filter` with a `,` (in `filter`, commas are another way to say `AND`).
+We can also combine filter conditions in the same call! Let's add another condition that we only want `Residential` wells (a category of the `WELL_USE` column). We can get a count of how many categories of `WELL_USE` have observations (or rows) in the `stations_sac` dataframe using the `table()` function. Then we can combine multiple conditions in our `filter` with a `,` (in `filter`, commas are another way to say `AND`).
 
 ```{r dplyr-filt2, echo=TRUE, eval=TRUE}
 
@@ -144,24 +144,25 @@ stations_sac <- filter(stations, COUNTY_NAME == "Sacramento", WELL_USE == "Resid
 nrow(stations_sac)
 ```
 
-We can mix and match these `filter` conditions however we choose. What if we want to select multiple counties? The `%in%` is a great way to provide a list of things you want `filter` to use to see if there's a match within your dataframe. Let's filter to 3 counties: Sacramento, Placer, and El Dorado.
+We can mix and match `filter` conditions however we choose. What if we want to select multiple counties? The `%in%` is a great way to provide a list of things you want `filter` to use to see if there's a match within your dataframe. Let's filter to 3 counties: Sacramento, Placer, and El Dorado.
 
 ```{r dplyr-filt3, echo=TRUE, eval=TRUE}
 
 # filter to multiple counties
-stations_multcounties <- filter(stations, COUNTY_NAME %in% 
-                                  c("Sacramento", "Placer", "El Dorado"))
+sep_counties <- c("Sacramento", "Placer", "El Dorado")
+stations_multcounties <- filter(stations, COUNTY_NAME %in% sep_counties)
 
 ```
 
 <aside> To quote or not to quote? Inside tidyverse functions like `filter` we typically **don't** need to quote variable names (columns) but we **do** need to quote specific values.
 </aside>
 
-What happened? We used a list (using the `c()` to combine different possible values of `COUNTY_NAME`) to specify what data we wanted to keep. 
+What happened? We used a list (using the `c()` to combine different possible values of `COUNTY_NAME`) to specify what data we wanted to keep, and we told `filter` to return all rows in the `COUNTY_NAME` column with entries in (`%in%`) that list of county names (`sep_counties`). 
+
 
 ### Exclude rows
 
-We can also *exclude* rows based on conditions. To exclude, we can negate something with the `!` symbol in front of the condition we want to use. Let's exclude all stations from Yolo County. Here we show 3 ways to to do the same thing!
+We can also *exclude* rows based on conditions. To exclude, we can negate a condition with the `!` symbol in front of the condition. Let's exclude all stations from Yolo County. Here we show 3 ways to to do the same thing.
 
 ```{r dplyr-filt4, echo=TRUE, eval=TRUE}
 
@@ -174,7 +175,7 @@ stations_trim <- filter(stations, COUNTY_NAME != "Yolo")
 
 ## `select` columns
 
-We can also select specify columns or variables of interest using the `select()` function. Similar to `filter`, we pass the data, and the conditions we want to use subset our data. Let's select only `STN_ID`, `LATITUDE`, `LONGITUDE`, and `COUNTY_NAME`.
+We can also select specific columns or variables of interest with the `select()` function. Similar to `filter`, we pass the data, and the conditions we want to use to subset our data. Let's select only `STN_ID`, `LATITUDE`, `LONGITUDE`, and `COUNTY_NAME`.
 
 
 ```{r dplyr-sel1, echo=TRUE, eval=TRUE}
@@ -193,7 +194,7 @@ stations_sel2 <- select(stations, -c(LATITUDE:BASIN_NAME, COUNTY_NAME))
 ncol(stations_sel2) # how many columns?
 ```
 
-Here we used the `:` to say columns from `LATITUDE` *through* `BASIN_NAME` *and* `COUNTY_NAME`.
+Here we used the `:` to say columns from `LATITUDE` *through* `BASIN_NAME`, then we included `COUNTY_NAME` in the list of columns to drop.
 
 There are some very powerful options that exist within `select()`, including the ability to rename columns, or select by things that relate to the column names. Let's select columns that start with "W" or contain "NAME".
 
@@ -201,14 +202,14 @@ There are some very powerful options that exist within `select()`, including the
 
 # select columns to drop
 stations_sel3 <- select(stations, starts_with("W"), contains("NAME"))
-names(stations_sel2)
+names(stations_sel3)
 ```
 
 ## The Pipe ( `%>%` ) 
 
-We now have two ways to slice and dice our data, filter rows and select by columns. A very useful tool you may have seen is something called a "pipe". In R, this is represented by this symbol: **`%>%`**
+We now have two ways to slice and dice our data, filter rows and select by columns. A very useful tool you may have seen is something called a "pipe". In R, this is represented by the symbol **`%>%`** and can be inserted with the keyboard shortcut `Ctrl` or `⌘` + `Shift` + `M`.
 
-The pipe is a way to chain multiple commands together, and it passes the result of the first command to the second command. This can be particularly helpful in R when you don't need to (or want to) assign temporary steps to your code. For example, let's filter, select, and rename a column without the `%>%`, and then do it with the `%>%`.
+The pipe is a way to chain multiple commands together, and it passes the result of the first function to the second function This is particularly helpful in R when you don't need to (or want to) assign temporary steps to your code. For example, compare a filter, select, and rename set of operations with and without the `%>%`. 
 
 ```{r dplyr-nopipe, echo=TRUE}
 
@@ -221,11 +222,11 @@ stations_multcounty2 <- select(stations_multcounty1, starts_with("W"),
                                contains("NAME"), contains("ID"))
 
 # rename the STN_ID to station_id: rename(new_col_name, old_col_name)
-stations_multcounty3 <- rename(stations_multcounty2, station_id=STN_ID)
+stations_multcounty3 <- rename(stations_multcounty2, station_id = STN_ID)
 
 ```
 
-Now we can try with the `%>%`. Notice we don't need to explicitly define the data set for each step, because it is being "piped" from the previous step.
+Now let's rewrite the code above with `%>%`. Notice we don't need to explicitly define intermediate variables for each step, because data is "piped" between steps.
 
 ```{r dplyr-pipe, echo=TRUE}
 
@@ -233,11 +234,11 @@ Now we can try with the `%>%`. Notice we don't need to explicitly define the dat
 stations_multcounty <- stations %>%
   filter(COUNTY_NAME %in% c("Sacramento", "Placer")) %>% 
   select(starts_with("W"), contains("NAME"), contains("ID")) %>%
-  rename(station_id=STN_ID)
+  rename(station_id = STN_ID)
 
 ```
 
-We piped (`%>%`) the data to `filter()`, and the result of the `filter()` to `select()`, and then piped the result of that to `rename()`. Since we assigned all of this at the very beginning to `stations_multcounty`, that's our final output. We could also use a reverse assign ` -> ` and assign our object at the end of the pipes, it really is up to you.
+We piped (`%>%`) the data to `filter()`, and the result of the `filter()` to `select()`, and then piped the result of that to `rename()`. Since we assigned all of this at the very beginning to `stations_multcounty`, that's our final output. 
 
 
 :::challenge
@@ -257,12 +258,13 @@ We piped (`%>%`) the data to `filter()`, and the result of the `filter()` to `se
   <div class="challenge-ans-body">
 
 ```{r challenge-1}
-# filter
+# filter and select
 challenge1 <- stations %>% 
-  filter(WELL_USE=="Residential", WELL_DEPTH > 1000) %>% 
+  filter(WELL_USE == "Residential", WELL_DEPTH > 1000) %>% 
   select(STN_ID, WELL_DEPTH, ends_with("NAME"))
 names(challenge1)
 
+# count the number of rows for each unique value of COUNTY_NAME
 table(challenge1$COUNTY_NAME)
   
 
@@ -284,7 +286,7 @@ knitr::include_graphics("images/mutate.png")
 
 `mutate` allows us to pass other functions or data into our dataframe, and is a powerful way to clean and tidy our data.
 
-Let's create a new `WELL_DEPTH_m` column which converts the existing `WELL_DEPTH` column to meters. We pass the new column name and then the function or operation we want to peform to make the new column (or modify an existing column).
+Let's create a new `WELL_DEPTH_m` column which converts the existing `WELL_DEPTH` column from feet to meters. We pass the new column name and then the function or operation we want to preform to create the new column (or modify an existing column).
 
 ```{r mutate1, eval=TRUE, echo=TRUE}
 
@@ -293,41 +295,43 @@ stations_mutate1 <- stations %>%
 
 ```
 
-Let's use `ggplot2` to check and see if this worked? We can use the `%>%` here too!
+Let's use `ggplot2` to check and see if this worked. We can use the `%>%` here too!
 
 ```{r mut1ggplot1, eval=TRUE, echo=TRUE, warning=FALSE}
 
-stations_mutate1 %>% ggplot() + 
-  # this in feet
-  geom_point(aes(x=STN_ID, y=WELL_DEPTH), color="cyan4", alpha=0.5) +
-  # this in meters
-  geom_point(aes(x=STN_ID, y=WELL_DEPTH_m), color="maroon", pch=21, alpha=0.8)
+stations_mutate1 %>% 
+  # pass stations_mutate1 into the ggplot function
+  ggplot() + 
+  # add a point geom in feet
+  geom_point(aes(x = STN_ID, y = WELL_DEPTH), color = "cyan4", alpha = 0.5) +
+  # add a point geom in meters
+  geom_point(aes(x = STN_ID, y = WELL_DEPTH_m), color = "maroon", pch = 21, alpha = 0.8)
 
 ```
 
-Great, this looks about right! It is rarely a bad idea to "visualize" your outcomes whenever possible, these are great ways to double check things are happening as you intend when data wrangling. 
+As shown above, the reddish circles for observations in units of meters indicate smaller values than the blueish circles for observations in units of feet. This looks about right! It is rarely a bad idea to "visualize" your outcomes whenever possible, these are great ways to double check things are happening as you intend when data wrangling. 
 
 <details>
   <summary class="extra-practice-title">Extra Practice</summary>
   <div class="extra-practice-body">
-Let's pause a moment and do this *without* the tidyverse so we can have a chance to see both methods. There are many positives about knowing different approaches, and also when troubleshooting, it can be helpful to understand different ways of doing the same thing. Can you spot a few differences?
+Let's pause a moment and do this in base R *without* the tidyverse so we can see both methods. There are many positives about knowing different approaches, and also when troubleshooting, it can be helpful to understand different ways of doing the same thing. Can you spot a few differences?
 
 ```{r baseR-mutate, echo=TRUE, eval=FALSE}
 
 # filter and select (subset)
-stations_basefilter <- stations[stations$WELL_USE=="Residential" & 
+stations_basefilter <- stations[stations$WELL_USE == "Residential" & 
                                   stations$WELL_DEPTH > 1000,
-                                c(1, 4, grep("NAME",colnames(stations)))] 
+                                c(1, 4, grep("NAME", colnames(stations)))] 
 
 # mutate
 stations_base1 <- stations # make a copy so we don't alter original data
 stations_base1$WELL_DEPTH_m <- stations_base1$WELL_DEPTH * 0.3048
 
 # ggplot
-ggplot(data=stations_base1) + 
-  geom_point(aes(x=STN_ID, y=WELL_DEPTH), color="cyan4", alpha=0.5) +
+ggplot(data = stations_base1) + 
+  geom_point(aes(x = STN_ID, y = WELL_DEPTH), color = "cyan4", alpha = 0.5) +
   # this in meters
-  geom_point(aes(x=STN_ID, y=WELL_DEPTH_m), color="maroon", pch=21, alpha=0.8)
+  geom_point(aes(x = STN_ID, y = WELL_DEPTH_m), color = "maroon", pch = 21, alpha = 0.8)
 
 ```
 
@@ -336,26 +340,28 @@ ggplot(data=stations_base1) +
 
 ## `group_by` & `summarize`
 
-The final core `{dplyr}` "verbs" we want to be sure folks are aware of, are `group_by` and `summarize`. These are really useful to transform your data into an entirely **new** dataset, and to do many operations based on different columns (variables) within your dataset.
+The final core `{dplyr}` "verbs" to be aware of are `group_by` and `summarize`. These are really useful to transform your data into an entirely **new** dataset, and to do many operations at once based on different columns (variables) within your dataset.
 
-For example let's say we want to get a count of how many records exist for each county. We can use **`group_by`** and **`count`**.
+For example let's say we want a count of how many records exist for each county. We can use **`group_by`** and **`count`**.
 
 ```{r grpby1, eval=T, echo=T}
 
-cnt_by_county <- stations %>% 
-  group_by(COUNTY_NAME) %>% count()
+n_by_county <- stations %>% 
+  group_by(COUNTY_NAME) %>% 
+  count()
 
-head(cnt_by_county)
+head(n_by_county)
 ```
 
-What happened? `group_by()` will group the data based on whatever variable or variables you include within that function. Once our `dataframe` is grouped, there are many options and functions we can apply, including things like `count()`, `tally()`, and `summarize()`.
+What happened? `group_by()` groups the data based on the variable(s) included in the function. Once our `data.frame` is grouped, there are many options and functions we can apply, including things like `count()`, `tally()`, and `summarize()`.
 
 Let's look at this a bit more. What if we really only want the 5 counties with the most observations? We can add two additional options here. The `arrange()` function will sort our data by a variable(s) of our choice, and we can use `desc()` to specify we want that data in descending order. We then pipe that to `head()` and ask for just the first 5 rows.
 
 ```{r grpby2, eval=T, echo=T}
 
 stations %>% 
-  group_by(COUNTY_NAME) %>% count() %>% # count by COUNTY_NAME
+  group_by(COUNTY_NAME) %>% 
+  count() %>% # count by COUNTY_NAME
   arrange(desc(n)) %>% # sort by column n in descending order
   head(5) # return the first 5 rows
 
@@ -363,29 +369,52 @@ stations %>%
 
 ### Summarizing Data
 
-Similar to `mutate`, `summarize` allows us to create new columns. The difference is `summarize` creates a completely new dataframe based on the `group_by`. So we only use `summarize` following a `group_by`. Here we can do a similar analysis to what we did above, but now we can customize our columns and what we want to calculate. We'll also plot the top 10 records and add a title.
+Similar to `mutate`, `summarize` allows us to create new columns. The difference is `summarize` creates a completely new dataframe based on the `group_by`. Thus, `summarize` always follows a `group_by`. Here we can do a similar analysis to what we did above, but now we can customize our columns and what we want to calculate. Let's calculate the average depth of wells in all counties, then plot the top 10 counties with the deepest average well depth. 
 
 ```{r grpby3, eval=T, echo=T}
 
 stations %>% 
   group_by(COUNTY_NAME) %>% 
-  summarize(total_records = n()) %>% 
-  arrange(desc(total_records)) %>% # need to specify the column name "total_records"
-  head(10) %>% # return the first 10 rows 
-  ggplot() + geom_col(aes(x=COUNTY_NAME, y=total_records)) +
-  labs(title="Groundwater Stations in CA", 
-       subtitle="Top 10 Counties")
+  summarize(mean_well_depth = mean(WELL_DEPTH, na.rm = TRUE)) %>% 
+  arrange(desc(mean_well_depth)) %>% 
+  head(10) %>% # return the first 5 rows and pass to ggplot
+  ggplot() + 
+  geom_col(aes(x = COUNTY_NAME, y = mean_well_depth)) +
+  labs(title = "Mean well depth", 
+       subtitle = "Top 10 Counties with deepest wells")
 
 ```
 
-<aside> This is a plot to consider rotating the axis labels. How do we do that? Practice your web-search skills or visit the [ggplot2 help page](https://ggplot2.tidyverse.org/index.html). *Hint: look at `theme(axis.text.x = )`*
+<aside> This is a plot to consider rotating the axis labels. How do we do that? Practice your web-search skills or visit the [ggplot2 help page](https://ggplot2.tidyverse.org/index.html). *Hint: look at `theme(axis.text.x = )`. Another option is `coord_flip()`.*
 </aside>
+
+We looked at only the top 10 counties before, but remember that `group_by` and `summarize` work on entire dataframes. To illustrate how these operations scale to entire dataframes, if we wanted to visualize the mean well depth for all counties in the data, we could do so with slightly modified code:  
+
+```{r well-depth-all-counties, eval=T, echo=T, fig.height = 8}
+stations %>% 
+  # group by the county name
+  group_by(COUNTY_NAME) %>% 
+  # calculate the mean well depth
+  summarize(mean_well_depth = mean(WELL_DEPTH, na.rm = TRUE)) %>% 
+  # remove two counties that have NA values
+  filter(!is.na(mean_well_depth)) %>% 
+  # pass to ggplot
+  ggplot() + 
+  geom_col(aes(x = fct_reorder(COUNTY_NAME, mean_well_depth), 
+               y = mean_well_depth)) +
+  labs(title = "Mean well depth", 
+       subtitle = "Periodic groundwater level database", 
+       y = "Mean well depth (ft)",
+       x = "") +
+  coord_flip()
+```
+
 
 We can add additional groups or columns depending on what we are interested in. Let's try the following:
 
  - find the mean well depth by each `WELL_USE` category using **`summarize`**
  - **`filter`** to only groups that have more than 10 stations and no NA's (*for NA's, we can use the `is.na()` function, and the negate or `!` symbol we used previously*)
- - Let's pipe this to ggplot and make a boxplot to visualize the result
+ - pipe to ggplot and make a boxplot to visualize the result
 
 ```{r grpby4, eval=T, echo=T}
 
@@ -395,10 +424,12 @@ stations %>%
             total_records = n()) %>% 
   filter(total_records > 10, !is.na(mean_well_depth)) %>% 
   ggplot() + 
-  geom_boxplot(aes(x=WELL_USE, y=mean_well_depth), fill="seagreen", alpha=0.5) +
-  labs(title="Mean Well Depth for Groundwater Stations in CA",
-       subtitle="For groups with >10 stations",
-       x="Well Use", y="Mean Well Depth (ft)")
+  geom_boxplot(aes(x = WELL_USE, y = mean_well_depth), 
+               fill = "seagreen", alpha = 0.5) +
+  labs(title = "Well Depth for Groundwater Stations in CA",
+       subtitle = "For groups with >10 stations",
+       x = "Well Use", 
+       y = "Well Depth (ft)")
 
 ```
 
@@ -423,21 +454,24 @@ stations %>%
 ```{r challenge-2}
 
 stations %>% 
-  filter(WELL_USE!="", WELL_USE!="Unknown") %>% 
+  filter(WELL_USE != "", WELL_USE != "Unknown") %>% 
   group_by(COUNTY_NAME, WELL_USE) %>% 
   summarize(mean_well_depth = mean(WELL_DEPTH),
             mean_well_depth_m = mean_well_depth * 0.3048,
             total_records = n()) %>% 
   filter(total_records > 10, !is.na(mean_well_depth_m)) %>%
   ggplot() + 
-  geom_boxplot(aes(x=WELL_USE, y=mean_well_depth_m), fill="seagreen", alpha=0.5) +
+  geom_boxplot(aes(x = WELL_USE, y = mean_well_depth_m), 
+               fill = "seagreen", alpha = 0.5) +
   # add jittered points
-  geom_jitter(aes(x=WELL_USE, y=mean_well_depth_m), color="forestgreen", alpha=0.5) +
+  geom_jitter(aes(x = WELL_USE, y = mean_well_depth_m), 
+              color = "forestgreen", alpha = 0.5) +
   # add labels and caption
-  labs(title="Mean Well Depth for Groundwater Stations in CA",
-       subtitle="For groups with >10 stations",
-       caption = "These are Groundwater Station data from...",
-       x="Well Use", y="Mean Well Depth (ft)")
+  labs(title = "Well Depth for Groundwater Stations in CA",
+       subtitle = "For groups with >10 stations",
+       caption  = "Data from the DWR Periodic Groundwater Level Database.",
+       x = "Well Use", 
+       y = "Well Depth (ft)")
 
 ```
 
@@ -450,12 +484,12 @@ A common blunder that can impact downstream analyses, or even the current analys
 
 ```{r ungroup, eval=T, echo=T}
 
-stations %>% 
-  filter(WELL_USE!="", WELL_USE!="Unknown") %>% 
+stations_by_cnty_use <- stations %>% 
+  filter(WELL_USE != "", WELL_USE != "Unknown") %>% 
   group_by(COUNTY_NAME, WELL_USE) %>% 
   summarize(mean_well_depth = mean(WELL_DEPTH),
             total_records = n()) %>% 
-  filter(total_records > 10, !is.na(mean_well_depth)) -> stations_by_cnty_use
+  filter(total_records > 10, !is.na(mean_well_depth)) 
 
 class(stations_by_cnty_use)
 
@@ -469,4 +503,4 @@ stations_by_cnty_use <- ungroup(stations_by_cnty_use)
 class(stations_by_cnty_use)
 ```
 
-Congratulations! You've made it through `{dplyr}`. There are many more great options and tricks you can learn about `{dplyr}`, but hopefully this will get you going.
+Congratulations! You've made it through `{dplyr}`. There are many more great options and tricks within `{dplyr}`, but hopefully this will get you going.
