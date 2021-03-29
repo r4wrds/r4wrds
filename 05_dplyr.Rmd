@@ -329,9 +329,11 @@ stations_base1$WELL_DEPTH_m <- stations_base1$WELL_DEPTH * 0.3048
 
 # ggplot
 ggplot(data = stations_base1) + 
-  geom_point(aes(x = STN_ID, y = WELL_DEPTH), color = "cyan4", alpha = 0.5) +
+  geom_point(aes(x = STN_ID, y = WELL_DEPTH), 
+             color = "cyan4", alpha = 0.5) +
   # this in meters
-  geom_point(aes(x = STN_ID, y = WELL_DEPTH_m), color = "maroon", pch = 21, alpha = 0.8)
+  geom_point(aes(x = STN_ID, y = WELL_DEPTH_m), 
+             color = "maroon", pch = 21, alpha = 0.8)
 
 ```
 
