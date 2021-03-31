@@ -1,0 +1,30 @@
+---
+title: "Intro to Rmarkdown"
+description: | 
+  Putting things into a document you can be proud of...
+output: 
+  distill::distill_article:
+    toc: true
+---
+
+```{r setup, include=FALSE, purl=FALSE, message=FALSE}
+
+library(knitr)
+library(here)
+suppressPackageStartupMessages(library(tidyverse))
+
+```
+
+:::obj
+
+**RMarkdown**
+ 
+ - R Chunks
+ - Text
+ - Knitting
+ - Basic tricks
+
+:::
+
+## Rmd placehoder
+

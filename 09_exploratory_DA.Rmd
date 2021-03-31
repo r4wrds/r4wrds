@@ -1,0 +1,27 @@
+---
+title: "Exploratory Data Analysis"
+description: | 
+  Having Fun
+output: 
+  distill::distill_article:
+    toc: true
+---
+
+```{r setup, include=FALSE, purl=FALSE, message=FALSE}
+
+library(knitr)
+library(here)
+suppressPackageStartupMessages(library(tidyverse))
+
+```
+
+:::obj
+
+**EDA**
+ 
+ - EDA
+
+:::
+
+## EDA placehoder
+

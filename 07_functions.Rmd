@@ -1,0 +1,29 @@
+---
+title: "Function Junction"
+description: | 
+  Use, re-use, and write code to do stuff!
+output: 
+  distill::distill_article:
+    toc: true
+---
+
+```{r setup, include=FALSE, purl=FALSE, message=FALSE}
+
+library(knitr)
+library(here)
+suppressPackageStartupMessages(library(tidyverse))
+
+```
+
+:::obj
+
+**Functions**
+ 
+ - Understand what a function is
+ - Understand how to use functions in R
+ - Write your own simple function
+
+:::
+
+## Functions
+

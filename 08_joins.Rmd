@@ -1,0 +1,31 @@
+---
+title: "Joining & Pivoting Data"
+description: | 
+  How to merge and join data
+output: 
+  distill::distill_article:
+    toc: true
+---
+
+```{r setup, include=FALSE, purl=FALSE, message=FALSE}
+
+library(knitr)
+library(here)
+suppressPackageStartupMessages(library(tidyverse))
+
+```
+
+:::obj
+
+**Joining and Pivoting Data**
+ 
+ - Understand different types of joins and how to use them
+ - Learn how to pivot your data and what `wide` and `long` data are
+ - Learn how to join data with different column names
+
+:::
+
+## Joins
+
+## Pivoting
+
