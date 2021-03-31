@@ -1,0 +1,27 @@
+---
+title: "Intro to Map Making in R"
+description: | 
+  Mapmaking 101
+output: 
+  distill::distill_article:
+    toc: true
+---
+
+```{r setup, include=FALSE, purl=FALSE, message=FALSE}
+
+library(knitr)
+library(here)
+suppressPackageStartupMessages(library(tidyverse))
+
+```
+
+:::obj
+
+**Maps**
+ 
+ - MAPS
+
+:::
+
+## MAPS placehoder
+

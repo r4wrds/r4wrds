@@ -1,0 +1,29 @@
+---
+title: "Data Visualization with ggplot2"
+description: | 
+  Plots! Plots! Plots!
+output: 
+  distill::distill_article:
+    toc: true
+---
+
+```{r setup, include=FALSE, purl=FALSE, message=FALSE}
+
+library(knitr)
+library(here)
+suppressPackageStartupMessages(library(tidyverse))
+
+```
+
+:::obj
+
+**Learning objectives**
+ 
+ - plots
+ - plots
+ - plots
+
+:::
+
+## Data viz with **{ggplot2}**
+
