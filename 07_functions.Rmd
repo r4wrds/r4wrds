@@ -11,6 +11,7 @@ output:
 
 library(knitr)
 library(here)
+library(flair)
 suppressPackageStartupMessages(library(tidyverse))
 
 ```
@@ -26,4 +27,56 @@ suppressPackageStartupMessages(library(tidyverse))
 :::
 
 ## Functions
+
+What is a function? A function is simply a set of instructions or code written for a computer to follow. These can be very simple (multiply one column of data by another) to much more complex (multi-step model and visualization). Packages are usually sets of functions that focus on similar topics or themes, sort of like a cookbook for a specific kind of food. 
+
+So functions ultimately make our code more reuseable, and reproducible, because we can use functions for repeated processes (like cleaning and tidying data!).
+
+### What's in a Function?
+
+In R, functions have a **name**, an **input** which may consist of one or more **arguments** (sometimes called parameters) and a **output** or the thing that the function returns. 
+
+Here's an example function to convert discharge from cubic meters per second (cms) to cubic feet per second (cfs). Can you identify the different parts?
+
+```{r cms-to-cfs, eval=TRUE, echo=TRUE}
+
+cms_to_cfs <- function(discharge) {
+  cfs_out <- discharge * 35.3146662
+  return(cfs_out)
+}
+
+```
+
+
+```{r cmsFlair, include=TRUE}
+
+decorate_chunk("cms-to-cfs", ) %>% 
+  flair_args(background="#FFBF00") %>% 
+  flair(pattern = "discharge", background="#6FCFEB", bold=TRUE) %>%
+  flair(pattern = "discharge", color="darkblue", bold=TRUE) %>%
+  flair("cms_to_cfs", color="maroon") %>% 
+  flair("cfs_out", background="gold") %>% 
+  flair_funs(color="forestgreen")
+
+```
+
+### Running a Function
+
+Using functions requires we know what pieces go where inside the function (*the arguments*), our data is of the right class or shape for the function (*input*), and we know what the function should return to our Environment! Once we have this basic understanding, there are thousands to hundreds of thousands of functions that are written already, and you can always write your own too! 
+
+## Use a Function from a Package
+
+We've already been doing this throughout the previous lessons with things like `read.csv()`, `dplyr::filter()`, or `ggplot2::ggplot()`, but let's use a new package to pull some surface water river flow data.
+
+### dataRetrieval
+
+Pull data from Sac/American realm
+
+### Pull counties from another package
+
+
+### Output dataframe to join with enviroscreen in next lesson
+
+## Custom Functions
+
 
