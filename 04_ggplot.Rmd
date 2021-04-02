@@ -313,6 +313,16 @@ ggplot(gwl_10) +
   facet_wrap(~SITE_CODE, ncol = 2, scales = "free")
 ```
 
+You can also facet by 2 variables with `facet_grid()`. Here we facet by the county name and well use, and also separate individual sites within each facet by specifying `group = SITE_CODE`.  
+
+```{r facet-grid}
+ggplot(gwl_10) +
+    geom_line(aes(MSMT_DATE, GSE_WSE, color = WELL_USE, group = SITE_CODE)) +
+    facet_grid(COUNTY_NAME~WELL_USE, scales = "free")
+```
+
+What would happen if `group = SITE_CODE` were not included?  
+
 
 :::challenge
 
