@@ -254,9 +254,9 @@ This section uses some more functions, but with some more advanced applications.
 
 ### Getting Water Quality Stations 
 
-What if we wanted to find all the possible water quality stations that are upstream or downstream of the gage we pulled data from earlier (`USGS: 11446500`)? A great function that will not only help us figure that out, but also help us pull in spatial data we can use to make maps is the `findNLDI` function from the {dataRetrieval} package.
+What if we wanted to find all the possible water quality stations that are upstream or downstream of the gage we pulled data from earlier (`USGS: 11446500`)? A great function that will not only help us figure that out, but also help us pull in spatial data we can use to make maps is the **`findNLDI()`** function from the `{dataRetrieval}` package.
 
-The function **`findNLDI()` has arguments for the type of data we want to use (`nwis`, `huc`,`location`), what direction along a stream we want to look (upstream or downstream, or in mainstem or tributaries), what data we want to get back (`find`), and the distance we should search upstream or downstream (`distance_km`).
+The function **`findNLDI()`** has arguments for the type of data we want to use (`nwis`, `huc`,`location`), what direction along a stream we want to look (upstream or downstream, or in mainstem or tributaries), what data we want to get back (`find`), and the distance we should search upstream or downstream (`distance_km`).
 
 Let's look only in the mainstem river for 50 km upstream or downstream of our USGS gage and return any NWIS (water quality or flow) sites and the associated flowlines we searched.
 
@@ -290,7 +290,7 @@ class(nwis_sites)
 
 ```
 
-Let's visualize these sites with a fancy map!
+Let's visualize these sites with a fancy map! See the [mapmaking]() lesson for more details on making maps in R.
 
 ```{r tmapMap, include=FALSE, eval=FALSE}
 
@@ -302,9 +302,9 @@ library(tmap)
 library(tmaptools)
 
 # get base layer
-gm_osm <- read_osm(amer_ds_nimbus$DM_flowlines, zoom = 12, type = "esri-topo", raster=TRUE)
+#gm_osm <- read_osm(amer_ds_nimbus$DM_flowlines, zoom = 12, type = "esri-topo", raster=TRUE)
 #save(gm_osm, file = "data/tmaptools_amer_ds_nimbus_natgeo.rda") # if want to preload
-#load("data/tmaptools_amer_ds_nimbus_natgeo.rda")
+load("data/tmaptools_amer_ds_nimbus_natgeo.rda")
 
 # map
 tm_shape(gm_osm) + tm_rgb(alpha = 0.8) +
@@ -342,17 +342,24 @@ include_graphics("images/map_of_nwis_sites.png")
 
 ### Save Our Data!
 
-Finally, let's go ahead and save (export) our list of NWIS sites from the American River below Nimbus Dam so we can use it for future lessons.
+Finally, let's go ahead and save (export) our list of NWIS sites, and all our spatial components from the American River below Nimbus Dam so we can use it for future lessons.
 
-```{r saveNWISsites, echo=TRUE, eval=TRUE}
+```{r saveNWISsites, echo=TRUE, eval=FALSE}
 
 # save out
 write_csv(nwis_sites, file = "data/nwis_sites_american_river.csv")
+write_rds(amer_ds_nimbus, file="data/nwis_sites_amer_ds_nimbus_sf.rds")
 
 ```
 
 
 ## Additional Water Packages of Interest
 
-There are many packages that work with water or water data. Here's a list of just a few that you may find interesting or helpful.
+There are many packages that work with water or water data. Here's a list of just a few that you may find interesting or helpful. The R CRAN repository has a list of all packages that relate to [Hydrology](https://cran.r-project.org/web/views/Hydrology.html) that is also a good place to look.
 
+ - **{dataRetrieval}**
+ - **{nhdplusTools}**
+ - **{EGRET}**
+ - **{geoknife}**
+
+ 
