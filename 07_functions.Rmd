@@ -99,7 +99,7 @@ It's important to adopt consistent and descriptive names in R. This isn't just f
 
 We've already been doing this throughout the previous lessons with things like `read.csv()`, `dplyr::filter()`, or `ggplot2::ggplot()`, but let's use a new package to pull some surface water river flow data. Here we'll use the `{dataRetrieval}` package.
 
-### `{dataRetrieval}`
+### Getting Water Data with `{dataRetrieval}`
 
 The {[dataRetrieval](http://usgs-r.github.io/dataRetrieval/index.html)} package is a way to access hydrologic and water quality data from the USGS and EPA. There are several vignettes (or tutorials) that are available at the package website. Here, we will show how to download some surface water data from the American River near Sacramento. First we load the package with the functions we want to use. We load packages once per session. 
 
@@ -216,25 +216,6 @@ ggplot() + geom_line(data = flow_huc,
   </div>
 </details>
 
-```{r advancedNLDI, echo=FALSE, eval=FALSE, include=FALSE}
-
-# this is cool but may need to be saved for advanced course
-amer_ds_nimbus <- findNLDI(
-  nwis = "11446500", # Below Nimbus Dam
-  nav = c("UM","DM"), 
-  find = c("nwis", "basin", "flowlines"),
-  distance_km = 50)
-
-#mapview(amer_ds_nimbus)
-
-plot(amer_ds_nimbus$DM_flowlines$geometry, col="steelblue2", lwd=1.5)
-plot(amer_ds_nimbus$UM_flowlines$geometry, col="steelblue4", lwd=1.2, add=TRUE)
-plot(amer_ds_nimbus$DM_nwissite$geometry, col="black", bg="skyblue2", pch=21, add=TRUE)
-plot(amer_ds_nimbus$origin$geometry, col="red4", pch=16, add=TRUE, cex=1.8)
-
-```
-
-
 ## Using Custom Functions
 
 Since we already wrote a custom function to convert cms to cfs, let's make another similar function but for cfs to cms, and apply it to the flow data we just downloaded. Let's look at how we might use a function on an existing data frame or dataset that we have in R.
@@ -253,10 +234,9 @@ cfs_to_cms <- function(discharge) {
 
 # add a new column to existing dataset with mutate
 flow_site <- flow_site %>% 
-  mutate(Flow_cms = cfs_to_cms(Flow_Inst)) # do the conversion
+  mutate(Flow_cms = cfs_to_cms(Flow_Inst)) # apply the function to the column
 
 # quick plot to check!
-# visualize:
 ggplot() + geom_line(data = flow_site, 
                      aes(x = dateTime, y = Flow_cms), color = "darkblue") +
   theme_classic() +
@@ -266,8 +246,98 @@ ggplot() + geom_line(data = flow_site,
 
 ```
 
+So what happened here? We made a function `cfs_to_cms()` to apply to our data. In this case, we wanted to apply our function to a column in our dataframe, which if we remember the earlier lesson on data, in a dataframe a column is a vector of the same type of data. That means the function can very quickly iterate through every observation in the vector and convert the data from cfs to cms.
 
-## Pull counties from another package
+## More Practice
+
+This section uses some more functions, but with some more advanced applications. We'll want to have the `{sf}` package installed for the following code to work fully.
+
+### Getting Water Quality Stations 
+
+What if we wanted to find all the possible water quality stations that are upstream or downstream of the gage we pulled data from earlier (`USGS: 11446500`)?
+
+```{r advancedNLDI, echo=FALSE, eval=FALSE, include=FALSE}
+
+cntys <- USAboundaries::us_counties(states = "ca", resolution = "high")
+sac_eldor_plac <- cntys %>% filter(name %in% c("Placer","Sacramento", "El Dorado"))
+
+# this is cool but may need to be saved for advanced course..
+# including code here to show a map of potential WQ sites we can use for joins lesson
+# can split/show whatever pieces are useful later
+
+# get NWIS and flowline data 50km downstream of the USGS gage
+amer_ds_nimbus <- findNLDI(
+  nwis = "11446500", # Below Nimbus Dam
+  nav = c("UM","DM"), 
+  find = c("nwis", "basin", "flowlines"),
+  distance_km = 50)
+
+# make data.frame of NWIS stations we want to use:
+nwis_sites <- amer_ds_nimbus$DM_nwissite %>% st_drop_geometry()
+
+# save out
+write_csv(nwis_sites, file = "data/nwis_sites_american_river.csv")
+
+```
+
+```{r tmapMap, include=FALSE, eval=FALSE}
+
+library(mapview)
+mapview(amer_ds_nimbus) # mapview shows all layers at once, very nice
+
+# make a static map with tmap
+library(tmap)
+library(tmaptools)
+
+# get base layer
+gm_osm <- read_osm(amer_ds_nimbus$DM_flowlines, zoom = 12, type = "esri-topo", raster=TRUE)
+#save(gm_osm, file = "data/tmaptools_amer_ds_nimbus_natgeo.rda") # if want to preload
+#load("data/tmaptools_amer_ds_nimbus_natgeo.rda")
+
+# map
+tm_shape(gm_osm) + tm_rgb(alpha = 0.8) +
+  tm_shape(amer_ds_nimbus$DM_flowlines) + 
+  tm_lines(col = "steelblue4", lwd=1.5) + 
+  tm_shape(amer_ds_nimbus$DM_nwissite) + 
+  tm_dots(col = "cyan4", shape=21, size=0.9, title="NWIS Sites", legend.show = TRUE) + 
+  tm_shape(amer_ds_nimbus$origin) + 
+  tm_dots(col = "skyblue3", shape=21, size=1.2, title="USGS Site") + 
+  tm_add_legend('symbol', 
+                col = c("cyan4", "skyblue3"),
+                border.col = "grey40",
+                size = c(0.9, 1.2),
+                labels = c('NWIS Site','USGS Site')) +
+  tm_layout(frame = FALSE,
+            title="American River Monitoring Sites",
+            fontfamily = "Roboto Condensed",
+            legend.outside = FALSE, attr.outside = FALSE,
+            inner.margins = 0.01, outer.margins = (0.01),
+            legend.position = c(0.05,0.8),
+            title.position = c(0.3, 0.9)) +
+  tm_compass(type = "4star", position = c("right","bottom")) +
+  tm_scale_bar(position = c("right","bottom"))
+
+# save out for later
+tmap_save(filename = "images/map_of_nwis_sites.png", height = 6, width = 8, units = "in", dpi = 200)
+
+```
+
+
+```{r, eval=TRUE, echo=FALSE, out.width='90%'}
+
+include_graphics("images/map_of_nwis_sites.png")
+
+```
+
+
+### Save Our Data!
+
+Let's go ahead and save (export) our data so we can use it for future lessons.
+
+## Additional Water Packages of Interest
+
+There are many packages that work with water or water data. Here's a list of just a few that you may find interesting or helpful.
+
 
 
 ### Output dataframe to join with enviroscreen in next lesson
