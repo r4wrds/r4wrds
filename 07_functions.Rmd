@@ -254,31 +254,43 @@ This section uses some more functions, but with some more advanced applications.
 
 ### Getting Water Quality Stations 
 
-What if we wanted to find all the possible water quality stations that are upstream or downstream of the gage we pulled data from earlier (`USGS: 11446500`)?
+What if we wanted to find all the possible water quality stations that are upstream or downstream of the gage we pulled data from earlier (`USGS: 11446500`)? A great function that will not only help us figure that out, but also help us pull in spatial data we can use to make maps is the `findNLDI` function from the {dataRetrieval} package.
 
-```{r advancedNLDI, echo=FALSE, eval=FALSE, include=FALSE}
+The function **`findNLDI()` has arguments for the type of data we want to use (`nwis`, `huc`,`location`), what direction along a stream we want to look (upstream or downstream, or in mainstem or tributaries), what data we want to get back (`find`), and the distance we should search upstream or downstream (`distance_km`).
 
-cntys <- USAboundaries::us_counties(states = "ca", resolution = "high")
-sac_eldor_plac <- cntys %>% filter(name %in% c("Placer","Sacramento", "El Dorado"))
+Let's look only in the mainstem river for 50 km upstream or downstream of our USGS gage and return any NWIS (water quality or flow) sites and the associated flowlines we searched.
 
-# this is cool but may need to be saved for advanced course..
-# including code here to show a map of potential WQ sites we can use for joins lesson
-# can split/show whatever pieces are useful later
+```{r advancedNLDI, echo=TRUE, eval=TRUE}
+
+library(sf)
 
 # get NWIS and flowline data 50km downstream of the USGS gage
 amer_ds_nimbus <- findNLDI(
   nwis = "11446500", # Below Nimbus Dam
   nav = c("UM","DM"), 
-  find = c("nwis", "basin", "flowlines"),
+  find = c("nwis", "flowlines"),
   distance_km = 50)
 
-# make data.frame of NWIS stations we want to use:
-nwis_sites <- amer_ds_nimbus$DM_nwissite %>% st_drop_geometry()
-
-# save out
-write_csv(nwis_sites, file = "data/nwis_sites_american_river.csv")
+names(amer_ds_nimbus)
 
 ```
+
+Note, this returned a named *list* of dataframes. We can access individual parts of a list just as we can access a single column in a dataframe using the `$`. This function returned 5 parts, the `origin` which is the site we used to start our search, the `UM_nwissite` which is the NWIS sites upstream on the mainstem from our USGS gage, the `DM_nwissite` which is the NWIS sites downstream of our USGS gage, and finally, a mainstem flowline upstream and downstream of our gage. These are dataframes with an underlaying spatial component, which is nice because it allows us to easily map and visualize these data if we want. See the [mapmaking lesson]() for more info.The dataframes are an `sf` class, from the [simple features {sf} package](https://r-spatial.github.io/sf/)), but they also can be converted to just a dataframe. 
+
+```{r nwisDF, eval=TRUE, echo=TRUE}
+
+# see what the class of data is
+class(amer_ds_nimbus$DM_nwissite)
+
+# get just downstream NWIS sites and make into dataframe
+nwis_sites <- amer_ds_nimbus$DM_nwissite %>% 
+  st_drop_geometry() # drop the sf class
+
+class(nwis_sites)
+
+```
+
+Let's visualize these sites with a fancy map!
 
 ```{r tmapMap, include=FALSE, eval=FALSE}
 
@@ -322,23 +334,25 @@ tmap_save(filename = "images/map_of_nwis_sites.png", height = 6, width = 8, unit
 
 ```
 
-
 ```{r, eval=TRUE, echo=FALSE, out.width='90%'}
 
 include_graphics("images/map_of_nwis_sites.png")
 
 ```
 
-
 ### Save Our Data!
 
-Let's go ahead and save (export) our data so we can use it for future lessons.
+Finally, let's go ahead and save (export) our list of NWIS sites from the American River below Nimbus Dam so we can use it for future lessons.
+
+```{r saveNWISsites, echo=TRUE, eval=TRUE}
+
+# save out
+write_csv(nwis_sites, file = "data/nwis_sites_american_river.csv")
+
+```
+
 
 ## Additional Water Packages of Interest
 
 There are many packages that work with water or water data. Here's a list of just a few that you may find interesting or helpful.
-
-
-
-### Output dataframe to join with enviroscreen in next lesson
 
