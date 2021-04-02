@@ -30,13 +30,24 @@ suppressPackageStartupMessages(library(tidyverse))
 
 What is a function? A function is simply a set of instructions or code written for a computer to follow. These can be very simple (multiply one column of data by another) to much more complex (multi-step model and visualization). Packages are usually sets of functions that focus on similar topics or themes, sort of like a cookbook for a specific kind of food. 
 
-So functions ultimately make our code more reuseable, and reproducible, because we can use functions for repeated processes (like cleaning and tidying data!).
+So functions ultimately make our code more reusable, and reproducible, because we can use functions for repeated processes (like cleaning and tidying data!).
 
 ### What's in a Function?
 
 In R, functions have a **name**, an **input** which may consist of one or more **arguments** (sometimes called parameters) and a **output** or the thing that the function returns. 
 
 Here's an example function to convert discharge from cubic meters per second (cms) to cubic feet per second (cfs). Can you identify the different parts?
+
+```{r seqFunction, eval=FALSE, include=FALSE}
+
+seq.int(from = , # each of these are arguments
+        to = , 
+        by = ,
+        length.out = ,
+        along.with = )
+
+```
+
 
 ```{r cms-to-cfs, eval=TRUE, echo=TRUE}
 
@@ -47,8 +58,7 @@ cms_to_cfs <- function(discharge) {
 
 ```
 
-
-```{r cmsFlair, include=TRUE}
+```{r cmsFlair, include=FALSE, echo=FALSE, eval=FALSE}
 
 decorate_chunk("cms-to-cfs", ) %>% 
   flair_args(background="#FFBF00") %>% 
@@ -62,21 +72,203 @@ decorate_chunk("cms-to-cfs", ) %>%
 
 ### Running a Function
 
-Using functions requires we know what pieces go where inside the function (*the arguments*), our data is of the right class or shape for the function (*input*), and we know what the function should return to our Environment! Once we have this basic understanding, there are thousands to hundreds of thousands of functions that are written already, and you can always write your own too! 
+Using functions requires we know what pieces go where inside the function (*the arguments*), our data is of the right class or shape for the function (*input*), and we know what the function should return to our Environment! Once we have this basic understanding, there are thousands of functions that are already written and part of packages we can use. We can also write our own functions. 
+
+So to use the `cms_to_cfs` function we wrote above, we need to provide a value to the `discharge` **argument**. Let's convert 10 cms to cfs, using our function.
+
+```{r, eval=TRUE, echo=TRUE}
+
+cms_to_cfs(discharge = 10)
+
+```
+
+The function returns a numeric value to our console. If we wanted to save this value, we could assign it (`<-`). Functions allow us to iterate over data, or repeat the same task on different datasets.
+
+### Naming Functions in R
+
+It's important to adopt consistent and descriptive names in R. This isn't just for functions, but it's a particularly good habit to get into when naming functions.For example, a general recommendation is to 🐍 `use_snake_case` 🐍. Other options include:
+
+ - `MaybeUseCamelCase`
+ - `or.separate.by.periods`
+ - `orJust_try.everythingBecause.CHAOS`
+
+<aside> For more useful info on naming conventions see [r4ds](http://r4ds.had.co.nz/workflow-basics.html#whats-in-a-name) or [example styles](http://style.tidyverse.org/syntax.html#object-names).
+</aside>
 
 ## Use a Function from a Package
 
-We've already been doing this throughout the previous lessons with things like `read.csv()`, `dplyr::filter()`, or `ggplot2::ggplot()`, but let's use a new package to pull some surface water river flow data.
+We've already been doing this throughout the previous lessons with things like `read.csv()`, `dplyr::filter()`, or `ggplot2::ggplot()`, but let's use a new package to pull some surface water river flow data. Here we'll use the `{dataRetrieval}` package.
 
-### dataRetrieval
+### `{dataRetrieval}`
 
-Pull data from Sac/American realm
+The {[dataRetrieval](http://usgs-r.github.io/dataRetrieval/index.html)} package is a way to access hydrologic and water quality data from the USGS and EPA. There are several vignettes (or tutorials) that are available at the package website. Here, we will show how to download some surface water data from the American River near Sacramento. First we load the package with the functions we want to use. We load packages once per session. 
 
-### Pull counties from another package
+```{r getAMERflow, eval=T, echo=TRUE, message=FALSE}
+
+# load the functions via packages!
+library(tidyverse)
+library(dataRetrieval) # a spellbook of water data functions
+
+# use a function to download data:
+flow_site <- readNWISdata(site = "11427000", # USGS Station ID
+                         service = "iv", # instantaneous measurements
+                         parameterCd = "00060", # discharge in cfs
+                         startDate = "2019-10-01",
+                         endDate = "2021-09-30",
+                         tz = "America/Los_Angeles")
+
+```
+
+There are a lot of **arguments** in that function! How did we know what each one was or what to put there? A few different options here. For functions or packages you aren't familiar with, it's worth using built in help. 
+
+ - Look up help for a function with `?readNWISdata` and look at the **`Usage`** and **`Arguments`** sections!
+ - Use tab autocomplete as much as you can in RStudio! Once inside a function's parenthesis, hit tab! There are generally a list of arguments that will pop up, each with some info about them. This is the same info we should find in the __*Help*__ tab when we look up the function.
+ 
+### How do we know it worked?
+
+Back to always visualize and inspect your data...we should have an object in our environment called **`flow_site`**. Let's take a look at this data, tidy it, and plot!
+
+```{r flow-site-plot, eval=T, echo=T}
+
+# check data
+summary(flow_site)
+head(flow_site)
+
+# fix column names so we can use a more informative parameter name
+flow_site <- dataRetrieval::renameNWISColumns(flow_site)
+
+# check data
+names(flow_site)
+
+# visualize:
+ggplot() + geom_line(data = flow_site, 
+                     aes(x = dateTime, y = Flow_Inst), color = "darkblue") +
+  theme_classic() +
+  labs(x="", y="Flow (cfs)", 
+       title="Discharge from USGS Station 11427000",
+       caption = "data pulled using {dataRetrieval} package in R")
+
+```
+
+Awesome! We plotted some discharge data from a river. That's great. We could save this data if we wanted (see lesson on import/export), or do additional analysis (see next lesson on joins!). Let's try using a different function here. 
+
+:::challenge
+
+<font color="#009E73">**Challenge 1: You Try!**</font> 
+
+1. Using the code template below, create a `flow_huc` object using the `readNWISdata()` function but fill in the arguments with the following information:
+
+     - Instead of `site`, let's use `huc`. We'll try getting stations from HUC 18020111.
+     - Instead of `iv` (*instantaneous*), let's use `dv`.
+     - Use the same `startDate`, `endDate`, and `parameterCd` as we used above. 
+     - `%>%` the output from `readNWISdata()` directly to the `renameNWISColumns()` function and then to the `addWaterYear()` function.
+
+2. How many unique `site_no` are there?
+3. Can you visualize the data using a `ggplot()` with `geom_line` and use a different color for each `site_no`?
+
+*Code template*:
+
+```
+flow_huc <- readNWISdata(___,
+                         ___,
+                         parameterCd = "00060", 
+                         startDate = "2019-10-01",
+                         endDate = "2021-09-30") %>% 
+  ___ %>% 
+  ___
+  
+```
+
+:::
+
+
+<details>
+  <summary class="challenge-ans-title"><font color="#0072B2">**Click for Answers!**</font></summary>
+  <div class="challenge-ans-body">
+
+```{r challenge-1}
+
+# look for stations with daily values of discharge in the whole watershed
+flow_huc <- readNWISdata(huc = "18020111", # using a huc id number now
+                         service = "dv", # daily values
+                         parameterCd = "00060", 
+                         startDate = "2019-10-01",
+                         endDate = "2021-09-30") %>% 
+  renameNWISColumns() %>%  # the pipe infers that the data is passed through
+  addWaterYear()
+
+names(flow_huc) # names look ok!
+unique(flow_huc$site_no) # 2 stations
+
+# visualize:
+ggplot() + geom_line(data = flow_huc, 
+                     aes(x = dateTime, y = Flow, color = site_no), 
+                     show.legend = FALSE) +
+  theme_classic() +
+  labs(x="", y="Flow (cfs)", 
+       title="Discharge from USGS Stations: 11446500, 11447360",
+       caption = "data pulled using {dataRetrieval} package in R") +
+  # a new way to view data with facets...add a free scale!
+  facet_grid(rows = vars(site_no), scales = "free") 
+
+```
+
+  </div>
+</details>
+
+```{r advancedNLDI, echo=FALSE, eval=FALSE, include=FALSE}
+
+# this is cool but may need to be saved for advanced course
+amer_ds_nimbus <- findNLDI(
+  nwis = "11446500", # Below Nimbus Dam
+  nav = c("UM","DM"), 
+  find = c("nwis", "basin", "flowlines"),
+  distance_km = 50)
+
+#mapview(amer_ds_nimbus)
+
+plot(amer_ds_nimbus$DM_flowlines$geometry, col="steelblue2", lwd=1.5)
+plot(amer_ds_nimbus$UM_flowlines$geometry, col="steelblue4", lwd=1.2, add=TRUE)
+plot(amer_ds_nimbus$DM_nwissite$geometry, col="black", bg="skyblue2", pch=21, add=TRUE)
+plot(amer_ds_nimbus$origin$geometry, col="red4", pch=16, add=TRUE, cex=1.8)
+
+```
+
+
+## Using Custom Functions
+
+Since we already wrote a custom function to convert cms to cfs, let's make another similar function but for cfs to cms, and apply it to the flow data we just downloaded. Let's look at how we might use a function on an existing data frame or dataset that we have in R.
+
+### Convert Flow Data to cms
+
+Let's use some of the `dplyr` we looked at in the last lesson. Here we want to make a new column that is our `Flow` data, but instead of in cfs, our units will be in cms. Let's use the **`flow_site`** data frame.
+
+```{r apply-cms-fun, eval=T, echo=T}
+
+# the function
+cfs_to_cms <- function(discharge) {
+  cms_out <- discharge * 0.028316847
+  return(cms_out)
+}
+
+# add a new column to existing dataset with mutate
+flow_site <- flow_site %>% 
+  mutate(Flow_cms = cfs_to_cms(Flow_Inst)) # do the conversion
+
+# quick plot to check!
+# visualize:
+ggplot() + geom_line(data = flow_site, 
+                     aes(x = dateTime, y = Flow_cms), color = "darkblue") +
+  theme_classic() +
+  labs(x="", y="Flow (cms)", 
+       title="Discharge from USGS Station 11427000",
+       caption = "data pulled using {dataRetrieval} package in R")
+
+```
+
+
+## Pull counties from another package
 
 
 ### Output dataframe to join with enviroscreen in next lesson
-
-## Custom Functions
-
 
