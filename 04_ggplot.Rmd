@@ -1,7 +1,7 @@
 ---
-title: "Data Visualization with ggplot2"
+title: "Data visualization with ggplot2"
 description: | 
-  Plots! Plots! Plots!
+  The grammar of graphics.
 output: 
   distill::distill_article:
     toc: true
@@ -13,17 +13,359 @@ library(knitr)
 library(here)
 suppressPackageStartupMessages(library(tidyverse))
 
+knitr::opts_chunk$set(out.width="100%")
+
 ```
 
 :::obj
 
 **Learning objectives**
  
- - plots
- - plots
- - plots
+ - Learn how to create beautiful and informative plots from data  
+ - Understand the grammar of graphics implemented in **`{ggplot2}`** and how to create plots in "layers"  
+ - Learn core **`{ggplot2}`** geoms (`geom_point()`, `geom_line()`, `geom_col()`, `geom_sf()`)  
+ - Understand how to create maps in R, although this is covered in greater detail in the [mapping module]()  
 
 :::
 
-## Data viz with **{ggplot2}**
+## Data visualization with **{ggplot2}**
+
+Data visualization allows us to effectively explore large datasets in an Exploratory Data Analysis (EDA), and allows us to communicate the results of an analysis or modeling exercise. A powerful package for data visualization in R is **`{ggplot2}`** (part of the **`{tidyverse}`** set of packages). **`{ggplot2}`** stands for "**g**rammar of **g**raphics **plot**" and generally provides a semantic syntax for data visualization that breaks down graphs in terms of aesthetics, geoms, coordinates, scales, and more, which allows users to create visualizations that range from simple to extraordinarily complex. The act of creating visualizations is not only useful, but also fun and motivating, so we cover it early, before more advanced data manipulation in subsequent modules. By the end of this module you will create beautiful ggplots made entirely in R, and take your first steps towards reproducible and elegant data visualization.
+
+(ref:ah-ggplot) *Illustration by @allison_horst."*
+
+
+```{r ggplot-evl, eval=TRUE, echo=FALSE, out.width='80%', fig.cap='(ref:ah-ggplot)'}
+knitr::include_graphics(here("images", "ggplot2.png"))
+```
+
+
+
+## Examples
+
+Before we begin, below are a few plots created entirely within **`{ggplot2}`** to illustrate the possibilities for data visualization enabled by this package. 
+
+These are only a few examples of the many more types of scientific plots and maps that can be made. Because ggplots are so customizable, some people even use **`{ggplot2}`** to create artwork. Once you are familiar with how to customize a ggplot, you may be surprised to see them appear in major news outlets and scientific publications.  
+
+<aside> **`{ggplot2}`** art by [Antonio Sánchez Chinchón](https://fronkonstin.com/2018/03/11/mandalas-colored/) @aschinchon.
+
+```{r p3, eval=TRUE, echo=FALSE, out.width='100%'}
+knitr::include_graphics(here("images", "mandala.png"))
+```
+
+</aside>
+
+
+(ref:cedric) *[Evolution of a ggplot](https://www.cedricscherer.com/2019/05/17/the-evolution-of-a-ggplot-ep.-1/), by Cedric Scherer shows how one can progressively refine and customize a gpplot.*
+
+```{r ggplot-evol, eval=TRUE, echo=FALSE, out.width='80%', fig.cap='(ref:cedric)'}
+knitr::include_graphics(here("images", "ggplot_evolution.gif"))
+```
+
+(ref:timo) *Created by [Timo Grossenbacher](https://timogrossenbacher.ch/2016/12/beautiful-thematic-maps-with-ggplot2-only/) @grssnbchr.*
+
+```{r p1, eval=TRUE, echo=FALSE, out.width='80%', fig.cap='(ref:timo)'}
+knitr::include_graphics(here("images", "switzerland.png"))
+```
+
+(ref:cedric2) *Travelling to Outer Space by [Cédric Scherer](https://www.cedricscherer.com/top/dataviz/) @CedScherer.*
+
+```{r p2, eval=TRUE, echo=FALSE, out.width='80%', fig.cap='(ref:cedric2)'}
+knitr::include_graphics(here("images", "2020_29_Astronauts_blur_color.png"))
+```
+
+
+## Creating your first ggplot
+
+To begin, we load the **`{ggplot2}`** package. We can load it independently, but let's load it along with the **`{tidyverse}`** suite of R packages used in this course. We also need to load some data. Below we load a pre-processed dataframe that we'll create later in the module on joins and binds.
+
+```{r, eval = FALSE, include = FALSE}
+# create joined data to use in ggplot lesson
+m <- read_csv(here("data","gwl","measurements_sep.csv"))
+s <- read_csv(here("data","gwl","stations.csv"))
+p <- read_csv(here("data","gwl","perforations.csv"))
+d <- left_join(m, s) %>% 
+  left_join(p) %>% 
+  # coerce strings to NA
+  mutate(WCR_NO = as.numeric(WCR_NO)) %>% 
+  # take minimal subset of columns to focus lesson on
+  select(SITE_CODE, MSMT_DATE, WSE, GSE_WSE, WLM_ORG_NAME,
+         LATITUDE, LONGITUDE, COUNTY_NAME, WELL_DEPTH, WELL_USE) 
+
+# all stations
+write_csv(d, here("data","gwl","gwl_sep.csv"))
+
+# top n station ids
+top_n <- d %>% 
+  count(SITE_CODE) %>% 
+  arrange(desc(n)) %>% 
+  pull(SITE_CODE) %>% 
+  .[1:10]
+
+# 1 station
+d %>% 
+  filter(SITE_CODE %in% top_n[1] & !is.na(WSE) & !is.na(GSE_WSE)) %>% 
+  write_csv(here("data","gwl","gwl.csv"))
+
+# top 10 stations
+d %>% 
+  filter(SITE_CODE %in% top_n & !is.na(WSE) & !is.na(GSE_WSE)) %>% 
+  write_csv(here("data","gwl","gwl_10.csv"))
+```
+
+
+```{r load-pkgs}
+# includes ggplot2
+library(tidyverse)
+library(here)
+
+# groundwater level from a single station in Sacramento County
+gwl <- read_csv(here("data", "gwl", "gwl.csv"))
+
+# inspect the data
+head(gwl)
+```
+
+The 10 columns in the data contain are a `SITE_CODE` or unique identifier, a date-time `MSMT_DATE`, a water surface elevation `WSE_FT`, and a depth to groundwater `GSE_WSE`, the agency that collected the measurement `WLM_ORG_NAME`, a latitude and longitude, the county, the well depth, and the well use.  
+
+Perhaps we want to visualize the depth to groundwater at this site over time. To do this, we put `MSMT_DATE` on the x-axis and `GSE_WSE` on the y-axis.  
+
+To create a ggplot we start with the function `ggplot()`.
+
+```{r first-plot}
+ggplot()
+```
+
+The above plot appears blank because we haven't added any layers to it! A ggplot is nothing until we layer on one or more geoms.  
+
+
+## geoms  
+
+Let's add a `geom_line()` to the `ggplot()` we created above.
+
+```{r geom-line}
+ggplot(data = gwl) +
+  geom_line(mapping = aes(x = MSMT_DATE, y = GSE_WSE))
+```
+
+Let's break down what we just did:
+
+```{r explain, eval = FALSE}
+ggplot(data = <DATA>) + 
+  <GEOM_FUNCTION>(mapping = aes(<MAPPINGS>))
+```
+
+<aside> See a full list of available geoms on the **`{ggplot2}`** [online documentation](https://ggplot2.tidyverse.org/reference/).  
+</aside>
+
+We start creating a plot with the `ggplot()` function with our data (`data = gwl`). Then we add `+` a geom function. We used `geom_line()` which connects data points with a line, but there are many other geoms, including `geom_point()`, `geom_col()`, `geom_boxplot()`, `geom_histogram()`, and so on. We tell the `geom_line()` to put the date on the x-axis and depth to groundwater on the y-axis. We do this in the mapped aesthetics, `mapping = aes(x = MSMT_DATE, y = GSE_WSE)`.  
+
+In practice, we don't need to explicitly write out all of the full argument names. **`{ggplot2}`** understands that mapping `aes(MSMT_DATE, GSE_WSE)` means that the measurement date and depth to groundwater belong on the x and y axis respectively.
+
+<aside>
+If using more than one dataframe, you can specify data in each geom function, rather than in `ggplot()`.  
+</aside>
+
+```{r geom-line2, eval = FALSE}
+ggplot(gwl) +
+  geom_line(aes(MSMT_DATE, GSE_WSE))
+```
+
+We can change the geom to a point:
+
+```{r geom-point}
+ggplot(gwl) +
+  geom_point(aes(MSMT_DATE, GSE_WSE))
+```
+
+Many points overlap, making them hard to pick apart. Let's make them 50% opaque with the `alpha` argument.
+
+```{r geom-point-alpha}
+ggplot(gwl) +
+  geom_point(aes(MSMT_DATE, GSE_WSE), alpha = 0.5)
+```
+
+We can change the geom to an area (notice that the y axis scale now has a minimum of 0: 
+
+```{r geom-area}
+ggplot(gwl) +
+  geom_area(aes(MSMT_DATE, GSE_WSE))
+```
+
+We can add `+` more than one geom to the plot, for instance a point and line. We can also set the color of a geom with the `color` argument.  
+
+```{r geom-multiple}
+ggplot(gwl) +
+  geom_point(aes(MSMT_DATE, GSE_WSE), alpha = 0.5) +
+  geom_line(aes(MSMT_DATE, GSE_WSE), color = "red", alpha = 0.7)
+```
+
+It's often useful to summarize large datasets in terms summary values like the median, mean, interquartile range, and so on. What does the distribution of depths to groundwater look like at this particular well? 
+
+```{r geom-hist}
+ggplot(gwl) + 
+  geom_histogram(data = gwl, aes(GSE_WSE))
+```
+
+Notice that `geom_histogram()` takes only one argument for the x-axis and **computes** the bins for the y-axis. It appears that depths to groundwater range from around 130 to 160, with a median around 145. the default number of bins used is 30, but we can change the number of bins used.
+
+```{r geom-hist2}
+ggplot(gwl) + 
+  geom_histogram(aes(GSE_WSE), bins = 100)
+```
+
+:::challenge
+
+<font color="#009E73">**Challenge 1: You Try!**</font> 
+
+1. Modify the plot above to make the histogram blue (Hint: use `fill = "blue"`).  
+
+:::
+
+<br>
+
+<details>
+  <summary class="challenge-ans-title"><font color="#0072B2">**Click for Answers!**</font></summary>
+  <div class="challenge-ans-body">
+
+```{r challenge-1}
+ggplot(gwl) + 
+  geom_histogram(aes(GSE_WSE), bins = 100, fill = "blue")
+```
+
+
+  </div>
+</details>
+
+
+## Aesthetics
+
+**Aesthetics**, or `aes()` as we have seen, are how geoms map variables onto a plot. So far, we have only used the `x` and `y` aesthetics to map variables onto the x and y coordinate system. We can also add a third variable, like **color** to the aesthetics, and map values in the data to different colors. 
+
+<aside>
+Other aesthetics you can map variables to include shape, size, and fill.
+</aside>
+
+So far, we've been working with one monitoring site in Sacramento County, but to illustrate how mapping a color onto a plot can be useful, let's read in a slightly larger version of this groundwater level dataset that includes data from **10 monitoring sites** in Sacramento and Placer counties. 
+
+```{r read-10}
+# groundwater level from 10 monitoring sites in Sacramento and Placer counties
+gwl_10 <- read_csv(here("data", "gwl", "gwl_10.csv"))
+
+# plot
+ggplot(gwl_10) +
+  geom_point(aes(MSMT_DATE, GSE_WSE))
+```
+
+Pause for a moment to consider why does this data does not appear to have a clear trend.  
+
+Let's verify there are 10 unique sites in the data, then re-plot, and color the points by the `SITE_CODE`. 
+
+```{r plot-10-sites}
+# unique site codes in the dataframe
+unique(gwl_10$SITE_CODE)
+
+# re-plot with color as an aesthetic
+ggplot(gwl_10) +
+  geom_point(aes(MSMT_DATE, GSE_WSE, color = SITE_CODE), alpha = 0.5)
+```
+
+It's now clear now which points belong to which group. Above, we colored points by a categorical variable (`SITE_CODE`), but we can also color by a continuous variable, like the well depth.  
+
+```{r color-depth}
+# color the continuous well depth variable
+ggplot(gwl_10) +
+  geom_point(aes(MSMT_DATE, GSE_WSE, color = WELL_DEPTH))
+```
+
+What if we were curious to know the distribution of depth to groundwater (y axis) at each of the 10 sites (x axis) in the `gwl_10` dataset?
+
+```{r dist1}
+ggplot(gwl_10) +
+  geom_boxplot(aes(SITE_CODE, GSE_WSE))
+```
+
+Those x axis labels are hard to read. What happens if we switch the x and y aesthetics?
+
+```{r dist2}
+ggplot(gwl_10) +
+  geom_boxplot(aes(GSE_WSE, SITE_CODE))
+```
+
+That's easier to read.  
+
+
+## Faceting
+
+Faceting is a powerful way to split a plot by a categorical variable into many subplots, or **facets**. 
+
+```{r facet1}
+ggplot(gwl_10) +
+  geom_line(aes(MSMT_DATE, GSE_WSE)) +
+  facet_wrap(~SITE_CODE)
+```
+
+We can improve the plot above by noticing that there are 10 facets, which would fit well into a grid of 5 rows and 2 column, and if we "freed" the scales, so that they didn't all have the same x and y axis limits. We can achieve these changes by modifying the `nrow`, `ncol`, and `scales` arguments.
+
+```{r facet2}
+ggplot(gwl_10) +
+  geom_line(aes(MSMT_DATE, GSE_WSE)) +
+  facet_wrap(~SITE_CODE, ncol = 2, scales = "free")
+```
+
+
+:::challenge
+
+<font color="#009E73">**Challenge 2: You Try!**</font> 
+
+1. Modify the plot above to color by the well use. (Hint: add `color = WELL_USE` inside the `aes()` function).  
+2. Using the `gwl_10` dataset, create a new ggplot. Use `geom_line()` to map `MSMT_DATE` to the x-axis and `GSE_WSE` to the y-axis. Then, color by the `SITE_CODE`, and facet by the `WELL_USE`.
+
+:::
+
+<br>
+
+<details>
+  <summary class="challenge-ans-title"><font color="#0072B2">**Click for Answers!**</font></summary>
+  <div class="challenge-ans-body">
+
+```{r challenge-2a}
+ggplot(gwl_10) +
+  geom_line(aes(MSMT_DATE, GSE_WSE, color = WELL_USE)) +
+  facet_wrap(~SITE_CODE, ncol = 2, scales = "free")
+```
+
+```{r challenge-2b}
+# color the continuous well depth variable
+ggplot(gwl_10) +
+  geom_line(aes(MSMT_DATE, GSE_WSE, color = SITE_CODE)) + 
+  facet_wrap(~WELL_USE, ncol = 1)
+```
+
+
+  </div>
+</details>
+
+
+## Saving plots
+
+pdf and dev.off
+
+ggsave
+
+## Colorblindness
+
+scale_color_viridis_c _d
+
+
+## Bespoke plots
+
+geom_sf - will get more into this in mapping module
+
+theme
+
+
+
+
+
 
