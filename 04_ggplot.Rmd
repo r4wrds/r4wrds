@@ -24,7 +24,7 @@ knitr::opts_chunk$set(out.width="100%")
  - Learn how to create beautiful and informative plots from data  
  - Understand the grammar of graphics implemented in **`{ggplot2}`** and how to create plots in "layers"  
  - Learn core **`{ggplot2}`** geoms (`geom_point()`, `geom_line()`, `geom_col()`, `geom_sf()`)  
- - Understand how to create maps in R, although this is covered in greater detail in the [mapping module]()  
+ - Understand how to create maps in R, although this is covered in greater detail in the [mapmaking module](10_intro_mapmaking.html)  
 
 :::
 
@@ -219,6 +219,7 @@ ggplot(gwl) +
 <font color="#009E73">**Challenge 1: You Try!**</font> 
 
 1. Modify the plot above to make the histogram blue (Hint: use `fill = "blue"`).  
+2. In the code above, change `geom_histogram()` to `geom_boxplot` and remove any `bins` and `fill` arguments.   
 
 :::
 
@@ -228,9 +229,14 @@ ggplot(gwl) +
   <summary class="challenge-ans-title"><font color="#0072B2">**Click for Answers!**</font></summary>
   <div class="challenge-ans-body">
 
-```{r challenge-1}
+```{r challenge-1a}
 ggplot(gwl) + 
   geom_histogram(aes(GSE_WSE), bins = 100, fill = "blue")
+```
+
+```{r challenge-1b}
+ggplot(gwl) + 
+  geom_boxplot(aes(GSE_WSE))
 ```
 
 
@@ -292,8 +298,18 @@ ggplot(gwl_10) +
   geom_boxplot(aes(GSE_WSE, SITE_CODE))
 ```
 
-That's easier to read.  
+That's easier to read. Let's also add some more intuitive labels.
 
+```{r dist3}
+ggplot(gwl_10) +
+  geom_boxplot(aes(GSE_WSE, SITE_CODE, color = WELL_USE)) +
+  labs(y = "", 
+       x = "Depth to groundwater (ft)",
+       color = "Well type",
+       title = "Depth to groundwater at 10 monitoring sites",
+       subtitle = "Sacramento and Placer county (1960-present)",
+       caption = "Source: Periodic groundwater level database, CA-DWR.")
+```
 
 ## Faceting
 
@@ -359,23 +375,160 @@ ggplot(gwl_10) +
 
 ## Saving plots
 
-pdf and dev.off
+There are two main ways to get plots out of R and into a file. First, we can open a graphical device, print the plot, and then close the device.
 
-ggsave
+```{r write-pdf, message=FALSE}
+# create a plot and save it to a variable
+my_plot <- ggplot(gwl_10) +
+  geom_line(aes(MSMT_DATE, GSE_WSE, color = WELL_USE)) +
+  facet_wrap(~SITE_CODE, ncol = 2, scales = "free")
+
+# open a PDF graphical device
+pdf(here("results", "my_plot.pdf"))
+
+# print the plot
+my_plot
+
+# close the graphical device
+dev.off()
+```
+
+We can print multiple plots into a PDF graphical device.
+
+```{r write-pdfs, message=FALSE}
+# create a plot and save it to a variable
+my_plot_2 <- ggplot(gwl_10) +
+  geom_line(aes(MSMT_DATE, GSE_WSE, color = SITE_CODE)) + 
+  facet_wrap(~WELL_USE, ncol = 1)
+
+# open a PDF graphical device
+pdf(here("results", "my_plots.pdf"))
+
+# print the plot
+my_plot
+my_plot_2
+
+# close the graphical device
+dev.off()
+```
+
+We can save a png file in the same way, and specify output height and width.  
+
+```{r write-png, message=FALSE}
+# open a PNG graphical device
+png(here("results", "my_plot.png"), width = 10, height = 7, units = "in", res = 300)
+
+# print the plot
+my_plot
+
+# close the graphical device
+dev.off()
+```
+
+The above method using a graphical device works with any graphical output from R. Another way to save ggplots that involves less steps is to use the `ggsave()` function. By default, `ggsave()` height and widdth arguments are understood to be in units of inches.
+
+```{r ggsv}
+ggsave(here("results","my_plot_ggsave.pdf"), my_plot, height = 10, width = 7)
+ggsave(here("results","my_plot_ggsave.png"), my_plot)
+```
+
 
 ## Colorblindness
 
-scale_color_viridis_c _d
+[Global estimates](https://www.colourblindawareness.org/colour-blindness/) suggest that 8% of men and 0.5% of women experience some form of colorblindness. When creating data visualizations, default palettes may not be colorblind-safe Fortunately, **`{ggplot2}** has colorblind-safe color and fill scales. We can use the `scale_<color or fill>_viridis_<c or d>` functions. 
 
+```{r vir}
+ggplot(gwl_10) +
+  geom_line(aes(MSMT_DATE, GSE_WSE, color = SITE_CODE)) +
+  scale_color_viridis_d()
+```
+Above, the variable we want to map `WELL_USE` is mapped to a **color** and is a **discrete** variable, therefore, we use `scale_color_viridis_d()`. 
+
+If we were mapping a **continuous** variable to **color** we would use `scale_color_viridis_c()`.
+
+```{r vir2}
+ggplot(gwl) +
+  geom_line(aes(MSMT_DATE, GSE_WSE, color = MSMT_DATE)) +
+  scale_color_viridis_c()
+```
+We can toggle color palettes, and reverse them.
+
+```{r vir3}
+ggplot(gwl) +
+  geom_line(aes(MSMT_DATE, GSE_WSE, color = MSMT_DATE)) +
+  scale_color_viridis_c(option = "B", direction = -1)
+```
 
 ## Bespoke plots
 
-geom_sf - will get more into this in mapping module
+What we've covered it just the tip of the iceberg. There are many, many more geoms, aesthetics, themes, scales, coordinates, and graphical libraries that extend the capabilities of ggplot. Once you have a handle on the grammar of graphics, bespoke plots are not far from your reach.  
 
-theme
+Although it is covered in more detail in the [mapmaking module](10_intro_mapmaking.html), note that ggplot can also create maps with `geom_sf()`.
+
+<aside>
+`sf` stands for "simple features" which is a way of representing spatial data. See the R [**`{sf}`** package](https://r-spatial.github.io/sf/) for more details.  
+</aside>
+
+First we convert our `gwl_10` object into a simple features `sf` object with the function `st_as_sf()` and specifying which columns are the coordinates `coords`, and what the coordinate reference system `crs` is. In this case, we know the data is in NAD83, or EPSG 4269.  
+
+```{r geomsf}
+
+# load the sf library
+library(sf)
+
+# convert gwl_10 into an sf object by specifying coordinates and the crs
+gwl_10_sf <- st_as_sf(gwl_10, coords = c("LONGITUDE", "LATITUDE"), crs = 4269)
+
+# check the class of the new object
+class(gwl_10_sf)
+```
 
 
+```{r geomsf2}
+# read Sacramento county shapefile and transform to NAD83, EPSG 4269
+sac <- st_read(here("data","shp","sac_county_shp","sac_county.shp")) %>%
+  st_transform(4269)
 
+# put data in geoms rather than ggplot() because we have multiple datasets
+# in one plot
+ggplot() +
+  geom_sf(data = sac) +
+  geom_sf(data = gwl_10_sf, color = "blue") 
+```
+
+We can also add color, facet, and add a **theme**.
+
+```{r geomsf3}
+ggplot() +
+  geom_sf(data = sac) +
+  geom_sf(data = gwl_10_sf, aes(color = WELL_DEPTH)) +
+  facet_wrap(~WELL_USE) + 
+  scale_color_viridis_c() + 
+  theme_void() +
+  theme(legend.position = "top")
+```
+
+Themes are a powerful way to customize the look and feel of plots.
+
+```{r theme}
+# create a plot we've seen before
+gwl_plot <- ggplot(gwl) +
+  geom_line(aes(MSMT_DATE, GSE_WSE, color = WELL_USE))
+
+# a built in theme 
+gwl_plot + theme_bw()
+
+# another built in theme
+gwl_plot + theme_dark(base_size = 18)
+
+# a custom theme
+gwl_plot + 
+  theme(
+    legend.position = "top", 
+    plot.background = element_rect(fill = "orange"),
+    panel.background = element_rect(fill = "lightblue")
+  )
+```
 
 
 
