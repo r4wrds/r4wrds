@@ -23,7 +23,7 @@ knitr::opts_chunk$set(out.width="100%")
  
  - Learn how to create beautiful and informative plots from data  
  - Understand the grammar of graphics implemented in **`{ggplot2}`** and how to create plots in "layers"  
- - Learn core **`{ggplot2}`** geometries like `geom_point()`, `geom_line()`, `geom_col()`, `geom_sf()`  
+ - Learn core **`{ggplot2}`** geometries like `geom_point()`, `geom_line()`, `geom_col()`, `geom_boxplot()`, `geom_histogram()` 
  - Understand how to customize and save plots
 
 :::
@@ -105,11 +105,13 @@ top_n <- d %>%
 # 1 station
 d %>% 
   filter(SITE_CODE %in% top_n[1] & !is.na(WSE) & !is.na(GSE_WSE)) %>% 
+  mutate(MSMT_DATE = as.Date(MSMT_DATE)) %>% 
   write_csv(here("data","gwl","gwl.csv"))
 
 # top 10 stations
 d %>% 
   filter(SITE_CODE %in% top_n & !is.na(WSE) & !is.na(GSE_WSE)) %>% 
+  mutate(MSMT_DATE = as.Date(MSMT_DATE)) %>%
   write_csv(here("data","gwl","gwl_10.csv"))
 ```
 
@@ -140,6 +142,10 @@ The above plot appears blank because we haven't added any layers to it! A ggplot
 
 
 ## Adding `geom_` layers
+
+<aside>
+ggplot can also create maps with `geom_sf()`, covered in the [mapmaking module](10_intro_mapmaking.html).  
+</aside>
 
 Let's add a `geom_line()` layer to the `ggplot()` we created above.
 
@@ -381,7 +387,7 @@ There are two main ways to get plots out of R and into a file, using a graphical
 
 To save using a graphical device, we essentially prepare a file of the type we want (i.e., a pdf or png or jpg). This is the "graphical device". Once we've opened our blank graphical file, we print the plot, and then close the device. This method (using a graphical device) works with any graphical output from R, not just ggplot.
 
-```{r write-pdf, message=FALSE}
+```{r write-pdf, message=FALSE, warning=FALSE, error=FALSE}
 # create a plot and save it to a variable
 my_plot <- ggplot(data = gwl_10) +
   geom_line(aes(MSMT_DATE, GSE_WSE, color = WELL_USE)) +
@@ -399,7 +405,7 @@ dev.off()
 
 We can print multiple plots into a PDF graphical device.
 
-```{r write-pdfs, message=FALSE}
+```{r write-pdfs, message=FALSE, warning=FALSE, error=FALSE}
 # create a plot and save it to a variable
 my_plot_2 <- ggplot(gwl_10) +
   geom_line(aes(MSMT_DATE, GSE_WSE, color = SITE_CODE)) + 
@@ -420,7 +426,7 @@ dev.off()
 
 We can save a png file in the same way, and specify output height and width.  
 
-```{r write-png, message=FALSE}
+```{r write-png, message=FALSE, warning=FALSE, error=FALSE}
 # open a PNG graphical device
 png(here("results", "my_plot.png"), width = 10, height = 7, units = "in", res = 300)
 
@@ -458,7 +464,7 @@ If we were mapping a **continuous** variable to **color** we would use `scale_co
 ```{r vir2}
 ggplot(data = gwl) +
   geom_line(aes(MSMT_DATE, GSE_WSE, color = MSMT_DATE)) +
-  scale_color_viridis_c()
+  scale_color_viridis_c(trans = "date")
 ```
 
 We can toggle color palettes, and reverse them. See the [{viridis} vignette](https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html) for more info. 
@@ -469,79 +475,123 @@ We can toggle color palettes, and reverse them. See the [{viridis} vignette](htt
 ```{r vir3}
 ggplot(data = gwl) +
   geom_line(aes(MSMT_DATE, GSE_WSE, color = MSMT_DATE)) +
-  scale_color_viridis_c(option = "B", direction = -1)
+  scale_color_viridis_c(option = "B", direction = -1, trans = "date")
 ```
 
 ## Bespoke plots
 
 What we've covered is just the tip of the iceberg. There are many, many more geoms, aesthetics, themes, scales, coordinates, and graphical libraries that extend the capabilities of ggplot. Once you have a handle on the grammar of graphics, bespoke plots are not far from your reach.  
 
-Although it is covered in more detail in the [mapmaking module](10_intro_mapmaking.html), note that ggplot can also create maps with `geom_sf()`.
+Adjusting the `theme()` of a plot is a powerful way to customize the look and feel of the visualization. For example, we may improve the plot below by simply applying one of many preset themes ("`theme_<name>`") and increasing the `base_size`.
+
+```{r theme-min}
+p <- ggplot(data = gwl) +
+  geom_line(aes(MSMT_DATE, GSE_WSE, color = MSMT_DATE)) +
+  scale_color_viridis_c(option = "B", direction = -1, trans = "date") +
+  theme_minimal(base_size = 14) 
+p
+```
+
+Let's remove minor gridlines with a general call to the `theme()` function and specifying that the `panel.grid.minor` argument is a blank element.  
+
+```{r}
+p <- p +
+  theme(panel.grid.minor = element_blank())
+p
+```
+
+
+We can move the legend inside the plot area with another `theme()` argument, `legend.position`.
+
+```{r legend-in}
+# place the legend position 90% along the x axis, and 25% along the y axis
+p + theme(legend.position = c(0.9, 0.25))
+```
+
+We can also move the legend to the top of the plot. If you type `legend.position` and read the documentation in the RStudio script editor, you'll notice the position argument options.
+
+<center>
+```{r, out.width="50%", echo = FALSE}
+knitr::include_graphics("~/Desktop/legend_help.png")
+```
+</center>
+
+```{r legend-top}
+p + theme(legend.position = "top")
+```
+
+Now let's make the colorbar longer and thinner, move the legend title to the top, and center it. We'll also overwrite our former plot with this new one.
+
+```{r legend-top-long}
+p <- p + 
+  theme(legend.position = "top") + 
+  guides(color = guide_colorbar(barwidth = unit(20, "lines"), 
+                                barheight = unit(0.5, "lines"),
+                                title.hjust = 0.5, 
+                                title.position = "top"))
+p
+```
+
+We can add a trend line by fitting a linear model to these data.
+
+```{r trendline}
+p <- p +
+  geom_smooth(data = gwl, aes(MSMT_DATE, GSE_WSE), 
+              method = "lm", se = FALSE, linetype = "dashed")
+p
+```
+
+Finally, let's format some labels.
+
+```{r}
+p <- p +
+  labs(x = "", y = "Depth to groundwater (ft)",
+       title = "Site code: 384121N1212102W001",
+       caption = "Source: Periodic groundwater level database, CA-DWR.")
+p
+```
+
+Just about every aspect of plots can be customized with arguments in the `theme()` function. See `?theme` for a full list of options to customize. 
+
+Built-in themes are also a quick way to change the look of your plots. Let's start over with a basic plot, view some built-in themes.
 
 <aside>
-`sf` stands for "simple features" which is a way of representing spatial data. See the R [**`{sf}`** package](https://r-spatial.github.io/sf/) for more details.  
+For even more themes, check out the [**`{ggthemes}`** package](https://github.com/jrnold/ggthemes).
 </aside>
 
-First we convert our `gwl_10` object into a simple features `sf` object with the function `st_as_sf()` and specifying which columns are the coordinates `coords`, and what the coordinate reference system `crs` is. In this case, we know the data is in NAD83, or EPSG 4269.  
-
-```{r geomsf}
-
-# load the sf library
-library(sf)
-
-# convert gwl_10 into an sf object by specifying coordinates and the crs
-gwl_10_sf <- st_as_sf(gwl_10, coords = c("LONGITUDE", "LATITUDE"), crs = 4269)
-
-# check the class of the new object
-class(gwl_10_sf)
-```
-
-
-```{r geomsf2, message=FALSE}
-# read Sacramento county shapefile and transform to NAD83, EPSG 4269
-sac <- st_read(here("data","shp","sac_county_shp","sac_county.shp"), quiet = TRUE) %>%
-  st_transform(4269)
-
-# put data in geoms rather than ggplot() because we have multiple datasets
-# in one plot
-ggplot() +
-  geom_sf(data = sac) +
-  geom_sf(data = gwl_10_sf, color = "blue") 
-```
-
-We can also add color, facet, and add a **theme**.
-
-```{r geomsf3}
-ggplot() +
-  geom_sf(data = sac) +
-  geom_sf(data = gwl_10_sf, aes(color = WELL_DEPTH)) +
-  facet_wrap(~WELL_USE) + 
-  scale_color_viridis_c() + 
-  theme_void() +
-  theme(legend.position = "top")
-```
-
-Themes are a powerful way to customize the look and feel of plots.
-
 ```{r theme}
-# create a plot we've seen before
-gwl_plot <- ggplot(data = gwl) +
-  geom_line(aes(MSMT_DATE, GSE_WSE, color = WELL_USE))
+# basic plot
+p <- ggplot(data = gwl) +
+  geom_line(aes(MSMT_DATE, GSE_WSE))
 
 # a built in theme 
-gwl_plot + theme_bw()
+p + theme_bw()
 
 # another built in theme
-gwl_plot + theme_dark(base_size = 18)
-
-# a custom theme
-gwl_plot + 
-  theme(
-    legend.position = "top", 
-    plot.background = element_rect(fill = "orange"),
-    panel.background = element_rect(fill = "lightblue")
-  )
+p + theme_dark(base_size = 18)
 ```
 
+
+
+:::challenge
+
+<font color="#009E73">**Extra Practice**</font> 
+
+There are many built-in themes in **{`ggplot2`}**. Add a theme you haven't tried before to the `p` object from above. Type "theme_" and hit _Tab_ to view options.  
+
+:::
+
+<br>
+
+<details>
+  <summary class="challenge-ans-title"><font color="#0072B2">**Click for Answers!**</font></summary>
+  <div class="challenge-ans-body">
+
+```{r challenge-3a}
+p + theme_classic() 
+```
+
+  </div>
+</details>
 
 
