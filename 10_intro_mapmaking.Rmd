@@ -25,3 +25,46 @@ suppressPackageStartupMessages(library(tidyverse))
 
 ## MAPS placehoder
 
+
+<aside>
+`sf` stands for "simple features" which is a way of representing spatial data. See the R [**`{sf}`** package](https://r-spatial.github.io/sf/) for more details.  
+</aside>
+
+First we convert our `gwl_10` object into a simple features `sf` object with the function `st_as_sf()` and specifying which columns are the coordinates `coords`, and what the coordinate reference system `crs` is. In this case, we know the data is in NAD83, or EPSG 4269.  
+
+```{r geomsf}
+
+# load the sf library
+library(sf)
+
+# convert gwl_10 into an sf object by specifying coordinates and the crs
+gwl_10_sf <- st_as_sf(gwl_10, coords = c("LONGITUDE", "LATITUDE"), crs = 4269)
+
+# check the class of the new object
+class(gwl_10_sf)
+```
+
+
+```{r geomsf2, message=FALSE}
+# read Sacramento county shapefile and transform to NAD83, EPSG 4269
+sac <- st_read(here("data","shp","sac_county_shp","sac_county.shp"), quiet = TRUE) %>%
+  st_transform(4269)
+
+# put data in geoms rather than ggplot() because we have multiple datasets
+# in one plot
+ggplot() +
+  geom_sf(data = sac) +
+  geom_sf(data = gwl_10_sf, color = "blue") 
+```
+
+We can also add color, facet, and add a **theme**.
+
+```{r geomsf3}
+ggplot() +
+  geom_sf(data = sac) +
+  geom_sf(data = gwl_10_sf, aes(color = WELL_DEPTH)) +
+  facet_wrap(~WELL_USE) + 
+  scale_color_viridis_c() + 
+  theme_void() +
+  theme(legend.position = "top")
+```
