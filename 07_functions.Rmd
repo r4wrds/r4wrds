@@ -30,7 +30,7 @@ suppressPackageStartupMessages(library(tidyverse))
 
 What is a function? A function is simply a set of instructions or code written for a computer to follow. These can be very simple (multiply one column of data by another) to much more complex (multi-step model and visualization). Packages are usually sets of functions that focus on similar topics or themes, sort of like a cookbook for a specific kind of food. 
 
-So functions ultimately make our code more reusable, and reproducible, because we can use functions for repeated processes (like cleaning and tidying data!).
+Functions ultimately make our code more reusable and reproducible, because we can use functions for repeated processes (like cleaning and tidying data!).
 
 ### What's in a Function?
 
@@ -72,9 +72,9 @@ decorate_chunk("cms-to-cfs", ) %>%
 
 ### Running a Function
 
-Using functions requires we know what pieces go where inside the function (*the arguments*), our data is of the right class or shape for the function (*input*), and we know what the function should return to our Environment! Once we have this basic understanding, there are thousands of functions that are already written and part of packages we can use. We can also write our own functions. 
+Using functions requires we know what pieces go where inside the function (*the arguments*), our data is of the right class or shape for the function (*input*), and we know what the function should return to our Environment! Once we have this basic understanding, there are thousands of functions that are already written and part of packages we can use. In fact, we've been using functions in every lesson thus far. In this module, we focus on building our own functions to meet our data science needs.  
 
-So to use the `cms_to_cfs` function we wrote above, we need to provide a value to the `discharge` **argument**. Let's convert 10 cms to cfs, using our function.
+To use the `cms_to_cfs` function we wrote above, we need to provide a value to the `discharge` **argument**. Let's convert 10 cms to cfs, using our function.
 
 ```{r, eval=TRUE, echo=TRUE}
 
@@ -82,11 +82,11 @@ cms_to_cfs(discharge = 10)
 
 ```
 
-The function returns a numeric value to our console. If we wanted to save this value, we could assign it (`<-`). Functions allow us to iterate over data, or repeat the same task on different datasets.
+The function returns a numeric value to our console. If we wanted to save this value, we could assign it (`<-`) to an object. Functions allow us to iterate over data, or repeat the same task on different datasets without needing to re-write code every time.
 
 ### Naming Functions in R
 
-It's important to adopt consistent and descriptive names in R. This isn't just for functions, but it's a particularly good habit to get into when naming functions.For example, a general recommendation is to 🐍 `use_snake_case` 🐍. Other options include:
+It's important to adopt consistent and descriptive names in R. This isn't just for functions, but it's a particularly good habit to practice when naming functions. For example, a general recommendation is to 🐍 `use_snake_case` 🐍. Other options include:
 
  - `MaybeUseCamelCase`
  - `or.separate.by.periods`
@@ -101,7 +101,7 @@ We've already been doing this throughout the previous lessons with things like `
 
 ### Getting Water Data with `{dataRetrieval}`
 
-The {[dataRetrieval](http://usgs-r.github.io/dataRetrieval/index.html)} package is a way to access hydrologic and water quality data from the USGS and EPA. There are several vignettes (or tutorials) that are available at the package website. Here, we will show how to download some surface water data from the American River near Sacramento. First we load the package with the functions we want to use. We load packages once per session. 
+The {[dataRetrieval](http://usgs-r.github.io/dataRetrieval/index.html)} package is a way to access hydrologic and water quality data from the USGS and EPA. There are several vignettes (or tutorials) available on the package website. Here, we will show how to download some surface water data from the American River near Sacramento. First we load the package with the functions we want to use. We load packages once per session. 
 
 ```{r getAMERflow, eval=T, echo=TRUE, message=FALSE}
 
@@ -111,22 +111,26 @@ library(dataRetrieval) # a spellbook of water data functions
 
 # use a function to download data:
 flow_site <- readNWISdata(site = "11427000", # USGS Station ID
-                         service = "iv", # instantaneous measurements
-                         parameterCd = "00060", # discharge in cfs
-                         startDate = "2019-10-01",
-                         endDate = "2021-09-30",
-                         tz = "America/Los_Angeles")
+                          service = "iv", # instantaneous measurements
+                          parameterCd = "00060", # discharge in cfs
+                          startDate = "2019-10-01",
+                          endDate = "2021-09-30",
+                          tz = "America/Los_Angeles")
 
 ```
 
-There are a lot of **arguments** in that function! How did we know what each one was or what to put there? A few different options here. For functions or packages you aren't familiar with, it's worth using built in help. 
+There are a lot of **arguments** in that function! How did we know what each one was or what to put there? There are a few different options. For functions or packages you aren't familiar with, it's worth using built-in help. 
+
+<aside>
+The troubleshooting module has a section on [how to read R's built-in help](12_troubleshooting.html#using-built-in-help).
+</aside>
 
  - Look up help for a function with `?readNWISdata` and look at the **`Usage`** and **`Arguments`** sections!
  - Use tab autocomplete as much as you can in RStudio! Once inside a function's parenthesis, hit tab! There are generally a list of arguments that will pop up, each with some info about them. This is the same info we should find in the __*Help*__ tab when we look up the function.
  
 ### How do we know it worked?
 
-Back to always visualize and inspect your data...we should have an object in our environment called **`flow_site`**. Let's take a look at this data, tidy it, and plot!
+Always visualize and inspect your data... we should have an object in our environment called **`flow_site`**. Let's take a look at this data, tidy it, and plot!
 
 ```{r flow-site-plot, eval=T, echo=T}
 
@@ -141,16 +145,16 @@ flow_site <- dataRetrieval::renameNWISColumns(flow_site)
 names(flow_site)
 
 # visualize:
-ggplot() + geom_line(data = flow_site, 
-                     aes(x = dateTime, y = Flow_Inst), color = "darkblue") +
+ggplot(data = flow_site) + 
+  geom_line(aes(x = dateTime, y = Flow_Inst), color = "darkblue") +
   theme_classic() +
-  labs(x="", y="Flow (cfs)", 
-       title="Discharge from USGS Station 11427000",
+  labs(x = "", y = "Flow (cfs)", 
+       title = "Discharge from USGS Station 11427000",
        caption = "data pulled using {dataRetrieval} package in R")
 
 ```
 
-Awesome! We plotted some discharge data from a river. That's great. We could save this data if we wanted (see lesson on import/export), or do additional analysis (see next lesson on joins!). Let's try using a different function here. 
+Awesome! We plotted some discharge data from a river. That's great. We could save this data if we wanted (see the [import/export module](03_importing_and_exporting_data.html)), or do additional analysis (see next [module on joins](08_joins.html)!). Let's try using a different function here. 
 
 :::challenge
 
@@ -201,12 +205,13 @@ names(flow_huc) # names look ok!
 unique(flow_huc$site_no) # 2 stations
 
 # visualize:
-ggplot() + geom_line(data = flow_huc, 
-                     aes(x = dateTime, y = Flow, color = site_no), 
-                     show.legend = FALSE) +
+ggplot() + 
+  geom_line(data = flow_huc, 
+            aes(x = dateTime, y = Flow, color = site_no), 
+            show.legend = FALSE) +
   theme_classic() +
-  labs(x="", y="Flow (cfs)", 
-       title="Discharge from USGS Stations: 11446500, 11447360",
+  labs(x = "", y = "Flow (cfs)", 
+       title = "Discharge from USGS Stations: 11446500, 11447360",
        caption = "data pulled using {dataRetrieval} package in R") +
   # a new way to view data with facets...add a free scale!
   facet_grid(rows = vars(site_no), scales = "free") 
@@ -237,11 +242,12 @@ flow_site <- flow_site %>%
   mutate(Flow_cms = cfs_to_cms(Flow_Inst)) # apply the function to the column
 
 # quick plot to check!
-ggplot() + geom_line(data = flow_site, 
-                     aes(x = dateTime, y = Flow_cms), color = "darkblue") +
+ggplot() + 
+  geom_line(data = flow_site, 
+            aes(x = dateTime, y = Flow_cms), color = "darkblue") +
   theme_classic() +
-  labs(x="", y="Flow (cms)", 
-       title="Discharge from USGS Station 11427000",
+  labs(x = "", y = "Flow (cms)", 
+       title = "Discharge from USGS Station 11427000",
        caption = "data pulled using {dataRetrieval} package in R")
 
 ```
@@ -256,7 +262,7 @@ This section uses some more functions, but with some more advanced applications.
 
 What if we wanted to find all the possible water quality stations that are upstream or downstream of the gage we pulled data from earlier (`USGS: 11446500`)? A great function that will not only help us figure that out, but also help us pull in spatial data we can use to make maps is the **`findNLDI()`** function from the `{dataRetrieval}` package.
 
-The function **`findNLDI()`** has arguments for the type of data we want to use (`nwis`, `huc`,`location`), what direction along a stream we want to look (upstream or downstream, or in mainstem or tributaries), what data we want to get back (`find`), and the distance we should search upstream or downstream (`distance_km`).
+The function **`findNLDI()`** has arguments for the type of data we want to use (`nwis`, `huc`,`location`), the direction along a stream to look (upstream or downstream, or in mainstem or tributaries), the data we want to get back (`find`), and the distance we should search upstream or downstream (`distance_km`).
 
 Let's look only in the mainstem river for 50 km upstream or downstream of our USGS gage and return any NWIS (water quality or flow) sites and the associated flowlines we searched.
 
@@ -275,22 +281,23 @@ names(amer_ds_nimbus)
 
 ```
 
-Note, this returned a named *list* of dataframes. We can access individual parts of a list just as we can access a single column in a dataframe using the `$`. This function returned 5 parts, the `origin` which is the site we used to start our search, the `UM_nwissite` which is the NWIS sites upstream on the mainstem from our USGS gage, the `DM_nwissite` which is the NWIS sites downstream of our USGS gage, and finally, a mainstem flowline upstream and downstream of our gage. These are dataframes with an underlaying spatial component, which is nice because it allows us to easily map and visualize these data if we want. See the [mapmaking lesson]() for more info.The dataframes are an `sf` class, from the [simple features {sf} package](https://r-spatial.github.io/sf/)), but they also can be converted to just a dataframe. 
+Note, this returned a named *list* of dataframes. We can access individual parts of a list just as we can access a single column in a dataframe using the `$`. This function returned 5 parts, the `origin` which is the site we used to start our search, the `UM_nwissite` which is the NWIS sites upstream on the mainstem from our USGS gage, the `DM_nwissite` which is the NWIS sites downstream of our USGS gage, and finally, a mainstem flowline upstream and downstream of our gage. These are dataframes with an underlying spatial component, which is nice because it allows us to easily map and visualize these data if we want. See the [mapmaking lesson](10_intro_mapmaking.html) for more info.The dataframes are an `sf` class, from the [simple features {sf} package](https://r-spatial.github.io/sf/), but they can also be converted to into a dataframe. 
 
 ```{r nwisDF, eval=TRUE, echo=TRUE}
 
-# see what the class of data is
+# check the object class 
 class(amer_ds_nimbus$DM_nwissite)
 
 # get just downstream NWIS sites and make into dataframe
 nwis_sites <- amer_ds_nimbus$DM_nwissite %>% 
   st_drop_geometry() # drop the sf class
 
+# verify the class has changed
 class(nwis_sites)
 
 ```
 
-Let's visualize these sites with a fancy map! See the [mapmaking]() lesson for more details on making maps in R.
+Let's visualize these sites with a fancy map! See the [mapmaking](10_intro_mapmaking.html) lesson for more details on making maps in R.
 
 ```{r tmapMap, include=FALSE, eval=FALSE}
 
@@ -347,8 +354,8 @@ Finally, let's go ahead and save (export) our list of NWIS sites, and all our sp
 ```{r saveNWISsites, echo=TRUE, eval=FALSE}
 
 # save out
-write_csv(nwis_sites, file = "data/nwis_sites_american_river.csv")
-write_rds(amer_ds_nimbus, file="data/nwis_sites_amer_ds_nimbus_sf.rds")
+write_csv(nwis_sites, path = here("data", "nwis_sites_american_river.csv"))
+write_rds(amer_ds_nimbus, path = here("data", "nwis_sites_amer_ds_nimbus_sf.rds"))
 
 ```
 
@@ -361,5 +368,3 @@ There are many packages that work with water or water data. Here's a list of jus
  - **{nhdplusTools}**
  - **{EGRET}**
  - **{geoknife}**
-
- 
