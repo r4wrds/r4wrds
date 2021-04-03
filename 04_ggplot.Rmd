@@ -512,7 +512,7 @@ We can also move the legend to the top of the plot. If you type `legend.position
 
 <center>
 ```{r, out.width="50%", echo = FALSE}
-knitr::include_graphics("~/Desktop/legend_help.png")
+knitr::include_graphics(here("images","legend_help.png"))
 ```
 </center>
 
