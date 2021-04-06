@@ -22,7 +22,6 @@ options(scipen = 14)
  
  - Understand different types of joins and how to use them
  - Understand how to join datasets by shared data columns
- - Learn about the variety of join types
  - Join data with different variable names
 
 :::
