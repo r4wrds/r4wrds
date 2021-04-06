@@ -46,15 +46,35 @@ knitr::include_graphics("images/New_York_City_Gridlock.jpeg")
 
 The trick that makes this all possible, is having one or more shared variables across each dataset. This may be an ID column, or a specific data type. Importantly, these data can actually have different column names, but typically each needs to have the same type of data (i.e., `character` and `character`) and some shared observations across each dataset in order to **join** the datasets.
 
-While this may seem daunting at first, it's not! R has some excellent tools built into the **`{dplyr}`** package that make joining datasets fairly straightforward. First let's import some data we can use to join. Here we will build off of the dataset we used in the [previous lessons](). 
+While this may seem daunting at first, it's not! R has some excellent tools built into the **`{dplyr}`** package that make joining datasets fairly straightforward. First let's import some data we can use to join. Here we will build off of the datasets we used in the [previous modules](07_dplyr.html). 
 
+First let's load the libraries and data we'll be using. We'll be continuing to use some groundwater data as shown in previous modules, a data frame of **`stations`**, **`measurements`** through time, and **`perforations`**. We'll also *join* these data to the [CalEnviroscreen dataset](https://oehha.ca.gov/calenviroscreen) which "*identifies California communities by census tract that are disproportionately burdened by, and vulnerable to, multiple sources of pollution*". One of the most notable uses of the CalEnviroscreen dataset has been to inform CalEPA’s identification of disadvantaged communities. We'll be using CalEnviroscreen v3.0 in the code that follows.
+
+```{r libraries, eval=TRUE, echo=TRUE, messages=FALSE}
+
+library(tidyverse)
+
+# GW stations data
+gw_stations <- read_csv("data/gwl/stations.csv")
+
+# GW measurements data for Sac, El Dorado, Placer Counties
+gw_measurements <- read_csv("data/gwl/measurements_sep.csv")
+
+# GW depths
+gw_perf <- read_csv("data/gwl/perforations.csv")
+
+# CalEnviroscreen Data
+calenviro <- read_csv("data/calenviroscreen/ces3results_data.csv")
+
+```
+
+<br>
 
 :::challenge
 
-<font color="#009E73">**Challenge 1: You Try!**</font> 
+<font color="#009E73">**Challenge 1: Find the Commonalities**</font> 
 
- - Read in the `csci_sites_clean.rda` file
- - How many rows are there in each object?
+ - Look at the 3 different groundwater datasets (`gw_measurments`, `gw_perf`, and `gw_stations`) and find potential common columns/variables we can use to join. How many are there?
  
 :::
 
@@ -64,10 +84,20 @@ While this may seem daunting at first, it's not! R has some excellent tools buil
   <summary class="challenge-ans-title">**Click for Answers!**</summary>
   <div class="challenge-ans-body">
 
-```{r readRDA, echo=TRUE}
+There are many ways to view our data. We want to not only know the column names, but also what kind of data exists in each. What common columns can we use?
 
-# test 
-# test
+ - **`SITE_CODE`** and **`STN_ID`** is in each of the `gw_measurments`, `gw_perf`, and `gw_stations` datasets.
+ 
+A great package to use for cleaning and checking things like this is the {[`janitor`](http://sfirke.github.io/janitor/)} package. We can use the `compare_df_cols` function to find out what data types exist across the dataframes we want to potentially join.
+
+```{r commonCols, echo=TRUE}
+
+library(janitor)
+# tells us the column class in each dataframe, NA's for non-existent cols
+compare_df_cols(gw_stations, gw_perf, gw_measurements)
+
+# note SITE_CODE and STN_ID both exist across all 3 datasets
+
 
 ```
 
@@ -75,12 +105,11 @@ While this may seem daunting at first, it's not! R has some excellent tools buil
 </details> 
 
 
-### **Inspect the Data**
+### Same Data, Different Names
 
-Let's quickly take a look at the columns in our datasets and see what looks similar. To do this we can inspect our data with either `head` or `names` or `str`. All will tell us similar information.
+Now we'd like to know if there are similar data columns between the groundwater datasets and the CalEnviroscreen data. To do this let's inspect our `stations` and `calenviro` data with either `head` or `names` or `str`. All will tell us similar information. At this point, we know we can tie the groundwater data together, but we need to find something to crosswalk or join the CalEnviroscreen data to the groundwater data. In this case, the CalEnviroscreen data are at a census tract level, and contain data with ZIP codes, counties, and census tracts.
 
 (ref:AHmeetdata) *Artwork by @allison_horst*
-
 
 ```{r AHmeetData, echo=FALSE, out.width="80%", fig.cap="(ref:AHmeetdata)"}
 
@@ -88,19 +117,25 @@ include_graphics("https://raw.githubusercontent.com/allisonhorst/stats-illustrat
 
 ```
 
-What do we see? Looks like we have the same data type in the *`StationID`* column in `sites_clean` and the *`StationCode`* column in `csci_clean`. They are just named differently.
+There are a lot of variables in the CalEnviroscreen dataset, so we're only showing the first 10 here.
 
-<br>
+```{r inspect, eval=T, echo=T}
+
+names(calenviro) %>% head(10)
+names(gw_stations)
+
+```
+
+What do we see? Looks like we have county names in both of these datasets, but they have different column names (*`COUNTY_NAME`* in `stations` and the *`California County`* column in `calenviro`. So we know we can join our three groundwater datasets together, and we know we can join the CalEnviroscreen data with the `stations` dataset by county. Let's talk about the types of joins we may use now!
+
 
 ## Join Types
 
 There are quite a few different join types that are available via the **{dplyr}** package. Here are some great animations by [Garrick Aden-Buie](https://www.garrickadenbuie.com/project/tidyexplain/#usage) that may help illustrate the various join types. 
 
-<br>
-
 ### **Left Join**
 
-All rows from `x`, and all columns from `x` and `y`. Rows in `x` with no match in `y` will have `NA` values in the new columns.
+All rows from `x`, and all columns from `x` and `y`. Rows in `x` with no match in `y` will have `NA` values in the new columns. Probably one of the most common joins, where we want to keep *everything* from our first dataframe (`x`), and anything that matches `x` from the second dataframe (`y`).
 
 ```{r leftjoin, echo=FALSE, out.width='70%'}
 
@@ -108,10 +143,9 @@ include_graphics("images/left-join.gif")
 
 ```
 
-
 ### **Inner Join**
 
-All rows from `x` where there are matching values in `y`, and all columns from `x` and `y`.
+The matching join, returns all rows from `x` where there are matching values in `y`, and all columns from `x` and `y`.
 
 ```{r innerjoin, echo=FALSE, out.width='70%'}
 
@@ -122,7 +156,7 @@ include_graphics("images/inner-join.gif")
 
 ### **Full Join**
 
-All rows and all columns from both `x` and `y`. Where there are not matching values, returns NA for the one missing.
+All rows and all columns from both `x` and `y`. Where there are not matching values, returns `NA` for the one missing. This is a full merge, where no data is lost from either dataset, and any non-matching data gets an `NA`.
 
 ```{r fulljoin, echo=FALSE, out.width='70%'}
 
@@ -132,7 +166,7 @@ include_graphics("images/full-join.gif")
 
 ### **Semi Join**
 
-All rows from `x` where there are matching values in `y`, keeping just columns from `x`. Also known as a *filtering* join because you are basically filtering one dataframe, using another dataframe as the match.
+All rows from `x` where there are matching values in `y`, keeping just columns from `x`. Also known as a *filtering* join because you are basically filtering one dataframe, using another dataframe as the match. This can be useful when you don't actually want to join with data, but you do want to subset the data to match observations in another dataset.
 
 ```{r semijoin, echo=FALSE, out.width='70%'}
 
@@ -143,14 +177,13 @@ include_graphics("images/semi-join.gif")
 
 ### **Anti Join**
 
-Also a *filtering join*. This keeps all rows from `x` where there are not matching values in `y`, keeping just columns from `x`. Really handy to find out which data is **not** joining, or may be missing from one or both datasets.
+Also a *filtering join*. This keeps all rows from `x` where there are not matching values in `y`, keeping just columns from `x`. Really handy to find out which data is **not** joining, or may be missing from one or both datasets. Note, the dataframe you put first does matter...so if you switch `x` and `y` you can get different answers.
 
 ```{r antijoin, echo=FALSE, out.width='70%'}
 
 include_graphics("images/anti-join.gif")
 
 ```
-
 
 
 ```{r, eval=F, echo=F}
@@ -161,7 +194,6 @@ include_graphics("images/anti-join.gif")
 
 ```
 
-<br>
 
 ## Join Our Data
 
