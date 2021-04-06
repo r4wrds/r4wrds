@@ -23,7 +23,7 @@ options(scipen = 14)
  - Understand different types of joins and how to use them
  - Understand how to join datasets by shared data columns
  - Learn about the variety of join types
- - Learn what `wide` and `long` data are, and how to *`pivot`* between them
+ - Join data with different variable names
 
 :::
 
@@ -210,7 +210,7 @@ It looks like we have `r nrow(sac_stations)` groundwater stations in Sacramento 
 
 ### Using the defaults
 
-The various `joins` outlined above are very flexible, but the default options are also very good. That means, if we don't specify any details, the functions will often try do match and join based on columns that have names and data types (though this isn't a great habit to set because that may not be what we want 👾!).
+The various `joins` outlined above are very flexible, but the default options are also very good. That means, if we don't specify any details, the functions will often try to match and join based on common columns (that have identical names and data types), though this isn't a great habit to set because that may not always be what we want 👾!
 
 Let's **`left_join`** our Sacramento stations with the `gw_measurments` data. Note, we expect to get the same number of stations as the *left* part of our join (the `x` data.frame), because `left_join` should keep everything on the left side, and only keep what matches from the right side (`y`).
 
@@ -308,6 +308,14 @@ Error: `by` must be supplied when `x` and `y` have no common variables.
 Run `rlang::last_error()` to see where the error occurred.
 ```
 
+(ref:facewiggle) *Artwork by @allison_horst*
+
+```{r face, echo=FALSE, out.height="2%", fig.cap="(ref:facewiggle)"}
+
+include_graphics("images/faces_squiggle.png")
+
+```
+
 Uh-oh, an error message! But if we look more closely, this error message is pretty descriptive. It tells us the two pieces we are working with (x=`calenviro` and y=`sac_stations`) don't have a common variable name. Then it gives us a suggestion, `use by = character()`. Let's try specifying the column names we want to join using the **`by`** argument. Note, we need to quote the variable names here, and they need to match the same order the dataframes were provided (`x` and `y`).
 
 ```{r leftjoinEnviro, eval=TRUE, echo=TRUE}
@@ -331,7 +339,7 @@ calenviro_stations %>% distinct(`Census Tract`) %>% tally()
 
 ```
 
-So there are 317 census tracts in Sacramento County, and 494 unique groundwater stations. So if we multiple 317 * 494 = `r 317*494`, we get the number of observations in our dataset. So, it seems every single station is being joined to every single census tract...that's because we only have county to join on.
+So there are 317 census tracts in Sacramento County, and 494 unique groundwater stations. So if we multiple 317 * 494, we get the number of observations in our dataset (`n=156,598`). So, it seems every single station is being joined to every single census tract...that's because we only have county to join on.
 
 For these sorts of operations, we actually want a more spatially explicit join to reduce this sort of duplication. Thankfully we've done this already. Let's grab this data now so we can use it to make a better join of the data. [Download it here](), and see the [spatial mapmaking module](10_intro_mapmaking.html) to see more on spatial joins. Let's join our full joined Sacramento County groundwater dataset from earlier using the census tracts instead of county.
 
