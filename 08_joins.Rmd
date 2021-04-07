@@ -1,7 +1,7 @@
 ---
-title: "Joining & Pivoting Data"
+title: "Joining Data"
 description: | 
-  How to merge and join data
+  How to merge your data!
 output: 
   distill::distill_article:
     toc: true
@@ -12,20 +12,418 @@ output:
 library(knitr)
 library(here)
 suppressPackageStartupMessages(library(tidyverse))
+options(scipen = 14)
 
 ```
 
 :::obj
 
-**Joining and Pivoting Data**
+**Joining Data**
  
  - Understand different types of joins and how to use them
- - Learn how to pivot your data and what `wide` and `long` data are
- - Learn how to join data with different column names
+ - Understand how to join datasets by shared data columns
+ - Join data with different variable names
 
 :::
 
-## Joins
+## Joining Data
 
-## Pivoting
+We often need to take several datasets and merge them into a single dataset that we can use for analysis. This "**join**" can at times be tricky, and can be made more so if we aren't exactly sure what data matches up between the two datasets, or if the same data is named differently in each dataframe. Sometimes joining data can resemble more of a gridlock than a clean and seamless merge.
 
+(ref:gridlockWiki) Merging Data? *(source Wikipedia Commons)*
+
+<center>
+```{r gridlock, echo=FALSE, fig.cap="(ref:gridlockWiki)", out.height="50%"}
+
+# "https://upload.wikimedia.org/wikipedia/commons/8/82/New_York_City_Gridlock.jpg"
+
+knitr::include_graphics("images/New_York_City_Gridlock.jpeg")
+
+```
+</center>
+
+### Common Variables
+
+The trick that makes a join possible is to have one or more shared variables across each dataset. This may be an ID column, or a specific [data class](05_data_structures.html#basic-object-classes). Importantly, these data can actually have different column names, but typically each needs to have the same *class* of data (i.e., `character` and `character`) and some shared observations across each dataset in order to **join** the datasets.
+
+While this may seem daunting at first, it's not! R has some excellent tools built into the **`{dplyr}`** package that make joining datasets fairly straightforward. First let's import some data we can use to join. Here we will build off of the datasets we used in the [previous {dplyr} module](07_dplyr.html). 
+
+First let's load the libraries and data we'll be using. We'll be continuing to use some groundwater data as shown in previous modules, including a dataframe of **`stations`**, **`measurements`** through time, and information on **`perforations`**. We'll also *join* these data to the [CalEnviroscreen dataset](https://oehha.ca.gov/calenviroscreen) which "*identifies California communities by census tract that are disproportionately burdened by, and vulnerable to, multiple sources of pollution*". One of the most notable uses of the CalEnviroscreen dataset has been to inform CalEPA’s identification of disadvantaged communities. We'll be using CalEnviroscreen v3.0 in the code that follows.
+
+```{r loaddata, eval=TRUE, echo=TRUE, messages=FALSE}
+
+library(tidyverse)
+
+# GW stations data
+gw_stations <- read_csv("data/gwl/stations.csv")
+
+# GW measurements data for Sac, El Dorado, Placer Counties
+gw_measurements <- read_csv("data/gwl/measurements_sep.csv")
+
+# GW depths
+gw_perf <- read_csv("data/gwl/perforations.csv")
+
+# CalEnviroscreen Data
+calenviro <- read_csv("data/calenviroscreen/ces3results_data.csv")
+
+```
+
+<br>
+
+:::challenge
+
+<font color="#009E73">**Challenge 1: Find the Commonalities**</font> 
+
+ - Look at the 3 different groundwater datasets (`gw_measurments`, `gw_perf`, and `gw_stations`) and find potential common columns/variables we can use to join. How many are there?
+ 
+:::
+
+
+<details>
+  <summary class="challenge-ans-title">**Click for Answers!**</summary>
+  <div class="challenge-ans-body">
+
+There are many ways to view our data. We want to not only know the column names, but also what kind of data exists in each. What common columns can we use?
+
+ - **`SITE_CODE`** and **`STN_ID`** is in each of the `gw_measurments`, `gw_perf`, and `gw_stations` datasets.
+ 
+A great package to use for cleaning and checking things like this is the {[`janitor`](http://sfirke.github.io/janitor/)} package. We can use the `compare_df_cols` function to find out what data types exist across the dataframes we want to potentially join.
+
+```{r challenge1, echo=TRUE}
+
+library(janitor)
+# tells us the column class in each dataframe, NA's for non-existent cols
+compare_df_cols(gw_stations, gw_perf, gw_measurements)
+
+# note SITE_CODE and STN_ID both exist across all 3 datasets
+
+
+```
+
+  </div>
+</details> 
+
+
+### Same Data, Different Names
+
+Now we'd like to know if there are similar data columns between the groundwater datasets and the CalEnviroscreen data. To do this let's inspect our `stations` and `calenviro` data with either `head` or `names` or `str`. All will tell us similar information. At this point, we know we can tie the groundwater data together, but we need to find something to crosswalk or join the CalEnviroscreen data to the groundwater data. In this case, the CalEnviroscreen data are at a census tract level, and contain data with ZIP codes, counties, and census tracts.
+
+(ref:AHmeetdata) *Artwork by @allison_horst*
+
+```{r AHmeetData, echo=FALSE, out.width="80%", fig.cap="(ref:AHmeetdata)"}
+
+include_graphics("https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/make-your-own-stats-cartoons/ex_2.png")
+
+```
+
+There are a lot of variables in the CalEnviroscreen dataset, so we're only showing the first 10 here.
+
+```{r inspect, eval=T, echo=T}
+
+names(calenviro) %>% head(10)
+names(gw_stations)
+
+```
+
+What do we see? Looks like we have county names in both of these datasets, but they have different column names (*`COUNTY_NAME`* in `stations` and *`California County`* in `calenviro`. So we know we can join our three groundwater datasets together, and we know we can join the CalEnviroscreen data with the `stations` dataset by county. Let's talk about the types of joins we may use now!
+
+## Join Types
+
+There are quite a few different join types that are available via the **{dplyr}** package. Here are some great animations by [Garrick Aden-Buie](https://www.garrickadenbuie.com/project/tidyexplain/#usage) that help illustrate the various join types. 
+
+### Left Join
+
+Returns all rows from `x`, and all columns from `x` and `y`. Rows in `x` with no match in `y` will have `NA` values in the new columns. Probably one of the most common joins, where we want to keep *everything* from our first dataframe (`x`), and anything that matches `x` from the second dataframe (`y`).
+
+<aside>
+The left join is perhaps the most commonly used join, and if you only know one join, this should be it. 
+</aside>
+
+```{r leftjoin, echo=FALSE, out.width='70%'}
+
+include_graphics("images/left-join.gif")
+
+```
+
+### Inner Join
+
+The matching join, returns all rows from `x` where there are matching values in `y`, and all columns from `x` and `y`.
+
+```{r innerjoin, echo=FALSE, out.width='70%'}
+
+include_graphics("images/inner-join.gif")
+
+```
+
+
+### Full Join
+
+Returns all rows and all columns from both `x` and `y`. Where there are not matching values, the function returns `NA` for that observation. This is a full merge, where no data is lost from either dataset, and any non-matching data gets an `NA`.
+
+```{r fulljoin, echo=FALSE, out.width='70%'}
+
+include_graphics("images/full-join.gif")
+
+```
+
+### Semi Join
+
+Returns all rows from `x` where there are matching values in `y`, keeping only columns from `x`. Also known as a *filtering join* because you are basically filtering one dataframe, using another dataframe as the match. This can be useful when you don't actually want to join with data, but you do want to subset the data to match observations in another dataset.
+
+```{r semijoin, echo=FALSE, out.width='70%'}
+
+include_graphics("images/semi-join.gif")
+
+```
+
+
+### Anti Join
+
+Also a *filtering join*. This keeps all rows from `x` where there are not matching values in `y`, keeping just columns from `x`. This join is useful to find out which data is **not** joining. Note, the dataframe you put first matters: if you switch `x` and `y` you may get different answers.
+
+```{r antijoin, echo=FALSE, out.width='70%'}
+
+include_graphics("images/anti-join.gif")
+
+```
+
+
+```{r, eval=F, echo=F}
+# join animations with tidyexplain: https://www.garrickadenbuie.com/project/tidyexplain/
+# code here: https://github.com/gadenbuie/tidyexplain/tree/master/R
+# animations here:
+# https://github.com/gadenbuie/tidyexplain/tree/master/images
+
+```
+
+## Joining With Common Variable Names
+
+Let's demonstrate some joins with our groundwater dataframes. First, we'll **`filter`** the station data to only stations in Sacramento County, and then join these data with the other groundwater data.
+
+```{r filter, eval=TRUE, echo=TRUE}
+
+sac_stations <- gw_stations %>% 
+  filter(COUNTY_NAME == "Sacramento")
+
+dim(sac_stations) # get number of ROWS , COLUMNS
+
+```
+
+It looks like we have `r nrow(sac_stations)` groundwater stations in Sacramento County. Let's use this subset of data to join to our other groundwater dataframes.
+
+### Using the defaults
+
+The various `joins` outlined above are very flexible, but the default options are also very good. That means, if we don't specify any details, the functions will often try to match and join based on common columns (that have identical names and data types), though this isn't a great habit to set because that may not always be what we want 👾!
+
+Let's **`left_join()`** our Sacramento stations with the `gw_measurments` data. Note, we expect to get the same number of stations as the *left* part of our join (the `x` data.frame), because `left_join` should keep everything on the left side, and only keep what matches from the right side (`y`).
+
+```{r sacSta-gwperf, eval = TRUE, echo=TRUE}
+
+# default join, only give x, y
+sac_stations_measurements <- left_join(sac_stations, gw_measurements)
+
+dim(sac_stations_measurements)
+```
+
+What happened? Since there are two matching columns, the join used both `STN_ID` and `SITE_CODE`. We ended up with *lots* more observations, and additional columns. It's important to check and validate things worked.
+
+:::challenge
+
+<font color="#009E73">**Challenge 2: Verify the Join**</font> 
+
+ - How can we verify we successfully joined our two datasets? 
+ - Can you use either `unique()` or `distinct()` to prove we only have groundwater stations from Sacramento County in our joined dataset?
+ 
+:::
+
+<details>
+  <summary class="challenge-ans-title">**Click for Answers!**</summary>
+  <div class="challenge-ans-body">
+
+It's always a good idea to double check both visually and numerically that things are working as expected. In the example above, there are many `gw_measurements` per station so it may seem difficult to know this worked. However, we can double check the number of unique stations in our joined dataset...it should still equal the total number stations in our `sac_stations` dataset (n = `r nrow(sac_stations)`).
+
+```{r chall2, eval=TRUE, echo=TRUE}
+
+# look at how many unique SITE_CODE are in orig sac only dataset
+distinct(sac_stations, SITE_CODE) %>% nrow()
+
+# look at how many unique are in joined dataset
+distinct(sac_stations_measurements, SITE_CODE) %>% nrow()
+
+# look at top 10 stations with the most measurements:
+sac_stations_measurements %>% 
+  group_by(SITE_CODE) %>% # group by SITE_CODE
+  tally() %>% # count how many measurements by STATION
+  arrange(desc(n)) %>% # arrange by count (n), descending
+  head(10) # top 10 records only
+
+```
+
+  </div>
+</details>
+
+If we use an `inner_join()`, do we get a different number of stations? Why?
+
+```{r sacStaInnergwperf, eval = TRUE, echo=TRUE}
+
+# default join, only give x, y
+sac_stations_inner <- inner_join(sac_stations, gw_measurements)
+
+# check station number
+distinct(sac_stations_inner, SITE_CODE) %>% nrow()
+
+```
+
+There's a different number of stations here! What happened? Remember, `inner_join()` only keeps the *rows that match in both data frames*. So, this means while the original `sac_stations` dataset had `r nrow(sac_stations)` stations, the `gw_measurements` dataset does not have data for every station in the `sac_stations` dataset, thus `n = 420` instead `n = 494`. When using `left_join()`, these missing observations get filled with `NA`, whereas with `inner_join()`, they are dropped.
+
+### Piping Joins
+
+We saw how we can join two datasets, but let's try piping these together so we can join all three groundwater datasets together in one single chain of code. We'll start with our Sacramento County stations only. 
+
+Here we'll pipe the data to the function, which means we only need to add the `y` argument. In R, a "`.`" is like a placeholder that represents the data we are piping along. It's not strictly required (try running the function without it!), but here it helps us see the pieces that go into the function (`x` and `y`).
+
+```{r chainJoin, eval=TRUE, echo=TRUE}
+
+# note, we aren't specifying the columns we want to join on (keep defaults)
+sac_gw_data_joined <- sac_stations %>% 
+  left_join(., gw_measurements) %>% # passing this result to the next join
+  left_join(., gw_perf)
+
+# quick check of stations, should be n=494, because left_join!
+distinct(sac_gw_data_joined, SITE_CODE) %>% nrow()
+
+```
+
+
+## Joining With Different Variable Names
+
+What about joining dataframes with different variable names? This is much more common when trying to merge different datasets. Let's try to join the CalEnviroscreen data with the Sacramento County groundwater `stations` data.
+
+```{r joinFail, eval=FALSE, echo=TRUE}
+
+calenviro_stations <- left_join(calenviro, sac_stations)
+
+```
+
+```
+Error: `by` must be supplied when `x` and `y` have no common variables.
+ℹ use by = character()` to perform a cross-join.
+Run `rlang::last_error()` to see where the error occurred.
+```
+
+(ref:facewiggle) *Artwork by @allison_horst*
+
+```{r face, echo=FALSE, out.height="2%", fig.cap="(ref:facewiggle)"}
+
+include_graphics("images/faces_squiggle.png")
+
+```
+
+Uh-oh, an error message! But if we look more closely, this error message is pretty descriptive. It tells us the two pieces we are working with (x = `calenviro` and y = `sac_stations`) don't have a common variable name. Then it gives us a suggestion, `use by = character()`. Let's try specifying the column names we want to join using the **`by`** argument. Note, we need to quote the variable names here (a `character()` vector), and they need to match the same order the dataframes were provided (`x` and `y`).
+
+```{r leftjoinEnviro, eval=TRUE, echo=TRUE}
+
+calenviro_stations <- inner_join(sac_stations, calenviro,
+                                by = c("COUNTY_NAME" = "California County"))
+
+dim(calenviro_stations)
+
+```
+
+Great this worked! But let's figure out why there are so many records if there were only n = 494 stations.
+
+```{r examineCalEnviroStations, eval=TRUE, echo=TRUE}
+
+# how many stations per census tract?
+calenviro_stations %>% count(`Census Tract`)
+
+# how many census tracts in Sacramento County
+calenviro_stations %>% count(`Census Tract`)
+
+```
+
+So there are 317 census tracts in Sacramento County, and 494 unique groundwater stations. If we multiply 317 * 494, we get the number of observations in our dataset (`n = 156,598`). So, it seems every single station is being joined to every single census tract...that's because we only have county to join on.
+
+For these sorts of operations, we actually want a more spatially explicit join to reduce this sort of duplication. Thankfully we've done this already. Let's grab this data now so we can use it to make a better join of the data. [Download it here](), and see the [spatial mapmaking module](10_intro_mapmaking.html) to see more on spatial joins. Let's join our full joined Sacramento County groundwater dataset from earlier using the census tracts instead of county.
+
+```{r spatialJoin, eval=FALSE, echo=FALSE, message=FALSE}
+
+library(sf)
+
+# calenviroscreen shp
+calsf <- read_sf("data/calenviroscreen/CES3_shp/CES3June2018Update.shp")
+
+# make stations spatial
+sac_stations_sf <- st_as_sf(sac_stations, 
+                            coords = c("LONGITUDE", "LATITUDE"), 
+                            remove = FALSE, 
+                            crs = 4269)
+
+# check CRS
+st_crs(calsf)
+st_crs(sac_stations_sf)
+
+# transform to same CRS
+sac_stations_sf <- st_transform(sac_stations_sf, st_crs(calsf))
+
+# spatial join
+calenviro_stations_sf <- st_join(sac_stations_sf, calsf)
+
+# select just stations and census tracts for intermediate table
+sac_stations_calenviro <- calenviro_stations_sf %>% 
+  select(STN_ID:LONGITUDE, COUNTY_NAME, tract, ZIP) %>% 
+  st_drop_geometry()
+
+# save this out
+write_csv(sac_stations_calenviro, file = "data/calenviroscreen/sac_county_crosswalk_to_gw_stations.csv")
+
+write_rds(sac_stations_calenviro, file="data/calenviroscreen/sac_county_crosswalk_to_gw_stations.rds")
+
+```
+
+```{r spatialCalEnviroStations, eval=TRUE, echo=TRUE}
+
+# can use URL here too: 
+xwalk <- read_csv("data/calenviroscreen/sac_county_crosswalk_to_gw_stations.csv") %>% 
+  # filter to just columns we need
+  select(SITE_CODE, tract)
+
+# join with station data...adding "tract" to dataframe
+sac_stations_w_tracts <- left_join(sac_stations, xwalk)
+
+# now join to CalEnviroScreen data
+sac_station_calenviro_by_tracts <- left_join(sac_stations_w_tracts, calenviro,
+                                             by = c("tract" = "Census Tract"))
+
+# check dim
+dim(sac_station_calenviro_by_tracts)
+
+```
+
+Ok, so what happened? We used an intermediate table (`xwalk`) to crosswalk using a finer resolution join for our stations. So now each census tract is associated with a specific groundwater station in Sacramento County, based on a spatial join of the CalEnviroScreen data with the stations data.
+
+Let's close the loop, and join the station-calenviroscreen data back to our `gw_perf` and `gw_measurement` data so we have one single dataset for Sacramento County!
+
+<!-- can add section on pivot_longer/wider here later -->
+
+```{r joinALL, eval=TRUE, echo=TRUE}
+
+sac_gw_all <- left_join(sac_station_calenviro_by_tracts, gw_perf) %>% 
+  left_join(., gw_measurements)
+
+# lets move the CalEnviroScreen variables to the end
+sac_gw_all <- sac_gw_all %>% 
+  select(STN_ID:WCR_NO, TOP_PRF:COOP_ORG_NAME, tract:`Pop. Char. Pctl`)
+
+```
+
+## Save it Out!
+
+Remember how to do this? Let's save this using an R specific format, `.rds`, because it will retain the formatting and allow us to import/read in the data using whatever name we prefer. Here we'll use the `write_rds()` function from the `{readr}` package (part of the `{tidyverse}`). 
+
+```{r saveOut, echo=T, eval=T}
+
+# remember to use a relative path!
+write_rds(sac_gw_all, file = "data/sacramento_gw_data_w_calenviro.rds")
+
+```
