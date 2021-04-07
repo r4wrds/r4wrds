@@ -18,7 +18,7 @@ options(scipen = 14)
 
 :::obj
 
-**Joining and Pivoting Data**
+**Joining Data**
  
  - Understand different types of joins and how to use them
  - Understand how to join datasets by shared data columns
