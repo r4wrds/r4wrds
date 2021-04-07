@@ -1,7 +1,7 @@
 ---
-title: "Intro to Map Making in R"
+title: "{sf} and map making in R"
 description: | 
-  Mapmaking 101
+  Spatial data and Mapmaking 101
 output: 
   distill::distill_article:
     toc: true
@@ -17,54 +17,378 @@ suppressPackageStartupMessages(library(tidyverse))
 
 :::obj
 
-**Maps**
+**Learning objectives**
  
- - MAPS
+ - Read spatial data
+ - Understand how to convert a dataframe into an {sf} object  
+ - Practice transforming {sf} spatial data between projections
+ - Create interactive webmaps
+ - Create static maps with the base `plot()` method and {ggplot2}
+ - Save/export static maps  
 
 :::
 
-## MAPS placehoder
+## Geospatial data with {sf}
 
+R is a powerful tool for working with spatial data and making maps. Within R, you can do nearly everything that a GUI type program can do (e.g., ArcGIS or QGIS), and moreover, you can write a script to automate or scale up routine analyses, thus saving time on repetitive tasks and ensuring you create reproducible workflows.  
+
+There are a variety of spatial mapping/plotting packages in R. However, the best option being used widely for vector-based spatial data in R is the **`{sf}`** package. **`{sf}`** is a powerful, clean, and fairly straightforward approach because it has an easy to use syntax, it is fast and it can do most if not all of the tasks commonly done in other geospatial software programs. Even better, **`{sf}`** spatial objects are simply data.frames with a `geometry` column, so all of the tidy, wrangle, join, and plot capabilities from {dplyr} and {ggplot2} also work on **`{sf}`** objects. Therefore, it is possible to use R to address all your data processing needs in a single environment without the need to move between tools for tabular data (e.g., Excel) and geospatial data (e.g., ArcGIS or QGIS).  
 
 <aside>
-`sf` stands for "simple features" which is a way of representing spatial data. See the R [**`{sf}`** package](https://r-spatial.github.io/sf/) for more details.  
+`sf` stands for "simple features" which is a way of representing spatial data. See the R [**`{sf}`** package documentation](https://r-spatial.github.io/sf/) for more details. "*Sticky geometry*" in the figure means that all geometry information is contained in a single column, and that column follows the data, no matter how you work with it. 
 </aside>
 
-First we convert our `gwl_10` object into a simple features `sf` object with the function `st_as_sf()` and specifying which columns are the coordinates `coords`, and what the coordinate reference system `crs` is. In this case, we know the data is in NAD83, or EPSG 4269.  
+(ref:ah-sf) *Illustration by @allison_horst.*
 
-```{r geomsf}
+```{r, eval=TRUE, echo=FALSE, out.width='80%', fig.cap='(ref:ah-sf)'}
+knitr::include_graphics(here("images","sf.png"))
+```
 
-# load the sf library
+```{r, include = FALSE}
 library(sf)
 
-# convert gwl_10 into an sf object by specifying coordinates and the crs
-gwl_10_sf <- st_as_sf(gwl_10, coords = c("LONGITUDE", "LATITUDE"), crs = 4269)
+# subset stations down to sac county and save
+stations <- read_csv(here("data", "gwl", "stations.csv")) %>% 
+  st_as_sf(coords = c("LONGITUDE", "LATITUDE"), crs = 4269, remove = FALSE)
 
-# check the class of the new object
-class(gwl_10_sf)
-```
-
-
-```{r geomsf2, message=FALSE}
 # read Sacramento county shapefile and transform to NAD83, EPSG 4269
-sac <- st_read(here("data","shp","sac_county_shp","sac_county.shp"), quiet = TRUE) %>%
+sac <- st_read(here("data", "shp", "sac", "sac_county.shp"), quiet = TRUE) %>%
   st_transform(4269)
 
-# put data in geoms rather than ggplot() because we have multiple datasets
-# in one plot
-ggplot() +
-  geom_sf(data = sac) +
-  geom_sf(data = gwl_10_sf, color = "blue") 
+# crops stations to sac county, add lat and lon, and 
+st_intersection(stations, sac) %>% 
+  st_drop_geometry() %>% 
+  write_csv(here("data", "gwl", "stations_sac.csv"))
 ```
 
-We can also add color, facet, and add a **theme**.
 
-```{r geomsf3}
+### Reading spatial data
+
+The **`{sf}`** package can read spatial data in various formats (e.g., shapefile, GeoJSON, PostGIS), and is very straightforward if the data is already spatial, requring only a call to the function `st_read()`.
+
+
+```{r st-read}
+# First we load the sf and here packages
+library(sf)
+library(here)
+library(tidyverse)
+
+# Read a shapefile of Sacramento county 
+sac <- st_read(here("data", "shp", "sac", "sac_county.shp"), quiet = TRUE) 
+
+colnames(sac)
+```
+
+
+### Converting a dataframe to sf
+
+At other times, you may need to convert tabular data to a spatial format. To make an **`{sf}`** object, we are creating a `geometry` column. This contains all the geospatial information we need, and it lives within the dataframe. Importantly, this geometry column is "sticky", meaning whatever we do to our data (tidy, filter, mutate etc) the associated `geometry` column will stick with the data. What's awesome is this column can contain anything from information for a point to a line to a complex polygon -- all in one column. *To make an {sf} object, we need to know two important pieces of information...*
+
+ - The columns that contain the geospatial coordinates (either name or column number)  
+ - The [projection](http://spatialreference.org/ref/epsg/) or [EPSG (CRS, SRID, etc)](http://epsg.io/) that the data in  
+ 
+To practice, let's read all groundwater level monitoring stations in Sacramento County, `stations_sac.csv`, and convert this tabular data to an `sf` object with the function `st_as_sf()`. We will specify which columns contain the coordinates `coords`, and what the projection, or coordinate reference system `crs` the data is in. In this case, we know the data is in NAD83, or EPSG 4269.  
+
+<aside>
+Notice that all functions in **`{sf}`** begin with an "`st_`" prefix. This makes it easy to type "st_" and use tab-completion to find functions, and it also makes it easier to read code and spot spatial transformations.  
+</aside>
+
+```{r st-as-sf}
+
+# read groundwater level stations in Sacramento county as dataframe
+stations <- read_csv(here("data", "gwl", "stations_sac.csv"))
+
+# check object class
+class(stations)
+
+# convert stations into an sf object by specifying coordinates and crs
+stations <- st_as_sf(stations, 
+                     coords = c("LONGITUDE", "LATITUDE"), # note x goes first
+                     crs = 4269, # projection, this is NAD83
+                     remove = FALSE) # don't remove lat/lon cols from dataframe
+
+# check the class of the new object
+class(stations)
+```
+
+### Projecting spatial data
+
+A common problem in geospatial analysis is when two different datasets are in different projections. We can check the projection of our `sac` and `stations` objects with the function `st_crs()`, and transform our data (or re-project) with the `st_transform()` function.  
+
+We know `stations` is in NAD83, but what about `sac`? Let's check with `st_crs()`. Line 2 of the output indicates WGS84.    
+
+```{r st-crs}
+st_crs(sac)
+```
+
+We can re-project, or transform the projection (crs) with `st_transform()` and by specifying the EPSG code to transform the data to. Here we use [NAD83 (EPSG: 4269)](https://epsg.io/4269), so the Sacramento county boundary (`sac`) is in the same projection as the groundwater level monitoring points (`stations`).
+
+```{r st-crs2}
+sac <- st_transform(sac, crs = 4269)
+```
+
+Lastly, we verify our transformation worked. 
+
+```{r st-crs3}
+st_crs(sac)
+```
+
+We can even ask R if the projection (crs) of `sac` and `stations` are identical, and they are.
+
+```{r st-crs4}
+identical(st_crs(stations), st_crs(sac))
+```
+
+
+## Plotting {sf} data
+
+With all of our spatial data in the same projection, we can start making maps! We will cover the built-in `plot()` method for `{sf}` objects, interactive maps with `{mapview}`, and plotting with `{ggplot2}`.  
+
+### Inspect data with `plot()`
+
+After reading spatial data you may want to plot it to make sure that it imported correctly, and to understand the fields. For a quick plot, you can simply use `plot()`. 
+
+```{r sf-plot, out.width="100%"}
+
+# plot the geometry
+plot(sac$geometry)
+```
+If we don't specify the "geometry" column, `plot()` will plot the first 10 columns in the dataframe. Here we can see there are 4 distinct basins (BASIN_CODE) in Sacramento County. 
+
+```{r sf-plot2, out.width="100%"}
+plot(stations)
+```
+
+
+## Interactive mapping with {mapview}
+
+One of the easiest and coolest packages you'll find for interactive mapping is **`{mapview}`**. As long as data are in `sf` format, you can quickly make an interactive map. First let's make sure we have an `sf` class of data.
+
+```{r sf-class}
+class(stations)
+class(sac)
+```
+
+### Basic use
+
+Next we can use the simple `mapview()` function to create an interactive webmap!
+
+```{r mapview1, out.width="100%"}
+library(mapview)
+
+mapview(sac)
+```
+
+We can add {mapview} objects to one another and toggle them on and off in the top-left hand layer control icon. 
+
+```{r mapview2, out.width="100%"}
+# combine sac and stations data
+mapview(sac) + mapview(stations) 
+```
+
+Note that we can open a {mapview} obejct in our default web browser by clicking on the little box and arrow to expand and view. This is particularly helpful when popup tables contain dense information, as is the case with our `stations` dataframe.
+
+```{r mapview-expand, eval=TRUE, echo=FALSE, out.width='80%'}
+knitr::include_graphics(here("images","mapview_expand.png"))
+```
+
+### Customizing mapview
+
+Not only can you combine mapview objects, but you can also customize their appearance by adjusting a variety of built-in arguments to the `mapview()` function. 
+
+```{r mapview3, out.width="100%"}
+# make sac polygon transparent, with a thick red outline
+mapview(sac, alpha.regions = 0, color = "red", lwd = 2, layer.name = "Sac Co") +
+  # color points by the well depth
+  mapview(stations, zcol = "WELL_DEPTH", layer.name = "Well depth (ft)") 
+```
+
+
+:::challenge
+
+<font color="#009E73">**Challenge 1: You Try!**</font> 
+
+1. Create a new mapview object of Sacramento County (`sac`), plus `stations` colored by "WELL_USE". Add the argument `burst = TRUE`, and read the read the mapview documentation to learn what this does (Hint: Enter `?mapview` and scroll to "Arguments").  
+2. Toggle all layers off except for irrigation and residential wells. How does this relate to what we saw in the previous EDA module?
+
+:::
+
+<br>
+
+<details>
+  <summary class="challenge-ans-title"><font color="#0072B2">**Click for Answers!**</font></summary>
+  <div class="challenge-ans-body">
+
+```{r challenge-1a, eval = FALSE, out.width="100%"}
+mapview(sac,                    # sacramento county sf polygon
+        alpha.regions = 0,      # transparent interior
+        color = "red",          # red outline
+        lwd = 2,                # thick outline
+        layer.name = "Sac Co",  # layer name 
+        legend = FALSE) +       # hide legend
+    mapview(stations,           # stations sf points
+            zcol = "WELL_USE",  # color by the well use
+            burst = TRUE)       # split each category into a layer
+```
+
+  </div>
+</details>
+
+
+## Static maps with {ggplot2}
+
+Interactive maps are useful for fast data exploration and integration into web applications, however, depending on the project, static maps may more appropriate for reports, presentations, and sharing. Mapmaking with `{sf}` objects in `{ggplot2}` follows the same syntax we practiced in the [ggplot2 module](04_ggplot.html#adding-geom_-layers), using the `geom_sf()` function. 
+
+### Basic use
+
+```{r geomsf, out.width="100%", message = FALSE}
+# put data in geoms rather than ggplot() as we have multiple datasets in one plot
+p <- ggplot() +
+  geom_sf(data = sac) +
+  geom_sf(data = stations, color = "blue", alpha = 0.5) 
+```
+
+Adding a north arrow and scale bar is achieved with the `{ggspatial}` package.
+
+```{r geomsf2, out.width="100%", message = FALSE}
+p + 
+  # north arrow (top left) & scale bar (bottom right) 
+  ggspatial::annotation_north_arrow(location = "tl") +
+  ggspatial::annotation_scale(location = "br") +
+  labs(x = "Longitude (NAD83)", y = "Latitude", 
+       title = "Groundwater monitoring staions",
+       subtitle = "Sacramento County") +
+  theme_minimal()
+```
+
+Just as before in {ggplot2}, we can connect an aesthetic, `aes`, like `color` to one of the columns, facet, and change the `theme()`. For maps, `theme_void()` is popular because it remove graticules (grid lines) and axis ticks and labels, allowing us to focus on the data explored in the plot.
+
+```{r geomsf3, out.width="100%", message = FALSE}
+p <- ggplot() +
+  geom_sf(data = sac) +
+  geom_sf(data = stations, aes(color = WELL_DEPTH)) +
+  scale_color_viridis_c("Well depth (ft)") + 
+  theme_void() 
+p
+```
+
+:::challenge
+
+<font color="#009E73">**Challenge 2: Debug and modify.**</font> 
+
+Fix the following code that, as written, will return an error. Then, with the fixed code, map the color aesthetic to how the well is used ("WELL_USE"), and add a viridis color scale to this **discrete** variable.
+```{r, eval = FALSE, message = FALSE}
+ggplot() %>% 
+  geom_sf(data = sac) +
+  geom_sf(data = stations) 
+```
+
+
+:::
+
+<br>
+
+<details>
+  <summary class="challenge-ans-title"><font color="#0072B2">**Click for Answers!**</font></summary>
+  <div class="challenge-ans-body">
+
+
+```{r challenge-2a, eval = FALSE}
+# Use `+` instead of `%>%` to add ggplot objects together
 ggplot() +
   geom_sf(data = sac) +
-  geom_sf(data = gwl_10_sf, aes(color = WELL_DEPTH)) +
-  facet_wrap(~WELL_USE) + 
-  scale_color_viridis_c() + 
+  geom_sf(data = stations) 
+```
+
+
+```{r challenge-2b}
+# Map "WELL_USE" to color in the stations dataframe, and ensure the color
+# scale is for a discrete variable with `scale_color_viridis_**d**()`
+ggplot() +
+  geom_sf(data = sac) +
+  geom_sf(data = stations, aes(color = WELL_USE)) +
+  scale_color_viridis_d("Well type", option = "B") +
+  theme_void()
+```
+
+  </div>
+</details>
+
+
+
+### Customizing maps in ggplot2
+
+Because we're working in {ggplot2}, we can also `facet_wrap()` and customize the `theme()`.
+
+```{r geomsf4, out.width="100%", message = FALSE}
+# facet the plot we created above, p, by the well use
+p +
+  facet_wrap(~WELL_USE, nrow = 2) +
+  theme(legend.position = "top") +
+  guides(color = guide_colorbar(barwidth = unit(20, "lines"), 
+                                barheight = unit(0.5, "lines"),
+                                title.hjust = 0.5, 
+                                title.position = "top"))
+```
+
+We might notice that a few extremely deep wells dominate the color scale and cause it to extend to large values that prevent us from seeing variation in shallower well depths. We can improve this visualization by drawing on some skills from the [dplyr module](06_dplyr.html#mutate-existing-data). Let's overwrite large well depth values with `dplyr::mutate()` and improve our labeling on the map.
+
+```{r geomsf5, out.width="100%", message = FALSE}
+# only 4.7% of wells have a well depth that exceeds 700 feet
+# but the color bar goes all the way to 1600 feet!
+sum(stations$WELL_DEPTH >= 700, na.rm = TRUE) / nrow(stations)
+
+# overwrite large values & assign the resulting dataframe to a new object
+stations_viz <- stations %>% 
+  mutate(WELL_DEPTH = ifelse(WELL_DEPTH >= 700, 700, WELL_DEPTH))
+
+# replot with the new stations_viz object
+p <- ggplot() +
+  geom_sf(data = sac) +
+  geom_sf(data = stations_viz, aes(color = WELL_DEPTH)) +
+  facet_wrap(~WELL_USE, nrow = 2) + 
+  # improve labels to reflect the changes made to values in these data
+  scale_color_viridis_c("Well depth (ft)",
+                        # break points for labels along the colorbar
+                        breaks = seq(0, 700, 100),
+                        # labels to insert at each of the breaks
+                        labels = c(seq(0, 600, 100), "> 700")) + 
   theme_void() +
-  theme(legend.position = "top")
+  theme(legend.position = "top") +
+  guides(color = guide_colorbar(barwidth = unit(20, "lines"), 
+                                barheight = unit(0.5, "lines"),
+                                title.hjust = 0.5, 
+                                title.position = "top"))
+p
 ```
+
+In this improved visualization, it's clear that irrigation wells tend to be deeper than residential wells. The main cluster of "Other" wells is associated with the [Aerojet Superfund site](https://www.epa.gov/enforcement/case-summary-epa-issues-order-aerojet-general-corporation-superfund-site), and are fairly deep, around 300-600 ft.
+
+
+### Exporting maps in ggplot2
+
+Once a map has been created, how do we get it out of R and into a form we can share with others? One option is to save a map directly from the Plot viewer in RStudio.
+
+```{r save-map, out.width="80%", echo = FALSE}
+knitr::include_graphics(here("images","export_sf_map.png"))
+```
+
+For more control and reproducibility, we can also save a map by using the methods covered in the ["Saving plots" section of data visualization module](04_ggplot.html#saving-plots), which include `ggsave()`. It's good to practice this way of doing things because it will build your understanding and help you automate saving hundreds of plots at a single time down the road.  
+
+```{r save-map2}
+ggsave(here("results", "sac_well_depth_type.png"), p, height = 5, width = 8)
+```
+
+
+## Additional Resources
+
+We covered 3 common frameworks in which to plot spatial data in R: the `plot()` method for `{sf}` objects, `{mapview}` package, and `{ggplot2}`. Although these are popular and powerful approaches to visualize and map spatial data, other packages in the R ecosystem are available including:  
+
+* [`{leaflet}`](https://rstudio.github.io/leaflet/) and extensions like [`{leafpop}`](https://github.com/r-spatial/leafpop)  
+* [`{tmap}`](https://mtennekes.github.io/tmap/)  
+* [`{mapdeck}`](https://symbolixau.github.io/mapdeck/articles/mapdeck.html)  
+* [`{rasterVis}`](https://oscarperpinan.github.io/rastervis/) for raster data  
+* [`{plotly}`](https://plotly-r.com/maps.html)  
+
+The online books/guides [*Geocomputation with R*](https://geocompr.robinlovelace.net/), [*RSpatial.org*](https://rspatial.org/), and [Spatial Data Science](https://keen-swartz-3146c4.netlify.app/) are additional resources for a deeper dive into spatial data processing and mapping in R.  
+

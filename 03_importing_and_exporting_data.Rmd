@@ -200,11 +200,11 @@ Geospatial data is ubiquitous. So is the ArcGIS data format, the shapefile. A ge
 ```{r, read-shp, echo=TRUE, eval=TRUE}
 
 # unzip Sacramento county shapefile
-unzip(here("data", "shp", "sac_county_shp.zip"), exdir = here("data", "shp"))
+unzip(here("data", "shp", "sac_county_shp.zip"), exdir = here("data", "shp", "sac"))
 
 # read the shapefile
 library(sf)
-sac_county <- st_read(here("data", "shp", "sac_county.shp"))
+sac_county <- st_read(here("data", "shp", "sac", "sac_county.shp"))
 
 ```
 
