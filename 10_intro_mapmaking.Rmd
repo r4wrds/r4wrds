@@ -64,7 +64,7 @@ st_intersection(stations, sac) %>%
 
 ### Reading spatial data
 
-The **`{sf}`** package can read spatial data in various formats (e.g., shapefile, GeoJSON, PostGIS), and is very straightforward if the data is already spatial, requring only a call to the function `st_read()`.
+The **`{sf}`** package can read spatial data in various formats (e.g., shapefile, GeoJSON, PostGIS, kml), and is very straightforward if the data is already spatial, requiring only a call to the function `st_read()`.
 
 
 ```{r st-read}
@@ -79,18 +79,20 @@ sac <- st_read(here("data", "shp", "sac", "sac_county.shp"), quiet = TRUE)
 colnames(sac)
 ```
 
+<aside> Note, the `quiet = TRUE` option suppresses the printing of information about the spatial data being imported. Sometimes this information can be helpful, but see `read_sf()` which does the same thing as `st_read` but defaults to *quietly* reading in data.
+</aside>
 
 ### Converting a dataframe to sf
 
 At other times, you may need to convert tabular data to a spatial format. To make an **`{sf}`** object, we are creating a `geometry` column. This contains all the geospatial information we need, and it lives within the dataframe. Importantly, this geometry column is "sticky", meaning whatever we do to our data (tidy, filter, mutate etc) the associated `geometry` column will stick with the data. What's awesome is this column can contain anything from information for a point to a line to a complex polygon -- all in one column. *To make an {sf} object, we need to know two important pieces of information...*
 
- - The columns that contain the geospatial coordinates (either name or column number)  
- - The [projection](http://spatialreference.org/ref/epsg/) or [EPSG (CRS, SRID, etc)](http://epsg.io/) that the data in  
+ - **`coords`**: The columns that contain the geospatial coordinates (either name or column number)  
+ - **`crs`**: The [projection](http://spatialreference.org/ref/epsg/) or [EPSG (CRS, SRID, etc)](http://epsg.io/) that the data in^[coordinate reference systems are an entire lesson unto themselves. For a good overview, check out this [Data Carpentry lesson](https://datacarpentry.org/organization-geospatial/03-crs/index.html) ]
  
-To practice, let's read all groundwater level monitoring stations in Sacramento County, `stations_sac.csv`, and convert this tabular data to an `sf` object with the function `st_as_sf()`. We will specify which columns contain the coordinates `coords`, and what the projection, or coordinate reference system `crs` the data is in. In this case, we know the data is in NAD83, or EPSG 4269.  
+To practice, let's read all groundwater level monitoring stations in Sacramento County, `stations_sac.csv`, and convert this tabular data to an `sf` object with the function `st_as_sf()`. We will specify which columns contain the coordinates (**`coords`**), and what the projection, or coordinate reference system (**`crs`**) the data is in. In this case, we know the data is in NAD83, or EPSG 4269.  
 
 <aside>
-Notice that all functions in **`{sf}`** begin with an "`st_`" prefix. This makes it easy to type "st_" and use tab-completion to find functions, and it also makes it easier to read code and spot spatial transformations.  
+Notice that all functions in **`{sf}`** begin with an "`st_`" prefix. This makes it easy to type "st_" and use tab-completion to find `{sf}` functions, and it also makes it easier to read code and spot spatial transformations.  
 </aside>
 
 ```{r st-as-sf}
@@ -139,6 +141,21 @@ We can even ask R if the projection (crs) of `sac` and `stations` are identical,
 identical(st_crs(stations), st_crs(sac))
 ```
 
+We can also transform data using the actual sf object or dataframe, without needing to find the specific EPSG or CRS code. For example, if we want to transform our **`sac`** county polygon into the same projection as our **`stations`** data, we can do the following:
+
+```{r st-crs5}
+
+sac <- st_transform(sac, crs = st_crs(stations))
+
+identical(st_crs(stations), st_crs(sac))
+
+# or look at just the EPSG code:
+st_crs(sac)$epsg
+st_crs(stations)$epsg
+
+```
+
+
 
 ## Plotting {sf} data
 
@@ -173,20 +190,31 @@ class(sac)
 
 Next we can use the simple `mapview()` function to create an interactive webmap!
 
+```{r mapviewOptions, include=FALSE}
+
+library(mapview)
+# may need to specify this option to get this to properly knit/print:
+mapviewOptions(fgb = FALSE)
+
+
+```
+
+
 ```{r mapview1, out.width="100%"}
 library(mapview)
 
 mapview(sac)
+
 ```
 
-We can add {mapview} objects to one another and toggle them on and off in the top-left hand layer control icon. 
+We can add `{mapview}` objects to one another in the same way we add layers to a `ggplot`, by using a **`+`**. We can then toggle them on and off from the interactive map from the top-left hand layer control icon. We can also change the basemap layers being used on the map from this same menu.
 
 ```{r mapview2, out.width="100%"}
 # combine sac and stations data
 mapview(sac) + mapview(stations) 
 ```
 
-Note that we can open a {mapview} obejct in our default web browser by clicking on the little box and arrow to expand and view. This is particularly helpful when popup tables contain dense information, as is the case with our `stations` dataframe.
+Note that we can open a `{mapview}` object in our default web browser by clicking on the little box and arrow to expand and view. This is particularly helpful when pop-up tables contain dense information, as is the case with our `stations` dataframe.
 
 ```{r mapview-expand, eval=TRUE, echo=FALSE, out.width='80%'}
 knitr::include_graphics(here("images","mapview_expand.png"))
@@ -208,7 +236,7 @@ mapview(sac, alpha.regions = 0, color = "red", lwd = 2, layer.name = "Sac Co") +
 
 <font color="#009E73">**Challenge 1: You Try!**</font> 
 
-1. Create a new mapview object of Sacramento County (`sac`), plus `stations` colored by "WELL_USE". Add the argument `burst = TRUE`, and read the read the mapview documentation to learn what this does (Hint: Enter `?mapview` and scroll to "Arguments").  
+1. Create a new mapview object of Sacramento County (`sac`), plus `stations` colored by "WELL_USE". Add the argument `burst = TRUE`, and read the mapview documentation to learn what this does (Hint: Enter `?mapview` and scroll to "Arguments").  
 2. Toggle all layers off except for irrigation and residential wells. How does this relate to what we saw in the previous EDA module?
 
 :::
@@ -234,6 +262,17 @@ mapview(sac,                    # sacramento county sf polygon
   </div>
 </details>
 
+<br>
+
+<details><summary class="extra-practice-title">Additional Info</summary>
+  <div class="extra-practice-body">
+  
+`{mapview}` is a great package for quickly visualizing and sharing spatial data. To export and save a .html map that can be shared with others, it's currently advisable to specify `mapviewOptions(fgb = FALSE)` after loading the library. This allows us to save the map as a self-contained html file. To do so, click on the **Viewer** tab, and then on **_Export_** > **_Save as Web Page_**. This `.html` file can then be zipped and emailed or shared, and opened in most web browsers.
+
+  </div>
+</details
+
+<br>
 
 ## Static maps with {ggplot2}
 
@@ -261,7 +300,7 @@ p +
   theme_minimal()
 ```
 
-Just as before in {ggplot2}, we can connect an aesthetic, `aes`, like `color` to one of the columns, facet, and change the `theme()`. For maps, `theme_void()` is popular because it remove graticules (grid lines) and axis ticks and labels, allowing us to focus on the data explored in the plot.
+Just as before in {ggplot2}, we can connect an aesthetic, `aes`, like `color` to one of the column variables. We can also facet and change the `theme()`. For maps, `theme_void()` is useful because it removes graticules (grid lines), axis ticks, and labels which allows us to focus on the data explored in the plot.
 
 ```{r geomsf3, out.width="100%", message = FALSE}
 p <- ggplot() +
@@ -276,7 +315,7 @@ p
 
 <font color="#009E73">**Challenge 2: Debug and modify.**</font> 
 
-Fix the following code that, as written, will return an error. Then, with the fixed code, map the color aesthetic to how the well is used ("WELL_USE"), and add a viridis color scale to this **discrete** variable.
+Fix the following code that, as written, will return an error. Then, with the fixed code, map the color aesthetic to how the well is used (`WELL_USE`), and add a viridis color scale to this *discrete* variable.
 ```{r, eval = FALSE, message = FALSE}
 ggplot() %>% 
   geom_sf(data = sac) +
@@ -300,10 +339,10 @@ ggplot() +
   geom_sf(data = stations) 
 ```
 
+Map "`WELL_USE`" to color in the stations dataframe, and ensure the color scale is a discrete variable with: scale_color_viridis_**d**()
 
 ```{r challenge-2b}
-# Map "WELL_USE" to color in the stations dataframe, and ensure the color
-# scale is for a discrete variable with `scale_color_viridis_**d**()`
+
 ggplot() +
   geom_sf(data = sac) +
   geom_sf(data = stations, aes(color = WELL_USE)) +
