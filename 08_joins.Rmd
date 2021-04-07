@@ -1,5 +1,5 @@
 ---
-title: "Joining & Pivoting Data"
+title: "Joining Data"
 description: | 
   How to merge your data!
 output: 
