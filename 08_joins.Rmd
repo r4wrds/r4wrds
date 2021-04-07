@@ -412,11 +412,11 @@ sac_gw_all <- sac_gw_all %>%
 
 ## Save it Out!
 
-Remember how to do this? Let's save this as a `.RDS` file because it will retain the formatting and allow us to import/read in the data using whatever name we prefer.
+Remember how to do this? Let's save this using an R specific format, `.rds`, because it will retain the formatting and allow us to import/read in the data using whatever name we prefer. Here we'll use the `write_rds` function from the `{readr}` package (part of the `{tidyverse}`). 
 
-```{r saveOut, echo=T, eval=F}
+```{r saveOut, echo=T, eval=T}
 
 # remember to use a relative path!
-save(sac_gw_all, file = "data/sacramento_gw_data_w_calenviro.rds")
+write_rds(sac_gw_all, file = "data/sacramento_gw_data_w_calenviro.rds")
 
 ```
