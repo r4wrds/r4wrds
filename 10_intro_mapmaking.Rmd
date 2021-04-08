@@ -170,14 +170,29 @@ all_gw_stations <- read_csv(here("data", "gwl", "stations.csv")) %>%
            crs = 4269, 
            remove = FALSE) 
 
+```
+
+```{r plot-all-stations, eval=TRUE, echo=FALSE, out.height='110%'}
+
 # plot, and make the points opaque and small
 plot(all_gw_stations, max.plot = 1, pch = 16, cex = 0.1)
 
 ```
 
+
 As we can see above, groundwater monitoring stations are concentrated in Bulletin 118 subbasins.^[Bulletin 118 subbasins are DWR desginated zones that generally correspond to productive aquifers, and can be [viewed here](https://gis.data.ca.gov/datasets/b5325164abf94d5cbeb48bb542fa616e_0?geometry=-158.535%2C31.067%2C-80.049%2C43.273).]
 
 Using `dplyr::filter()` we can subset these stations to Sacramento County.
+
+```{r mapviewOptions, include=FALSE}
+library(mapview)
+# may need to specify this option to get this to properly knit/print:
+mapviewOptions(fgb = FALSE)
+```
+
+<!-- while I like the mapview maps, I feel like it may distract here...may be best to just use static maps and hide that code...focus just on the spatial join part, so show maps to demonstrate that it worked, but nothing beyond that. And I still think you need mapviewOptions(fgb=FALSE). I have the github most recent dev version and still the maps don't render in Chrome when expanding the knit lesson. They render just fine in the Viewer tab in Rstudio though...which is interesting. If we use fgb=FALSE, the files will be self contained and should host on the website more easily (though file sizes will be a bit bigger).
+-->
+
 
 ```{r st-intersection2, out.width"100%"}
 
@@ -188,7 +203,9 @@ stations %>%
 
 ```
 
-But what if we didn't have the county data already, or if we wanted to filter these data by a polygon that wasn't detailed in one of the columns of the dataframe? In this case, we use `st_intersection()` which is a **spatial join** that takes two arguments, an `sf` object to filter, and another `sf` object to filter by. If we pass it `all_gw_stations` and `sac` it will return all of the points in `all_gw_stations` that fall within `sac`.
+But what if we didn't have the county data already, or if we wanted to filter these data by a polygon that wasn't detailed in one of the existing variables in our dataframe? In this case, we can use `st_intersection()` which is a **spatial join** that takes two arguments, the `sf` object we want to filter (`x`), and another `sf` object to filter by (`y`). If we use `x = all_gw_stations` and `y = sac` it will return all of the points in `all_gw_stations` that fall within `sac` county.
+
+<!-- recommend adding notes on what planar units are and why its good practice, or at least a reference here -->
 
 ```{r st-intersection3, out.width"100%"}
 
@@ -247,16 +264,6 @@ class(sac)
 ### Basic use
 
 Next we can use the simple `mapview()` function to create an interactive webmap!
-
-```{r mapviewOptions, include=FALSE}
-
-library(mapview)
-# may need to specify this option to get this to properly knit/print:
-mapviewOptions(fgb = FALSE)
-
-
-```
-
 
 ```{r mapview1, out.width="100%"}
 library(mapview)
