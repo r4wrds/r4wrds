@@ -380,9 +380,9 @@ mapview(nwis_sites_sf, col.regions="cyan4", layer="NWIS Sites")
 
 ```
 
-## Extending RMarkdown
+## Extending R Markdown
 
-We've demonstrated that RMarkdown can be used for creating html files. This is the tip of the iceberg, and the foundation of building websites and dashboards with Rmd. Remember that Rmd files can also knit to .doc and .pdf files, although we don't cover it in this module. Also, because Rmd files are code, as you level up your R skills, you can begin to automate generating tens, hundreds, even thousands of reports from a single template. To extend your understanding of the capabilities of Rmd, check out [*One RMarkdown document, 14 demos*](https://www.rstudio.com/resources/rstudioconf-2020/one-r-markdown-document-fourteen-demos/), a video of a talk by RMarkdown creator and developer Yihui Xie at rstudio::conf(2020).  
+We've demonstrated that R Markdown can be used for creating html files. This is the tip of the iceberg, and the foundation of building websites and dashboards with **`Rmd`**. Remember that **`Rmd`** files can also knit to `.doc` and `.pdf` files, although we don't cover it in this module. Also, because **`Rmd`** files are code, as you level up your R skills, you can begin to automate generating tens, hundreds, even thousands of reports from a single template. To extend your understanding of the capabilities of **`Rmd`**, check out [*One R Markdown document, 14 demos*](https://www.rstudio.com/resources/rstudioconf-2020/one-r-markdown-document-fourteen-demos/), a video of a talk by R Markdown creator and developer Yihui Xie at rstudio::conf(2020).  
 
 ## Additional Resources
 
