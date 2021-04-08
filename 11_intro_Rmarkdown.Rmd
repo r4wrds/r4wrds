@@ -156,7 +156,7 @@ Let's go ahead and create a new `R` code chunk and look at some of the chunk opt
 -->
 
 ````
-`r ''````{r}
+```{r}`r ''`
 # my empty code chunk!
 ```
 ````
@@ -186,7 +186,7 @@ By using `fig.cap` in the code chunk, the figure caption numbers will be automag
 </aside>
 
 ````
-`r ''````{r rivphoto, echo=FALSE, out.width='80%', fig.cap="A tranquil river (photo: RP)"}
+```{r rivphoto, echo=FALSE, out.width='80%', fig.cap="A tranquil river (photo: RP)"}`r ''`
 
 knitr::include_graphics(here("images", "river_peek.JPG"))
 
@@ -295,7 +295,7 @@ Let's plot our NWIS Stations from the American River that we already loaded abov
 </aside>
 
 ````
-`r ''````{r make-nwis-sf, echo=TRUE, eval=TRUE}
+```{r make-nwis-sf, echo=TRUE, eval=TRUE}`r ''`
 
 library(sf)
 # make nwis_sites spatial by converting to sf
@@ -307,7 +307,7 @@ nwis_sites_sf <- st_as_sf(nwis_sites, coords=c("X", "Y"), remove=FALSE, crs=4326
 Next we can make our map with `mapview()`. Note, there can be a minor rendering issue with `{mapview}`. Adding `fgb=FALSE` seems to address this! Note, here we are going to hide our code so that we only show the results!
 
 ````
-`r ''````{r make-nwis-mapview, echo=FALSE, eval=TRUE}
+```{r make-nwis-mapview, echo=FALSE, eval=TRUE}`r ''`
 
 library(mapview)
 mapviewOptions(fgb=FALSE)
@@ -330,4 +330,11 @@ mapview(nwis_sites_sf, col.regions="cyan4", layer="NWIS Sites")
 
 ```
 
+## Additional Resources
 
+There are many resources freely available online. Here's a sample of some of them. 
+
+ - [R Markdown (online book)](https://bookdown.org/yihui/rmarkdown/): all the tips and details you could ever want
+ - [Tips for Working with Images in R Markdown](http://zevross.com/blog/2017/06/19/tips-and-tricks-for-working-with-images-and-figures-in-r-markdown-documents/): Helpful tips on sizing and image resolution
+ - [Basic tips to R Markdown](https://ryanpeek.org/2020-02-20-10-tips-to-souping-up-rmarkdown/)
+ 
