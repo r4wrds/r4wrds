@@ -144,7 +144,7 @@ The above plot appears blank because we haven't added any layers to it! A ggplot
 ## Adding `geom_` layers
 
 <aside>
-ggplot can also create maps with `geom_sf()`, covered in the [mapmaking module](10_intro_mapmaking.html).  
+ggplot can also create maps with `geom_sf()`, covered in the [mapmaking module](09_intro_mapmaking.html).  
 </aside>
 
 Let's add a `geom_line()` layer to the `ggplot()` we created above.

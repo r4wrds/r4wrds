@@ -42,8 +42,8 @@ In this course, we will:
 7. [Transform data with {`dplyr`}](06_dplyr.html)    
 8. [Learn how to write custom functions](07_functions.html)  
 9. [Join different datasets together](08_joins.html)  
-10. [Explore strategies for Exploratory Data Analysis (EDA)](09_exploratory_DA.html)  
-11. [Use spatial data to create static and interactive maps](10_intro_mapmaking.html)  
+10. [Use spatial data to create static and interactive maps](09_intro_mapmaking.html)  
+11. [Explore strategies for Exploratory Data Analysis (EDA)](10_exploratory_DA.html)  
 12. [Practice data presentation and communication with {`RMarkdown`}](11_intro_Rmarkdown.html)  
 13. [Explore strategies for troubleshooting (reading documentation, intro to reprex)](12_troubleshooting.html)  
 

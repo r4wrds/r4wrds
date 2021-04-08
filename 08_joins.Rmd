@@ -344,7 +344,7 @@ calenviro_stations %>% count(`Census Tract`)
 
 So there are 317 census tracts in Sacramento County, and 494 unique groundwater stations. If we multiply 317 * 494, we get the number of observations in our dataset (`n = 156,598`). So, it seems every single station is being joined to every single census tract...that's because we only have county to join on.
 
-For these sorts of operations, we actually want a more spatially explicit join to reduce this sort of duplication. Thankfully we've done this already. Let's grab this data now so we can use it to make a better join of the data. [Download it here](), and see the [spatial mapmaking module](10_intro_mapmaking.html) to see more on spatial joins. Let's join our full joined Sacramento County groundwater dataset from earlier using the census tracts instead of county.
+For these sorts of operations, we actually want a more spatially explicit join to reduce this sort of duplication. Thankfully we've done this already. Let's grab this data now so we can use it to make a better join of the data. [Download it here](), and see the [spatial mapmaking module](09_intro_mapmaking.html) to see more on spatial joins. Let's join our full joined Sacramento County groundwater dataset from earlier using the census tracts instead of county.
 
 ```{r spatialJoin, eval=FALSE, echo=FALSE, message=FALSE}
 

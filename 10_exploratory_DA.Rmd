@@ -1,0 +1,34 @@
+---
+title: "Exploratory Data Analysis (EDA)"
+description: | 
+  Having Fun
+output: 
+  distill::distill_article:
+    toc: true
+---
+
+```{r setup, include=FALSE, purl=FALSE, message=FALSE}
+
+library(knitr)
+library(here)
+suppressPackageStartupMessages(library(tidyverse))
+
+```
+
+:::obj
+
+**Learning objectives**
+ 
+ - Understand when and how to carry out an Exploratory Data Analysis (EDA)
+ - Practice an EDA with tools and data from previous modules
+
+:::
+
+## What's an EDA?
+
+An [Exploratory Data Analysis, or EDA](https://en.wikipedia.org/wiki/Exploratory_data_analysis), is a way to approach the analysis of datasets that allows the data analyst to explore data and come up with hypotheses to test from that exploration. In previous modules, we've covered the building blocks to perform an EDA in R, and in this module, we're going to bring it all together
+
+
+
+
+

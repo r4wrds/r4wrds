@@ -281,7 +281,7 @@ names(amer_ds_nimbus)
 
 ```
 
-Note, this returned a named *list* of dataframes. We can access individual parts of a list just as we can access a single column in a dataframe using the `$`. This function returned 5 parts, the `origin` which is the site we used to start our search, the `UM_nwissite` which is the NWIS sites upstream on the mainstem from our USGS gage, the `DM_nwissite` which is the NWIS sites downstream of our USGS gage, and finally, a mainstem flowline upstream and downstream of our gage. These are dataframes with an underlying spatial component, which is nice because it allows us to easily map and visualize these data if we want. See the [mapmaking lesson](10_intro_mapmaking.html) for more info.The dataframes are an `sf` class, from the [simple features {sf} package](https://r-spatial.github.io/sf/), but they can also be converted to into a dataframe. 
+Note, this returned a named *list* of dataframes. We can access individual parts of a list just as we can access a single column in a dataframe using the `$`. This function returned 5 parts, the `origin` which is the site we used to start our search, the `UM_nwissite` which is the NWIS sites upstream on the mainstem from our USGS gage, the `DM_nwissite` which is the NWIS sites downstream of our USGS gage, and finally, a mainstem flowline upstream and downstream of our gage. These are dataframes with an underlying spatial component, which is nice because it allows us to easily map and visualize these data if we want. See the [mapmaking lesson](09_intro_mapmaking.html) for more info.The dataframes are an `sf` class, from the [simple features {sf} package](https://r-spatial.github.io/sf/), but they can also be converted to into a dataframe. 
 
 ```{r nwisDF, eval=TRUE, echo=TRUE}
 
@@ -297,7 +297,7 @@ class(nwis_sites)
 
 ```
 
-Let's visualize these sites with a fancy map! See the [mapmaking](10_intro_mapmaking.html) lesson for more details on making maps in R.
+Let's visualize these sites with a fancy map! See the [mapmaking](09_intro_mapmaking.html) lesson for more details on making maps in R.
 
 ```{r tmapMap, include=FALSE, eval=FALSE}
 

@@ -317,7 +317,7 @@ mapview(sac, alpha.regions = 0, color = "red", lwd = 2, layer.name = "Sac Co") +
 <font color="#009E73">**Challenge 1: You Try!**</font> 
 
 1. Create a new mapview object of Sacramento County (`sac`), plus `stations` colored by "WELL_USE". Add the argument `burst = TRUE`, and read the mapview documentation to learn what this does (Hint: Enter `?mapview` and scroll to "Arguments").  
-2. Toggle all layers off except for irrigation and residential wells. How does this relate to what we saw in the previous EDA module?
+2. Toggle all layers off except for irrigation and residential wells. Recall this relationship for the next module on EDA.
 
 :::
 
