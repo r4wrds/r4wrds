@@ -47,17 +47,13 @@ knitr::include_graphics(here("images", "tidydata_5.jpg"))
 
 ```
 
-### Combine Code + Text + Figures (& more!)
+### Combine <span style="color:#473C8B">Text</span> + `Code` + <span style="color:#D02090">*Figures*</span>
 
-Rmarkdown documents may initially seem scary and a bit overwhelming, but once we understand there are really only 3 main components, it's all just various flavors and renditions from there. Let's get started!
+Rmarkdown documents may initially seem scary and a bit overwhelming, but once we understand there are basically 3 main components to learn, things get easier. There are many flavors and options to customize each of these, but let's cover the basics.
 
 ## Rmarkdown Components
 
-There are really *three* main parts of an Rmarkdown document. The first of the three is required no matter what. The other two **text** and **`code`** are more flexible and are *not* necessarily required.
-
-### `yaml` header
-
-`yaml` stands for `yet another markup language`. You will never need to know anything beyond that, so save that for a trivia question in the future. But every Rmarkdown document uses a `yaml` header (the bits between the 3 `---` marks) to tell your computer how R should knit your document together (stitch all the different parts together into a single seamless document).
+There are really *three* main parts of an Rmarkdown document (**yaml**, **text**, and **code**). The first of the three is required no matter what. The other two, **text** and **`code`** are more flexible and are not necessarily required.
 
 RStudio provides an excellent Rmarkdown editor, and even better, the most recent version of this software provides a nice **Visual Editor** mode which makes it even easier to learn the basics of Markdown and Rmarkdown. Let's create a new `Rmarkdown` document in RStudio.
 
@@ -81,10 +77,76 @@ knitr::include_graphics(here("images", "new_rmarkdown_doc.png"))
 
 ```
 
+If you look at the top right of the window above, there's a little "A" shaped compass.^[ [Drafting compasses are really cool](https://en.wikipedia.org/wiki/Compass_(drawing_tool)) ] If you click on that icon, the R Markdown document will render into something that is visually more appealing and essentially will look much more like a word processor might.
+
+```{r visualbutton, eval=TRUE, echo=FALSE, out.width='140%'}
+
+include_graphics(here("images/visual_editor_bar.png"))
+
+```
+
+```{r RmdVisual, eval=TRUE, echo=FALSE, out.width='100%', fig.cap='Visual markdown editor'}
+
+knitr::include_graphics(here("images", "rmarkdown_visual_editor.png"))
+
+```
+
+<aside> You can toggle the outline/table of contents on and off with the button immediately to the left of the "A" shaped compass. 
+</aside>
+
+### `yaml` header
+
+**`yaml`** stands for `yet another markup language`. You will never need to know anything beyond that, so save that for a trivia question in the future. But every Rmarkdown document uses a `yaml` header (the bits between the `---` marks) at the top of the document to tell your computer how R should knit your document together (stitch all the different parts together into a single seamless document).
+
+There are many possible options here and they can depend on the type of document we want to create, but typically the key pieces are:
+
+ - **`title`**: Name of our document
+ - **`output`**: what we end up *knitting* our R markdown into (e.g., `.pdf`, `.html`, `.docx`). See the [RStudio R Markdown website](https://rmarkdown.rstudio.com/formats.html) for more details on different format options.
+ 
+Note, spacing and indentation matters in `yaml`. If we'd like to specify additional options for a specific output, we need to add more lines and indent the argument we want to add. Let's focus on making an `.html` file, and add some parameters about the table of contents. 
+
+We can add `toc: true` and `toc_float: true` to our yaml so it looks like this:
+
+```
+---
+title: "Untitled"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+---
+```
+
+Now each section and subsection of our document will appear in the table of contents.
 
 ### Body Text
 
+The body of our document is typically text written in Markdown^[more on the simple markup language [Markdown here](https://www.markdownguide.org/getting-started/)]. Markdown is a simple text language that helps make it very easy to just sit down and type without worrying about formatting, and it works across many different operating systems and applications. There are a few basic formatting options to do things like make font bold, italicized, add numbered or bulleted lists, or add section headers. To learn more, while in RStudio, go to the menu and locate Help at the top of the screen. Under **Help** > **Markdown Quick Reference** you'll find a handy "cheatsheet" to help learn these options. There are many additional RStudio cheatsheets for many topics [here](https://www.rstudio.com/resources/cheatsheets/), and a specific pdf on using R Markdown is available as a pdf [here](https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf).
+
+For example, to add a figure using Markdown, we can use the following:
+
+```
+![alternate text](happy_face.png)
+```
+
+<aside>
+We'll talk more about how to customize image sizes and add captions within RMarkdown later in this module.
+</aside>
+
+![Illustration by @allison_horst](images/faces_happy.png)
+
 ### `code` chunks
+
+The third and final component of an R Markdown document is what makes it **R** Markdown. The inclusion of `code`! What's great is while the default is typically `R` code, there are quite a few additional code language options that can be stitched together. Look for the little `+C` icon in green at the top of your R Markdown, or go to **Code** > **Insert Chunk**. The keyboard shortcut to do this is **`Ctrl + Alt + i`**.
+
+```{r code-chunk-langs, echo=FALSE, eval=TRUE}
+
+include_graphics(here("images", "code_chunk_languages.png"))
+```
+
+Let's go ahead and create a new `R` code chunk and look at some of the chunk options.
+
+## Customizing Code Chunks
 
 ### Data
 
