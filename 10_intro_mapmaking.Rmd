@@ -222,6 +222,9 @@ stations_sac_3310 <- st_intersection(all_gw_stations_3310, sac_3310)
 table(stations_sac_3310$COUNTY_NAME)
 ```
 
+<aside> EPSG 3310 is UTM NAD83, which is a metric grid with *meters* as the unit of measurement. It's typically more accurate and easier to use for geospatial operations and measurements compared to *degrees* (latitude/longitude).
+</aside>
+
 Interestingly, there are 4 counties in our data after the spatial join. Why is that? If we visualize the data, we can see that all of these points are right on the border of Sacramento County, and the process that previously added county names to these data must have used a slightly different Sacramento county polygon than the one we are using in this module. 
 
 ```{r plot-sac-stations, eval=TRUE, echo=FALSE, out.width='100%'}
@@ -233,7 +236,7 @@ ggplot() +
 
 ```
 
-There are many many more methods available beyond intersections, including area, distances, buffers, crops, voroni polygons, nearest neighbor calculations, convex hull calculations, centroid calculations, and much, much more. The list of operations within `{sf}` are shown below.  
+There are many many more methods available beyond intersections, including area, distances, buffers, crops, voronoi polygons, nearest neighbor calculations, convex hull calculations, centroid calculations, and much, much more. The list of operations within `{sf}` are shown below.  
 
 ```{r sf-methods}
 methods(class = 'sfc')
