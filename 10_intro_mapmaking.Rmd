@@ -22,6 +22,7 @@ suppressPackageStartupMessages(library(tidyverse))
  - Read spatial data
  - Understand how to convert a dataframe into an {sf} object  
  - Practice transforming {sf} spatial data between projections
+ - Demonstrate a spatial join, `st_intersection()`
  - Create interactive webmaps
  - Create static maps with the base `plot()` method and {ggplot2}
  - Save/export static maps  
@@ -79,7 +80,7 @@ sac <- st_read(here("data", "shp", "sac", "sac_county.shp"), quiet = TRUE)
 colnames(sac)
 ```
 
-<aside> Note, the `quiet = TRUE` option suppresses the printing of information about the spatial data being imported. Sometimes this information can be helpful, but see `read_sf()` which does the same thing as `st_read` but defaults to *quietly* reading in data.
+<aside> Note, the `quiet = TRUE` option suppresses printing information about the imported spatial data. Sometimes this information is helpful, but see `read_sf()` which is the same as `st_read()` but defaults to *quietly* reading in data.
 </aside>
 
 ### Converting a dataframe to sf
@@ -147,6 +148,7 @@ We can also transform data using the actual sf object or dataframe, without need
 
 sac <- st_transform(sac, crs = st_crs(stations))
 
+# verify these are the same
 identical(st_crs(stations), st_crs(sac))
 
 # or look at just the EPSG code:
@@ -154,6 +156,61 @@ st_crs(sac)$epsg
 st_crs(stations)$epsg
 
 ```
+
+
+### Spatial join with st_intersection()
+
+With all of our spatial data in the same projection, we can perform a spatial join. Perhaps the most common spatial join is an intersection. For example, above, the `stations` object only contains stations in Sacramento County, but it came from a much larger set of stations (n = 43,807). Let's bring in all groundwater stations in the state of California, convert it to an `sf` object class, and then filter the stations to Sac County with a spatial join, `st_intersection()`.
+
+```{r st-intersection}
+
+# all gw stations in California
+all_gw_stations <- read_csv(here("data", "gwl", "stations.csv")) %>% 
+  st_as_sf(coords = c("LONGITUDE", "LATITUDE"), 
+           crs = 4269, 
+           remove = FALSE) 
+
+# plot, and make the points opaque and small
+plot(all_gw_stations, max.plot = 1, pch = 16, cex = 0.1)
+
+```
+
+As we can see above, groundwater monitoring stations are concentrated in Bulletin 118 subbasins.^[Bulletin 118 subbasins are DWR desginated zones that generally correspond to productive aquifers, and can be [viewed here](https://gis.data.ca.gov/datasets/b5325164abf94d5cbeb48bb542fa616e_0?geometry=-158.535%2C31.067%2C-80.049%2C43.273).]
+
+Using `dplyr::filter()` we can subset these stations to Sacramento County.
+
+```{r st-intersection2, out.width"100%"}
+
+# filter to Sacramento county & pipe into mapview (will cover later)
+stations %>% 
+  filter(COUNTY_NAME == "Sacramento") %>% 
+  mapview::mapview() # we will cover this later in the module
+
+```
+
+But what if we didn't have the county data already, or if we wanted to filter these data by a polygon that wasn't detailed in one of the columns of the dataframe? In this case, we use a **spatial join**, `st_intersection()` which takes two arguments, an `sf` object to filter, and another `sf` object to filter by. 
+
+```{r st-intersection3, out.width"100%"}
+
+# it's good practice to ensure your spatial data are in planar units
+# like meters before performing spatial operations, so we transform to 3310
+all_gw_stations_3310 <- st_transform(stations, 3310)
+sac_3310 <- st_transform(sac, 3310)
+
+# perform the intersection and pipe into mapview 
+st_intersection(all_gw_stations_3310, sac_3310) %>% 
+  mapview::mapview()
+
+```
+
+
+There are many many more methods available beyond intersections, including area, distances, buffers, crops, voroni polygons, nearest neighbor calculations, convex hull calculations, centroid calculations, and much, much more. The list of operations within `{sf}` are shown below.  
+
+```{r sf-methods}
+methods(class = 'sfc')
+```
+
+To learn more about advanced spatial operations, see the [Spatial data module in the Intermediate to Advanced wrds course](), and [online books and resources](#additional-resources).  
 
 
 
@@ -170,7 +227,8 @@ After reading spatial data you may want to plot it to make sure that it imported
 # plot the geometry
 plot(sac$geometry)
 ```
-If we don't specify the "geometry" column, `plot()` will plot the first 10 columns in the dataframe. Here we can see there are 4 distinct basins (BASIN_CODE) in Sacramento County. 
+
+If we don't specify the "geometry" column, `plot()` will plot the first 10 columns in the dataframe (you can control the number of subplots shown with the `max.plot` argument). Here we can see there are 4 distinct basins (BASIN_CODE) in Sacramento County. 
 
 ```{r sf-plot2, out.width="100%"}
 plot(stations)
@@ -429,5 +487,5 @@ We covered 3 common frameworks in which to plot spatial data in R: the `plot()` 
 * [`{rasterVis}`](https://oscarperpinan.github.io/rastervis/) for raster data  
 * [`{plotly}`](https://plotly-r.com/maps.html)  
 
-The online books/guides [*Geocomputation with R*](https://geocompr.robinlovelace.net/), [*RSpatial.org*](https://rspatial.org/), and [Spatial Data Science](https://keen-swartz-3146c4.netlify.app/) are additional resources for a deeper dive into spatial data processing and mapping in R.  
+The online books/guides [*Geocomputation with R*](https://geocompr.robinlovelace.net/), [*RSpatial.org*](https://rspatial.org/), and [*Spatial Data Science*](https://keen-swartz-3146c4.netlify.app/) are additional resources for a deeper dive into spatial data processing and mapping in R.  
 
