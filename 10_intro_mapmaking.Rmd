@@ -13,6 +13,11 @@ library(knitr)
 library(here)
 suppressPackageStartupMessages(library(tidyverse))
 
+library(mapview)
+
+# may need to specify this option to get this to properly knit/print:
+mapviewOptions(fgb = FALSE)
+
 ```
 
 :::obj
@@ -172,10 +177,12 @@ all_gw_stations <- read_csv(here("data", "gwl", "stations.csv")) %>%
 
 ```
 
-```{r plot-all-stations, eval=TRUE, echo=FALSE, out.height='110%'}
+```{r plot-all-stations, eval=TRUE, echo=FALSE, out.width='100%'}
 
 # plot, and make the points opaque and small
-plot(all_gw_stations, max.plot = 1, pch = 16, cex = 0.1)
+ggplot() +
+  geom_sf(data = all_gw_stations, cex = 0.05, alpha = 0.3) +
+  theme_void()
 
 ```
 
@@ -184,42 +191,47 @@ As we can see above, groundwater monitoring stations are concentrated in Bulleti
 
 Using `dplyr::filter()` we can subset these stations to Sacramento County.
 
-```{r mapviewOptions, include=FALSE}
-library(mapview)
-# may need to specify this option to get this to properly knit/print:
-mapviewOptions(fgb = FALSE)
-```
-
-<!-- while I like the mapview maps, I feel like it may distract here...may be best to just use static maps and hide that code...focus just on the spatial join part, so show maps to demonstrate that it worked, but nothing beyond that. And I still think you need mapviewOptions(fgb=FALSE). I have the github most recent dev version and still the maps don't render in Chrome when expanding the knit lesson. They render just fine in the Viewer tab in Rstudio though...which is interesting. If we use fgb=FALSE, the files will be self contained and should host on the website more easily (though file sizes will be a bit bigger).
--->
-
 
 ```{r st-intersection2, out.width"100%"}
 
-# filter to Sacramento county & pipe into mapview (will cover later)
-stations %>% 
-  filter(COUNTY_NAME == "Sacramento") %>% 
-  mapview::mapview() # we will cover this later in the module
+# filter to Sacramento county & verify this worked
+stations_sac <- stations %>% 
+  filter(COUNTY_NAME == "Sacramento") 
+
+# verify this worked
+unique(stations_sac$COUNTY_NAME)
 
 ```
 
+
 But what if we didn't have the county data already, or if we wanted to filter these data by a polygon that wasn't detailed in one of the existing variables in our dataframe? In this case, we can use `st_intersection()` which is a **spatial join** that takes two arguments, the `sf` object we want to filter (`x`), and another `sf` object to filter by (`y`). If we use `x = all_gw_stations` and `y = sac` it will return all of the points in `all_gw_stations` that fall within `sac` county.
 
-<!-- recommend adding notes on what planar units are and why its good practice, or at least a reference here -->
+Before performing the spatial join, we must re-project our data from a **geographic** coordinate reference system (CRS) to a **projected** coordinate reference system.^[A discussion on coordinate reference systems is a complex topic in and of itself, and for the purposes of this module, we summarize it as follows: A geographic CRS is **round** and based on *angular units* of degrees (lat/lng), whereas a projected CRS is **flat** and has *linear* units (meters or feet). Many functions in `{sf}` that make calculations on data expect a projected CRS, and can return inaccurate results if an object in a geographic CRS is used. This is a fascinating topic with lots written about it! For more reading see this [Esri blog](https://www.esri.com/arcgis-blog/products/arcgis-pro/mapping/gcs_vs_pcs/), the Data Carpentry [geospatial lesson](https://datacarpentry.org/organization-geospatial/03-crs/), and the [online Geocomputation with R book](https://geocompr.robinlovelace.net/reproj-geo-data.html).]
 
 ```{r st-intersection3, out.width"100%"}
 
-# it's good practice to ensure your spatial data are in planar units
+# it's good practice to ensure your spatial data are in a projected CRS
 # like meters before performing spatial operations, so we transform to 3310
 all_gw_stations_3310 <- st_transform(stations, 3310)
 sac_3310 <- st_transform(sac, 3310)
 
-# perform the intersection and pipe into mapview 
-st_intersection(all_gw_stations_3310, sac_3310) %>% 
-  mapview::mapview()
+# perform the intersection 
+stations_sac_3310 <- st_intersection(all_gw_stations_3310, sac_3310) 
 
+# number of observations in each county
+table(stations_sac_3310$COUNTY_NAME)
 ```
 
+Interestingly, there are 4 counties in our data after the spatial join. Why is that? If we visualize the data, we can see that all of these points are right on the border of Sacramento County, and the process that previously added county names to these data must have used a slightly different Sacramento county polygon than the one we are using in this module. 
+
+```{r plot-sac-stations, eval=TRUE, echo=FALSE, out.width='100%'}
+
+ggplot() +
+  geom_sf(data = sac_3310) +
+  geom_sf(data = stations_sac_3310, aes(color = COUNTY_NAME)) +
+  theme_void()
+
+```
 
 There are many many more methods available beyond intersections, including area, distances, buffers, crops, voroni polygons, nearest neighbor calculations, convex hull calculations, centroid calculations, and much, much more. The list of operations within `{sf}` are shown below.  
 
