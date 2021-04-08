@@ -1,5 +1,5 @@
 ---
-title: "Exploratory Data Analysis"
+title: "Exploratory Data Analysis (EDA)"
 description: | 
   Having Fun
 output: 
@@ -17,9 +17,9 @@ suppressPackageStartupMessages(library(tidyverse))
 
 :::obj
 
-**EDA**
+**Learning objectives**
  
- - EDA
+ - asf
 
 :::
 
