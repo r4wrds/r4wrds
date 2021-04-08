@@ -160,7 +160,7 @@ st_crs(stations)$epsg
 
 ### Spatial join with st_intersection()
 
-With all of our spatial data in the same projection, we can perform a spatial join. Perhaps the most common spatial join is an intersection. For example, above, the `stations` object only contains stations in Sacramento County, but it came from a much larger set of stations (n = 43,807). Let's bring in all groundwater stations in the state of California, convert it to an `sf` object class, and then filter the stations to Sac County with a spatial join, `st_intersection()`.
+With all of our spatial data in the same projection, we can perform a spatial join. Perhaps the most common spatial join is an intersection. For example, above, the `stations` object only contains stations in Sacramento County, but it came from a much larger set of stations (n = 43,807). Let's bring in all groundwater stations in the state of California, convert it to an `sf` object class, and plot the data. 
 
 ```{r st-intersection}
 
@@ -188,7 +188,7 @@ stations %>%
 
 ```
 
-But what if we didn't have the county data already, or if we wanted to filter these data by a polygon that wasn't detailed in one of the columns of the dataframe? In this case, we use a **spatial join**, `st_intersection()` which takes two arguments, an `sf` object to filter, and another `sf` object to filter by. 
+But what if we didn't have the county data already, or if we wanted to filter these data by a polygon that wasn't detailed in one of the columns of the dataframe? In this case, we use `st_intersection()` which is a **spatial join** that takes two arguments, an `sf` object to filter, and another `sf` object to filter by. If we pass it `all_gw_stations` and `sac` it will return all of the points in `all_gw_stations` that fall within `sac`.
 
 ```{r st-intersection3, out.width"100%"}
 
