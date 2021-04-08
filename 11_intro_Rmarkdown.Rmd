@@ -18,7 +18,7 @@ suppressPackageStartupMessages(library(tidyverse))
 ::: {.obj}
 **Learning Rmarkdown**
 
--   Learn the main components of an Rmarkdown document
+-   Learn the main components of an Rmarkdown (`.Rmd`) document
 -   Understand how to create a new Rmd and add text and images
 -   Learn how to stitch (or `knit`) a document together and share it
 :::
@@ -26,6 +26,12 @@ suppressPackageStartupMessages(library(tidyverse))
 ## Rmarkdown: Knitting Things Together
 
 This entire course website is built using Rmarkdown files. Dissertations, papers, reports, and interactive documents are all very possible using Rmarkdown. While it would be impossible to show you how to do all of these things, the good news is while Rmarkdown is highly customizable, there are only a few key components to learn. We'll go over some of the main pieces, demonstrate some fun tricks that are made easy using Rmarkdown, and provide a bunch of great resources to help you learn more!
+
+<aside>
+
+Check out the [RMarkdown Gallery](https://rmarkdown.rstudio.com/gallery.html) for examples and inspiration.
+
+</aside>
 
 (ref:AHrmdplot) *Illustration by @allison_horst*
 
@@ -47,18 +53,18 @@ knitr::include_graphics(here("images", "tidydata_5.jpg"))
 
 ```
 
-### Combine <span style="color:#473C8B">Text</span> + `Code` + <span style="color:#D02090">*Figures*</span>
+### Combine [Text]{style="color:#473C8B"} + `Code` + [*Figures*]{style="color:#D02090"}
 
-Rmarkdown documents may initially seem scary and a bit overwhelming, but once we understand there are basically 3 main components to learn, things get easier. There are many flavors and options to customize each of these, but let's cover the basics. 
+Rmarkdown documents may initially seem scary and a bit overwhelming, but once we understand the 3 critical components of an Rmd document, things get easier. There are many flavors and options to customize each of these, but let's cover the basics.
 
 ## Rmarkdown Components
 
-There are really *three* main parts of an Rmarkdown document (**yaml**, **text**, and **code**). The first of the three is required no matter what. The other two, **text** and **`code`** are more flexible and are not necessarily required.
+There are *three* main parts of an Rmarkdown document:(**yaml**, **text**, and **code**). The first of the three is required no matter what. The other two, **text** and **`code`** are more flexible and are not necessarily required.
 
 RStudio provides an excellent Rmarkdown editor, and even better, the most recent version of this software provides a nice **Visual Editor** mode which makes it even easier to learn the basics of Markdown and Rmarkdown. Let's create a new `Rmarkdown` document in RStudio.
 
- - *__File > New File > R Markdown__*
- 
+-   ***File \> New File \> R Markdown***
+
 We should see something like this:
 
 ```{r newRmdmenu, eval=TRUE, echo=FALSE, out.width='80%', fig.cap='New R Markdown file'}
@@ -77,7 +83,9 @@ knitr::include_graphics(here("images", "new_rmarkdown_doc.png"))
 
 ```
 
-If you look at the top right of the window, there's a small "A" shaped compass^[ [Drafting compasses are really cool](https://en.wikipedia.org/wiki/Compass_(drawing_tool))]. If you click on that icon, the R Markdown document will render into something that is visually more appealing and essentially will look much more like a word processor might.
+If you look at the top right of the code editor window, there's a small "A" shaped compass[^1].
+
+[^1]: [Drafting compasses are really cool.](https://en.wikipedia.org/wiki/Compass_(drawing_tool))
 
 ```{r visualbutton, eval=TRUE, echo=FALSE, out.width='140%'}
 
@@ -85,13 +93,18 @@ include_graphics(here("images/visual_editor_bar.png"))
 
 ```
 
+If you click on that icon, the R Markdown document will render into something that is visually more appealing and essentially will look much more like a word processor might.
+
 ```{r RmdVisual, eval=TRUE, echo=FALSE, out.width='100%', fig.cap='Visual markdown editor'}
 
 knitr::include_graphics(here("images", "rmarkdown_visual_editor.png"))
 
 ```
 
-<aside> You can toggle the outline/table of contents on and off with the button immediately to the left of the "A" shaped compass. 
+<aside>
+
+You can toggle the outline/table of contents on and off with the button immediately to the left of the "A" shaped compass.
+
 </aside>
 
 ### `yaml` header
@@ -100,46 +113,48 @@ knitr::include_graphics(here("images", "rmarkdown_visual_editor.png"))
 
 There are many possible options here and they can depend on the type of document we want to create, but typically the key pieces are:
 
- - **`title`**: Name of our document
- - **`output`**: what we end up *knitting* our R markdown into (e.g., `.pdf`, `.html`, `.docx`). See the [RStudio R Markdown website](https://rmarkdown.rstudio.com/formats.html) for more details on different format options.
- 
+-   **`title`**: Name of our document
+-   **`output`**: what we end up *knitting* our R markdown into (e.g., `.pdf`, `.html`, `.docx`). See the [RStudio R Markdown website](https://rmarkdown.rstudio.com/formats.html) for more details on different format options.
+
 <aside>
+
 Note, spacing and indentation matters in `yaml`. If we'd like to specify additional options for a specific output, we need to add more lines and indent the argument we want to add.
+
 </aside>
 
 Let's focus on making an `.html` file, and add some parameters about the table of contents. We can add `toc: true` and `toc_float: true` to our yaml so it looks like this:
 
-```
----
-title: "Untitled"
-output: 
-  html_document:
-    toc: true
-    toc_float: true
----
-```
+    ---
+    title: "Untitled"
+    output: 
+      html_document:
+        toc: true
+        toc_float: true
+    ---
 
 Now each section and subsection of our document will appear in the table of contents. How do we make a section or subsection? Read on!
 
 ### Body Text
 
-The body of our document is typically text written in Markdown^[more on the simple markup language [Markdown here](https://www.markdownguide.org/getting-started/)]. Markdown is a simple text language that helps make it very easy to just sit down and type without worrying about formatting, and it works across many different operating systems and applications. There are a few basic formatting options to do things like make font bold, italicized, add numbered or bulleted lists, or add section headers. To learn more, while in RStudio, go to the menu and locate Help at the top of the screen. Under **Help** > **Markdown Quick Reference** you'll find a handy "cheatsheet" to help learn these options. There are many additional RStudio cheatsheets for many topics [here](https://www.rstudio.com/resources/cheatsheets/), and a specific pdf on using R Markdown is available as a pdf [here](https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf).
+The body of our document is typically text written in Markdown[^2]. Markdown is a simple text language that helps make it very easy to just sit down and type without worrying about formatting, and it works across many different operating systems and applications. There are a few basic formatting options to do things like make font bold, italicized, add numbered or bulleted lists, or add section headers. To learn more, while in RStudio, go to the menu and locate Help at the top of the screen. Under **Help** \> **Markdown Quick Reference** you'll find a handy "cheatsheet" to help learn these options. There are many additional RStudio cheatsheets for many topics [here](https://www.rstudio.com/resources/cheatsheets/), and a specific pdf on using R Markdown is available as a pdf [here](https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf).
+
+[^2]: Read more on the simple markup language [Markdown here](https://www.markdownguide.org/getting-started/).
 
 For example, to add a figure using Markdown, we can use the following:
 
-```
-![alternate text](happy_face.png)
-```
+    ![alternate text](happy_face.png)
 
 <aside>
+
 We'll talk more about how to customize image sizes and add captions within RMarkdown later in this module.
+
 </aside>
 
 ![Illustration by @allison_horst](images/faces_happy.png)
 
 ### `code` chunks
 
-The third and final component of an R Markdown document is what makes it **R** Markdown. The inclusion of **`code`**! What's great is while the default is typically `R` code, there are quite a few additional code language options that can be stitched together. Look for the little `+C` icon in green at the top of your R Markdown, or go to **Code** > **Insert Chunk**. The keyboard shortcut to do this is **`Ctrl + Alt + i`**.
+The third and final component of an R Markdown document is what makes it **R** Markdown. The inclusion of **`code`**! What's great is while the default is typically `R` code, there are quite a few additional code language options that can be stitched together. Look for the little `+C` icon in green at the top of your R Markdown, or go to **Code** \> **Insert Chunk**. The keyboard shortcut to do this is **`Ctrl + Alt + i`**.
 
 <aside>
 
@@ -152,65 +167,90 @@ include_graphics(here("images", "code_chunk_languages.png"))
 
 Let's go ahead and create a new `R` code chunk and look at some of the chunk options.
 
+```{=html}
 <!-- see this post for making code chunks verbatim: https://yihui.org/en/2017/11/knitr-verbatim-code-chunk/
 -->
-
-````
-```{r}`r ''`
-# my empty code chunk!
 ```
-````
+    ```{r}`r ''`
+    # my empty code chunk!
+    ```
 
 There are many code chunk options we can use. Put your cursor after the **`{r,`** and hit tab. There are tons! If you want to learn more, check the [R Markdown reference guide](https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf). The key options that we want to know:
 
- - **`echo`**: TRUE or FALSE. If TRUE, whatever code we put in the chunk will be displayed when we knit the document.
- - **`eval`**: TRUE or FALSE. If TRUE, the code inside the chunk will be evaluated or run.
- - **`include`**: TRUE or FALSE. If FALSE, the code is still run, but the results won't be displayed and neither will the code.^[Code that has been evaluated in one chunk can be referred to or used in subsequent chunks. So you can load objects at the start of your document and use them throughout the entire document]
- - **`fig.cap`**: A quoted character string, adds captions to figures from code outputs. One caption per chunk.
- - **`out.width/out.height`**: A quoted percentage, i.e., "100%". This controls the size of the image being output from a given code chunk. Very easy and effective for changing graphic output sizes.
+-   **`echo`**: TRUE or FALSE. If TRUE, whatever code we put in the chunk will be displayed when we knit the document.
+-   **`eval`**: TRUE or FALSE. If TRUE, the code inside the chunk will be evaluated or run.
+-   **`include`**: TRUE or FALSE. If FALSE, the code is still run, but the results won't be displayed and neither will the code.[^3]
+-   **`fig.cap`**: A quoted character string, adds captions to figures from code outputs. One caption per chunk.
+-   **`out.width/out.height`**: A quoted percentage, i.e., "100%". This controls the size of the image being output from a given code chunk. Very easy and effective for changing graphic output sizes.
+
+[^3]: Code that has been evaluated in one chunk can be referred to or used in subsequent chunks. So you can load objects at the start of your document and use them throughout the entire document.
 
 ## Knit Early and Often
 
-One thing that makes writing in R Markdown fun is the ability to get instant feedback. Clicking the **Knit** button when a section of your document has been updated will (re)-generate the document. We can change the default location the outputs appear by changing the options via the little gear wheel to the right of the knit button. Look for "**_Preview in Viewer Pane_** and select it. From that point on, every time you click knit, most outputs should appear in the **Viewer** pane of RStudio.
+One thing that makes writing in R Markdown fun is the ability to get instant feedback. Clicking the **Knit** button when a section of your document has been updated will (re)-generate the document. We can change the default location the outputs appear by changing the options via the little gear wheel to the right of the knit button. Look for "***Preview in Viewer Pane*** and select it. From that point on, every time you click knit, most outputs should appear in the **Viewer** pane of RStudio.
 
-Knitting frequently can be tedious if you have a large document with lots of figures or visuals. However, it's a great way to learn, and also to make sure things are rendering correctly and successfully.
+<aside>
+
+```{r knit-button, echo=FALSE, eval=TRUE, out.width='80%'}
+
+include_graphics(here("images", "knit.png"))
+
+```
+
+</aside>
+
+Knitting frequently can be tedious if you have a large document with lots of figures or visuals. However, it's a great way to learn, and also to ensure things are rendering correctly and successfully.
 
 ## Customizing Visuals
 
-There's lots of great visualization materials out there, but there are a few helpful tips to keep in mind when using images or graphics in your R Markdown documents. While the default Markdown option does permit adding images with the `![](image.png)` syntax, it doesn't permit as much fine control. 
+There's lots of great visualization materials out there, but there are a few helpful tips to keep in mind when using images or graphics in your R Markdown documents. While the default Markdown option does permit adding images with the `![](image.png)` syntax, it doesn't permit as much fine control.
 
 If we use a handy function from the `{knitr}` package, we can have more more concise control over the size and placement of an image without having to learn a lot of special code. For example, we can use either a local file path, or a url! In addition we can add some arguments that help us specify the size of the image, using the `out.width` or `out.height` parameters. Finally, we can add a caption with `fig.cap`. Note, here we want to hide the code and just show the image, so we use `echo=FALSE`.
 
-<aside> 
+<aside>
+
 By using `fig.cap` in the code chunk, the figure caption numbers will be automagically assigned and updated each time you knit
+
 </aside>
 
-````
-```{r rivphoto, echo=FALSE, out.width='80%', fig.cap="A tranquil river (photo: RP)"}`r ''`
+    ```{r rivphoto, echo=FALSE, out.width='80%', fig.cap="A tranquil river (photo: R Peek)"}`r ''`
+
+    knitr::include_graphics(here("images", "river_peek.JPG"))
+
+    ```
+
+```{r river-image, eval=TRUE, echo=FALSE, out.width='80%', fig.cap="A tranquil river (photo: R Peek)"}
 
 knitr::include_graphics(here("images", "river_peek.JPG"))
 
 ```
-````
 
-```{r river-image, eval=TRUE, echo=FALSE, out.width='80%', fig.cap="A tranquil river (photo: RP)"}
+Similarly, we can include a URL.
 
-knitr::include_graphics(here("images", "river_peek.JPG"))
+    ```{r delta, echo=FALSE, fig.cap="Sacramento-San Joaquin Delta, color infrared (image: R Pauloo)"}`r ''`
+    
+    url <- "https://raw.githubusercontent.com/richpauloo/rp/master/static/img/delta_cir_2.png"
+    knitr::include_graphics(url)
+
+    ```
+
+```{r delta-cir, eval=TRUE, echo=FALSE, out.width='80%', fig.cap="Sacramento-San Joaquin Delta, color infrared (image: R Pauloo)"}
+
+knitr::include_graphics("https://raw.githubusercontent.com/richpauloo/rp/master/static/img/delta_cir_2.png")
 
 ```
-
-
-
 
 ## Tables
 
 Sharing data in tables is a common need for reporting, summary, and analysis. There are a number of packages in R that may be helpful for making tables. This list is not exhaustive, and is meant to just show a few options that may be useful.
 
- - [{DT}](https://rstudio.github.io/DT/): Great for interactive and dynamic html based tables 
- - {kable} & [{kableExtra}](https://haozhu233.github.io/kableExtra/): Highly customizable static or dynamic tables
- - [{gt}](https://gt.rstudio.com/): Very customizable static or dynamic tables
+-   [{DT}](https://rstudio.github.io/DT/): Great for interactive and dynamic html based tables
+-   {kable} & [{kableExtra}](https://haozhu233.github.io/kableExtra/): Highly customizable static or dynamic tables
+-   [{gt}](https://gt.rstudio.com/): Very customizable static or dynamic tables
 
-Let's load some data we can play with. We'll use some existing datasets that come with packages you already have installed. The {dplyr} package comes with a number of different datasets, as do many R packages^[To figure out what datasets are available, try `data(package = .packages(all.available = TRUE))`]. We'll use the *`storms`* dataset since it's large (+10,000 observations), and our `nwis_sites` from the American River which we created in a previous module.
+Let's load some data we can play with. We'll use some existing datasets that come with packages you already have installed. The {dplyr} package comes with a number of different datasets, as do many R packages[^4]. We'll use the *`storms`* dataset since it's large (+10,000 observations), and our `nwis_sites` from the American River which we created in a previous module.
+
+[^4]: To figure out what datasets are available, try `data(package = .packages(all.available = TRUE))`.
 
 ```{r data-for-tables, echo=TRUE, eval=TRUE}
 
@@ -223,7 +263,7 @@ nwis_sites <- read_csv(here("data", "nwis_sites_american_river.csv"))
 
 ```
 
-For large unwieldy tables that you may want to just be able to quickly search or explore, the `{DT}` package is great, especially for `.html` documents. Let's make a table of the `storms` data. A nice feature of the `datatable()` is we can search and filter our table interactively. 
+For large unwieldy tables that you may want to just be able to quickly search or explore, the `{DT}` package is great, especially for `.html` documents. Let's make a table of the `storms` data. A nice feature of the `datatable()` is we can search and filter our table interactively.
 
 ```{r tables-dt, warning=FALSE, message=FALSE}
 
@@ -235,7 +275,9 @@ storms %>%
 
 ```
 
-For a quick and easy static table, the `kable()` function from `{knitr}` is great. We can simply pass a dataframe to the function and we get a table! For more fancy options, we can use the functions from the `{kableExtra}` package. 
+<br>
+
+For a quick and easy static table, the `kable()` function from `{knitr}` is great. We can simply pass a dataframe to the function and we get a table! For more fancy options, we can use the functions from the `{kableExtra}` package.
 
 ```{r tables-kable1}
 
@@ -245,6 +287,8 @@ storms %>%
   kable()
 
 ```
+
+<br>
 
 Here's a slightly fancier option using `{kableExtra}`. See the great [vignette](https://haozhu233.github.io/kableExtra/awesome_table_in_html.html) for more details.
 
@@ -259,13 +303,15 @@ storms %>%
 
 ```
 
+<br>
 
 For nicely formatted tables and lots of control, the `{gt}` package is good. It does take a little more wrangling to get things formatted, but there's great documentation for this package as well.
 
 ```{r tables-gt, echo=TRUE, eval=TRUE}
 
 library(gt)
-tab1 <- nwis_sites %>% select(-sourceName) %>% 
+tab1 <- nwis_sites %>% 
+  select(-sourceName) %>% 
   slice(1:10) %>% # get just first 10 rows 
   gt()
 
@@ -284,39 +330,38 @@ tab2
 
 ```
 
-
 ## Interactive Maps
 
 And as you've seen from previous modules, we can also add maps! This is also a really nice way to share lots of information. We can only add `{mapview}` maps if we are using an html-based output, but they work well in R Markdown.
 
-Let's plot our NWIS Stations from the American River that we already loaded above. First we need to convert these data to {sf}. Let's show code that does that. Remember to use `eval=TRUE` and `echo=TRUE`! One additional tip is to *label your R code chunks*. This helps us troubleshoot when things are not knitting properly, and helps keep things organized. 
+Let's plot our NWIS Stations from the American River that we already loaded above. First we need to convert these data to {sf}. Let's show code that does that. Remember to use `eval=TRUE` and `echo=TRUE`! One additional tip is to *label your R code chunks*. This helps us troubleshoot when things are not knitting properly, and helps keep things organized.
 
-<aside> Code chunk labels show up in the outline, so making them informative is good. However, we can only use characters and "-" in a code chunk label!
+<aside>
+
+Code chunk labels show up in the outline, so making them informative is good. Note that we can only use characters and "-" in a code chunk label!
+
 </aside>
 
-````
-```{r make-nwis-sf, echo=TRUE, eval=TRUE}`r ''`
+    ```{r make-nwis-sf, echo=TRUE, eval=TRUE}`r ''`
 
-library(sf)
-# make nwis_sites spatial by converting to sf
-nwis_sites_sf <- st_as_sf(nwis_sites, coords=c("X", "Y"), remove=FALSE, crs=4326)
+    library(sf)
+    # make nwis_sites spatial by converting to sf
+    nwis_sites_sf <- st_as_sf(nwis_sites, coords=c("X", "Y"), remove=FALSE, crs=4326)
 
-```
-````
+    ```
 
-Next we can make our map with `mapview()`. Note, there can be a minor rendering issue with `{mapview}`. Adding `fgb=FALSE` seems to address this! Note, here we are going to hide our code so that we only show the results!
+Next we can make our map with `mapview()`. Note, there may be a minor rendering issue with `{mapview}`. Adding `fgb=FALSE` seems to address this![^5] Note, here we are going to hide our code (`echo = FALSE` in the code chunk options) so that we only show the results!
 
-````
-```{r make-nwis-mapview, echo=FALSE, eval=TRUE}`r ''`
+[^5]: {mapview} is not a static package. Rather, it's under active development. At the time of writing, the solution to inserting mapview objects into an html document is to use `mapviewOptions(fgb=FALSE)`. In the future, this may change so that it's not needed and mapview objects in an html document "just work". A benefit of using open source projects is that conversations about these fixes and updates can sometimes come from the package developers themselves, as in the case of [this mapview issue discussed on Github that provided our fix](https://github.com/r-spatial/mapview/issues/312).
 
-library(mapview)
-mapviewOptions(fgb=FALSE)
+    ```{r make-nwis-mapview, echo=FALSE, eval=TRUE}`r ''`
 
-mapview(nwis_sites_sf, col.regions="cyan4", layer="NWIS Sites")
+    library(mapview)
+    mapviewOptions(fgb=FALSE)
 
-```
-````
+    mapview(nwis_sites_sf, col.regions="cyan4", layer="NWIS Sites")
 
+    ```
 
 ```{r mapview, echo=FALSE, eval=TRUE}
 
@@ -332,9 +377,10 @@ mapview(nwis_sites_sf, col.regions="cyan4", layer="NWIS Sites")
 
 ## Additional Resources
 
-There are many resources freely available online. Here's a sample of some of them. 
+There are many resources freely available online. Here's a sample of some of them.
 
- - [R Markdown (online book)](https://bookdown.org/yihui/rmarkdown/): all the tips and details you could ever want
- - [Tips for Working with Images in R Markdown](http://zevross.com/blog/2017/06/19/tips-and-tricks-for-working-with-images-and-figures-in-r-markdown-documents/): Helpful tips on sizing and image resolution
- - [Basic tips to R Markdown](https://ryanpeek.org/2020-02-20-10-tips-to-souping-up-rmarkdown/)
- 
+-   [One RMarkdown document, 14 demos](https://www.rstudio.com/resources/rstudioconf-2020/one-r-markdown-document-fourteen-demos/): a video of a talk by RMarkdown creator and developer Yihui Xie at rstudio::conf(2020)  
+-   [R Markdown (online book)](https://bookdown.org/yihui/rmarkdown/): all the tips and details you could ever want
+-   [Tips for Working with Images in R Markdown](http://zevross.com/blog/2017/06/19/tips-and-tricks-for-working-with-images-and-figures-in-r-markdown-documents/): Helpful tips on sizing and image resolution
+-   [Basic tips to R Markdown](https://ryanpeek.org/2020-02-20-10-tips-to-souping-up-rmarkdown/)
+
