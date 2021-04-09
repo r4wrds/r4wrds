@@ -101,7 +101,7 @@ gwl <- select(gwl, -`California County`)
 Finally, let's keep in mind that the structure of these data are that there are many samples per well.
 
 
-### Well use
+### Well use and location
 
 What well uses are most common? We can answer this with `table(gwl$WELL_USE)`, but let's do the same thing with {dplyr} functions.
 
@@ -141,7 +141,6 @@ p1 <- gwl %>%
 p1
 ```
 
-### Well location
 
 Well location is a spatial question, and lucky for us these are spatial data! Recall from our last module [how to convert a dataframe to an sf object](09_intro_mapmaking.html#converting-a-dataframe-to-sf). We know the well coordinates are in NAD83 (EPSG 4269), so we can convert this object to an sf object class, and also bring in the Sacramento county polygon shapefile for plotting.
 
@@ -190,7 +189,7 @@ p2
   
 ```
 
-The {patchwork} R package is great for combining plots. We can combine the previous 2 plots with a simple `+` once patchwork is loaded. 
+The {patchwork} R package is great for combining plots. We can combine the previous 2 plots with a simple "`+`" once patchwork is loaded. 
 
 ```{r patchwork, out.width="100%"}
 library(patchwork)
@@ -251,7 +250,7 @@ We made a plot that explored these trends in the previous mapmaking module.
 knitr::include_graphics(here("results", "sac_well_depth_type.png"))
 ```
 
-We have the spatial distribution of these values, but now let's summarize the distribution of well depth value themselves.
+We have the spatial distribution of these values, but now let's summarize the distribution of well depth values themselves.
 
 ```{r gwl-depth-boxplot}
 
@@ -262,7 +261,7 @@ gwl_minimal %>%
 
 ```
 
-It is clear that irrigation wells tend to be much deeper than residential, observation, and stock watering wells. There's about a 70 foot difference between median irrigation and residential well depth. We can calculate this exact difference as follows:
+It is clear that irrigation wells tend to be much deeper than residential, observation, and stock watering wells. There's about a 140 foot difference between median irrigation and residential well depth. We can calculate this exact difference as follows:
 
 ```{r wd-diff}
 
@@ -293,7 +292,7 @@ diff(median_well_depths$med_depth)
   <summary class="challenge-ans-title">**Click for Answers!**</summary>
   <div class="challenge-ans-body">
 
-We would indeed have a different result if we passed in `gwl` instead of `gwl_minimal`. Recall that `gwl` has `r nrow(gwl)` rows but there are `r length(unique(gwl$SITE_CODE))` unique `SITE_CODE`s in `gwl`. If we pass in `gwl` instead of `gwl_minimal`, we're computing a boxplot on duplicate value of `WELL_DEPTH`s for each `SITE_CODE`, where the *number of samples per individual well* can influence the computed summary statistics. It's correct to use `gwl_minimal` because there's only one `WELL_DEPTH` for each `SITE_CODE`.
+We would indeed have a different result if we passed in `gwl` instead of `gwl_minimal`. Recall that `gwl` has `r nrow(gwl)` rows but there are `r length(unique(gwl$SITE_CODE))` unique `SITE_CODE`s in `gwl`. If we pass in `gwl` instead of `gwl_minimal`, we're computing a boxplot on duplicate values of `WELL_DEPTH` for each `SITE_CODE`, where the *number of samples per individual well* can influence the computed summary statistics. It's correct to use `gwl_minimal` because there's only one `WELL_DEPTH` for each `SITE_CODE`. This is easier to visualize than explain. Note the subtle difference in boxplots.
 
 ```{r chal-12a, eval=TRUE, echo=TRUE}
 
@@ -311,6 +310,8 @@ pbox1 + pbox2
 
 ```
 
+We can also look at raw numbers to spot differences in median values computed from `gwl` and `gwl_minimal`.
+
 ```{r chal-2b}
 
 # demonstrate differences in median well depth 
@@ -325,7 +326,7 @@ gwl_minimal %>%
   st_drop_geometry()
 
 ```
-This is all to highlight that it's important to remember what data you're feeding into functions. Many a nightmarish bug has been caused by the data analyst thinking they're data in one form, when it's actually in another!
+This is all to highlight that it's important to remember what data you're feeding into functions. Many a nightmarish bug has been caused by the data analyst thinking their data is in one form, when it's actually in another!
 
   </div>
 </details>
@@ -334,7 +335,7 @@ This is all to highlight that it's important to remember what data you're feedin
 
 ### Groundwater level change
 
-We've been working mostly with station data above for the `r length(unique(gwl$SITE_CODE))` unique stations. In fact, we could have performed most of our analyses above using only the `stations.csv` file we saw in previous modules. Now we drill down into the groundwater data itself, which contains many more observations, `r nrow(gwl)` rows to be exact. 
+We've been working mostly with station data above for the `r length(unique(gwl$SITE_CODE))` unique stations. In fact, we could have performed most of our analyses above using only the `stations.csv` file we saw in previous modules. Now we drill down into the groundwater data itself, which contains many more observations (n = `r nrow(gwl)`). 
 
 Let's start by plotting all depths to groundwater elevations per site. Recall that `GSE_WSE` is the depth to groundwater in feet below land surface.
 
@@ -360,7 +361,7 @@ gwl %>%
 
 Much better!
 
-Now let's facet by well use and look at trend lines over time.
+Now let's facet by well use.
 
 ```{r gwl-use-time}
 
@@ -371,7 +372,7 @@ gwl %>%
 
 ```
 
-Let's tie this back to our spatial data answer the question, "which areas have experienced the largest drop in groundwater levels over their historical period of record?" We'll also impose a constraint that a well must have at least 50 groundwater level measurements, and a historical record that begins in 1980-01-01 or earlier. Residential and irrigation wells have the most data, and we saw above that they overlap in space, so let's zoom into these categories in subsequent analyses. 
+Let's tie this back to our spatial data answer the question, **"which areas have experienced the largest drop in groundwater levels over their historical period of record?"** We'll also impose a constraint that a well must have  30 or more groundwater level measurements, and a historical record that begins in 1980-01-01 or earlier. Moreover, since residential and irrigation wells have the most data and overlap in space, let's subset our data to these well uses categories in subsequent analyses. Now we find the `SITE_CODE`s that meet our constraints. 
 
 ```{r largest-drop}
 
@@ -405,13 +406,16 @@ gwl_diff <- gwl %>%
   filter(SITE_CODE %in% ids_time_samp) %>% 
   group_by(SITE_CODE, WELL_USE) %>% # for each site code and well use
   arrange(MSMT_DATE) %>%            # arrange dates in ascending order
-  summarise(t1 = first(MSMT_DATE), # first date
-            t2 = last(MSMT_DATE),  # last date
+  summarise(t1 = first(MSMT_DATE),  # first date
+            t2 = last(MSMT_DATE),   # last date
             gse_wse_t1 = first(GSE_WSE),    # first gwl measurement
             gse_wse_t2 = last(GSE_WSE)) %>% # last  gwl measurement 
   mutate(diff = gse_wse_t2 - gse_wse_t1)    # diff btwn last and first gwl
   
-gwl_diff
+# preview result
+gwl_diff %>% 
+  select(SITE_CODE, t1, t2, diff) %>% 
+  head()
 ```
 
 Let's map these changes at our `r length(ids_time_samp)` long-term monitoring sites.
@@ -509,7 +513,7 @@ gwl_res_ir  %>%
 
 ```
 
-These trendlines suggest that monitored depths to groundwater have increased during the period of record at the long-term monitoring sites identified by our selection criteria. These declines are likely due groundwater pumping for urban expansion and irrigated agriculture. Remember also, that residential wells were substantially shallower than irrigation wells (around a 70 foot difference in median depth), so these groundwater level changes are likely to be impacting different aquifers. 
+These trendlines suggest that observed depths to groundwater have increased during the period of record at the long-term monitoring sites identified by our selection criteria. These declines are likely due groundwater pumping for urban expansion and irrigated agriculture. Remember also, that residential wells were substantially shallower than irrigation wells (around a 140 foot difference in median depth), so these groundwater level changes are likely to be impacting different aquifer systems. 
 
 
 ### CES scores
@@ -547,7 +551,7 @@ gwl_ces %>%
   geom_point()
 ```
 
-It appears that if there is any trend at all, there's a slight negative relationship between CES and large groundwater withdrawal. This is likely because CES scores tend to be higher near urban areas, and most groundwater pumping takes place in rural areas away from urban development. To confirm, let's inspect points with a difference in groundwater level >= 25 feet.
+It appears that if there is any trend at all, there's a slight negative relationship between CES and large groundwater withdrawal. This is likely because CES scores tend to be higher in and near urban areas, and most groundwater pumping takes place in rural areas away from urban development. To confirm, let's inspect points with a difference in groundwater level >= 25 feet.
 
 ```{r mapview-gwl-25}
 
@@ -558,7 +562,7 @@ m1 <- filter(gwl_ces, diff >= 25) %>%
 m1
 ```
 
-If we toggle the basemap to "Esri World Imagery" it's clear that areas with large groundwater declines are on the leading edges of expanding suburban zones and in rural areas. 
+If we toggle the basemap to "Esri.WorldImagery" it's clear that areas with large groundwater declines are on the leading edges of expanding suburban zones and in rural areas. 
 
 Let's now define a class of monitoring points called `high_priority` that is characterized by high CES scores and large groundwater declines.
 
@@ -568,18 +572,20 @@ Let's now define a class of monitoring points called `high_priority` that is cha
 gwl_ces <- gwl_ces %>% 
   mutate(high_priority = ifelse(diff >= 25 & `CES 3.0 Percentile` >= 50, TRUE, FALSE))
 
+# verify that our mutate worked
 gwl_ces %>% 
   ggplot(aes(diff, `CES 3.0 Percentile`, color = high_priority)) +
   geom_point() +
   scale_color_manual(values = c("grey", "red"))
 
+# plot location priority
 ggplot() +
   geom_sf(data = sac) +
   geom_sf(data = gwl_ces, aes(color = high_priority)) +
   scale_color_manual(values = c("grey", "red"))
 ```
 
-Inspecting these locations in closer detail over a satellite basemap may give us clues into what's happening here. 
+Inspecting these locations in closer detail over a satellite basemap ("Esri.WorldImagery") may give us clues into what's happening here. 
 
 ```{r}
 m2 <- filter(gwl_ces, high_priority == TRUE) %>% 
@@ -611,4 +617,4 @@ EDA is the synthesis of every module we've covered so far, and many more that ar
 
 ## Communicate results
 
-An EDA may generate tables, visualizations, and greater meaning that you've derived from the data. An excellent, R-centric way to share the results of your EDA is in an Rmd document, which is the topic of the [next module](11_intro_Rmarkdown.html).  
+An EDA may generate tables, visualizations, text, and code that all encapsulate the greater meaning that you've derived from the data. An excellent, R-centric way to share the tables, visualizations, text, and code that result from your EDA is to use an RMarkdown (`.Rmd`) document, which is the topic of the [next module](11_intro_Rmarkdown.html).  
