@@ -67,7 +67,7 @@ library(mapview)
 ```
 
 
-## Searching for Answers
+## Search for Answers
 
 First we need to load our data, which we created in the module on [joins and binds](08_joins.html).
 
@@ -489,7 +489,7 @@ ggplot() +
 
 ```
 
-It appears that larger groundwater level changes occur in the interior of Sacramento County. Smaller changes along the boundaries may result from groundwater recharge from surface water. 
+It appears that larger groundwater level changes occur in the interior of Sacramento County, and in the southern portions, both of which are further from urban areas. Smaller changes along the western boundary may result from groundwater recharge from surface water along the Sacramento River. 
 
 Finally, let's examine the changes in groundwater level at the sites that meet our constraints and add linear trendlines. 
 
@@ -591,11 +591,24 @@ m2
 Compared to our previous mapview, which only showed areas with groundwater declines >= 25 feet over the historical record, the "high priority" most monitoring sites shown here that additionally have high CES scores appear to be located at or near the suburban fringe. 
 
 
-## Learning more
+
+:::challenge
+
+<font color="#009E73">**Pause and think**</font> 
+
+Did this EDA spark any questions for you? What questions would you like to explore with these data given what you've seen?
+ 
+:::
+
+
+
+
+
+## Learn more
 
 EDA is the synthesis of every module we've covered so far, and many more that are beyond the scope of this course. As you learn more data transformation, visualization, and modeling skills, the depth of your EDA capabilities will increase. A good place to pick up general R knowledge and practice new skills is to walk through a textbook like [R for Data Science](https://r4ds.had.co.nz/), which will cover the basics and give you a good foundation on which to stand. 
 
 
-## Communicating results
+## Communicate results
 
 An EDA may generate tables, visualizations, and greater meaning that you've derived from the data. An excellent, R-centric way to share the results of your EDA is in an Rmd document, which is the topic of the [next module](11_intro_Rmarkdown.html).  
