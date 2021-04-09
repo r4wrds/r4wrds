@@ -38,7 +38,7 @@ This process can be applied to any data, and is foundational to data science. Ul
 (ref:ah-openscapes) *Illustration by @allison_horst for Dr. Julia Lowndes useR!2019 keynote.*
 
 ```{r, eval=TRUE, echo=FALSE, out.width='80%', fig.cap='(ref:ah-openscapes)'}
-knitr::include_graphics(here("images","environmental-data-science-r4ds-general.png"))
+knitr::include_graphics(here("images","environmental-data-science-r4ds-general.jpg"))
 ```
 
 In previous modules, we've covered the building blocks to perform EDA in R, and in this module, we're going to bring it all together and perform EDA on the groundwater measurements dataset[^1] and CalEnviroscreen 3.0 data.[^2]
