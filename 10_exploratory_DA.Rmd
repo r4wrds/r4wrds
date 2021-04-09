@@ -1,7 +1,7 @@
 ---
-title: "Exploratory Data Analysis (EDA)"
+title: "Exploratory Data Analysis"
 description: | 
-  Having Fun
+  Learn to enjoy EDA adventures
 output: 
   distill::distill_article:
     toc: true
@@ -21,19 +21,27 @@ mapview::mapviewOptions(fgb = FALSE)
 ::: {.obj}
 **Learning objectives**
 
--   Understand when and how to carry out an Exploratory Data Analysis (EDA)
--   Practice an EDA with tools and data from previous modules
+-   Understand when and how to carry out Exploratory Data Analysis (EDA)
+-   Practice EDA with tools and data from previous modules
 :::
 
-## What's an EDA?
+## What's EDA?
 
-An [Exploratory Data Analysis, or EDA](https://en.wikipedia.org/wiki/Exploratory_data_analysis), is a way to approach the analysis of datasets that allows the data analyst to explore data and come up with hypotheses to test from that exploration. In the book, [*R for Data Science*](https://r4ds.had.co.nz/exploratory-data-analysis.html), EDA is described as an iterative cycle where you:
+[Exploratory Data Analysis, or EDA](https://en.wikipedia.org/wiki/Exploratory_data_analysis), is an approach to data analysis that allows the data analyst to explore data and identify hypotheses or additional questions to test. In the book, [*R for Data Science*](https://r4ds.had.co.nz/exploratory-data-analysis.html), EDA is described as an iterative cycle where you:
 
 > 1.  Generate questions about your data.
 > 2.  Search for answers by visualizing, transforming, and modeling your data.
-> 3.  Use what you learn to refine your questions and/or generate new questions.
+> 3.  Use what you learn to refine your questions and/or generate new questions for communication.
 
-In previous modules, we've covered the building blocks to perform an EDA in R, and in this module, we're going to bring it all together and perform an EDA on the groundwater measurements dataset[^1] and CalEnviroscreen 3.0 data[^2].
+This process can be applied to any data, and is foundational to data science. Ultimately it is how we understand and then communicate our data.
+
+(ref:ah-openscapes) *Illustration by @allison_horst for Dr. Julia Lowndes useR!2019 keynote.*
+
+```{r, eval=TRUE, echo=FALSE, out.width='80%', fig.cap='(ref:ah-openscapes)'}
+knitr::include_graphics(here("images","environmental-data-science-r4ds-general.png"))
+```
+
+In previous modules, we've covered the building blocks to perform EDA in R, and in this module, we're going to bring it all together and perform EDA on the groundwater measurements dataset[^1] and CalEnviroscreen 3.0 data.[^2]
 
 [^1]: DWR [Periodic Groundwater level database](<https://data.cnra.ca.gov/dataset/periodic-groundwater-level-measurements>).
 
@@ -69,7 +77,7 @@ library(mapview)
 
 ## Search for Answers
 
-First we need to load our data, which we created in the module on [joins and binds](08_joins.html).
+First we need to load our data, which we created in the module on [joins and binds](08_joins.html), and then inspect what's there.
 
 ```{r import-jb-data}
 
@@ -82,7 +90,7 @@ dim(gwl)
 names(gwl)
 ```
 
-We might want to `View(gwl)` these data to refresh our memory. Remember when View()`ing data in RStudio, that only 50 columns are shown at a time, so you need to click the arrows in the top navigation bar to move between sets of 50 columns.  
+We might want to use `View(gwl)` these data to refresh our memory. Remember when `View()`ing data in RStudio, that only 50 columns are shown at a time, so you need to click the arrows in the top navigation bar to move between sets of 50 columns.  
 
 <aside>
 
@@ -98,16 +106,15 @@ It appears that we have two columns with "County" information, so let's drop the
 gwl <- select(gwl, -`California County`)
 ```
 
-Finally, let's keep in mind that the structure of these data are that there are many samples per well.
+Finally, let's keep in mind that the dataframe structure of this dataset is many samples per well through time (see the `SITE_CODE` is repeated for multiple `MSMT_DATE` observations through time).
 
+### Question 1: Well use and location
 
-### Well use and location
-
-What well uses are most common? We can answer this with `table(gwl$WELL_USE)`, but let's do the same thing with {dplyr} functions.
+What well uses are most common? We can answer this with `table(gwl$WELL_USE)`, but let's do the same thing with {`dplyr`} functions.
 
 ```{r well-use-count}
 gwl %>% 
-  count(WELL_USE) %>% # group by well use and summarise the count
+  count(WELL_USE) %>% # group by well use and summarize the count
   arrange(desc(n))    # sort in decreasing order 
 ```
 
@@ -122,7 +129,7 @@ gwl %>%
 
 ```
 
-Cleaning things up a bit.
+Let's clean things up a bit and make this plot more visually appealing.
 
 ```{r well-use-plot2}
 
@@ -133,6 +140,7 @@ p1 <- gwl %>%
   ggplot(aes(fct_reorder(WELL_USE, n), n)) + # reorder well use by n
   geom_col(aes(fill = WELL_USE)) +    # use column geometry
   coord_flip() +  # flip x and y axes
+  theme_classic() + # use a theme
   labs(title = "Monitoring well use", 
        subtitle = "Sacramento County",
        x = "", y = "Count") +
@@ -142,7 +150,7 @@ p1
 ```
 
 
-Well location is a spatial question, and lucky for us these are spatial data! Recall from our last module [how to convert a dataframe to an sf object](09_intro_mapmaking.html#converting-a-dataframe-to-sf). We know the well coordinates are in NAD83 (EPSG 4269), so we can convert this object to an sf object class, and also bring in the Sacramento county polygon shapefile for plotting.
+Understanding where wells are located is a spatial question, luckily these data contain spatial information we can use to make a map (see our last module [how to convert a dataframe to an sf object](09_intro_mapmaking.html#converting-a-dataframe-to-sf)). We know the well coordinates are using a projection and coordinate reference system in NAD83 (EPSG 4269), so we can convert this **`gw`** object to an {sf} object class. We will also import a Sacramento county polygon shapefile for plotting.
 
 ```{r gwl-to-sf}
 
@@ -166,7 +174,7 @@ st_crs(gwl)$epsg == st_crs(sac)$epsg
 
 ```
 
-Let's plot the well use in Sacramento County, similar to what we did in the previous module.
+Let's plot the well use in Sacramento County, similar to what we did in the previous [mapmaking module](09_intro_mapmaking.html). Note, because we have many measurements per well we need to reduce these data to a `distinct` list of `SITE_CODE`s. There are several ways to do this, but one option is to leverage how `group_by` works, and `slice` just **1** observation from each group, giving us a unique list of sites.
 
 ```{r gwl-map}
 
@@ -176,6 +184,9 @@ gwl_minimal <- gwl %>%
   filter(!is.na(WELL_USE)) %>% # remove wells without a well use
   group_by(SITE_CODE) %>%      # take first well per site code
   slice(1) 
+
+# check number of stations, should be n=486
+length(unique(gwl_minimal$SITE_CODE))
 
 # map
 p2 <- ggplot() +
@@ -189,6 +200,8 @@ p2
   
 ```
 
+#### Combining Plots
+
 The {patchwork} R package is great for combining plots. We can combine the previous 2 plots with a simple "`+`" once patchwork is loaded. 
 
 ```{r patchwork, out.width="100%"}
@@ -199,7 +212,7 @@ p1 + p2
 
 These plots tell us a lot about the distribution of monitoring wells in Sacramento County. For instance, they show that irrigation and residential wells are among the most common known well uses. Interestingly, a substantial number of wells have an unknown use. Irrigation and residential wells appear collocated. 
 
-
+<br>
 
 :::challenge
 
@@ -240,7 +253,7 @@ count(gwl, SITE_CODE, WELL_USE) %>%
 
 
 
-### Well depths
+### Question 2: Well depths
 
 Now that we understand a bit about the relative proportion and spatial distribution of wells, let's compare total completed depths, which measure how deep the well is and all else being equal, relates to the well's ability to access groundwater. 
 
@@ -250,7 +263,7 @@ We made a plot that explored these trends in the previous mapmaking module.
 knitr::include_graphics(here("results", "sac_well_depth_type.png"))
 ```
 
-We have the spatial distribution of these values, but now let's summarize the distribution of well depth values themselves.
+We have the spatial distribution of these values, but now let's summarize the distribution of well depth values themselves. 
 
 ```{r gwl-depth-boxplot}
 
@@ -269,8 +282,8 @@ It is clear that irrigation wells tend to be much deeper than residential, obser
 median_well_depths <- filter(gwl_minimal, 
                              WELL_USE %in% c("Residential", "Irrigation")) %>% 
   group_by(WELL_USE) %>% 
-  summarise(med_depth = median(WELL_DEPTH, na.rm = TRUE)) %>% 
-  st_drop_geometry() # don't need spatial data here
+  summarize(med_depth = median(WELL_DEPTH, na.rm = TRUE)) %>% 
+  st_drop_geometry() # don't need spatial data here, drop geometry column
 
 median_well_depths
 
@@ -278,7 +291,11 @@ median_well_depths
 diff(median_well_depths$med_depth)
 ```
 
+<aside> 
 
+The `diff()` function returns the difference between each value pair in a vector. Try `diff(c(5,20,30))`.
+
+</aside>
 
 :::challenge
 
@@ -333,11 +350,11 @@ This is all to highlight that it's important to remember what data you're feedin
 
 
 
-### Groundwater level change
+### Question 3: Groundwater level change through time
 
 We've been working mostly with station data above for the `r length(unique(gwl$SITE_CODE))` unique stations. In fact, we could have performed most of our analyses above using only the `stations.csv` file we saw in previous modules. Now we drill down into the groundwater data itself, which contains many more observations (n = `r nrow(gwl)`). 
 
-Let's start by plotting all depths to groundwater elevations per site. Recall that `GSE_WSE` is the depth to groundwater in feet below land surface.
+Let's start by plotting all depths to groundwater elevations per site. Recall that `GSE_WSE` is the depth to groundwater in feet below land surface. We need to add `group` here to group observations by the station or `SITE_CODE`.
 
 ```{r gwl-change}
 
@@ -347,64 +364,76 @@ gwl %>%
 
 ```
 
-It generally appears that depth to groundwater is increasing over time (groundwater depletion), but a few clearly erroneous values > 250 feet are impairing the plot. Let's remove these values and replot.
+It generally appears that depth to groundwater is increasing over time (groundwater depletion), but a few clearly erroneous values > 250^[Info on why we know this is erroneous] feet are impairing the plot. Let's remove these values and re-plot.
 
 ```{r gwl-fix}
 
-gwl <- filter(gwl, GSE_WSE <= 250)
+# create a new object that filters out values >250
+gwl_filt <- filter(gwl, GSE_WSE <= 250)
 
-gwl %>% 
+gwl_filt %>% 
   ggplot(aes(MSMT_DATE, GSE_WSE, group = SITE_CODE)) +
   geom_line(alpha = 0.5)
 
 ```
 
-Much better!
-
-Now let's facet by well use.
+This is better, but still hard to discern individual trends over time. Let's facet by well use to see if we can address this, and color each line by the `SITE_CODE`. Note, we turn the legend off with `show.legend=FALSE` because there are hundreds of stations and a legend for each one would overwhelm the plot.
 
 ```{r gwl-use-time}
 
-gwl %>% 
-  ggplot(aes(MSMT_DATE, GSE_WSE, group = SITE_CODE)) +
-  geom_line(alpha = 0.5) +
+gwl_filt %>% 
+  ggplot(aes(MSMT_DATE, GSE_WSE, group = SITE_CODE, color=SITE_CODE)) +
+  geom_line(alpha = 0.5, show.legend=FALSE) +
   facet_wrap(~WELL_USE)
 
 ```
 
-Let's tie this back to our spatial data answer the question, **"which areas have experienced the largest drop in groundwater levels over their historical period of record?"** We'll also impose a constraint that a well must have  30 or more groundwater level measurements, and a historical record that begins in 1980-01-01 or earlier. Moreover, since residential and irrigation wells have the most data and overlap in space, let's subset our data to these well uses categories in subsequent analyses. Now we find the `SITE_CODE`s that meet our constraints. 
+Let's tie this back to our spatial data to answer the question, **"which areas have experienced the largest drop in groundwater levels over their historical period of record?"** 
+Here are a few possible ways to constrain this analysis to make interpretation easier. 
+
+ - We'll only include wells that have 30 or more groundwater level measurements
+ - We'll focus on the historical record by limiting data to observations recorded before 1980-01-01 or earlier. 
+ - We'll focus on residential and irrigation wells because they have the most data and overlap in space. 
+ 
+First we need to **`filter`** to the `SITE_CODE`s that meet our constraints. 
 
 ```{r largest-drop}
 
 # find SITE_CODEs that meet well use and time constraints
-ids_use_time <- gwl %>% 
+ids_use_time <- gwl_filt %>% 
   filter(WELL_USE %in% c("Residential", "Irrigation"), 
          MSMT_DATE <= "1980-01-01") %>% 
   pull(SITE_CODE) %>% 
   unique()
 
 # ids that meet time constraints and sample constraints
-ids_time_samp <- gwl %>% 
+ids_time_samp <- gwl_filt %>% 
   filter(SITE_CODE %in% ids_use_time) %>% 
   count(SITE_CODE) %>% 
   filter(n >= 30) %>% 
   pull(SITE_CODE)
 
-# view ids that meet constraints
+# total number of well station ids that meet constraints
 ids_time_samp %>% length()
+
+# the time span these data cover
+gwl_filt %>% 
+  filter(SITE_CODE %in% ids_time_samp) %>%  
+  pull(MSMT_DATE) %>% range()
+
 ```
 
 
-Of the `r length(unique(gwl$SITE_CODE))` site codes, `r length(ids_time_samp)`, or about `r round((length(ids_time_samp) / length(unique(gwl$SITE_CODE)))*100)`% meet our constraints. 
+Of the `r length(unique(gwl_filt$SITE_CODE))` site codes, `r length(ids_time_samp)`, or about `r round((length(ids_time_samp) / length(unique(gwl$SITE_CODE)))*100)`% meet our constraints, and include observations starting as early as `r gwl_filt %>% filter(SITE_CODE %in% ids_time_samp) %>% pull(MSMT_DATE) %>% lubridate::year() %>% min()`. 
 
-These IDs represent *long term monitoring sites* that meet our constraints. We can use them to filter our `gwl` data and calculate the groundwater level change over the period of record.
+These IDs represent *long term monitoring sites* that meet our constraints. We can use them to filter our `gwl` measurement data and calculate the groundwater level change over the period of record.
 
 ```{r largest-change-2}
 
-gwl_diff <- gwl %>% 
-  # only SITE_CODE meeting time and sample constraints
+gwl_diff <- gwl_filt %>% 
+  # use only SITE_CODE that occur in ids_time_samp
   filter(SITE_CODE %in% ids_time_samp) %>% 
-  group_by(SITE_CODE, WELL_USE) %>% # for each site code and well use
+  group_by(SITE_CODE, WELL_USE) %>% # for each site code and well use type
   arrange(MSMT_DATE) %>%            # arrange dates in ascending order
   summarise(t1 = first(MSMT_DATE),  # first date
             t2 = last(MSMT_DATE),   # last date
@@ -418,41 +447,51 @@ gwl_diff %>%
   head()
 ```
 
+<aside>
+
+Note, we can use `first()` and `last()` here because our data classes are `POSIXct` (datetime) and `numeric`, so the data will sort correctly. If our data were `character` or `factor`, these data may sort differently than expected.
+
+</aside>
+
 Let's map these changes at our `r length(ids_time_samp)` long-term monitoring sites.
 
 ```{r largest-change-3 }
 
 ggplot() +
   geom_sf(data = sac) +
-  geom_sf(data = gwl_diff, aes(color = diff)) +
+  geom_sf(data = gwl_diff, aes(color = diff), size=2.5) +
   scale_color_viridis_c()
 
 ```
 
-Outliers are a fairly common problem in real world data. For some reason, one site shows a -100 change (dark purple dot). Is this a problem with the data or our analysis? Let's inspect it with a plot.
+Outliers are a fairly common problem in real world data. For some reason, one site shows a `-100` change (dark purple dot). Is this a problem with the data or our analysis, or is it a real observation? Let's inspect it with a plot.
 
 ```{r inspect}
+
+library(glue) # package to help with pasting values/text together
 
 id_problem <- gwl_diff %>% 
   filter(diff < -90) %>% 
   pull(SITE_CODE)
 
-gwl %>% 
+gwl_filt %>% 
   filter(SITE_CODE == id_problem) %>% 
   ggplot(aes(MSMT_DATE, GSE_WSE)) +
-  geom_line()
+  geom_line() +
+  # add label to show the station. Surround variables with {}
+  labs(subtitle = glue("Outlier {id_problem}"))
 
 ```
 
-Ah ha! Everything looks okay, until measured values fall off a cliff around 1990. Let's remove this single observation. Luckily each water level measurement has a unique ID (`WLM_ID`), so we can use this to remove the value, and then recompute our groundwater level difference. Because we have this transformation already in code, it's trivial to rerun this complex operation!
+Ah ha! Everything looks okay, until measured values fall off a cliff around 1990. This is likely an erroneous value, so we can remove this single observation. Luckily each water level measurement has a unique ID (`WLM_ID`), so we can use this to remove the value, and then recompute our groundwater level difference. Because we have this transformation already in code, it's easy to rerun this complex operation! One way to find the `WLM_ID` is to use **`View(gwl_filt)`**, and use the *Search* option in the upper right hand corner. Copy and paste the `id_problem` value (`r id_problem`), and paste it into the box, then hit `Enter`. We should now see all the values associated with this id. We can look for a value after 1990 by sorting by `MSMT_DATE`. We should see there's an extremely high value in `WSE` (`163.54`)! Then look for the associated `WLM_ID` column for that observation and copy and paste that ID (`1345292`) to use with the code below.
 
 ```{r fix-gwl}
 
 # remove one erroneous measurement
-gwl <- filter(gwl, WLM_ID != "1345292")
+gwl_filt <- filter(gwl_filt, WLM_ID != "1345292")
 
 # recompute groundwater level difference
-gwl_diff <- gwl %>% 
+gwl_diff <- gwl_filt %>% 
   # only SITE_CODE meeting time and sample constraints
   filter(SITE_CODE %in% ids_time_samp) %>% 
   group_by(SITE_CODE, WELL_USE) %>% # for each site code and well use
@@ -467,7 +506,9 @@ gwl_diff <- gwl %>%
 
 Next we can replot our map without this erroneous value, and spruce things up a bit.
 
-```{r preprocess nhd, eval = FALSE}
+<!-- Need to fix or add this dataset in order to view map below... -->
+
+```{r preprocess nhd, eval = FALSE, echo=FALSE}
 
 read_rds(here("data", "nhd_sas.rds")) %>% 
   st_as_sf() %>% 
@@ -483,45 +524,46 @@ read_rds(here("data", "nhd_sas.rds")) %>%
 
 ggplot() +
   geom_sf(data = sac) +
-  geom_sf(data = gwl_diff, aes(fill = diff), pch = 21) +
+  geom_sf(data = gwl_diff, aes(fill = diff), pch = 21, size=2.7, alpha=0.8) +
   scale_fill_viridis_c("GWL \nchange (ft)", option = "B", direction = -1) +
   facet_wrap(~WELL_USE) +
   labs(title = "Difference in groundwater elevation (ft)",
        subtitle = "For wells with > 30 samples and data from at least 1980-01-01",
-       caption = "Larger values indicate groundwater depletion.") +
-  theme_minimal()
+       caption = "Larger (darker) values indicate groundwater depletion.") +
+  theme_void()
 
 ```
 
 It appears that larger groundwater level changes occur in the interior of Sacramento County, and in the southern portions, both of which are further from urban areas. Smaller changes along the western boundary may result from groundwater recharge from surface water along the Sacramento River. 
 
-Finally, let's examine the changes in groundwater level at the sites that meet our constraints and add linear trendlines. 
+Finally, let's examine the changes in groundwater level at the sites that meet our constraints and add linear trendlines using `geom_smooth()`. 
 
-```{r largest-change-4}
+```{r largest-change-4, out.width='110%', fig.width=6}
 
 # go back and grab gwl measurements at the specified site codes
-gwl_res_ir <- filter(gwl, 
+gwl_res_ir <- filter(gwl_filt, 
                      SITE_CODE %in% ids_time_samp)
   
 # plot all groundwater levels and a linear trendline
 gwl_res_ir  %>% 
   ggplot(aes(MSMT_DATE, GSE_WSE)) +
-  geom_line(aes(group = SITE_CODE), alpha = 0.5) +
-  geom_smooth(method = "lm", color = "red", se = FALSE) +
+  geom_line(aes(group = SITE_CODE, color=WELL_DEPTH), alpha = 0.8) +
+  geom_smooth(method = "lm", color = "orange", se = FALSE, lwd=2) +
   facet_wrap(~WELL_USE) +
   labs(x = "", y = "Depth to groundwater (ft)")
 
 ```
 
-These trendlines suggest that observed depths to groundwater have increased during the period of record at the long-term monitoring sites identified by our selection criteria. These declines are likely due groundwater pumping for urban expansion and irrigated agriculture. Remember also, that residential wells were substantially shallower than irrigation wells (around a 140 foot difference in median depth), so these groundwater level changes are likely to be impacting different aquifer systems. 
+These trendlines suggest that observed depths to groundwater have increased during the period of record at the long-term monitoring sites identified by our selection criteria. These declines are likely due groundwater pumping for urban expansion and irrigated agriculture. Remember also, that residential wells were substantially shallower than irrigation wells (around a 140 foot difference in median depth, see the lighter blue colors in the plot for deeper wells), so these groundwater level changes are likely impacting different aquifer systems. 
 
 
-### CES scores
+### Question 4: Relating groundwater to CES scores
 
-Finally, let's incorporate CES scores into our analysis and see how they relate to groundwater level trends. As a first cut, let's just look at the CES percentile (higher indicates a more negative outcome) on a basemap with {mapview}.   
+Finally, let's incorporate CES scores into our analysis and see how they relate to groundwater level trends. As a first cut, let's just look at the CES percentile (higher indicates a more negative outcome) on a basemap with `{mapview}`.   
 
 ```{r mv-ces, out.wdith = "100%"}
 library(mapview)
+mapviewOptions(fgb=FALSE)
 
 mapview(sac, alpha.regions = 0, color = "red", lwd = 2, layer.name = "Sac Co") + 
   mapview(select(gwl_minimal, `CES 3.0 Percentile`), # only show CES score in table
@@ -538,7 +580,7 @@ gwl_diff_df <- st_drop_geometry(gwl_diff) %>%
   select(SITE_CODE, diff)
 
 # join differenced data back to groundwater level
-gwl_ces <- gwl %>% 
+gwl_ces <- gwl_filt %>% 
   filter(SITE_CODE %in% ids_time_samp) %>% # selection criteria
   group_by(SITE_CODE) %>% # slice 1st row per group as CES scores duplicate
   slice(1) %>% 
@@ -548,7 +590,9 @@ gwl_ces <- gwl %>%
 
 gwl_ces %>% 
   ggplot(aes(diff, `CES 3.0 Percentile`)) +
-  geom_point()
+  geom_point() + 
+  geom_smooth(method="lm", se=FALSE)
+
 ```
 
 It appears that if there is any trend at all, there's a slight negative relationship between CES and large groundwater withdrawal. This is likely because CES scores tend to be higher in and near urban areas, and most groundwater pumping takes place in rural areas away from urban development. To confirm, let's inspect points with a difference in groundwater level >= 25 feet.
@@ -575,26 +619,29 @@ gwl_ces <- gwl_ces %>%
 # verify that our mutate worked
 gwl_ces %>% 
   ggplot(aes(diff, `CES 3.0 Percentile`, color = high_priority)) +
-  geom_point() +
-  scale_color_manual(values = c("grey", "red"))
+  geom_point(size = 3, alpha = 0.9) +
+  scale_color_manual(name = "High Priority", values = c("grey", "red"))+
+  theme_classic()
 
 # plot location priority
 ggplot() +
   geom_sf(data = sac) +
-  geom_sf(data = gwl_ces, aes(color = high_priority)) +
-  scale_color_manual(values = c("grey", "red"))
+  geom_sf(data = gwl_ces, aes(color = high_priority), size=3) +
+  scale_color_manual("High Priority", values = c("grey", "red")) +
+  theme_void()
+
 ```
 
-Inspecting these locations in closer detail over a satellite basemap ("Esri.WorldImagery") may give us clues into what's happening here. 
+Inspecting these locations in closer detail over a satellite basemap ("*Esri.WorldImagery*") may give us clues into what's happening here. 
 
 ```{r}
 m2 <- filter(gwl_ces, high_priority == TRUE) %>% 
   select(diff, `CES 3.0 Percentile`) %>% 
-  mapview(zcol = "diff", layer.name = "GWL <br>delcine (ft)")
+  mapview(zcol = "diff", layer.name = "GWL <br>decline (ft)")
 m2
 ```
 
-Compared to our previous mapview, which only showed areas with groundwater declines >= 25 feet over the historical record, the "high priority" most monitoring sites shown here that additionally have high CES scores appear to be located at or near the suburban fringe. 
+Compared to our previous map, which only showed areas with groundwater declines >= 25 feet over the historical record, the "high priority" groundwater monitoring sites shown here with high CES scores (i.e., they are associated with census tracts that are at higher risk of impacts from environmental pollutants) appear to be located at or near the suburban fringe. 
 
 
 
@@ -605,9 +652,6 @@ Compared to our previous mapview, which only showed areas with groundwater decli
 Did this EDA spark any questions for you? What questions would you like to explore with these data given what you've seen?
  
 :::
-
-
-
 
 
 ## Learn more
