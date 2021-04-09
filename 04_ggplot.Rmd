@@ -595,3 +595,6 @@ p + theme_classic()
 </details>
 
 
+## Extending ggplot2
+
+If you want to learn more about {ggplot2}, the definitive text is [ggplot2: elegant graphics for data analysis](https://ggplot2-book.org/index.html).  
