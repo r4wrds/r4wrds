@@ -33,19 +33,20 @@ knitr::include_graphics(path = "https://raw.githubusercontent.com/allisonhorst/s
 
 In this course, we will:
 
-1. [Install R and RStudio](00_install_R.html)  
-2. [Get oriented in RStudio](01_getting_started.html)  
-3. [Practice data and file management: understand RProjects and file paths](02_project_management.html) 
-4. [Import and export various water resources data](03_importing_and_exporting_data.html)   
-5. [Visualize data with {`ggplot2`}](04_ggplot.html)   
-6. [Understand and identify different data formats (i.e., wide, long, tidy) and data structures (i.e., vectors, dataframes, lists)](05_data_structures.html)    
-7. [Transform data with {`dplyr`}](06_dplyr.html)    
-8. [Learn how to write custom functions](07_functions.html)  
-9. [Join different datasets together](08_joins.html)  
-10. [Use spatial data to create static and interactive maps](09_intro_mapmaking.html)  
-11. [Explore strategies for Exploratory Data Analysis (EDA)](10_exploratory_DA.html)  
-12. [Practice data presentation and communication with {`RMarkdown`}](11_intro_Rmarkdown.html)  
-13. [Explore strategies for troubleshooting (reading documentation, intro to reprex)](12_troubleshooting.html)  
+1. [Install R and RStudio](m_install_R.html)  
+2. [Get oriented in RStudio](m_getting_started.html)  
+3. [Practice data and file management: understand RProjects and file paths](m_project_management.html) 
+4. [Import and export various water resources data](m_importing_and_exporting_data.html)   
+5. [Visualize data with {`ggplot2`}](m_ggplot.html)   
+6. [Understand and identify different data structures (i.e., vectors, dataframes, lists)](m_data_structures.html)    
+7. [Transform data with {`dplyr`}](m_dplyr.html)    
+8. [Spreadsheets and pivots](m_pivots.html)    
+9. [Learn how to write custom functions](m_functions.html)  
+10. [Join different datasets together](m_joins.html)  
+11. [Use spatial data to create static and interactive maps](m_intro_mapmaking.html)  
+12. [Explore strategies for Exploratory Data Analysis (EDA)](m_exploratory_DA.html)  
+13. [Practice data presentation and communication with {`RMarkdown`}](m_intro_Rmarkdown.html)  
+14. [Explore strategies for troubleshooting (reading documentation, intro to reprex)](m_troubleshooting.html)  
 
 
 :::

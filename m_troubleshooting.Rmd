@@ -49,7 +49,7 @@ knitr::include_graphics("images/closure-error.png")
 
 In R, every object has a **class**, which defines the operations we can perform on it. We can check the class of an object with the `class()` function. 
 
-<aside> Recall the classes of atomic vectors (logical, numeric, factor, character) from the [module on data structures](04_data_structures.html#basic-object-classes). </aside>
+<aside> Recall the classes of atomic vectors (logical, numeric, factor, character) from the [module on data structures](m_data_structures.html#basic-object-classes). </aside>
 
 ```{r class, message=FALSE, warning=FALSE}
 library(tidyverse)

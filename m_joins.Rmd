@@ -44,9 +44,9 @@ knitr::include_graphics("images/New_York_City_Gridlock.jpeg")
 
 ### Common Variables
 
-The trick that makes a join possible is to have one or more shared variables across each dataset. This may be an ID column, or a specific [data class](05_data_structures.html#basic-object-classes). Importantly, these data can actually have different column names, but typically each needs to have the same *class* of data (i.e., `character` and `character`) and some shared observations across each dataset in order to **join** the datasets.
+The trick that makes a join possible is to have one or more shared variables across each dataset. This may be an ID column, or a specific [data class](m_data_structures.html#basic-object-classes). Importantly, these data can actually have different column names, but typically each needs to have the same *class* of data (i.e., `character` and `character`) and some shared observations across each dataset in order to **join** the datasets.
 
-While this may seem daunting at first, it's not! R has some excellent tools built into the **`{dplyr}`** package that make joining datasets fairly straightforward. First let's import some data we can use to join. Here we will build off of the datasets we used in the [previous {dplyr} module](07_dplyr.html). 
+While this may seem daunting at first, it's not! R has some excellent tools built into the **`{dplyr}`** package that make joining datasets fairly straightforward. First let's import some data we can use to join. Here we will build off of the datasets we used in the [previous {dplyr} module](m_dplyr.html). 
 
 First let's load the libraries and data we'll be using. We'll be continuing to use some groundwater data as shown in previous modules, including a dataframe of **`stations`**, **`measurements`** through time, and information on **`perforations`**. We'll also *join* these data to the [CalEnviroscreen dataset](https://oehha.ca.gov/calenviroscreen) which "*identifies California communities by census tract that are disproportionately burdened by, and vulnerable to, multiple sources of pollution*". One of the most notable uses of the CalEnviroscreen dataset has been to inform CalEPA’s identification of disadvantaged communities. We'll be using CalEnviroscreen v3.0 in the code that follows.
 
@@ -344,7 +344,7 @@ calenviro_stations %>% count(`Census Tract`)
 
 So there are 317 census tracts in Sacramento County, and 494 unique groundwater stations. If we multiply 317 * 494, we get the number of observations in our dataset (`n = 156,598`). So, it seems every single station is being joined to every single census tract...that's because we only have county to join on.
 
-For these sorts of operations, we actually want a more spatially explicit join to reduce this sort of duplication. Thankfully we've done this already. Let's grab this data now so we can use it to make a better join of the data. [Download it here](), and see the [spatial mapmaking module](09_intro_mapmaking.html) to see more on spatial joins. Let's join our full joined Sacramento County groundwater dataset from earlier using the census tracts instead of county.
+For these sorts of operations, we actually want a more spatially explicit join to reduce this sort of duplication. Thankfully we've done this already. Let's grab this data now so we can use it to make a better join of the data. [Download it here](), and see the [spatial mapmaking module](m_intro_mapmaking.html) to see more on spatial joins. Let's join our full joined Sacramento County groundwater dataset from earlier using the census tracts instead of county.
 
 ```{r spatialJoin, eval=FALSE, echo=FALSE, message=FALSE}
 

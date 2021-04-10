@@ -125,7 +125,7 @@ This is really important and will make life easier for everyone in the long run.
 **TL&DR** *(Too long, didn't read)*
  
  - File names should be machine readable (i.e., no spaces)
- - Human readable (`01_import_clean_data.R`)
+ - Human readable (`m_import_clean_data.R`)
  - Makes default ordering easy (i.e., dates are always `YYYY-MM-DD`)
 
 ### Treat raw data as *Read Only*
