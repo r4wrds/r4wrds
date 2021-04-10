@@ -475,12 +475,15 @@ Outliers are a fairly common problem in real world data. For some reason, one si
 
 ```{r inspect}
 
-library(glue) # package to help with pasting values/text together
+# package to help with pasting values/text together
+library(glue) 
 
+# find the SITE_CODE associated with the outlier
 id_problem <- gwl_diff %>% 
   filter(diff < -90) %>% 
   pull(SITE_CODE)
 
+# plot the outlier's hydrograph
 gwl_filt %>% 
   filter(SITE_CODE == id_problem) %>% 
   ggplot(aes(MSMT_DATE, GSE_WSE)) +
@@ -524,13 +527,14 @@ Next we can replot our map without this erroneous value, and spruce things up a 
 ```{r gwl-map-gwl-fixed}
 
 # read in major rivers in Sacramento County
-# riv <- read_rds(here("data", "sac_rivers.rds")) %>% 
-#   st_transform(st_crs(sac))
+riv <- read_rds(here("data", "sac_co_main_rivers_dissolved.rds")) %>%
+  st_transform(st_crs(sac))
 
 ggplot() +
   geom_sf(data = sac) +
-  geom_sf(data = gwl_diff, aes(fill = diff), pch = 21, size = 2.7, alpha = 0.8) +
-  # geom_sf(data = riv, color = "blue") +
+  geom_sf(data = riv, color = "blue") +
+  geom_sf(data = gwl_diff, aes(fill = diff), 
+          pch = 21, size = 2.7, alpha = 0.8) +
   scale_fill_viridis_c("GWL \nchange (ft)", option = "B", direction = -1) +
   facet_wrap(~WELL_USE) +
   labs(title = "Difference in groundwater elevation (ft)",
@@ -564,15 +568,55 @@ These trendlines suggest that observed depths to groundwater have increased duri
 
 ### Question 4: Relating groundwater to CES scores
 
-Finally, let's incorporate CES scores into our analysis and see how they relate to groundwater level trends. As a first cut, let's just look at the CES percentile (higher indicates a more negative outcome) on a basemap with `{mapview}`.
+Finally, let's incorporate CES scores into our analysis and see how they relate to groundwater level trends. First, let's look at CES scores in Sacramento County on a basemap with `{mapview}`. Scores are assigned per Census Tract. Urban areas tend to have higher CES scores due to greater exposures across the range of variables that CES measures.
+
+```{r, eval = FALSE}
+
+# CES3 data for Sac County
+st_read(here("data","calenviroscreen","CES3_shp","CES3June2018Update.shp")) %>% 
+  st_transform(st_crs(sac)) %>% 
+  st_intersection(sac) %>% 
+  write_rds(here("data","ces3_sac.rds"))
+
+```
+
+
+```{r ces-sac, out.width = "100%%"}
+library(mapview)
+library(colormap) # one of many color palette packages in R
+mapviewOptions(fgb = FALSE)
+
+# read pre-processed CES Score spatial file, plot the CES percentile
+ces <- read_rds(here("data", "ces3_sac.rds"))
+
+# calculate the population density per tract
+ces$pop_density <- ces$pop2010 / ces$Shape_Area
+
+# view the data
+mapview(select(ces, CIscoreP), 
+        zcol = "CIscoreP", 
+        layer.name = "CES Score") +
+  mapview(select(ces, pop_density), 
+          zcol = "pop_density", 
+          col.regions = colormap(colormaps$magma, nshades = 100),
+          layer.name = "Pop Density")
+
+```
+
+As a first cut, let's just look at the CES percentile (higher indicates a more negative outcome). 
 
 ```{r mv-ces, out.wdith = "100%"}
-library(mapview)
-mapviewOptions(fgb=FALSE)
 
-mapview(sac, alpha.regions = 0, color = "red", lwd = 2, layer.name = "Sac Co") + 
-  mapview(select(gwl_minimal, `CES 3.0 Percentile`), # only show CES score in table
-          zcol = "CES 3.0 Percentile", layer.name = "CES score")
+# sacramento polygon
+mapview(sac, alpha.regions = 0, color = "red", 
+        lwd = 2, layer.name = "Sac Co") +   
+  # select river name to only that in the table
+  mapview(select(riv, HYDNAME), color = "blue",
+          legend = FALSE) +
+  # select CES to only show CES score in table
+  mapview(select(gwl_minimal, `CES 3.0 Percentile`), 
+          zcol = "CES 3.0 Percentile", 
+          layer.name = "CES score")
 
 ```
 
