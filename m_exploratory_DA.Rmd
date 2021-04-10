@@ -581,7 +581,7 @@ st_read(here("data","calenviroscreen","CES3_shp","CES3June2018Update.shp")) %>%
 ```
 
 
-```{r ces-sac, out.width = "100%%"}
+```{r ces-sac, out.width = "100%"}
 library(mapview)
 library(colormap) # one of many color palette packages in R
 mapviewOptions(fgb = FALSE)
