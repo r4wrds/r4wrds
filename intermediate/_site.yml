@@ -1,0 +1,44 @@
+name: "R4WRDS"
+title: "R for Water Resources Data Science"
+description: |
+  R for Water Resources Data Science
+output_dir: "."
+# repository_url: https://github.com/ryanpeek/WRDS_intro/ # works with source_url
+include: [".nojekyll"]
+navbar:
+  title: "R4WRDS Intermediate Course"
+  type: inverse
+  # source_url: true # we do this with the GH icon
+  right:
+    - text: "Modules"
+      menu:
+        - text: "Module 1: "
+          href: m_install_R.html
+        - text: "Module 2: "
+          href: m_getting_started.html
+        - text: "Module 3:"
+          href: m_project_management.html
+        - text: "Module 4:"
+          href: m_importing_and_exporting_data.html
+        - text: "Module 5:"
+          href: m_ggplot.html
+        - text: "Module 6: "
+          href: m_data_structures.html
+        - text: "Module 7: "
+          href: m_dplyr.html
+        - text: "Module 8: "
+          href: m_pivots.html
+        - text: "Module 9: "
+          href: m_functions.html
+        - text: "Module 10: s"
+          href: m_joins.html
+    # - text: "Resources"
+    #   href: resources.html
+    - icon: fa-home fa-lg
+      href: ../index.html
+    - icon: fa-github fa-lg
+      href: https://github.com/ryanpeek/r4wrds/
+output:
+  distill::distill_article:
+    highlight: rstudio
+    css: styles.css

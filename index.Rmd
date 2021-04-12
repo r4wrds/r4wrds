@@ -1,80 +1,30 @@
 ---
-title: "WRDS-R Intro"
+title: "R for Water Resources Data Science (R4WRDS)"
 description: |
-  Unleasing the power of reproducible workflows for Water Resources Data Science (WRDS).
+  Select a course 
 site: distill::distill_website
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
 <style>
   .title{
     display: none;
   }
 </style>
 
-<br>
 
 
-# Welcome to the WRDS-R Intro Workshop!
 
-(ref:AHRemoteR) *Artwork by @allison_horst*
-
-```{r remoteLearning, eval=TRUE, echo=FALSE, out.width='60%', fig.cap='(ref:AHRemoteR)'}
-
-knitr::include_graphics(path = "https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/monster_support.jpg")
-
-```
-
-:::obj
-
-**Course Modules**
-
-In this course, we will:
-
-1. [Install R and RStudio](m_install_R.html)  
-2. [Get oriented in RStudio](m_getting_started.html)  
-3. [Practice data and file management: understand RProjects and file paths](m_project_management.html) 
-4. [Import and export various water resources data](m_importing_and_exporting_data.html)   
-5. [Visualize data with {`ggplot2`}](m_ggplot.html)   
-6. [Understand and identify different data structures (i.e., vectors, dataframes, lists)](m_data_structures.html)    
-7. [Transform data with {`dplyr`}](m_dplyr.html)    
-8. [Spreadsheets and pivots](m_pivots.html)    
-9. [Learn how to write custom functions](m_functions.html)  
-10. [Join different datasets together](m_joins.html)  
-11. [Use spatial data to create static and interactive maps](m_intro_mapmaking.html)  
-12. [Explore strategies for Exploratory Data Analysis (EDA)](m_exploratory_DA.html)  
-13. [Practice data presentation and communication with {`RMarkdown`}](m_intro_Rmarkdown.html)  
-14. [Explore strategies for troubleshooting (reading documentation, intro to reprex)](m_troubleshooting.html)  
-
-
-:::
+# [[1. Introductory Course]{style="color: #009E73"}](intro/index.html)
 
 <br>
 
-[R](https://www.r-project.org/) is a language for statistical computing as well as a general purpose programming language. Increasingly, it has become one of the primary languages used in data science for data analysis, modeling, and visualization. This workshop will provide attendees with a starting point for continued learning and use of R. We will cover a variety of commonly used file types (i.e., `.csv`, `.xlsx`, `.shp`) used in analysis, and provide resources for additional learning.
-
-<br>
-
-## Workshop Overview
-
-We will follow the [SFS Code of Conduct](https://freshwater-science.org/about/society-governance/code-of-conduct) throughout our workshop.
+# [[2. Intermediate Course]{style="color: #0072B2"}](intermediate/index.html)
 
 
-<br>
+------------------------------------------------------------------------
 
-## Source content
-
-All source materials for this website can be accessed at **[final GH location, perhaps CAOpenWater/wrds]**.
-
-<br>
-
-## Attribution
-
-Content in these lessons has been modified and/or adapted from [Data Carpentry: R for data analysis and visualization of Ecological Data](https://datacarpentry.org/R-ecology-lesson/index.html), the USGS-R training curriculum [here](https://github.com/USGS-R/training-curriculum), the NCEAS Open Science for Synthesis workshop [here](https://nceas.github.io/oss-2017/index.html), [Mapping in R](https://ryanpeek.org/mapping-in-R-workshop/), and the wonderful text [R for data science](https://github.com/hadley/r4ds).
-
-
----
-
-*site last updated: ```r format(Sys.time(), "%Y-%m-%d %H:%M")```*
+*site last updated: `r format(Sys.time(), "%Y-%m-%d %H:%M")`*
