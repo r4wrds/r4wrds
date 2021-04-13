@@ -1,0 +1,13 @@
+{
+  "articles": [
+    {
+      "path": "index.html",
+      "title": "R for Water Resources Data Science (R4WRDS)",
+      "description": "Select a course \n",
+      "author": [],
+      "contents": "\n\n  .title{\n    display: none;\n  }\n1. Introductory Course\n\n2. Intermediate Course\nsite last updated: 2021-04-12 12:19\n\n\n\n",
+      "last_modified": "2021-04-12T12:19:05-07:00"
+    }
+  ],
+  "collections": []
+}

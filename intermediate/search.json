@@ -1,0 +1,13 @@
+{
+  "articles": [
+    {
+      "path": "index.html",
+      "title": "R4WRDS Intermediate Course",
+      "description": "Increase your efficiency with \"R 4 Water Resources Data Science\" (R 4 WRDS).\n",
+      "author": [],
+      "contents": "\n\n  .title{\n    display: none;\n  }\n\nWelcome to the R4WRDS Intermediate Workshop!\n\n\n\n\nFigure 1: Artwork by @allison_horst\n\n\n\n\nCourse Modules\nIn this course, we will:\nInstall R and RStudio\nGet oriented in RStudio\nPractice data and file management: understand RProjects and file paths\nImport and export various water resources data\nVisualize data with {ggplot2}\nUnderstand and identify different data structures (i.e., vectors, dataframes, lists)\nTransform data with {dplyr}\nSpreadsheets and pivots\nLearn how to write custom functions\nJoin different datasets together\nUse spatial data to create static and interactive maps\nExplore strategies for Exploratory Data Analysis (EDA)\nPractice data presentation and communication with {RMarkdown}\nExplore strategies for troubleshooting (reading documentation, intro to reprex)\n\n\nR is a language for statistical computing as well as a general purpose programming language. Increasingly, it has become one of the primary languages used in data science for data analysis, modeling, and visualization. This workshop will provide attendees with a starting point for continued learning and use of R. We will cover a variety of commonly used file types (i.e., .csv, .xlsx, .shp) used in analysis, and provide resources for additional learning.\n\nWorkshop Overview\nWe will follow the SFS Code of Conduct throughout our workshop.\n\nSource content\nAll source materials for this website can be accessed at [final GH location, perhaps CAOpenWater/wrds].\n\nAttribution\nContent in these lessons has been modified and/or adapted from Data Carpentry: R for data analysis and visualization of Ecological Data, the USGS-R training curriculum here, the NCEAS Open Science for Synthesis workshop here, Mapping in R, and the wonderful text R for data science.\nsite last updated: 2021-04-12 12:37\n\n\n\n",
+      "last_modified": "2021-04-12T12:37:53-07:00"
+    }
+  ],
+  "collections": []
+}
