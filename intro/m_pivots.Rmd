@@ -1,0 +1,131 @@
+---
+title: "Spreadsheets & Pivoting"
+description: | 
+  Tidy data and best practices for spreadsheets!
+output: 
+  distill::distill_article:
+    toc: true
+---
+
+```{r setup, include=FALSE, purl=FALSE, message=FALSE}
+
+library(knitr)
+library(here)
+suppressPackageStartupMessages(library(tidyverse))
+
+```
+
+:::obj
+
+**Learning objectives**
+ 
+ - Understand what messy data is and how to avoid it
+ - Understand how to use spreadsheets effectively
+ - Learn to pivot your data to wide to long
+
+:::
+
+## Messy Spreadsheets
+
+Spreadsheets have been woven into nearly every facet and field, and while they are meant to make our lives easier, it is more typical that we spend untangling the data adventures they create. 
+
+However, a few simple tips about how to structure and use spreadsheets can make all the difference. While learning how to more effectively use spreadsheets *will* make life easier and more reproducible, there will always still be a messy dataset that comes your way.
+
+So let’s talk about what tidy data should look like, and then take a look at a messy real-life spreadsheet, and figure out what could be done to make it tidy!
+
+### **What is Tidy Data?**
+
+Typically when we look at data, we should always want it to be in a "tidy" format. To be in a tidy format, we want to have each **column** as a unique variable, and each **row** as a unique observation of data. 
+
+(ref:tidyData1) *Illustrations from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst*
+
+```{r tidydata, echo=FALSE, fig.cap="(ref:tidyData1)"}
+include_graphics("https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/tidydata_1.jpg")
+```
+
+### **Look at a Messy Dataset**
+
+Let's take a look at this **messy** dataset which is based on data from the [Using R lesson](m1_1_using_R.html). 
+
+ - You can either download this file directly ([DOWNLOAD `r icon::fa("download")`](https://github.com/ucd-cws/CABW2020_R_training/raw/main/data/csci_spreadsheet.xlsx)) and view on your computer
+ - Or just follow along with the screenshots below!
+
+<br>
+
+```{r messytab, out.width='100%'}
+include_graphics(paste0(here::here(), "/images/messy_spreadsheet.png"))
+```
+
+ 
+ <br>
+
+:::challenge
+
+**CHALLENGE 1**  
+
+ - **What issues do you notice about the first tab?**
+ - **What could we do to make this tidy?**
+
+:::
+
+<br>
+
+<details>
+  <summary class="challenge-ans-title">**Click for Answers!**</summary>
+  <div class="challenge-ans-body">
+ - Multiple tables on one sheet
+ - Figure embedded in the same sheet
+ - Tables start on different rows
+ - Table on far left doesn't have column headers so no idea what the data may be
+ - Mixed data (see last column in middle table)
+ - Dates could be easily switched if order unknown
+  </div>
+</details> 
+
+<br>
+
+<details><summary class="extra-practice-title">Extra Practice</summary>
+  <div class="extra-practice-body">
+*If you are interested in an excellent lesson on how to improve your spreadsheet skills, checkout the excellent lesson via [Data Carpentry: Data Organization in Spreadsheets for Ecologists](https://datacarpentry.org/spreadsheet-ecology-lesson/). This lesson should be read by anyone and everyone who uses spreadsheets (which is everyone), so go take a look!*
+  </div>
+</details
+
+<br>
+<br>
+
+## Import Data from (Excel) Spreadsheets
+
+Now that we have a general sense about what we may be up against, let's take a look at how to get some data in a spreadsheet into R. For this we will need a few new packages! The R environment has many packages, and there may be others with similar capabilities, but let's stick with these for now.
+
+```{r, echo=TRUE, eval=TRUE}
+library(tidyverse)
+library(openxlsx)
+library(readxl)
+```
+
+<br>
+
+### **Read data from a single tab**
+
+To start, let's try to read in the first tab (the *`messy`* one) in our worksheet. The `readxl::read_excel` function is pretty straightforward for this, requiring us to know where the spreadsheet lives on our computer (our `path`), and the tab or `sheet` of interest. **Arguments** to the function are in yellow, and **input values** are in blue.
+
+```{r readTab1, eval=TRUE, message=FALSE, include=FALSE}
+# load data
+messy <- readxl::read_excel(path = "data/csci_spreadsheet.xlsx", sheet = 1)
+```
+
+
+```{r, echo=FALSE, message=FALSE}
+decorate_chunk('readTab1') %>% 
+  flair_args(background="#FFBF00") %>% 
+  flair("data/csci_spreadsheet.xlsx", background="#6FCFEB") %>%
+  flair("1", background="#6FCFEB")
+```
+
+<br>
+
+Uh-oh. Something isn't quite right here. Take a look at the interactive table below. Scroll to the right. What happened?
+
+<br>
+
+<br>
