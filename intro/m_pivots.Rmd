@@ -25,35 +25,57 @@ suppressPackageStartupMessages(library(tidyverse))
 
 :::
 
-## Messy Spreadsheets
+## Spreadsheets
 
 Spreadsheets have been woven into nearly every facet and field, and while they are meant to make our lives easier, it is more typical that we spend untangling the data adventures they create. 
 
 However, a few simple tips about how to structure and use spreadsheets can make all the difference. While learning how to more effectively use spreadsheets *will* make life easier and more reproducible, there will always still be a messy dataset that comes your way.
 
-So let’s talk about what tidy data should look like, and then take a look at a messy real-life spreadsheet, and figure out what could be done to make it tidy!
+Let's go over what tidy data should look like, and then take a look at a messy real-life spreadsheet, and figure out what could be done to make it tidy!
 
-### **What is Tidy Data?**
+## What is Tidy Data?
 
 Typically when we look at data, we should always want it to be in a "tidy" format. To be in a tidy format, we want to have each **column** as a unique variable, and each **row** as a unique observation of data. 
 
 (ref:tidyData1) *Illustrations from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst*
 
 ```{r tidydata, echo=FALSE, fig.cap="(ref:tidyData1)"}
-include_graphics("https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/tidydata_1.jpg")
+include_graphics(here::here("images", "tidydata_1.jpg"))
 ```
 
-### **Look at a Messy Dataset**
 
-Let's take a look at this **messy** dataset which is based on data from the [Using R lesson](m1_1_using_R.html). 
+### Dealing with Messy Data
 
- - You can either download this file directly ([DOWNLOAD `r icon::fa("download")`](https://github.com/ucd-cws/CABW2020_R_training/raw/main/data/csci_spreadsheet.xlsx)) and view on your computer
- - Or just follow along with the screenshots below!
+Messy data has many forms and it exists *everywhere*. Much of data science hinges on cleaning up and reformatting data so it can be used in some way other than the form it exists in.
+
+(ref:tidyData2) *Illustrations from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst*
+
+```{r tidydata2, echo=FALSE, fig.cap="(ref:tidyData2)"}
+include_graphics(here::here("images", "tidydata_2.jpg"))
+```
+
+### Same Tools, Different Data
+
+The great news is we can use a similar set of tools to deal with tidying and cleaning our data, and once we've learned these tools, there are few datasets that will stand in your way (though some may take longer than others!). An important thing to learn is that ***tidy data starts the moment we begin recording information***. The more we can collect and update data in a "*tidy*" fashion, the less cleaning and wrangling is required to work with that data.
+
+(ref:tidyData3) *Illustrations from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst*
+
+```{r tidydata3, echo=FALSE, fig.cap="(ref:tidyData3)"}
+include_graphics(here::here("images", "tidydata_3.jpg"))
+```
+
+## Understanding Messy Spreadsheets
+
+An important step towards tidy data is learning to quickly spot where data is *messy* and what needs to be fixed.
+
+Let's take a look at this [**messy** spreadsheet data](downloadlinkhere) which is based on data from the [Calenviroscreen data](https://oehha.ca.gov/calenviroscreen) from previous modules. 
 
 <br>
 
-```{r messytab, out.width='100%'}
-include_graphics(paste0(here::here(), "/images/messy_spreadsheet.png"))
+```{r messytab, echo=FALSE, out.width='100%'}
+
+include_graphics(here::here("images", "messy_spreadsheet_2.png"))
+
 ```
 
  
@@ -63,7 +85,7 @@ include_graphics(paste0(here::here(), "/images/messy_spreadsheet.png"))
 
 **CHALLENGE 1**  
 
- - **What issues do you notice about the first tab?**
+ - **What issues do you notice about this spreadsheet?**
  - **What could we do to make this tidy?**
 
 :::
@@ -74,11 +96,10 @@ include_graphics(paste0(here::here(), "/images/messy_spreadsheet.png"))
   <summary class="challenge-ans-title">**Click for Answers!**</summary>
   <div class="challenge-ans-body">
  - Multiple tables on one sheet
- - Figure embedded in the same sheet
  - Tables start on different rows
- - Table on far left doesn't have column headers so no idea what the data may be
- - Mixed data (see last column in middle table)
- - Dates could be easily switched if order unknown
+ - Different date formats
+ - Different county spellings (see `California County`)
+ - Color encoding
   </div>
 </details> 
 
@@ -91,41 +112,13 @@ include_graphics(paste0(here::here(), "/images/messy_spreadsheet.png"))
 </details
 
 <br>
-<br>
 
-## Import Data from (Excel) Spreadsheets
+## Important Rules for Working with Spreadsheets
 
-Now that we have a general sense about what we may be up against, let's take a look at how to get some data in a spreadsheet into R. For this we will need a few new packages! The R environment has many packages, and there may be others with similar capabilities, but let's stick with these for now.
+If you have to work with a multi-tabbed spreadsheet (which we all do at some point), there are some basic rules/tips that can save you and anyone else that needs to work with the same spreadsheet.
 
-```{r, echo=TRUE, eval=TRUE}
-library(tidyverse)
-library(openxlsx)
-library(readxl)
-```
-
-<br>
-
-### **Read data from a single tab**
-
-To start, let's try to read in the first tab (the *`messy`* one) in our worksheet. The `readxl::read_excel` function is pretty straightforward for this, requiring us to know where the spreadsheet lives on our computer (our `path`), and the tab or `sheet` of interest. **Arguments** to the function are in yellow, and **input values** are in blue.
-
-```{r readTab1, eval=TRUE, message=FALSE, include=FALSE}
-# load data
-messy <- readxl::read_excel(path = "data/csci_spreadsheet.xlsx", sheet = 1)
-```
-
-
-```{r, echo=FALSE, message=FALSE}
-decorate_chunk('readTab1') %>% 
-  flair_args(background="#FFBF00") %>% 
-  flair("data/csci_spreadsheet.xlsx", background="#6FCFEB") %>%
-  flair("1", background="#6FCFEB")
-```
-
-<br>
-
-Uh-oh. Something isn't quite right here. Take a look at the interactive table below. Scroll to the right. What happened?
-
-<br>
-
-<br>
+ - have a README tab to record the general "what you did" 
+ - Where possible keep dates in YYYY-MM-DD or better yet, split date into a different column (i.e, Year, Month, Day, Hours, Minutes). We can easily stitch these together in R^[lubridate].
+ - Keep one table per tab and don't mix figures with tables!
+ - Keep column names clean and include units
+ - Don't use colors even though it's fun! You can see that as data while the computer can't.
