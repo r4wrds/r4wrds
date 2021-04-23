@@ -40,7 +40,7 @@ In this course, we will:
 5. [Visualize data with {`ggplot2`}](m_ggplot.html)   
 6. [Understand and identify different data structures (i.e., vectors, dataframes, lists)](m_data_structures.html)    
 7. [Transform data with {`dplyr`}](m_dplyr.html)    
-8. [Spreadsheets and pivots](m_pivots.html)    
+8. [Discuss spreadsheets and pivots](m_pivots.html)    
 9. [Learn how to write custom functions](m_functions.html)  
 10. [Join different datasets together](m_joins.html)  
 11. [Use spatial data to create static and interactive maps](m_intro_mapmaking.html)  
