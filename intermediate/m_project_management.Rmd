@@ -1,0 +1,153 @@
+---
+title: "Project Management & Data Organization"
+description: | 
+  Approaches towards organization and efficiency.
+output: 
+  distill::distill_article:
+    toc: true
+---
+
+```{r setup, include=FALSE, purl=FALSE, message=FALSE}
+
+library(knitr)
+
+```
+
+::: {.obj}
+**Learning objectives**
+
+-   Implement best practices for reproducible data science\
+-   Create and use an RStudio project (.RProj)\
+-   Understand filepaths and `{here}`\
+-   Understand how and when to modify `.RProfile` and `.Renviron` files
+-   Apply strategies to organize functions and scripts
+-   Understand package environments and how to manage them with `{renv}`
+:::
+
+## First principles
+
+The first step in any data science project is to set up and maintain a clean, predictable development environment. As you accumulate raw data, write code, and generate results, things can get messy. In this module we'll cover how to keep your projects organized, streamlined, and reproducible.
+
+**Although this is an intermediate level course, we will revisit [[introductory material on "Project Management"]{style="color: #009e73"}](../intro/m_project_management.html) because no matter your skill level in R, sound project management remains fundamental.** Subsequent modules in this course assume familiarity with `{here}`, `.Rproject`s, naming conventions, and general best practices. 
+
+After reviewing core introductory topics, we will discuss `.RProfile` and `.Renviron` files and when to use them.
+
+# .RProfile
+
+If you have user or project-level **code** that needs to be run every time you start up R, `.RProfile` can streamline this operation.
+
+The `.RProfile` file is an actual `.R` file that is automatically sourced as R code when you open an R session. A `.RProfile` file can live in the project root directory, or the user's home directory.
+
+<aside>
+
+You can also "show hidden files" (instructions for [Mac](https://www.macworld.co.uk/how-to/show-hidden-files-mac-3520878/) and [PC](https://support.microsoft.com/en-us/windows/show-hidden-files-0320fe58-0117-fd59-6851-9b7f9840fdb2)) and edit `.RProfile` in a text editor. You can also do so in R with `file.edit("~/.RProfile")`.
+
+</aside>
+
+The easiest and most consistent way to edit your `.RProfile` file across operating systems is with the `{usethis}` package. `usethis::edit_r_profile()` by default opens your user `.RProfile`.
+
+```{r usethis-rprofile, eval = FALSE}
+usethis::edit_r_profile()
+```
+
+You can edit the project-level `.RProfile` with the `scope` argument.
+
+```{r usethis-rprofile2, eval = FALSE}
+usethis::edit_r_profile(scope = "project")
+```
+
+Only one `.RProfile` can be loaded. If a project-level `.Rprofile` exists, it supercedes the user level `.Rprofile`.
+
+To illustrate how `.RProfile` works, let's do something cool and useless. We'll write a short progam that greets us with a random joke, and then we'll put in `.RProfile` so it runs whenever we start up R.
+
+The [`{cowsay}`](https://cran.r-project.org/web/packages/cowsay/vignettes/cowsay_tutorial.html) package is a fun way to print text animal art. 
+
+```{r cowsay}
+cowsay::say(what = "hello world!", by = "cow")
+```
+
+Let's randomize the animal displayed and make the message it says one of the "clean jokes" found at this [Github repo of jokes scraped from the internet](https://github.com/amoudgl/short-jokes-dataset), copy and paste the code into our `.RProfile`, and restart R.
+
+```{r cowsay2, eval = FALSE}
+animals <- names(cowsay::animals)
+jokes   <- readr::read_csv("https://raw.githubusercontent.com/amoudgl/short-jokes-dataset/master/data/reddit-cleanjokes.csv")  
+cowsay::say(sample(jokes$Joke, 1), by = sample(animals, 1))
+rm(animals, jokes) # remove created objects
+```
+
+
+# .Renviron
+
+Sometimes you need to store sensitive information, like API Keys, Database passwords, data storage paths, or general variables that are used across all scripts. We don't want to accidentally share these information, or copy and paste them over and over again from script to script. We also might want to build a codebase that relies on a few variables that another user can set in their own system in a way that works for them. Environmental variables are the way to address all of these concerns.
+
+Environmental variables are simply objects that store character strings. They are accessible from within R upon startup. To view all environmental variables, use `Sys.getenv()`.You can also pull out one environmental variable at a time by calling it by name, for instance:
+
+```{r getenv}
+
+Sys.getenv("USER")
+
+```
+
+You can set your own environmental variables which are stored in another hidden file (like `.RProfile`) called `.Renviron` (this is the Python analog of `.env`). 
+
+To illustrate the use of `.Renviron`, we use `usethis::edit_r_environ()`, add the environmental variable `ANIMAL = "cow"`, save and restart `R`.
+
+```{r usethis-renviron}
+usethis::edit_r_environ()
+```
+
+We can access our environmental variable (remember you need to restart R for changes to take effect) as follows:
+
+```{r usethis-renviron}
+Sys.getenv("ANIMAL")
+```
+
+We can use our environmental variable, for instance, in a function.
+
+```{r cowsay-function}
+tell_joke <- function(animal){
+  
+  jokes   <- readr::read_csv("https://raw.githubusercontent.com/amoudgl/short-jokes-dataset/master/data/reddit-cleanjokes.csv")  
+
+  cowsay::say(sample(jokes$Joke, 1), by = animal)
+}
+
+tell_joke(Sys.getenv("ANIMAL"))
+```
+
+
+# Strategies to organize functions and scripts
+
+functions up top
+functions in a script
+functions in a folder
+drake and packages
+
+
+# renv
+
+{here} streamlines sharing code because whoever opens your code will have a different project root path, and here takes care of that.
+
+development environments are similar. When we work in R, or any programming language, all of our packages  use a snapshot of package versions based on when we downloaded and installed them (e.g., `install.packages()`). You can check the version of installed packages you have with `sessionInfo()`
+
+```{r sessionInfo}
+sessionInfo()
+```
+
+The version number is the string of numbers listed after a package name and underscore.  
+
+<aside>
+Even the version of R itself changes, although base R changes very slowly and the R Core Team tries to make new versions of R backwards-compatible to not break scripts written before potentially breaking changes.
+</aside>
+
+Usually, when packages change between versions, these changes are designed to fix bugs or improve performance, but sometimes, they break code. Thus, collaborative work on a project can be challenged by people working on the same code but with different versions of packages.
+
+The solution to this is for everyone to use the same versions of packages (and R), which is to say the same ***development environment***. In other words, everyone should be able to print the same `sessionInfo()`. This is a common concept across programming languages.
+
+[`{renv}`]() manages your package environment and makes it easy to share it with others by creating and curating a "lock" file, `renv.lock` in the root project directory. When starting a project, create the file with `renv::`, install packages as you go along, and update the lockfile with `renv::`. When a collaborator opens your project (for example, after cloning it from Github), all they need to do is open the `.RProj` file and `{renv}` will bootstrap itself and set up the development environment captured in the lock file. 
+
+<aside>
+The `renv.lock` file is a JSON file with information on the version of R and the versions of all packages used by the project.
+</aside>
+
+*Lesson adapted from [R-DAVIS](https://gge-ucd.github.io/R-DAVIS/index.html), Jenny Bryan and Jim Hester's [What they forgot to teach you about R](rstats.wtf), and the [Data Carpentry: R for data analysis and visualization of Ecological Data](https://datacarpentry.org/R-ecology-lesson/index.html) lessons*.
