@@ -21,23 +21,23 @@ options(scipen = 25)
 **Learning objectives**
 
 -   Understand what messy data is and how to avoid it
--   Understand how to use spreadsheets effectively
--   Learn to pivot your data to wide to long
+-   Understand how to effectively use spreadsheets 
+-   Learn the difference between wide and long data, and how to pivot between wide and long formats 
 :::
 
 # Spreadsheets
 
-Spreadsheets have been woven into nearly every facet and field, and while they are meant to make our lives easier, it is more typical that we spend untangling the data adventures they create.
+Spreadsheets have been woven into nearly every facet and field, and although they are meant to make our lives easier, it is typical to spend lots of time untangling the data [mis]adventures they create.
 
-However, a few simple tips about how to structure and use spreadsheets can make all the difference. There will still always be messy datasets to face, but learning how to more effectively use spreadsheets *will* make life easier and more reproducible, and hopefully make these encounters less daunting.
+However, a few simple tips on how to structure and use spreadsheets can make all the difference. There will still always be messy datasets to face, but learning how to more effectively use spreadsheets *will* make life easier and more reproducible, and hopefully make these encounters less daunting.
 
-Let's go over what tidy data should look like, how to wrangle a messy real-life spreadsheet, and understand the difference between human readable and computer readable information.
+Let's go over what tidy data should look like, how to wrangle a messy real-life spreadsheet, and how to understand the difference between human readable and computer readable information.
 
 # What is Tidy Data?
 
-Ultimately spreadsheets (or any list or table of data) are attempting to take **human readable** data and turn it into ***computer readable*** data. The problem is we often like to add information that is only **human readable** (i.e., colors in spreadsheet). These bits of "flair" may be nice to visualize things, but they happen at the wrong stage. Computers will only interpret the literal data pieces from each cell, so if we want additional information to be converted, we need to store that information in a **computer readable** context.
+Ultimately spreadsheets (or any list or table of data) attempt to take **human readable** data and turn it into ***computer readable*** data. The problem is humans often like to add information that is only **human readable** (i.e., colors in spreadsheet). These bits of "flair" may be nice to visualize things, but computers can only interpret the literal pieces of data in each cell of a spreadsheet, so if we want additional information to be converted (like color, or what it represents), we need to store that information in a **computer readable** context.
 
-Typically when we look at data, we want it to be in a "tidy" format. To be in a tidy format, we want to have each **column** as a unique variable, and each **row** as a unique observation of data. Furthermore, any information we want the computer to retain should be stored as `variables` and not in side comments or coloring. This makes it possible for a computer to easily interpret these data, and avoids any unnecessary conversions or loss of data.
+Typically when we look at data, we want it to be in a "tidy" format. Data in a tidy format, means that each **column** is a unique variable, and each **row** is a unique observation of data. Furthermore, any information we want the computer to retain should be stored as `variables` and not in side comments or coloring. This makes it possible for a computer to easily interpret these data, and avoids any unnecessary conversions or loss of data.
 
 (ref:tidyData1) *Illustrations from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst*
 
@@ -47,7 +47,7 @@ include_graphics(here::here("images", "tidydata_1.jpg"))
 
 ## Dealing with Messy Data
 
-In reality, we will generally always encounter non-tidy data in the wild. Messy data has many forms and it exists *everywhere*. Much of data science hinges on cleaning up and reformatting data so it can be used in some way other than the form it exists in. The good news is the concept of tidy data can be applied to *any* dataset, and there are some very straightforward tips to make this easy to implement!
+In reality, we will generally encounter non-tidy data in the wild. Messy data comes in many forms and it exists *everywhere*. Much of data science hinges on cleaning up and reformatting data so it can be used in some way other than the form it exists in. The good news is the concept of tidy data can be applied to *any* dataset, and there are some very straightforward tips to make this easy to implement!
 
 (ref:tidyData2) *Illustrations from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst*
 
@@ -69,7 +69,7 @@ include_graphics(here::here("images", "tidydata_3.jpg"))
 
 An important step towards tidy data is learning to quickly spot where data is *messy* and what needs to be fixed.
 
-Let's take a look at this [**messy** spreadsheet data](downloadlinkhere) which is based on data from the [Calenviroscreen data](https://oehha.ca.gov/calenviroscreen) from previous modules.
+Let's take a look at this [**messy** spreadsheet data](https://github.com/richpauloo/r4wrds-data/raw/main/data/calenviroscreen/ces3results_messy.xlsx) which is based on data from the [Calenviroscreen data](https://oehha.ca.gov/calenviroscreen) from previous modules.
 
 <br>
 
@@ -149,7 +149,7 @@ include_graphics(here::here("images", "messy_spreadsheet_2.png"))
 
 ## Record what you did with `README` tab
 
-While programming languages like `R` allow us to write scripts or code that record every step of the process, spreadsheet programs use an interface that is based on points and clicks. It's easy to forget what we clicked on or what we did as we begin to clean/work with our data. An easy solution which your future self (or future collaborators) will thank you for is adding a **`README`** tab! This is where you can write notes about what things have been done to the data, ideally with sufficient information that future you or someone else would be able to reproduce your analysis or cleaned dataset by reading the **`README`**.
+While programming languages like `R` allow us to write scripts or code that record every step of the process, spreadsheet programs use an interface based on points and clicks. It's easy to forget what we clicked on or what we did as we begin to clean/work with our data. An easy solution which your future self (or future collaborators) will thank you for is adding a **`README`** tab! This is where you can write notes about what things have been done to the data, ideally with sufficient information that future you or someone else would be able to reproduce your analysis or cleaned dataset by reading the **`README`**.
 
 ```{r messytab3, echo=FALSE, out.width='80%'}
 
@@ -159,10 +159,10 @@ include_graphics(here::here("images", "messy_spreadsheet_3.png"))
 
 ## Date Standards
 
-Perhaps one of the most frustrating and frequent data snafus you may encounter is how dates or datetimes get formatted. An entire lesson could be devoted to dealing with datetime data, but we can simplify that to this one tip: keep dates formatted using the world standard^[see the [ISO 8601](https://xkcd.com/1179/) standard] of YYYY-MM-DD. Better yet, in spreadsheets, split the date into unique columns for Year, Month, and Day. It's straightforward to paste these back together and format them in R, and because they are then stored as simple integer values there will be no missed translations between people or computers. 
+Perhaps one of the most frustrating and frequent data snafus you may encounter is how dates or datetimes get formatted. An entire lesson could be devoted to dealing with datetime data, but we can simplify it to one rule: **keep dates formatted using the world standard^[See the [ISO 8601](https://xkcd.com/1179/) standard.] of YYYY-MM-DD**. Better yet, in spreadsheets, split the date into unique columns for Year, Month, and Day. It's straightforward to paste these back together and format them in R, and because they are then stored as simple integer values there will be no missed translations between people or computers. 
 
 <aside>
-The [Dates and Times lesson](https://r4ds.had.co.nz/dates-and-times.html#creating-datetimes#from-strings) from R4DS by H. Wickham & G. Grolemund is an excellent overview about dates and times. Does every minute always have 60 seconds?
+The [Dates and Times lesson](https://r4ds.had.co.nz/dates-and-times.html#creating-datetimes#from-strings) from R4DS by H. Wickham & G. Grolemund is an excellent overview on dates and times. Does every minute always have 60 seconds?
 </aside>
 
 ```{r datestands, echo=FALSE, out.width='80%', fig.retina=2}
@@ -173,7 +173,7 @@ include_graphics(here::here("images", "datestandards_global.png"))
 
 ## Keep one table per tab
 
-With spreadsheets, it is tempting to add additional summary tables in the same tab you may be working in. Or paste another table into the sheet your are working so you can calculate something using a formula. The issue arises when these data need to be read in by another program (e.g., R). A computer will not interpret the visual space our eyes may see between tables as an indication these tables are separate. Computers are literal, and thus every sheet or tab will always be interpreted as one table by the computer. Follow *tidy data* principles and keep one table for every sheet. It makes import and export simpler, and in reality tabs are cheap (as are columns). When in doubt, keep things separate and clearly delineated in a way that is both **computer readable** and **human readable**. This includes figures...resist the temptation to include figures in a spreadsheet with a table. Keep them separate!
+With spreadsheets, it is tempting to add additional summary tables in the same tab you may be working in, or paste another table into the sheet your are working so you can calculate something using a formula. When these data need to be read in by another program (e.g., R), a computer program cannot interpret the visual space our eyes may see between tables as an indication that these tables are separate. Computers are literal, and thus every sheet or tab will always be interpreted as one table by the computer. Follow *tidy data* principles and keep one table for every sheet. It makes import and export simpler, and in reality tabs are cheap (as are columns). When in doubt, keep things separate and clearly delineated in a way that is both **computer readable** and **human readable**. This includes figures...resist the temptation to include figures in a spreadsheet with a table. Keep them separate!
 
 ## Don't Merge or Color Data
 
@@ -191,12 +191,12 @@ Typos happen. Imagine the issues that arise when a number used to signify `NA` g
 
 </aside>
 
-While there is a potential risk to accidentally adding a space in a blank cell, the simple and easiest approach for missing or `NA` data is to leave cells blank. This is generally consistently interpreted by computer programming languages and avoids the need to remember which code was used to signify `NA`. This also means that a **`0`** is a **`0`**. Any data that is **`0`** should be encoded as such, and not left blank.
+Although there is a potential risk to accidentally add a space in a blank cell, the simple and easiest approach for missing or `NA` data is to leave cells blank. This is generally and consistently interpreted as a missing value by computer programming languages and avoids the need to remember which code was used to signify `NA`. This also means that a **`0`** is a **`0`**. Any data that is **`0`** should be encoded as such, and not left blank.
 
 
 # Pivoting
 
-When we enter data in a spreadsheet, the data is typically oriented in a ***wide*** format. This makes entry easier and is generally easier for us to see and explore the data. While ***wide*** data is good for entry, ***long*** data is much better for analysis and visualization. In particular, in `R`, the `{ggplot}` package prefers data in a ***long*** format, which facilitates easier filtering, grouping, and faceting of the data.
+When we enter data in a spreadsheet, the data is typically oriented in a ***wide*** format. This makes entry easier and is generally easier for us to see, enter, and explore the data. Although ***wide*** data is more human-friendly for data entry, ***long*** data is much better for analysis and visualization. In particular, in `R`, the `{ggplot}` package prefers data in a ***long*** format, which facilitates easier filtering, grouping, and faceting of the data.
 
 ## Wide to Long
 
@@ -208,7 +208,7 @@ ces <- read_xlsx(here("data", "calenviroscreen", "ces3results.xlsx"))
 str(ces)
 ```
 
-Note the different data classes here...even though all columns between `Ozone` and `Pop. Char. Pctl` should be numeric, there are a number of "`char`" data. This is because one of the issues with messy spreadsheets we discussed above. If we were to open the spreadsheet and scroll down through these columns, we may notice there are `NA`'s sprinkled throughout. When importing these data into R, those `NA` are interpreted as character class, and thus convert the entire column of numeric data to a character class as well. 
+Note the different data classes (`num`, `chr`, etc). Even though all columns between `Ozone` and `Pop. Char. Pctl` should be numeric, there are a number of "`chr`" or *character* data. This is because one of the issues with messy spreadsheets we discussed above. If we were to open the spreadsheet and scroll down through these columns, we may notice there are `NA`'s sprinkled throughout. When importing these data into R, those `NA` are interpreted as character class, and thus the entire column of numeric data is converted to a character class. 
 
 We know these data should all be numeric, so let's fix this using some `dplyr` knowledge and a cool function called `across()`. This allows us to apply a function over many columns in a dataset, and it can be used in `mutate()` or `summarize()`.
 
@@ -240,7 +240,7 @@ ncol(ces) # number of columns
 nrow(ces) # number of rows
 ```
 
-So, if we want to reformat or `pivot` this data from a wide format (there are `r ncol(ces)` columns, many of which are distinct variables measured as part of the CES calculation), we want to retain certain columns and collapse others. Let's focus on collapsing all the columns that are used to calculate the CES scores into a single column. So from `Ozone:Pop. Char. Pctl`, we should have one column we'll call `CES_input_variables` which will be all the various variable names from these columns, and a `CES_input_value` which will be the value associated with each of the columns we are collapsing or combining. We need the `{tidyr}` package for this, which is loaded as part of the `{tidyverse}`.
+So, if we want to reformat or `pivot` this data from a wide format (there are `r ncol(ces)` columns, many of which are distinct variables measured as part of the CES calculation), we want to retain certain columns and collapse others. Let's focus on collapsing all the columns that are used to calculate the CES scores into a single column. So from `Ozone:Pop. Char. Pctl`, we should have one column we'll call `CES_variables` which will be all the various variable names from these columns, and a `CES_value` which will be the value associated with each of the columns we are collapsing or combining. We need the `{tidyr}` package for this, which is loaded as part of the `{tidyverse}`.
 
 ```{r pivot-long, warning=FALSE}
 
@@ -249,9 +249,9 @@ ces_long <- pivot_longer(data = ces,
                          # the columns we want to pivot
                          cols = c(`Ozone`:`Pop. Char. Pctl`),
                          # name of column we create for pivoted col names above
-                         names_to = "CES_input_variables",
+                         names_to = "CES_variables",
                          # name of column we create for pivoted values
-                         values_to = "CES_input_values")
+                         values_to = "CES_values")
                           
 dim(ces_long)
 
@@ -262,19 +262,19 @@ Wow! We just condensed our dataset from wide to long by collapsing 46 variables 
 
 ## Long to Wide
 
-If we want to do the opposite, and provide these data for folks to add additional variables or enter data, we can use `pivot_wider`. Similar to `pivot_longer`, we need to specify our columns of interest for the names, and column of interest for the values.
+If we want to do the opposite, and provide these data for folks to add additional variables or enter data, we can use `pivot_wider()`. Similar to `pivot_longer()`, we need to specify our columns of interest for the names, and column of interest for the values.
 
 ```{r pivot-wide}
 
 ces_wide <- pivot_wider(data = ces_long,
-                        names_from = "CES_input_variables",
-                        values_from = "CES_input_values"
+                        names_from = "CES_variables",
+                        values_from = "CES_values"
                         )
 
 ```
 
 
-There are many additional options within the {tidyr} `pivot` functions. We recommend further reading on [*pivoting at R4DS*](https://r4ds.had.co.nz/tidy-data.html#pivoting) and the [*`{tidyr}` pivoting vignette*](https://tidyr.tidyverse.org/articles/pivot.html), as well as checking out the `separate()` and `unite()` functions from the same package.
+There are many additional options within the {tidyr} `pivot_` functions. We recommend further reading on [*pivoting at R4DS*](https://r4ds.had.co.nz/tidy-data.html#pivoting) and the [*`{tidyr}` pivoting vignette*](https://tidyr.tidyverse.org/articles/pivot.html), as well as checking out the `separate()` and `unite()` functions from the same package.
 
 Happy wrangling!
 
