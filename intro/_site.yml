@@ -48,5 +48,5 @@ navbar:
       href: https://github.com/ryanpeek/r4wrds/
 output:
   distill::distill_article:
-    highlight: rstudio
+    highlight: kate
     css: styles.css
