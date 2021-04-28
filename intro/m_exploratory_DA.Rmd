@@ -219,22 +219,21 @@ These plots tell us a lot about the distribution of monitoring wells in Sacramen
 
 <br>
 
-::: {.challenge}
+:::challenge
+
 <font color="#009E73">**Challenge 1: Grouped summary**</font>
 
 -   What is the average number of samples at each `SITE_CODE` per `WELL_USE`?
 -   Can you express the distribution of samples at each `SITE_CODE` per `WELL_USE` as a boxplot?
+
 :::
 
+<br>
+
 <details>
+  <summary class="challenge-ans-title"><font color="#0072B2">**Click for Answers!**</font></summary>
+  <div class="challenge-ans-body">
 
-<summary class="challenge-ans-title">
-
-**Click for Answers!**
-
-</summary>
-
-::: {.challenge-ans-body}
 ```{r chal-1a, eval=TRUE, echo=TRUE}
 
 # group by the site code and well use and count
@@ -253,8 +252,8 @@ count(gwl, SITE_CODE, WELL_USE) %>%
   coord_cartesian(ylim = c(0, 250)) 
 
 ```
-:::
 
+  </div>
 </details>
 
 ### Question 2: Well depths
@@ -301,21 +300,21 @@ The `diff()` function returns the difference between each value pair in a vector
 
 </aside>
 
-::: {.challenge}
+
+:::challenge
+
 <font color="#009E73">**Pause and think**</font>
 
--   Would we get a different boxplot if we passed in `gwl` instead of `gwl_minimal`? Which is correct to use and why?
+Would we get a different boxplot if we passed in `gwl` instead of `gwl_minimal`? Which is correct to use and why?
+
 :::
 
+<br>
+
 <details>
+  <summary class="challenge-ans-title"><font color="#0072B2">**Click for Answers!**</font></summary>
+  <div class="challenge-ans-body">
 
-<summary class="challenge-ans-title">
-
-**Click for Answers!**
-
-</summary>
-
-::: {.challenge-ans-body}
 We would indeed have a different result if we passed in `gwl` instead of `gwl_minimal`. Recall that `gwl` has `r nrow(gwl)` rows but there are `r length(unique(gwl$SITE_CODE))` unique `SITE_CODE`s in `gwl`. If we pass in `gwl` instead of `gwl_minimal`, we're computing a boxplot on duplicate values of `WELL_DEPTH` for each `SITE_CODE`, where the *number of samples per individual well* can influence the computed summary statistics. It's correct to use `gwl_minimal` because there's only one `WELL_DEPTH` for each `SITE_CODE`. This is easier to visualize than explain. Note the subtle difference in boxplots.
 
 ```{r chal-12a, eval=TRUE, echo=TRUE}
@@ -352,9 +351,10 @@ gwl_minimal %>%
 ```
 
 This is all to highlight that it's important to remember what data you're feeding into functions. Many a nightmarish bug has been caused by the data analyst thinking their data is in one form, when it's actually in another!
-:::
 
+  </div>
 </details>
+
 
 ### Question 3: Groundwater level change through time
 
