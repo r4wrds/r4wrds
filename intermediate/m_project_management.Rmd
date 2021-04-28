@@ -66,19 +66,20 @@ The [`{cowsay}`](https://cran.r-project.org/web/packages/cowsay/vignettes/cowsay
 cowsay::say(what = "hello world!", by = "cow")
 ```
 
-Let's randomize the animal displayed and make the message it says one of the "clean jokes" found at this [Github repo of jokes scraped from the internet](https://github.com/amoudgl/short-jokes-dataset), copy and paste the code into our `.RProfile`, and restart R.
+Let's randomize the animal displayed and make the message it says one of the motivational quotes found at this [Github repo](https://gist.github.com/JakubPetriska/060958fd744ca34f099e947cd080b540), copy and paste the code into our `.RProfile`, and restart R.
 
 ```{r cowsay2, eval = FALSE}
 animals <- names(cowsay::animals)
-jokes   <- readr::read_csv("https://raw.githubusercontent.com/amoudgl/short-jokes-dataset/master/data/reddit-cleanjokes.csv")  
-cowsay::say(sample(jokes$Joke, 1), by = sample(animals, 1))
-rm(animals, jokes) # remove created objects
+quotes  <- readr::read_csv("https://gist.githubusercontent.com/JakubPetriska/060958fd744ca34f099e947cd080b540/raw/963b5a9355f04741239407320ac973a6096cd7b6/quotes.csv")  
+quotes$full_quote  <- paste0(quotes$Quote, " -", quotes$Author)
+cowsay::say(sample(quotes$full_quote, 1), by = sample(animals, 1))
+rm(animals, quotes) # remove the objects we just created
 ```
 
 
 # .Renviron
 
-Sometimes you need to store sensitive information, like API Keys, Database passwords, data storage paths, or general variables that are used across all scripts. We don't want to accidentally share these information, or copy and paste them over and over again from script to script. We also might want to build a codebase that relies on a few variables that another user can set in their own system in a way that works for them. Environmental variables are the way to address all of these concerns.
+Sometimes you need to store sensitive information, like API Keys, Database passwords, data storage paths, or general variables used across all scripts. We don't want to accidentally share these information, accidentally push them to Github, or copy and paste them over and over again from script to script. We also might want to build a codebase that relies on a few variables that another user can set in their own system in a way that works for them. Environmental variables are the way to address all of these concerns.
 
 Environmental variables are simply objects that store character strings. They are accessible from within R upon startup. To view all environmental variables, use `Sys.getenv()`.You can also pull out one environmental variable at a time by calling it by name, for instance:
 
@@ -98,37 +99,180 @@ usethis::edit_r_environ()
 
 We can access our environmental variable (remember you need to restart R for changes to take effect) as follows:
 
-```{r usethis-renviron}
+```{r usethis-renviron2}
 Sys.getenv("ANIMAL")
 ```
 
 We can use our environmental variable, for instance, in a function.
 
 ```{r cowsay-function}
-tell_joke <- function(animal){
+inspire_me <- function(animal){
   
-  jokes   <- readr::read_csv("https://raw.githubusercontent.com/amoudgl/short-jokes-dataset/master/data/reddit-cleanjokes.csv")  
+  suppressMessages(
+    quotes  <- readr::read_csv("https://gist.githubusercontent.com/JakubPetriska/060958fd744ca34f099e947cd080b540/raw/963b5a9355f04741239407320ac973a6096cd7b6/quotes.csv")  
+  )
+  quotes$full_quote  <- paste0(quotes$Quote, " -", quotes$Author)
+  cowsay::say(sample(quotes$full_quote, 1), by = animal)
 
-  cowsay::say(sample(jokes$Joke, 1), by = animal)
 }
 
-tell_joke(Sys.getenv("ANIMAL"))
+inspire_me(Sys.getenv("ANIMAL"))
+```
+
+Although it may not appear powerful in this trivial example, when a project grows substantially large and complex, or when managing multiple sensitive passwords and access tokens, environmental variables should be what you reach for.
+
+
+# Strategies to organize projects
+
+Best practices for writing code across languages typically recommend moving package imports and function definitions to the top of a script, followed by code. For example:  
+
+```{r org-ex, eval = FALSE}
+# import packages
+library(<package 1>)
+library(<package 2>)
+
+# define functions
+my_first_function <- function(){
+  print("hello")
+}
+
+my_second_function <- function(){
+  print("world")
+}
+
+# code
+my_first_function()
+my_second_function()
+```
+
+These approaches work well when scripts are relatively simple, but as a project grows large and complex, it's best practice to abstract functions into another script or set of scripts, and break up your workflow into discrete steps.
+
+For instance, although the `inspire_me()` function above is relatively simple, we can pretend that the read, transform, and print steps carried out in the function were themselves long functions in part of a much more complex, real-world workflow. Imagine we created a script called `functions.R` that contained the following code:
+
+<aside>
+Notice that all functions start with `f_`. This prefix makes it easy to read in a script and takes advantage of auto-complete.
+</aside>
+
+```{r functions-r, eval = FALSE}
+# list packages in a vector and load them all
+pkgs <- c("readr", "cowsay")
+purrr::walk(pkgs, require, character.only = TRUE)
+
+# read quotes from a url
+f_read_data <- function(url){
+  suppressMessages(
+    quotes  <- read_csv(url)  
+  )
+  return(quotes)
+}
+
+# paste the quote to the author
+f_preprocess_data <- function(d){
+  d$full_quote  <- paste0(d$Quote, " -", d$Author)
+  return(d)
+}
+
+# print a random animal and a random quote
+f_inspire_me <- function(d){
+  animals <- names(animals)
+  say(sample(d$full_quote, 1), by = sample(animals, 1))
+}
+```
+
+We can call this script using `source()` to bring the functions into our environment.
+
+```{r source, eval = FALSE}
+
+source(here("functions.R"))
+
 ```
 
 
-# Strategies to organize functions and scripts
+However, this is hardly a satisfying solution because in a real project, our pretend functions above may grow quite large, and we will likely add more and more functions, such that script that holds them all, `functions.R` may become many hundreds of lines long, making it difficult to sift through and make debug or add new lines of code. Let's now move these functions to a directory `/functions` and store them all as separate files named after their function name:
 
-functions up top
-functions in a script
-functions in a folder
-drake and packages
+<aside>
+A good rule of thumb to follow is to try and keep scripts less than 150 lines in length. When scripts approach this length, they become difficult to keep track of, and there were likely missed opportunities to refactor the script into separate functions and modules.
+</aside>
+
+Save as `/functions/f_read_data.R`:
+
+```{r functions-r-1, eval = FALSE}
+
+# read quotes from a url
+f_read_data <- function(url){
+  suppressMessages(
+    quotes  <- read_csv(url)
+  )
+  return(quotes)
+}
+```
+
+Save as `/functions/f_preprocess_data.R`:
+
+```{r functions-r-2, eval = FALSE}
+# paste the quote to the author
+f_preprocess_data <- function(d){
+  d$full_quote  <- paste0(d$Quote, " -", d$Author)
+  return(d)
+}
+```
+
+Save as `/functions/f_inspire_me.R`:
+
+```{r functions-r-3, eval = FALSE}
+# print a random animal and a random quote
+f_inspire_me <- function(d){
+  animals <- names(animals)
+  say(sample(d$full_quote, 1), by = sample(animals, 1))
+}
+```
+
+The `functions` folder in the root project directory should now look like this:
+
+```{r function-img, echo = FALSE}
+knitr::include_graphics(here::here("images","function_img.png"))
+```
+
+
+Now in our `/code` directory, we create a script, `01_control.R` to source our functions and use them. Be sure to restart `R` to clear your environment before sourcing this control script.
+
+Save as `/code/01_control.R`:
+
+```{r source-functions-in-folder}
+# packages needed for this script
+pkgs <- c("readr", "cowsay", "here", "tidyverse")
+purrr::walk(pkgs, require, character.only = TRUE)
+
+# silently source all functions
+walk(list.files(here("functions"), full.names = TRUE), ~source(.x))
+
+# define the url where quotes are located
+url <- "https://gist.githubusercontent.com/JakubPetriska/060958fd744ca34f099e947cd080b540/raw/963b5a9355f04741239407320ac973a6096cd7b6/quotes.csv"
+
+# use all of our functions
+f_read_data(url) %>% 
+  f_preprocess_data() %>% 
+  f_inspire_me()
+```
+
+`source()` is the key to chaining together many scripts. In the example above, we were able to abstract functions into a separate folder which makes keeping track of them much easier than if they were cluttering our control script. 
+
+:::challenge
+
+<font color="#009E73">**Learn more**</font> 
+
+Separating all functions into standalone scripts is not a revolutionary idea -- in fact, this is precisely how R packages are written! For example, see the [`{dplyr}` github repo's /R folder](https://github.com/tidyverse/dplyr/tree/master/R) which contains all dplyr functions in one directory. When you call `library(dplyr)` you're essentially sourcing all of these functions into your environment. 
+
+If project management and reproducible data pipelines are interesting to you, check out the [`{drake}` R package](https://github.com/ropensci/drake). A similar framework for Shiny Apps exists called [`{golem}`](https://thinkr-open.github.io/golem/), which also includes `{usethis}`-like commands that streamline common chores in Shiny App development. 
+
+:::
 
 
 # renv
 
-{here} streamlines sharing code because whoever opens your code will have a different project root path, and here takes care of that.
+We use `{here}` because whoever opens your code will have a different project root path, and `{here}` ensures our code is portable between different users with different root project paths (e.g., `~/Documents/Github/myproject` v `C:\Users\louis\Documents\myproject`).
 
-development environments are similar. When we work in R, or any programming language, all of our packages  use a snapshot of package versions based on when we downloaded and installed them (e.g., `install.packages()`). You can check the version of installed packages you have with `sessionInfo()`
+Development environments are similar. When we work in `R` -- or any programming language for that matter -- we use a snapshot of package versions based on when we downloaded and installed them (e.g. with `install.packages()`). You can check the version of the installed packages loaded into your current environment with `sessionInfo()`.
 
 ```{r sessionInfo}
 sessionInfo()
@@ -136,18 +280,20 @@ sessionInfo()
 
 The version number is the string of numbers listed after a package name and underscore.  
 
+Similarly, you can use `installed.packages()` to view information on your installed packages.
+
+When packages change between versions, changes are typically designed to fix bugs or improve performance, but sometimes, they can break code. Thus, collaborative work on a project may be challenged by people working on the same code but with different versions of packages.
+
 <aside>
 Even the version of R itself changes, although base R changes very slowly and the R Core Team tries to make new versions of R backwards-compatible to not break scripts written before potentially breaking changes.
 </aside>
 
-Usually, when packages change between versions, these changes are designed to fix bugs or improve performance, but sometimes, they break code. Thus, collaborative work on a project can be challenged by people working on the same code but with different versions of packages.
+The solution to this problem is for everyone to use the same versions of packages (and `R`), which is to say that collaborators should use the same ***development environment***. This is a common concept across programming languages.
 
-The solution to this is for everyone to use the same versions of packages (and R), which is to say the same ***development environment***. In other words, everyone should be able to print the same `sessionInfo()`. This is a common concept across programming languages.
-
-[`{renv}`]() manages your package environment and makes it easy to share it with others by creating and curating a "lock" file, `renv.lock` in the root project directory. When starting a project, create the file with `renv::`, install packages as you go along, and update the lockfile with `renv::`. When a collaborator opens your project (for example, after cloning it from Github), all they need to do is open the `.RProj` file and `{renv}` will bootstrap itself and set up the development environment captured in the lock file. 
+[`{renv}`](https://rstudio.github.io/renv/articles/renv.html) manages your package environment and makes it easy to share it with others by creating and curating a "lock" file, `renv.lock` in the root project directory. When starting a project, create the file with `renv::init()`, install packages as you go along, and update the lockfile with `renv::snapshot()`. When a collaborator opens your project (for example, after cloning it from Github), all they need to do is open the `.RProj` file and `{renv}` will bootstrap itself and set up the development environment captured in the lock file. 
 
 <aside>
 The `renv.lock` file is a JSON file with information on the version of R and the versions of all packages used by the project.
 </aside>
 
-*Lesson adapted from [R-DAVIS](https://gge-ucd.github.io/R-DAVIS/index.html), Jenny Bryan and Jim Hester's [What they forgot to teach you about R](rstats.wtf), and the [Data Carpentry: R for data analysis and visualization of Ecological Data](https://datacarpentry.org/R-ecology-lesson/index.html) lessons*.
+If you find yourself needing to share important analyses, perhaps that run on a production server, you should look into `{renv}`. For most day-to-day data science though, it may be unnecessary. 
