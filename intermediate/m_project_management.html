@@ -2069,7 +2069,6 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 
   pre {
       font-size: 15px;
-      overflow-x:scroll;
   }
 
   /*blue comment box */
@@ -2365,15 +2364,21 @@ Modules
 </div>
 <h2 id="first-principles">First principles</h2>
 <p>The first step in any data science project is to set up and maintain a clean, predictable development environment. As you accumulate raw data, write code, and generate results, things can get messy. In this module we’ll cover how to keep your projects organized, streamlined, and reproducible.</p>
-<p><strong>Although this is an intermediate level course, we will revisit <a href="../intro/m_project_management.html"><span style="color: #009e73">introductory material on “Project Management”</span></a> because no matter your skill level in R, sound project management remains fundamental.</strong> Subsequent modules in this course assume familiarity with <code>{here}</code>, <code>.Rproject</code>s, naming conventions, and general best practices.</p>
+<div class="challenge">
+<p><font color="#009E73"><strong>REVIEW</strong></font></p>
+<ul>
+<li><strong>Although this is an intermediate level course, we will revisit <a href="../intro/m_project_management.html"><span style="color: #009e73">introductory material on “Project Management”</span></a> because no matter your skill level in R, strategic project management remains fundamental.</strong> Subsequent modules in this course assume familiarity with <code>{here}</code>, <code>.Rproject</code>s, naming conventions, and general best practices.</li>
+</ul>
+</div>
+<p><br></p>
 <p>After reviewing core introductory topics, we will discuss <code>.RProfile</code> and <code>.Renviron</code> files and when to use them.</p>
 <h1 id="rprofile">.RProfile</h1>
-<p>If you have user or project-level <strong>code</strong> that needs to be run every time you start up R, <code>.RProfile</code> can streamline this operation.</p>
-<p>The <code>.RProfile</code> file is an actual <code>.R</code> file that is automatically sourced as R code when you open an R session. A <code>.RProfile</code> file can live in the project root directory, or the user’s home directory.</p>
+<p>If you have user- or project-level <strong>code</strong> that needs to be run every time you start up R, <code>.RProfile</code> can streamline this operation.</p>
+<p>The <code>.RProfile</code> file is an actual (hidden) file that is automatically sourced as <code>R</code> code when you open an <code>R</code> session. A <code>.RProfile</code> file can live in the project root directory, or the user’s home directory, although only one <code>.RProfile</code> can be loaded. If a project-level <code>.Rprofile</code> exists, it supersedes the user-level <code>.Rprofile</code>.</p>
 <aside>
-<p>You can also “show hidden files” (instructions for <a href="https://www.macworld.co.uk/how-to/show-hidden-files-mac-3520878/">Mac</a> and <a href="https://support.microsoft.com/en-us/windows/show-hidden-files-0320fe58-0117-fd59-6851-9b7f9840fdb2">PC</a>) and edit <code>.RProfile</code> in a text editor. You can also do so in R with <code>file.edit("~/.RProfile")</code>.</p>
+<p>You can also “show hidden files” (instructions for <a href="https://www.macworld.co.uk/how-to/show-hidden-files-mac-3520878/">Mac</a> and <a href="https://support.microsoft.com/en-us/windows/show-hidden-files-0320fe58-0117-fd59-6851-9b7f9840fdb2">PC</a>) and edit <code>.RProfile</code> in a text editor. You can also do so in <code>R</code> with <code>file.edit("~/.RProfile")</code>.</p>
 </aside>
-<p>The easiest and most consistent way to edit your <code>.RProfile</code> file across operating systems is with the <code>{usethis}</code> package. <code>usethis::edit_r_profile()</code> by default opens your user <code>.RProfile</code>.</p>
+<p>The easiest and most consistent way to edit your <code>.RProfile</code> file across operating systems is with the <code>{usethis}</code> package. Run <code>usethis::edit_r_profile()</code> to opens your user-level <code>.RProfile</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>usethis</span><span class='fu'>::</span><span class='fu'><a href='https://usethis.r-lib.org/reference/edit.html'>edit_r_profile</a></span><span class='op'>(</span><span class='op'>)</span>
@@ -2387,8 +2392,7 @@ Modules
 </code></pre>
 </div>
 </div>
-<p>Only one <code>.RProfile</code> can be loaded. If a project-level <code>.Rprofile</code> exists, it supercedes the user level <code>.Rprofile</code>.</p>
-<p>To illustrate how <code>.RProfile</code> works, let’s do something cool and useless. We’ll write a short progam that greets us with a random joke, and then we’ll put in <code>.RProfile</code> so it runs whenever we start up R.</p>
+<p>To illustrate how <code>.RProfile</code> works, let’s do something cool and useless. We’ll write a short program that greets us with a random inspirational quote, and then we’ll put in <code>.RProfile</code> so it runs whenever we start up R.</p>
 <p>The <a href="https://cran.r-project.org/web/packages/cowsay/vignettes/cowsay_tutorial.html"><code>{cowsay}</code></a> package is a fun way to print text animal art.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -2418,7 +2422,7 @@ hello world!
 </div>
 <h1 id="renviron">.Renviron</h1>
 <p>Sometimes you need to store sensitive information, like API Keys, Database passwords, data storage paths, or general variables used across all scripts. We don’t want to accidentally share these information, accidentally push them to Github, or copy and paste them over and over again from script to script. We also might want to build a codebase that relies on a few variables that another user can set in their own system in a way that works for them. Environmental variables are the way to address all of these concerns.</p>
-<p>Environmental variables are simply objects that store character strings. They are accessible from within R upon startup. To view all environmental variables, use <code>Sys.getenv()</code>.You can also pull out one environmental variable at a time by calling it by name, for instance:</p>
+<p>Environmental variables are simply objects that store character strings. They are accessible from within R upon startup. To view all environmental variables, use <code>Sys.getenv()</code>. You can also pull out one environmental variable at a time by passing in its name, for instance:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span><span class='op'>(</span><span class='st'>"USER"</span><span class='op'>)</span>
@@ -2426,8 +2430,8 @@ hello world!
 </div>
 <pre><code>[1] &quot;richpauloo&quot;</code></pre>
 </div>
-<p>You can set your own environmental variables which are stored in another hidden file (like <code>.RProfile</code>) called <code>.Renviron</code> (this is the Python analog of <code>.env</code>).</p>
-<p>To illustrate the use of <code>.Renviron</code>, we use <code>usethis::edit_r_environ()</code>, add the environmental variable <code>ANIMAL = "cow"</code>, save and restart <code>R</code>.</p>
+<p>You can set your own environmental variables which are stored in another hidden file called <code>.Renviron</code> (this is the Python analog of <code>.env</code>).</p>
+<p>To illustrate the use of <code>.Renviron</code>, we run <code>usethis::edit_r_environ()</code>, add the environmental variable <code>ANIMAL = "cat"</code>, save, and restart <code>R</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>usethis</span><span class='fu'>::</span><span class='fu'><a href='https://usethis.r-lib.org/reference/edit.html'>edit_r_environ</a></span><span class='op'>(</span><span class='op'>)</span>
@@ -2440,7 +2444,7 @@ hello world!
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span><span class='op'>(</span><span class='st'>"ANIMAL"</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>[1] &quot;cow&quot;</code></pre>
+<pre><code>[1] &quot;cat&quot;</code></pre>
 </div>
 <p>We can use our environmental variable, for instance, in a function.</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -2459,35 +2463,47 @@ hello world!
 </code></pre>
 </div>
 <pre><code>
- ----- 
-We know from science that nothing in the universe exists as an isolated or independent entity. -Margaret Wheatley 
- ------ 
-    \   ^__^ 
-     \  (oo)\ ________ 
-        (__)\         )\ /\ 
-             ||------w|
-             ||      ||</code></pre>
+ -------------- 
+I think you can have moderate success by copying something else, but if you really want to knock it out of the park, you have to do something different and take chances. -Lee Womack 
+ --------------
+    \
+      \
+        \
+            |\___/|
+          ==) ^Y^ (==
+            \  ^  /
+             )=*=(
+            /     \
+            |     |
+           /| | | |\
+           \| | |_|/\
+      jgs  //_// ___/
+               \_)
+  </code></pre>
 </div>
 <p>Although it may not appear powerful in this trivial example, when a project grows substantially large and complex, or when managing multiple sensitive passwords and access tokens, environmental variables should be what you reach for.</p>
 <h1 id="strategies-to-organize-projects">Strategies to organize projects</h1>
-<p>Best practices for writing code across languages typically recommend moving package imports and function definitions to the top of a script, followed by code. For example:</p>
+<p>Best practices for writing code across languages typically recommend package imports and function definitions at the top of a script, followed by code. For example:</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># import packages</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="sc">&lt;</span>package <span class="dv">1</span><span class="sc">&gt;</span>)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="sc">&lt;</span>package <span class="dv">2</span><span class="sc">&gt;</span>)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># define functions</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>my_first_function <span class="ot">&lt;-</span> <span class="cf">function</span>(){</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;hello&quot;</span>)</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>my_second_function <span class="ot">&lt;-</span> <span class="cf">function</span>(){</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;world&quot;</span>)</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co"># code</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="fu">my_first_function</span>()</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="fu">my_second_function</span>()</span></code></pre></div>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># import packages</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>package_1</span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>package_2</span><span class='op'>)</span>
+
+<span class='co'># define functions</span>
+<span class='va'>my_first_function</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='op'>)</span><span class='op'>{</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='st'>"hello"</span><span class='op'>)</span>
+<span class='op'>}</span>
+
+<span class='va'>my_second_function</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='op'>)</span><span class='op'>{</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='st'>"world"</span><span class='op'>)</span>
+<span class='op'>}</span>
+
+<span class='co'># code</span>
+<span class='fu'>my_first_function</span><span class='op'>(</span><span class='op'>)</span>
+<span class='fu'>my_second_function</span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
 </div>
 <p>These approaches work well when scripts are relatively simple, but as a project grows large and complex, it’s best practice to abstract functions into another script or set of scripts, and break up your workflow into discrete steps.</p>
 <p>For instance, although the <code>inspire_me()</code> function above is relatively simple, we can pretend that the read, transform, and print steps carried out in the function were themselves long functions in part of a much more complex, real-world workflow. Imagine we created a script called <code>functions.R</code> that contained the following code:</p>
@@ -2533,7 +2549,7 @@ Notice that all functions start with <code>f_</code>. This prefix makes it easy 
 <aside>
 A good rule of thumb to follow is to try and keep scripts less than 150 lines in length. When scripts approach this length, they become difficult to keep track of, and there were likely missed opportunities to refactor the script into separate functions and modules.
 </aside>
-<p>Save as <code>/functions/f_read_data.R</code>:</p>
+<p>Save as <code>/functions/f_read_data.R</code></p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># read quotes from a url</span>
@@ -2546,7 +2562,7 @@ A good rule of thumb to follow is to try and keep scripts less than 150 lines in
 </code></pre>
 </div>
 </div>
-<p>Save as <code>/functions/f_preprocess_data.R</code>:</p>
+<p>Save as <code>/functions/f_preprocess_data.R</code></p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># paste the quote to the author</span>
@@ -2557,7 +2573,7 @@ A good rule of thumb to follow is to try and keep scripts less than 150 lines in
 </code></pre>
 </div>
 </div>
-<p>Save as <code>/functions/f_inspire_me.R</code>:</p>
+<p>Save as <code>/functions/f_inspire_me.R</code></p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># print a random animal and a random quote</span>
@@ -2573,7 +2589,7 @@ A good rule of thumb to follow is to try and keep scripts less than 150 lines in
 <p><img src="images/function_img.png" width="837" /></p>
 </div>
 <p>Now in our <code>/code</code> directory, we create a script, <code>01_control.R</code> to source our functions and use them. Be sure to restart <code>R</code> to clear your environment before sourcing this control script.</p>
-<p>Save as <code>/code/01_control.R</code>:</p>
+<p>Save as <code>/code/01_control.R</code> and run.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># packages needed for this script</span>
@@ -2593,29 +2609,35 @@ A good rule of thumb to follow is to try and keep scripts less than 150 lines in
 </code></pre>
 </div>
 <pre><code>
-
- ----- 
-It is easier to live through someone else than to become complete yourself. -Betty Friedan 
- ------ 
-    \   
-     \   __
-   / \
-   | |
-   @ @
-  || ||
-  || ||
-  |\_/|
-  \___/ GB</code></pre>
+ ------------- 
+Whoever is happy will make others happy, too. -Mark Twain 
+ -------------- 
+              \   
+               \  
+                \
+        __.--&#39;\     \.__./     /&#39;--.__
+    _.-&#39;       &#39;.__.&#39;    &#39;.__.&#39;       &#39;-._
+  .&#39;                                      &#39;.
+ /                                          \
+|                                            |
+|                                            |
+ \         .---.              .---.         /
+  &#39;._    .&#39;     &#39;.&#39;&#39;.    .&#39;&#39;.&#39;     &#39;.    _.&#39;
+     &#39;-./            \  /           \.-&#39;
+                      &#39;&#39;mrf</code></pre>
 </div>
-<p><code>source()</code> is the key to chaining together many scripts. In the example above, we were able to abstract functions into a separate folder which makes keeping track of them much easier than if they were cluttering our control script.</p>
+<p><code>source()</code> is the key to chaining together many scripts. In the example above, we were able to abstract functions into a separate folder which makes keeping track of them much easier than if they cluttered our control script.</p>
+<aside>
+It’s also a good rule of thumb to keep each line of code less than 75 characters long to ease readability.
+</aside>
 <div class="challenge">
 <p><font color="#009E73"><strong>Learn more</strong></font></p>
 <p>Separating all functions into standalone scripts is not a revolutionary idea – in fact, this is precisely how R packages are written! For example, see the <a href="https://github.com/tidyverse/dplyr/tree/master/R"><code>{dplyr}</code> github repo’s /R folder</a> which contains all dplyr functions in one directory. When you call <code>library(dplyr)</code> you’re essentially sourcing all of these functions into your environment.</p>
 <p>If project management and reproducible data pipelines are interesting to you, check out the <a href="https://github.com/ropensci/drake"><code>{drake}</code> R package</a>. A similar framework for Shiny Apps exists called <a href="https://thinkr-open.github.io/golem/"><code>{golem}</code></a>, which also includes <code>{usethis}</code>-like commands that streamline common chores in Shiny App development.</p>
 </div>
 <h1 id="renv">renv</h1>
-<p>We use <code>{here}</code> because whoever opens your code will have a different project root path, and <code>{here}</code> ensures our code is portable between different users with different root project paths (e.g., <code>~/Documents/Github/myproject</code> v <code>C:\Users\louis\Documents\myproject</code>).</p>
-<p>Development environments are similar. When we work in <code>R</code> – or any programming language for that matter – we use a snapshot of package versions based on when we downloaded and installed them (e.g. with <code>install.packages()</code>). You can check the version of the installed packages loaded into your current environment with <code>sessionInfo()</code>.</p>
+<p>We use <code>{here}</code> because we expect that whoever else opens your code on their machine is likely to have a different project root path, and <code>{here}</code> ensures your code is portable between different computers with different root project paths (e.g., <code>~/Documents/Github/myproject</code> v <code>C:\Users\louis\Documents\myproject</code>).</p>
+<p>Development environments are similar. When we work in <code>R</code> – or any programming language for that matter – we use a snapshot of package versions based on when we downloaded and installed them [e.g. with <code>install.packages()</code>]. You can check the version of the installed packages loaded into your current environment with <code>sessionInfo()</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/sessionInfo.html'>sessionInfo</a></span><span class='op'>(</span><span class='op'>)</span>
@@ -2664,18 +2686,18 @@ loaded via a namespace (and not attached):
 [58] ggtext_0.1.1      compiler_4.0.2   </code></pre>
 </div>
 <p>The version number is the string of numbers listed after a package name and underscore.</p>
-<p>Similarly, you can use <code>installed.packages()</code> to view information on your installed packages.</p>
+<p>Similarly, you can use <code>installed.packages()</code> to view information on all of your installed packages.</p>
 <p>When packages change between versions, changes are typically designed to fix bugs or improve performance, but sometimes, they can break code. Thus, collaborative work on a project may be challenged by people working on the same code but with different versions of packages.</p>
 <aside>
 Even the version of R itself changes, although base R changes very slowly and the R Core Team tries to make new versions of R backwards-compatible to not break scripts written before potentially breaking changes.
 </aside>
 <p>The solution to this problem is for everyone to use the same versions of packages (and <code>R</code>), which is to say that collaborators should use the same <strong><em>development environment</em></strong>. This is a common concept across programming languages.</p>
-<p><a href="https://rstudio.github.io/renv/articles/renv.html"><code>{renv}</code></a> manages your package environment and makes it easy to share it with others by creating and curating a “lock” file, <code>renv.lock</code> in the root project directory. When starting a project, create the file with <code>renv::init()</code>, install packages as you go along, and update the lockfile with <code>renv::snapshot()</code>. When a collaborator opens your project (for example, after cloning it from Github), all they need to do is open the <code>.RProj</code> file and <code>{renv}</code> will bootstrap itself and set up the development environment captured in the lock file.</p>
+<p><a href="https://rstudio.github.io/renv/articles/renv.html"><code>{renv}</code></a> manages your package environment and makes it easy to share it with others by creating and curating a “lock” file (<code>renv.lock</code>) in the root project directory. When starting a project, create the file with <code>renv::init()</code>, install packages as you go along, and update the lockfile with <code>renv::snapshot()</code>. When a collaborator opens your project (for example, after cloning it from Github), all they need to do is open the <code>.RProj</code> file and <code>{renv}</code> will bootstrap itself and set up the development environment captured in the lock file.</p>
 <aside>
 The <code>renv.lock</code> file is a JSON file with information on the version of R and the versions of all packages used by the project.
 </aside>
-<p>If you find yourself needing to share important analyses, perhaps that run on a production server, you should look into <code>{renv}</code>. For most day-to-day data science though, it may be unnecessary.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<p>If you find yourself needing to share important analyses, perhaps that run on a production server, you should look into <code>{renv}</code>. For most day-to-day data science that you don’t plan on sharing or working collaboratively on, it may be unnecessary.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>

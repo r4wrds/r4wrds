@@ -28,23 +28,31 @@ library(knitr)
 
 The first step in any data science project is to set up and maintain a clean, predictable development environment. As you accumulate raw data, write code, and generate results, things can get messy. In this module we'll cover how to keep your projects organized, streamlined, and reproducible.
 
-**Although this is an intermediate level course, we will revisit [[introductory material on "Project Management"]{style="color: #009e73"}](../intro/m_project_management.html) because no matter your skill level in R, sound project management remains fundamental.** Subsequent modules in this course assume familiarity with `{here}`, `.Rproject`s, naming conventions, and general best practices. 
+:::challenge
+
+<font color="#009E73">**REVIEW**</font> 
+
+- **Although this is an intermediate level course, we will revisit [[introductory material on "Project Management"]{style="color: #009e73"}](../intro/m_project_management.html) because no matter your skill level in R, strategic project management remains fundamental.** Subsequent modules in this course assume familiarity with `{here}`, `.Rproject`s, naming conventions, and general best practices. 
+
+:::
+
+<br>
 
 After reviewing core introductory topics, we will discuss `.RProfile` and `.Renviron` files and when to use them.
 
 # .RProfile
 
-If you have user or project-level **code** that needs to be run every time you start up R, `.RProfile` can streamline this operation.
+If you have user- or project-level **code** that needs to be run every time you start up R, `.RProfile` can streamline this operation.
 
-The `.RProfile` file is an actual `.R` file that is automatically sourced as R code when you open an R session. A `.RProfile` file can live in the project root directory, or the user's home directory.
+The `.RProfile` file is an actual (hidden) file that is automatically sourced as `R` code when you open an `R` session. A `.RProfile` file can live in the project root directory, or the user's home directory, although only one `.RProfile` can be loaded. If a project-level `.Rprofile` exists, it supersedes the user-level `.Rprofile`.
 
 <aside>
 
-You can also "show hidden files" (instructions for [Mac](https://www.macworld.co.uk/how-to/show-hidden-files-mac-3520878/) and [PC](https://support.microsoft.com/en-us/windows/show-hidden-files-0320fe58-0117-fd59-6851-9b7f9840fdb2)) and edit `.RProfile` in a text editor. You can also do so in R with `file.edit("~/.RProfile")`.
+You can also "show hidden files" (instructions for [Mac](https://www.macworld.co.uk/how-to/show-hidden-files-mac-3520878/) and [PC](https://support.microsoft.com/en-us/windows/show-hidden-files-0320fe58-0117-fd59-6851-9b7f9840fdb2)) and edit `.RProfile` in a text editor. You can also do so in `R` with `file.edit("~/.RProfile")`.
 
 </aside>
 
-The easiest and most consistent way to edit your `.RProfile` file across operating systems is with the `{usethis}` package. `usethis::edit_r_profile()` by default opens your user `.RProfile`.
+The easiest and most consistent way to edit your `.RProfile` file across operating systems is with the `{usethis}` package. Run `usethis::edit_r_profile()` to opens your user-level `.RProfile`.
 
 ```{r usethis-rprofile, eval = FALSE}
 usethis::edit_r_profile()
@@ -56,9 +64,8 @@ You can edit the project-level `.RProfile` with the `scope` argument.
 usethis::edit_r_profile(scope = "project")
 ```
 
-Only one `.RProfile` can be loaded. If a project-level `.Rprofile` exists, it supercedes the user level `.Rprofile`.
 
-To illustrate how `.RProfile` works, let's do something cool and useless. We'll write a short progam that greets us with a random joke, and then we'll put in `.RProfile` so it runs whenever we start up R.
+To illustrate how `.RProfile` works, let's do something cool and useless. We'll write a short program that greets us with a random inspirational quote, and then we'll put in `.RProfile` so it runs whenever we start up R.
 
 The [`{cowsay}`](https://cran.r-project.org/web/packages/cowsay/vignettes/cowsay_tutorial.html) package is a fun way to print text animal art. 
 
@@ -81,7 +88,7 @@ rm(animals, quotes) # remove the objects we just created
 
 Sometimes you need to store sensitive information, like API Keys, Database passwords, data storage paths, or general variables used across all scripts. We don't want to accidentally share these information, accidentally push them to Github, or copy and paste them over and over again from script to script. We also might want to build a codebase that relies on a few variables that another user can set in their own system in a way that works for them. Environmental variables are the way to address all of these concerns.
 
-Environmental variables are simply objects that store character strings. They are accessible from within R upon startup. To view all environmental variables, use `Sys.getenv()`.You can also pull out one environmental variable at a time by calling it by name, for instance:
+Environmental variables are simply objects that store character strings. They are accessible from within R upon startup. To view all environmental variables, use `Sys.getenv()`. You can also pull out one environmental variable at a time by passing in its name, for instance:
 
 ```{r getenv}
 
@@ -89,9 +96,9 @@ Sys.getenv("USER")
 
 ```
 
-You can set your own environmental variables which are stored in another hidden file (like `.RProfile`) called `.Renviron` (this is the Python analog of `.env`). 
+You can set your own environmental variables which are stored in another hidden file called `.Renviron` (this is the Python analog of `.env`). 
 
-To illustrate the use of `.Renviron`, we use `usethis::edit_r_environ()`, add the environmental variable `ANIMAL = "cow"`, save and restart `R`.
+To illustrate the use of `.Renviron`, we run `usethis::edit_r_environ()`, add the environmental variable `ANIMAL = "cat"`, save, and restart `R`.
 
 ```{r usethis-renviron}
 usethis::edit_r_environ()
@@ -124,12 +131,12 @@ Although it may not appear powerful in this trivial example, when a project grow
 
 # Strategies to organize projects
 
-Best practices for writing code across languages typically recommend moving package imports and function definitions to the top of a script, followed by code. For example:  
+Best practices for writing code across languages typically recommend package imports and function definitions at the top of a script, followed by code. For example:  
 
 ```{r org-ex, eval = FALSE}
 # import packages
-library(<package 1>)
-library(<package 2>)
+library(package_1)
+library(package_2)
 
 # define functions
 my_first_function <- function(){
@@ -194,7 +201,7 @@ However, this is hardly a satisfying solution because in a real project, our pre
 A good rule of thumb to follow is to try and keep scripts less than 150 lines in length. When scripts approach this length, they become difficult to keep track of, and there were likely missed opportunities to refactor the script into separate functions and modules.
 </aside>
 
-Save as `/functions/f_read_data.R`:
+Save as `/functions/f_read_data.R`
 
 ```{r functions-r-1, eval = FALSE}
 
@@ -207,7 +214,7 @@ f_read_data <- function(url){
 }
 ```
 
-Save as `/functions/f_preprocess_data.R`:
+Save as `/functions/f_preprocess_data.R`
 
 ```{r functions-r-2, eval = FALSE}
 # paste the quote to the author
@@ -217,7 +224,7 @@ f_preprocess_data <- function(d){
 }
 ```
 
-Save as `/functions/f_inspire_me.R`:
+Save as `/functions/f_inspire_me.R`
 
 ```{r functions-r-3, eval = FALSE}
 # print a random animal and a random quote
@@ -236,7 +243,7 @@ knitr::include_graphics(here::here("images","function_img.png"))
 
 Now in our `/code` directory, we create a script, `01_control.R` to source our functions and use them. Be sure to restart `R` to clear your environment before sourcing this control script.
 
-Save as `/code/01_control.R`:
+Save as `/code/01_control.R` and run.
 
 ```{r source-functions-in-folder}
 # packages needed for this script
@@ -255,7 +262,11 @@ f_read_data(url) %>%
   f_inspire_me()
 ```
 
-`source()` is the key to chaining together many scripts. In the example above, we were able to abstract functions into a separate folder which makes keeping track of them much easier than if they were cluttering our control script. 
+`source()` is the key to chaining together many scripts. In the example above, we were able to abstract functions into a separate folder which makes keeping track of them much easier than if they cluttered our control script. 
+
+<aside>
+It's also a good rule of thumb to keep each line of code less than 75 characters long to ease readability.
+</aside>
 
 :::challenge
 
@@ -270,9 +281,9 @@ If project management and reproducible data pipelines are interesting to you, ch
 
 # renv
 
-We use `{here}` because whoever opens your code will have a different project root path, and `{here}` ensures our code is portable between different users with different root project paths (e.g., `~/Documents/Github/myproject` v `C:\Users\louis\Documents\myproject`).
+We use `{here}` because we expect that whoever else opens your code on their machine is likely to have a different project root path, and `{here}` ensures your code is portable between different computers with different root project paths (e.g., `~/Documents/Github/myproject` v `C:\Users\louis\Documents\myproject`).
 
-Development environments are similar. When we work in `R` -- or any programming language for that matter -- we use a snapshot of package versions based on when we downloaded and installed them (e.g. with `install.packages()`). You can check the version of the installed packages loaded into your current environment with `sessionInfo()`.
+Development environments are similar. When we work in `R` -- or any programming language for that matter -- we use a snapshot of package versions based on when we downloaded and installed them [e.g. with `install.packages()`]. You can check the version of the installed packages loaded into your current environment with `sessionInfo()`.
 
 ```{r sessionInfo}
 sessionInfo()
@@ -280,7 +291,7 @@ sessionInfo()
 
 The version number is the string of numbers listed after a package name and underscore.  
 
-Similarly, you can use `installed.packages()` to view information on your installed packages.
+Similarly, you can use `installed.packages()` to view information on all of your installed packages.
 
 When packages change between versions, changes are typically designed to fix bugs or improve performance, but sometimes, they can break code. Thus, collaborative work on a project may be challenged by people working on the same code but with different versions of packages.
 
@@ -290,10 +301,10 @@ Even the version of R itself changes, although base R changes very slowly and th
 
 The solution to this problem is for everyone to use the same versions of packages (and `R`), which is to say that collaborators should use the same ***development environment***. This is a common concept across programming languages.
 
-[`{renv}`](https://rstudio.github.io/renv/articles/renv.html) manages your package environment and makes it easy to share it with others by creating and curating a "lock" file, `renv.lock` in the root project directory. When starting a project, create the file with `renv::init()`, install packages as you go along, and update the lockfile with `renv::snapshot()`. When a collaborator opens your project (for example, after cloning it from Github), all they need to do is open the `.RProj` file and `{renv}` will bootstrap itself and set up the development environment captured in the lock file. 
+[`{renv}`](https://rstudio.github.io/renv/articles/renv.html) manages your package environment and makes it easy to share it with others by creating and curating a "lock" file (`renv.lock`) in the root project directory. When starting a project, create the file with `renv::init()`, install packages as you go along, and update the lockfile with `renv::snapshot()`. When a collaborator opens your project (for example, after cloning it from Github), all they need to do is open the `.RProj` file and `{renv}` will bootstrap itself and set up the development environment captured in the lock file. 
 
 <aside>
 The `renv.lock` file is a JSON file with information on the version of R and the versions of all packages used by the project.
 </aside>
 
-If you find yourself needing to share important analyses, perhaps that run on a production server, you should look into `{renv}`. For most day-to-day data science though, it may be unnecessary. 
+If you find yourself needing to share important analyses, perhaps that run on a production server, you should look into `{renv}`. For most day-to-day data science that you don't plan on sharing or working collaboratively on, it may be unnecessary. 
