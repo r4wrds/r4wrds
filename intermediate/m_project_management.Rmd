@@ -10,6 +10,7 @@ output:
 ```{r setup, include=FALSE, purl=FALSE, message=FALSE}
 
 library(knitr)
+library(formatR)
 
 ```
 
@@ -26,25 +27,35 @@ library(knitr)
 
 ## First principles
 
-The first step in any data science project is to set up and maintain a clean, predictable development environment. As you accumulate raw data, write code, and generate results, things can get messy. In this module we'll cover how to keep your projects organized, streamlined, and reproducible.
+The first step in any data science project is to set up and maintain a clean, predictable **development environment**. As you accumulate raw data, write code, and generate results, things can get messy if you don't stick to good programming naming and organization habits. In this module we'll cover how to keep your projects organized and consistent, which ultimately will make projects more reproducible and keep your workflow more efficient and fun.
+
+<aside>
+
+What makes a predictable development environment? What is a *development environment?*
+
+</aside>
 
 :::challenge
 
 <font color="#009E73">**REVIEW**</font> 
 
-- **Although this is an intermediate level course, we will revisit [[introductory material on "Project Management"]{style="color: #009e73"}](../intro/m_project_management.html) because no matter your skill level in R, strategic project management remains fundamental.** Subsequent modules in this course assume familiarity with `{here}`, `.Rproject`s, naming conventions, and general best practices. 
+- **Although this is an intermediate level course, we will revisit [[introductory material on "Project Management"]{style="color: #009e73"}](../intro/m_project_management.html) because no matter your skill level in R, strategic project management remains fundamental.** Subsequent modules in this course assume familiarity with `{here}`, `.Rproject`s, naming conventions, and general data science best practices. 
 
 :::
 
 <br>
 
-After reviewing core introductory topics, we will discuss `.RProfile` and `.Renviron` files and when to use them.
+After reviewing core introductory topics, we will discuss `.RProfile` and `.Renviron` files and when to use them. To review core best practices we recommend particular familiarity with the following concepts:
+
+ - [Filenaming](https://r4wrds.com/intro/m_project_management.html#safe-file-naming)
+ - [Relative filepaths and the **`{here}`** package](https://r4wrds.com/intro/m_project_management.html#file-paths)
+ - [Best practices for project organization](https://r4wrds.com/intro/m_project_management.html#best-practices-organization-tips)
 
 # .RProfile
 
-If you have user- or project-level **code** that needs to be run every time you start up R, `.RProfile` can streamline this operation.
+If you have user- or project-level **code** that needs to be run every time you start up R, customizing your `.RProfile` can streamline this operation.
 
-The `.RProfile` file is an actual (hidden) file that is automatically sourced as `R` code when you open an `R` session. A `.RProfile` file can live in the project root directory, or the user's home directory, although only one `.RProfile` can be loaded. If a project-level `.Rprofile` exists, it supersedes the user-level `.Rprofile`.
+The `.RProfile` file is an actual (hidden) file that is automatically sourced (run) as `R` code when you open an `R` session. A `.RProfile` file can live in the project root directory, or the user's home directory, although only one `.RProfile` can be loaded per R session or RProject. If a project-level `.Rprofile` exists, it supersedes the user-level `.Rprofile`.
 
 <aside>
 
@@ -52,18 +63,23 @@ You can also "show hidden files" (instructions for [Mac](https://www.macworld.co
 
 </aside>
 
-The easiest and most consistent way to edit your `.RProfile` file across operating systems is with the `{usethis}` package. Run `usethis::edit_r_profile()` to opens your user-level `.RProfile`.
+### Global (user-level) `.Rprofile`
+
+The easiest and most consistent way to edit your `.RProfile` file across operating systems is with the `{usethis}` package. Run `usethis::edit_r_profile()` to open your user-level (or *global*) `.RProfile`. This is the default `.Rprofile` that will be used for any and all projects *unless* you have a local (project-level) `.Rprofile`.
 
 ```{r usethis-rprofile, eval = FALSE}
 usethis::edit_r_profile()
 ```
 
-You can edit the project-level `.RProfile` with the `scope` argument.
+### Local (project-level) `.Rprofile`
+
+We can create or edit a local or *project-level* `.RProfile` with the `scope` argument inside the `edit_r_profile` function. Remember, a project-level `.RProfile` will supersede the global `.Rprofile`.
 
 ```{r usethis-rprofile2, eval = FALSE}
 usethis::edit_r_profile(scope = "project")
 ```
 
+## Using `.Rprofile`
 
 To illustrate how `.RProfile` works, let's do something cool and useless. We'll write a short program that greets us with a random inspirational quote, and then we'll put in `.RProfile` so it runs whenever we start up R.
 
@@ -75,12 +91,27 @@ cowsay::say(what = "hello world!", by = "cow")
 
 Let's randomize the animal displayed and make the message it says one of the motivational quotes found at this [Github repo](https://gist.github.com/JakubPetriska/060958fd744ca34f099e947cd080b540), copy and paste the code into our `.RProfile`, and restart R.
 
-```{r cowsay2, eval = FALSE}
+```{r cowsay2, eval = TRUE, echo=TRUE}
+library(cowsay) # animals!
+library(glue) # pasting things together
+
+# get vector of all animals
 animals <- names(cowsay::animals)
-quotes  <- readr::read_csv("https://gist.githubusercontent.com/JakubPetriska/060958fd744ca34f099e947cd080b540/raw/963b5a9355f04741239407320ac973a6096cd7b6/quotes.csv")  
-quotes$full_quote  <- paste0(quotes$Quote, " -", quotes$Author)
+
+# get pieces to make link
+repo <- "JakubPetriska/060958fd744ca34f099e947cd080b540"
+csv <- "raw/963b5a9355f04741239407320ac973a6096cd7b6/quotes.csv"
+
+# get list of inspirational quotes
+quotes  <- readr::read_csv(glue("https://gist.githubusercontent.com/{repo}/{csv}"))  
+
+# make full quote
+quotes$full_quote  <- glue("{quotes$Quote} - {quotes$Author}")
+
+# now use it!
 cowsay::say(sample(quotes$full_quote, 1), by = sample(animals, 1))
 rm(animals, quotes) # remove the objects we just created
+
 ```
 
 
@@ -88,7 +119,7 @@ rm(animals, quotes) # remove the objects we just created
 
 Sometimes you need to store sensitive information, like API Keys, Database passwords, data storage paths, or general variables used across all scripts. We don't want to accidentally share these information, accidentally push them to Github, or copy and paste them over and over again from script to script. We also might want to build a codebase that relies on a few variables that another user can set in their own system in a way that works for them. Environmental variables are the way to address all of these concerns.
 
-Environmental variables are simply objects that store character strings. They are accessible from within R upon startup. To view all environmental variables, use `Sys.getenv()`. You can also pull out one environmental variable at a time by passing in its name, for instance:
+**Environmental variables** are objects that store character strings. They are accessible from within R upon startup. To view all environmental variables, use `Sys.getenv()`. You can also pull out one environmental variable at a time by passing in its name, for instance:
 
 ```{r getenv}
 
@@ -96,7 +127,7 @@ Sys.getenv("USER")
 
 ```
 
-You can set your own environmental variables which are stored in another hidden file called `.Renviron` (this is the Python analog of `.env`). 
+You can set your own environmental variables which are stored in another hidden file called `.Renviron` (this is the Python analog of `.env`). Keep in mind, `.Renviron` files typically contain lists of environmental variables that look similar to R code but it is actually not running R code...so don't put R code in your `.Renviron` file!
 
 To illustrate the use of `.Renviron`, we run `usethis::edit_r_environ()`, add the environmental variable `ANIMAL = "cat"`, save, and restart `R`.
 
@@ -104,19 +135,22 @@ To illustrate the use of `.Renviron`, we run `usethis::edit_r_environ()`, add th
 usethis::edit_r_environ()
 ```
 
-We can access our environmental variable (remember you need to restart R for changes to take effect) as follows:
+We can access our environmental variable as follows (remember you need to restart R for changes to take effect, try **`Session > Restart R`**):
 
-```{r usethis-renviron2}
+```{r usethis-renviron2, eval=FALSE}
 Sys.getenv("ANIMAL")
 ```
 
 We can use our environmental variable, for instance, in a function.
 
-```{r cowsay-function}
+```{r cowsay-function, echo=TRUE, eval=FALSE}
 inspire_me <- function(animal){
   
   suppressMessages(
-    quotes  <- readr::read_csv("https://gist.githubusercontent.com/JakubPetriska/060958fd744ca34f099e947cd080b540/raw/963b5a9355f04741239407320ac973a6096cd7b6/quotes.csv")  
+    # get pieces to make link
+    repo <- "JakubPetriska/060958fd744ca34f099e947cd080b540"
+    csv <- "raw/963b5a9355f04741239407320ac973a6096cd7b6/quotes.csv"
+    quotes  <- readr::read_csv(glue::glue("https://gist.githubusercontent.com/{repo}/{csv}")  
   )
   quotes$full_quote  <- paste0(quotes$Quote, " -", quotes$Author)
   cowsay::say(sample(quotes$full_quote, 1), by = animal)
@@ -126,12 +160,18 @@ inspire_me <- function(animal){
 inspire_me(Sys.getenv("ANIMAL"))
 ```
 
-Although it may not appear powerful in this trivial example, when a project grows substantially large and complex, or when managing multiple sensitive passwords and access tokens, environmental variables should be what you reach for.
+Although it may not appear powerful in this trivial example, when a project grows substantially large and complex, or when managing multiple sensitive passwords and access tokens, environmental variables are a standard approach that is widely used.
+
+<aside>
+
+Important note, both these files `.Renviron` and `.Rprofile` need to end with a blank newline at the end. If this isn't present, the last line of the file is ignored, and there isn't a message or error associated with this. The `usethis` functions typically take care of this for you, but be aware of it just in case!
+
+</aside>
 
 
-# Strategies to organize projects
+# Strategies to organize projects/code
 
-Best practices for writing code across languages typically recommend package imports and function definitions at the top of a script, followed by code. For example:  
+Best practices for writing code across languages typically recommend package imports and function definitions at the top of a script, followed by code. For example, a script may look like this:  
 
 ```{r org-ex, eval = FALSE}
 # import packages
@@ -147,14 +187,14 @@ my_second_function <- function(){
   print("world")
 }
 
-# code
+# run code/functions
 my_first_function()
 my_second_function()
 ```
 
-These approaches work well when scripts are relatively simple, but as a project grows large and complex, it's best practice to abstract functions into another script or set of scripts, and break up your workflow into discrete steps.
+These approaches work well when scripts are relatively simple, but as a project grows large and complex, it's best practice to move functions into another script or set of scripts, and break up your workflow into discrete steps.
 
-For instance, although the `inspire_me()` function above is relatively simple, we can pretend that the read, transform, and print steps carried out in the function were themselves long functions in part of a much more complex, real-world workflow. Imagine we created a script called `functions.R` that contained the following code:
+For instance, although the `inspire_me()` function above is relatively simple, we can pretend that the `read`, `transform`, and `print` steps carried out in the function were themselves long functions in part of a much more complex, real-world workflow. Imagine we created a script called `functions.R` that contained the following code:
 
 <aside>
 Notice that all functions start with `f_`. This prefix makes it easy to read in a script and takes advantage of auto-complete.
@@ -186,7 +226,7 @@ f_inspire_me <- function(d){
 }
 ```
 
-We can call this script using `source()` to bring the functions into our environment.
+We can call this script using `source()` to load or import these functions into our environment where they are available for use, just as we load a library.
 
 ```{r source, eval = FALSE}
 
@@ -195,13 +235,15 @@ source(here("functions.R"))
 ```
 
 
-However, this is hardly a satisfying solution because in a real project, our pretend functions above may grow quite large, and we will likely add more and more functions, such that script that holds them all, `functions.R` may become many hundreds of lines long, making it difficult to sift through and make debug or add new lines of code. Let's now move these functions to a directory `/functions` and store them all as separate files named after their function name:
+### Abstracting Functions from Code
+
+However, this is hardly a satisfying solution because in a real project, our pretend functions above may grow quite large, and we will likely add more and more functions. Eventually, a single script may hold them all, and something like `functions.R` may become many hundreds of lines long, making it difficult to sift through, debug, or add new lines of code. A better organizational approach which makes things easier to maintain over time is to move all our functions to a directory `/functions`, and store them all as separate files named after their function name:
 
 <aside>
 A good rule of thumb to follow is to try and keep scripts less than 150 lines in length. When scripts approach this length, they become difficult to keep track of, and there were likely missed opportunities to refactor the script into separate functions and modules.
 </aside>
 
-Save as `/functions/f_read_data.R`
+Save as **`/functions/f_read_data.R`**
 
 ```{r functions-r-1, eval = FALSE}
 
@@ -214,7 +256,7 @@ f_read_data <- function(url){
 }
 ```
 
-Save as `/functions/f_preprocess_data.R`
+Save as **`/functions/f_preprocess_data.R`**
 
 ```{r functions-r-2, eval = FALSE}
 # paste the quote to the author
@@ -224,7 +266,7 @@ f_preprocess_data <- function(d){
 }
 ```
 
-Save as `/functions/f_inspire_me.R`
+Save as **`/functions/f_inspire_me.R`**
 
 ```{r functions-r-3, eval = FALSE}
 # print a random animal and a random quote
@@ -241,25 +283,29 @@ knitr::include_graphics(here::here("images","function_img.png"))
 ```
 
 
-Now in our `/code` directory, we create a script, `01_control.R` to source our functions and use them. Be sure to restart `R` to clear your environment before sourcing this control script.
+Now in our `/code` directory, we create a script, `01_control.R` to source our functions and use them. Be sure to restart `R` to clear your environment before sourcing this control script so we know we are working from a clean slate.
 
-Save as `/code/01_control.R` and run.
+Save as **`/code/01_control.R`** and run.
 
 ```{r source-functions-in-folder}
 # packages needed for this script
-pkgs <- c("readr", "cowsay", "here", "tidyverse")
+pkgs <- c("readr", "cowsay", "here", "tidyverse", "glue")
 purrr::walk(pkgs, require, character.only = TRUE)
 
-# silently source all functions
+# silently source all functions using the purrr::walk function
 walk(list.files(here("functions"), full.names = TRUE), ~source(.x))
 
 # define the url where quotes are located
-url <- "https://gist.githubusercontent.com/JakubPetriska/060958fd744ca34f099e947cd080b540/raw/963b5a9355f04741239407320ac973a6096cd7b6/quotes.csv"
+# get pieces to make link
+repo <- "JakubPetriska/060958fd744ca34f099e947cd080b540"
+csv <- "raw/963b5a9355f04741239407320ac973a6096cd7b6/quotes.csv"
+url <- glue("https://gist.githubusercontent.com/{repo}/{csv}")  
 
 # use all of our functions
 f_read_data(url) %>% 
   f_preprocess_data() %>% 
   f_inspire_me()
+
 ```
 
 `source()` is the key to chaining together many scripts. In the example above, we were able to abstract functions into a separate folder which makes keeping track of them much easier than if they cluttered our control script. 
@@ -274,14 +320,14 @@ It's also a good rule of thumb to keep each line of code less than 75 characters
 
 Separating all functions into standalone scripts is not a revolutionary idea -- in fact, this is precisely how R packages are written! For example, see the [`{dplyr}` github repo's /R folder](https://github.com/tidyverse/dplyr/tree/master/R) which contains all dplyr functions in one directory. When you call `library(dplyr)` you're essentially sourcing all of these functions into your environment. 
 
-If project management and reproducible data pipelines are interesting to you, check out the [`{drake}` R package](https://github.com/ropensci/drake). A similar framework for Shiny Apps exists called [`{golem}`](https://thinkr-open.github.io/golem/), which also includes `{usethis}`-like commands that streamline common chores in Shiny App development. 
+If project management and reproducible data pipelines are interesting to you, check out the [`{targets}` R package](https://docs.ropensci.org/targets/index.html). A similar framework for Shiny Apps exists called [`{golem}`](https://thinkr-open.github.io/golem/), which also includes `{usethis}`-like commands that streamline common chores in Shiny App development. 
 
 :::
 
 
 # renv
 
-We use `{here}` because we expect that whoever else opens your code on their machine is likely to have a different project root path, and `{here}` ensures your code is portable between different computers with different root project paths (e.g., `~/Documents/Github/myproject` v `C:\Users\louis\Documents\myproject`).
+We use `{here}` because we expect that whoever else opens your code on their machine is likely to have a different project root path, and `{here}` ensures your code is portable between different computers with different root project paths (e.g., `~/Documents/Github/myproject` versus `C:\Users\louis\Documents\myproject`).
 
 Development environments are similar. When we work in `R` -- or any programming language for that matter -- we use a snapshot of package versions based on when we downloaded and installed them [e.g. with `install.packages()`]. You can check the version of the installed packages loaded into your current environment with `sessionInfo()`.
 
@@ -301,7 +347,7 @@ Even the version of R itself changes, although base R changes very slowly and th
 
 The solution to this problem is for everyone to use the same versions of packages (and `R`), which is to say that collaborators should use the same ***development environment***. This is a common concept across programming languages.
 
-[`{renv}`](https://rstudio.github.io/renv/articles/renv.html) manages your package environment and makes it easy to share it with others by creating and curating a "lock" file (`renv.lock`) in the root project directory. When starting a project, create the file with `renv::init()`, install packages as you go along, and update the lockfile with `renv::snapshot()`. When a collaborator opens your project (for example, after cloning it from Github), all they need to do is open the `.RProj` file and `{renv}` will bootstrap itself and set up the development environment captured in the lock file. 
+[`{renv}`](https://rstudio.github.io/renv/articles/renv.html) manages your package environment and makes it easy to share it with others by creating and curating a "lock" file (`renv.lock`) in the root project directory. When starting a project, create the file with `renv::init()`, install packages as you go along, and update the lockfile with `renv::snapshot()`. When a collaborator opens your project (for example, after cloning it from Github), all they need to do is open the `.RProj` file and `{renv}` will bootstrap^[what is bootstrapping?] itself and set up the development environment captured in the lock file. 
 
 <aside>
 The `renv.lock` file is a JSON file with information on the version of R and the versions of all packages used by the project.
