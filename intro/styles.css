@@ -30,8 +30,8 @@ pre {
 
 /*blue comment box */
 .blue {
-    background-color:#e6f0ff; 
-    border-radius: 4px; 
+    background-color:#e6f0ff;
+    border-radius: 4px;
     padding: 12px;
 }
 
@@ -44,16 +44,16 @@ summary::-webkit-details-marker {
 
 /* make marker something before click */
 summary::before {
-    font-family: "Font Awesome 5 Free"; 
-    font-weight: 900; 
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     content: "\f13a";
     color: #228B22;
 }
 
 /* and after click */
 details[open] summary:before {
-    font-family: "Font Awesome 5 Free"; 
-    font-weight: 900; 
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     content: "\f139";
     color: gray;
 }
@@ -92,7 +92,7 @@ details[open] summary:before {
       font-weight: normal;
 }
 
-/* see giraffe teacup site for great css tips: https://github.com/tinystats/teacups-giraffes-and-statistics/blob/master/assets/style.css 
+/* see giraffe teacup site for great css tips: https://github.com/tinystats/teacups-giraffes-and-statistics/blob/master/assets/style.css
 css below is adapted from that page */
 
 .obj {
@@ -120,8 +120,8 @@ css below is adapted from that page */
 
 .challenge {
   color: #002855;
-  background-color:#e6f0ff; 
-  border-radius: 4px; 
+  background-color:#e6f0ff;
+  border-radius: 4px;
   padding: 12px;
   font-size: 16px;
   line-height: 1.3em;
@@ -158,12 +158,12 @@ css below is adapted from that page */
     right:0;
     bottom:0;
   }
-  
-.lil-image-text { 
+
+.lil-image-text {
     margin-right: auto;
     margin-bottom: 20px;
     margin-left: auto;
-    text-align: center; 
+    text-align: center;
     display:block;
     font-family: 'Lora', serif;
       font-size: 24px;
@@ -174,22 +174,22 @@ css below is adapted from that page */
       color: #fff;
   }
 
-.big-image-text { 
+.big-image-text {
   letter-spacing: 0.065em;
   line-height: 1em;
   font-size: 68px;
   text-transform: uppercase;
-  text-align: center; 
+  text-align: center;
   display:block;
   color: #fff;
   margin-bottom: 3rem;
 }
 
-.lil-image-text-dark { 
+.lil-image-text-dark {
     margin-right: auto;
     margin-bottom: 24px;
     margin-left: auto;
-    text-align: center; 
+    text-align: center;
     display:block;
     font-family: 'Lora', serif;
       font-size: 40px;
@@ -200,12 +200,12 @@ css below is adapted from that page */
       color: #191919;
   }
 
-.big-image-text-dark { 
+.big-image-text-dark {
   letter-spacing: 0.065em;
   line-height: 1em;
   font-size: 68px;
   text-transform: uppercase;
-  text-align: center; 
+  text-align: center;
   display:block;
   color: #191919;
   margin-bottom: 3rem;
@@ -226,4 +226,5 @@ css below is adapted from that page */
 
 .sourceCode {
   background-color:#f4f4f4;
+  border-radius: 4px;
 }

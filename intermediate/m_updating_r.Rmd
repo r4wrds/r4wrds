@@ -1,0 +1,61 @@
+---
+title: "Getting Started with Intermediate R"
+description: | 
+   Updating R/RStudio and Packages for this course and beyond
+output: 
+  distill::distill_article:
+    toc: true
+---
+
+```{r setup, include=FALSE, purl=FALSE, message=FALSE}
+
+library(knitr)
+library(glue)
+library(here)
+
+```
+
+::: {.obj}
+**Learning objectives**
+
+-   Check/Update R/RStudio installation & version
+-   Install/Update R packages
+-   Navigating Course Modules
+:::
+
+
+## Updating R/RStudio
+
+As packages and R continue to improve, new **versions** get released. In R, major versions are released infrequently (i.e., **`3.0.0`** was released in April 2013 while **`4.0.0`** was released in April 2020), but *minor* versions are released more regularly (**`4.0.4`** was released in February 2021 and **`4.0.5`** was released in March 20201). 
+
+At minimum it's typically advisable to maintain and update to the most recent major version of R where possible, these often contain important security/programming changes. And depending on your workflow and package needs, it's generally good practice to keep the most recent minor version as well, though it's not uncommon to maintain multiple minor versions of R if analysis or workflow depends on specific versions of a package.
+
+### Check R/RStudio Version
+
+An easy and quick way to check what version of R you have vs. the most recent available version is to open R and type `R.version`, hit enter, and see what you get:
+
+```{r version}
+
+R.version
+
+```
+
+This command will return information about the R version your system is using, as well as some information specific to your operating system (os). We can then visit the [R CRAN website](https://cran.r-project.org/) to see what the most recent version is. If you haven't updated recently, go ahead and grab the most recent R version for your system and [install it](https://r4wrds.com/intro/m_install_R.html#step-1.-install).
+
+### Check/Update RStudio
+
+We can check our version of RStudio by 
+
+## Updating R Packages
+
+
+:::challenge
+
+<font color="#009E73">**REVIEW**</font> 
+
+<p style="line-height: 1.5em;">
+**Although this is an intermediate level course, we will revisit [[introductory material on "Project Management"]{style="color: #009e73"}](../intro/m_project_management.html) because no matter your skill level in R, strategic project management remains fundamental.** Subsequent modules in this course assume familiarity with `{here}`, `.Rproject`s, naming conventions, and general best practices.
+</p>
+
+:::
+

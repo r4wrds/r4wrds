@@ -221,9 +221,7 @@ css below is adapted from that page */
   background-color: rgba(0,0,0,.1);
 }
 
-
-/*grey code block*/
-
 .sourceCode {
   background-color:#f4f4f4;
+  border-radius: 4px;
 }

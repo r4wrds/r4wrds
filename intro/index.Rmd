@@ -75,6 +75,11 @@ All source materials for this website can be accessed at **[final GH location, p
 Content in these lessons has been modified and/or adapted from [Data Carpentry: R for data analysis and visualization of Ecological Data](https://datacarpentry.org/R-ecology-lesson/index.html), the USGS-R training curriculum [here](https://github.com/USGS-R/training-curriculum), the NCEAS Open Science for Synthesis workshop [here](https://nceas.github.io/oss-2017/index.html), [Mapping in R](https://ryanpeek.org/mapping-in-R-workshop/), and the wonderful text [R for data science](https://github.com/hadley/r4ds).
 
 
+<br> 
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<a href="m_project_management.html" class="btn btn-secondary" style="float: right;">Next module:<br> Install R/RStudio</a>  
 ---
 
 *site last updated: ```r format(Sys.time(), "%Y-%m-%d %H:%M")```*
