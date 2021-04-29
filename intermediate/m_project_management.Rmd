@@ -39,7 +39,9 @@ What makes a predictable development environment? What is a *development environ
 
 <font color="#009E73">**REVIEW**</font> 
 
-- **Although this is an intermediate level course, we will revisit [[introductory material on "Project Management"]{style="color: #009e73"}](../intro/m_project_management.html) because no matter your skill level in R, strategic project management remains fundamental.** Subsequent modules in this course assume familiarity with `{here}`, `.Rproject`s, naming conventions, and general data science best practices. 
+<p style="line-height: 1.5em;">
+**Although this is an intermediate level course, we will revisit [[introductory material on "Project Management"]{style="color: #009e73"}](../intro/m_project_management.html) because no matter your skill level in R, strategic project management remains fundamental.** Subsequent modules in this course assume familiarity with `{here}`, `.Rproject`s, naming conventions, and general best practices. 
+</p>
 
 :::
 
