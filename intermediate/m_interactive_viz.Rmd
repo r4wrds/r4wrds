@@ -1,0 +1,26 @@
+---
+title: "Interactive Visualization"
+description: | 
+   description
+output: 
+  distill::distill_article:
+    toc: true
+---
+
+```{r setup, include=FALSE, purl=FALSE, message=FALSE}
+
+library(knitr)
+library(glue)
+library(here)
+
+```
+
+::: {.obj}
+**Learning objectives**
+
+-   A
+-   B
+-   C
+:::
+
+
