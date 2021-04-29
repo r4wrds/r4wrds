@@ -2073,8 +2073,8 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 
   /*blue comment box */
   .blue {
-      background-color:#e6f0ff; 
-      border-radius: 4px; 
+      background-color:#e6f0ff;
+      border-radius: 4px;
       padding: 12px;
   }
 
@@ -2087,16 +2087,16 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 
   /* make marker something before click */
   summary::before {
-      font-family: "Font Awesome 5 Free"; 
-      font-weight: 900; 
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
       content: "\f13a";
       color: #228B22;
   }
 
   /* and after click */
   details[open] summary:before {
-      font-family: "Font Awesome 5 Free"; 
-      font-weight: 900; 
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
       content: "\f139";
       color: gray;
   }
@@ -2135,7 +2135,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
         font-weight: normal;
   }
 
-  /* see giraffe teacup site for great css tips: https://github.com/tinystats/teacups-giraffes-and-statistics/blob/master/assets/style.css 
+  /* see giraffe teacup site for great css tips: https://github.com/tinystats/teacups-giraffes-and-statistics/blob/master/assets/style.css
   css below is adapted from that page */
 
   .obj {
@@ -2163,8 +2163,8 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 
   .challenge {
     color: #002855;
-    background-color:#e6f0ff; 
-    border-radius: 4px; 
+    background-color:#e6f0ff;
+    border-radius: 4px;
     padding: 12px;
     font-size: 16px;
     line-height: 1.3em;
@@ -2201,12 +2201,12 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
       right:0;
       bottom:0;
     }
-    
-  .lil-image-text { 
+
+  .lil-image-text {
       margin-right: auto;
       margin-bottom: 20px;
       margin-left: auto;
-      text-align: center; 
+      text-align: center;
       display:block;
       font-family: 'Lora', serif;
         font-size: 24px;
@@ -2217,22 +2217,22 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
         color: #fff;
     }
 
-  .big-image-text { 
+  .big-image-text {
     letter-spacing: 0.065em;
     line-height: 1em;
     font-size: 68px;
     text-transform: uppercase;
-    text-align: center; 
+    text-align: center;
     display:block;
     color: #fff;
     margin-bottom: 3rem;
   }
 
-  .lil-image-text-dark { 
+  .lil-image-text-dark {
       margin-right: auto;
       margin-bottom: 24px;
       margin-left: auto;
-      text-align: center; 
+      text-align: center;
       display:block;
       font-family: 'Lora', serif;
         font-size: 40px;
@@ -2243,12 +2243,12 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
         color: #191919;
     }
 
-  .big-image-text-dark { 
+  .big-image-text-dark {
     letter-spacing: 0.065em;
     line-height: 1em;
     font-size: 68px;
     text-transform: uppercase;
-    text-align: center; 
+    text-align: center;
     display:block;
     color: #191919;
     margin-bottom: 3rem;
@@ -2263,6 +2263,14 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
     left: 0;
     background-color: rgba(0,0,0,.1);
   }
+
+  /*grey code block*/
+
+  .sourceCode {
+    background-color:#f4f4f4;
+    border-radius: 4px;
+  }
+
 
   </style>
   <!--/radix_placeholder_site_in_header-->
@@ -2409,7 +2417,7 @@ Recall the classes of atomic vectors (logical, numeric, factor, character) from 
 </div>
 <pre><code>[1] &quot;character&quot;</code></pre>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span><span class='op'>(</span><span class='fu'><a href='https://r-spatial.github.io/sf/reference/tibble.html'>tibble</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, y <span class='op'>=</span> <span class='st'>"a string"</span><span class='op'>)</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span><span class='op'>(</span><span class='fu'>tibble</span><span class='op'>(</span>x <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, y <span class='op'>=</span> <span class='st'>"a string"</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>[1] &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;</code></pre>
@@ -2617,6 +2625,9 @@ Figure 6: <a href="https://community.rstudio.com/">community.rtudio.com</a> is a
 <p><img src="images/stackoverflow.png" width="1306" /></p>
 </div>
 <p>Stack Overflow is for general programming questions, but you may find that your question is more statistical or geospatial in nature. In these cases, associated Stack Exchange sites for statistics (<a href="https://stats.stackexchange.com/">Cross validated</a>), geospatial (<a href="https://gis.stackexchange.com/">GIS Stack Exchange</a>), and <a href="https://stackexchange.com/sites">other topics</a> are great places to seek out domain-specific expertise.</p>
+<p><br></p>
+<p><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"></p>
+<p><a href="m_intro_Rmarkdown.html" class="btn btn-secondary" style="float: left">Previous module:<br> RMarkdown</a></p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->

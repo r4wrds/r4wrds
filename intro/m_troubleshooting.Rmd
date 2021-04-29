@@ -242,3 +242,10 @@ knitr::include_graphics("images/stackoverflow.png")
 ```
 
 Stack Overflow is for general programming questions, but you may find that your question is more statistical or geospatial in nature. In these cases, associated Stack Exchange sites for statistics ([Cross validated](https://stats.stackexchange.com/)), geospatial ([GIS Stack Exchange](https://gis.stackexchange.com/)), and [other topics](https://stackexchange.com/sites) are great places to seek out domain-specific expertise.
+
+
+<br>  
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<a href="m_intro_Rmarkdown.html" class="btn btn-secondary" style="float: left">Previous module:<br> RMarkdown</a>

@@ -448,5 +448,12 @@ sum(z, na.rm = TRUE)
 ```
 
 
-
 *Lesson adapted from [R for Data Science](https://r4ds.had.co.nz/)*.
+
+
+<br>  
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<a href="m_ggplot.html" class="btn btn-secondary" style="float: left">Previous module:<br> Data Visualization</a>
+<a href="m_dplyr.html" class="btn btn-secondary" style="float: right;">Next module:<br> Data Wrangling</a>  
