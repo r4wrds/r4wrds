@@ -395,3 +395,11 @@ Here's a sample of some good resources that are freely available online:
 - [Tips for Working with Images in R Markdown](http://zevross.com/blog/2017/06/19/tips-and-tricks-for-working-with-images-and-figures-in-r-markdown-documents/): Helpful tips on sizing and image resolution
 - [Working with pdf's via R Markdown using the {tinytex} package](https://bookdown.org/yihui/rmarkdown-cookbook/install-latex.html): you'll need a LaTeX distribution installed in order to render or knit to pdf. The [{tinytex} package](https://yihui.org/tinytex/) is a great solution.
 
+
+<br>  
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<a href="m_exploratory_DA.html" class="btn btn-secondary" style="float: left">Previous module:<br> EDA</a>
+<a href="m_troubleshooting.html" class="btn btn-secondary" style="float: right;">Next module:<br> Troubleshooting</a>  
+

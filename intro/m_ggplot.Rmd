@@ -598,3 +598,11 @@ p + theme_classic()
 ## Extending ggplot2
 
 If you want to learn more about {ggplot2}, the definitive text is [ggplot2: elegant graphics for data analysis](https://ggplot2-book.org/index.html).  
+
+
+<br>  
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<a href="m_importing_and_exporting_data.html" class="btn btn-secondary" style="float: left">Previous module:<br> Import/Export Data</a>
+<a href="m_data_structures.html" class="btn btn-secondary" style="float: right;">Next module:<br> Data Structures</a>  
