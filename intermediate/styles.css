@@ -1,10 +1,20 @@
 @import url('https://fonts.googleapis.com/css?family=Lora:400,400i&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,400i&display=swap');
 
+
 body {font-size: 15px; line-height: 1.6;}
-h1 {font-size: 40px;}
-h2 {font-size: 30px;}
-h3 {font-size: 23px;}
+h1 {
+  font-size: 40px;
+  line-height: 1.2em;
+}
+h2 {
+  font-size: 30px;
+  line-height: 1.2em;
+}
+h3 {
+  font-size: 23px;
+  line-height: 1.2em;
+}
 
 
 .navbar-inverse {
