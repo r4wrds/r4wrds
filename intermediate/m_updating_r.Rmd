@@ -23,16 +23,6 @@ library(here)
 -   Navigating Course Modules
 :::
 
-## Who is an "*Intermediate User*"?
-
-Welcome to the Intermediate R for Water Resources Data Science! What makes an *Intermediate user*? Well, the content in this course is likely most relevant and targeted at folks who:
-
- - Took the [Introductory R4WRDS](https://r4wrds.com/intro/) course
- - Have worked with R semi-regularly for 6 months or more
- - Have a general understanding and proficiency in using {dplyr}, {ggplot2}, {sf}, and {rmarkdown}
- - Understand (and use) general best practices for data science in R
-
-In this course, we will move more quickly, assume familiarity with basic R skills, and also assume that the participant is working on more complex workflows, operations, and code-bases. We have developed each module to function as a "stand-alone" story, so while different modules will focus on different skill sets, in the intermediate course each module doesn't necessarily require the previous module.
 
 ## Updating R/RStudio
 
