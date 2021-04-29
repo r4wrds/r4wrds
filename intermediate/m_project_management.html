@@ -2044,10 +2044,20 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
   @import url('https://fonts.googleapis.com/css?family=Lora:400,400i&display=swap');
   @import url('https://fonts.googleapis.com/css?family=Roboto:400,400i&display=swap');
 
+
   body {font-size: 15px; line-height: 1.6;}
-  h1 {font-size: 40px;}
-  h2 {font-size: 30px;}
-  h3 {font-size: 23px;}
+  h1 {
+    font-size: 40px;
+    line-height: 1.2em;
+  }
+  h2 {
+    font-size: 30px;
+    line-height: 1.2em;
+  }
+  h3 {
+    font-size: 23px;
+    line-height: 1.2em;
+  }
 
 
   .navbar-inverse {
@@ -2373,7 +2383,7 @@ Modules
 <h2 id="first-principles">First principles</h2>
 <p>The first step in any data science project is to set up and maintain a clean, predictable <strong>development environment</strong>. As you accumulate raw data, write code, and generate results, things can get messy if you don’t stick to good programming naming and organization habits. In this module we’ll cover how to keep your projects organized and consistent, which ultimately will make projects more reproducible and keep your workflow more efficient and fun.</p>
 <aside>
-<p>What makes a predictable development environment? What is a <em>development environment?</em></p>
+<p>A <em>development environment</em> is the set of tools you use to process data and the toolshed. R and packages are your tools, and an RProject is your toolshed.</p>
 </aside>
 <div class="challenge">
 <p><font color="#009E73"><strong>REVIEW</strong></font></p>
@@ -2452,19 +2462,22 @@ hello world!
 </code></pre>
 </div>
 <pre><code>
+ ------------- 
+In separateness lies the world&#39;s great misery, in compassion lies the world&#39;s true strength. - Buddha 
  -------------- 
-You can be what you want to be. You have the power within and we will help you always. - Byron Pulsifer 
- --------------
-    \
-      \
-        \
-                        ,/|         _.--‛‛^``-...___.._.,;
-                      /, \‛.     _-‛          ,--,,,--‛‛‛
-                     {  \    `_-‛‛       ‛    /}‛
-Jill                    `;;‛             ;   ; ;
-                  ._.--‛‛     ._,,, _..‛  .;.‛
-                  (,_....----‛‛‛     (,..--‛‛
-  </code></pre>
+              \   
+               \  
+                \
+        __.--&#39;\     \.__./     /&#39;--.__
+    _.-&#39;       &#39;.__.&#39;    &#39;.__.&#39;       &#39;-._
+  .&#39;                                      &#39;.
+ /                                          \
+|                                            |
+|                                            |
+ \         .---.              .---.         /
+  &#39;._    .&#39;     &#39;.&#39;&#39;.    .&#39;&#39;.&#39;     &#39;.    _.&#39;
+     &#39;-./            \  /           \.-&#39;
+                      &#39;&#39;mrf</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/rm.html'>rm</a></span><span class='op'>(</span><span class='va'>animals</span>, <span class='va'>quotes</span><span class='op'>)</span> <span class='co'># remove the objects we just created</span>
 </code></pre>
@@ -2530,7 +2543,9 @@ Jill                    `;;‛             ;   ; ;
 </aside>
 <div class="challenge">
 <p><font color="#009E73"><strong>Pause and think</strong></font></p>
-<p>In the example function above, we might notice that reading in a url from a csv every time we run <code>inspire_me()</code> is a lot of unnecessary overhead. Where else might we be able to read that csv in automatically when R starts up, so that it’s available for our <code>inspire_me()</code> function, and that we only need to read it once?</p>
+<p style="line-height: 1.5em;">
+In the example function above, we might notice that reading in a url from a csv every time we run <code>inspire_me()</code> is a lot of unnecessary overhead. Where else might we be able to read that csv in automatically when R starts up, so that it’s available for our <code>inspire_me()</code> function, and that we only need to read it once?
+</p>
 </div>
 <p><br></p>
 <details>
@@ -2704,25 +2719,16 @@ A good rule of thumb to follow is to try and keep scripts less than 150 lines in
 </div>
 <pre><code>
  ----- 
-I have often regretted my speech, never my silence. -Publilius Syrus 
+We know the truth, not only by the reason, but by the heart. -Blaise Pascal 
  ------ 
     \   
      \
-                \`*-.
-                 )  _`-.
-                .  : `. .
-                : _   &#39;  \
-                ; *` _.   `*-._
-                `-.-&#39;          `-.
-                  ;       `       `.
-                  :.       .       \
-                  .\  .   :   .-&#39;   .
-                  &#39;  `+.;  ;  &#39;      :
-                  :  &#39;  |    ;       ;-.
-                  ; &#39;   : :`-:     _.`* ;
-               .*&#39; /  .*&#39; ; .*`- +&#39;  `*&#39;
-     [bug]     `*-*   `*-*  `*-*&#39;
-    </code></pre>
+     .-.
+    (o o)
+    | O \
+     \   \
+      `~~~&#39; [nosig]
+  </code></pre>
 </div>
 <p><code>source()</code> is the key to chaining together many scripts. In the example above, we were able to abstract functions into a separate folder which makes keeping track of them much easier than if they cluttered our control script.</p>
 <aside>
@@ -2730,8 +2736,12 @@ It’s also a good rule of thumb to keep each line of code less than 75 characte
 </aside>
 <div class="challenge">
 <p><font color="#009E73"><strong>Learn more</strong></font></p>
-<p>Separating all functions into standalone scripts is not a revolutionary idea – in fact, this is precisely how R packages are written! For example, see the <a href="https://github.com/tidyverse/dplyr/tree/master/R"><code>{dplyr}</code> github repo’s /R folder</a> which contains all dplyr functions in one directory. When you call <code>library(dplyr)</code> you’re essentially sourcing all of these functions into your environment.</p>
-<p>If project management and reproducible data pipelines are interesting to you, check out the <a href="https://docs.ropensci.org/targets/index.html"><code>{targets}</code> R package</a>. A similar framework for Shiny Apps exists called <a href="https://thinkr-open.github.io/golem/"><code>{golem}</code></a>, which also includes <code>{usethis}</code>-like commands that streamline common chores in Shiny App development.</p>
+<p style="line-height: 1.5em;">
+Separating all functions into standalone scripts is not a revolutionary idea – in fact, this is precisely how R packages are written! For example, see the <a href="https://github.com/tidyverse/dplyr/tree/master/R"><code>{dplyr}</code> github repo’s /R folder</a> which contains all dplyr functions in one directory. When you call <code>library(dplyr)</code> you’re essentially sourcing all of these functions into your environment.
+</p>
+<p style="line-height: 1.5em;">
+If project management and reproducible data pipelines are interesting to you, check out the <a href="https://docs.ropensci.org/targets/index.html"><code>{targets}</code> R package</a>. A similar framework for Shiny Apps exists called <a href="https://thinkr-open.github.io/golem/"><code>{golem}</code></a>, which also includes <code>{usethis}</code>-like commands that streamline common chores in Shiny App development.
+</p>
 </div>
 <h1 id="renv">renv</h1>
 <p>We use <code>{here}</code> because we expect that whoever else opens your code on their machine is likely to have a different project root path, and <code>{here}</code> ensures your code is portable between different computers with different root project paths (e.g., <code>~/Documents/Github/myproject</code> versus <code>C:\Users\louis\Documents\myproject</code>).</p>
@@ -2796,6 +2806,9 @@ Even the version of R itself changes, although base R changes very slowly and th
 The <code>renv.lock</code> file is a JSON file with information on the version of R and the versions of all packages used by the project.
 </aside>
 <p>If you find yourself needing to share important analyses, perhaps that run on a production server, you should look into <code>{renv}</code>. For most day-to-day data science that you don’t plan on sharing or working collaboratively on, it may be unnecessary.</p>
+<p><br></p>
+<p><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"></p>
+<p><a href="index.html" class="btn btn-secondary" style="float: left">Previous module:<br> Introduction</a> <a href="m_git.html" class="btn btn-secondary" style="float: right;">Next module:<br> Git</a></p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
