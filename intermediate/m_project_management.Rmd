@@ -39,7 +39,7 @@ What makes a predictable development environment? What is a *development environ
 <font color="#009E73">**REVIEW**</font> 
 
 <p style="line-height: 1.5em;">
-**Although this is an intermediate level course, we will revisit [[introductory material on "Project Management"]{style="color: #009e73"}](../intro/m_project_management.html) because no matter your skill level in R, strategic project management remains fundamental.** Subsequent modules in this course assume familiarity with `{here}`, `.Rproject`s, naming conventions, and general best practices. 
+**Although this is an intermediate level course, we will revisit [[introductory material on "Project Management"]{style="color: #009e73"}](../intro/m_project_management.html) because no matter your skill level in R, strategic project management remains fundamental.** Subsequent modules in this course assume familiarity with `{here}`, `.Rproject`s, naming conventions, and general best practices.
 </p>
 
 :::
@@ -183,9 +183,9 @@ Important note, both these files `.Renviron` and `.Rprofile` need to end with a 
 
 <font color="#009E73">**Pause and think**</font> 
 
-
+<p style="line-height: 1.5em;">
 In the example function above, we might notice that reading in a url from a csv every time we run `inspire_me()` is a lot of unnecessary overhead. Where else might we be able to read that csv in automatically when R starts up, so that it's available for our `inspire_me()` function, and that we only need to read it once?
-
+</p>
 :::
 
 
@@ -383,9 +383,12 @@ It's also a good rule of thumb to keep each line of code less than 75 characters
 
 <font color="#009E73">**Learn more**</font> 
 
-Separating all functions into standalone scripts is not a revolutionary idea -- in fact, this is precisely how R packages are written! For example, see the [`{dplyr}` github repo's /R folder](https://github.com/tidyverse/dplyr/tree/master/R) which contains all dplyr functions in one directory. When you call `library(dplyr)` you're essentially sourcing all of these functions into your environment. 
+<p style="line-height: 1.5em;">
+Separating all functions into standalone scripts is not a revolutionary idea -- in fact, this is precisely how R packages are written! For example, see the [`{dplyr}` github repo's /R folder](https://github.com/tidyverse/dplyr/tree/master/R) which contains all dplyr functions in one directory. When you call `library(dplyr)` you're essentially sourcing all of these functions into your environment.</p>
 
-If project management and reproducible data pipelines are interesting to you, check out the [`{targets}` R package](https://docs.ropensci.org/targets/index.html). A similar framework for Shiny Apps exists called [`{golem}`](https://thinkr-open.github.io/golem/), which also includes `{usethis}`-like commands that streamline common chores in Shiny App development. 
+<p style="line-height: 1.5em;">
+If project management and reproducible data pipelines are interesting to you, check out the [`{targets}` R package](https://docs.ropensci.org/targets/index.html). A similar framework for Shiny Apps exists called [`{golem}`](https://thinkr-open.github.io/golem/), which also includes `{usethis}`-like commands that streamline common chores in Shiny App development.
+</p>
 
 :::
 
