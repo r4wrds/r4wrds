@@ -10,7 +10,6 @@ output:
 ```{r setup, include=FALSE, purl=FALSE, message=FALSE}
 
 library(knitr)
-library(formatR)
 
 ```
 
@@ -49,9 +48,9 @@ What makes a predictable development environment? What is a *development environ
 
 After reviewing core introductory topics, we will discuss `.RProfile` and `.Renviron` files and when to use them. To review core best practices we recommend particular familiarity with the following concepts:
 
- - [Filenaming](https://r4wrds.com/intro/m_project_management.html#safe-file-naming)
- - [Relative filepaths and the **`{here}`** package](https://r4wrds.com/intro/m_project_management.html#file-paths)
- - [Best practices for project organization](https://r4wrds.com/intro/m_project_management.html#best-practices-organization-tips)
+ - [Filenaming](../intro/m_project_management.html#safe-file-naming)
+ - [Relative filepaths and the **`{here}`** package](../intro/m_project_management.html#file-paths)
+ - [Best practices for project organization](../intro/m_project_management.html#best-practices-organization-tips)
 
 # .RProfile
 
@@ -95,7 +94,7 @@ Let's randomize the animal displayed and make the message it says one of the mot
 
 ```{r cowsay2, eval = TRUE, echo=TRUE}
 library(cowsay) # animals!
-library(glue) # pasting things together
+library(glue)   # pasting things together
 
 # get vector of all animals
 animals <- names(cowsay::animals)
@@ -104,7 +103,7 @@ animals <- names(cowsay::animals)
 repo <- "JakubPetriska/060958fd744ca34f099e947cd080b540"
 csv <- "raw/963b5a9355f04741239407320ac973a6096cd7b6/quotes.csv"
 
-# get list of inspirational quotes
+# get dataframe of inspirational quotes
 quotes  <- readr::read_csv(glue("https://gist.githubusercontent.com/{repo}/{csv}"))  
 
 # make full quote
@@ -129,7 +128,7 @@ Sys.getenv("USER")
 
 ```
 
-You can set your own environmental variables which are stored in another hidden file called `.Renviron` (this is the Python analog of `.env`). Keep in mind, `.Renviron` files typically contain lists of environmental variables that look similar to R code but it is actually not running R code...so don't put R code in your `.Renviron` file!
+You can set your own environmental variables which are stored in another hidden file called `.Renviron` (this is the Python analog of `.env`). Keep in mind, `.Renviron` files typically contain lists of environmental variables that look similar to R code but it is actually not running R code...so don't put R code in your `.Renviron` file! If we need to run R code when starting up R, we use `.RProfile`.
 
 To illustrate the use of `.Renviron`, we run `usethis::edit_r_environ()`, add the environmental variable `ANIMAL = "cat"`, save, and restart `R`.
 
@@ -147,28 +146,92 @@ We can use our environmental variable, for instance, in a function.
 
 ```{r cowsay-function, echo=TRUE, eval=FALSE}
 inspire_me <- function(animal){
+
+  # get pieces to make link
+  repo <- "JakubPetriska/060958fd744ca34f099e947cd080b540"
+  csv  <- "raw/963b5a9355f04741239407320ac973a6096cd7b6/quotes.csv"
   
+  # silently read dataframe
   suppressMessages(
-    # get pieces to make link
-    repo <- "JakubPetriska/060958fd744ca34f099e947cd080b540"
-    csv <- "raw/963b5a9355f04741239407320ac973a6096cd7b6/quotes.csv"
-    quotes  <- readr::read_csv(glue::glue("https://gist.githubusercontent.com/{repo}/{csv}")  
+    quotes  <- readr::read_csv(
+      glue::glue("https://gist.githubusercontent.com/{repo}/{csv}")
+    )  
   )
+  
+  # paste together the full quote
   quotes$full_quote  <- paste0(quotes$Quote, " -", quotes$Author)
+  
+  # make a user-specified animal say the quote
   cowsay::say(sample(quotes$full_quote, 1), by = animal)
 
 }
 
+# have the environmental variable say a quote
 inspire_me(Sys.getenv("ANIMAL"))
 ```
 
-Although it may not appear powerful in this trivial example, when a project grows substantially large and complex, or when managing multiple sensitive passwords and access tokens, environmental variables are a standard approach that is widely used.
+Although it may not appear powerful in this trivial example, when a project grows substantially large and complex, or when managing multiple sensitive passwords and access tokens, environmental variables are a standard approach that are widely used. 
 
 <aside>
 
 Important note, both these files `.Renviron` and `.Rprofile` need to end with a blank newline at the end. If this isn't present, the last line of the file is ignored, and there isn't a message or error associated with this. The `usethis` functions typically take care of this for you, but be aware of it just in case!
 
 </aside>
+
+
+:::challenge
+
+<font color="#009E73">**Pause and think**</font> 
+
+
+In the example function above, we might notice that reading in a url from a csv every time we run `inspire_me()` is a lot of unnecessary overhead. Where else might we be able to read that csv in automatically when R starts up, so that it's available for our `inspire_me()` function, and that we only need to read it once?
+
+:::
+
+
+<br>
+
+<details>
+  <summary class="challenge-ans-title"><font color="#0072B2">**Click for Answers!**</font></summary>
+  <div class="challenge-ans-body">
+  
+We can move read step of the csv into a project-level RProfile, so it's available to the project where we need this csv, but not to any general R session we may open outside of the project.
+
+.RProfile
+
+```{r challenge-1, eval = FALSE}
+# get pieces to make link
+repo <- "JakubPetriska/060958fd744ca34f099e947cd080b540"
+csv  <- "raw/963b5a9355f04741239407320ac973a6096cd7b6/quotes.csv"
+
+# silently read dataframe
+suppressMessages(
+  quotes  <- readr::read_csv(
+    glue::glue("https://gist.githubusercontent.com/{repo}/{csv}")
+  )  
+)
+
+# paste together the full quote
+quotes$full_quote  <- paste0(quotes$Quote, " -", quotes$Author)
+
+```
+
+Modified function
+
+```{r, eval = FALSE}
+inspire_me <- function(animal){
+
+  # make a user-specified animal say the quote
+  cowsay::say(sample(quotes$full_quote, 1), by = animal)
+
+}
+```
+
+
+  </div>
+</details>
+
+
 
 
 # Strategies to organize projects/code
@@ -196,7 +259,7 @@ my_second_function()
 
 These approaches work well when scripts are relatively simple, but as a project grows large and complex, it's best practice to move functions into another script or set of scripts, and break up your workflow into discrete steps.
 
-For instance, although the `inspire_me()` function above is relatively simple, we can pretend that the `read`, `transform`, and `print` steps carried out in the function were themselves long functions in part of a much more complex, real-world workflow. Imagine we created a script called `functions.R` that contained the following code:
+For instance, although the `inspire_me()` function above is relatively simple, we can pretend that the `read`, `transform`, and `print` steps carried out in the function were themselves long functions in part of a much more complex, real-world workflow. Imagine we created a script called `functions.R` that contained the following code. Don't worry if you haven't seen `purrr::walk()` before. We'll cover this in a later module on [iteration](m_iteration.html), and all you need to know about it now is that it "walks" over each input and applies a function. In this case, we apply the `require()` function to a vector of package names to load them. 
 
 <aside>
 Notice that all functions start with `f_`. This prefix makes it easy to read in a script and takes advantage of auto-complete.
@@ -349,7 +412,7 @@ Even the version of R itself changes, although base R changes very slowly and th
 
 The solution to this problem is for everyone to use the same versions of packages (and `R`), which is to say that collaborators should use the same ***development environment***. This is a common concept across programming languages.
 
-[`{renv}`](https://rstudio.github.io/renv/articles/renv.html) manages your package environment and makes it easy to share it with others by creating and curating a "lock" file (`renv.lock`) in the root project directory. When starting a project, create the file with `renv::init()`, install packages as you go along, and update the lockfile with `renv::snapshot()`. When a collaborator opens your project (for example, after cloning it from Github), all they need to do is open the `.RProj` file and `{renv}` will bootstrap^[what is bootstrapping?] itself and set up the development environment captured in the lock file. 
+[`{renv}`](https://rstudio.github.io/renv/articles/renv.html) manages your package environment and makes it easy to share it with others by creating and curating a "lock" file (`renv.lock`) in the root project directory. When starting a project, create the file with `renv::init()`, install packages as you go along, and update the lockfile with `renv::snapshot()`. When a collaborator opens your project (for example, after cloning it from Github), all they need to do is open the `.RProj` file and `{renv}` will automatically set up the development environment captured in the lock file. 
 
 <aside>
 The `renv.lock` file is a JSON file with information on the version of R and the versions of all packages used by the project.

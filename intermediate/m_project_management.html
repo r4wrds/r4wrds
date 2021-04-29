@@ -2341,9 +2341,17 @@ Modules
 <h3>Contents</h3>
 <ul>
 <li><a href="#first-principles">First principles</a></li>
-<li><a href="#rprofile">.RProfile</a></li>
+<li><a href="#rprofile">.RProfile</a>
+<ul>
+<li><a href="#global-user-level-.rprofile">Global (user-level) <code>.Rprofile</code></a></li>
+<li><a href="#local-project-level-.rprofile">Local (project-level) <code>.Rprofile</code></a></li>
+<li><a href="#using-.rprofile">Using <code>.Rprofile</code></a></li>
+</ul></li>
 <li><a href="#renviron">.Renviron</a></li>
-<li><a href="#strategies-to-organize-projects">Strategies to organize projects</a></li>
+<li><a href="#strategies-to-organize-projectscode">Strategies to organize projects/code</a>
+<ul>
+<li><a href="#abstracting-functions-from-code">Abstracting Functions from Code</a></li>
+</ul></li>
 <li><a href="#renv">renv</a></li>
 </ul>
 </nav>
@@ -2363,7 +2371,10 @@ Modules
 </ul>
 </div>
 <h2 id="first-principles">First principles</h2>
-<p>The first step in any data science project is to set up and maintain a clean, predictable development environment. As you accumulate raw data, write code, and generate results, things can get messy. In this module we’ll cover how to keep your projects organized, streamlined, and reproducible.</p>
+<p>The first step in any data science project is to set up and maintain a clean, predictable <strong>development environment</strong>. As you accumulate raw data, write code, and generate results, things can get messy if you don’t stick to good programming naming and organization habits. In this module we’ll cover how to keep your projects organized and consistent, which ultimately will make projects more reproducible and keep your workflow more efficient and fun.</p>
+<aside>
+<p>What makes a predictable development environment? What is a <em>development environment?</em></p>
+</aside>
 <div class="challenge">
 <p><font color="#009E73"><strong>REVIEW</strong></font></p>
 <p style="line-height: 1.5em;">
@@ -2371,27 +2382,35 @@ Modules
 </p>
 </div>
 <p><br></p>
-<p>After reviewing core introductory topics, we will discuss <code>.RProfile</code> and <code>.Renviron</code> files and when to use them.</p>
+<p>After reviewing core introductory topics, we will discuss <code>.RProfile</code> and <code>.Renviron</code> files and when to use them. To review core best practices we recommend particular familiarity with the following concepts:</p>
+<ul>
+<li><a href="../intro/m_project_management.html#safe-file-naming">Filenaming</a></li>
+<li><a href="../intro/m_project_management.html#file-paths">Relative filepaths and the <strong><code>{here}</code></strong> package</a></li>
+<li><a href="../intro/m_project_management.html#best-practices-organization-tips">Best practices for project organization</a></li>
+</ul>
 <h1 id="rprofile">.RProfile</h1>
-<p>If you have user- or project-level <strong>code</strong> that needs to be run every time you start up R, <code>.RProfile</code> can streamline this operation.</p>
-<p>The <code>.RProfile</code> file is an actual (hidden) file that is automatically sourced as <code>R</code> code when you open an <code>R</code> session. A <code>.RProfile</code> file can live in the project root directory, or the user’s home directory, although only one <code>.RProfile</code> can be loaded. If a project-level <code>.Rprofile</code> exists, it supersedes the user-level <code>.Rprofile</code>.</p>
+<p>If you have user- or project-level <strong>code</strong> that needs to be run every time you start up R, customizing your <code>.RProfile</code> can streamline this operation.</p>
+<p>The <code>.RProfile</code> file is an actual (hidden) file that is automatically sourced (run) as <code>R</code> code when you open an <code>R</code> session. A <code>.RProfile</code> file can live in the project root directory, or the user’s home directory, although only one <code>.RProfile</code> can be loaded per R session or RProject. If a project-level <code>.Rprofile</code> exists, it supersedes the user-level <code>.Rprofile</code>.</p>
 <aside>
 <p>You can also “show hidden files” (instructions for <a href="https://www.macworld.co.uk/how-to/show-hidden-files-mac-3520878/">Mac</a> and <a href="https://support.microsoft.com/en-us/windows/show-hidden-files-0320fe58-0117-fd59-6851-9b7f9840fdb2">PC</a>) and edit <code>.RProfile</code> in a text editor. You can also do so in <code>R</code> with <code>file.edit("~/.RProfile")</code>.</p>
 </aside>
-<p>The easiest and most consistent way to edit your <code>.RProfile</code> file across operating systems is with the <code>{usethis}</code> package. Run <code>usethis::edit_r_profile()</code> to opens your user-level <code>.RProfile</code>.</p>
+<h3 id="global-user-level-.rprofile">Global (user-level) <code>.Rprofile</code></h3>
+<p>The easiest and most consistent way to edit your <code>.RProfile</code> file across operating systems is with the <code>{usethis}</code> package. Run <code>usethis::edit_r_profile()</code> to open your user-level (or <em>global</em>) <code>.RProfile</code>. This is the default <code>.Rprofile</code> that will be used for any and all projects <em>unless</em> you have a local (project-level) <code>.Rprofile</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>usethis</span><span class='fu'>::</span><span class='fu'><a href='https://usethis.r-lib.org/reference/edit.html'>edit_r_profile</a></span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
-<p>You can edit the project-level <code>.RProfile</code> with the <code>scope</code> argument.</p>
+<h3 id="local-project-level-.rprofile">Local (project-level) <code>.Rprofile</code></h3>
+<p>We can create or edit a local or <em>project-level</em> <code>.RProfile</code> with the <code>scope</code> argument inside the <code>edit_r_profile</code> function. Remember, a project-level <code>.RProfile</code> will supersede the global <code>.Rprofile</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>usethis</span><span class='fu'>::</span><span class='fu'><a href='https://usethis.r-lib.org/reference/edit.html'>edit_r_profile</a></span><span class='op'>(</span>scope <span class='op'>=</span> <span class='st'>"project"</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
+<h2 id="using-.rprofile">Using <code>.Rprofile</code></h2>
 <p>To illustrate how <code>.RProfile</code> works, let’s do something cool and useless. We’ll write a short program that greets us with a random inspirational quote, and then we’ll put in <code>.RProfile</code> so it runs whenever we start up R.</p>
 <p>The <a href="https://cran.r-project.org/web/packages/cowsay/vignettes/cowsay_tutorial.html"><code>{cowsay}</code></a> package is a fun way to print text animal art.</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -2412,17 +2431,48 @@ hello world!
 <p>Let’s randomize the animal displayed and make the message it says one of the motivational quotes found at this <a href="https://gist.github.com/JakubPetriska/060958fd744ca34f099e947cd080b540">Github repo</a>, copy and paste the code into our <code>.RProfile</code>, and restart R.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>animals</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='fu'>cowsay</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/pkg/cowsay/man/animals.html'>animals</a></span><span class='op'>)</span>
-<span class='va'>quotes</span>  <span class='op'>&lt;-</span> <span class='fu'>readr</span><span class='fu'>::</span><span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"https://gist.githubusercontent.com/JakubPetriska/060958fd744ca34f099e947cd080b540/raw/963b5a9355f04741239407320ac973a6096cd7b6/quotes.csv"</span><span class='op'>)</span>  
-<span class='va'>quotes</span><span class='op'>$</span><span class='va'>full_quote</span>  <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='va'>quotes</span><span class='op'>$</span><span class='va'>Quote</span>, <span class='st'>" -"</span>, <span class='va'>quotes</span><span class='op'>$</span><span class='va'>Author</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/sckott/cowsay'>cowsay</a></span><span class='op'>)</span> <span class='co'># animals!</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/tidyverse/glue'>glue</a></span><span class='op'>)</span>   <span class='co'># pasting things together</span>
+
+<span class='co'># get vector of all animals</span>
+<span class='va'>animals</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='fu'>cowsay</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/pkg/cowsay/man/animals.html'>animals</a></span><span class='op'>)</span>
+
+<span class='co'># get pieces to make link</span>
+<span class='va'>repo</span> <span class='op'>&lt;-</span> <span class='st'>"JakubPetriska/060958fd744ca34f099e947cd080b540"</span>
+<span class='va'>csv</span> <span class='op'>&lt;-</span> <span class='st'>"raw/963b5a9355f04741239407320ac973a6096cd7b6/quotes.csv"</span>
+
+<span class='co'># get dataframe of inspirational quotes</span>
+<span class='va'>quotes</span>  <span class='op'>&lt;-</span> <span class='fu'>readr</span><span class='fu'>::</span><span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='fu'><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></span><span class='op'>(</span><span class='st'>"https://gist.githubusercontent.com/{repo}/{csv}"</span><span class='op'>)</span><span class='op'>)</span>  
+
+<span class='co'># make full quote</span>
+<span class='va'>quotes</span><span class='op'>$</span><span class='va'>full_quote</span>  <span class='op'>&lt;-</span> <span class='fu'><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></span><span class='op'>(</span><span class='st'>"{quotes$Quote} - {quotes$Author}"</span><span class='op'>)</span>
+
+<span class='co'># now use it!</span>
 <span class='fu'>cowsay</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/cowsay/man/say.html'>say</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='va'>quotes</span><span class='op'>$</span><span class='va'>full_quote</span>, <span class='fl'>1</span><span class='op'>)</span>, by <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='va'>animals</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/rm.html'>rm</a></span><span class='op'>(</span><span class='va'>animals</span>, <span class='va'>quotes</span><span class='op'>)</span> <span class='co'># remove the objects we just created</span>
+</code></pre>
+</div>
+<pre><code>
+ -------------- 
+You can be what you want to be. You have the power within and we will help you always. - Byron Pulsifer 
+ --------------
+    \
+      \
+        \
+                        ,/|         _.--‛‛^``-...___.._.,;
+                      /, \‛.     _-‛          ,--,,,--‛‛‛
+                     {  \    `_-‛‛       ‛    /}‛
+Jill                    `;;‛             ;   ; ;
+                  ._.--‛‛     ._,,, _..‛  .;.‛
+                  (,_....----‛‛‛     (,..--‛‛
+  </code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/rm.html'>rm</a></span><span class='op'>(</span><span class='va'>animals</span>, <span class='va'>quotes</span><span class='op'>)</span> <span class='co'># remove the objects we just created</span>
 </code></pre>
 </div>
 </div>
 <h1 id="renviron">.Renviron</h1>
 <p>Sometimes you need to store sensitive information, like API Keys, Database passwords, data storage paths, or general variables used across all scripts. We don’t want to accidentally share these information, accidentally push them to Github, or copy and paste them over and over again from script to script. We also might want to build a codebase that relies on a few variables that another user can set in their own system in a way that works for them. Environmental variables are the way to address all of these concerns.</p>
-<p>Environmental variables are simply objects that store character strings. They are accessible from within R upon startup. To view all environmental variables, use <code>Sys.getenv()</code>. You can also pull out one environmental variable at a time by passing in its name, for instance:</p>
+<p><strong>Environmental variables</strong> are objects that store character strings. They are accessible from within R upon startup. To view all environmental variables, use <code>Sys.getenv()</code>. You can also pull out one environmental variable at a time by passing in its name, for instance:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span><span class='op'>(</span><span class='st'>"USER"</span><span class='op'>)</span>
@@ -2430,7 +2480,7 @@ hello world!
 </div>
 <pre><code>[1] &quot;richpauloo&quot;</code></pre>
 </div>
-<p>You can set your own environmental variables which are stored in another hidden file called <code>.Renviron</code> (this is the Python analog of <code>.env</code>).</p>
+<p>You can set your own environmental variables which are stored in another hidden file called <code>.Renviron</code> (this is the Python analog of <code>.env</code>). Keep in mind, <code>.Renviron</code> files typically contain lists of environmental variables that look similar to R code but it is actually not running R code…so don’t put R code in your <code>.Renviron</code> file! If we need to run R code when starting up R, we use <code>.RProfile</code>.</p>
 <p>To illustrate the use of <code>.Renviron</code>, we run <code>usethis::edit_r_environ()</code>, add the environmental variable <code>ANIMAL = "cat"</code>, save, and restart <code>R</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -2438,52 +2488,92 @@ hello world!
 </code></pre>
 </div>
 </div>
-<p>We can access our environmental variable (remember you need to restart R for changes to take effect) as follows:</p>
+<p>We can access our environmental variable as follows (remember you need to restart R for changes to take effect, try <strong><code>Session &gt; Restart R</code></strong>):</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span><span class='op'>(</span><span class='st'>"ANIMAL"</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>[1] &quot;cat&quot;</code></pre>
 </div>
 <p>We can use our environmental variable, for instance, in a function.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>inspire_me</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>animal</span><span class='op'>)</span><span class='op'>{</span>
+
+  <span class='co'># get pieces to make link</span>
+  <span class='va'>repo</span> <span class='op'>&lt;-</span> <span class='st'>"JakubPetriska/060958fd744ca34f099e947cd080b540"</span>
+  <span class='va'>csv</span>  <span class='op'>&lt;-</span> <span class='st'>"raw/963b5a9355f04741239407320ac973a6096cd7b6/quotes.csv"</span>
   
+  <span class='co'># silently read dataframe</span>
   <span class='fu'><a href='https://rdrr.io/r/base/message.html'>suppressMessages</a></span><span class='op'>(</span>
-    <span class='va'>quotes</span>  <span class='op'>&lt;-</span> <span class='fu'>readr</span><span class='fu'>::</span><span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"https://gist.githubusercontent.com/JakubPetriska/060958fd744ca34f099e947cd080b540/raw/963b5a9355f04741239407320ac973a6096cd7b6/quotes.csv"</span><span class='op'>)</span>  
+    <span class='va'>quotes</span>  <span class='op'>&lt;-</span> <span class='fu'>readr</span><span class='fu'>::</span><span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span>
+      <span class='fu'>glue</span><span class='fu'>::</span><span class='fu'><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></span><span class='op'>(</span><span class='st'>"https://gist.githubusercontent.com/{repo}/{csv}"</span><span class='op'>)</span>
+    <span class='op'>)</span>  
   <span class='op'>)</span>
+  
+  <span class='co'># paste together the full quote</span>
   <span class='va'>quotes</span><span class='op'>$</span><span class='va'>full_quote</span>  <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='va'>quotes</span><span class='op'>$</span><span class='va'>Quote</span>, <span class='st'>" -"</span>, <span class='va'>quotes</span><span class='op'>$</span><span class='va'>Author</span><span class='op'>)</span>
+  
+  <span class='co'># make a user-specified animal say the quote</span>
   <span class='fu'>cowsay</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/cowsay/man/say.html'>say</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='va'>quotes</span><span class='op'>$</span><span class='va'>full_quote</span>, <span class='fl'>1</span><span class='op'>)</span>, by <span class='op'>=</span> <span class='va'>animal</span><span class='op'>)</span>
 
 <span class='op'>}</span>
 
+<span class='co'># have the environmental variable say a quote</span>
 <span class='fu'>inspire_me</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span><span class='op'>(</span><span class='st'>"ANIMAL"</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>
- -------------- 
-Discovery consists of seeing what everybody has seen and thinking what nobody else has thought. -Jonathan Swift 
- --------------
-    \
-      \
-        \
-            |\___/|
-          ==) ^Y^ (==
-            \  ^  /
-             )=*=(
-            /     \
-            |     |
-           /| | | |\
-           \| | |_|/\
-      jgs  //_// ___/
-               \_)
-  </code></pre>
 </div>
-<p>Although it may not appear powerful in this trivial example, when a project grows substantially large and complex, or when managing multiple sensitive passwords and access tokens, environmental variables should be what you reach for.</p>
-<h1 id="strategies-to-organize-projects">Strategies to organize projects</h1>
-<p>Best practices for writing code across languages typically recommend package imports and function definitions at the top of a script, followed by code. For example:</p>
+<p>Although it may not appear powerful in this trivial example, when a project grows substantially large and complex, or when managing multiple sensitive passwords and access tokens, environmental variables are a standard approach that are widely used.</p>
+<aside>
+<p>Important note, both these files <code>.Renviron</code> and <code>.Rprofile</code> need to end with a blank newline at the end. If this isn’t present, the last line of the file is ignored, and there isn’t a message or error associated with this. The <code>usethis</code> functions typically take care of this for you, but be aware of it just in case!</p>
+</aside>
+<div class="challenge">
+<p><font color="#009E73"><strong>Pause and think</strong></font></p>
+<p>In the example function above, we might notice that reading in a url from a csv every time we run <code>inspire_me()</code> is a lot of unnecessary overhead. Where else might we be able to read that csv in automatically when R starts up, so that it’s available for our <code>inspire_me()</code> function, and that we only need to read it once?</p>
+</div>
+<p><br></p>
+<details>
+<summary class="challenge-ans-title">
+<font color="#0072B2"><strong>Click for Answers!</strong></font>
+</summary>
+<div class="challenge-ans-body">
+<p>We can move read step of the csv into a project-level RProfile, so it’s available to the project where we need this csv, but not to any general R session we may open outside of the project.</p>
+<p>.RProfile</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># get pieces to make link</span>
+<span class='va'>repo</span> <span class='op'>&lt;-</span> <span class='st'>"JakubPetriska/060958fd744ca34f099e947cd080b540"</span>
+<span class='va'>csv</span>  <span class='op'>&lt;-</span> <span class='st'>"raw/963b5a9355f04741239407320ac973a6096cd7b6/quotes.csv"</span>
+
+<span class='co'># silently read dataframe</span>
+<span class='fu'><a href='https://rdrr.io/r/base/message.html'>suppressMessages</a></span><span class='op'>(</span>
+  <span class='va'>quotes</span>  <span class='op'>&lt;-</span> <span class='fu'>readr</span><span class='fu'>::</span><span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span>
+    <span class='fu'>glue</span><span class='fu'>::</span><span class='fu'><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></span><span class='op'>(</span><span class='st'>"https://gist.githubusercontent.com/{repo}/{csv}"</span><span class='op'>)</span>
+  <span class='op'>)</span>  
+<span class='op'>)</span>
+
+<span class='co'># paste together the full quote</span>
+<span class='va'>quotes</span><span class='op'>$</span><span class='va'>full_quote</span>  <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='va'>quotes</span><span class='op'>$</span><span class='va'>Quote</span>, <span class='st'>" -"</span>, <span class='va'>quotes</span><span class='op'>$</span><span class='va'>Author</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>Modified function</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>inspire_me</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>animal</span><span class='op'>)</span><span class='op'>{</span>
+
+  <span class='co'># make a user-specified animal say the quote</span>
+  <span class='fu'>cowsay</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/cowsay/man/say.html'>say</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='va'>quotes</span><span class='op'>$</span><span class='va'>full_quote</span>, <span class='fl'>1</span><span class='op'>)</span>, by <span class='op'>=</span> <span class='va'>animal</span><span class='op'>)</span>
+
+<span class='op'>}</span>
+</code></pre>
+</div>
+</div>
+</div>
+</details>
+<h1 id="strategies-to-organize-projectscode">Strategies to organize projects/code</h1>
+<p>Best practices for writing code across languages typically recommend package imports and function definitions at the top of a script, followed by code. For example, a script may look like this:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># import packages</span>
@@ -2499,14 +2589,14 @@ Discovery consists of seeing what everybody has seen and thinking what nobody el
   <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='st'>"world"</span><span class='op'>)</span>
 <span class='op'>}</span>
 
-<span class='co'># code</span>
+<span class='co'># run code/functions</span>
 <span class='fu'>my_first_function</span><span class='op'>(</span><span class='op'>)</span>
 <span class='fu'>my_second_function</span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
-<p>These approaches work well when scripts are relatively simple, but as a project grows large and complex, it’s best practice to abstract functions into another script or set of scripts, and break up your workflow into discrete steps.</p>
-<p>For instance, although the <code>inspire_me()</code> function above is relatively simple, we can pretend that the read, transform, and print steps carried out in the function were themselves long functions in part of a much more complex, real-world workflow. Imagine we created a script called <code>functions.R</code> that contained the following code:</p>
+<p>These approaches work well when scripts are relatively simple, but as a project grows large and complex, it’s best practice to move functions into another script or set of scripts, and break up your workflow into discrete steps.</p>
+<p>For instance, although the <code>inspire_me()</code> function above is relatively simple, we can pretend that the <code>read</code>, <code>transform</code>, and <code>print</code> steps carried out in the function were themselves long functions in part of a much more complex, real-world workflow. Imagine we created a script called <code>functions.R</code> that contained the following code. Don’t worry if you haven’t seen <code>purrr::walk()</code> before. We’ll cover this in a later module on <a href="m_iteration.html">iteration</a>, and all you need to know about it now is that it “walks” over each input and applies a function. In this case, we apply the <code>require()</code> function to a vector of package names to load them.</p>
 <aside>
 Notice that all functions start with <code>f_</code>. This prefix makes it easy to read in a script and takes advantage of auto-complete.
 </aside>
@@ -2533,23 +2623,24 @@ Notice that all functions start with <code>f_</code>. This prefix makes it easy 
 <span class='co'># print a random animal and a random quote</span>
 <span class='va'>f_inspire_me</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>d</span><span class='op'>)</span><span class='op'>{</span>
   <span class='va'>animals</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>animals</span><span class='op'>)</span>
-  <span class='fu'>say</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='va'>d</span><span class='op'>$</span><span class='va'>full_quote</span>, <span class='fl'>1</span><span class='op'>)</span>, by <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='va'>animals</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/cowsay/man/say.html'>say</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='va'>d</span><span class='op'>$</span><span class='va'>full_quote</span>, <span class='fl'>1</span><span class='op'>)</span>, by <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='va'>animals</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
 <span class='op'>}</span>
 </code></pre>
 </div>
 </div>
-<p>We can call this script using <code>source()</code> to bring the functions into our environment.</p>
+<p>We can call this script using <code>source()</code> to load or import these functions into our environment where they are available for use, just as we load a library.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/source.html'>source</a></span><span class='op'>(</span><span class='fu'>here</span><span class='op'>(</span><span class='st'>"functions.R"</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
-<p>However, this is hardly a satisfying solution because in a real project, our pretend functions above may grow quite large, and we will likely add more and more functions, such that script that holds them all, <code>functions.R</code> may become many hundreds of lines long, making it difficult to sift through and make debug or add new lines of code. Let’s now move these functions to a directory <code>/functions</code> and store them all as separate files named after their function name:</p>
+<h3 id="abstracting-functions-from-code">Abstracting Functions from Code</h3>
+<p>However, this is hardly a satisfying solution because in a real project, our pretend functions above may grow quite large, and we will likely add more and more functions. Eventually, a single script may hold them all, and something like <code>functions.R</code> may become many hundreds of lines long, making it difficult to sift through, debug, or add new lines of code. A better organizational approach which makes things easier to maintain over time is to move all our functions to a directory <code>/functions</code>, and store them all as separate files named after their function name:</p>
 <aside>
 A good rule of thumb to follow is to try and keep scripts less than 150 lines in length. When scripts approach this length, they become difficult to keep track of, and there were likely missed opportunities to refactor the script into separate functions and modules.
 </aside>
-<p>Save as <code>/functions/f_read_data.R</code></p>
+<p>Save as <strong><code>/functions/f_read_data.R</code></strong></p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># read quotes from a url</span>
@@ -2562,7 +2653,7 @@ A good rule of thumb to follow is to try and keep scripts less than 150 lines in
 </code></pre>
 </div>
 </div>
-<p>Save as <code>/functions/f_preprocess_data.R</code></p>
+<p>Save as <strong><code>/functions/f_preprocess_data.R</code></strong></p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># paste the quote to the author</span>
@@ -2573,13 +2664,13 @@ A good rule of thumb to follow is to try and keep scripts less than 150 lines in
 </code></pre>
 </div>
 </div>
-<p>Save as <code>/functions/f_inspire_me.R</code></p>
+<p>Save as <strong><code>/functions/f_inspire_me.R</code></strong></p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># print a random animal and a random quote</span>
 <span class='va'>f_inspire_me</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>d</span><span class='op'>)</span><span class='op'>{</span>
   <span class='va'>animals</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>animals</span><span class='op'>)</span>
-  <span class='fu'>say</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='va'>d</span><span class='op'>$</span><span class='va'>full_quote</span>, <span class='fl'>1</span><span class='op'>)</span>, by <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='va'>animals</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/cowsay/man/say.html'>say</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='va'>d</span><span class='op'>$</span><span class='va'>full_quote</span>, <span class='fl'>1</span><span class='op'>)</span>, by <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='va'>animals</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
 <span class='op'>}</span>
 </code></pre>
 </div>
@@ -2588,19 +2679,22 @@ A good rule of thumb to follow is to try and keep scripts less than 150 lines in
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="images/function_img.png" width="837" /></p>
 </div>
-<p>Now in our <code>/code</code> directory, we create a script, <code>01_control.R</code> to source our functions and use them. Be sure to restart <code>R</code> to clear your environment before sourcing this control script.</p>
-<p>Save as <code>/code/01_control.R</code> and run.</p>
+<p>Now in our <code>/code</code> directory, we create a script, <code>01_control.R</code> to source our functions and use them. Be sure to restart <code>R</code> to clear your environment before sourcing this control script so we know we are working from a clean slate.</p>
+<p>Save as <strong><code>/code/01_control.R</code></strong> and run.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># packages needed for this script</span>
-<span class='va'>pkgs</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"readr"</span>, <span class='st'>"cowsay"</span>, <span class='st'>"here"</span>, <span class='st'>"tidyverse"</span><span class='op'>)</span>
+<span class='va'>pkgs</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"readr"</span>, <span class='st'>"cowsay"</span>, <span class='st'>"here"</span>, <span class='st'>"tidyverse"</span>, <span class='st'>"glue"</span><span class='op'>)</span>
 <span class='fu'>purrr</span><span class='fu'>::</span><span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>walk</a></span><span class='op'>(</span><span class='va'>pkgs</span>, <span class='va'>require</span>, character.only <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
-<span class='co'># silently source all functions</span>
+<span class='co'># silently source all functions using the purrr::walk function</span>
 <span class='fu'>walk</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.files.html'>list.files</a></span><span class='op'>(</span><span class='fu'>here</span><span class='op'>(</span><span class='st'>"functions"</span><span class='op'>)</span>, full.names <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>, <span class='op'>~</span><span class='kw'><a href='https://rdrr.io/r/base/source.html'>source</a></span><span class='op'>(</span><span class='va'>.x</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># define the url where quotes are located</span>
-<span class='va'>url</span> <span class='op'>&lt;-</span> <span class='st'>"https://gist.githubusercontent.com/JakubPetriska/060958fd744ca34f099e947cd080b540/raw/963b5a9355f04741239407320ac973a6096cd7b6/quotes.csv"</span>
+<span class='co'># get pieces to make link</span>
+<span class='va'>repo</span> <span class='op'>&lt;-</span> <span class='st'>"JakubPetriska/060958fd744ca34f099e947cd080b540"</span>
+<span class='va'>csv</span> <span class='op'>&lt;-</span> <span class='st'>"raw/963b5a9355f04741239407320ac973a6096cd7b6/quotes.csv"</span>
+<span class='va'>url</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></span><span class='op'>(</span><span class='st'>"https://gist.githubusercontent.com/{repo}/{csv}"</span><span class='op'>)</span>  
 
 <span class='co'># use all of our functions</span>
 <span class='fu'>f_read_data</span><span class='op'>(</span><span class='va'>url</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
@@ -2609,23 +2703,26 @@ A good rule of thumb to follow is to try and keep scripts less than 150 lines in
 </code></pre>
 </div>
 <pre><code>
- -------------- 
-We do what we do because we believe. -NA 
- --------------
-    \
-      \
-        \
-            |\___/|
-          ==) ^Y^ (==
-            \  ^  /
-             )=*=(
-            /     \
-            |     |
-           /| | | |\
-           \| | |_|/\
-      jgs  //_// ___/
-               \_)
-  </code></pre>
+ ----- 
+I have often regretted my speech, never my silence. -Publilius Syrus 
+ ------ 
+    \   
+     \
+                \`*-.
+                 )  _`-.
+                .  : `. .
+                : _   &#39;  \
+                ; *` _.   `*-._
+                `-.-&#39;          `-.
+                  ;       `       `.
+                  :.       .       \
+                  .\  .   :   .-&#39;   .
+                  &#39;  `+.;  ;  &#39;      :
+                  :  &#39;  |    ;       ;-.
+                  ; &#39;   : :`-:     _.`* ;
+               .*&#39; /  .*&#39; ; .*`- +&#39;  `*&#39;
+     [bug]     `*-*   `*-*  `*-*&#39;
+    </code></pre>
 </div>
 <p><code>source()</code> is the key to chaining together many scripts. In the example above, we were able to abstract functions into a separate folder which makes keeping track of them much easier than if they cluttered our control script.</p>
 <aside>
@@ -2634,10 +2731,10 @@ It’s also a good rule of thumb to keep each line of code less than 75 characte
 <div class="challenge">
 <p><font color="#009E73"><strong>Learn more</strong></font></p>
 <p>Separating all functions into standalone scripts is not a revolutionary idea – in fact, this is precisely how R packages are written! For example, see the <a href="https://github.com/tidyverse/dplyr/tree/master/R"><code>{dplyr}</code> github repo’s /R folder</a> which contains all dplyr functions in one directory. When you call <code>library(dplyr)</code> you’re essentially sourcing all of these functions into your environment.</p>
-<p>If project management and reproducible data pipelines are interesting to you, check out the <a href="https://github.com/ropensci/drake"><code>{drake}</code> R package</a>. A similar framework for Shiny Apps exists called <a href="https://thinkr-open.github.io/golem/"><code>{golem}</code></a>, which also includes <code>{usethis}</code>-like commands that streamline common chores in Shiny App development.</p>
+<p>If project management and reproducible data pipelines are interesting to you, check out the <a href="https://docs.ropensci.org/targets/index.html"><code>{targets}</code> R package</a>. A similar framework for Shiny Apps exists called <a href="https://thinkr-open.github.io/golem/"><code>{golem}</code></a>, which also includes <code>{usethis}</code>-like commands that streamline common chores in Shiny App development.</p>
 </div>
 <h1 id="renv">renv</h1>
-<p>We use <code>{here}</code> because we expect that whoever else opens your code on their machine is likely to have a different project root path, and <code>{here}</code> ensures your code is portable between different computers with different root project paths (e.g., <code>~/Documents/Github/myproject</code> v <code>C:\Users\louis\Documents\myproject</code>).</p>
+<p>We use <code>{here}</code> because we expect that whoever else opens your code on their machine is likely to have a different project root path, and <code>{here}</code> ensures your code is portable between different computers with different root project paths (e.g., <code>~/Documents/Github/myproject</code> versus <code>C:\Users\louis\Documents\myproject</code>).</p>
 <p>Development environments are similar. When we work in <code>R</code> – or any programming language for that matter – we use a snapshot of package versions based on when we downloaded and installed them [e.g. with <code>install.packages()</code>]. You can check the version of the installed packages loaded into your current environment with <code>sessionInfo()</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -2662,29 +2759,30 @@ attached base packages:
 other attached packages:
  [1] forcats_0.5.1   stringr_1.4.0   dplyr_1.0.4     purrr_0.3.4    
  [5] tidyr_1.1.2     tibble_3.1.0    tidyverse_1.3.0 here_0.1       
- [9] cowsay_0.8.0    readr_1.4.0     knitr_1.30      ggplot2_3.3.3  
+ [9] readr_1.4.0     glue_1.4.2      cowsay_0.8.0    knitr_1.30     
+[13] ggplot2_3.3.3  
 
 loaded via a namespace (and not attached):
  [1] tidyselect_1.1.0  xfun_0.22         haven_2.3.1      
  [4] colorspace_2.0-0  vctrs_0.3.7       generics_0.1.0   
  [7] htmltools_0.5.1.1 usethis_2.0.0     yaml_2.2.1       
 [10] utf8_1.2.1        rlang_0.4.10      gridtext_0.1.4   
-[13] pillar_1.5.1      glue_1.4.2        withr_2.4.1      
-[16] DBI_1.1.1         dbplyr_2.1.0      readxl_1.3.1     
-[19] modelr_0.1.8      fortunes_1.5-4    lifecycle_1.0.0  
-[22] cellranger_1.1.0  munsell_0.5.0     gtable_0.3.0     
-[25] rvest_0.3.6       evaluate_0.14     curl_4.3         
-[28] fansi_0.4.2       broom_0.7.0       Rcpp_1.0.6       
-[31] scales_1.1.1      backports_1.1.10  jsonlite_1.7.2   
-[34] fs_1.5.0          rmsfact_0.0.3     distill_1.2      
-[37] hms_1.0.0         png_0.1-7         digest_0.6.27    
-[40] stringi_1.5.3     grid_4.0.2        rprojroot_1.3-2  
-[43] cli_2.4.0         tools_4.0.2       magrittr_2.0.1   
-[46] crayon_1.4.1      pkgconfig_2.0.3   downlit_0.2.1    
-[49] ellipsis_0.3.1    xml2_1.3.2        reprex_0.3.0     
-[52] lubridate_1.7.9.2 httr_1.4.2        assertthat_0.2.1 
-[55] rmarkdown_2.7     rstudioapi_0.11   R6_2.5.0         
-[58] ggtext_0.1.1      compiler_4.0.2   </code></pre>
+[13] pillar_1.5.1      withr_2.4.1       DBI_1.1.1        
+[16] dbplyr_2.1.0      readxl_1.3.1      modelr_0.1.8     
+[19] fortunes_1.5-4    lifecycle_1.0.0   cellranger_1.1.0 
+[22] munsell_0.5.0     gtable_0.3.0      rvest_0.3.6      
+[25] evaluate_0.14     curl_4.3          fansi_0.4.2      
+[28] broom_0.7.0       Rcpp_1.0.6        scales_1.1.1     
+[31] backports_1.1.10  jsonlite_1.7.2    fs_1.5.0         
+[34] rmsfact_0.0.3     distill_1.2       hms_1.0.0        
+[37] png_0.1-7         digest_0.6.27     stringi_1.5.3    
+[40] grid_4.0.2        rprojroot_1.3-2   cli_2.4.0        
+[43] tools_4.0.2       magrittr_2.0.1    crayon_1.4.1     
+[46] pkgconfig_2.0.3   downlit_0.2.1     ellipsis_0.3.1   
+[49] xml2_1.3.2        reprex_0.3.0      lubridate_1.7.9.2
+[52] httr_1.4.2        assertthat_0.2.1  rmarkdown_2.7    
+[55] rstudioapi_0.11   R6_2.5.0          ggtext_0.1.1     
+[58] compiler_4.0.2   </code></pre>
 </div>
 <p>The version number is the string of numbers listed after a package name and underscore.</p>
 <p>Similarly, you can use <code>installed.packages()</code> to view information on all of your installed packages.</p>
@@ -2693,12 +2791,12 @@ loaded via a namespace (and not attached):
 Even the version of R itself changes, although base R changes very slowly and the R Core Team tries to make new versions of R backwards-compatible to not break scripts written before potentially breaking changes.
 </aside>
 <p>The solution to this problem is for everyone to use the same versions of packages (and <code>R</code>), which is to say that collaborators should use the same <strong><em>development environment</em></strong>. This is a common concept across programming languages.</p>
-<p><a href="https://rstudio.github.io/renv/articles/renv.html"><code>{renv}</code></a> manages your package environment and makes it easy to share it with others by creating and curating a “lock” file (<code>renv.lock</code>) in the root project directory. When starting a project, create the file with <code>renv::init()</code>, install packages as you go along, and update the lockfile with <code>renv::snapshot()</code>. When a collaborator opens your project (for example, after cloning it from Github), all they need to do is open the <code>.RProj</code> file and <code>{renv}</code> will bootstrap itself and set up the development environment captured in the lock file.</p>
+<p><a href="https://rstudio.github.io/renv/articles/renv.html"><code>{renv}</code></a> manages your package environment and makes it easy to share it with others by creating and curating a “lock” file (<code>renv.lock</code>) in the root project directory. When starting a project, create the file with <code>renv::init()</code>, install packages as you go along, and update the lockfile with <code>renv::snapshot()</code>. When a collaborator opens your project (for example, after cloning it from Github), all they need to do is open the <code>.RProj</code> file and <code>{renv}</code> will automatically set up the development environment captured in the lock file.</p>
 <aside>
 The <code>renv.lock</code> file is a JSON file with information on the version of R and the versions of all packages used by the project.
 </aside>
 <p>If you find yourself needing to share important analyses, perhaps that run on a production server, you should look into <code>{renv}</code>. For most day-to-day data science that you don’t plan on sharing or working collaboratively on, it may be unnecessary.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
