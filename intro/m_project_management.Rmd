@@ -155,3 +155,10 @@ knitr::include_graphics("https://gge-ucd.github.io/R-DAVIS/img/working-directory
  
 
 *Lesson adapted from [R-DAVIS](https://gge-ucd.github.io/R-DAVIS/index.html), Jenny Bryan and Jim Hester's [What they forgot to teach you about R](rstats.wtf), and the [Data Carpentry: R for data analysis and visualization of Ecological Data](https://datacarpentry.org/R-ecology-lesson/index.html) lessons*.
+
+<br> 
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<a href="m_getting_started.html" class="btn btn-secondary" style="float: left">Previous module:<br> Getting started</a>
+<a href="m_importing_and_exporting_data.html" class="btn btn-secondary" style="float: right;">Next module:<br> Import/export data</a>  

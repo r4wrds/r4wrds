@@ -511,3 +511,9 @@ We covered 3 common frameworks in which to plot spatial data in R: the `plot()` 
 
 The online books/guides [*Geocomputation with R*](https://geocompr.robinlovelace.net/), [*RSpatial.org*](https://rspatial.org/), and [*Spatial Data Science*](https://keen-swartz-3146c4.netlify.app/) are additional resources for a deeper dive into spatial data processing and mapping in R.  
 
+<br>  
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<a href="m_joins.html" class="btn btn-secondary" style="float: left">Previous module:<br> Joins and Binds</a>
+<a href="m_exploratory_DA.html" class="btn btn-secondary" style="float: right;">Next module:<br> EDA</a>  

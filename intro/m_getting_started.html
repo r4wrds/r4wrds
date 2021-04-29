@@ -2073,8 +2073,8 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 
   /*blue comment box */
   .blue {
-      background-color:#e6f0ff; 
-      border-radius: 4px; 
+      background-color:#e6f0ff;
+      border-radius: 4px;
       padding: 12px;
   }
 
@@ -2087,16 +2087,16 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 
   /* make marker something before click */
   summary::before {
-      font-family: "Font Awesome 5 Free"; 
-      font-weight: 900; 
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
       content: "\f13a";
       color: #228B22;
   }
 
   /* and after click */
   details[open] summary:before {
-      font-family: "Font Awesome 5 Free"; 
-      font-weight: 900; 
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
       content: "\f139";
       color: gray;
   }
@@ -2135,7 +2135,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
         font-weight: normal;
   }
 
-  /* see giraffe teacup site for great css tips: https://github.com/tinystats/teacups-giraffes-and-statistics/blob/master/assets/style.css 
+  /* see giraffe teacup site for great css tips: https://github.com/tinystats/teacups-giraffes-and-statistics/blob/master/assets/style.css
   css below is adapted from that page */
 
   .obj {
@@ -2163,8 +2163,8 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 
   .challenge {
     color: #002855;
-    background-color:#e6f0ff; 
-    border-radius: 4px; 
+    background-color:#e6f0ff;
+    border-radius: 4px;
     padding: 12px;
     font-size: 16px;
     line-height: 1.3em;
@@ -2201,12 +2201,12 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
       right:0;
       bottom:0;
     }
-    
-  .lil-image-text { 
+
+  .lil-image-text {
       margin-right: auto;
       margin-bottom: 20px;
       margin-left: auto;
-      text-align: center; 
+      text-align: center;
       display:block;
       font-family: 'Lora', serif;
         font-size: 24px;
@@ -2217,22 +2217,22 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
         color: #fff;
     }
 
-  .big-image-text { 
+  .big-image-text {
     letter-spacing: 0.065em;
     line-height: 1em;
     font-size: 68px;
     text-transform: uppercase;
-    text-align: center; 
+    text-align: center;
     display:block;
     color: #fff;
     margin-bottom: 3rem;
   }
 
-  .lil-image-text-dark { 
+  .lil-image-text-dark {
       margin-right: auto;
       margin-bottom: 24px;
       margin-left: auto;
-      text-align: center; 
+      text-align: center;
       display:block;
       font-family: 'Lora', serif;
         font-size: 40px;
@@ -2243,12 +2243,12 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
         color: #191919;
     }
 
-  .big-image-text-dark { 
+  .big-image-text-dark {
     letter-spacing: 0.065em;
     line-height: 1em;
     font-size: 68px;
     text-transform: uppercase;
-    text-align: center; 
+    text-align: center;
     display:block;
     color: #191919;
     margin-bottom: 3rem;
@@ -2263,6 +2263,14 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
     left: 0;
     background-color: rgba(0,0,0,.1);
   }
+
+  /*grey code block*/
+
+  .sourceCode {
+    background-color:#f4f4f4;
+    border-radius: 4px;
+  }
+
 
   </style>
   <!--/radix_placeholder_site_in_header-->
@@ -2474,7 +2482,7 @@ Figure 2: <em>The RStudio window.</em>
 <h2 id="installing-packages-files-etc-tab">Installing Packages (<strong>Files etc</strong> tab)</h2>
 <p>Immediately below the <strong>Environment</strong> is the third section of RStudio, where all of your <strong>Packages</strong> are stored. The base or core installation of R is quite powerful, but because R is open-source, there are thousands of packages (pieces of code we can download and use) that dramatically extend the capability of R, from statistical analysis, to modeling, to geospatial mapping, to website and document creation. Packages are the collection of code or <em>functions</em> that are a standardized way of extending R with new methods, techniques, and programming functionality.</p>
 <h3 id="cran">CRAN</h3>
-<p>One of the reasons for R’s popularity is CRAN, <a href="http://cran.r-project.org/">The Comprehensive R Archive Network</a>. CRAN is where you download R and also where you can gain access to additional packages. All of the packages we will use during this tutorial will be downloaded from CRAN. As of 2021-04-12, there are 17,407 packages on CRAN!</p>
+<p>One of the reasons for R’s popularity is CRAN, <a href="http://cran.r-project.org/">The Comprehensive R Archive Network</a>. CRAN is where you download R and also where you can gain access to additional packages. All of the packages we will use during this tutorial will be downloaded from CRAN. As of 2021-04-29, there are 17,471 packages on CRAN!</p>
 <h3 id="installing-tidyverse">Installing <code>{tidyverse}</code></h3>
 <p>When a package is installed, that means the source code is downloaded and put into your library. Let’s give it a shot using the <a href="https://tidyverse.tidyverse.org/index.html">{<code>tidyverse</code>}</a>, a set of packages assembled for data tidying and visualization purposes.</p>
 <p>We’re going to use our very first function: <code>install.packages()</code> to install this package. Type the following into your <em>Console</em> and press <code>enter</code>:</p>
@@ -2523,6 +2531,9 @@ Figure 2: <em>The RStudio window.</em>
 </code></pre>
 </div>
 </div>
+<p><br></p>
+<p><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"></p>
+<p><a href="m_install_R.html" class="btn btn-secondary" style="float: left">Previous module:<br> Install R/RStudio</a> <a href="m_project_management.html" class="btn btn-secondary" style="float: right;">Next module:<br> Project Management</a></p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->

@@ -705,3 +705,11 @@ EDA is the synthesis of every module we've covered so far, and many more that ar
 ## Communicate results
 
 An EDA may generate tables, visualizations, text, and code that all encapsulate the greater meaning that you've derived from the data. An excellent, R-centric way to share the tables, visualizations, text, and code that result from your EDA is to use an RMarkdown (`.Rmd`) document, which is the topic of the [next module](m_intro_Rmarkdown.html).
+
+
+<br>  
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<a href="m_intro_mapmaking.html" class="btn btn-secondary" style="float: left">Previous module:<br> Spatial Data</a>
+<a href="m_intro_Rmarkdown.html" class="btn btn-secondary" style="float: right;">Next module:<br> RMarkdown</a>  
