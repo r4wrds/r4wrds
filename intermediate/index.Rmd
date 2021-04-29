@@ -18,23 +18,25 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Who is this course for?
 
-What makes an *Intermediate user*? This course is likely most relevant and targeted at folks who:
+What makes an *Intermediate `R` user*? This course is most relevant and targeted at folks who:
 
- - Took the [Introductory R4WRDS](https://r4wrds.com/intro/) course
- - Are existing R users who want improve their efficiency and skill set
- - Have a general understanding and proficiency in using {dplyr}, {ggplot2}, {sf}, and {rmarkdown}
- - Understand (and use) general best practices for data science in R
+ - Took the [Introductory R4WRDS](../intro/index.html) course
+ - Regularly use `R` and want improve their efficiency and skill set
+ - Have a general understanding and proficiency in using `{dplyr}`, `{ggplot2}`, `{sf}`, and `{rmarkdown}`
+ - Understand (and use) general best practices for data science in `R`
 
 ## What will you learn?
 
-In this course, we will move more quickly, assume familiarity with basic R skills, and also assume that the participant is working on more complex workflows, operations, and code-bases. We have developed each module to function as a "stand-alone" story, so while different modules will focus on different skill sets, in the intermediate course each module doesn't necessarily require the previous module.
+In this course, we will move more quickly, assume familiarity with basic `R` skills, and also assume that the participant has experience with more complex workflows, operations, and code-bases. Each module in this course functions as a "stand-alone" lesson, and can be read linearly, or out of order according to your needs and interests. Each module doesn't necessarily require familiarity with the previous module.
 
-**This course focuses on:**
+**This course emphasizes:**
 
- - more advanced scripting skills like iteration, writing functions, and controlling project workflows for better reproducibility and efficiency.
- - Approaches to working with more complex data structures like lists and timeseries data
- - Pulling water resources data and specific visualization tasks associated with those data
- - Integrating version control in projects with git
+ - Intermediate scripting skills like iteration, functional programming, writing functions, and controlling project workflows for better reproducibility and efficiency.
+ - Approaches to working with more complex data structures like lists and timeseries data.
+ - The fundamentals of building Shiny Apps.
+ - Pulling water resources data from APIs.
+ - Intermediate mapmaking and spatial data processing.
+ - Integrating version control in projects with git.
 
 
 (ref:AHRemoteR) *Artwork by @allison_horst*
@@ -65,7 +67,9 @@ In this course, we will:
 
 <br>
 
-[R](https://www.r-project.org/) is a language for statistical computing as well as a general purpose programming language. Increasingly, it has become one of the primary languages used in data science for data analysis, modeling, and visualization. 
+## Why `R`?
+
+[`R`](https://www.r-project.org/) is an open-source language for statistical computing and a general purpose programming language. It is one of the primary languages used for data science, modeling, and visualization. 
 
 <br>
 
@@ -86,6 +90,13 @@ All source materials for this website can be accessed at **[final GH location, p
 
 Content in these lessons has been modified and/or adapted from [Data Carpentry: R for data analysis and visualization of Ecological Data](https://datacarpentry.org/R-ecology-lesson/index.html), the USGS-R training curriculum [here](https://github.com/USGS-R/training-curriculum), the NCEAS Open Science for Synthesis workshop [here](https://nceas.github.io/oss-2017/index.html), [Mapping in R](https://ryanpeek.org/mapping-in-R-workshop/), and the wonderful text [R for data science](https://github.com/hadley/r4ds).
 
+
+<br>  
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+<a href="m_project_management.html" class="btn btn-secondary" style="float: right;">Next module:<br> Project Management</a>  
 
 ---
 
