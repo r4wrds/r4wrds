@@ -42,6 +42,12 @@ R.version
 
 This command will return information about the R version your system is using, as well as some information specific to your operating system (os). We can then visit the [R CRAN website](https://cran.r-project.org/) to see what the most recent version is. If you haven't updated recently, go ahead and grab the most recent R version for your system and [install it](https://r4wrds.com/intro/m_install_R.html#step-1.-install).
 
+<aside>
+
+When you update a **major** version of R, your personal library of packages will no longer work, and you will need to reinstall all your packages. There are a few tools you can use to do this, but it's generally part of staying up-to-date (and happens fairly infrequently).
+
+</aside>
+
 ### Check/Update &nbsp;<img src="https://d33wubrfki0l68.cloudfront.net/62bcc8535a06077094ca3c29c383e37ad7334311/a263f/assets/img/logo.svg" alt="RStudio" width="10%">
 
 We can check our version of RStudio by going to the toolbar at the top of your RStudio window and clicking **`Help` > `Check for Updates`**. If you have the most recent version, there will be a message box letting you know as much. If not, RStudio will direct you to their webpage to download the most recent version.
@@ -70,13 +76,39 @@ include_graphics(here("images", "package_update.png"))
 
 ```
 
-We can choose to *Select All* and update everything at once, or selectively update things. After we click **Install Updates** we may typically also see a message like this:
+We can choose to *Select All* and update everything at once, or selectively update things. 
 
-```{r restartR, fig.cap="Restart R", eval=T, echo=F, out.width="%50"}
+After we click **Install Updates** we may typically also see a message like this:
+
+```{r restartR, fig.cap="Restart R", eval=T, echo=F, out.width="%45"}
 
 include_graphics(here("images", "restart_r_to_update.png"))
 
 ```
 
-You can choose to cancel, but it's fine to click **Yes** and proceed. 
+You can choose to cancel, but it's fine to click **Yes** and proceed. Sometimes we will also get something in the **`Console`** that will ask the following:
+
+ - **`Do you want to install from sources the packages which need compilation? (Yes/no/cancel)`**
+
+Some packages require this, so generally it's okay to type `Yes` and hit enter to proceed. At this point we can wait and let R/RStudio update things for us. Depending on how many packages are involved, this can take a few minutes. Importantly, when it's all said and done, make sure there weren't errors or issues with packages that didn't get installed. We can use **`Tools` > `Check for Package Updates...`** again and see what packages remain, or if we get a message saying all packages are up-to-date.
+
+## Best Practices for Updating
+
+In bullet form here's what we recommend (and check out the great rstats.wtf chapter on this topic and more, see [here](https://rstats.wtf/maintaining-r.html)):
+
+ - ***Update packages frequently (like weekly)***
+ - ***Update R quarterly (or at least check)***
+ - ***For complete reproducibility for a project check out the [`{renv}` package](https://rstudio.github.io/renv/articles/renv.html) (though be sure to read caveats)***
+ - ***Don't copy your packages over between R versions...start clean and fresh***
+
+Updating can be irksome at times, but it's typically for the best. Generally, we advise updating your packages frequently if you are using R regularly (like do a weekly check and update your packages). If you want to be sure you have the exact package version for future use and reproducibility, the `{renv}` may be a great solution for an analysis or report, but may not be necessary if your aren't using or working on a specific project/analysis. `{renv}` keeps copies of your R packages in the exact form they were when you originally wrote your code or loaded your library. It does not solve the problem of having the correct operating system to run everything, so some forethought is required.
+
+Overall, treat R and R packages as something that will be highly functional with a little regular maintenance, just as with a vehicle that needs some new tires or an oil change once in awhile. It will keep things running smoothly over the long-term.
+
+
+```{r thingswork, echo=FALSE, out.width="%80", fig.cap="Success over time! (Artwork by @allison_horst)"}
+
+knitr::include_graphics(here::here("images","tidydata_6.jpeg"))
+
+```
 
