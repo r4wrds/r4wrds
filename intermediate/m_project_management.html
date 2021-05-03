@@ -46,40 +46,46 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
+    background-color: #ffffff;
+    color: #a0a0a0;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #a0a0a0;  padding-left: 4px; }
 div.sourceCode
-  {   }
+  { color: #1f1c1b; background-color: #ffffff; }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; } /* Alert */
-code span.an { color: #008000; } /* Annotation */
-code span.at { } /* Attribute */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #0000ff; } /* ControlFlow */
-code span.ch { color: #008080; } /* Char */
-code span.cn { color: #585cf6; } /* Constant */
-code span.co { color: #4c886b; } /* Comment */
-code span.cv { color: #008000; } /* CommentVar */
-code span.do { color: #008000; } /* Documentation */
-code span.dv { color: #0000cd; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #0000cd; } /* Float */
-code span.im { } /* Import */
-code span.in { color: #008000; } /* Information */
-code span.kw { color: #0000ff; } /* Keyword */
-code span.op { color: #687687; } /* Operator */
-code span.ot { color: #ff4000; } /* Other */
-code span.pp { color: #ff4000; } /* Preprocessor */
-code span.sc { color: #008080; } /* SpecialChar */
-code span.ss { color: #008080; } /* SpecialString */
-code span.st { color: #036a07; } /* String */
-code span.va { } /* Variable */
-code span.vs { color: #008080; } /* VerbatimString */
-code span.wa { color: #008000; font-weight: bold; } /* Warning */
+code span { color: #1f1c1b; } /* Normal */
+code span.al { color: #bf0303; background-color: #f7e6e6; font-weight: bold; } /* Alert */
+code span.an { color: #ca60ca; } /* Annotation */
+code span.at { color: #0057ae; } /* Attribute */
+code span.bn { color: #b08000; } /* BaseN */
+code span.bu { color: #644a9b; font-weight: bold; } /* BuiltIn */
+code span.cf { color: #1f1c1b; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #924c9d; } /* Char */
+code span.cn { color: #aa5500; } /* Constant */
+code span.co { color: #898887; } /* Comment */
+code span.cv { color: #0095ff; } /* CommentVar */
+code span.do { color: #607880; } /* Documentation */
+code span.dt { color: #0057ae; } /* DataType */
+code span.dv { color: #b08000; } /* DecVal */
+code span.er { color: #bf0303; text-decoration: underline; } /* Error */
+code span.ex { color: #0095ff; font-weight: bold; } /* Extension */
+code span.fl { color: #b08000; } /* Float */
+code span.fu { color: #644a9b; } /* Function */
+code span.im { color: #ff5500; } /* Import */
+code span.in { color: #b08000; } /* Information */
+code span.kw { color: #1f1c1b; font-weight: bold; } /* Keyword */
+code span.op { color: #1f1c1b; } /* Operator */
+code span.ot { color: #006e28; } /* Other */
+code span.pp { color: #006e28; } /* Preprocessor */
+code span.re { color: #0057ae; background-color: #e0e9f8; } /* RegionMarker */
+code span.sc { color: #3daee9; } /* SpecialChar */
+code span.ss { color: #ff5500; } /* SpecialString */
+code span.st { color: #bf0303; } /* String */
+code span.va { color: #0057ae; } /* Variable */
+code span.vs { color: #bf0303; } /* VerbatimString */
+code span.wa { color: #bf0303; } /* Warning */
 </style>
 
   <!--radix_placeholder_meta_tags-->
@@ -2274,6 +2280,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
     background-color: rgba(0,0,0,.1);
   }
 
+
   /*grey code block*/
 
   .sourceCode {
@@ -2362,7 +2369,7 @@ Modules
 <ul>
 <li><a href="#abstracting-functions-from-code">Abstracting Functions from Code</a></li>
 </ul></li>
-<li><a href="#renv">renv</a></li>
+<li><a href="#renv"><code>{renv}</code></a></li>
 </ul>
 </nav>
 </div>
@@ -2462,22 +2469,22 @@ hello world!
 </code></pre>
 </div>
 <pre><code>
- ------------- 
-In separateness lies the world&#39;s great misery, in compassion lies the world&#39;s true strength. - Buddha 
- -------------- 
-              \   
-               \  
-                \
-        __.--&#39;\     \.__./     /&#39;--.__
-    _.-&#39;       &#39;.__.&#39;    &#39;.__.&#39;       &#39;-._
-  .&#39;                                      &#39;.
- /                                          \
-|                                            |
-|                                            |
- \         .---.              .---.         /
-  &#39;._    .&#39;     &#39;.&#39;&#39;.    .&#39;&#39;.&#39;     &#39;.    _.&#39;
-     &#39;-./            \  /           \.-&#39;
-                      &#39;&#39;mrf</code></pre>
+ ----- 
+You can tell whether a man is clever by his answers. You can tell whether a man is wise by his questions. - Naguib Mahfouz 
+ ------ 
+    \   
+     \  
+      \
+       \   _,
+      -==&lt;&#39; `
+          ) /
+         / (_.
+        |  ,-,`\
+         \\   \ \
+          `\,  \ \
+           ||\  \`|,
+ jgs      _|| `=`-&#39;
+         ~~`~`</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/rm.html'>rm</a></span><span class='op'>(</span><span class='va'>animals</span>, <span class='va'>quotes</span><span class='op'>)</span> <span class='co'># remove the objects we just created</span>
 </code></pre>
@@ -2719,7 +2726,7 @@ A good rule of thumb to follow is to try and keep scripts less than 150 lines in
 </div>
 <pre><code>
  ----- 
-We know the truth, not only by the reason, but by the heart. -Blaise Pascal 
+Who we are never changes. Who we think we are does. -Mary Almanac 
  ------ 
     \   
      \
@@ -2743,7 +2750,7 @@ Separating all functions into standalone scripts is not a revolutionary idea –
 If project management and reproducible data pipelines are interesting to you, check out the <a href="https://docs.ropensci.org/targets/index.html"><code>{targets}</code> R package</a>. A similar framework for Shiny Apps exists called <a href="https://thinkr-open.github.io/golem/"><code>{golem}</code></a>, which also includes <code>{usethis}</code>-like commands that streamline common chores in Shiny App development.
 </p>
 </div>
-<h1 id="renv">renv</h1>
+<h1 id="renv"><code>{renv}</code></h1>
 <p>We use <code>{here}</code> because we expect that whoever else opens your code on their machine is likely to have a different project root path, and <code>{here}</code> ensures your code is portable between different computers with different root project paths (e.g., <code>~/Documents/Github/myproject</code> versus <code>C:\Users\louis\Documents\myproject</code>).</p>
 <p>Development environments are similar. When we work in <code>R</code> – or any programming language for that matter – we use a snapshot of package versions based on when we downloaded and installed them [e.g. with <code>install.packages()</code>]. You can check the version of the installed packages loaded into your current environment with <code>sessionInfo()</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
