@@ -1,12 +1,12 @@
 name: "R4WRDS"
-title: "R for Water Resources Data Science"
+title: "R4WRDS Courses"
 description: |
   R for Water Resources Data Science
 output_dir: "."
 # repository_url: https://github.com/ryanpeek/WRDS_intro/ # works with source_url
 include: [".nojekyll"]
 navbar:
-  title: "R4WRDS Courses"
+  # title: "R4WRDS"
   type: inverse
   # source_url: true # we do this with the GH icon
   # left:
