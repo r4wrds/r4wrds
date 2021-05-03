@@ -109,7 +109,7 @@ We recommend the following approach to updating `R` packages (check out the grea
  - ***For complete reproducibility for a project check out the [`{renv}` package](https://rstudio.github.io/renv/articles/renv.html)***
  - ***Don't copy packages over between R versions--start clean and fresh***
 
-Updating packages can be irksome, but it's typically for the best. We advise updating your packages frequently if you regularly use `R` (e.g;, a weekly checks and updates to packages). If you want to be sure you have the exact package version for future use and reproducibility, the `{renv}` may be a great solution for an analysis or report, but may not be necessary if your aren't using or working on a specific project/analysis. `{renv}` keeps a record of your R packages within an RProject down to the exact version number when you originally loaded these packages. 
+Updating packages can be irksome, but it's typically for the best. We advise updating your packages frequently if you regularly use `R` (e.g;, a weekly checks and updates to packages). If you want to be sure you have the exact package version for future use and reproducibility, the `{renv}` may be a great solution for an analysis or report, but may not be necessary if your aren't using or working on a specific project/analysis. `{renv}` keeps a record of your R packages within an RProject down to the exact version number when you originally loaded these packages, and allows you to update this record as your project evolves over time. 
 
 <aside>
 
