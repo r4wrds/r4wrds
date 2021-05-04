@@ -46,7 +46,7 @@ Next, visit the [`R` CRAN website](https://cran.r-project.org/) to see what the 
 
 <aside>
 
-When you update a **major** version of R, your personal library of packages will no longer work, and you will need to reinstall all of your packages. There are a few tools you can use to do this like ***<xyz>***. This work to stay up-to-date happens fairly infrequently.
+When you update a **major** version of R, your personal library of packages will no longer work, and you will need to reinstall all of your packages. There are a few tools you can use to do this like **[{installr}](https://cran.r-project.org/web/packages/installr/)** for Windows machines, and **[{updateR}](https://github.com/AndreaCirilloAC/updateR)**. This work to stay up-to-date happens fairly infrequently.
 
 </aside>
 
@@ -62,7 +62,7 @@ While it isn't always necessary to update to the most recent version of **`R`**,
 
 ## Updating `R` Packages
 
-As we use `R` more regularly for different tasks, it's common to accumulate many `R` packages in our . Every package is maintained and updated on a different schedule than **`R`** and **RStudio**, and so as new functions and features are written, or bugs are fixed, packages will be updated intermittently. Some package maintainers do this regularly, others may do it sporadically. Either way, we will typically need to update packages semi-regularly. 
+As we use `R` more regularly for different tasks, it's common to accumulate many `R` packages in our `R` library. Every package is maintained and updated on a different schedule than **`R`** and **RStudio**, and so as new functions and features are written, or bugs are fixed, packages will be updated intermittently. Some package maintainers do this regularly, others may do it sporadically. Either way, we will typically need to update packages semi-regularly. 
 
 <aside>
 
