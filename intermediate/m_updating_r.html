@@ -89,26 +89,29 @@ code span.wa { color: #bf0303; } /* Warning */
 </style>
 
   <!--radix_placeholder_meta_tags-->
-  <title>R4WRDS Courses: R for Water Resources Data Science</title>
+  <title>R for Water Resources Data Science: Updating R and R packages</title>
 
+  <meta property="description" itemprop="description" content="How to check versions and update your installation"/>
 
 
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-  <meta property="og:title" content="R4WRDS Courses: R for Water Resources Data Science"/>
+  <meta property="og:title" content="R for Water Resources Data Science: Updating R and R packages"/>
   <meta property="og:type" content="article"/>
+  <meta property="og:description" content="How to check versions and update your installation"/>
   <meta property="og:locale" content="en_US"/>
-  <meta property="og:site_name" content="R4WRDS Courses"/>
+  <meta property="og:site_name" content="R for Water Resources Data Science"/>
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
-  <meta property="twitter:title" content="R4WRDS Courses: R for Water Resources Data Science"/>
+  <meta property="twitter:title" content="R for Water Resources Data Science: Updating R and R packages"/>
+  <meta property="twitter:description" content="How to check versions and update your installation"/>
 
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","site"]}},"value":[{"type":"character","attributes":{},"value":["R for Water Resources Data Science"]},{"type":"character","attributes":{},"value":["distill::distill_website"]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","output"]}},"value":[{"type":"character","attributes":{},"value":["Updating R and R packages"]},{"type":"character","attributes":{},"value":["How to check versions and update your installation\n"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2047,10 +2050,20 @@ code span.wa { color: #bf0303; } /* Warning */
   @import url('https://fonts.googleapis.com/css?family=Lora:400,400i&display=swap');
   @import url('https://fonts.googleapis.com/css?family=Roboto:400,400i&display=swap');
 
+
   body {font-size: 15px; line-height: 1.6;}
-  h1 {font-size: 40px;}
-  h2 {font-size: 30px;}
-  h3 {font-size: 23px;}
+  h1 {
+    font-size: 40px;
+    line-height: 1.2em;
+  }
+  h2 {
+    font-size: 30px;
+    line-height: 1.2em;
+  }
+  h3 {
+    font-size: 23px;
+    line-height: 1.2em;
+  }
 
 
   .navbar-inverse {
@@ -2076,8 +2089,8 @@ code span.wa { color: #bf0303; } /* Warning */
 
   /*blue comment box */
   .blue {
-      background-color:#e6f0ff; 
-      border-radius: 4px; 
+      background-color:#e6f0ff;
+      border-radius: 4px;
       padding: 12px;
   }
 
@@ -2090,16 +2103,16 @@ code span.wa { color: #bf0303; } /* Warning */
 
   /* make marker something before click */
   summary::before {
-      font-family: "Font Awesome 5 Free"; 
-      font-weight: 900; 
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
       content: "\f13a";
       color: #228B22;
   }
 
   /* and after click */
   details[open] summary:before {
-      font-family: "Font Awesome 5 Free"; 
-      font-weight: 900; 
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
       content: "\f139";
       color: gray;
   }
@@ -2138,7 +2151,7 @@ code span.wa { color: #bf0303; } /* Warning */
         font-weight: normal;
   }
 
-  /* see giraffe teacup site for great css tips: https://github.com/tinystats/teacups-giraffes-and-statistics/blob/master/assets/style.css 
+  /* see giraffe teacup site for great css tips: https://github.com/tinystats/teacups-giraffes-and-statistics/blob/master/assets/style.css
   css below is adapted from that page */
 
   .obj {
@@ -2166,8 +2179,8 @@ code span.wa { color: #bf0303; } /* Warning */
 
   .challenge {
     color: #002855;
-    background-color:#e6f0ff; 
-    border-radius: 4px; 
+    background-color:#e6f0ff;
+    border-radius: 4px;
     padding: 12px;
     font-size: 16px;
     line-height: 1.3em;
@@ -2204,12 +2217,12 @@ code span.wa { color: #bf0303; } /* Warning */
       right:0;
       bottom:0;
     }
-    
-  .lil-image-text { 
+
+  .lil-image-text {
       margin-right: auto;
       margin-bottom: 20px;
       margin-left: auto;
-      text-align: center; 
+      text-align: center;
       display:block;
       font-family: 'Lora', serif;
         font-size: 24px;
@@ -2220,22 +2233,22 @@ code span.wa { color: #bf0303; } /* Warning */
         color: #fff;
     }
 
-  .big-image-text { 
+  .big-image-text {
     letter-spacing: 0.065em;
     line-height: 1em;
     font-size: 68px;
     text-transform: uppercase;
-    text-align: center; 
+    text-align: center;
     display:block;
     color: #fff;
     margin-bottom: 3rem;
   }
 
-  .lil-image-text-dark { 
+  .lil-image-text-dark {
       margin-right: auto;
       margin-bottom: 24px;
       margin-left: auto;
-      text-align: center; 
+      text-align: center;
       display:block;
       font-family: 'Lora', serif;
         font-size: 40px;
@@ -2246,12 +2259,12 @@ code span.wa { color: #bf0303; } /* Warning */
         color: #191919;
     }
 
-  .big-image-text-dark { 
+  .big-image-text-dark {
     letter-spacing: 0.065em;
     line-height: 1em;
     font-size: 68px;
     text-transform: uppercase;
-    text-align: center; 
+    text-align: center;
     display:block;
     color: #191919;
     margin-bottom: 3rem;
@@ -2266,6 +2279,9 @@ code span.wa { color: #bf0303; } /* Warning */
     left: 0;
     background-color: rgba(0,0,0,.1);
   }
+
+
+  /*grey code block*/
 
   .sourceCode {
     background-color:#f4f4f4;
@@ -2284,7 +2300,7 @@ code span.wa { color: #bf0303; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"R for Water Resources Data Science","authors":[]}
+{"title":"Updating R and R packages","description":"How to check versions and update your installation","authors":[]}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2292,10 +2308,32 @@ code span.wa { color: #bf0303; } /* Warning */
 <header class="header header--fixed" role="banner">
 <nav class="distill-site-nav distill-site-header">
 <div class="nav-left">
-<a href="index.html" class="title">R4WRDS Courses</a>
+<a href="index.html" class="title">R4WRDS Intermediate Course</a>
 </div>
 <div class="nav-right">
-<a href="https://github.com/ryanpeek/WRDS_intro/">
+<div class="nav-dropdown">
+<button class="nav-dropbtn">
+Modules
+ 
+<span class="down-arrow">&#x25BE;</span>
+</button>
+<div class="nav-dropdown-content">
+<a href="m_install_R.html">Module 1: </a>
+<a href="m_getting_started.html">Module 2: </a>
+<a href="m_project_management.html">Module 3:</a>
+<a href="m_importing_and_exporting_data.html">Module 4:</a>
+<a href="m_ggplot.html">Module 5:</a>
+<a href="m_data_structures.html">Module 6: </a>
+<a href="m_dplyr.html">Module 7: </a>
+<a href="m_pivots.html">Module 8: </a>
+<a href="m_functions.html">Module 9: </a>
+<a href="m_joins.html">Module 10: s</a>
+</div>
+</div>
+<a href="../index.html">
+<i class="fa fa-home fa-lg" aria-hidden="true"></i>
+</a>
+<a href="https://github.com/ryanpeek/r4wrds/">
 <i class="fa fa-github fa-lg" aria-hidden="true"></i>
 </a>
 <a href="javascript:void(0);" class="nav-toggle">&#9776;</a>
@@ -2307,25 +2345,132 @@ code span.wa { color: #bf0303; } /* Warning */
 <!--/radix_placeholder_site_before_body-->
 
 <div class="d-title">
-<h1>R for Water Resources Data Science</h1>
+<h1>Updating R and R packages</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
-
+<p><p>How to check versions and update your installation</p></p>
 </div>
 
 
 <div class="d-article">
-<style>
-  .title{
-    display: none;
-  }
-</style>
-<h1 id="introductory-course"><a href="intro/index.html"><span style="color: #009E73">1. Introductory Course</span></a></h1>
-<p><br></p>
-<h1 id="intermediate-course"><a href="intermediate/index.html"><span style="color: #0072B2">2. Intermediate Course</span></a></h1>
+<div class="d-contents d-contents-float">
+<nav class="l-text toc figcaption" id="TOC">
+<h3>Contents</h3>
+<ul>
+<li><a href="#checking-versions-and-updating">Checking Versions and Updating</a>
+<ul>
+<li><a href="#check-your-version">Check your  <img src="https://cran.r-project.org/Rlogo.svg" alt="R" width="5%">  Version</a></li>
+<li><a href="#checkupdate">Check/Update  <img src="https://d33wubrfki0l68.cloudfront.net/62bcc8535a06077094ca3c29c383e37ad7334311/a263f/assets/img/logo.svg" alt="RStudio" width="10%"></a></li>
+</ul></li>
+<li><a href="#updating-r-packages">Updating <code>R</code> Packages</a></li>
+<li><a href="#best-practices-for-updating">Best Practices for Updating</a></li>
+</ul>
+</nav>
+</div>
+<div class="obj">
+<p><strong>Learning objectives</strong></p>
+<ul>
+<li>Understand R versions and how to check what you have</li>
+<li>Learn how to update your R/RStudio installation</li>
+<li>Learn how to update R packages</li>
+</ul>
+</div>
+<h2 id="checking-versions-and-updating">Checking Versions and Updating</h2>
+<p>As packages and R continue to improve, new <strong>versions</strong> of <strong><code>R</code></strong> are released<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. In <strong><code>R</code></strong>, major versions are released infrequently (i.e., <strong><code>3.0.0</code></strong> was released in April 2013 and <strong><code>4.0.0</code></strong> was released in April 2020), but <em>minor</em> versions are released more regularly (<strong><code>4.0.4</code></strong> was released in February 2021 and <strong><code>4.0.5</code></strong> was released in March 2021).</p>
+<p>At minimum it’s advisable to maintain and update to the most recent <em>major</em> version of R, as these often contain important security/programming changes. Depending on your workflow and package needs, it’s good practice to keep the most recent minor version as well, though it’s not uncommon to maintain multiple minor versions of <code>R</code> if your analyses or workflows depend on specific versions of a package.</p>
+<h3 id="check-your-version">Check your  <img src="https://cran.r-project.org/Rlogo.svg" alt="R" width="5%">  Version</h3>
+<p>An easy and quick way to check what version of <code>R</code> you have and the most recent available version is first to open <code>R</code>, type <code>R.version</code>, hit enter, and see what you get:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>R.version</span>
+</code></pre>
+</div>
+<pre><code>               _                           
+platform       x86_64-apple-darwin17.0     
+arch           x86_64                      
+os             darwin17.0                  
+system         x86_64, darwin17.0          
+status                                     
+major          4                           
+minor          0.2                         
+year           2020                        
+month          06                          
+day            22                          
+svn rev        78730                       
+language       R                           
+version.string R version 4.0.2 (2020-06-22)
+nickname       Taking Off Again            </code></pre>
+</div>
+<p>This command will return information about the <code>R</code> version your system is using, as well as some information specific to your operating system (os).</p>
+<p>Next, visit the <a href="https://cran.r-project.org/"><code>R</code> CRAN website</a> to see what the most recent version is. If you haven’t updated recently, go ahead and grab the most recent <code>R</code> version for your system and <a href="https://r4wrds.com/intro/m_install_R.html#step-1.-install">install it</a>.</p>
+<aside>
+<p>When you update a <strong>major</strong> version of R, your personal library of packages will no longer work, and you will need to reinstall all of your packages. There are a few tools you can use to do this like <strong><em><xyz></em></strong>. This work to stay up-to-date happens fairly infrequently.</p>
+</aside>
+<h3 id="checkupdate">Check/Update  <img src="https://d33wubrfki0l68.cloudfront.net/62bcc8535a06077094ca3c29c383e37ad7334311/a263f/assets/img/logo.svg" alt="RStudio" width="10%"></h3>
+<p>We can check our version of RStudio by going to the toolbar at the top of your RStudio window and clicking <strong><code>Help</code> &gt; <code>Check for Updates</code></strong>. If you have the most recent version, there will be a message box letting you know as much. If not, RStudio will direct you to their webpage to download the most recent version.</p>
+<aside>
+<p>While it isn’t always necessary to update to the most recent version of <strong><code>R</code></strong>, there’s no reason not to always use the most recent stable version of RStudio. It will generally include the best features and up-to-date fixes.</p>
+</aside>
+<h2 id="updating-r-packages">Updating <code>R</code> Packages</h2>
+<p>As we use <code>R</code> more regularly for different tasks, it’s common to accumulate many <code>R</code> packages in our . Every package is maintained and updated on a different schedule than <strong><code>R</code></strong> and <strong>RStudio</strong>, and so as new functions and features are written, or bugs are fixed, packages will be updated intermittently. Some package maintainers do this regularly, others may do it sporadically. Either way, we will typically need to update packages semi-regularly.</p>
+<aside>
+<p>Files associated with installed <code>R</code> packages are located at <code>.libPaths()</code>. View installed packages with <code>list.files(.libPaths())</code>.</p>
+</aside>
+<p>There are several methods of updating your R packages. If updating via RStudio, go to the toolbar at the top and select <strong><code>Tools</code> &gt; <code>Check for Package Updates...</code></strong>. Depending on how many packages you’ve installed, and how recently you updated things, a window will appear saying either <em>All packages up-to-date!</em> or something that looks more like this:</p>
+<aside>
+<p>As a rule of thumb, whenever updating your R version, it’s best to update/install your R packages too!</p>
+</aside>
+<div class="layout-chunk" data-layout="l-body">
+<div class="figure"><span id="fig:updatepkg"></span>
+<img src="images/package_update.png" alt="Package update window" width="238" height="%50" />
+<p class="caption">
+Figure 1: Package update window
+</p>
+</div>
+</div>
+<p>We can choose to <em>Select All</em> and update everything at once, or selectively update things.</p>
+<p>After we click <strong>Install Updates</strong> we may typically also see a message like this:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="figure"><span id="fig:restartR"></span>
+<img src="images/restart_r_to_update.png" alt="Restart R" width="%45" />
+<p class="caption">
+Figure 2: Restart R
+</p>
+</div>
+</div>
+<p>You can choose to cancel, but it’s fine to click <strong>Yes</strong> and proceed. Sometimes we will also get something in the <strong><code>Console</code></strong> that will ask the following:</p>
+<blockquote>
+<p><strong>Do you want to install from sources the packages which need compilation? (Yes/no/cancel)</strong></p>
+</blockquote>
+<p>Some packages require this, so generally it’s okay to type <code>Yes</code> and hit enter to proceed. At this point we can wait and let <code>R</code>/RStudio update things for us. Depending on how many packages are involved, this can take a few minutes. Importantly, when it’s all said and done, make sure there weren’t errors or issues with packages that didn’t get installed. We can use <strong><code>Tools</code> &gt; <code>Check for Package Updates...</code></strong> again and see what packages remain, or if we get a message saying all packages are up-to-date.</p>
+<h2 id="best-practices-for-updating">Best Practices for Updating</h2>
+<p>We recommend the following approach to updating <code>R</code> packages (check out the great <a href="https://rstats.wtf/maintaining-r.html">rstats.wtf chapter on this topic and more</a>):</p>
+<ul>
+<li><strong><em>Update packages frequently (weekly)</em></strong></li>
+<li><strong><em>Update R quarterly (or at least check)</em></strong></li>
+<li><strong><em>For complete reproducibility for a project check out the <a href="https://rstudio.github.io/renv/articles/renv.html"><code>{renv}</code> package</a></em></strong></li>
+<li><strong><em>Don’t copy packages over between R versions–start clean and fresh</em></strong></li>
+</ul>
+<p>Updating packages can be irksome, but it’s typically for the best. We advise updating your packages frequently if you regularly use <code>R</code> (e.g;, a weekly checks and updates to packages). If you want to be sure you have the exact package version for future use and reproducibility, the <code>{renv}</code> may be a great solution for an analysis or report, but may not be necessary if your aren’t using or working on a specific project/analysis. <code>{renv}</code> keeps a record of your R packages within an RProject down to the exact version number when you originally loaded these packages, and allows you to update this record as your project evolves over time.</p>
+<aside>
+<p>Read more about <code>{renv}</code> in the <a href="m_project_management.html#">project management module</a>.</p>
+</aside>
+<p>Overall, treat <code>R</code> and <code>R</code> packages as something that will be highly functional with minimal but regular maintenance, like a vehicle that needs new tires or an oil change once in a while. This will keep things running smoothly over the long-term.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="figure"><span id="fig:thingswork"></span>
+<img src="images/tidydata_6.jpeg" alt="Success over time! (Artwork by @allison_horst)" width="%80" />
+<p class="caption">
+Figure 3: Success over time! (Artwork by <span class="citation" data-cites="allison_horst">@allison_horst</span>)
+</p>
+</div>
+</div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<section class="footnotes" role="doc-endnotes">
 <hr />
-<p><em>site last updated: 2021-05-03 09:48</em></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<ol>
+<li id="fn1" role="doc-endnote"><p>See a list of previous versions <a href="https://cran.r-project.org/bin/windows/base/old/">here</a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>

@@ -1,7 +1,5 @@
 ---
-title: "R for Water Resources Data Science (R4WRDS)"
-description: |
-  Select a course 
+title: "R for Water Resources Data Science"
 site: distill::distill_website
 ---
 

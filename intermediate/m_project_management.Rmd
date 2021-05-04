@@ -393,7 +393,7 @@ If project management and reproducible data pipelines are interesting to you, ch
 :::
 
 
-# renv
+# `{renv}`
 
 We use `{here}` because we expect that whoever else opens your code on their machine is likely to have a different project root path, and `{here}` ensures your code is portable between different computers with different root project paths (e.g., `~/Documents/Github/myproject` versus `C:\Users\louis\Documents\myproject`).
 
