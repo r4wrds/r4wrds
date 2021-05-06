@@ -597,7 +597,10 @@ p + theme_classic()
 
 ## Extending ggplot2
 
-If you want to learn more about {ggplot2}, the definitive text is [ggplot2: elegant graphics for data analysis](https://ggplot2-book.org/index.html).  
+If you want to learn more about `{ggplot2}`, check out these two free online resources:  
+
+- [ggplot2: elegant graphics for data analysis](https://ggplot2-book.org/index.html): This is the definitive ggplot2 guide written by the package author that emphasizes code and ggplot2 fundamental skills and concepts.  
+- [Fundamentals of Data Visualization](https://clauswilke.com/dataviz/): This book emphasizes principles of good data visualization that will inform the graphics you create.  
 
 
 <br>  
