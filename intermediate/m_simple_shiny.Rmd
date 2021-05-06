@@ -1,7 +1,7 @@
 ---
 title: "Simple Shiny"
 description: | 
-   description
+   How to create interactive dashboards with R
 output: 
   distill::distill_article:
     toc: true
@@ -18,9 +18,155 @@ library(here)
 ::: {.obj}
 **Learning objectives**
 
--   A
--   B
--   C
+-   Understand what a Shiny App is and why you might need to build one\
+-   Understand the basic structure of a Shiny App and common hiccups\
+-   Discuss approaches to extend your Shiny skills
 :::
 
+## What is a Shiny App and Why is it useful?
 
+According to the [Mastering Shiny](https://mastering-shiny.org/index.html) book:
+
+> Shiny is a framework for creating web applications using `R` code. It is designed primarily with data scientists in mind, and to that end, you can create pretty complicated Shiny apps with no knowledge of HTML, CSS, or JavaScript.
+
+<aside>
+
+Shiny Apps are made using the `{shiny}` package.
+
+</aside>
+
+Because they extend `R`-based analyses, Shiny Apps have as many diverse niches and uses as the the `R` community itself, and it's likely that you have come across a Shiny App in the wild before.
+
+Shiny Apps allow for a wide range of customizability, and allow `R` users to wrap their code and datasets in an additional layer of interactivity in order to make insights, visualizations, data download, and more available to non-`R` users.
+
+Now that we know what a Shiny App is, a fundamental question that we need to answer is "when and why should I build a Shiny App?" Generally, you should create a Shiny App when you want to make results and/or data available to others and when the dataset you wish to explore is complex enough to warrant a Shiny App. To provide a specific example, let's examine a case study.
+
+### Case Study: Sacramento county groundwater elevation
+
+Imagine you're analyzing groundwater levels across California[^1] and need to assess trends over time in Sacramento County. You may begin with an EDA to filter the data to Sacramento County, clean the data, and make some exploratory plots.
+
+[^1]: For instance, imagine you are using the California Department of Water Resources' [Periodic Groundwater Level Database](https://data.cnra.ca.gov/dataset/periodic-groundwater-level-measurements) used throughout this course.
+
+```{r gwl-sac, eval = FALSE, echo = FALSE}
+# sac county gwl 
+m    <- read_csv(here("data", "gwl", "measurements.csv"))
+perf <- read_csv(here("data", "gwl", "perforations.csv"))
+sta  <- read_csv(here("data", "gwl", "stations.csv"))
+
+# join measurement data to perforation and station data
+m <- left_join(m, perf, by = "SITE_CODE") %>% 
+  left_join(sta, by = "SITE_CODE") %>% 
+  filter(COUNTY_NAME == "Sacramento") 
+m$STN_ID.x <- NULL
+m$STN_ID.y <- NULL
+
+# write
+write_csv(m, here("data","gwl","gwl_sac.csv"))
+```
+
+```{r gwl-eda}
+library(tidyverse)
+library(here)
+library(sf)
+
+# read groundwater level data pre-filtered to Sacramento county
+gwl <- read_csv(here("data", "gwl", "gwl_sac.csv")) %>% 
+  st_as_sf(coords = c("LONGITUDE","LATITUDE"), crs = 4269)
+
+# read sacramento county shapefile and reproject
+sac <- st_read(here("data", "shp", "sac", "sac_county.shp")) %>% 
+  st_transform(4269)
+
+# plot the groundwater levels at each monitoring site 
+gwl %>% 
+  ggplot() +
+  geom_line(aes(MSMT_DATE, WSE, group = SITE_CODE), alpha = 0.5)
+
+# slice the first station per group of groundwater level observations
+gwl_min <- gwl %>% 
+  group_by(SITE_CODE) %>% 
+  slice(1) %>% 
+  ungroup() 
+
+# visualize sites on a map
+ggplot() +
+  geom_sf(data = sac) +
+  geom_sf(data = gwl_min, alpha = 0.5, color = "blue") +
+  theme_void()
+```
+
+<aside>
+
+Notice that `nrow(gwl)` is greater than `nrow(gwl_min)`, but `length(unique(gwl$SITE_CODE))` equals `length(unique(gwl_min$SITE_CODE))`. We don't need to plot all of the redundant `gwl` locations on the map, so we created a minimal `tibble` with only the unique `SITE_CODE`s, and hence, `geometry`.
+
+</aside>
+
+During the analysis, you realize you want to easily look at data by monitoring site, so you make a function that streamlines this.
+
+```{r gwl-eda-function}
+# function that takes a site code and generates a plot
+f_make_hydrograph <- function(data, site_code){
+  p <- data %>% 
+    filter(SITE_CODE == site_code) %>% 
+    ggplot(aes(MSMT_DATE, WSE)) +
+    geom_line(alpha = 0.5) +
+    geom_smooth(method = "lm", se = FALSE) +
+    labs(title = glue::glue("Groundwater level at: {site_code}"))
+  return(p)
+}
+
+# make a hydrograph for the first SITE_CODE
+f_make_hydrograph(gwl, gwl$SITE_CODE[1])
+```
+
+Your supervisor requests figures from certain stations, and you find yourself re-running this function to generate them. Also, you have teammates that require these data in little chunks with specific columns in the output. You add a to your set of functions to handle this task, but realize that this project is ongoing, and people will keep coming to you with requests for alternate combinations of plots or data.
+
+> One solution to automate the "data visualization exploration" and "data sharing" processes is by creating a Shiny App.
+
+In the sections that follow, we will create a Shiny App that allows users to easily select and visualize groundwater data at different monitoring stations, and export data for a selected site.
+
+## Creating a Shiny App
+
+A Shiny App is an `.R` file or set of `.R` files that work with `shiny::runApp()` to create a responsive Shiny web application. In order to demonstrate a simple Shiny App
+
+## Basic Shiny App Structure
+
+### ui
+
+### server
+
+### other files
+
+Split into 3 files: ui, server, global
+
+global, etc, modules
+
+
+## Deploying a Shiny App
+
+Up until now, we've been using our own computer to run our Shiny App example. If we wanted to share the Shiny App, how might we start that? What if the information in the App is sensitive and we need to password-protect it? When we move a Shiny App from our computer onto a web server so that it can be shared with other, we "deploy" the app.
+
+There are a range of services that allow us to deploy Shiny Apps that range from simple to complex, and costly to inexpensive.
+
+A relatively painless way to deploy is via [shinyapps.io](https://www.shinyapps.io/), run by RStudio. A free tier is available for small applications, with a capped number of "live hours" per month to test your application. Paid tiers afford more "live hours" per month, a faster web server, and features like password protection.
+
+`{shiny}` is open source, and in that spirit, the open source [Shiny Server](https://www.rstudio.com/products/shiny/shiny-server/) can be installed on any cloud computer (e.g., AWS, Google Cloud, Microsoft Azure). If you don't have a background in cloud computing, your System Administrator (Sys Admin) can help you move your App onto a cloud or company server[^2].
+
+[^2]: The [Shiny Server Administrator's Guide]([https://docs.rstudio.com/shiny-server/)](https://docs.rstudio.com/shiny-server/)) provides detailed documentation geared towards System Administrators that will help in deploying a Shiny App.
+
+
+## Extending Shiny
+
+Congratulations! You're now familiar with the basics of `{shiny}`. This module is just the tip of the iceberg. There are so many ways to extend `{shiny}`, and the opportunities for customization of Shiny Apps are vast. We recommend the following ways to increase your knowledge in this domain:
+
+-   find open source Shiny Apps that you admire, clone their source code to your machine, run the App, and change things so you can explore how the App works. Borrow bits of code in new Apps you create\
+-   find a side project that's a good candidate for a Shiny App and build one - it doesn't need to be work related and in fact, it might be more fun to work on something tangential that you find interesting\
+-   explore the free online books and guided video tutorials in the links below
+
+### Additional Resources
+
+Below are a few freely available books, presentations, and locations to find Apps online:
+
+-   [RStudio Shiny Gallery](https://shiny.rstudio.com/gallery/): Examples of Shiny Apps highlighting different ways Shiny has been used, with links to source code\
+-   [Mastering Shiny](https://mastering-shiny.org/index.html): Free online book that serves as an authoritative guide on how to build, maintain, deploy, and customize R Shiny Apps. Material goes well beyond what is presented in this module.\
+-   [Guided Shiny Video tutorials](https://shiny.rstudio.com/tutorial/): Series of guided video tutorials with live-code demos and slides that explain the fundamentals of R Shiny Apps and how to use them.
