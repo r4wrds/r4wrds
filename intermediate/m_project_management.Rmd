@@ -26,7 +26,14 @@ library(knitr)
 
 ## First principles
 
-The first step in any data science project is to set up and maintain a clean, predictable **development environment**. As you accumulate raw data, write code, and generate results, things can get messy if you don't stick to good programming naming and organization habits. In this module we'll cover how to keep your projects organized and consistent, which ultimately will make projects more reproducible and keep your workflow more efficient and fun.
+```{r updatepkg, fig.cap="What to avoid building (Source: https://xkcd.com/2054/).", eval=T, echo=F}
+
+include_graphics(here::here("images", "data_pipeline_2x.png"))
+
+```
+
+
+The first step in any data science project is to set up and maintain a clean, predictable **development environment**. As you accumulate raw data, write code, and generate results, things can get messy if you don't stick to good programming naming and organization habits. In this module we'll cover how to keep your projects organized and consistent, which will make your projects more reproducible, keep your workflows efficient, firm up your code to stand the test of time, and give your code structure so it's easy to maintain when things break or you need to revisit it down the line.
 
 <aside>
 

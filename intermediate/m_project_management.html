@@ -2388,7 +2388,15 @@ Modules
 </ul>
 </div>
 <h2 id="first-principles">First principles</h2>
-<p>The first step in any data science project is to set up and maintain a clean, predictable <strong>development environment</strong>. As you accumulate raw data, write code, and generate results, things can get messy if you don’t stick to good programming naming and organization habits. In this module we’ll cover how to keep your projects organized and consistent, which ultimately will make projects more reproducible and keep your workflow more efficient and fun.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="figure"><span id="fig:updatepkg"></span>
+<img src="images/data_pipeline_2x.png" alt="What to avoid building (Source: https://xkcd.com/2054/)." width="740" />
+<p class="caption">
+Figure 1: What to avoid building (Source: <a href="https://xkcd.com/2054/" class="uri">https://xkcd.com/2054/</a>).
+</p>
+</div>
+</div>
+<p>The first step in any data science project is to set up and maintain a clean, predictable <strong>development environment</strong>. As you accumulate raw data, write code, and generate results, things can get messy if you don’t stick to good programming naming and organization habits. In this module we’ll cover how to keep your projects organized and consistent, which will make your projects more reproducible, keep your workflows efficient, firm up your code to stand the test of time, and give your code structure so it’s easy to maintain when things break or you need to revisit it down the line.</p>
 <aside>
 <p>A <em>development environment</em> is the set of tools you use to process data and the toolshed. R and packages are your tools, and an RProject is your toolshed.</p>
 </aside>
@@ -2470,21 +2478,25 @@ hello world!
 </div>
 <pre><code>
  ----- 
-You can tell whether a man is clever by his answers. You can tell whether a man is wise by his questions. - Naguib Mahfouz 
+Be like the flower, turn your face to the sun. - Kahlil Gibran 
  ------ 
     \   
-     \  
-      \
-       \   _,
-      -==&lt;&#39; `
-          ) /
-         / (_.
-        |  ,-,`\
-         \\   \ \
-          `\,  \ \
-           ||\  \`|,
- jgs      _|| `=`-&#39;
-         ~~`~`</code></pre>
+     \
+                \`*-.
+                 )  _`-.
+                .  : `. .
+                : _   &#39;  \
+                ; *` _.   `*-._
+                `-.-&#39;          `-.
+                  ;       `       `.
+                  :.       .       \
+                  .\  .   :   .-&#39;   .
+                  &#39;  `+.;  ;  &#39;      :
+                  :  &#39;  |    ;       ;-.
+                  ; &#39;   : :`-:     _.`* ;
+               .*&#39; /  .*&#39; ; .*`- +&#39;  `*&#39;
+     [bug]     `*-*   `*-*  `*-*&#39;
+    </code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/rm.html'>rm</a></span><span class='op'>(</span><span class='va'>animals</span>, <span class='va'>quotes</span><span class='op'>)</span> <span class='co'># remove the objects we just created</span>
 </code></pre>
@@ -2725,16 +2737,21 @@ A good rule of thumb to follow is to try and keep scripts less than 150 lines in
 </code></pre>
 </div>
 <pre><code>
- ----- 
-Who we are never changes. Who we think we are does. -Mary Almanac 
- ------ 
-    \   
-     \
-     .-.
-    (o o)
-    | O \
-     \   \
-      `~~~&#39; [nosig]
+ -------------- 
+Better than a thousand hollow words is one word that brings peace. -Buddha 
+ --------------
+    \
+      \
+        \
+        /\_/\         _
+       /``   \       / )
+       |n n   |__   ( (
+      =(Y =.‛`   `\  \ \
+      {`&quot;`        \  ) )
+      {       /    |/ /
+       \\   ,(     / /
+        ) ) /-‛\  ,_.‛
+  jgs  (,(,/ ((,,/
   </code></pre>
 </div>
 <p><code>source()</code> is the key to chaining together many scripts. In the example above, we were able to abstract functions into a separate folder which makes keeping track of them much easier than if they cluttered our control script.</p>
@@ -2789,17 +2806,17 @@ loaded via a namespace (and not attached):
 [19] fortunes_1.5-4    lifecycle_1.0.0   cellranger_1.1.0 
 [22] munsell_0.5.0     gtable_0.3.0      rvest_0.3.6      
 [25] evaluate_0.14     curl_4.3          fansi_0.4.2      
-[28] broom_0.7.0       Rcpp_1.0.6        scales_1.1.1     
-[31] backports_1.1.10  jsonlite_1.7.2    fs_1.5.0         
-[34] rmsfact_0.0.3     distill_1.2       hms_1.0.0        
-[37] png_0.1-7         digest_0.6.27     stringi_1.5.3    
-[40] grid_4.0.2        rprojroot_1.3-2   cli_2.4.0        
-[43] tools_4.0.2       magrittr_2.0.1    crayon_1.4.1     
-[46] pkgconfig_2.0.3   downlit_0.2.1     ellipsis_0.3.1   
-[49] xml2_1.3.2        reprex_0.3.0      lubridate_1.7.9.2
-[52] httr_1.4.2        assertthat_0.2.1  rmarkdown_2.7    
-[55] rstudioapi_0.11   R6_2.5.0          ggtext_0.1.1     
-[58] compiler_4.0.2   </code></pre>
+[28] highr_0.8         broom_0.7.0       Rcpp_1.0.6       
+[31] scales_1.1.1      backports_1.1.10  jsonlite_1.7.2   
+[34] fs_1.5.0          rmsfact_0.0.3     distill_1.2      
+[37] hms_1.0.0         png_0.1-7         digest_0.6.27    
+[40] stringi_1.5.3     grid_4.0.2        rprojroot_1.3-2  
+[43] cli_2.4.0         tools_4.0.2       magrittr_2.0.1   
+[46] crayon_1.4.1      pkgconfig_2.0.3   downlit_0.2.1    
+[49] ellipsis_0.3.1    xml2_1.3.2        reprex_0.3.0     
+[52] lubridate_1.7.9.2 httr_1.4.2        assertthat_0.2.1 
+[55] rmarkdown_2.7     rstudioapi_0.11   R6_2.5.0         
+[58] ggtext_0.1.1      compiler_4.0.2   </code></pre>
 </div>
 <p>The version number is the string of numbers listed after a package name and underscore.</p>
 <p>Similarly, you can use <code>installed.packages()</code> to view information on all of your installed packages.</p>
