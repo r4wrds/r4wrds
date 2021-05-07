@@ -31,7 +31,7 @@ According to the [Mastering Shiny](https://mastering-shiny.org/index.html) book:
 
 <aside>
 
-Shiny Apps are made using the `{shiny}` package.
+Shiny Apps are made using the [`{shiny}`](https://github.com/rstudio/shiny) package.
 
 </aside>
 
@@ -43,7 +43,7 @@ Now that we know what a Shiny App is, a fundamental question that we need to ans
 
 ### Case Study: Sacramento county groundwater elevation
 
-Imagine you're analyzing groundwater levels across California[^1] and need to assess trends over time in Sacramento County. You may begin with an EDA to filter the data to Sacramento County, clean the data, and make some exploratory plots.
+Imagine you're analyzing groundwater levels across California[^1] and want to assess groundwater elevation trends over time in Sacramento County. You may begin with an EDA to filter the data to Sacramento County, clean the data, and make some exploratory plots.
 
 [^1]: For instance, imagine you are using the California Department of Water Resources' [Periodic Groundwater Level Database](https://data.cnra.ca.gov/dataset/periodic-groundwater-level-measurements) used throughout this course.
 
@@ -111,7 +111,7 @@ f_make_hydrograph <- function(data, site_code){
     ggplot(aes(MSMT_DATE, WSE)) +
     geom_line(alpha = 0.5) +
     geom_smooth(method = "lm", se = FALSE) +
-    labs(title = glue::glue("Groundwater level at: {site_code}"))
+    labs(title = glue::glue("Groundwater level (ft AMSL) at: {site_code}"))
   return(p)
 }
 
@@ -119,21 +119,123 @@ f_make_hydrograph <- function(data, site_code){
 f_make_hydrograph(gwl, gwl$SITE_CODE[1])
 ```
 
-Your supervisor requests figures from certain stations, and you find yourself re-running this function to generate them. Also, you have teammates that require these data in little chunks with specific columns in the output. You add a to your set of functions to handle this task, but realize that this project is ongoing, and people will keep coming to you with requests for alternate combinations of plots or data.
+Your supervisor requests figures from certain stations, and you find yourself re-running this function to generate them. You also have teammates that require subsets of these data per monitoring site, with specific columns in the output. You add a function that writes data to csv files to handle this task, but realize that this project is ongoing, and people will keep coming to you with requests for alternate combinations of plots or data. Also, the groundwater level data is sufficiently large and complex that you want to be able to view them all in one place.
 
 > One solution to automate the "data visualization exploration" and "data sharing" processes is by creating a Shiny App.
 
 In the sections that follow, we will create a Shiny App that allows users to easily select and visualize groundwater data at different monitoring stations, and export data for a selected site.
 
-## Creating a Shiny App
-
-A Shiny App is an `.R` file or set of `.R` files that work with `shiny::runApp()` to create a responsive Shiny web application. In order to demonstrate a simple Shiny App
-
 ## Basic Shiny App Structure
 
-### ui
+At the bare minimum, a Shiny App is an `.R` file or set of `.R` files with thee components: a `ui`, `server` and `runApp()`. The `runApp()` function takes the `ui` and the `server` objects and runs the Shiny web application.
 
-### server
+By design, Shiny Apps separate *front* and *back* end components of the web application. The `ui` stands for "user interface" and defines front-facing components that the user sees and interacts with, like plots, tables, sliders, buttons, and so on. The `server` holds the back-end logic that accepts input from the user, and uses these inputs to define what data transformations should occur and what is passed back to the frontend for the user to view and interact with.
+
+In order to demonstrate a simple Shiny App, we will use a single file called `app.R` defines a `ui` and `server`. Afterward, we will also discuss approaches to modularize an app into separate files - this may be necessary if an app becomes sufficiently complex.
+
+## Creating a Shiny App
+
+The most simple way to create an app within RStudio is to click **File \> New File \> Shiny Web App...**.
+
+```{r shiny1, eval=T, echo=F}
+include_graphics(here::here("images", "shiny1.png"))
+```
+
+By default, RStudio will create a new folder with a name you provide in your project directory[^2]. Enter `gwl_shiny` as the "Application name" and click **Create**.
+
+[^2]: If using `{here}`, find your project directory by running `here()`.
+
+```{r shiny2, eval=T, echo=F}
+include_graphics(here::here("images", "shiny2.png"))
+```
+
+You should now have a folder called `gwl_shiny` in the project directory, which you can verify in the File Viewer Pane. Inside that folder should be a single file, `app.R`.
+
+```{r shiny3, eval=T, echo=F}
+include_graphics(here::here("images", "shiny4.png"))
+```
+
+A default Shiny App is contained in this file. We can run all of the code to view the app on our local machine, or click the **Run App** icon in the top right corner of the code editor.
+
+<aside>
+
+```{r shiny4, eval=T, echo=F}
+include_graphics(here::here("images", "shiny3.png"))
+```
+
+</aside>
+
+Scroll through `app.R` and notice that there is a `ui` object, a `server` object which is a function of `input` and `output`, and a `runApp()` function which takes the `ui` and `server` objects as input.
+
+### `ui` (user interface)
+
+The `ui` defines what the user sees when they interact with the Shiny App. Consider the following simple app with no server logic but that demonstrates a few of the *control widget*[^3] inputs available for Shiny Apps.
+
+[^3]: A control widget is a tool that allows users to send information from the frontend `ui` to the backend `server`. Different widgets allow different types of information to pass between the `ui` and `server`.
+
+```{r, eval = FALSE}
+library(shiny)
+
+ui <- fluidPage(
+    # generic example inputs in a sidebar
+    sidebarLayout(
+        sidebarPanel(
+            sliderInput(
+              "bins",
+              "Slider Input",
+              min = 1,
+              max = 50,
+              value = 30
+            ),
+            fileInput(
+              "file",
+              "File Input"
+            ),
+            dateInput(
+              "date",
+              "Date Input"
+            ),
+            textInput(
+              "text",
+              "Text Input"
+            ),
+            selectInput(
+              "select",
+              "Select Input",
+              choices = c("A","B","C")
+            ),
+            radioButtons(
+              "radio",
+              "Radio Buttons",
+              choices = c("A","B")
+            )
+        ),
+        mainPanel("Look at all those inputs!")
+    )
+)
+
+# server logic
+server <- function(input, output) {}
+
+# run the Shiny app
+shinyApp(ui = ui, server = server)
+```
+
+```{r shiny-inputs, eval=T, echo=F}
+include_graphics(here::here("images", "shiny_inputs.png"))
+```
+
+<aside>
+
+These control widgets may be intuitive to you, as we've all interacted with web-based tools and apps before that use widgets like these. View a more comprehensive list of control widgets [here](https://shiny.rstudio.com/tutorial/written-tutorial/lesson3/).
+
+</aside>
+
+Chances are that you won't use all of the control widget inputs available in any given Shiny App you build. The choice of inputs you use will depend on what information you want to present to the user, and how information they select with those widgets should modify data in the `server`.
+
+### `server`
+
+If the `ui` are the sensory organs that receive inputs, the `server` is the brain of the Shiny App that knows what to do with those inputs.
 
 ### other files
 
@@ -141,19 +243,19 @@ Split into 3 files: ui, server, global
 
 global, etc, modules
 
+## Share and deploy a Shiny App
 
-## Deploying a Shiny App
+Up until now, we've been using our own computer to run our Shiny App example. If we wanted to share the Shiny App, how might we do that?
 
-Up until now, we've been using our own computer to run our Shiny App example. If we wanted to share the Shiny App, how might we start that? What if the information in the App is sensitive and we need to password-protect it? When we move a Shiny App from our computer onto a web server so that it can be shared with other, we "deploy" the app.
+The fastest and simplest way to share your Shiny app with another `R` user is to share the `app.R` file and data dependencies. They can open the file and run the app on their computer as we've been doing in this module. However, we may want to share our app with a wider, non-technical audience over the internet. When we move a Shiny App from our computer onto a web server so that it can be shared over the internet, we ***deploy*** the app.
 
 There are a range of services that allow us to deploy Shiny Apps that range from simple to complex, and costly to inexpensive.
 
-A relatively painless way to deploy is via [shinyapps.io](https://www.shinyapps.io/), run by RStudio. A free tier is available for small applications, with a capped number of "live hours" per month to test your application. Paid tiers afford more "live hours" per month, a faster web server, and features like password protection.
+A relatively painless way to deploy is via [shinyapps.io](https://www.shinyapps.io/), run by RStudio. A free tier is available for small applications, and this free tier provides a capped number of "live hours" per month for users to interact with your App. Paid tiers afford more "live hours" per month, a faster web server, and features like password protection.
 
-`{shiny}` is open source, and in that spirit, the open source [Shiny Server](https://www.rstudio.com/products/shiny/shiny-server/) can be installed on any cloud computer (e.g., AWS, Google Cloud, Microsoft Azure). If you don't have a background in cloud computing, your System Administrator (Sys Admin) can help you move your App onto a cloud or company server[^2].
+`{shiny}` is open source, and in that spirit, the open source [Shiny Server](https://www.rstudio.com/products/shiny/shiny-server/) can be installed on any cloud computer (e.g., AWS, Google Cloud, Microsoft Azure). If you don't have a background in cloud computing, your System Administrator (Sys Admin) can help you move your App onto a cloud or company server[^4].
 
-[^2]: The [Shiny Server Administrator's Guide]([https://docs.rstudio.com/shiny-server/)](https://docs.rstudio.com/shiny-server/)) provides detailed documentation geared towards System Administrators that will help in deploying a Shiny App.
-
+[^4]: The [Shiny Server Administrator's Guide](%5Bhttps://docs.rstudio.com/shiny-server/)](<https://docs.rstudio.com/shiny-server/>)) provides detailed documentation geared towards System Administrators that will help in deploying a Shiny App.
 
 ## Extending Shiny
 
@@ -170,3 +272,9 @@ Below are a few freely available books, presentations, and locations to find App
 -   [RStudio Shiny Gallery](https://shiny.rstudio.com/gallery/): Examples of Shiny Apps highlighting different ways Shiny has been used, with links to source code\
 -   [Mastering Shiny](https://mastering-shiny.org/index.html): Free online book that serves as an authoritative guide on how to build, maintain, deploy, and customize R Shiny Apps. Material goes well beyond what is presented in this module.\
 -   [Guided Shiny Video tutorials](https://shiny.rstudio.com/tutorial/): Series of guided video tutorials with live-code demos and slides that explain the fundamentals of R Shiny Apps and how to use them.
+
+<br>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<a href="index.html" class="btn btn-secondary" style="float: left">Previous module:<br>Interactive Visualization</a> <a href="m_git.html" class="btn btn-secondary" style="float: right;">Next module:<br>Reproducibility & Automation</a>
