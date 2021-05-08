@@ -213,7 +213,7 @@ ggplot() +
   geom_histogram(data = gwl, aes(x = GSE_WSE))
 ```
 
-Notice that `geom_histogram()` takes only one argument for the x-axis and **computes** the bins for the y-axis. It appears that depths to groundwater range from around 130 to 160, with a median around 145. the default number of bins used is 30, but we can change this value.
+Notice that `geom_histogram()` takes only one argument for the x-axis and **computes** the bins for the y-axis. It appears that depths to groundwater range from around 130 to 160, with a median around 145. The default number of bins used is 30, but we can change this value.
 
 ```{r geom-hist2}
 ggplot(data = gwl) + 
