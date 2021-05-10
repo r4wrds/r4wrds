@@ -1,40 +1,74 @@
 library(shiny)
+library(shinythemes)
+library(tidyverse)
 
+# load sac county groundwater data and sac county polygon
+gwl <- read_csv(here::here("data", "gwl", "gwl_sac_shiny.csv"))
+
+# ------------------------------------------------------------------------
 # user interface
 ui <- fluidPage(
 
-    # Application title
-    titlePanel("Old Faithful Geyser Data"),
+    # change default theme
+    theme = shinytheme("united"),
 
-    # Sidebar with a slider input for number of bins
+    # application title
+    titlePanel("Sacramento County Groundwater Level Data"),
+
+    # sidebar with a dropdown input for site_code
     sidebarLayout(
         sidebarPanel(
-            shiny::input("bins",
-                        "Number of bins:",
-                        min = 1,
-                        max = 50,
-                        value = 30)
+            selectInput("site_code",
+                        "Select a site code:",
+                        choices = unique(gwl$SITE_CODE))
         ),
 
-        # Show a plot of the generated distribution
+        # tabs with hydrograph and data table
         mainPanel(
-           plotOutput("distPlot")
+            tabsetPanel(
+                tabPanel("Hydrograph", plotly::plotlyOutput("gwl_plot")),
+                tabPanel("Data", DT::dataTableOutput("gwl_data"))
+            )
         )
     )
 )
 
+# ------------------------------------------------------------------------
 # Define server logic required to draw a histogram
 server <- function(input, output) {
 
-    output$distPlot <- renderPlot({
-        # generate bins based on input$bins from ui.R
-        x    <- faithful[, 2]
-        bins <- seq(min(x), max(x), length.out = input$bins + 1)
+    # --------------------------------------------------
+    # create hydrograph
+    output$gwl_plot <- plotly::renderPlotly({
 
-        # draw the histogram with the specified number of bins
-        hist(x, breaks = bins, col = 'darkgray', border = 'white')
+        # draw the ggplot based on the "site_code" user input
+        p <- filter(gwl, SITE_CODE == input$site_code) %>%
+            ggplot(aes(MSMT_DATE, WSE)) +
+            geom_line(alpha = 0.5) +
+            geom_smooth(method = "lm", se = FALSE) +
+            labs(title = input$site_code,
+                 x = "", y = "Groundwater level (ft AMSL)")
+
+        # render the plotly object
+        plotly::ggplotly(p)
+    })
+
+
+    # --------------------------------------------------
+    # create data table
+    output$gwl_data <- DT::renderDataTable({
+
+        # draw the plot based on the "site_code" user input
+        DT::datatable(
+            filter(gwl, SITE_CODE == input$site_code),
+            extensions = 'Buttons',
+            options =
+                list(dom = 'Bfrtip',
+                     buttons = c('copy', 'csv', 'excel', 'pdf', 'print'))
+        )
     })
 }
 
+# ------------------------------------------------------------------------
 # Run the application
 shinyApp(ui = ui, server = server)

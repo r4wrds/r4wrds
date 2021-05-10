@@ -2362,12 +2362,18 @@ Modules
 <li><a href="#case-study-sacramento-county-groundwater-elevation">Case Study: Sacramento county groundwater elevation</a></li>
 </ul></li>
 <li><a href="#basic-shiny-app-structure">Basic Shiny App Structure</a></li>
-<li><a href="#creating-a-shiny-app">Creating a Shiny App</a>
+<li><a href="#creating-a-shiny-app">Creating a Shiny App</a></li>
+<li><a href="#ui-frontend"><code>ui</code> (frontend)</a>
 <ul>
-<li><a href="#ui-user-interface"><code>ui</code> (user interface)</a></li>
-<li><a href="#server"><code>server</code></a></li>
-<li><a href="#other-files">other files</a></li>
+<li><a href="#control-widgets">Control widgets</a></li>
+<li><a href="#outputs">Outputs</a></li>
 </ul></li>
+<li><a href="#server-backend"><code>server</code> (backend)</a>
+<ul>
+<li><a href="#reactivity">Reactivity</a></li>
+<li><a href="#render-objects">Render objects</a></li>
+</ul></li>
+<li><a href="#putting-it-all-together">Putting it all together</a></li>
 <li><a href="#share-and-deploy-a-shiny-app">Share and deploy a Shiny App</a></li>
 <li><a href="#extending-shiny">Extending Shiny</a>
 <ul>
@@ -2379,7 +2385,7 @@ Modules
 <div class="obj">
 <p><strong>Learning objectives</strong></p>
 <ul>
-<li>Understand what a Shiny App is and why you might need to build one<br />
+<li>Understand what a Shiny App is and why you might want or need to build one<br />
 </li>
 <li>Understand the basic structure of a Shiny App and common hiccups<br />
 </li>
@@ -2396,7 +2402,7 @@ Modules
 </aside>
 <p>Because they extend <code>R</code>-based analyses, Shiny Apps have as many diverse niches and uses as the the <code>R</code> community itself, and it’s likely that you have come across a Shiny App in the wild before.</p>
 <p>Shiny Apps allow for a wide range of customizability, and allow <code>R</code> users to wrap their code and datasets in an additional layer of interactivity in order to make insights, visualizations, data download, and more available to non-<code>R</code> users.</p>
-<p>Now that we know what a Shiny App is, a fundamental question that we need to answer is “when and why should I build a Shiny App?” Generally, you should create a Shiny App when you want to make results and/or data available to others and when the dataset you wish to explore is complex enough to warrant a Shiny App. To provide a specific example, let’s examine a case study.</p>
+<p>Now that we know what a Shiny App is, a fundamental question that we need to answer is “when and why should I build a Shiny App?” Generally, you should create a Shiny App when you want to make results and/or data available to others, or when the dataset is complex enough to warrant a Shiny App to ease exploration. To provide a specific example, let’s examine a case study.</p>
 <h3 id="case-study-sacramento-county-groundwater-elevation">Case Study: Sacramento county groundwater elevation</h3>
 <p>Imagine you’re analyzing groundwater levels across California<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> and want to assess groundwater elevation trends over time in Sacramento County. You may begin with an EDA to filter the data to Sacramento County, clean the data, and make some exploratory plots.</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -2472,7 +2478,7 @@ Projected CRS: WGS 84 / Pseudo-Mercator</code></pre>
 </div>
 <p>Your supervisor requests figures from certain stations, and you find yourself re-running this function to generate them. You also have teammates that require subsets of these data per monitoring site, with specific columns in the output. You add a function that writes data to csv files to handle this task, but realize that this project is ongoing, and people will keep coming to you with requests for alternate combinations of plots or data. Also, the groundwater level data is sufficiently large and complex that you want to be able to view them all in one place.</p>
 <blockquote>
-<p>One solution to automate the “data visualization exploration” and “data sharing” processes is by creating a Shiny App.</p>
+<p>One solution to automate the “data visualization exploration” and “data sharing” processes is to create a Shiny App.</p>
 </blockquote>
 <p>In the sections that follow, we will create a Shiny App that allows users to easily select and visualize groundwater data at different monitoring stations, and export data for a selected site.</p>
 <h2 id="basic-shiny-app-structure">Basic Shiny App Structure</h2>
@@ -2499,43 +2505,50 @@ Projected CRS: WGS 84 / Pseudo-Mercator</code></pre>
 </div>
 </aside>
 <p>Scroll through <code>app.R</code> and notice that there is a <code>ui</code> object, a <code>server</code> object which is a function of <code>input</code> and <code>output</code>, and a <code>runApp()</code> function which takes the <code>ui</code> and <code>server</code> objects as input.</p>
-<h3 id="ui-user-interface"><code>ui</code> (user interface)</h3>
-<p>The <code>ui</code> defines what the user sees when they interact with the Shiny App. Consider the following simple app with no server logic but that demonstrates a few of the <em>control widget</em><a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> inputs available for Shiny Apps.</p>
+<h2 id="ui-frontend"><code>ui</code> (frontend)</h2>
+<p>The <code>ui</code> defines what the user sees when they interact with the Shiny App. Generally speaking, the <code>ui</code> shows:</p>
+<ul>
+<li><em>control widgets</em> which allow the user to send commands to the <code>server</code><br />
+</li>
+<li><em>output</em> from the <code>server</code></li>
+</ul>
+<h3 id="control-widgets">Control widgets</h3>
+<p>Consider the following example App with no server logic but that demonstrates a few of the <em>control widget</em><a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> inputs available for Shiny Apps.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://shiny.rstudio.com'>shiny</a></span><span class='op'>)</span>
 
 <span class='va'>ui</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/fluidPage.html'>fluidPage</a></span><span class='op'>(</span>
-    <span class='co'># generic example inputs in a sidebar</span>
+    <span class='co'># sidebar with generic example inputs</span>
     <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/sidebarLayout.html'>sidebarLayout</a></span><span class='op'>(</span>
         <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/sidebarLayout.html'>sidebarPanel</a></span><span class='op'>(</span>
             <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/sliderInput.html'>sliderInput</a></span><span class='op'>(</span>
-              <span class='st'>"bins"</span>,
-              <span class='st'>"Slider Input"</span>,
+              <span class='st'>"i_slider"</span>,     <span class='co'># control widget ID     </span>
+              <span class='st'>"Slider Input"</span>, <span class='co'># label above the widget</span>
               min <span class='op'>=</span> <span class='fl'>1</span>,
               max <span class='op'>=</span> <span class='fl'>50</span>,
               value <span class='op'>=</span> <span class='fl'>30</span>
             <span class='op'>)</span>,
             <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/fileInput.html'>fileInput</a></span><span class='op'>(</span>
-              <span class='st'>"file"</span>,
-              <span class='st'>"File Input"</span>
+              <span class='st'>"i_file"</span>,       <span class='co'># control widget ID     </span>
+              <span class='st'>"File Input"</span>    <span class='co'># label above the widget</span>
             <span class='op'>)</span>,
             <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/dateInput.html'>dateInput</a></span><span class='op'>(</span>
-              <span class='st'>"date"</span>,
-              <span class='st'>"Date Input"</span>
+              <span class='st'>"i_date"</span>,       <span class='co'># control widget ID     </span>
+              <span class='st'>"Date Input"</span>    <span class='co'># label above the widget</span>
             <span class='op'>)</span>,
             <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/textInput.html'>textInput</a></span><span class='op'>(</span>
-              <span class='st'>"text"</span>,
-              <span class='st'>"Text Input"</span>
+              <span class='st'>"i_text"</span>,       <span class='co'># control widget ID     </span>
+              <span class='st'>"Text Input"</span>    <span class='co'># label above the widget</span>
             <span class='op'>)</span>,
             <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/selectInput.html'>selectInput</a></span><span class='op'>(</span>
-              <span class='st'>"select"</span>,
-              <span class='st'>"Select Input"</span>,
+              <span class='st'>"i_select"</span>,     <span class='co'># control widget ID     </span>
+              <span class='st'>"Select Input"</span>, <span class='co'># label above the widget</span>
               choices <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"A"</span>,<span class='st'>"B"</span>,<span class='st'>"C"</span><span class='op'>)</span>
             <span class='op'>)</span>,
-            <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/radioButtons.html'>radioButtons</a></span><span class='op'>(</span>
-              <span class='st'>"radio"</span>,
-              <span class='st'>"Radio Buttons"</span>,
+            <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/radioButtons.html'>radioButtons</a></span><span class='op'>(</span> 
+              <span class='st'>"i_radio"</span>,      <span class='co'># control widget ID  </span>
+              <span class='st'>"Radio Buttons"</span>,<span class='co'># label above the widget</span>
               choices <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"A"</span>,<span class='st'>"B"</span><span class='op'>)</span>
             <span class='op'>)</span>
         <span class='op'>)</span>,
@@ -2543,7 +2556,8 @@ Projected CRS: WGS 84 / Pseudo-Mercator</code></pre>
     <span class='op'>)</span>
 <span class='op'>)</span>
 
-<span class='co'># server logic</span>
+<span class='co'># blank server logic - the App does nothing with </span>
+<span class='co'># control widget inputs and creates no output!</span>
 <span class='va'>server</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>input</span>, <span class='va'>output</span><span class='op'>)</span> <span class='op'>{</span><span class='op'>}</span>
 
 <span class='co'># run the Shiny app</span>
@@ -2555,37 +2569,193 @@ Projected CRS: WGS 84 / Pseudo-Mercator</code></pre>
 <p><img src="images/shiny_inputs.png" width="581" /></p>
 </div>
 <aside>
-<p>These control widgets may be intuitive to you, as we’ve all interacted with web-based tools and apps before that use widgets like these. View a more comprehensive list of control widgets <a href="https://shiny.rstudio.com/tutorial/written-tutorial/lesson3/">here</a>.</p>
+<p>These control widgets may be intuitive to you, as we’ve all interacted with web-based tools and apps that use widgets like these. View a more comprehensive list of control widgets <a href="https://shiny.rstudio.com/tutorial/written-tutorial/lesson3/">here</a>.</p>
 </aside>
 <p>Chances are that you won’t use all of the control widget inputs available in any given Shiny App you build. The choice of inputs you use will depend on what information you want to present to the user, and how information they select with those widgets should modify data in the <code>server</code>.</p>
-<h3 id="server"><code>server</code></h3>
-<p>If the <code>ui</code> are the sensory organs that receive inputs, the <code>server</code> is the brain of the Shiny App that knows what to do with those inputs.</p>
-<h3 id="other-files">other files</h3>
-<p>Split into 3 files: ui, server, global</p>
-<p>global, etc, modules</p>
+<h3 id="outputs">Outputs</h3>
+<p>A <code>ui</code> with only control widgets (i.e., the App example above) is like having a keyboard without a monitor. You can change inputs by typing on the keyboard, but can’t see anything happen without a monitor! In this analogy, the monitor is a set of <em>outputs</em>. Your Shiny App users will spend a lot of time interacting with <em>outputs</em>, and most of our time spent designing and creating a Shiny App will go into creating outputs. To view default Shiny outputs, type <code>shiny::output</code> and see what comes up in tab complete. <code>plotOutput()</code> is used to render plots, <code>textOutput()</code> is used to render text, and so on.</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="images/shiny_outputs.png" width="397" /></p>
+</div>
+<aside>
+<p>There are other types of output not included in the <code>{shiny}</code> package for objects created by other packages, for example <code>leaflet::leafletOutput()</code> and <code>DT::dataTableOutput()</code> create <a href="https://rstudio.github.io/leaflet/"><code>leaflet</code></a> and <a href="https://rstudio.github.io/DT/"><code>DT</code></a> objects.</p>
+</aside>
+<p>Each output in the <code>ui</code> takes as a first argument the “output id” as a character string, for example, <code>plotOutput("my_plot")</code> means a <code>plotOutput()</code> with an “output id” of <code>"my_plot"</code>.</p>
+<div class="challenge">
+<p><font color="#009E73"><strong>Fix the error</strong></font></p>
+<p style="line-height: 1.5em;">
+Every output in the <code>ui</code> should have a corresponding object rendered in the <code>server</code>. Thus, if we define an Shiny App with <code>plotOutput("my_plot")</code> in the <code>ui</code>, we need to assign a rendered plot to the object <code>output$my_plot</code> in the server. For practice, try running the following Shiny App, and fix the error message.
+</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://shiny.rstudio.com'>shiny</a></span><span class='op'>)</span>
+
+<span class='co'># user interface</span>
+<span class='va'>ui</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/fluidPage.html'>fluidPage</a></span><span class='op'>(</span> <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/plotOutput.html'>plotOutput</a></span><span class='op'>(</span><span class='st'>"plot"</span><span class='op'>)</span> <span class='op'>)</span>
+
+<span class='co'># server logic that draws a plot</span>
+<span class='va'>server</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>input</span>, <span class='va'>output</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='va'>output</span><span class='op'>$</span><span class='va'>my_plot</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/renderPlot.html'>renderPlot</a></span><span class='op'>(</span><span class='op'>{</span> <span class='fu'><a href='https://r-spatial.github.io/sf/reference/plot.html'>plot</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span> <span class='op'>}</span><span class='op'>)</span>
+<span class='op'>}</span>
+
+<span class='co'># Run the application</span>
+<span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/shinyApp.html'>shinyApp</a></span><span class='op'>(</span>ui <span class='op'>=</span> <span class='va'>ui</span>, server <span class='op'>=</span> <span class='va'>server</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p><br></p>
+<details>
+<summary class="challenge-ans-title">
+<font color="#0072B2"><strong>Click for the Answer!</strong></font>
+</summary>
+<div class="challenge-ans-body">
+<p>This very boring Shiny App illustrates a very critical concept. It has no control widget inputs, but it does have a matching output id and output object in the <code>ui</code> and <code>server</code> respectively.</p>
+<p>The answer, therefore, is frustratingly simple: <code>plotOutput("plot")</code> should be <code>plotOutput("my_plot")</code>.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://shiny.rstudio.com'>shiny</a></span><span class='op'>)</span>
+
+<span class='co'># user interface</span>
+<span class='va'>ui</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/fluidPage.html'>fluidPage</a></span><span class='op'>(</span> <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/plotOutput.html'>plotOutput</a></span><span class='op'>(</span><span class='st'>"my_plot"</span><span class='op'>)</span> <span class='op'>)</span>
+
+<span class='co'># server logic that draws a plot</span>
+<span class='va'>server</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>input</span>, <span class='va'>output</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='va'>output</span><span class='op'>$</span><span class='va'>my_plot</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/renderPlot.html'>renderPlot</a></span><span class='op'>(</span><span class='op'>{</span> <span class='fu'><a href='https://r-spatial.github.io/sf/reference/plot.html'>plot</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span> <span class='op'>}</span><span class='op'>)</span>
+<span class='op'>}</span>
+
+<span class='co'># Run the application</span>
+<span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/shinyApp.html'>shinyApp</a></span><span class='op'>(</span>ui <span class='op'>=</span> <span class='va'>ui</span>, server <span class='op'>=</span> <span class='va'>server</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+</div>
+</details>
+</div>
+<p><br></p>
+<h2 id="server-backend"><code>server</code> (backend)</h2>
+<p>If the <code>ui</code> control widgets are like sensory organs that receive inputs, then the <code>server</code> is the brain of the Shiny App that takes inputs, creates outputs, and sends these back to the <code>ui</code>.</p>
+<h3 id="reactivity">Reactivity</h3>
+<p>Reactivity<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> is a driving concept in Shiny App programming. The fundamental idea is that what happens in a Shiny App depends on values that change, and parts of the App are interconnected such that when inputs change, these inputs trigger a re-evaluation of code that regenerates outputs, until the inputs change again, and so on.</p>
+<h3 id="render-objects">Render objects</h3>
+<p>In the <code>ui</code> we saw that each output ID created by the <code>server</code> had a unique ID and was wrapped in an “output” function. For example, <code>plotOutput("my_plot")</code> had an object in the server called <code>output$my_plot</code> that was assigned the result of a <code>renderPlot({ })</code> function, and inside that function was the code for our plot. Each “render” function has a corresponding “output” function (e.g., <code>renderText()</code> and <code>textOutput()</code> go together). To view some of the default “render” functions, type <code>shiny::render</code> and view the options available in the tab complete popup.</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="images/shiny_render.png" width="366" /></p>
+</div>
+<h2 id="putting-it-all-together">Putting it all together</h2>
+<p>Let’s take what we’ve covered and put it all together to address the <a href="#case-study-sacramento-county-groundwater-elevation">Case Study</a> introduced above. We will build a simple Shiny App with a <code>plotOutput()</code> and <code>DT::dataTableOutput()</code> that shows the hydrograph and data for a user-specified monitoring point. We’ll also include data download buttons within the data table and demonstrate how to make the plot interactive with <a href="https://plotly.com/r/"><code>{plotly}</code></a>.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://shiny.rstudio.com'>shiny</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://rstudio.github.io/shinythemes/'>shinythemes</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
+
+<span class='co'># load sac county groundwater data and sac county polygon</span>
+<span class='va'>gwl</span> <span class='op'>&lt;-</span> <span class='fu'>read_csv</span><span class='op'>(</span><span class='fu'>here</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/here/man/here.html'>here</a></span><span class='op'>(</span><span class='st'>"data"</span>, <span class='st'>"gwl"</span>, <span class='st'>"gwl_sac_shiny.csv"</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='co'># ------------------------------------------------------------------------</span>
+<span class='co'># user interface</span>
+<span class='va'>ui</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/fluidPage.html'>fluidPage</a></span><span class='op'>(</span>
+
+    <span class='co'># change default theme to "united"</span>
+    theme <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/shinythemes/man/shinytheme.html'>shinytheme</a></span><span class='op'>(</span><span class='st'>"united"</span><span class='op'>)</span>,
+  
+    <span class='co'># application title</span>
+    <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/titlePanel.html'>titlePanel</a></span><span class='op'>(</span><span class='st'>"Sacramento County Groundwater Level Data"</span><span class='op'>)</span>,
+
+    <span class='co'># sidebar with a dropdown input for site_code</span>
+    <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/sidebarLayout.html'>sidebarLayout</a></span><span class='op'>(</span>
+        <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/sidebarLayout.html'>sidebarPanel</a></span><span class='op'>(</span>
+            <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/selectInput.html'>selectInput</a></span><span class='op'>(</span><span class='st'>"site_code"</span>,
+                        <span class='st'>"Select a site code:"</span>,
+                        choices <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>gwl</span><span class='op'>$</span><span class='va'>SITE_CODE</span><span class='op'>)</span><span class='op'>)</span>
+        <span class='op'>)</span>,
+
+        <span class='co'># tabs with hydrograph and data table</span>
+        <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/sidebarLayout.html'>mainPanel</a></span><span class='op'>(</span>
+            <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/tabsetPanel.html'>tabsetPanel</a></span><span class='op'>(</span>
+                <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/tabPanel.html'>tabPanel</a></span><span class='op'>(</span><span class='st'>"Hydrograph"</span>, <span class='fu'>plotly</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/plotly/reference/plotly-shiny.html'>plotlyOutput</a></span><span class='op'>(</span><span class='st'>"gwl_plot"</span><span class='op'>)</span><span class='op'>)</span>,
+                <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/tabPanel.html'>tabPanel</a></span><span class='op'>(</span><span class='st'>"Data"</span>, <span class='fu'>DT</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/DT/man/dataTableOutput.html'>dataTableOutput</a></span><span class='op'>(</span><span class='st'>"gwl_data"</span><span class='op'>)</span><span class='op'>)</span>
+            <span class='op'>)</span>
+        <span class='op'>)</span>
+    <span class='op'>)</span>
+<span class='op'>)</span>
+
+<span class='co'># ------------------------------------------------------------------------</span>
+<span class='co'># define server logic to plot a hydrograph and create data table</span>
+<span class='va'>server</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>input</span>, <span class='va'>output</span><span class='op'>)</span> <span class='op'>{</span>
+
+    <span class='co'># --------------------------------------------------</span>
+    <span class='co'># create hydrograph</span>
+    <span class='va'>output</span><span class='op'>$</span><span class='va'>gwl_plot</span> <span class='op'>&lt;-</span> <span class='fu'>plotly</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/plotly/reference/plotly-shiny.html'>renderPlotly</a></span><span class='op'>(</span><span class='op'>{</span>
+
+        <span class='co'># draw the ggplot based on the "site_code" user input</span>
+        <span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>gwl</span>, <span class='va'>SITE_CODE</span> <span class='op'>==</span> <span class='va'>input</span><span class='op'>$</span><span class='va'>site_code</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+            <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span><span class='va'>MSMT_DATE</span>, <span class='va'>WSE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+            <span class='fu'>geom_line</span><span class='op'>(</span>alpha <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span> <span class='op'>+</span>
+            <span class='fu'>geom_smooth</span><span class='op'>(</span>method <span class='op'>=</span> <span class='st'>"lm"</span>, se <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>+</span>
+            <span class='fu'>labs</span><span class='op'>(</span>title <span class='op'>=</span> <span class='va'>input</span><span class='op'>$</span><span class='va'>site_code</span>,
+                 x <span class='op'>=</span> <span class='st'>""</span>, y <span class='op'>=</span> <span class='st'>"Groundwater level (ft AMSL)"</span><span class='op'>)</span>
+
+        <span class='co'># render the plotly object</span>
+        <span class='fu'>plotly</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/plotly/reference/ggplotly.html'>ggplotly</a></span><span class='op'>(</span><span class='va'>p</span><span class='op'>)</span>
+    <span class='op'>}</span><span class='op'>)</span>
+
+    <span class='co'># --------------------------------------------------</span>
+    <span class='co'># create data table</span>
+    <span class='va'>output</span><span class='op'>$</span><span class='va'>gwl_data</span> <span class='op'>&lt;-</span> <span class='fu'>DT</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/DT/man/dataTableOutput.html'>renderDataTable</a></span><span class='op'>(</span><span class='op'>{</span>
+
+        <span class='co'># draw the plot based on the "site_code" user input</span>
+        <span class='fu'>DT</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/DT/man/datatable.html'>datatable</a></span><span class='op'>(</span>
+            <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>gwl</span>, <span class='va'>SITE_CODE</span> <span class='op'>==</span> <span class='va'>input</span><span class='op'>$</span><span class='va'>site_code</span><span class='op'>)</span>,
+            extensions <span class='op'>=</span> <span class='st'>'Buttons'</span>,
+            options <span class='op'>=</span>
+                <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>dom <span class='op'>=</span> <span class='st'>'Bfrtip'</span>,
+                     buttons <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'copy'</span>, <span class='st'>'csv'</span>, <span class='st'>'excel'</span>, <span class='st'>'pdf'</span>, <span class='st'>'print'</span><span class='op'>)</span><span class='op'>)</span>
+        <span class='op'>)</span>
+    <span class='op'>}</span><span class='op'>)</span>
+<span class='op'>}</span>
+
+<span class='co'># ------------------------------------------------------------------------</span>
+<span class='co'># Run the application</span>
+<span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/shinyApp.html'>shinyApp</a></span><span class='op'>(</span>ui <span class='op'>=</span> <span class='va'>ui</span>, server <span class='op'>=</span> <span class='va'>server</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<aside>
+<p><br></p>
+<p>The <code>sidebarLayout()</code> and <code>tabsetPanel()</code> functions demonstrated in this module are just a few of the many <a href="https://shiny.rstudio.com/articles/layout-guide.html">layout options</a> to configure the placement of control widgets and outputs in your Shiny Apps.</p>
+<p>Shiny App design and customization options are vast. We demonstrated the “united” theme here, which is one of many <a href="https://shiny.rstudio.com/gallery/shiny-theme-selector.html"><code>{shinythemes}</code></a>. You can also add <a href="https://shiny.rstudio.com/articles/css.html">custom CSS</a> in-line, or in a <code>styles.css</code> script in the Shiny App directory.</p>
+<p>Finally, although we demonstrate a simple Shiny App, more functional and complex Apps may benefit from modularizing particular App components. <a href="https://shiny.rstudio.com/articles/modules.html">Learn more about building Shiny modules here</a>.</p>
+</aside>
+<p>Let’s break down what we just did.</p>
+<ol type="1">
+<li><p>Before anything else, we loaded the packages we needed<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> and our groundwater level data <code>gwl</code>.</p></li>
+<li><p>Next, in the <code>ui</code>, we added a custom theme from the <code>{shinythemes}</code> package to change the default appearance of our App. We used a <code>selectInput()</code> control widget with a ID <code>"site_code"</code> and choices equal to the unique values of <code>SITE_CODE</code>s in the <code>gwl</code> dataframe. Then, in the <code>mainPanel()</code> we added a <code>tabsetPanel()</code> with two <code>tabPanel()</code> tabs: one with a <code>plotly::plotlyOutput()</code> plot, and another with a <code>DT::dataTableOutput()</code> output.</p></li>
+<li><p>Finally, in the <code>server</code>, we rendered plotly and dataTable objects and saved them to the <code>output</code> object under the output IDs <code>"gwl_plot"</code> and <code>"gwl_data"</code>. These objects are displayed in the <code>ui</code>.</p></li>
+</ol>
 <h2 id="share-and-deploy-a-shiny-app">Share and deploy a Shiny App</h2>
-<p>Up until now, we’ve been using our own computer to run our Shiny App example. If we wanted to share the Shiny App, how might we do that?</p>
+<p>Up until now, we’ve been using our own computer to run our Shiny App example. How do we share a Shiny App with others?</p>
 <p>The fastest and simplest way to share your Shiny app with another <code>R</code> user is to share the <code>app.R</code> file and data dependencies. They can open the file and run the app on their computer as we’ve been doing in this module. However, we may want to share our app with a wider, non-technical audience over the internet. When we move a Shiny App from our computer onto a web server so that it can be shared over the internet, we <strong><em>deploy</em></strong> the app.</p>
 <p>There are a range of services that allow us to deploy Shiny Apps that range from simple to complex, and costly to inexpensive.</p>
-<p>A relatively painless way to deploy is via <a href="https://www.shinyapps.io/">shinyapps.io</a>, run by RStudio. A free tier is available for small applications, with a capped number of “live hours” per month to test your application. Paid tiers afford more “live hours” per month, a faster web server, and features like password protection.</p>
-<p><code>{shiny}</code> is open source, and in that spirit, the open source <a href="https://www.rstudio.com/products/shiny/shiny-server/">Shiny Server</a> can be installed on any cloud computer (e.g., AWS, Google Cloud, Microsoft Azure). If you don’t have a background in cloud computing, your System Administrator (Sys Admin) can help you move your App onto a cloud or company server<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>.</p>
+<p>A relatively painless way to deploy is via <a href="https://www.shinyapps.io/">shinyapps.io</a>, run by RStudio. A free tier is available, and provides a limited number of “live hours” per month for users to interact with your App. Paid tiers afford more “live hours” per month, a faster web server, and features like password protection.</p>
+<p><code>{shiny}</code> is open source, and in that spirit, the open source <a href="https://www.rstudio.com/products/shiny/shiny-server/">Shiny Server</a> can be installed on any local or cloud server (e.g., AWS, Google Cloud, Microsoft Azure). If you don’t have a background in cloud computing, your System Administrator (Sys Admin) can help you move your App onto a cloud or company server<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>. Although this option requires more manual setup than shinyapps.io, it offers a non-commercial alternative, and perhaps more control depending on your needs.</p>
 <h2 id="extending-shiny">Extending Shiny</h2>
 <p>Congratulations! You’re now familiar with the basics of <code>{shiny}</code>. This module is just the tip of the iceberg. There are so many ways to extend <code>{shiny}</code>, and the opportunities for customization of Shiny Apps are vast. We recommend the following ways to increase your knowledge in this domain:</p>
 <ul>
 <li>find open source Shiny Apps that you admire, clone their source code to your machine, run the App, and change things so you can explore how the App works. Borrow bits of code in new Apps you create<br />
 </li>
-<li>find a side project that’s a good candidate for a Shiny App and build one - it doesn’t need to be work related and in fact, it might be more fun to work on something tangential that you find interesting<br />
+<li>find a side project that’s a good candidate for a Shiny App and build one - it doesn’t need to be work-related; in fact, it might be more fun to work on something tangential that you find interesting<br />
 </li>
 <li>explore the free online books and guided video tutorials in the links below</li>
 </ul>
 <h3 id="additional-resources">Additional Resources</h3>
 <p>Below are a few freely available books, presentations, and locations to find Apps online:</p>
 <ul>
-<li><a href="https://shiny.rstudio.com/gallery/">RStudio Shiny Gallery</a>: Examples of Shiny Apps highlighting different ways Shiny has been used, with links to source code<br />
-</li>
 <li><a href="https://mastering-shiny.org/index.html">Mastering Shiny</a>: Free online book that serves as an authoritative guide on how to build, maintain, deploy, and customize R Shiny Apps. Material goes well beyond what is presented in this module.<br />
 </li>
-<li><a href="https://shiny.rstudio.com/tutorial/">Guided Shiny Video tutorials</a>: Series of guided video tutorials with live-code demos and slides that explain the fundamentals of R Shiny Apps and how to use them.</li>
+<li><a href="https://shiny.rstudio.com/tutorial/">Guided Shiny Video tutorials</a>: Series of guided video tutorials with live-code demos and slides that explain the fundamentals of R Shiny Apps and how to use them.<br />
+</li>
+<li><a href="https://shiny.rstudio.com/gallery/">RStudio Shiny Gallery</a>: Examples of Shiny Apps highlighting different ways Shiny has been used, with links to source code</li>
 </ul>
 <p><br></p>
 <p><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"></p>
@@ -2595,9 +2765,11 @@ Projected CRS: WGS 84 / Pseudo-Mercator</code></pre>
 <hr />
 <ol>
 <li id="fn1" role="doc-endnote"><p>For instance, imagine you are using the California Department of Water Resources’ <a href="https://data.cnra.ca.gov/dataset/periodic-groundwater-level-measurements">Periodic Groundwater Level Database</a> used throughout this course.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2" role="doc-endnote"><p>If using <code>{here}</code>, your project directory is <code>here()</code>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3" role="doc-endnote"><p>A control widget is a tool that allows users to send information from the frontend <code>ui</code> to the backend <code>server</code>. Different widgets allow different types of information to pass between the <code>ui</code> and <code>server</code>.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn4" role="doc-endnote"><p>The <a href="%5Bhttps://docs.rstudio.com/shiny-server/">Shiny Server Administrator’s Guide</a>](<a href="https://docs.rstudio.com/shiny-server/" class="uri">https://docs.rstudio.com/shiny-server/</a>)) provides detailed documentation geared towards System Administrators that will help in deploying a Shiny App.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p>If using <code>{here}</code>, find your project directory by running <code>here()</code>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3" role="doc-endnote"><p>A control widget is a tool that allows users to send information from the frontend <code>ui</code> to the backend <code>server</code>. Different widgets allow different types of information to pass between the <code>ui</code> and <code>server</code>. Notice that the first argument to each control widget is the unique ID of that widget. IDs must be unique, and are accessed in the server in a named list called <code>input</code>. For example, the <code>sliderInput("bins")</code> has the unique ID <code>"i_slider"</code> and the user-input value to this widget can be accessed from within the server with <code>input$i_slider</code>.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4" role="doc-endnote"><p>A comprehensive treatment of reactive programming in Shiny is beyond the scope of this module, but we recommend reading <a href="https://shiny.rstudio.com/articles/reactivity-overview.html">this article</a>, and <a href="https://mastering-shiny.org/reactivity-intro.html">this book section</a> to learn more about reactive graphs when you decide to start building more complex Shiny Apps.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5" role="doc-endnote"><p>Although we don’t cover it in this module, you can also split your App into 3 files: <code>ui.R</code> (for the <code>ui</code>), <code>server.R</code> (for the <code>server</code>), and <code>global.R</code> (loads all App dependencies). When an App becomes big and complex, splitting it up into smaller parts can make it easier to develop.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6" role="doc-endnote"><p>The <a href="%5Bhttps://docs.rstudio.com/shiny-server/">Shiny Server Administrator’s Guide</a>](<a href="https://docs.rstudio.com/shiny-server/" class="uri">https://docs.rstudio.com/shiny-server/</a>)) provides detailed documentation geared towards System Administrators that will help in deploying a Shiny App.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 <!--radix_placeholder_article_footer-->
