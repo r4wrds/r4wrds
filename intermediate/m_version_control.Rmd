@@ -1,7 +1,7 @@
 ---
 title: "Version Control with git"
 description: | 
-   description
+   A time machine you can share...
 output: 
   distill::distill_article:
     toc: true
@@ -24,3 +24,48 @@ library(here)
 :::
 
 
+## What is version control?
+
+Why should you use version control? What is it? Version control is really a way to keep track of changes made to a document, data, or code with the added bonus that you can *revert to any previous change or point in time* and *you can work in parallel with multiple people on the same material.* 
+
+The important difference between this and a cloud-based service (e.g., Dropbox), is the ability to **control** exactly what changes and/or files get "versioned". These versions are given unique identifiers along with a short `commit` message, which allows us to restore these changes at any point in time. This much finer control over specific changes by specific users is why version control is a very powerful tool (as well as a computer lifesaver when things go awry!). Some folks may just use version control as another way to backup their work, but version control really shines when working on something collaboratively. For example, many are familiar with the situation below:
+
+```{r, docrevise, echo=FALSE, out.width="80%"}
+
+include_graphics(here("images", "final_doc_phd_comics.png"))
+
+```
+
+## Setting up a project
+
+The comic shows a single thesis document, but really the situation isn't any different than a big data analysis project, or preparation of a product. A common series of steps are generally taken by a multiple people, for example:
+
+ 1. Download/gather data
+ 2. Clean/transform data
+ 3. Analyze and visualize data
+ 4. Produce a front facing product or report
+ 
+The reality is when splitting these tasks out, or assigning tasks within each of these tasks, there may be overlap. Or maybe one piece depends on another. Complex collaborative projects really require some forethought in how to set things up so everyone can make independent progress without holding up the process for other team members.
+
+:::challenge
+
+<font color="#009E73">**Pause and Discuss!**</font> 
+
+<p style="line-height: 1.5em;">
+If you had 10 people to work on a big project with steps outlined above, how would you approach it? How would you break out these pieces or subtasks? How would you track progress? 
+</p>
+:::
+
+<br>
+
+
+So while we will cover **`git`** and version control in this module, understanding and learning a general mindset for approaching collaborative projects with version control will be just as important as learning the commands. Developing the skills to organize, parallelize (not work on the same thing at the same time to avoid conflicts), and integrate people and pieces together is really at the root of successful version control!
+
+### *Learning git basics*
+
+Git basics: create a repo,  the difference between public and private repos, how and why to use branching (idea of parallel work on collaborative projects), submitting a pull request.
+.gitignore: use it to ignore entire directories and other files, especially files >= 125MB, and for files that you may use for internal analysis (e.g., rds) that may be quite large
+Focus on basic commands:
+Fetch, pull, merge, branch + add/commit
+See excalidraw.com to draw flow charts
+For merge conflicts...use text file example of comment/code on same line. Show head/diff, choose one and save, here’s what it looks like on desktop, and online.
