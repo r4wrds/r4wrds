@@ -40,11 +40,7 @@ The important difference between using a tool like git and Github versus cloud-b
 
 Some folks may just use version control as another way to backup their work^[ [Git xkcd](https://xkcd.com/1597/) ], but version control really shines when working on something collaboratively. For example, many are familiar with the situation below:
 
-```{r, docrevise, echo=FALSE, out.width="80%"}
-
-include_graphics(here("images", "final_doc_phd_comics.png"))
-
-```
+![Figure from http://www.phdcomics.com/comics/archive/phd101212s.gif](images/final_doc_phd_comics.png){width=80% .external} 
 
 <br>
 
@@ -81,11 +77,15 @@ This module will cover version control with **`git`**, including the basic comma
 
 Developing the skills to organize and collaborate effectively by using tools like `git` to integrate work together is really at the root of successful version control! What we want you to come away with is a real understanding of not just the `git` commands but how to implement version control so it's useful (not just another way to back things up...see below).
 
-(ref:xkcdGit) *Learn to leverage the power of git for things other than just a backup! (Comic by xkcd)*
 
-```{r, fig.cap='(ref:xkcdGit)', out.height='90%', echo=FALSE}
 
-include_graphics(here("images", "xkcd_using_git.png"))
+![*Learn to leverage the power of git for things other than just a backup!* (Figure from https://xkcd.com/1597/)](images/xkcd_using_git.png){width=60% .external}
+
+(ref:xkcdGit) *Learn to leverage the power of git for things other than just a backup! (Figure from https://xkcd.com/1597/)*
+
+```{r, fig.cap='(ref:xkcdGit)', out.width='60%', echo=FALSE, eval=FALSE, out.extra="class=external"}
+
+include_graphics(here("images/xkcd_using_git.png"))
 
 ```
 
@@ -96,9 +96,9 @@ Sometimes the best way to learn is to walk through a real-world example. Let's w
 
 Lets imagine we have a team of 3 folks, <font color="#5f3dc4">**Jo**</font>, <font color="#2b8a3e">**Mo**</font>, and <font color="#e67700">**Main**</font>. Each has a unique skill set, and each knows how to use `R` and `git`. The team is tasked with downloading and visualizing flow data for a specific river gage to provide status report updates on a monthly basis, which are used for various regulatory actions (i.e., how much water is available for diversion, how flows relate to period of record averages, etc). 
 
-```{r git1, echo=FALSE, out.width='80%'}
+```{r git1, echo=FALSE, out.width='80%', fig.cap="An example team and workflow"}
 
-include_graphics(here("images", "team_and_task.png"))
+include_graphics(here("images", "team_and_task_annot.png"))
 
 ```
 
@@ -206,6 +206,25 @@ You can access any public Github repository, including copying or cloning the re
 
 </aside>
  
+```{r, echo=FALSE, out.width='50%', fig.cap="Click on the Settings tab at the top to add collaborators"}
+
+include_graphics(here("images", "git_settings.png"))
+
+```
+
+```{r, echo=FALSE, out.width='50%', fig.cap="Then click on Manage Access"}
+
+include_graphics(here("images/git_manage_access.png"))
+
+```
+
+```{r, echo=FALSE, fig.width=3, fig.height=1.9, fig.cap="Invite collaborators by email or username!"}
+
+include_graphics(here("images/git_invite_collaborators.png"))
+
+```
+
+ 
 ### Branches & Conflicts
 
 Often when teaching `git`, we start with the basic commands. However, it's important to consider one of the more powerful parts of using `git` is the ability to use **branches**. Branches, or branching, in `git`, is a way for multiple folks to work on the same repository independently, and a standardized way to integrate those changes back into the repository. Every repository typically starts with one single **`main`** branch. This is like the trunk of the tree, or the main train track. We can set up some additional branches off of this track, and if we want to merge them back in to make them available for our collaborators, we need to use something called a **pull request**. This is essentially a way to double check if there will be any conflicts between the work in the branch and the work in the **`main`**, and it also provides a way to document and review any changes. 
@@ -216,7 +235,6 @@ Even if you are the only person working in a repo, it's a good habit to use bran
 
 </aside>
  
-In our example we want to make sure we keep our **`main`** branch clean and up-to-date with changes we are happy with...all other work will go through a branch, pull request, review, and merge process to minimize conflicts or duplication of work.
 
 ```{r, echo=F, fig.cap="Example of multiple branches in a project splitting off the main branch"}
 
@@ -226,14 +244,25 @@ include_graphics(here("images", "commit_branch_tracks.png"))
 
 ### Create a branch
 
-Let's assume Jo is a wizard at grabbing the data we want to work with and saving it in an organized way. She's cloned the repository to her computer, and first thing she wants to do is create a fresh branch to work on.
+In our example we want to make sure we keep our **`main`** branch clean and up-to-date with changes we are happy with...all other work will go through a branch, pull request, review, and merge process to minimize conflicts or duplication of work.
+
+<font color="#5f3dc4">**Jo**</font> is a wizard at grabbing the data we want to work with and saving it in an organized way. She's cloned the repository to her computer, and first thing she wants to do is create a fresh branch to work off of, so her changes can be reviewed before being `merged` into the **`main`** branch.
 
 We can create a branch in RStudio in one of two ways:
 
  - `Tools > Terminal > New Terminal` and look for the Terminal tab in RStudio. Click on it, and at the prompt, type `git checkout -b BRANCH_NAME`.
  - Using the **`Git`** tab in RStudio and clicking on the **`New Branch`** button.
 
-Let's create a new branch called "`jo_download_data`"
+Let's create a new branch called `jo_download_data`. Ideally, each team member will do the same, and each of these branches comes from the **`main`** branch, which is the main trunk or "clean" version of the project.
+
+(ref:startingBranch) <font color="#5f3dc4">**Jo**</font> creates a new branch from **`main`** to do her data download task.
+
+```{r startingBranch, eval=TRUE, echo=FALSE, fig.cap='(ref:startingBranch)', out.height='80%'}
+
+include_graphics(here("images/jo_data_gather_branch.png"))
+
+```
+
  
 ### Download Data: `add`, `commit`, `push`
 
@@ -282,3 +311,8 @@ As she works, the general process she follows is:
  - [r for excel with github](https://rstudio-conf-2020.github.io/r-for-excel/github.html)
  - [Excuse me do you have a moment to talk version control by Jenny Bryan](https://peerj.com/preprints/3159/)
  - [Github for project management](https://openscapes.github.io/series/github-issues.html)
+
+- git vaccinate with usethis to insure no issues with hidden/secure files
+
+- discuss committing .html, shapefiles, etc. 
+- Ignore large files or data. 
