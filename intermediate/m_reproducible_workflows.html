@@ -89,26 +89,29 @@ code span.wa { color: #bf0303; } /* Warning */
 </style>
 
   <!--radix_placeholder_meta_tags-->
-  <title>R4WRDS Courses: R for Water Resources Data Science</title>
+  <title>R for Water Resources Data Science: From iteration to functional programming</title>
 
+  <meta property="description" itemprop="description" content="Conceptual code"/>
 
 
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-  <meta property="og:title" content="R4WRDS Courses: R for Water Resources Data Science"/>
+  <meta property="og:title" content="R for Water Resources Data Science: From iteration to functional programming"/>
   <meta property="og:type" content="article"/>
+  <meta property="og:description" content="Conceptual code"/>
   <meta property="og:locale" content="en_US"/>
-  <meta property="og:site_name" content="R4WRDS Courses"/>
+  <meta property="og:site_name" content="R for Water Resources Data Science"/>
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
-  <meta property="twitter:title" content="R4WRDS Courses: R for Water Resources Data Science"/>
+  <meta property="twitter:title" content="R for Water Resources Data Science: From iteration to functional programming"/>
+  <meta property="twitter:description" content="Conceptual code"/>
 
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","site"]}},"value":[{"type":"character","attributes":{},"value":["R for Water Resources Data Science"]},{"type":"character","attributes":{},"value":["distill::distill_website"]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","output"]}},"value":[{"type":"character","attributes":{},"value":["From iteration to functional programming"]},{"type":"character","attributes":{},"value":["Conceptual code \n"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2047,10 +2050,20 @@ code span.wa { color: #bf0303; } /* Warning */
   @import url('https://fonts.googleapis.com/css?family=Lora:400,400i&display=swap');
   @import url('https://fonts.googleapis.com/css?family=Roboto:400,400i&display=swap');
 
+
   body {font-size: 15px; line-height: 1.6;}
-  h1 {font-size: 40px;}
-  h2 {font-size: 30px;}
-  h3 {font-size: 23px;}
+  h1 {
+    font-size: 40px;
+    line-height: 1.2em;
+  }
+  h2 {
+    font-size: 30px;
+    line-height: 1.2em;
+  }
+  h3 {
+    font-size: 23px;
+    line-height: 1.2em;
+  }
 
 
   .navbar-inverse {
@@ -2076,8 +2089,8 @@ code span.wa { color: #bf0303; } /* Warning */
 
   /*blue comment box */
   .blue {
-      background-color:#e6f0ff; 
-      border-radius: 4px; 
+      background-color:#e6f0ff;
+      border-radius: 4px;
       padding: 12px;
   }
 
@@ -2090,16 +2103,16 @@ code span.wa { color: #bf0303; } /* Warning */
 
   /* make marker something before click */
   summary::before {
-      font-family: "Font Awesome 5 Free"; 
-      font-weight: 900; 
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
       content: "\f13a";
       color: #228B22;
   }
 
   /* and after click */
   details[open] summary:before {
-      font-family: "Font Awesome 5 Free"; 
-      font-weight: 900; 
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
       content: "\f139";
       color: gray;
   }
@@ -2138,7 +2151,7 @@ code span.wa { color: #bf0303; } /* Warning */
         font-weight: normal;
   }
 
-  /* see giraffe teacup site for great css tips: https://github.com/tinystats/teacups-giraffes-and-statistics/blob/master/assets/style.css 
+  /* see giraffe teacup site for great css tips: https://github.com/tinystats/teacups-giraffes-and-statistics/blob/master/assets/style.css
   css below is adapted from that page */
 
   .obj {
@@ -2166,8 +2179,8 @@ code span.wa { color: #bf0303; } /* Warning */
 
   .challenge {
     color: #002855;
-    background-color:#e6f0ff; 
-    border-radius: 4px; 
+    background-color:#e6f0ff;
+    border-radius: 4px;
     padding: 12px;
     font-size: 16px;
     line-height: 1.3em;
@@ -2204,12 +2217,12 @@ code span.wa { color: #bf0303; } /* Warning */
       right:0;
       bottom:0;
     }
-    
-  .lil-image-text { 
+
+  .lil-image-text {
       margin-right: auto;
       margin-bottom: 20px;
       margin-left: auto;
-      text-align: center; 
+      text-align: center;
       display:block;
       font-family: 'Lora', serif;
         font-size: 24px;
@@ -2220,22 +2233,22 @@ code span.wa { color: #bf0303; } /* Warning */
         color: #fff;
     }
 
-  .big-image-text { 
+  .big-image-text {
     letter-spacing: 0.065em;
     line-height: 1em;
     font-size: 68px;
     text-transform: uppercase;
-    text-align: center; 
+    text-align: center;
     display:block;
     color: #fff;
     margin-bottom: 3rem;
   }
 
-  .lil-image-text-dark { 
+  .lil-image-text-dark {
       margin-right: auto;
       margin-bottom: 24px;
       margin-left: auto;
-      text-align: center; 
+      text-align: center;
       display:block;
       font-family: 'Lora', serif;
         font-size: 40px;
@@ -2246,12 +2259,12 @@ code span.wa { color: #bf0303; } /* Warning */
         color: #191919;
     }
 
-  .big-image-text-dark { 
+  .big-image-text-dark {
     letter-spacing: 0.065em;
     line-height: 1em;
     font-size: 68px;
     text-transform: uppercase;
-    text-align: center; 
+    text-align: center;
     display:block;
     color: #191919;
     margin-bottom: 3rem;
@@ -2266,6 +2279,9 @@ code span.wa { color: #bf0303; } /* Warning */
     left: 0;
     background-color: rgba(0,0,0,.1);
   }
+
+
+  /*grey code block*/
 
   .sourceCode {
     background-color:#f4f4f4;
@@ -2284,7 +2300,7 @@ code span.wa { color: #bf0303; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"R for Water Resources Data Science","authors":[]}
+{"title":"From iteration to functional programming","description":"Conceptual code","authors":[]}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2292,10 +2308,32 @@ code span.wa { color: #bf0303; } /* Warning */
 <header class="header header--fixed" role="banner">
 <nav class="distill-site-nav distill-site-header">
 <div class="nav-left">
-<a href="index.html" class="title">R4WRDS Courses</a>
+<a href="index.html" class="title">R4WRDS Intermediate Course</a>
 </div>
 <div class="nav-right">
-<a href="https://github.com/ryanpeek/WRDS_intro/">
+<div class="nav-dropdown">
+<button class="nav-dropbtn">
+Modules
+ 
+<span class="down-arrow">&#x25BE;</span>
+</button>
+<div class="nav-dropdown-content">
+<a href="m_install_R.html">Module 1: </a>
+<a href="m_getting_started.html">Module 2: </a>
+<a href="m_project_management.html">Module 3:</a>
+<a href="m_importing_and_exporting_data.html">Module 4:</a>
+<a href="m_ggplot.html">Module 5:</a>
+<a href="m_data_structures.html">Module 6: </a>
+<a href="m_dplyr.html">Module 7: </a>
+<a href="m_pivots.html">Module 8: </a>
+<a href="m_functions.html">Module 9: </a>
+<a href="m_joins.html">Module 10: s</a>
+</div>
+</div>
+<a href="../index.html">
+<i class="fa fa-home fa-lg" aria-hidden="true"></i>
+</a>
+<a href="https://github.com/ryanpeek/r4wrds/">
 <i class="fa fa-github fa-lg" aria-hidden="true"></i>
 </a>
 <a href="javascript:void(0);" class="nav-toggle">&#9776;</a>
@@ -2307,21 +2345,25 @@ code span.wa { color: #bf0303; } /* Warning */
 <!--/radix_placeholder_site_before_body-->
 
 <div class="d-title">
-<h1>R for Water Resources Data Science</h1>
+<h1>From iteration to functional programming</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
-
+<p><p>Conceptual code</p></p>
 </div>
 
 
 <div class="d-article">
-<iframe scrolling="no" src="https://richpauloo.github.io/htmlwidgets/waves/index.html" style="border: 0px white;" width="100%">
-</iframe>
-<center>
-<h1 id="introductory-course"><a href="intro/index.html"><span style="color: #009E73">1. Introductory Course</span></a></h1>
+<div class="obj">
+<p><strong>Learning objectives</strong></p>
+<ul>
+<li>A</li>
+<li>B</li>
+<li>C</li>
+</ul>
+</div>
 <p><br></p>
-<h1 id="intermediate-course"><a href="intermediate/index.html"><span style="color: #0072B2">2. Intermediate Course</span></a></h1>
-</center>
+<p><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"></p>
+<p><a href="index.html" class="btn btn-secondary" style="float: left">Previous module:<br>Simple Shiny</a> <a href="m_git.html" class="btn btn-secondary" style="float: right;">Next module:<br>Approaches to work with Complex Data</a></p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->

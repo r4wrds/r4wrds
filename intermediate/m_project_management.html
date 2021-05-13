@@ -2387,6 +2387,7 @@ Modules
 <li>Understand package environments and how to manage them with <code>{renv}</code></li>
 </ul>
 </div>
+<p><br></p>
 <h2 id="first-principles">First principles</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="figure"><span id="fig:updatepkg"></span>
@@ -2413,6 +2414,7 @@ Figure 1: What to avoid building (Source: <a href="https://xkcd.com/2054/" class
 <li><a href="../intro/m_project_management.html#file-paths">Relative filepaths and the <strong><code>{here}</code></strong> package</a></li>
 <li><a href="../intro/m_project_management.html#best-practices-organization-tips">Best practices for project organization</a></li>
 </ul>
+<p><br></p>
 <h1 id="rprofile">.RProfile</h1>
 <p>If you have user- or project-level <strong>code</strong> that needs to be run every time you start up R, customizing your <code>.RProfile</code> can streamline this operation.</p>
 <p>The <code>.RProfile</code> file is an actual (hidden) file that is automatically sourced (run) as <code>R</code> code when you open an <code>R</code> session. A <code>.RProfile</code> file can live in the project root directory, or the user’s home directory, although only one <code>.RProfile</code> can be loaded per R session or RProject. If a project-level <code>.Rprofile</code> exists, it supersedes the user-level <code>.Rprofile</code>.</p>
@@ -2435,6 +2437,7 @@ Figure 1: What to avoid building (Source: <a href="https://xkcd.com/2054/" class
 </code></pre>
 </div>
 </div>
+<p><br></p>
 <h2 id="using-.rprofile">Using <code>.Rprofile</code></h2>
 <p>To illustrate how <code>.RProfile</code> works, let’s do something cool and useless. We’ll write a short program that greets us with a random inspirational quote, and then we’ll put in <code>.RProfile</code> so it runs whenever we start up R.</p>
 <p>The <a href="https://cran.r-project.org/web/packages/cowsay/vignettes/cowsay_tutorial.html"><code>{cowsay}</code></a> package is a fun way to print text animal art.</p>
@@ -2477,31 +2480,33 @@ hello world!
 </code></pre>
 </div>
 <pre><code>
- ----- 
-Be like the flower, turn your face to the sun. - Kahlil Gibran 
- ------ 
-    \   
-     \
-                \`*-.
-                 )  _`-.
-                .  : `. .
-                : _   &#39;  \
-                ; *` _.   `*-._
-                `-.-&#39;          `-.
-                  ;       `       `.
-                  :.       .       \
-                  .\  .   :   .-&#39;   .
-                  &#39;  `+.;  ;  &#39;      :
-                  :  &#39;  |    ;       ;-.
-                  ; &#39;   : :`-:     _.`* ;
-               .*&#39; /  .*&#39; ; .*`- +&#39;  `*&#39;
-     [bug]     `*-*   `*-*  `*-*&#39;
-    </code></pre>
+ ------------- 
+You can do it if you believe you can! - Napoleon Hill 
+ -------------- 
+              \   
+               \  
+                \
+_____________________                              _____________________
+`-._                 \           |\__/|           /                 _.-&#39;
+    \                 \          |    |          /                 /
+     \                 `-_______/      \_______-&#39;                 /
+      |                                                          |
+      |                                                          |
+      |                                                          |
+      /                                                          \
+     /_____________                                  _____________\
+                   `----._                    _.----&#39;
+                          `--.            .--&#39;
+                              `-.      .-&#39;
+                                 \    / :F_P:
+                                  \  /
+                                   \/</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/rm.html'>rm</a></span><span class='op'>(</span><span class='va'>animals</span>, <span class='va'>quotes</span><span class='op'>)</span> <span class='co'># remove the objects we just created</span>
 </code></pre>
 </div>
 </div>
+<p><br></p>
 <h1 id="renviron">.Renviron</h1>
 <p>Sometimes you need to store sensitive information, like API Keys, Database passwords, data storage paths, or general variables used across all scripts. We don’t want to accidentally share these information, accidentally push them to Github, or copy and paste them over and over again from script to script. We also might want to build a codebase that relies on a few variables that another user can set in their own system in a way that works for them. Environmental variables are the way to address all of these concerns.</p>
 <p><strong>Environmental variables</strong> are objects that store character strings. They are accessible from within R upon startup. To view all environmental variables, use <code>Sys.getenv()</code>. You can also pull out one environmental variable at a time by passing in its name, for instance:</p>
@@ -2565,7 +2570,6 @@ Be like the flower, turn your face to the sun. - Kahlil Gibran
 <p style="line-height: 1.5em;">
 In the example function above, we might notice that reading in a url from a csv every time we run <code>inspire_me()</code> is a lot of unnecessary overhead. Where else might we be able to read that csv in automatically when R starts up, so that it’s available for our <code>inspire_me()</code> function, and that we only need to read it once?
 </p>
-</div>
 <p><br></p>
 <details>
 <summary class="challenge-ans-title">
@@ -2606,6 +2610,8 @@ In the example function above, we might notice that reading in a url from a csv 
 </div>
 </div>
 </details>
+</div>
+<p><br></p>
 <h1 id="strategies-to-organize-projectscode">Strategies to organize projects/code</h1>
 <p>Best practices for writing code across languages typically recommend package imports and function definitions at the top of a script, followed by code. For example, a script may look like this:</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -2719,10 +2725,11 @@ A good rule of thumb to follow is to try and keep scripts less than 150 lines in
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># packages needed for this script</span>
 <span class='va'>pkgs</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"readr"</span>, <span class='st'>"cowsay"</span>, <span class='st'>"here"</span>, <span class='st'>"tidyverse"</span>, <span class='st'>"glue"</span><span class='op'>)</span>
-<span class='fu'>purrr</span><span class='fu'>::</span><span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>walk</a></span><span class='op'>(</span><span class='va'>pkgs</span>, <span class='va'>require</span>, character.only <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>walk</a></span><span class='op'>(</span><span class='va'>pkgs</span>, <span class='va'>require</span>, character.only <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
 <span class='co'># silently source all functions using the purrr::walk function</span>
-<span class='fu'>walk</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.files.html'>list.files</a></span><span class='op'>(</span><span class='fu'>here</span><span class='op'>(</span><span class='st'>"functions"</span><span class='op'>)</span>, full.names <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>, <span class='op'>~</span><span class='kw'><a href='https://rdrr.io/r/base/source.html'>source</a></span><span class='op'>(</span><span class='va'>.x</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>fns</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.files.html'>list.files</a></span><span class='op'>(</span><span class='fu'>here</span><span class='op'>(</span><span class='st'>"functions"</span><span class='op'>)</span>, full.names <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>walk</a></span><span class='op'>(</span><span class='va'>fns</span>, <span class='op'>~</span><span class='kw'><a href='https://rdrr.io/r/base/source.html'>source</a></span><span class='op'>(</span><span class='va'>.x</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># define the url where quotes are located</span>
 <span class='co'># get pieces to make link</span>
@@ -2736,22 +2743,50 @@ A good rule of thumb to follow is to try and keep scripts less than 150 lines in
   <span class='fu'>f_inspire_me</span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
 <pre><code>
- -------------- 
-Better than a thousand hollow words is one word that brings peace. -Buddha 
- --------------
-    \
-      \
-        \
-        /\_/\         _
-       /``   \       / )
-       |n n   |__   ( (
-      =(Y =.‛`   `\  \ \
-      {`&quot;`        \  ) )
-      {       /    |/ /
-       \\   ,(     / /
-        ) ) /-‛\  ,_.‛
-  jgs  (,(,/ ((,,/
+ ----- 
+You can&#39;t stop the waves, but you can 
+learn to surf. -Jon Kabat-Zinn 
+ ------ 
+    \   
+     \
+                   ____
+                _.&#39; :  `._
+            .-.&#39;`.  ;   .&#39;`.-.
+   __      / : ___\ ;  /___ ; \      __
+  ,&#39;_ &quot;&quot;--.:__;&quot;.-.&quot;;: :&quot;.-.&quot;:__;.--&quot;&quot; _`,
+  :&#39; `.t&quot;&quot;--.. &#39;&lt;@.`;_  &#39;,@&gt;` ..--&quot;&quot;j.&#39; `;
+       `:-.._J &#39;-.-&#39;L__ `-- &#39; L_..-;&#39;
+          &quot;-.__ ;  .-&quot;  &quot;-.  : __.-&quot;
+             L &#39; /.------.\ &#39; J
+             &quot;-.   &quot;--&quot;   .-&quot;
+             __.l&quot;-:_JL_;-&quot;;.__
+         .-j/&#39;.;  ;&quot;&quot;&quot;&quot;  / .&#39;\&quot;-.
+         .&#39; /:`. &quot;-.:     .-&quot; .&#39;;  `.
+      .-&quot;  / ;  &quot;-. &quot;-..-&quot; .-&quot;  :    &quot;-.
+  .+&quot;-.  : :      &quot;-.__.-&quot;      ;-._   \
+  ; \  `.; ;                    : : &quot;+. ;
+  :  ;   ; ;                    : ;  : \:
+  ;  :   ; :                    ;:   ;  :
+  : \  ;  :  ;                  : ;  /  ::
+  ;  ; :   ; :                  ;   :   ;:
+  :  :  ;  :  ;                : :  ;  : ;
+  ;\    :   ; :                ; ;     ; ;
+  : `.&quot;-;   :  ;              :  ;    /  ;
+ ;    -:   ; :              ;  : .-&quot;   :
+  :\     \  :  ;            : \.-&quot;      :
+  ;`.    \  ; :            ;.&#39;_..--  / ;
+  :  &quot;-.  &quot;-:  ;          :/.&quot;      .&#39;  :
+   \         \ :          ;/  __        :
+    \       .-`.\        /t-&quot;&quot;  &quot;:-+.   :
+     `.  .-&quot;    `l    __/ /`. :  ; ; \  ;
+       \   .-&quot; .-&quot;-.-&quot;  .&#39; .&#39;j \  /   ;/
+        \ / .-&quot;   /.     .&#39;.&#39; ;_:&#39;    ;
+  :-&quot;&quot;-.`./-.&#39;     /    `.___.&#39;
+               \ `t  ._  /  bug
+                &quot;-.t-._:&#39;
   </code></pre>
 </div>
 <p><code>source()</code> is the key to chaining together many scripts. In the example above, we were able to abstract functions into a separate folder which makes keeping track of them much easier than if they cluttered our control script.</p>
@@ -2767,6 +2802,7 @@ Separating all functions into standalone scripts is not a revolutionary idea –
 If project management and reproducible data pipelines are interesting to you, check out the <a href="https://docs.ropensci.org/targets/index.html"><code>{targets}</code> R package</a>. A similar framework for Shiny Apps exists called <a href="https://thinkr-open.github.io/golem/"><code>{golem}</code></a>, which also includes <code>{usethis}</code>-like commands that streamline common chores in Shiny App development.
 </p>
 </div>
+<p><br></p>
 <h1 id="renv"><code>{renv}</code></h1>
 <p>We use <code>{here}</code> because we expect that whoever else opens your code on their machine is likely to have a different project root path, and <code>{here}</code> ensures your code is portable between different computers with different root project paths (e.g., <code>~/Documents/Github/myproject</code> versus <code>C:\Users\louis\Documents\myproject</code>).</p>
 <p>Development environments are similar. When we work in <code>R</code> – or any programming language for that matter – we use a snapshot of package versions based on when we downloaded and installed them [e.g. with <code>install.packages()</code>]. You can check the version of the installed packages loaded into your current environment with <code>sessionInfo()</code>.</p>
@@ -2791,32 +2827,29 @@ attached base packages:
 [7] base     
 
 other attached packages:
- [1] forcats_0.5.1   stringr_1.4.0   dplyr_1.0.4     purrr_0.3.4    
- [5] tidyr_1.1.2     tibble_3.1.0    tidyverse_1.3.0 here_0.1       
- [9] readr_1.4.0     glue_1.4.2      cowsay_0.8.0    knitr_1.30     
-[13] ggplot2_3.3.3  
+[1] glue_1.4.2    cowsay_0.8.0  purrr_0.3.4   knitr_1.30   
+[5] ggplot2_3.3.3
 
 loaded via a namespace (and not attached):
- [1] tidyselect_1.1.0  xfun_0.22         haven_2.3.1      
+ [1] tidyselect_1.1.0  xfun_0.22         bslib_0.2.4      
  [4] colorspace_2.0-0  vctrs_0.3.7       generics_0.1.0   
- [7] htmltools_0.5.1.1 usethis_2.0.0     yaml_2.2.1       
+ [7] usethis_2.0.0     htmltools_0.5.1.1 yaml_2.2.1       
 [10] utf8_1.2.1        rlang_0.4.10      gridtext_0.1.4   
-[13] pillar_1.5.1      withr_2.4.1       DBI_1.1.1        
-[16] dbplyr_2.1.0      readxl_1.3.1      modelr_0.1.8     
-[19] fortunes_1.5-4    lifecycle_1.0.0   cellranger_1.1.0 
-[22] munsell_0.5.0     gtable_0.3.0      rvest_0.3.6      
-[25] evaluate_0.14     curl_4.3          fansi_0.4.2      
-[28] highr_0.8         broom_0.7.0       Rcpp_1.0.6       
-[31] scales_1.1.1      backports_1.1.10  jsonlite_1.7.2   
-[34] fs_1.5.0          rmsfact_0.0.3     distill_1.2      
-[37] hms_1.0.0         png_0.1-7         digest_0.6.27    
-[40] stringi_1.5.3     grid_4.0.2        rprojroot_1.3-2  
-[43] cli_2.4.0         tools_4.0.2       magrittr_2.0.1   
-[46] crayon_1.4.1      pkgconfig_2.0.3   downlit_0.2.1    
-[49] ellipsis_0.3.1    xml2_1.3.2        reprex_0.3.0     
-[52] lubridate_1.7.9.2 httr_1.4.2        assertthat_0.2.1 
-[55] rmarkdown_2.7     rstudioapi_0.11   R6_2.5.0         
-[58] ggtext_0.1.1      compiler_4.0.2   </code></pre>
+[13] pillar_1.5.1      jquerylib_0.1.4   withr_2.4.1      
+[16] DBI_1.1.1         fortunes_1.5-4    lifecycle_1.0.0  
+[19] stringr_1.4.0     munsell_0.5.0     gtable_0.3.0     
+[22] evaluate_0.14     curl_4.3          fansi_0.4.2      
+[25] highr_0.8         Rcpp_1.0.6        readr_1.4.0      
+[28] scales_1.1.1      backports_1.1.10  jsonlite_1.7.2   
+[31] fs_1.5.0          rmsfact_0.0.3     distill_1.2      
+[34] hms_1.0.0         png_0.1-7         digest_0.6.27    
+[37] stringi_1.5.3     dplyr_1.0.4       grid_4.0.2       
+[40] rprojroot_1.3-2   here_0.1          cli_2.4.0        
+[43] tools_4.0.2       magrittr_2.0.1    sass_0.3.1.9000  
+[46] tibble_3.1.0      crayon_1.4.1      pkgconfig_2.0.3  
+[49] downlit_0.2.1     ellipsis_0.3.1    xml2_1.3.2       
+[52] assertthat_0.2.1  rmarkdown_2.7     rstudioapi_0.11  
+[55] R6_2.5.0          ggtext_0.1.1      compiler_4.0.2   </code></pre>
 </div>
 <p>The version number is the string of numbers listed after a package name and underscore.</p>
 <p>Similarly, you can use <code>installed.packages()</code> to view information on all of your installed packages.</p>

@@ -7,14 +7,11 @@ site: distill::distill_website
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-<style>
-  .title{
-    display: none;
-  }
-</style>
 
 
+<iframe scrolling = "no" src = "https://richpauloo.github.io/htmlwidgets/waves/index.html" style="border: 0px white;" width="100%"></iframe>
 
+<center>
 
 # [[1. Introductory Course]{style="color: #009E73"}](intro/index.html)
 
@@ -22,7 +19,4 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # [[2. Intermediate Course]{style="color: #0072B2"}](intermediate/index.html)
 
-
-------------------------------------------------------------------------
-
-*site last updated: `r format(Sys.time(), "%Y-%m-%d %H:%M")`*
+</center>
