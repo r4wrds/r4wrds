@@ -18,8 +18,8 @@ library(here)
 ::: {.obj}
 **Learning objectives**
 
--   Understand what a Shiny App is and why you might want or need to build one\
--   Understand the basic structure of a Shiny App and common hiccups\
+-   Understand what a Shiny App is and why you might want or need to build one
+-   Understand the basic structure of a Shiny App and common hiccups
 -   Discuss approaches to extend your Shiny skills
 :::
 
@@ -35,9 +35,9 @@ Shiny Apps are made using the [`{shiny}`](https://github.com/rstudio/shiny) pack
 
 </aside>
 
-Because they extend `R`-based analyses, Shiny Apps have as many diverse niches and uses as the the `R` community itself, and it's likely that you have come across a Shiny App in the wild before.
+Because they extend `R`-based analyses, interactive Shiny Apps have as many diverse niches and uses as the the `R` community itself, and it's likely that you have come across a Shiny App in the wild before.
 
-Shiny Apps allow for a wide range of customizability, and allow `R` users to wrap their code and datasets in an additional layer of interactivity in order to make insights, visualizations, data download, and more available to non-`R` users.
+Shiny Apps are highly customizable, and allow `R` users to wrap existing code and data with an additional layer of interactivity using `R` code from the `{shiny}` package to better visualize, analyze, export, and more. This allows any user (even non-`R` users!) to interact with the data, providing a powerful way of exploring and understanding the data within the Shiny App.
 
 Now that we know what a Shiny App is, a fundamental question that we need to answer is "when and why should I build a Shiny App?" Generally, you should create a Shiny App when you want to make results and/or data available to others, or when the dataset is complex enough to warrant a Shiny App to ease exploration. To provide a specific example, let's examine a case study.
 
@@ -79,7 +79,7 @@ gwl <- read_csv(here("data", "gwl", "gwl_sac.csv")) %>%
   st_as_sf(coords = c("LONGITUDE","LATITUDE"), crs = 4269)
 
 # read sacramento county shapefile and reproject
-sac <- st_read(here("data", "shp", "sac", "sac_county.shp")) %>% 
+sac <- st_read(here("data", "shp", "sac", "sac_county.shp"), quiet=TRUE) %>% 
   st_transform(4269)
 
 # plot the groundwater levels at each monitoring site 
