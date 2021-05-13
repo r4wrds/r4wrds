@@ -34,6 +34,8 @@ Why should you use version control? What is it? Version control is really a way 
 
 The important difference between using a tool like git and Github versus cloud-based services (e.g., Dropbox, Google Docs) which are in a way, version control systems, is the ability to **control** exactly what changes and/or files get "versioned". These versions are snapshots of your work with unique identifiers along with a short `commit` message, which allows us to restore these changes at any point in time. This much finer control over specific changes by specific users is why version control is a very powerful tool (as well as a computer lifesaver when things go awry!). 
 
+**`git`** is a version control program that is installed on your computer with associated commands we use to interact with version controlled files. **Github** is a website that allows us to store/access/share our files as *repositories*. There is a very rich and complicated set of tools and functionality with git/Github, but we'll focus on the basics and workflow in this module.
+
 ### Using version control
 
 Some folks may just use version control as another way to backup their work^[ [Git xkcd](https://xkcd.com/1597/) ], but version control really shines when working on something collaboratively. For example, many are familiar with the situation below:
@@ -53,7 +55,7 @@ The comic shows a single thesis document, but really the situation isn't any dif
  3. Analyze and visualize data
  4. Produce a front facing product or report
  
-The reality is when splitting these tasks out, or assigning tasks within each of these tasks, there may be overlap. Or maybe one piece depends on another. Complex collaborative projects really require some forethought in how to set things up so everyone can make independent progress without holding up the process for other team members.
+The reality is when assigning these tasks (or subtask), there is often overlap. Or maybe one piece depends on another. Complex collaborative projects really require some forethought in how to set things up so everyone can seamlessly stitch their contribution into the overall fabric of a project without holding up the process for other team members.
 
 <aside>
 
@@ -73,17 +75,15 @@ If you had 10 people to work on a big project with steps outlined above, how wou
 <br>
 
 
-So while we will cover version control with **`git`** and learn basic commands in this module it's important to remember:  
+This module will cover version control with **`git`**, including the basic commands, but it's important to remember:  
 
  > **Understanding and learning how to approach, setup, and implement collaborative projects with version control are just as important as learning `git` commands**
 
-Developing the skills to organize and collaborate effectively (not work on the same thing at the same time to avoid conflicts), and integrate people and pieces together is really at the root of successful version control!
-
-What we want you to come away with is a real understanding of not just the `git` commands (which are good to learn!), but how to implement version control so it's useful, not just another way to back things up.
+Developing the skills to organize and collaborate effectively by using tools like `git` to integrate work together is really at the root of successful version control! What we want you to come away with is a real understanding of not just the `git` commands but how to implement version control so it's useful (not just another way to back things up...see below).
 
 (ref:xkcdGit) *Learn to leverage the power of git for things other than just a backup! (Comic by xkcd)*
 
-```{r, fig.cap='(ref:xkcdGit)', out.width='50%', echo=FALSE}
+```{r, fig.cap='(ref:xkcdGit)', out.height='90%', echo=FALSE}
 
 include_graphics(here("images", "xkcd_using_git.png"))
 
@@ -94,20 +94,16 @@ include_graphics(here("images", "xkcd_using_git.png"))
 
 Sometimes the best way to learn is to walk through a real-world example. Let's walk through a simplified example of a common set of tasks a team may face using R and learning `git` along the way.
 
-### The Project
+Lets imagine we have a team of 3 folks, <font color="#5f3dc4">**Jo**</font>, <font color="#2b8a3e">**Mo**</font>, and <font color="#e67700">**Main**</font>. Each has a unique skill set, and each knows how to use `R` and `git`. The team is tasked with downloading and visualizing flow data for a specific river gage to provide status report updates on a monthly basis, which are used for various regulatory actions (i.e., how much water is available for diversion, how flows relate to period of record averages, etc). 
 
-Lets imagine we have a team of 3 folks, Jo, Mo, and Main. Each has a unique skill set, and each knows how to use `R` and `git`. The team is tasked with downloading and visualizing flow data for a specific river gage to provide status report updates on a monthly basis, which are used for various regulatory actions (i.e., how much water is available for diversion, how flows relate to period of record averages, etc). 
+```{r git1, echo=FALSE, out.width='80%'}
 
-There are a few main tasks that need to occur in the project, and some overlap in the code used to update and produce a status report.
+include_graphics(here("images", "team_and_task.png"))
 
-
-
-
+```
 
 
-## Learning `git` basics
-
-**`git`** is a version control program that is installed on your computer with associated commands we use to interact with version controlled files. **Github** is a website that allows us to store/access/share our files as *repositories*. There is a very rich and complicated set of tools and functionality with git/Github, but we'll focus on the basics here.
+Let's get started! First we need to make sure everything is setup and installed.
 
 ### Setup `git` locally
 
@@ -190,15 +186,67 @@ include_graphics(here("images", "newRgit_proj.png"))
 
 ``` 
 
-Great! We should now have an RStudio project that is version controlled with `git`, and there is a local copy. Let's move to some basic commands, and then more complicated workflows.
+Great! We should now have an RStudio project that is version controlled with `git`, and there is a local copy we can work with on our computer.
 
-### `add`, `commit`, `push`
+### Collaborative Github Settings
 
-There are only a few basic commands in `git`, which is good. The general process to follow is as follows:
+Since we are working on a collaborative project, we need to make sure our collaborators have access to make changes to our repository. Let's do that now:
 
- 1. Do some work, add some files, etc. Next we need to stage or `add` that work so it can be *versioned* by `git`. We do this with `git add <my_file>` or check the **`Staged`** buttons in the RStudio `git` panel.
- 2. Add a `commit` message that is succinct but descriptive (i.e., `added water data files`). These are the messages you'll be able to go back to if you want to travel back in time and see a different version of something...so be kind to your future self and add something helpful.
- 3. `push` this up to the Github `remote` repository in the cloud! Now you have a point in time you can return to, or start fresh from! 
+ - Go to Github.com and login
+ - Navigate to your repository `water-is-life`
+ - Click on the **`Settings`** tab at the top
+ - Click on **`Manage Access`** on the side bar on the left (you may need to enter your password or authentication again)
+ - Click on **`Invite Collaborator`** and enter the username or email you want to add! 
+
+So, if <font color="#e67700">**Main**</font> created the repository, they would need to add fellow collaborators to the repository. 
+
+<aside>
+
+You can access any public Github repository, including copying or cloning the repo to your computer. However, unless you are the owner, or have been added as a collaborator, you will not be able to commit changes (more on this later).
+
+</aside>
+ 
+### Branches & Conflicts
+
+Often when teaching `git`, we start with the basic commands. However, it's important to consider one of the more powerful parts of using `git` is the ability to use **branches**. Branches, or branching, in `git`, is a way for multiple folks to work on the same repository independently, and a standardized way to integrate those changes back into the repository. Every repository typically starts with one single **`main`** branch. This is like the trunk of the tree, or the main train track. We can set up some additional branches off of this track, and if we want to merge them back in to make them available for our collaborators, we need to use something called a **pull request**. This is essentially a way to double check if there will be any conflicts between the work in the branch and the work in the **`main`**, and it also provides a way to document and review any changes. 
+
+<aside>
+
+Even if you are the only person working in a repo, it's a good habit to use branches because if you realize the branch/work you are doing is a dead end, you can always delete a branch and return to the the **`main`** track and pick things up where you last left off.
+
+</aside>
+ 
+In our example we want to make sure we keep our **`main`** branch clean and up-to-date with changes we are happy with...all other work will go through a branch, pull request, review, and merge process to minimize conflicts or duplication of work.
+
+```{r, echo=F, fig.cap="Example of multiple branches in a project splitting off the main branch"}
+
+include_graphics(here("images", "commit_branch_tracks.png"))
+
+```
+
+### Create a branch
+
+Let's assume Jo is a wizard at grabbing the data we want to work with and saving it in an organized way. She's cloned the repository to her computer, and first thing she wants to do is create a fresh branch to work on.
+
+We can create a branch in RStudio in one of two ways:
+
+ - `Tools > Terminal > New Terminal` and look for the Terminal tab in RStudio. Click on it, and at the prompt, type `git checkout -b BRANCH_NAME`.
+ - Using the **`Git`** tab in RStudio and clicking on the **`New Branch`** button.
+
+Let's create a new branch called "`jo_download_data`"
+ 
+### Download Data: `add`, `commit`, `push`
+
+Jo's task is to download the data. Because this is a task that will need to happen regularly, she writes a function to download the specific river discharge data to an organized set of folders. She runs the function to get the most recent data, and saves it locally *on her version of the repository!*
+
+As she works, the general process she follows is: 
+
+ 1. Do some work, add some files, scripts, etc. To version control these changes, we need to stage or `add` that work so it can be *versioned* by `git`. We do this with `git add <my_file>` or check the **`Staged`** buttons in the RStudio `git` panel.
+ 2. Add a `commit` message that is succinct but descriptive (i.e., `added water data files`). These are the messages you'll be able to go back to if you want to travel back in time and see a different version of something...so be kind to your future self and add something helpful. 
+ 3. `push` this up to the Github `remote` repository in the cloud! 
+ 
+ Remember, you can commit as frequently as you like, and push at the end of the day, or push every time you commit. The timestamp identifier is added with a commit message, not with the push.
+ 
 
 <aside>
  
