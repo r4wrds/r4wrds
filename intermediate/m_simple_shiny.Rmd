@@ -88,6 +88,7 @@ gwl %>%
   geom_line(aes(MSMT_DATE, WSE, group = SITE_CODE), alpha = 0.5)
 
 # slice the first station per group of groundwater level observations
+# (see comment aside)
 gwl_min <- gwl %>% 
   group_by(SITE_CODE) %>% 
   slice(1) %>% 
@@ -132,7 +133,7 @@ In the sections that follow, we will create a Shiny App that allows users to eas
 
 ## Basic Shiny App Structure
 
-At the bare minimum, a Shiny App is an `.R` file or set of `.R` files with thee components: a `ui`, `server` and `runApp()`. The `runApp()` function takes the `ui` and the `server` objects and runs the Shiny web application.
+At the bare minimum, a Shiny App is an `.R` file or set of `.R` files with three components: a `ui`, `server` and `runApp()`. The `runApp()` function takes the `ui` and the `server` objects and runs the Shiny web application.
 
 By design, Shiny Apps separate *front* and *back* end components of the web application. The `ui` stands for "user interface" and defines front-facing components that the user sees and interacts with, like plots, tables, sliders, buttons, and so on. The `server` holds the back-end logic that accepts input from the user, and uses these inputs to define what data transformations should occur and what is passed back to the frontend for the user to view and interact with.
 
@@ -176,14 +177,14 @@ Scroll through `app.R` and notice that there is a `ui` object, a `server` object
 
 The `ui` defines what the user sees when they interact with the Shiny App. Generally speaking, the `ui` shows:
 
-- *control widgets* which allow the user to send commands to the `server`  
+- *control widgets* (the interface) which allow the user to send commands to the `server`  
 - *output* from the `server`  
 
 ### Control widgets
 
-Consider the following example App with no server logic but that demonstrates a few of the *control widget*[^3] inputs available for Shiny Apps.
+Consider the following example App, which demonstrates a few of the *control widget*[^3] inputs available for Shiny Apps.
 
-[^3]: A control widget is a tool that allows users to send information from the frontend `ui` to the backend `server`. Different widgets allow different types of information to pass between the `ui` and `server`. Notice that the first argument to each control widget is the unique ID of that widget. IDs must be unique, and are accessed in the server in a named list called `input`. For example, the `sliderInput("bins")` has the unique ID `"i_slider"` and the user-input value to this widget can be accessed from within the server with `input$i_slider`.
+[^3]: A control widget is a tool that allows users to send information from the frontend `ui` to the backend `server`. Different widgets allow different types of information to pass between the `ui` and `server`. Notice that the first argument to each control widget is the unique ID or name of that widget. IDs must be unique, and are accessed in the server in a named list called `input`. For example, the `sliderInput("bins")` has the unique ID `"i_slider"` and the user-input value to this widget can be accessed from within the server with `input$i_slider`.
 
 ```{r, eval = FALSE}
 library(shiny)
@@ -248,7 +249,7 @@ Chances are that you won't use all of the control widget inputs available in any
 
 ### Outputs
 
-A `ui` with only control widgets (i.e., the App example above) is like having a keyboard without a monitor. You can change inputs by typing on the keyboard, but can't see anything happen without a monitor! In this analogy, the monitor is a set of *outputs*. Your Shiny App users will spend a lot of time interacting with *outputs*, and most of our time spent designing and creating a Shiny App will go into creating outputs. To view default Shiny outputs, type `shiny::output` and see what comes up in tab complete. `plotOutput()` is used to render plots, `textOutput()` is used to render text, and so on.
+A `ui` with only control widgets (i.e., the App example above) is like having a keyboard without a monitor. You can change inputs by typing on the keyboard, but can't see anything happen without a monitor! In this analogy, the monitor is a set of *outputs*. Your Shiny App users will spend a lot of time interacting with *outputs*, and most of our time spent designing and creating a Shiny App will go into creating outputs. To view default Shiny outputs, type `shiny::output` and see what comes up in tab complete. For example, `plotOutput()` is used to render plots, `textOutput()` is used to render text, and so on.
 
 ```{r shiny-outputs, eval=T, echo=F}
 include_graphics(here::here("images", "shiny_outputs.png"))
@@ -260,15 +261,18 @@ There are other types of output not included in the `{shiny}` package for object
 
 </aside>
 
-Each output in the `ui` takes as a first argument the "output id" as a character string, for example, `plotOutput("my_plot")` means a `plotOutput()` with an "output id" of `"my_plot"`. 
+Each output in the `ui` takes as a first argument the "*output id*" as a character string, for example, `plotOutput("my_plot")` means a `plotOutput()` with an "*output id*" of `"my_plot"`. 
 
+<br>
 
 :::challenge
 
 <font color="#009E73">**Fix the error**</font> 
 
 <p style="line-height: 1.5em;">
-Every output in the `ui` should have a corresponding object rendered in the `server`. Thus, if we define an Shiny App with `plotOutput("my_plot")` in the `ui`, we need to assign a rendered plot to the object `output$my_plot` in the server. For practice, try running the following Shiny App, and fix the error message.
+Every output in the `ui` should have a corresponding object rendered in the `server`. Thus, if we define a Shiny App with **`plotOutput("my_plot")`** in the `ui`, we need to assign a rendered plot to the object **`output$my_plot`** in the server. For practice, try running the following Shiny App, and fix the error message.
+
+*add error message here? Only thing I got was "`no loop for break/next, jumping to top level` and a blank app...*
 </p>
 
 ```{r shiny-outputs-matching-ids1, eval = FALSE}
@@ -321,17 +325,17 @@ shinyApp(ui = ui, server = server)
 
 ## `server` (backend)
 
-If the `ui` control widgets are like sensory organs that receive inputs, then the `server` is the brain of the Shiny App that takes inputs, creates outputs, and sends these back to the `ui`.
+If the `ui` control widgets are like the keyboard receiving inputs, then the `server` is the computer brain of the Shiny App that takes inputs, translates the information from the inputs (code that does something with the data input), and creates outputs, and finally sends these back to the `ui` where a user can interact or see the result.
 
 ### Reactivity
 
-Reactivity[^4] is a driving concept in Shiny App programming. The fundamental idea is that what happens in a Shiny App depends on values that change, and parts of the App are interconnected such that when inputs change, these inputs trigger a re-evaluation of code that regenerates outputs, until the inputs change again, and so on.
+Reactivity[^4] is a driving concept in Shiny App programming. The fundamental idea is that what happens in a Shiny App depends only on values that change, and parts of the App are interconnected such that when inputs change, these inputs trigger a re-evaluation of code that regenerates outputs, until the inputs change again, and so on.
 
 [^4]: A comprehensive treatment of reactive programming in Shiny is beyond the scope of this module, but we recommend reading [this article](https://shiny.rstudio.com/articles/reactivity-overview.html), and [this book section](https://mastering-shiny.org/reactivity-intro.html) to learn more about reactive graphs when you decide to start building more complex Shiny Apps.
 
 ### Render objects
 
-In the `ui` we saw that each output ID created by the `server` had a unique ID and was wrapped in an "output" function. For example, `plotOutput("my_plot")` had an object in the server called `output$my_plot` that was assigned the result of a `renderPlot({ })` function, and inside that function was the code for our plot. Each "render" function has a corresponding "output" function (e.g., `renderText()` and `textOutput()` go together). To view some of the default "render" functions, type `shiny::render` and view the options available in the tab complete popup.
+In the `ui` we saw that each output ID created by the `server` had a unique ID name and was wrapped in an "output" function. For example, **`plotOutput("`**<font color="#009E73">**`my_plot`**</font>**`")`** had an object in the server called **`output$`**<font color="#009E73">**`my_plot`**</font> that was assigned the result of a **`renderPlot({ })`** function, and inside that function was the code for our plot. Each "`render`" function has a corresponding "`output`" function (e.g., `renderText()` and `textOutput()` go together). To view some of the default "`render`" functions, type `shiny::render` and view the options available in the tab complete popup.
 
 ```{r shiny-render, eval=T, echo=F}
 include_graphics(here::here("images", "shiny_render.png"))
