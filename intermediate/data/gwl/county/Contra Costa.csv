@@ -1,0 +1,109 @@
+STN_ID,SITE_CODE,SWN,WELL_NAME,LATITUDE,LONGITUDE,WLM_METHOD,WLM_ACC,BASIN_CODE,BASIN_NAME,COUNTY_NAME,WELL_DEPTH,WELL_USE,WELL_TYPE,WCR_NO
+50372,378196N1216001W001,01N03E28M999M,1 JNJ,37.9061,-121.642,USGS quad,Unknown,5-022.19,East Contra Costa,Contra Costa,120,Other,Single Well,NA
+49316,378435N1215801W001,01S04E06L001M,01S04E06L001M,37.8435,-121.58,GPS,10 ft.,5-022.19,East Contra Costa,Contra Costa,20,Observation,Single Well,NA
+49317,378500N1215800W001,01S04E06P002M,01S04E06P002M,37.85,-121.58,GPS,10 ft.,5-022.19,East Contra Costa,Contra Costa,20,Observation,Single Well,NA
+6580,378507N1216238W001,01S03E15A001M,5 Binn,37.8507,-121.624,Unknown,Unknown,5-022.19,East Contra Costa,Contra Costa,45,Residential,Single Well,81199
+49318,378520N1215700W001,01S04E07B001M,01S04E07B001M,37.852,-121.57,GPS,10 ft.,5-022.19,East Contra Costa,Contra Costa,20,Observation,Single Well,NA
+51683,378600N1216500W001,NA,8 Casing 2,37.8691,-121.66,USGS quad,Unknown,5-022.19,East Contra Costa,Contra Costa,NA,Other,Single Well,NA
+49320,378621N1215796W001,01S04E07C001M,01S04E07C001M,37.8621,-121.58,GPS,10 ft.,5-022.19,East Contra Costa,Contra Costa,20,Observation,Single Well,NA
+49319,378641N1215797W001,01S04E07F001M,BD-3,37.8647,-121.58,GPS,10 ft.,5-022.19,East Contra Costa,Contra Costa,NA,Observation,Single Well,NA
+52255,378684N1216412W002,NA,9D Abreu,37.8969,-121.647,Surveyed,2.5 ft,5-022.19,East Contra Costa,Contra Costa,NA,Residential,Single Well,NA
+50375,378690N1216484W001,01S03E25M999M,4 Bruns,37.8169,-121.599,USGS quad,Unknown,5-022.19,East Contra Costa,Contra Costa,65,Residential,Single Well,556620
+50374,378703N1216407W001,01S03E03M999M,3 Byron,37.8684,-121.641,USGS quad,Unknown,5-022.19,East Contra Costa,Contra Costa,70,Residential,Single Well,225005
+6579,378742N1216398W001,01S03E03M001M,6 Byer,37.8742,-121.64,Unknown,Unknown,5-022.19,East Contra Costa,Contra Costa,NA,Residential,Single Well,63487
+49315,378800N1215740W001,01S04E06C001M,01S04E06C001M,37.88,-121.574,GPS,10 ft.,5-022.15,Tracy,Contra Costa,20,Observation,Single Well,NA
+51692,378818N1216715W001,NA,12 TN2,37.8818,-121.671,GPS,0.1 ft.,5-022.19,East Contra Costa,Contra Costa,NA,Irrigation,Single Well,NA
+49314,378826N1215755W001,01N04E31Q001M,01N04E31Q001M,37.8826,-121.576,GPS,10 ft.,5-022.19,East Contra Costa,Contra Costa,20,Observation,Single Well,NA
+49313,378836N1215791W001,01N04E31P001M,BD-2,37.8836,-121.579,GPS,10 ft.,5-022.19,East Contra Costa,Contra Costa,NA,Observation,Single Well,NA
+51691,378845N1216503W001,NA,11 TN1,37.8845,-121.65,GPS,0.1 ft.,5-022.19,East Contra Costa,Contra Costa,NA,Observation,Single Well,NA
+51693,378845N1216503W002,NA,13 M,37.874,-121.653,GPS,0.1 ft.,5-022.19,East Contra Costa,Contra Costa,NA,Observation,Single Well,NA
+51690,378883N1216508W001,NA,10 SM2,37.8883,-121.651,GPS,0.1 ft.,5-022.19,East Contra Costa,Contra Costa,NA,Irrigation,Single Well,NA
+52258,378888N1216518W002,NA,10A Taylor,37.8888,-121.652,Surveyed,2.5 ft,5-022.19,East Contra Costa,Contra Costa,NA,Residential,Single Well,NA
+50857,378893N1216751W001,01N03E32F999M,7 Hoffman 1,37.8897,-121.679,USGS quad,Unknown,5-022.19,East Contra Costa,Contra Costa,NA,Irrigation,Single Well,NA
+52257,378898N1216487W002,NA,10C Marsh,37.8898,-121.649,Surveyed,2.5 ft,5-022.19,East Contra Costa,Contra Costa,NA,Residential,Single Well,NA
+51694,378899N1216423W001,NA,14 GNO,37.8899,-121.642,GPS,0.1 ft.,5-022.19,East Contra Costa,Contra Costa,NA,Other,Single Well,NA
+49310,378957N1215652W001,01N04E31H001M,01N04E31H001M,37.8957,-121.565,GPS,10 ft.,5-022.15,Tracy,Contra Costa,20,Observation,Single Well,NA
+52256,378960N1216513W002,NA,9E Hagen,37.896,-121.651,Surveyed,2.5 ft,5-022.19,East Contra Costa,Contra Costa,NA,Residential,Single Well,NA
+49309,378973N1215663W001,01N04E31A001M,BS-6,37.8966,-121.568,GPS,10 ft.,5-022.19,East Contra Costa,Contra Costa,20,Observation,Single Well,NA
+49312,379000N1215760W001,01N04E31K002M,01N04E31K002M,37.9,-121.576,GPS,10 ft.,5-022.19,East Contra Costa,Contra Costa,20,Observation,Single Well,NA
+51689,379007N1216497W001,NA,9 SM1,37.9007,-121.65,GPS,0.1 ft.,5-022.19,East Contra Costa,Contra Costa,NA,Irrigation,Single Well,NA
+48669,379010N1216188W001,01N03E26M999M,4AMW-152,37.901,-121.619,GPS with WAAS,0.1 ft.,5-022.19,East Contra Costa,Contra Costa,152,Observation,Part of a nested/multi-completion well,NA
+48670,379010N1216188W002,01N03E26M998M,4AMW-357,37.901,-121.619,GPS with WAAS,0.1 ft.,5-022.19,East Contra Costa,Contra Costa,357,Observation,Part of a nested/multi-completion well,NA
+48672,379028N1215995W002,01N03E25L998M,6MW-250,37.9028,-121.599,GPS with WAAS,0.1 ft.,5-022.19,East Contra Costa,Contra Costa,250,Observation,Part of a nested/multi-completion well,e0087165
+48673,379028N1215995W003,01N03E25L997M,6MW-350,37.9028,-121.599,GPS with WAAS,0.1 ft.,5-022.19,East Contra Costa,Contra Costa,350,Observation,Part of a nested/multi-completion well,e0087170
+48674,379028N1215995W004,01N03E25L996M,6MW-410,37.9028,-121.599,GPS with WAAS,0.1 ft.,5-022.19,East Contra Costa,Contra Costa,410,Observation,Part of a nested/multi-completion well,e0087172
+49311,379035N1215752W001,01N04E30K001M,BD-1,37.9035,-121.575,GPS,10 ft.,5-022.19,East Contra Costa,Contra Costa,NA,Observation,Single Well,NA
+49306,379050N1215730W001,01N04E30G001M,01N04E30G001M,37.905,-121.573,GPS,10 ft.,5-022.19,East Contra Costa,Contra Costa,20,Observation,Single Well,NA
+50373,379073N1216445W001,01S03E04M999M,2 Casing,37.8692,-121.654,USGS quad,Unknown,5-022.19,East Contra Costa,Contra Costa,163,Observation,Single Well,NA
+48667,379103N1215994W001,01N03E25C999M,1BMW-140,37.9103,-121.599,GPS with WAAS,0.1 ft.,5-022.19,East Contra Costa,Contra Costa,140,Observation,Part of a nested/multi-completion well,NA
+48668,379103N1215994W002,01N03E25C998M,1BMW-343,37.9103,-121.599,GPS with WAAS,0.1 ft.,5-022.19,East Contra Costa,Contra Costa,343,Observation,Part of a nested/multi-completion well,NA
+50670,379145N1217004W001,NA,Well #9,37.9145,-121.7,Unknown,Unknown,5-022.19,East Contra Costa,Contra Costa,210,Irrigation,Single Well,NA
+4451,379171N1220147W001,01N01W19F001M,NA,37.9171,-122.015,Unknown,Unknown,2-006,Ygnacio Valley,Contra Costa,316,Unknown,Unknown,NA
+50665,379177N1216595W001,NA,Well #2,37.9177,-121.66,Unknown,Unknown,5-022.19,East Contra Costa,Contra Costa,NA,Irrigation,Single Well,NA
+50673,379178N1216303W001,NA,Well #14,37.9178,-121.63,USGS quad,5 ft.,5-022.19,East Contra Costa,Contra Costa,NA,Irrigation,Single Well,NA
+48686,379178N1216700W001,01N02E24J999M,Well #11 (4.61-A),37.9178,-121.67,USGS quad,20 ft.,5-022.19,East Contra Costa,Contra Costa,NA,Irrigation,Single Well,NA
+48687,379178N1216973W001,01N03E20L999M,Well #4 Old (4.56),37.9178,-121.697,USGS quad,20 ft.,5-022.19,East Contra Costa,Contra Costa,203,Irrigation,Single Well,723432
+50666,379179N1216820W001,NA,Well #13,37.9179,-121.682,Unknown,Unknown,5-022.19,East Contra Costa,Contra Costa,185,Irrigation,Single Well,1097050
+50667,379182N1216984W001,NA,Well #1,37.9182,-121.698,Unknown,Unknown,5-022.19,East Contra Costa,Contra Costa,165,Irrigation,Single Well,102224
+50668,379182N1217011W001,NA,Well #4,37.9182,-121.701,Unknown,Unknown,5-022.19,East Contra Costa,Contra Costa,200,Irrigation,Single Well,723432
+50669,379182N1217034W001,NA,Well #3,37.9182,-121.703,Unknown,Unknown,5-022.19,East Contra Costa,Contra Costa,365,Irrigation,Single Well,102223
+50671,379241N1216999W001,NA,Private Well 4-66,37.9241,-121.7,Unknown,Unknown,5-022.19,East Contra Costa,Contra Costa,NA,Residential,Single Well,NA
+50662,379253N1216774W001,NA,Well #5,37.9253,-121.677,Unknown,Unknown,5-022.19,East Contra Costa,Contra Costa,290,Irrigation,Single Well,18747
+50663,379257N1216625W001,NA,Well #6,37.9257,-121.663,Unknown,Unknown,5-022.19,East Contra Costa,Contra Costa,50,Irrigation,Single Well,NA
+50664,379257N1216625W002,NA,Well #6 Abandoned,37.9257,-121.663,Unknown,Unknown,5-022.19,East Contra Costa,Contra Costa,NA,Irrigation,Single Well,NA
+39107,379279N1220357W001,01N02W13P001M,NA,37.9279,-122.036,Unknown,Unknown,2-006,Ygnacio Valley,Contra Costa,60,Unknown,Unknown,NA
+50672,379330N1216730W001,NA,Private Well 4-32,37.933,-121.673,Unknown,Unknown,5-022.19,East Contra Costa,Contra Costa,NA,Residential,Single Well,NA
+4453,379336N1216747W001,01N03E17E001M,NA,37.9336,-121.675,Unknown,Unknown,5-022.19,East Contra Costa,Contra Costa,123,Unknown,Unknown,NA
+4452,379399N1220576W001,01N02W11N001M,NA,37.9399,-122.058,Unknown,Unknown,2-006,Ygnacio Valley,Contra Costa,81,Unknown,Unknown,NA
+4450,379461N1220156W001,01N01W07K001M,NA,37.9461,-122.016,Unknown,Unknown,NA,NA,Contra Costa,NA,Residential,Unknown,NA
+49307,379513N1215704W001,01N04E30J002M,BS-4,37.9011,-121.571,GPS,10 ft.,5-022.19,East Contra Costa,Contra Costa,20,Observation,Single Well,NA
+51311,379537N1223412W001,NA,OW-3,37.9537,-122.341,Other,Unknown,2-009.04,East Bay Plain,Contra Costa,240,Observation,Single Well,233067
+4314,379583N1219669W001,01N01W03N001M,NA,37.9583,-121.967,Unknown,Unknown,2-005,Clayton Valley,Contra Costa,110,Unknown,Unknown,NA
+48664,379620N1216957W001,01N03E06E999M,#14 MW-324,37.962,-121.696,Digital Elevation Model,Unknown,5-022.19,East Contra Costa,Contra Costa,324,Observation,Part of a nested/multi-completion well,NA
+48665,379620N1216957W002,01N03E06E998M,#14 MW-240,37.962,-121.696,Digital Elevation Model,Unknown,5-022.19,East Contra Costa,Contra Costa,240,Observation,Part of a nested/multi-completion well,NA
+48666,379620N1216957W003,01N03E06E997M,#14 MW-154,37.962,-121.696,Digital Elevation Model,Unknown,5-022.19,East Contra Costa,Contra Costa,154,Observation,Part of a nested/multi-completion well,NA
+39709,379632N1219700W001,01N01W04H001M,NA,37.9632,-121.97,Unknown,Unknown,2-005,Clayton Valley,Contra Costa,302,Unknown,Unknown,62407
+48684,379635N1216797W001,01N03E06H999M,MW 5-37,37.9635,-121.68,Unknown,Unknown,5-022.19,East Contra Costa,Contra Costa,20,Observation,Single Well,NA
+49308,379659N1215678W001,01N04E29N001M,BS-5,37.8993,-121.568,GPS,10 ft.,5-022.19,East Contra Costa,Contra Costa,20,Observation,Single Well,NA
+51310,379671N1223409W001,NA,OW-2,37.9671,-122.341,Other,Unknown,2-009.04,East Bay Plain,Contra Costa,400,Observation,Single Well,e0103473
+2567,379691N1220103W001,02N01W31Q001M,NA,37.9691,-122.01,Unknown,Unknown,2-005,Clayton Valley,Contra Costa,34,Residential,Unknown,62059
+2570,379705N1220512W001,02N02W35Q001M,NA,37.9705,-122.051,Unknown,Unknown,2-006,Ygnacio Valley,Contra Costa,30,Unknown,Unknown,NA
+48683,379737N1216756W001,02N03E32M999M,MW 5-36,37.9737,-121.676,USGS quad,Unknown,5-022.19,East Contra Costa,Contra Costa,20,Observation,Single Well,NA
+48680,379741N1216579W001,02N03E33M999M,MW 5-22,37.9741,-121.658,Unknown,Unknown,5-022.19,East Contra Costa,Contra Costa,20,Observation,Single Well,NA
+48676,379741N1216867W001,02N03E31L999M,Glen Park-GPMW,37.9741,-121.687,GPS with WAAS,0.1 ft.,5-022.19,East Contra Costa,Contra Costa,300,Observation,Single Well,NA
+37914,379759N1220408W001,02N02W36E001M,NA,37.9759,-122.041,Unknown,Unknown,2-006,Ygnacio Valley,Contra Costa,40,Residential,Unknown,NA
+48682,379773N1216785W001,02N03E31H999M,MW 5-35,37.9773,-121.679,Unknown,Unknown,5-022.19,East Contra Costa,Contra Costa,20,Observation,Single Well,NA
+48677,379781N1216840W001,02N03E31G999M,Stonecreek-SCMW-160,37.9781,-121.684,GPS with WAAS,0.1 ft.,5-022.19,East Contra Costa,Contra Costa,160,Observation,Part of a nested/multi-completion well,NA
+48678,379781N1216840W002,02N03E31G998M,Stonecreek-SCMW-300,37.9781,-121.684,GPS with WAAS,0.1 ft.,5-022.19,East Contra Costa,Contra Costa,300,Observation,Part of a nested/multi-completion well,NA
+48679,379781N1216840W003,02N03E31G997M,Stonecreek-SCMW-360,37.9781,-121.684,GPS with WAAS,0.1 ft.,5-022.19,East Contra Costa,Contra Costa,360,Observation,Part of a nested/multi-completion well,NA
+2566,379788N1220078W001,02N01W31H001M,NA,37.9788,-122.008,Unknown,Unknown,2-005,Clayton Valley,Contra Costa,60,Unknown,Unknown,NA
+27022,379795N1220595W001,02N02W35D001M,NA,37.9795,-122.059,Unknown,Unknown,2-006,Ygnacio Valley,Contra Costa,87,Irrigation,Unknown,13389
+48675,379799N1216911W001,02N03E31C999M,Creekside-CSMW,37.9799,-121.691,GPS with WAAS,0.1 ft.,5-022.19,East Contra Costa,Contra Costa,380,Observation,Single Well,NA
+2565,379818N1220235W001,02N01W31D001M,NA,37.9818,-122.024,Unknown,Unknown,2-005,Clayton Valley,Contra Costa,75,Unknown,Unknown,07-177
+2569,379830N1220651W001,02N02W27R001M,NA,37.983,-122.065,Unknown,Unknown,2-006,Ygnacio Valley,Contra Costa,131,Unknown,Unknown,NA
+48685,379853N1216641W001,02N03E29Q999M,MW 5-39,37.9853,-121.664,Unknown,Unknown,5-022.19,East Contra Costa,Contra Costa,20,Observation,Single Well,NA
+2564,379893N1220084W001,02N01W30K001M,NA,37.9893,-122.008,Unknown,Unknown,2-005,Clayton Valley,Contra Costa,60,Unknown,Unknown,NA
+51309,379893N1223440W001,NA,OW-1,37.9893,-122.344,Other,Unknown,NA,NA,Contra Costa,300,Observation,Single Well,0942315
+48681,379894N1216794W001,02N03E30J999M,MW 5-33,37.9894,-121.679,Unknown,Unknown,5-022.19,East Contra Costa,Contra Costa,20,Observation,Single Well,NA
+27021,379910N1220298W001,02N02W25H001M,NA,37.991,-122.03,Unknown,Unknown,2-005,Clayton Valley,Contra Costa,48,Residential,Unknown,07-069
+2568,379934N1220499W001,02N02W26B001M,NA,37.9934,-122.05,Unknown,Unknown,2-006,Ygnacio Valley,Contra Costa,60,Unknown,Unknown,NA
+50378,380016N1217888W001,02N02E19M999M,Blossom Well,38.0016,-121.789,USGS quad,Unknown,5-022.19,East Contra Costa,Contra Costa,88,Residential,Single Well,107227
+2558,380123N1218522W001,02N01E15P001M,NA,38.0123,-121.852,Unknown,Unknown,2-004,Pittsburg Plain,Contra Costa,160,Unknown,Unknown,NA
+50377,380129N1217670W001,02N02E16M999M,Wilbur Shallow,38.0129,-121.767,USGS quad,Unknown,5-022.19,East Contra Costa,Contra Costa,81,Observation,Part of a nested/multi-completion well,e0138090A-B
+50410,380129N1217670W002,02N02E16M998M,Wilbur Deep,38.0129,-121.767,USGS quad,Unknown,5-022.19,East Contra Costa,Contra Costa,106,Observation,Part of a nested/multi-completion well,e0138090A-B
+2557,380142N1218581W001,02N01E15N001M,NA,38.0142,-121.858,Unknown,Unknown,2-004,Pittsburg Plain,Contra Costa,118,Unknown,Unknown,NA
+48661,380142N1219096W001,NA,Golf Course MW-190,38.0142,-121.91,GPS,0.1 ft.,2-004,Pittsburg Plain,Contra Costa,190,Observation,Part of a nested/multi-completion well,e052849
+48662,380142N1219096W002,NA,Golf Course MW-250,38.0142,-121.91,GPS,0.1 ft.,2-004,Pittsburg Plain,Contra Costa,250,Observation,Part of a nested/multi-completion well,e052849
+48660,380170N1218924W001,NA,Crestview MW-235,38.017,-121.892,GPS,0.1 ft.,2-004,Pittsburg Plain,Contra Costa,235,Observation,Single Well,e040285
+48657,380189N1218988W001,NA,Burton MW-150,38.0189,-121.899,GPS,0.1 ft.,2-004,Pittsburg Plain,Contra Costa,150,Observation,Part of a nested/multi-completion well,e040284
+48658,380189N1218988W002,NA,Burton MW-230,38.0189,-121.899,GPS,0.1 ft.,2-004,Pittsburg Plain,Contra Costa,230,Observation,Part of a nested/multi-completion well,e040284
+48659,380189N1218988W003,NA,Burton MW-330,38.0189,-121.899,GPS,0.1 ft.,2-004,Pittsburg Plain,Contra Costa,330,Observation,Part of a nested/multi-completion well,e040284
+48654,380196N1219096W001,NA,Bodega MW-120,38.0196,-121.91,GPS,0.1 ft.,2-004,Pittsburg Plain,Contra Costa,120,Observation,Part of a nested/multi-completion well,e052847
+48655,380196N1219096W002,NA,Bodega MW-190,38.0196,-121.91,GPS,0.1 ft.,2-004,Pittsburg Plain,Contra Costa,190,Observation,Part of a nested/multi-completion well,e052847
+48656,380196N1219096W003,NA,Bodega MW-290,38.0196,-121.91,GPS,0.1 ft.,2-004,Pittsburg Plain,Contra Costa,295,Observation,Part of a nested/multi-completion well,e052847
+2559,380254N1219120W001,02N01E18D001M,NA,38.0254,-121.912,Unknown,Unknown,2-004,Pittsburg Plain,Contra Costa,100,Industrial,Unknown,NA
+50376,380270N1216136W001,02N03E11M999M,DWD Bethel Island,38.027,-121.614,USGS quad,Unknown,5-022.19,East Contra Costa,Contra Costa,333,Residential,Single Well,51028
+2563,380273N1219253W001,02N01W12P001M,NA,38.0273,-121.925,Unknown,Unknown,2-004,Pittsburg Plain,Contra Costa,176,Unknown,Unknown,NA
+2562,380290N1219336W001,02N01W11R001M,NA,38.029,-121.934,Unknown,Unknown,2-004,Pittsburg Plain,Contra Costa,100,Unknown,Unknown,NA
+2561,380313N1219426W001,02N01W11L001M,NA,38.0313,-121.943,Unknown,Unknown,2-004,Pittsburg Plain,Contra Costa,208,Industrial,Unknown,1101
+2560,380440N1219784W001,02N01W04Q001M,NA,38.044,-121.978,Unknown,Unknown,2-004,Pittsburg Plain,Contra Costa,62,Unknown,Unknown,NA

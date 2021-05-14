@@ -1,0 +1,596 @@
+STN_ID,SITE_CODE,SWN,WELL_NAME,LATITUDE,LONGITUDE,WLM_METHOD,WLM_ACC,BASIN_CODE,BASIN_NAME,COUNTY_NAME,WELL_DEPTH,WELL_USE,WELL_TYPE,WCR_NO
+46014,334686N1176782W001,08S08W23A001S,MW-01N,33.4686,-117.678,Surveyed to a benchmark,0.1 ft.,NA,NA,Orange,100,Observation,Part of a nested/multi-completion well,NA
+46015,334686N1176782W002,NA,MW-01S,33.4686,-117.678,Surveyed to a benchmark,0.1 ft.,NA,NA,Orange,125,Observation,Part of a nested/multi-completion well,NA
+46016,334817N1176783W001,08S08W12A002S,MW-02,33.4817,-117.678,Surveyed to a benchmark,0.1 ft.,9-001,San Juan Valley,Orange,74,Observation,Single Well,NA
+46017,334890N1176668W001,08S08W12L001S,MW-03,33.489,-117.667,Surveyed to a benchmark,0.1 ft.,NA,NA,Orange,126,Observation,Single Well,NA
+46021,334984N1176655W001,08S08W01Q008S,MW-07,33.4984,-117.666,Surveyed to a benchmark,0.1 ft.,9-001,San Juan Valley,Orange,91,Observation,Single Well,NA
+46018,335006N1176517W001,08S07W06P004S,MW-04,33.5006,-117.652,Surveyed to a benchmark,0.1 ft.,9-001,San Juan Valley,Orange,90,Observation,Single Well,NA
+46019,335045N1176466W001,08S07W06J004S,MW-05,33.5045,-117.647,Surveyed to a benchmark,0.1 ft.,NA,NA,Orange,90,Observation,Single Well,NA
+46020,335069N1176425W001,08S07W06H004S,MW-06,33.5069,-117.643,Surveyed to a benchmark,0.1 ft.,9-001,San Juan Valley,Orange,93,Observation,Single Well,NA
+46022,335145N1176697W001,07S08W36P005S,MW-08,33.5145,-117.67,Surveyed to a benchmark,0.1 ft.,9-001,San Juan Valley,Orange,101,Observation,Single Well,NA
+7320,336557N1179512W001,06S10W17D001S,NA,33.6557,-117.951,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+37982,336607N1179623W001,06S10W07K000S,NA,33.6607,-117.962,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+7319,336621N1178781W001,06S10W12L001S,NA,33.6621,-117.878,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+5892,336630N1178381W001,06S09W08L001S,NA,33.663,-117.838,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+27752,336632N1178523W001,06S09W07J001S,NA,33.6632,-117.852,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+5181,336642N1177443W001,06S08W08M001S,NA,33.6642,-117.744,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+7316,336647N1179672W001,06S10W07M006S,NA,33.6647,-117.967,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+5180,336659N1177597W001,06S08W07E002S,NA,33.6659,-117.76,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+28732,336669N1177464W001,06S08W08E001S,NA,33.6669,-117.746,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+5893,336672N1178329W001,06S09W09E001S,NA,33.6672,-117.833,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+7317,336672N1179322W001,06S10W09E003S,NA,33.6672,-117.932,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+7318,336674N1178918W001,06S10W11G003S,NA,33.6674,-117.892,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+28731,336678N1177626W001,06S08W07E001S,NA,33.6678,-117.763,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+27753,336684N1177654W001,06S09W12H001S,NA,33.6684,-117.765,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+39331,336689N1178912W001,06S10W11G001S,NA,33.6689,-117.891,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+47330,336716N1177529W001,06S08W07B001S,MCAS-3/MP2,33.6716,-117.753,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,540,Observation,Part of a nested/multi-completion well,255941
+47331,336716N1177529W002,NA,MCAS-3/MP5,33.6716,-117.753,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,540,Observation,Part of a nested/multi-completion well,255941
+7315,336722N1179694W001,06S10W07D006S,NA,33.6722,-117.969,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+25343,336724N1179746W001,06S11W01R000S,NA,33.6724,-117.975,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+5063,336725N1179790W001,06S11W01Q003S,NA,33.6725,-117.979,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+5062,336725N1179838W001,06S11W01N003S,NA,33.6725,-117.984,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+28730,336726N1177521W001,06S08W06Q001S,NA,33.6726,-117.752,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+27751,336726N1178014W001,06S09W03Q001S,NA,33.6726,-117.801,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+28729,336728N1177424W001,06S08W05P001S,NA,33.6728,-117.742,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+7312,336728N1179268W001,06S10W04Q002S,NA,33.6728,-117.927,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+5888,336734N1177736W001,06S09W01P002S,NA,33.6734,-117.774,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+5179,336746N1177574W001,06S08W06P001S,NA,33.6746,-117.757,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+5891,336749N1177991W001,06S09W03R001S,NA,33.6749,-117.799,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+47280,336749N1179628W001,06S10W06P005S,OCWD-M26,33.6749,-117.963,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,145,Observation,Single Well,NA
+38340,336753N1177488W001,06S08W06R001S,NA,33.6753,-117.749,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+25339,336763N1177475W001,06S08W06J000S,NA,33.6763,-117.748,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+25340,336763N1177475W002,06S08W06R000S,NA,33.6763,-117.748,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+5887,336764N1177748W001,06S09W01L001S,NA,33.6764,-117.775,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+47281,336781N1178263W001,06S09W04L001S,TIC-25,33.6781,-117.826,USGS quad,Unknown,8-001,Coastal Plain Of Orange County,Orange,790,Observation,Single Well,"41833,35"
+5177,336792N1177457W001,06S08W05M002S,NA,33.6792,-117.746,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+7310,336793N1178807W001,06S10W01L001S,NA,33.6793,-117.881,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+5178,336795N1177521W001,06S08W06J001S,NA,33.6795,-117.752,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+27749,336795N1177780W001,06S09W01M002S,NA,33.6795,-117.778,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+47332,336798N1177876W001,06S09W02G001S,MCAS-7/MP1,33.6798,-117.788,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,1152,Observation,Part of a nested/multi-completion well,255942
+47333,336798N1177876W002,NA,MCAS-7/MP4,33.6798,-117.788,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,1152,Observation,Part of a nested/multi-completion well,255942
+28520,336803N1178948W001,06S10W02G001S,NA,33.6803,-117.895,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+5890,336813N1177975W001,06S09W02E001S,NA,33.6813,-117.797,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+7309,336818N1178840W001,06S10W01E002S,NA,33.6818,-117.884,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+28728,336824N1177430W001,06S08W05E002S,NA,33.6824,-117.743,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+47318,336831N1179773W001,06S11W01G001S,HBM-2/MP6,33.6831,-117.977,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,975,Observation,Part of a nested/multi-completion well,349222
+27750,336843N1177859W001,06S09W02A004S,NA,33.6843,-117.786,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+37981,336848N1177670W001,06S09W01B001S,NA,33.6848,-117.767,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+7311,336848N1179242W001,06S10W04B002S,NA,33.6848,-117.924,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+5886,336853N1177671W001,06S09W01A001S,NA,33.6853,-117.767,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+28522,336853N1179432W001,06S10W05B003S,NA,33.6853,-117.943,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+28521,336856N1179333W001,06S10W04D002S,NA,33.6856,-117.933,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+5889,336863N1177952W001,06S09W02D001S,NA,33.6863,-117.795,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+25342,336866N1179732W001,06S11W01A003S,NA,33.6866,-117.973,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+7314,336867N1179439W001,06S10W05B005S,NA,33.6867,-117.944,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+25341,336868N1179445W001,06S10W05B004S,NA,33.6868,-117.945,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+6507,336870N1178340W001,05S09W33R001S,NA,33.687,-117.834,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+7313,336870N1179436W001,06S10W05B001S,NA,33.687,-117.944,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+5161,336871N1179477W001,05S10W32P002S,NA,33.6871,-117.948,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+28719,336872N1179265W001,05S10W33Q001S,NA,33.6872,-117.927,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+47305,336875N1179148W001,05S10W34P001S,COSM-1/MP1,33.6875,-117.915,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,1810,Observation,Part of a nested/multi-completion well,349218219
+29079,336880N1178460W001,05S09W32P001S,NA,33.688,-117.846,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+29080,336884N1178051W001,05S09W34Q001S,NA,33.6884,-117.805,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+6509,336886N1178041W001,05S09W34Q002S,NA,33.6886,-117.804,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+28717,336888N1179433W001,05S10W32Q001S,NA,33.6888,-117.943,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+6512,336898N1177688W001,05S09W36Q001S,NA,33.6898,-117.769,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+5162,336906N1179435W001,05S10W32Q002S,NA,33.6906,-117.944,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+6510,336914N1177833W001,05S09W35J001S,NA,33.6914,-117.783,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+39850,336917N1177557W001,05S08W31K001S,NA,33.6917,-117.756,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+6506,336923N1178449W001,05S09W32L001S,NA,33.6923,-117.845,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+6511,336925N1177687W001,05S09W36K001S,NA,33.6925,-117.769,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+28154,336928N1177446W001,05S08W32L001S,NA,33.6928,-117.745,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+29078,336939N1178685W001,05S09W31M002S,NA,33.6939,-117.869,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+5160,336941N1179435W001,05S10W32K003S,NA,33.6941,-117.944,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+6508,336944N1177985W001,05S09W34J003S,NA,33.6944,-117.799,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+29013,336962N1178987W001,05S10W35E001S,NA,33.6962,-117.899,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+5166,336962N1179060W001,05S10W34H003S,NA,33.6962,-117.906,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+29011,336963N1179065W001,05S10W34H010S,NA,33.6963,-117.907,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+6504,336965N1178644W001,05S09W31E004S,NA,33.6965,-117.864,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+5159,336966N1179388W001,05S10W32H001S,NA,33.6966,-117.939,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+5302,336967N1178918W001,05S10W35G001S,NA,33.6967,-117.892,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+5165,336969N1179036W001,05S10W34D001S,NA,33.6969,-117.904,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+6505,336977N1178594W001,05S09W31F001S,NA,33.6977,-117.859,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+9440,336978N1179845W001,05S11W36C002S,NA,33.6978,-117.985,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+25317,336979N1179417W001,05S10W32G000S,NA,33.6979,-117.942,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+5158,336979N1179454W001,05S10W32B006S,NA,33.6979,-117.945,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+29081,336983N1177947W001,05S09W35D002S,NA,33.6983,-117.795,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+5157,336989N1179707W001,05S10W31D004S,NA,33.6989,-117.971,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+28780,336995N1178520W001,05S09W31A002S,NA,33.6995,-117.852,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+29082,337006N1177696W001,05S09W36B001S,NA,33.7006,-117.77,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+25145,337008N1177759W001,05S09W36C001S,NA,33.7008,-117.776,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+28775,337009N1178085W001,05S09W27P030S,NA,33.7009,-117.809,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+39321,337010N1178581W001,05S09W31B003S,NA,33.701,-117.858,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+27595,337011N1178085W001,05S09W27P020S,NA,33.7011,-117.809,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+6356,337011N1178085W002,05S09W27P022S,NA,33.7011,-117.809,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+39317,337011N1178085W003,05S09W27P023S,NA,33.7011,-117.809,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+39994,337011N1178085W004,05S09W27P024S,NA,33.7011,-117.809,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+28773,337011N1178085W005,05S09W27P025S,NA,33.7011,-117.809,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+6357,337011N1178085W006,05S09W27P026S,NA,33.7011,-117.809,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+28774,337011N1178085W007,05S09W27P027S,NA,33.7011,-117.809,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+6358,337011N1178085W008,05S09W27P028S,NA,33.7011,-117.809,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+6359,337011N1178085W009,05S09W27P029S,NA,33.7011,-117.809,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+6360,337011N1178087W001,05S09W27P031S,NA,33.7011,-117.809,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+6355,337011N1178090W001,05S09W27P021S,NA,33.7011,-117.809,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+29077,337011N1178649W001,05S09W31D001S,NA,33.7011,-117.865,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+9439,337012N1179779W001,05S11W36B003S,NA,33.7012,-117.978,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+6367,337014N1178587W001,05S09W31B001S,NA,33.7014,-117.859,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+25144,337015N1178334W001,05S09W28Q001S,NA,33.7015,-117.833,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+4925,337025N1177451W001,05S08W29P001S,NA,33.7025,-117.745,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+6366,337028N1178621W001,05S09W30P001S,NA,33.7028,-117.862,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+5150,337035N1179097W001,05S10W27Q001S,NA,33.7035,-117.91,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+28605,337036N1178874W001,05S10W26R002S,NA,33.7036,-117.887,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+28604,337036N1179030W001,05S10W26N001S,NA,33.7036,-117.903,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+47319,337046N1180143W001,05S11W27K004S,HBM-6/MP1,33.7046,-118.014,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,620,Observation,Part of a nested/multi-completion well,"349360,61"
+47320,337046N1180143W002,NA,HBM-6/MP7,33.7046,-118.014,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,620,Observation,Part of a nested/multi-completion well,"349360,61"
+25143,337049N1177813W001,05S09W25N001S,NA,33.7049,-117.781,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+25316,337052N1178903W001,05S10W26Q004S,NA,33.7052,-117.89,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+9438,337057N1180070W001,05S11W26M008S,NA,33.7057,-118.007,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+30973,337059N1180056W001,05S11W26M007S,NA,33.7059,-118.006,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+37819,337077N1178916W001,05S10W26K004S,NA,33.7077,-117.892,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+6365,337084N1178533W001,05S09W30J001S,NA,33.7084,-117.853,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+5804,337086N1177812W001,05S09W25E004S,NA,33.7086,-117.781,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+28779,337089N1178560W001,05S09W30H002S,NA,33.7089,-117.856,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+6364,337091N1178550W001,05S09W30H001S,NA,33.7091,-117.855,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+27594,337097N1177818W001,05S09W25E001S,NA,33.7097,-117.782,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+47278,337105N1178932W001,05S10W26G001S,OCWD-CTG1/2,33.7105,-117.893,USGS quad,Unknown,8-001,Coastal Plain Of Orange County,Orange,1025,Observation,Part of a nested/multi-completion well,74258
+47334,337105N1178932W002,NA,OCWD-CTG1/4,33.7105,-117.893,USGS quad,Unknown,8-001,Coastal Plain Of Orange County,Orange,1225,Observation,Part of a nested/multi-completion well,74258
+5803,337112N1177826W001,05S09W25D001S,NA,33.7112,-117.783,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+6363,337119N1178563W001,05S09W30G001S,NA,33.7119,-117.856,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+28777,337122N1178607W001,05S09W30F001S,NA,33.7122,-117.861,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+6362,337124N1178598W001,05S09W30F002S,NA,33.7124,-117.86,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+5154,337125N1179546W001,05S10W29E001S,NA,33.7125,-117.955,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+30974,337138N1180483W001,05S11W29B008S,NA,33.7138,-118.048,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+9437,337141N1179955W001,05S11W26B014S,NA,33.7141,-117.996,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+9436,337146N1179977W001,05S11W26B012S,NA,33.7146,-117.998,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+47321,337148N1177696W001,05S09W25B001S,IDM-1/MP1,33.7148,-117.77,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,1100,Observation,Part of a nested/multi-completion well,255915
+47322,337148N1177696W002,NA,IDM-1/MP4,33.7148,-117.77,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,1100,Observation,Part of a nested/multi-completion well,255915
+47323,337148N1177696W003,NA,IDM-1/MP9,33.7148,-117.77,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,1100,Observation,Part of a nested/multi-completion well,255915
+5143,337152N1179014W001,05S10W26D002S,NA,33.7152,-117.901,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+5153,337156N1179521W001,05S10W29D001S,NA,33.7156,-117.952,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+9434,337156N1179806W001,05S11W25B003S,NA,33.7156,-117.981,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+28776,337159N1178307W001,05S09W28D001S,NA,33.7159,-117.831,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+30969,337161N1179887W001,05S11W24N002S,NA,33.7161,-117.989,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+30966,337163N1180188W001,05S11W22N004S,NA,33.7163,-118.019,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+9425,337164N1180435W001,05S11W20R004S,NA,33.7164,-118.044,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+39904,337165N1177895W001,05S09W23P002S,NA,33.7165,-117.79,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+28599,337167N1179225W001,05S10W21R003S,NA,33.7167,-117.922,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+5800,337171N1178056W001,05S09W22Q001S,NA,33.7171,-117.806,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+9432,337174N1179871W001,05S11W24N007S,NA,33.7174,-117.987,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+9427,337184N1180274W001,05S11W21R002S,NA,33.7184,-118.027,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+30965,337188N1180275W001,05S11W21Q001S,NA,33.7188,-118.028,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+5802,337189N1177965W001,05S09W23N001S,NA,33.7189,-117.797,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+5798,337192N1178301W001,05S09W21P002S,NA,33.7192,-117.83,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+9426,337195N1180351W001,05S11W21L005S,NA,33.7195,-118.035,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+30964,337195N1180449W001,05S11W20J006S,NA,33.7195,-118.045,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+39224,337197N1179379W001,05S10W21M002S,NA,33.7197,-117.938,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+47324,337216N1178318W001,05S09W21M001S,IDM-2/MP1,33.7216,-117.832,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,1450,Observation,Part of a nested/multi-completion well,"349329,30,32"
+47325,337216N1178318W002,NA,IDM-2/MP5,33.7216,-117.832,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,1450,Observation,Part of a nested/multi-completion well,"349329,30,32"
+47326,337216N1178318W003,NA,IDM-2/MP8,33.7216,-117.832,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,1450,Observation,Part of a nested/multi-completion well,"349329,30,32"
+28598,337221N1179287W001,05S10W21L003S,NA,33.7221,-117.929,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+30967,337231N1179996W001,05S11W23F001S,NA,33.7231,-118,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+28153,337233N1177523W001,05S08W19H001S,NA,33.7233,-117.752,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+47309,337233N1179421W001,NA,FVM-1/MP17,33.7233,-117.942,Other,10 ft.,8-001,Coastal Plain Of Orange County,Orange,1884,Observation,Part of a nested/multi-completion well,255916
+47310,337233N1179421W002,05S10W20H004S,FVM-1/MP2,33.7233,-117.942,Other,10 ft.,8-001,Coastal Plain Of Orange County,Orange,1884,Observation,Part of a nested/multi-completion well,255916
+47311,337233N1179421W003,NA,FVM-1/MP9,33.7233,-117.942,Other,10 ft.,8-001,Coastal Plain Of Orange County,Orange,1884,Observation,Part of a nested/multi-completion well,255916
+27591,337258N1178116W001,05S09W22E002S,NA,33.7258,-117.812,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+5140,337265N1178911W001,05S10W23G001S,NA,33.7265,-117.891,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+5136,337265N1179375W001,05S10W20H003S,NA,33.7265,-117.938,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+25315,337277N1179383W001,05S10W20A008S,NA,33.7277,-117.938,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+28596,337279N1179386W001,05S10W20A007S,NA,33.7279,-117.939,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+27593,337281N1177946W001,05S09W23D002S,NA,33.7281,-117.795,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+27590,337289N1178032W001,05S09W22A002S,NA,33.7289,-117.803,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+5135,337290N1179552W001,05S10W19A005S,NA,33.729,-117.955,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+47279,337295N1180593W001,05S11W20D004S,OCWD-HH6B,33.7295,-118.059,Other,10 ft.,8-001,Coastal Plain Of Orange County,Orange,110,Observation,Single Well,NA
+30968,337301N1179733W001,05S11W24A005S,NA,33.7301,-117.973,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+27592,337304N1177858W001,05S09W23A003S,NA,33.7304,-117.786,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+5801,337304N1177898W001,05S09W23B001S,NA,33.7304,-117.79,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+9424,337304N1180246W001,05S11W16R001S,NA,33.7304,-118.025,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+30963,337305N1180330W001,05S11W16P001S,NA,33.7305,-118.033,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+38100,337308N1177837W001,05S09W23A001S,NA,33.7308,-117.784,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+28595,337308N1179454W001,05S10W17Q001S,NA,33.7308,-117.945,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+39854,337309N1178993W001,05S10W23C001S,NA,33.7309,-117.899,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+25314,337314N1179291W001,05S10W16P001S,NA,33.7314,-117.929,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+37818,337314N1179331W001,05S10W16R001S,NA,33.7314,-117.933,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+27582,337328N1177879W001,05S09W14Q001S,NA,33.7328,-117.788,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+37817,337329N1179000W001,05S10W14N001S,NA,33.7329,-117.9,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+5133,337332N1179366W001,05S10W16N001S,NA,33.7332,-117.937,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+5793,337333N1178215W001,05S09W16Q003S,NA,33.7333,-117.822,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+27586,337334N1178220W001,05S09W16Q004S,NA,33.7334,-117.822,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+5795,337336N1178476W001,05S09W17N002S,NA,33.7336,-117.848,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+5792,337344N1178230W001,05S09W16Q002S,NA,33.7344,-117.823,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+5794,337344N1178235W001,05S09W16Q005S,NA,33.7344,-117.824,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+5789,337345N1178037W001,05S09W15R003S,NA,33.7345,-117.804,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+25313,337355N1179362W001,05S10W16M000S,NA,33.7355,-117.936,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+27583,337370N1178012W001,05S09W15J001S,NA,33.737,-117.801,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+47315,337374N1179933W001,05S11W14G002S,HBM-1/MP1,33.7374,-117.993,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,1980,Observation,Part of a nested/multi-completion well,"349220,21"
+47316,337374N1179933W002,NA,HBM-1/MP11,33.7374,-117.993,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,1980,Observation,Part of a nested/multi-completion well,"349220,21"
+47317,337374N1179933W003,NA,HBM-1/MP7,33.7374,-117.993,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,1980,Observation,Part of a nested/multi-completion well,"349220,21"
+6202,337414N1179865W001,05S11W13D004S,NA,33.7414,-117.987,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+37979,337414N1179865W002,05S11W13D005S,NA,33.7414,-117.987,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+27584,337425N1178213W001,05S09W16B005S,NA,33.7425,-117.821,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+5790,337425N1178223W001,05S09W16B002S,NA,33.7425,-117.822,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+28594,337435N1179292W001,05S10W16C001S,NA,33.7435,-117.929,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+38724,337436N1178328W001,05S09W16D001S,NA,33.7436,-117.833,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+28479,337442N1179999W002,05S11W14C004S,NA,33.7442,-118,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+5796,337444N1178541W001,05S09W18A002S,NA,33.7444,-117.854,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+9423,337445N1180373W001,05S11W16C001S,NA,33.7445,-118.037,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+25338,337446N1180606W001,05S11W17D010S,NA,33.7446,-118.061,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+27588,337447N1178536W001,05S09W18A001S,NA,33.7447,-117.854,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+5130,337447N1179082W001,05S10W15B002S,NA,33.7447,-117.908,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+28591,337450N1178774W001,05S10W13C001S,NA,33.745,-117.877,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+28590,337452N1178762W001,05S10W13B003S,NA,33.7452,-117.876,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+28373,337459N1179368W001,05S10W09N004S,NA,33.7459,-117.937,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+7254,337484N1179135W001,05S10W10P001S,NA,33.7484,-117.913,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+7249,337485N1179555W001,05S10W07R001S,NA,33.7485,-117.956,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+28477,337486N1179846W001,05S11W12L001S,NA,33.7486,-117.985,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+37816,337487N1179145W001,05S10W10P002S,NA,33.7487,-117.915,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+28476,337488N1179944W001,05S11W11K002S,NA,33.7488,-117.994,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+7251,337489N1179218W001,05S10W09R001S,NA,33.7489,-117.922,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+25153,337490N1179624W001,05S10W07K000S,NA,33.749,-117.962,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+5788,337495N1177887W001,05S09W14Q002S,NA,33.7495,-117.789,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+25311,337500N1179192W001,05S10W10M001S,NA,33.75,-117.919,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+25312,337501N1178769W001,05S10W12L005S,NA,33.7501,-117.877,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+38105,337501N1180265W001,05S11W09J004S,NA,33.7501,-118.026,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+28375,337502N1179099W001,05S10W10K001S,NA,33.7502,-117.91,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+6195,337502N1180425W001,05S11W08J002S,NA,33.7502,-118.043,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+7253,337503N1179116W001,05S10W10K003S,NA,33.7503,-117.912,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+25154,337507N1179404W001,05S10W08J001S,NA,33.7507,-117.94,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+25337,337509N1179769W001,05S11W12K003S,NA,33.7509,-117.977,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+51051,337511N1180848W001,05S12W12K001S,OCWD-BS14/1,33.7511,-118.085,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,90,Observation,Part of a nested/multi-completion well,e0260266
+51052,337511N1180848W002,NA,OCWD-BS14/2,33.7511,-118.085,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,135,Observation,Part of a nested/multi-completion well,e0260266
+51053,337511N1180848W003,NA,OCWD-BS14/3,33.7511,-118.085,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,195,Observation,Part of a nested/multi-completion well,e0260266
+51054,337511N1180848W004,NA,OCWD-BS14/4,33.7511,-118.085,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,255,Observation,Part of a nested/multi-completion well,e0260266
+51055,337511N1180848W005,NA,OCWD-BS14/5,33.7511,-118.085,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,515,Observation,Part of a nested/multi-completion well,e0260266
+37978,337515N1179979W001,05S11W11J001S,NA,33.7515,-117.998,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+38725,337522N1179339W001,05S10W09M001S,NA,33.7522,-117.934,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+47341,337525N1179058W001,05S10W10H002S,SAR-9/MP1,33.7525,-117.906,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,1940,Observation,Part of a nested/multi-completion well,"349216,17"
+47342,337525N1179058W002,NA,SAR-9/MP12,33.7525,-117.906,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,1940,Observation,Part of a nested/multi-completion well,"349216,17"
+47343,337525N1179058W003,NA,SAR-9/MP7,33.7525,-117.906,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,1940,Observation,Part of a nested/multi-completion well,"349216,17"
+7250,337530N1179224W001,05S10W09H003S,NA,33.753,-117.922,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+25141,337532N1178426W001,05S09W08G002S,NA,33.7532,-117.843,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+10156,337533N1180914W001,05S12W12E001S,NA,33.7533,-118.091,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+28474,337538N1180358W001,05S11W09F002S,NA,33.7538,-118.036,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+25152,337539N1179722W001,05S10W07E002S,NA,33.7539,-117.972,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+37977,337545N1180773W001,05S11W07E000S,NA,33.7545,-118.077,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+51056,337549N1180436W001,05S11W08H001S,OCWD-BS17/1,33.7549,-118.044,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,200,Observation,Part of a nested/multi-completion well,e0260267
+51057,337549N1180436W002,NA,OCWD-BS17/2,33.7549,-118.044,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,265,Observation,Part of a nested/multi-completion well,e0260267
+51058,337549N1180436W003,NA,OCWD-BS17/3,33.7549,-118.044,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,320,Observation,Part of a nested/multi-completion well,e0260267
+51059,337549N1180436W004,NA,OCWD-BS17/4,33.7549,-118.044,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,385,Observation,Part of a nested/multi-completion well,e0260267
+27581,337561N1178051W001,05S09W10G001S,NA,33.756100000000004,-117.805,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+51060,337563N1180839W001,05S12W12B008S,OCWD-BS21/1,33.7563,-118.084,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,90,Observation,Part of a nested/multi-completion well,e0250185
+51061,337563N1180839W002,NA,OCWD-BS21/2,33.7563,-118.084,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,169,Observation,Part of a nested/multi-completion well,e0250185
+51062,337563N1180839W003,NA,OCWD-BS21/3,33.7563,-118.084,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,235,Observation,Part of a nested/multi-completion well,e0250185
+51063,337563N1180839W004,NA,OCWD-BS21/4,33.7563,-118.084,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,320,Observation,Part of a nested/multi-completion well,e0250185
+51064,337564N1180702W001,05S11W07C003S,OCWD-BS22/1,33.7564,-118.07,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,180,Observation,Part of a nested/multi-completion well,e0249602
+51065,337564N1180702W002,NA,OCWD-BS22/2,33.7564,-118.07,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,240,Observation,Part of a nested/multi-completion well,e0249602
+51066,337564N1180702W003,NA,OCWD-BS22/3,33.7564,-118.07,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,280,Observation,Part of a nested/multi-completion well,e0249602
+51067,337564N1180702W004,NA,OCWD-BS22/4,33.7564,-118.07,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,340,Observation,Part of a nested/multi-completion well,e0249602
+28475,337571N1180211W001,05S11W10D006S,NA,33.7571,-118.021,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+6199,337573N1179875W001,05S11W12E003S,NA,33.7573,-117.988,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+25336,337573N1179914W001,05S11W11A000S,NA,33.7573,-117.991,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+37980,337575N1180782W001,05S12W12A000S,NA,33.7575,-118.078,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+38723,337582N1178397W001,05S09W08B002S,NA,33.7582,-117.84,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+28371,337588N1179714W001,05S10W07D003S,NA,33.7588,-117.971,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+7252,337589N1179207W001,05S10W10D004S,NA,33.7589,-117.921,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+47344,337591N1180435W001,05S11W08A001S,SBM-1/MP1,33.7591,-118.043,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,1300,Observation,Part of a nested/multi-completion well,"349314,15"
+47345,337591N1180435W002,NA,SBM-1/MP6,33.7591,-118.043,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,1300,Observation,Part of a nested/multi-completion well,"349314,15"
+47346,337591N1180435W003,NA,SBM-1/MP8,33.7591,-118.043,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,1300,Observation,Part of a nested/multi-completion well,"349314,15"
+28473,337593N1180743W001,05S11W07C002S,NA,33.7593,-118.074,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+25142,337594N1178086W001,05S09W10C003S,NA,33.7594,-117.809,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+6194,337595N1180740W001,05S11W07C001S,NA,33.7595,-118.074,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+28374,337597N1179074W001,05S10W10A005S,NA,33.7597,-117.907,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+25148,337603N1179152W001,05S10W03P001S,NA,33.7603,-117.915,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+28469,337608N1179975W001,05S11W02Q006S,NA,33.7608,-117.998,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+25335,337616N1180275W001,05S11W04R003S,NA,33.7616,-118.028,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+25149,337617N1179047W001,05S10W03R001S,NA,33.7617,-117.905,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+4924,337630N1176773W001,05S08W01N001S,NA,33.763,-117.677,Unknown,Unknown,NA,NA,Orange,NA,Unknown,Unknown,NA
+25151,337632N1179423W001,05S10W05R002S,NA,33.7632,-117.942,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+47348,337646N1178432W001,05S09W05L001S,SC-5/MP1,33.7646,-117.843,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,1476,Observation,Part of a nested/multi-completion well,"344385,86"
+47349,337646N1178432W002,NA,SC-5/MP10,33.7646,-117.843,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,1476,Observation,Part of a nested/multi-completion well,"344385,86"
+47350,337646N1178432W003,NA,SC-5/MP5,33.7646,-117.843,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,1476,Observation,Part of a nested/multi-completion well,"344385,86"
+7245,337651N1179102W001,05S10W03K001S,NA,33.7651,-117.91,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+25150,337668N1179312W001,05S10W04L001S,NA,33.7668,-117.931,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+7246,337674N1179341W001,05S10W04E001S,NA,33.7674,-117.934,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+25333,337680N1179728W001,05S11W01H001S,NA,33.768,-117.973,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+37976,337680N1180073W001,05S11W03H005S,NA,33.768,-118.007,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+25146,337682N1178845W001,05S10W01E004S,NA,33.7682,-117.885,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+28368,337685N1178908W001,05S10W02G001S,NA,33.7685,-117.891,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+28366,337688N1178844W001,05S10W01E001S,NA,33.7688,-117.884,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+25147,337690N1179071W001,05S10W03H001S,NA,33.769,-117.907,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+37975,337696N1179861W001,05S11W01E002S,NA,33.7696,-117.986,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+28468,337699N1179951W001,05S11W02B002S,NA,33.7699,-117.995,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+5652,337712N1178409W001,05S09W05B001S,NA,33.7712,-117.841,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+28471,337722N1180390W001,05S11W04D001S,NA,33.7722,-118.039,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+25334,337730N1180118W001,05S11W03A000S,NA,33.773,-118.012,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+25140,337731N1178321W001,05S09W04D003S,NA,33.7731,-117.832,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+6192,337731N1180419W001,05S11W04D002S,NA,33.7731,-118.042,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+27289,337732N1178417W001,05S09W05B003S,NA,33.7732,-117.842,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+37820,337736N1179813W001,05S11W01C002S,NA,33.7736,-117.981,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+7243,337739N1178918W001,05S10W02B002S,NA,33.7739,-117.892,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+40013,337739N1178987W001,05S10W02E001S,NA,33.7739,-117.899,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+6191,337739N1180262W001,05S11W04A001S,NA,33.7739,-118.026,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+38658,337744N1179482W001,04S10W32Q002S,NA,33.7744,-117.948,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+25134,337747N1179180W001,04S10W34P001S,NA,33.7747,-117.918,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+3749,337754N1178448W001,04S09W32P001S,NA,33.7754,-117.845,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+5244,337756N1179071W001,04S10W34R002S,NA,33.7756,-117.907,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+5235,337770N1179685W001,04S10W31P001S,NA,33.777,-117.969,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+26235,337773N1178438W001,04S09W32K001S,NA,33.7773,-117.844,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+5245,337778N1179106W001,04S10W34R003S,NA,33.7778,-117.911,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+47312,337779N1179480W001,04S10W32K001S,GGM-1/MP1,33.7779,-117.948,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,2058,Observation,Part of a nested/multi-completion well,"349227,28"
+47313,337779N1179480W002,NA,GGM-1/MP13,33.7779,-117.948,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,2058,Observation,Part of a nested/multi-completion well,"349227,28"
+47314,337779N1179480W003,NA,GGM-1/MP8,33.7779,-117.948,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,2058,Observation,Part of a nested/multi-completion well,"349227,28"
+5248,337795N1178982W001,04S10W35K001S,NA,33.7795,-117.898,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+27492,337800N1180851W001,04S12W36J001S,NA,33.78,-118.085,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+3750,337803N1178225W001,04S09W33J001S,NA,33.7803,-117.823,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+3751,337806N1178326W001,04S09W33M001S,NA,33.7806,-117.833,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+6129,337815N1180637W001,04S11W32G003S,NA,33.7815,-118.064,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+38659,337816N1179125W001,04S10W34K001S,NA,33.7816,-117.913,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+5247,337820N1179029W001,04S10W35E002S,NA,33.782,-117.903,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+38722,337834N1180549W001,04S11W32F000S,NA,33.7834,-118.055,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+5236,337844N1179361W001,04S10W33F001S,NA,33.7844,-117.936,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+25131,337847N1179679W001,04S10W31F001S,NA,33.7847,-117.968,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+5239,337851N1179118W001,04S10W34B001S,NA,33.7851,-117.912,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+6128,337851N1180522W001,04S11W32G002S,NA,33.7851,-118.052,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+38660,337854N1178952W001,04S10W35B004S,NA,33.7854,-117.895,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+39311,337856N1179996W001,04S11W35B001S,NA,33.7856,-118,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+6125,337856N1180797W001,04S11W31D002S,NA,33.7856,-118.08,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+3744,337861N1178587W001,04S09W31B001S,NA,33.7861,-117.859,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+6126,337861N1180732W001,04S11W31F003S,NA,33.7861,-118.073,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+28872,337870N1179682W001,04S10W31B002S,NA,33.787,-117.968,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+28873,337873N1179563W001,04S10W32D001S,NA,33.7873,-117.956,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+25133,337876N1179065W001,04S10W34A004S,NA,33.7876,-117.907,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+5241,337881N1179229W001,04S10W34D003S,NA,33.7881,-117.923,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+25132,337883N1179325W001,04S10W33C001S,NA,33.7883,-117.933,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+6122,337886N1180495W001,04S11W29R001S,NA,33.7886,-118.05,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+5246,337889N1178892W001,04S10W35A003S,NA,33.7889,-117.889,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+25130,337891N1179216W001,04S10W27N002S,NA,33.7891,-117.922,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+38081,337908N1179594W001,04S10W30R001S,NA,33.7908,-117.959,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+39310,337909N1180459W001,04S11W28N001S,NA,33.7909,-118.046,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+47347,337910N1178268W001,04S09W28Q001S,SC-4/MP8,33.791,-117.827,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,1148,Observation,Part of a nested/multi-completion well,"344373,74"
+25139,337930N1180795W001,04S11W30M004S,NA,33.793,-118.08,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+5231,337932N1178916W001,04S10W26J002S,NA,33.7932,-117.892,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+6124,337932N1180795W001,04S11W30M006S,NA,33.7932,-118.08,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+6121,337939N1180548W001,04S11W29L003S,NA,33.7939,-118.055,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+39903,337945N1178924W001,04S10W26J001S,NA,33.7945,-117.892,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+47327,337959N1180672W001,04S11W30H001S,LAM-1/MP1,33.7959,-118.067,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,1660,Observation,Part of a nested/multi-completion well,"349297,98,99"
+47328,337959N1180672W002,NA,LAM-1/MP12,33.7959,-118.067,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,1660,Observation,Part of a nested/multi-completion well,"349297,98,99"
+47329,337959N1180672W003,NA,LAM-1/MP6,33.7959,-118.067,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,1660,Observation,Part of a nested/multi-completion well,"349297,98,99"
+38657,337960N1179678W001,04S10W30F002S,NA,33.796,-117.968,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+4689,337961N1178893W001,04S10W25E001S,NA,33.7961,-117.889,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+38656,337964N1179459W001,04S10W29K000S,NA,33.7964,-117.946,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+26230,337978N1178185W001,04S09W28H002S,NA,33.7978,-117.819,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+47338,337995N1178787W001,04S10W25G001S,SAR-3/MP1,33.7995,-117.879,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,1420,Observation,Part of a nested/multi-completion well,255908
+47339,337995N1178787W002,NA,SAR-3/MP11,33.7995,-117.879,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,1420,Observation,Part of a nested/multi-completion well,255908
+47340,337995N1178787W003,NA,SAR-3/MP6,33.7995,-117.879,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,1420,Observation,Part of a nested/multi-completion well,255908
+5232,338005N1179110W001,04S10W27A001S,NA,33.8005,-117.911,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+28324,338017N1180260W001,04S11W27D001S,NA,33.8017,-118.026,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+39673,338028N1179603W001,04S10W30A002S,NA,33.8028,-117.96,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+6118,338028N1179993W001,04S11W26B001S,NA,33.8028,-117.999,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+28870,338031N1179185W001,04S10W27C002S,NA,33.8031,-117.919,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+27684,338038N1179546W001,04S10W20N002S,NA,33.8038,-117.955,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+38655,338039N1178852W001,04S10W25D001S,NA,33.8039,-117.885,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+4690,338039N1179024W001,04S10W26C001S,NA,33.8039,-117.902,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+4680,338045N1179568W001,04S10W20N001S,NA,33.8045,-117.957,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+47351,338047N1178086W001,04S09W22Q002S,SCS-2/MP1,33.8047,-117.809,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,375,Observation,Part of a nested/multi-completion well,255947
+47352,338047N1178086W002,NA,SCS-2/MP5,33.8047,-117.809,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,375,Observation,Part of a nested/multi-completion well,255947
+4686,338069N1178895W001,04S10W23R001S,NA,33.8069,-117.89,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+6111,338069N1180542W001,04S11W20K002S,NA,33.8069,-118.054,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+27686,338070N1179246W001,04S10W22N001S,NA,33.807,-117.925,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+3602,338080N1178173W001,04S09W22M002S,NA,33.808,-117.817,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+3603,338086N1178174W001,04S09W22M003S,NA,33.8086,-117.817,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+3599,338098N1178665W001,04S09W19M001S,NA,33.8098,-117.867,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+28315,338103N1180685W001,04S11W19K001S,NA,33.8103,-118.069,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+38654,338106N1179177W001,04S10W22L002S,NA,33.8106,-117.918,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+4681,338106N1179385W001,04S10W21F001S,NA,33.8106,-117.939,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+4683,338111N1179107W001,04S10W22G001S,NA,33.8111,-117.911,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+27572,338111N1179653W001,04S10W19G002S,NA,33.8111,-117.965,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+25129,338127N1178877W001,04S10W24E000S,NA,33.8127,-117.888,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+3597,338132N1178591W001,04S09W19G001S,NA,33.8132,-117.859,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+27687,338139N1178932W001,04S10W23H001S,NA,33.8139,-117.893,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+25128,338142N1179593W001,04S10W19H001S,NA,33.8142,-117.959,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+27685,338145N1179222W001,04S10W22E001S,NA,33.8145,-117.922,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+28318,338146N1180089W001,04S11W23D002S,NA,33.8146,-118.009,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+3604,338149N1177873W001,04S09W23A001S,NA,33.8149,-117.787,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+4687,338150N1178858W001,04S10W24D004S,NA,33.815,-117.886,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+28314,338154N1180633W001,04S11W19A003S,NA,33.8154,-118.063,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+27127,338157N1177881W001,04S09W23A004S,NA,33.8157,-117.788,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+6112,338161N1180207W001,04S11W22C001S,NA,33.8161,-118.021,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+3596,338164N1178699W001,04S09W19D005S,NA,33.8164,-117.87,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+3592,338167N1178415W001,04S09W17Q001S,NA,33.8167,-117.842,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+38721,338168N1179762W001,04S11W24A004S,NA,33.8168,-117.976,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+6115,338170N1179764W001,04S11W24A001S,NA,33.817,-117.976,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+27688,338181N1178797W001,04S10W24B003S,NA,33.8181,-117.88,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+28313,338190N1180375W001,04S11W16P002S,NA,33.819,-118.038,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+7520,338192N1179204W001,04S10W15P001S,NA,33.8192,-117.92,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+6106,338203N1180385W001,04S11W16P001S,NA,33.8203,-118.038,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+47302,338205N1180164W001,04S11W15Q002S,BPM-2/MP1,33.8205,-118.016,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,2220,Observation,Part of a nested/multi-completion well,"349326,27,28"
+47303,338205N1180164W002,NA,BPM-2/MP15,33.8205,-118.016,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,2220,Observation,Part of a nested/multi-completion well,"349326,27,28"
+47304,338205N1180164W003,NA,BPM-2/MP5,33.8205,-118.016,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,2220,Observation,Part of a nested/multi-completion well,"349326,27,28"
+28198,338207N1180017W001,04S11W14Q004S,NA,33.8207,-118.002,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+25136,338209N1179855W001,04S11W13P001S,NA,33.8209,-117.986,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+4677,338213N1179712W001,04S10W18P001S,NA,33.8213,-117.971,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+7523,338214N1179507W001,04S10W17Q001S,NA,33.8214,-117.951,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+6105,338225N1180368W001,04S11W16K006S,NA,33.8225,-118.037,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+28955,338228N1179115W001,04S10W15J004S,NA,33.8228,-117.912,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+47296,338229N1179374W001,04S10W16M004S,AMD-7/MP1,33.8229,-117.937,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,1470,Observation,Part of a nested/multi-completion well,"349248,49"
+47297,338229N1179374W002,NA,AMD-7/MP14,33.8229,-117.937,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,1470,Observation,Part of a nested/multi-completion well,"349248,49"
+47298,338229N1179374W003,NA,AMD-7/MP7,33.8229,-117.937,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,1470,Observation,Part of a nested/multi-completion well,"349248,49"
+7521,338234N1179433W001,04S10W17J001S,NA,33.8234,-117.943,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+28199,338234N1180215W001,04S11W15L006S,NA,33.8234,-118.022,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+6103,338241N1180222W001,04S11W15L003S,NA,33.8241,-118.022,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+28197,338243N1179956W001,04S11W14J001S,NA,33.8243,-117.996,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+7522,338250N1179465W001,04S10W17J002S,NA,33.825,-117.947,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+7516,338252N1178893W001,04S10W14H001S,NA,33.8252,-117.889,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+25137,338252N1180177W001,04S11W15G003S,NA,33.8252,-118.018,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+28953,338255N1178899W001,04S10W14H002S,NA,33.8255,-117.89,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+7515,338257N1178764W001,04S10W13G001S,NA,33.8257,-117.876,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+38720,338261N1179966W001,04S11W14H001S,NA,33.8261,-117.997,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+3595,338268N1178573W001,04S09W18H001S,NA,33.8268,-117.857,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+25138,338280N1180287W001,04S11W16H003S,NA,33.828,-118.029,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+38719,338283N1179890W001,04S11W13F002S,NA,33.8283,-117.989,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+28956,338285N1179436W001,04S10W17H001S,NA,33.8285,-117.944,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+6100,338285N1179891W001,04S11W13D003S,NA,33.8285,-117.989,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+7518,338309N1179119W001,04S10W15B001S,NA,33.8309,-117.912,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+3594,338311N1178627W001,04S09W18C002S,NA,33.8311,-117.863,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+4676,338320N1179624W001,04S10W18A001S,NA,33.832,-117.962,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+27896,338320N1180539W001,04S11W08Q002S,NA,33.832,-118.054,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+27897,338321N1180198W001,04S11W10Q002S,NA,33.8321,-118.02,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+27895,338323N1180540W001,04S11W08P002S,NA,33.8323,-118.054,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+28196,338325N1179815W001,04S11W12R007S,NA,33.8325,-117.982,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+5961,338325N1180551W001,04S11W08P001S,NA,33.8325,-118.055,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+47335,338327N1178668W001,04S09W07N001S,SAR-1/MP1,33.8327,-117.867,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,1481,Observation,Part of a nested/multi-completion well,255936
+47336,338327N1178668W002,NA,SAR-1/MP13,33.8327,-117.867,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,1481,Observation,Part of a nested/multi-completion well,255936
+47337,338327N1178668W003,NA,SAR-1/MP5,33.8327,-117.867,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,1481,Observation,Part of a nested/multi-completion well,255936
+38082,338347N1180376W001,04S11W09P001S,NA,33.8347,-118.038,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+39921,338349N1180575W001,04S11W08P003S,NA,33.8349,-118.058,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+26592,338353N1178612W001,04S09W07Q006S,NA,33.8353,-117.861,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+26555,338355N1178656W001,04S09W07M001S,NA,33.8355,-117.866,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+7512,338366N1179547W001,04S10W08N005S,NA,33.8366,-117.955,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+7514,338369N1178735W001,04S10W12J002S,NA,33.8369,-117.874,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+28947,338372N1179688W001,04S10W07L001S,NA,33.8372,-117.969,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+25127,338374N1179689W001,04S10W07L002S,NA,33.8374,-117.969,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+7509,338378N1179682W001,04S10W07K004S,NA,33.8378,-117.968,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+39306,338380N1179998W001,04S11W11K002S,NA,33.838,-118,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+7511,338381N1179479W001,04S10W08K001S,NA,33.8381,-117.948,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+28946,338386N1179637W001,04S10W07J003S,NA,33.8386,-117.964,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+7508,338389N1179682W001,04S10W07K003S,NA,33.8389,-117.968,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+7507,338392N1179606W001,04S10W07J001S,NA,33.8392,-117.961,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+6099,338397N1179860W001,04S11W12F001S,NA,33.8397,-117.986,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+5962,338409N1180124W001,04S11W10H003S,NA,33.8409,-118.012,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+25135,338410N1179895W001,04S11W12E003S,NA,33.841,-117.99,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+3047,338443N1178714W001,04S09W07D001S,NA,33.8443,-117.871,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+7510,338451N1179506W001,04S10W08C002S,NA,33.8451,-117.951,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+28951,338468N1178767W001,04S10W12C002S,NA,33.8468,-117.877,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+39334,338469N1179285W001,04S10W09B003S,NA,33.8469,-117.928,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+5959,338470N1180460W001,04S11W05R002S,NA,33.847,-118.046,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+7502,338482N1179250W001,04S10W04R001S,NA,33.8482,-117.925,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+47294,338488N1179110W001,04S10W03R003S,AMD-3/MP2,33.8488,-117.911,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,1332,Observation,Part of a nested/multi-completion well,"344393,94,95"
+47295,338488N1179110W002,NA,AMD-3/MP5,33.8488,-117.911,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,1332,Observation,Part of a nested/multi-completion well,"344393,94,95"
+7497,338489N1178815W001,04S10W01P001S,NA,33.8489,-117.882,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+7500,338490N1179163W001,04S10W03P002S,NA,33.849,-117.916,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+7499,338490N1179166W001,04S10W03P001S,NA,33.849,-117.917,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+29187,338506N1179979W001,04S11W02R002S,NA,33.8506,-117.998,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+3044,338509N1178069W001,04S09W03K002S,NA,33.8509,-117.807,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+47353,338509N1178361W001,04S09W04M003S,WBS-4/MP2,33.8509,-117.836,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,240,Observation,Part of a nested/multi-completion well,341296
+47354,338509N1178361W002,NA,WBS-4/MP3,33.8509,-117.836,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,240,Observation,Part of a nested/multi-completion well,341296
+5953,338511N1180333W001,04S11W04K001S,NA,33.8511,-118.033,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+26551,338512N1177934W001,04S09W02L001S,NA,33.8512,-117.793,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+5407,338517N1179774W001,04S11W01J003S,NA,33.8517,-117.977,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+25126,338518N1178275W001,04S09W04L002S,NA,33.8518,-117.828,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+7498,338518N1179152W001,04S10W03K004S,NA,33.8518,-117.915,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+39624,338524N1178525W001,04S09W05M002S,NA,33.8524,-117.853,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+3039,338525N1177739W001,04S09W01G001S,NA,33.8525,-117.774,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+3037,338525N1177762W001,04S09W01F003S,NA,33.8525,-117.776,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+3045,338543N1178361W001,04S09W04E002S,NA,33.8543,-117.836,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+3035,338546N1177807W001,04S09W01E002S,NA,33.8546,-117.781,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+29188,338546N1180373W001,04S11W04G003S,NA,33.8546,-118.037,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+26554,338547N1178592W001,04S09W06G002S,NA,33.8547,-117.859,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+39781,338550N1178048W001,04S09W03H002S,NA,33.855,-117.805,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+47291,338552N1178566W001,NA,AMD-1/MP10,33.8552,-117.857,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,1461,Observation,Part of a nested/multi-completion well,"341355,56,57,58"
+47292,338552N1178566W002,04S09W06H002S,AMD-1/MP3,33.8552,-117.857,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,1461,Observation,Part of a nested/multi-completion well,"341355,56,57,58"
+47293,338552N1178566W003,NA,AMD-1/MP5,33.8552,-117.857,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,1461,Observation,Part of a nested/multi-completion well,"341355,56,57,58"
+3046,338552N1178648W001,04S09W06F001S,NA,33.8552,-117.865,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+3043,338553N1177848W001,04S09W02H001S,NA,33.8553,-117.785,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+3034,338554N1177837W001,04S09W01E001S,NA,33.8554,-117.784,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+47299,338556N1180264W001,04S11W03E001S,BPM-1/MP1,33.8556,-118.026,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,2155,Observation,Part of a nested/multi-completion well,"349323,24,25,33"
+47300,338556N1180264W002,NA,BPM-1/MP14,33.8556,-118.026,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,2155,Observation,Part of a nested/multi-completion well,"349323,24,25,33"
+47301,338556N1180264W003,NA,BPM-1/MP5,33.8556,-118.026,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,2155,Observation,Part of a nested/multi-completion well,"349323,24,25,33"
+3038,338560N1177752W001,04S09W01F011S,NA,33.856,-117.775,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+3036,338561N1177818W001,04S09W01E003S,NA,33.8561,-117.782,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+38653,338567N1179570W001,04S10W05E001S,NA,33.8567,-117.957,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+3033,338568N1177748W001,04S09W01B003S,NA,33.8568,-117.775,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+29186,338569N1179837W001,04S11W01G001S,NA,33.8569,-117.984,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+26552,338575N1178318W001,04S09W04D001S,NA,33.8575,-117.832,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+5406,338586N1179851W001,04S11W01B002S,NA,33.8586,-117.985,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+3040,338587N1177884W001,04S09W02A001S,NA,33.8587,-117.788,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+38652,338587N1177890W001,04S09W02B002S,NA,33.8587,-117.789,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+3041,338588N1177870W001,04S09W02A002S,NA,33.8588,-117.787,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+3042,338593N1177896W001,04S09W02B003S,NA,33.8593,-117.79,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+26781,338597N1177671W001,04S08W06D001S,NA,33.8597,-117.767,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+3523,338597N1178274W001,03S09W33Q003S,NA,33.8597,-117.827,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+39836,338600N1179515W001,03S10W32P001S,NA,33.86,-117.952,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+4579,338606N1177673W001,03S08W31N001S,NA,33.8606,-117.767,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+3522,338609N1178271W001,03S09W33Q002S,NA,33.8609,-117.827,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+3193,338614N1178482W001,03S09W32P002S,NA,33.8614,-117.848,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+27052,338618N1177706W001,03S09W36R001S,NA,33.8618,-117.771,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+3528,338618N1177712W001,03S09W36Q001S,NA,33.8618,-117.771,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+27047,338620N1178337W001,03S09W33N003S,NA,33.862,-117.834,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+4580,338621N1177658W001,03S08W31N003S,NA,33.8621,-117.766,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+3195,338621N1178423W001,03S09W32Q003S,NA,33.8621,-117.842,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+3529,338622N1177695W001,03S09W36R002S,NA,33.8622,-117.77,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+25074,338623N1178442W001,03S09W32Q010S,NA,33.8623,-117.844,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+3188,338628N1178576W001,03S09W31J002S,NA,33.8628,-117.858,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+3888,338628N1179046W001,03S10W35N001S,NA,33.8628,-117.905,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+3190,338629N1178426W001,03S09W32K006S,NA,33.8629,-117.843,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+38651,338629N1179044W001,03S10W35N003S,NA,33.8629,-117.904,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+25075,338630N1178282W001,03S09W33K010S,NA,33.863,-117.828,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+38483,338631N1178273W001,03S09W33K011S,NA,33.8631,-117.827,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+26735,338636N1178425W001,03S09W32K001S,NA,33.8636,-117.843,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+27048,338637N1178016W001,03S09W34J001S,NA,33.8637,-117.802,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+3191,338638N1178430W001,03S09W32K008S,NA,33.8638,-117.843,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+47306,338642N1178978W001,03S10W35K002S,FFS-1/MP1,33.8642,-117.898,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,1465,Observation,Part of a nested/multi-completion well,"255929,30"
+47307,338642N1178978W002,NA,FFS-1/MP3,33.8642,-117.898,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,1465,Observation,Part of a nested/multi-completion well,"255929,30"
+47308,338642N1178978W003,NA,FFS-1/MP8,33.8642,-117.898,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,1465,Observation,Part of a nested/multi-completion well,"255929,30"
+3887,338642N1178979W001,03S10W35K001S,NA,33.8642,-117.898,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+47274,338649N1178024W001,03S09W34J006S,AM-3,33.8649,-117.802,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,112,Observation,Single Well,341354
+27049,338650N1178151W001,03S09W34L002S,NA,33.865,-117.815,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+3521,338650N1178296W001,03S09W33L001S,NA,33.865,-117.83,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+4577,338655N1177628W001,03S08W31F004S,NA,33.8655,-117.763,Unknown,Unknown,NA,NA,Orange,NA,Unknown,Unknown,NA
+27416,338657N1177638W001,03S08W31M004S,NA,33.8657,-117.764,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+4578,338660N1177636W001,03S08W31M005S,NA,33.866,-117.764,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+26736,338664N1178426W001,03S09W32K007S,NA,33.8664,-117.843,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+26378,338678N1179243W001,03S10W34E001S,NA,33.8678,-117.924,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+3196,338681N1178249W001,03S09W33H001S,NA,33.8681,-117.825,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+3189,338684N1178504W001,03S09W32F001S,NA,33.8684,-117.85,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+51688,338686N1177664W001,03S09W36H005S,EMA-AH5,33.8686,-117.766,GPS,10 ft.,8-001,Coastal Plain Of Orange County,Orange,84,Industrial,Single Well,NA
+25124,338686N1179507W001,03S10W32G002S,NA,33.8686,-117.951,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+3526,338687N1177945W001,03S09W35F002S,NA,33.8687,-117.794,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+25125,338687N1180080W001,03S11W35F002S,NA,33.8687,-118.008,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+4583,338689N1177095W001,03S08W34F003S,SILV-YL,33.8689,-117.71,USGS quad,10 ft.,8-001,Coastal Plain Of Orange County,Orange,66,Irrigation,Single Well,349300
+38482,338691N1178384W001,03S09W32G001S,NA,33.8691,-117.838,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+25123,338697N1179513W001,03S10W32F001S,NA,33.8697,-117.951,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+25073,338703N1177243W001,03S08W33C001S,NA,33.8703,-117.724,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+4581,338715N1177476W001,03S08W32D003S,SCE-YLCS,33.8715,-117.748,USGS quad,10 ft.,8-001,Coastal Plain Of Orange County,Orange,104,Industrial,Single Well,47989
+27050,338715N1177943W001,03S09W35C004S,NA,33.8715,-117.794,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+47277,338715N1179765W001,03S11W36A006S,OCWD-AIR1/2,33.8715,-117.976,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,515,Observation,Part of a nested/multi-completion well,"224107,08,09"
+4576,338735N1177657W001,03S08W31D001S,NA,33.8735,-117.766,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+4582,338736N1177104W001,03S08W34C001S,NA,33.8736,-117.71,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+4049,338739N1180037W001,03S11W26P001S,NA,33.8739,-118.004,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+38009,338741N1177457W001,03S08W32D001S,NA,33.8741,-117.746,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+38481,338753N1176971W001,03S08W26N002S,NA,33.8753,-117.697,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+39846,338755N1177468W001,03S08W29N002S,NA,33.8755,-117.747,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+4572,338757N1176952W001,03S08W26N003S,NA,33.8757,-117.695,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+26701,338761N1178576W001,03S09W30R001S,NA,33.8761,-117.858,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+27411,338764N1176943W001,03S08W26N004S,NA,33.8764,-117.694,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+27413,338764N1177407W001,03S08W29Q001S,NA,33.8764,-117.741,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+4574,338770N1177429W001,03S08W29P001S,NA,33.877,-117.743,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+4573,338774N1176944W001,03S08W26N005S,NA,33.8774,-117.694,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+27412,338781N1177387W001,03S08W29K001S,NA,33.8781,-117.739,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+25122,338781N1178729W001,03S10W25R001S,NA,33.8781,-117.873,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+4575,338782N1177547W001,03S08W30Q001S,NA,33.8782,-117.755,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+38008,338782N1177620W001,03S08W30N001S,NA,33.8782,-117.762,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+3187,338790N1178532W001,03S09W29N001S,NA,33.879,-117.853,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+27415,338828N1177523W001,03S08W30R001S,NA,33.8828,-117.752,Unknown,Unknown,NA,NA,Orange,NA,Unknown,Unknown,NA
+27414,338828N1177665W001,03S08W30N002S,NA,33.8828,-117.767,Unknown,Unknown,NA,NA,Orange,NA,Unknown,Unknown,NA
+38650,338845N1179320W001,03S10W28G001S,NA,33.8845,-117.932,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+26377,338880N1179675W001,03S10W30B001S,NA,33.888,-117.968,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+3885,338882N1179587W001,03S10W29D001S,NA,33.8882,-117.959,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+3884,338882N1179619W001,03S10W19R002S,NA,33.8882,-117.962,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+47276,338912N1179758W001,03S10W19N002S,MSG-BP10L,33.8912,-117.976,USGS quad,10 ft.,8-001,Coastal Plain Of Orange County,Orange,257,Observation,Single Well,NA
+26700,338942N1178371W001,03S09W21M005S,W-432,33.8942,-117.837,USGS quad,10 ft.,8-001,Coastal Plain Of Orange County,Orange,148,Residential,Single Well,40301
+3185,338949N1178365W001,03S09W21M001S,NA,33.8949,-117.837,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+3186,338950N1178370W001,03S09W21M002S,NA,33.895,-117.837,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+26699,338950N1178554W001,03S09W20M001S,W-428,33.8914,-117.855,USGS quad,10 ft.,8-001,Coastal Plain Of Orange County,Orange,311,Residential,Single Well,c-1097
+47275,338970N1179254W001,03S10W21H002S,FM-6,33.897,-117.925,Surveyed to a benchmark,0.1 ft.,8-001,Coastal Plain Of Orange County,Orange,320,Observation,Single Well,349331
+26376,339028N1179179W001,03S10W22C002S,NA,33.9028,-117.918,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+25077,339088N1179408W001,03S10W16M004S,NA,33.9088,-117.941,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+38010,339164N1179704W001,03S10W18C001S,NA,33.9164,-117.97,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+26375,339172N1179146W001,03S10W15B001S,NA,33.9172,-117.915,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+26374,339209N1179218W001,03S10W10N002S,NA,33.9209,-117.922,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+3883,339231N1179046W001,03S10W11M002S,NA,33.9231,-117.905,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+3882,339245N1179415W001,03S10W09M002S,NA,33.9245,-117.942,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+26373,339247N1179265W001,03S10W09H002S,NA,33.9247,-117.927,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+38484,339268N1179326W001,03S10W09G001S,LH-FS192,33.9268,-117.933,Unknown,10 ft.,8-001,Coastal Plain Of Orange County,Orange,1403,Unknown,Single Well,12670
+25076,339294N1179481W001,03S10W08B000S,NA,33.9294,-117.948,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+3880,339297N1179071W001,03S10W02N002S,NA,33.9297,-117.907,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA
+3881,339336N1178951W001,03S10W02Q001S,NA,33.9336,-117.895,Unknown,Unknown,8-001,Coastal Plain Of Orange County,Orange,NA,Unknown,Unknown,NA

@@ -1,0 +1,34 @@
+STN_ID,SITE_CODE,SWN,WELL_NAME,LATITUDE,LONGITUDE,WLM_METHOD,WLM_ACC,BASIN_CODE,BASIN_NAME,COUNTY_NAME,WELL_DEPTH,WELL_USE,WELL_TYPE,WCR_NO
+55326,352339N1189527W002,NA,SGMO Test Fin,35.2339,-118.953,USGS quad,10 ft.,5-022.14,Kern County,Alpine,1500,Industrial,Part of a nested/multi-completion well,NA
+51177,387663N1197853W001,NA,ACMW-01BE,38.7663,-119.785,Surveyed to a benchmark,0.1 ft.,6-006,Carson Valley,Alpine,24,Observation,Single Well,NA
+51176,387670N1197816W001,NA,ACMW-01AW,38.767,-119.782,Surveyed to a benchmark,0.1 ft.,6-006,Carson Valley,Alpine,23,Observation,Single Well,NA
+51192,387674N1197932W001,NA,ACMW-14,38.7674,-119.793,Surveyed to a benchmark,0.1 ft.,6-006,Carson Valley,Alpine,30,Observation,Single Well,e0137460
+51191,387690N1197971W001,NA,ACMW-13,38.769,-119.797,Surveyed to a benchmark,0.1 ft.,6-006,Carson Valley,Alpine,20,Observation,Single Well,e0137457
+51193,387696N1197843W001,NA,ACMW-15,38.7696,-119.784,Surveyed to a benchmark,0.1 ft.,6-006,Carson Valley,Alpine,30,Observation,Single Well,e0137461
+51182,387719N1198017W001,NA,ACMW-07S,38.7719,-119.802,Surveyed to a benchmark,0.1 ft.,6-006,Carson Valley,Alpine,181,Observation,Single Well,NA
+51183,387719N1198017W002,NA,ACMW-07D,38.7719,-119.802,Surveyed to a benchmark,0.1 ft.,6-006,Carson Valley,Alpine,341,Observation,Single Well,NA
+51179,387723N1197768W001,NA,ACMW-02N,38.7723,-119.777,Surveyed to a benchmark,0.1 ft.,6-006,Carson Valley,Alpine,37,Observation,Single Well,NA
+51178,387724N1197768W001,NA,ACMW-02S,38.7724,-119.777,Surveyed to a benchmark,0.1 ft.,6-006,Carson Valley,Alpine,22,Observation,Single Well,NA
+51188,387733N1197942W001,NA,ACMW-10,38.7733,-119.794,Surveyed to a benchmark,0.1 ft.,6-006,Carson Valley,Alpine,39,Observation,Single Well,e0084105
+51184,387736N1197768W001,NA,ACMW-08N,38.7736,-119.777,Surveyed to a benchmark,0.1 ft.,6-006,Carson Valley,Alpine,70,Observation,Single Well,NA
+51185,387736N1197768W002,NA,ACMW-08S,38.7736,-119.777,Surveyed to a benchmark,0.1 ft.,6-006,Carson Valley,Alpine,120,Observation,Single Well,NA
+51194,387738N1197842W001,NA,ACMW-16,38.7738,-119.784,Surveyed to a benchmark,0.1 ft.,6-006,Carson Valley,Alpine,29,Observation,Single Well,e0137459
+51189,387756N1197882W001,NA,ACMW-11,38.7756,-119.788,Surveyed to a benchmark,0.1 ft.,6-006,Carson Valley,Alpine,33,Observation,Single Well,NA
+51197,387762N1197621W001,NA,ACMW-19,38.7762,-119.762,Surveyed to a benchmark,0.1 ft.,NA,NA,Alpine,20,Observation,Single Well,e0137463
+51195,387763N1197901W001,NA,ACMW-17,38.7763,-119.79,Surveyed to a benchmark,0.1 ft.,6-006,Carson Valley,Alpine,30,Observation,Single Well,e0137474
+51190,387776N1197954W001,NA,ACMW-12,38.7776,-119.795,Surveyed to a benchmark,0.1 ft.,6-006,Carson Valley,Alpine,74,Observation,Single Well,NA
+51196,387792N1197830W001,NA,ACMW-18,38.7792,-119.783,Surveyed to a benchmark,0.1 ft.,6-006,Carson Valley,Alpine,28,Observation,Single Well,e0137473
+51186,387805N1197903W001,NA,ACMW-09N,38.7805,-119.79,Surveyed to a benchmark,0.1 ft.,6-006,Carson Valley,Alpine,45,Observation,Single Well,NA
+51187,387805N1197903W002,NA,ACMW-09S,38.7805,-119.79,Surveyed to a benchmark,0.1 ft.,6-006,Carson Valley,Alpine,20,Observation,Single Well,NA
+51180,388005N1197632W001,NA,ACMW-06S,38.8005,-119.763,Surveyed to a benchmark,0.1 ft.,6-006,Carson Valley,Alpine,30,Observation,Single Well,NA
+51181,388005N1197632W002,NA,ACMW-06N,38.8005,-119.763,Surveyed to a benchmark,0.1 ft.,6-006,Carson Valley,Alpine,23,Observation,Single Well,NA
+48846,388088N1197777W001,NA,ACMW-20,38.8088,-119.778,Surveyed to a benchmark,0.1 ft.,6-006,Carson Valley,Alpine,22,Observation,Single Well,e0137470
+48844,388151N1197788W001,NA,ACMW-03W,38.8151,-119.779,Surveyed to a benchmark,0.1 ft.,6-006,Carson Valley,Alpine,11,Observation,Single Well,NA
+48847,388199N1197771W001,NA,ACMW-21,38.8199,-119.777,Surveyed to a benchmark,0.1 ft.,6-006,Carson Valley,Alpine,30,Observation,Single Well,e0136059
+48853,388213N1197753W001,NA,USGS Well # 384917119463101,38.8213,-119.775,USGS quad,0.1 ft.,6-006,Carson Valley,Alpine,200,Observation,Single Well,533076
+48849,388254N1197602W001,NA,ACMW-23,38.8254,-119.76,Surveyed to a benchmark,0.1 ft.,6-006,Carson Valley,Alpine,50,Observation,Single Well,e0137455
+48848,388290N1197837W001,NA,ACMW-22,38.829,-119.784,Surveyed to a benchmark,0.1 ft.,6-006,Carson Valley,Alpine,60,Observation,Single Well,e0137453
+48851,388305N1197699W001,NA,ACMW-25,38.8305,-119.77,Surveyed to a benchmark,0.1 ft.,6-006,Carson Valley,Alpine,30,Observation,Single Well,e0137451
+48850,388322N1197574W001,NA,ACMW-24,38.8322,-119.757,Surveyed to a benchmark,0.1 ft.,6-006,Carson Valley,Alpine,50,Observation,Single Well,e0137456
+48845,388367N1197794W001,NA,ACMW-04W,38.8367,-119.779,Surveyed to a benchmark,0.1 ft.,6-006,Carson Valley,Alpine,29,Observation,Single Well,NA
+48852,388406N1197697W001,NA,ACMW-26,38.8406,-119.77,Surveyed to a benchmark,0.1 ft.,6-006,Carson Valley,Alpine,30,Observation,Single Well,e0137452

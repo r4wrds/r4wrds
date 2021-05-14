@@ -1,0 +1,90 @@
+STN_ID,SITE_CODE,SWN,WELL_NAME,LATITUDE,LONGITUDE,WLM_METHOD,WLM_ACC,BASIN_CODE,BASIN_NAME,COUNTY_NAME,WELL_DEPTH,WELL_USE,WELL_TYPE,WCR_NO
+51832,405181N1241532W002,NA,#21,40.5181,-124.153,Digital Elevation Model,Unknown,1-010,Eel River Valley,Humboldt,60,Irrigation,Single Well,NA
+51842,405323N1240566W001,NA,A,40.5323,-124.057,Digital Elevation Model,Unknown,1-010,Eel River Valley,Humboldt,50,Irrigation,Single Well,NA
+51843,405335N1241083W001,NA,B,40.5335,-124.108,Other,Unknown,1-010,Eel River Valley,Humboldt,45,Irrigation,Single Well,NA
+51871,405342N1241069W001,NA,MW-9s,40.5342,-124.107,Digital Elevation Model,Unknown,1-010,Eel River Valley,Humboldt,NA,Observation,Part of a nested/multi-completion well,e0339597
+51872,405342N1241069W002,NA,MW-9d,40.5342,-124.107,Digital Elevation Model,Unknown,1-010,Eel River Valley,Humboldt,NA,Observation,Part of a nested/multi-completion well,e0339597
+51874,405348N1240414W001,NA,MW-11,40.5348,-124.041,Digital Elevation Model,Unknown,1-010,Eel River Valley,Humboldt,NA,Observation,Single Well,e0339605
+51835,405403N1241125W002,NA,C-23,40.5403,-124.112,Digital Elevation Model,Unknown,1-010,Eel River Valley,Humboldt,80,Irrigation,Single Well,NA
+52116,405428N1240698W002,NA,Hydesville,40.5428,-124.07,USGS quad,5 ft.,1-010,Eel River Valley,Humboldt,50,Residential,Single Well,NA
+51830,405428N1241617W001,NA,#20,40.5428,-124.162,Digital Elevation Model,Unknown,1-010,Eel River Valley,Humboldt,110,Irrigation,Single Well,NA
+51833,405441N1241378W001,NA,#22,40.5441,-124.138,Digital Elevation Model,Unknown,1-010,Eel River Valley,Humboldt,60,Irrigation,Single Well,NA
+51865,405448N1241633W001,NA,MW-3s,40.5448,-124.163,Digital Elevation Model,Unknown,1-010,Eel River Valley,Humboldt,NA,Observation,Part of a nested/multi-completion well,e0339596
+51866,405448N1241633W002,NA,MW-3d,40.5448,-124.163,Digital Elevation Model,Unknown,1-010,Eel River Valley,Humboldt,NA,Observation,Part of a nested/multi-completion well,e0339596
+51844,405485N1241722W001,NA,D,40.5485,-124.172,Digital Elevation Model,Unknown,1-010,Eel River Valley,Humboldt,120,Irrigation,Single Well,NA
+51873,405522N1240636W001,NA,MW-10,40.5522,-124.064,Digital Elevation Model,Unknown,1-010,Eel River Valley,Humboldt,NA,Observation,Single Well,e0339601
+51828,405553N1241800W001,NA,#19,40.5553,-124.18,Digital Elevation Model,Unknown,1-010,Eel River Valley,Humboldt,100,Irrigation,Single Well,NA
+23179,405582N1241656W001,02N01W15G002H,NA,40.5582,-124.166,Unknown,Unknown,1-010,Eel River Valley,Humboldt,45,Industrial,Unknown,4028
+51840,405625N1241876W001,NA,28,40.5625,-124.188,Digital Elevation Model,Unknown,1-010,Eel River Valley,Humboldt,200,Residential,Single Well,NA
+51863,405640N1241600W001,NA,MW-2s,40.564,-124.16,Digital Elevation Model,Unknown,1-010,Eel River Valley,Humboldt,NA,Observation,Part of a nested/multi-completion well,e0339593
+51864,405640N1241600W002,NA,MW-2d,40.564,-124.16,Digital Elevation Model,Unknown,1-010,Eel River Valley,Humboldt,60,Observation,Part of a nested/multi-completion well,e0339593
+51825,405650N1242033W001,NA,#16,40.565,-124.203,Digital Elevation Model,Unknown,1-010,Eel River Valley,Humboldt,55,Residential,Single Well,NA
+51845,405654N1241950W001,NA,E,40.5654,-124.195,Digital Elevation Model,Unknown,1-010,Eel River Valley,Humboldt,45,Residential,Single Well,NA
+51846,405670N1242149W001,NA,F,40.567,-124.215,Digital Elevation Model,Unknown,1-010,Eel River Valley,Humboldt,50,Irrigation,Single Well,NA
+51870,405694N1242186W001,NA,MW-8,40.5694,-124.219,Digital Elevation Model,Unknown,1-010,Eel River Valley,Humboldt,NA,Observation,Single Well,WCR2017-001128
+36942,405702N1241874W001,02N01W09G001H,02N01W09G001H,40.5702,-124.187,USGS quad,5 ft.,1-010,Eel River Valley,Humboldt,30,Residential,Single Well,13952
+51857,405706N1241472W001,NA,Fortuna #1,40.5706,-124.147,Digital Elevation Model,Unknown,1-010,Eel River Valley,Humboldt,NA,Other,Single Well,NA
+51858,405707N1241472W001,NA,Fortuna #4,40.5707,-124.147,Digital Elevation Model,Unknown,1-010,Eel River Valley,Humboldt,NA,Other,Single Well,NA
+51826,405733N1241901W001,NA,#17,40.5733,-124.19,Digital Elevation Model,Unknown,1-010,Eel River Valley,Humboldt,NA,Irrigation,Single Well,NA
+23178,405762N1242027W001,02N01W08B001H,02N01W08B001H,40.5763,-124.203,USGS quad,5 ft.,1-010,Eel River Valley,Humboldt,40,Irrigation,Single Well,52983
+51827,405768N1242140W001,NA,#18,40.5768,-124.214,Digital Elevation Model,Unknown,1-010,Eel River Valley,Humboldt,NA,Irrigation,Single Well,NA
+51856,405810N1242814W001,NA,Riverside CSD,40.581,-124.281,Digital Elevation Model,Unknown,1-010,Eel River Valley,Humboldt,NA,Other,Single Well,NA
+51849,405842N1243305W001,NA,I,40.5842,-124.33,Digital Elevation Model,Unknown,1-010,Eel River Valley,Humboldt,200,Irrigation,Single Well,NA
+51847,405849N1242843W001,NA,G,40.5849,-124.284,Digital Elevation Model,Unknown,1-010,Eel River Valley,Humboldt,160,Stockwatering,Single Well,NA
+36943,405860N1242638W001,02N02W02G001H,02N02W02G001H,40.5859,-124.264,Unknown,Unknown,1-010,Eel River Valley,Humboldt,210,Irrigation,Single Well,115158
+51810,405863N1242921W001,NA,#1,40.5863,-124.292,Digital Elevation Model,Unknown,1-010,Eel River Valley,Humboldt,NA,Residential,Single Well,NA
+51822,405866N1242189W001,NA,#13,40.5866,-124.219,Digital Elevation Model,Unknown,1-010,Eel River Valley,Humboldt,45,Irrigation,Single Well,NA
+52115,405878N1242519W002,NA,Del Oro,40.5878,-124.252,GPS,0.1 ft.,1-010,Eel River Valley,Humboldt,168,Residential,Single Well,NA
+51823,405884N1242037W001,NA,#14,40.5884,-124.204,Digital Elevation Model,Unknown,1-010,Eel River Valley,Humboldt,NA,Residential,Single Well,NA
+51869,405885N1242839W001,NA,MW-7s,40.5885,-124.284,Digital Elevation Model,Unknown,1-010,Eel River Valley,Humboldt,NA,Observation,Part of a nested/multi-completion well,WCR2017-001127
+51935,405885N1242839W003,NA,MW-7d,40.5885,-124.284,Digital Elevation Model,Unknown,1-010,Eel River Valley,Humboldt,250,Observation,Part of a nested/multi-completion well,WCR2017-001127
+51814,405946N1242772W001,NA,#5,40.5946,-124.277,Digital Elevation Model,Unknown,1-010,Eel River Valley,Humboldt,120,Residential,Single Well,NA
+51824,405947N1241904W001,NA,#15,40.5947,-124.19,Digital Elevation Model,Unknown,1-010,Eel River Valley,Humboldt,55,Residential,Single Well,NA
+51821,405947N1242461W001,NA,#12,40.5947,-124.246,Digital Elevation Model,Unknown,1-010,Eel River Valley,Humboldt,60,Irrigation,Single Well,NA
+51811,405958N1242814W001,NA,#2,40.5958,-124.281,Digital Elevation Model,Unknown,1-010,Eel River Valley,Humboldt,260,Unknown,Single Well,NA
+51848,405962N1242903W001,NA,H,40.5962,-124.29,Digital Elevation Model,Unknown,1-010,Eel River Valley,Humboldt,120,Stockwatering,Single Well,NA
+36944,405964N1241600W001,03N01W34J001H,03N01W34J001H,40.5964,-124.16,USGS quad,5 ft.,1-010,Eel River Valley,Humboldt,496,Unknown,Single Well,USGS
+23183,405974N1242696W001,03N02W35M002H,03N02W35M002H,40.5974,-124.27,USGS quad,5 ft.,1-010,Eel River Valley,Humboldt,42,Irrigation,Single Well,NONE
+51812,405985N1242799W001,NA,#3,40.5985,-124.28,Digital Elevation Model,Unknown,1-010,Eel River Valley,Humboldt,26,Residential,Single Well,NA
+51813,405992N1242745W001,NA,#4,40.5992,-124.274,Digital Elevation Model,Unknown,1-010,Eel River Valley,Humboldt,80,Irrigation,Single Well,NA
+51819,406027N1242478W001,NA,#11,40.6027,-124.248,Digital Elevation Model,Unknown,1-010,Eel River Valley,Humboldt,NA,Residential,Single Well,NA
+51859,406041N1241786W001,NA,Palmer Creek #1,40.6041,-124.179,Digital Elevation Model,Unknown,1-010,Eel River Valley,Humboldt,NA,Other,Single Well,NA
+51860,406041N1241786W002,NA,Palmer Creek #2,40.6041,-124.179,Digital Elevation Model,Unknown,1-010,Eel River Valley,Humboldt,NA,Other,Single Well,NA
+51815,406046N1242626W001,NA,#6,40.6046,-124.263,Digital Elevation Model,Unknown,1-010,Eel River Valley,Humboldt,40,Irrigation,Single Well,NA
+51850,406048N1242186W001,NA,J,40.6048,-124.219,Digital Elevation Model,Unknown,1-010,Eel River Valley,Humboldt,50,Stockwatering,Single Well,NA
+51867,406054N1242744W001,NA,MW-5s,40.6054,-124.274,Digital Elevation Model,Unknown,1-010,Eel River Valley,Humboldt,NA,Observation,Part of a nested/multi-completion well,WCR2017-001123
+51868,406054N1242744W002,NA,MW-5d,40.6054,-124.274,Digital Elevation Model,Unknown,1-010,Eel River Valley,Humboldt,NA,Observation,Part of a nested/multi-completion well,WCR2017-001123
+51816,406083N1242645W001,NA,#7,40.6083,-124.264,Digital Elevation Model,Unknown,1-010,Eel River Valley,Humboldt,40,Irrigation,Single Well,NA
+23181,406087N1242335W001,03N01W30N001H,03N01W30N001H,40.6088,-124.233,USGS quad,5 ft.,1-010,Eel River Valley,Humboldt,50,Irrigation,Single Well,76827
+51861,406097N1242050W001,NA,MW-1s,40.6097,-124.205,Digital Elevation Model,Unknown,1-010,Eel River Valley,Humboldt,35,Observation,Part of a nested/multi-completion well,e0339570
+51862,406097N1242050W002,NA,MW-1d,40.6097,-124.205,Surveyed to a benchmark,Unknown,1-010,Eel River Valley,Humboldt,60,Observation,Part of a nested/multi-completion well,e0339570
+51854,406136N1242814W001,NA,Q,40.6136,-124.281,Digital Elevation Model,Unknown,1-010,Eel River Valley,Humboldt,60,Irrigation,Single Well,NA
+51851,406137N1242683W001,NA,L,40.6137,-124.268,Surveyed to a benchmark,Unknown,1-010,Eel River Valley,Humboldt,40,Stockwatering,Single Well,NA
+51817,406140N1242645W001,NA,#8,40.614,-124.265,Digital Elevation Model,Unknown,1-010,Eel River Valley,Humboldt,NA,Residential,Single Well,NA
+51818,406149N1242415W001,NA,#10,40.6149,-124.242,Digital Elevation Model,Unknown,1-010,Eel River Valley,Humboldt,NA,Irrigation,Single Well,NA
+51841,406257N1242782W001,NA,Add-29,40.6257,-124.278,Digital Elevation Model,Unknown,1-010,Eel River Valley,Humboldt,30,Residential,Single Well,NA
+51836,406338N1242324W001,NA,24,40.6338,-124.232,Digital Elevation Model,Unknown,1-010,Eel River Valley,Humboldt,NA,Residential,Single Well,NA
+51852,406378N1242401W001,NA,M,40.6378,-124.24,Digital Elevation Model,Unknown,1-010,Eel River Valley,Humboldt,50,Irrigation,Single Well,NA
+51837,406390N1242263W001,NA,25,40.639,-124.226,Digital Elevation Model,Unknown,1-010,Eel River Valley,Humboldt,NA,Residential,Single Well,NA
+51855,406390N1242495W001,NA,R,40.639,-124.249,Digital Elevation Model,Unknown,1-010,Eel River Valley,Humboldt,NA,Irrigation,Single Well,NA
+23182,406413N1242409W001,03N02W13J001H,03N02W13J001H,40.6414,-124.241,USGS quad,5 ft.,1-010,Eel River Valley,Humboldt,38,Irrigation,Single Well,46
+51441,406414N1242408W001,03N02W13J002H,03N02W13J002H,40.6414,-124.241,USGS quad,2.5 ft,1-010,Eel River Valley,Humboldt,60,Irrigation,Single Well,e0281848
+23180,406489N1242285W001,03N01W18D001H,NA,40.6489,-124.229,Unknown,Unknown,1-010,Eel River Valley,Humboldt,24,Residential,Unknown,NA
+51853,406504N1242368W001,NA,N,40.6504,-124.237,Digital Elevation Model,Unknown,1-010,Eel River Valley,Humboldt,NA,Irrigation,Single Well,NA
+51839,406654N1242564W001,NA,26,40.6654,-124.256,Digital Elevation Model,Unknown,1-010,Eel River Valley,Humboldt,40,Residential,Single Well,NA
+23185,407221N1241867W001,04N01W21B001H,04N01W21B001H,40.7221,-124.187,USGS quad,5 ft.,1-009,Eureka Plain,Humboldt,50,Residential,Single Well,115186
+23184,407331N1241781W001,04N01W16H001H,NA,40.7331,-124.178,Unknown,Unknown,1-009,Eureka Plain,Humboldt,210,Stockwatering,Unknown,23463
+24499,407358N1241751W001,04N01W15D001H,04N01W15D001H,40.7358,-124.175,USGS quad,5 ft.,1-009,Eureka Plain,Humboldt,60,Residential,Single Well,3654
+36945,407598N1240612W001,04N01E03M001H,04N01E03M001H,40.7581,-124.064,USGS quad,5 ft.,1-009,Eureka Plain,Humboldt,30,Residential,Single Well,115173
+39451,408145N1240838W001,05N01E17J001H,05N01E17J001H,40.8145,-124.084,USGS quad,5 ft.,1-009,Eureka Plain,Humboldt,120,Residential,Single Well,3378
+23297,408831N1241105W001,06N01E19Q001H,06N01E19Q001H,40.8833,-124.11,USGS quad,5 ft.,1-008.01,Mad River Lowland,Humboldt,108,Residential,Single Well,NA
+23296,409048N1240239W001,06N01E13M001H,06N01E13M001H,40.9047,-124.024,USGS quad,5 ft.,1-008.01,Mad River Lowland,Humboldt,86,Irrigation,Single Well,42871
+37152,409088N1240975W001,06N01E17D001H,06N01E17D001H,40.9088,-124.097,USGS quad,5 ft.,1-008.01,Mad River Lowland,Humboldt,46,Irrigation,Single Well,NA
+23295,409175N1241178W001,06N01E07M001H,06N01E07M001H,40.9175,-124.118,USGS quad,5 ft.,1-008.01,Mad River Lowland,Humboldt,85,Irrigation,Single Well,NA
+21717,410280N1236540W001,08N05E31P001H,NA,41.028,-123.654,Unknown,Unknown,1-007,Hoopa Valley,Humboldt,40,Residential,Unknown,1152
+37517,410348N1236643W001,08N04E36J002H,NA,41.0348,-123.664,Unknown,Unknown,1-007,Hoopa Valley,Humboldt,38,Unknown,Unknown,76769
+37516,410850N1236870W001,08N04E14B001H,NA,41.085,-123.687,Unknown,Unknown,NA,NA,Humboldt,44,Residential,Unknown,76738
+22028,411574N1241309W001,09N01W24C001H,09N01W24C001H,41.1574,-124.131,USGS quad,5 ft.,1-027,Big Lagoon Area,Humboldt,40,Irrigation,Single Well,NA
+24977,412850N1240722W001,10N01E04D004H,10N01E04D004H,41.2852,-124.071,USGS quad,5 ft.,1-026,Redwood Creek Area,Humboldt,36,Residential,Single Well,103519
+22031,412851N1240713W001,10N01E04C001H,NA,41.2851,-124.071,Unknown,Unknown,1-026,Redwood Creek Area,Humboldt,36,Residential,Unknown,103963
+51538,413637N1240189W001,11N01E02R001H,11N01E02R001H,41.3637,-124.019,USGS quad,5 ft.,NA,NA,Humboldt,72,Other,Single Well,83142
