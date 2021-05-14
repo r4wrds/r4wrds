@@ -23,6 +23,8 @@ library(here)
 -   Discuss approaches to extend your Shiny skills
 :::
 
+<br>  
+
 ## What is a Shiny App and Why is it useful?
 
 According to the [Mastering Shiny](https://mastering-shiny.org/index.html) book:
@@ -131,6 +133,8 @@ Your supervisor requests figures from certain stations, and you find yourself re
 
 In the sections that follow, we will create a Shiny App that allows users to easily select and visualize groundwater data at different monitoring stations, and export data for a selected site.
 
+<br>  
+
 ## Basic Shiny App Structure
 
 At the bare minimum, a Shiny App is an `.R` file or set of `.R` files with three components: a `ui`, `server` and `runApp()`. The `runApp()` function takes the `ui` and the `server` objects and runs the Shiny web application.
@@ -172,6 +176,8 @@ include_graphics(here::here("images", "shiny3.png"))
 </aside>
 
 Scroll through `app.R` and notice that there is a `ui` object, a `server` object which is a function of `input` and `output`, and a `runApp()` function which takes the `ui` and `server` objects as input.
+
+<br>  
 
 ## `ui` (frontend)
 
@@ -267,12 +273,11 @@ Each output in the `ui` takes as a first argument the "*output id*" as a charact
 
 :::challenge
 
-<font color="#009E73">**Fix the error**</font> 
+<font color="#009E73">**Fix the App**</font> 
 
 <p style="line-height: 1.5em;">
-Every output in the `ui` should have a corresponding object rendered in the `server`. Thus, if we define a Shiny App with **`plotOutput("my_plot")`** in the `ui`, we need to assign a rendered plot to the object **`output$my_plot`** in the server. For practice, try running the following Shiny App, and fix the error message.
+Every output in the `ui` should have a corresponding object rendered in the `server`. Thus, if we define a Shiny App with **`plotOutput("my_plot")`** in the `ui`, we need to assign a rendered plot to the object **`output$my_plot`** in the server. For practice, fix the following Shiny App. You'll know you were successful if you see a plot when running the App.
 
-*add error message here? Only thing I got was "`no loop for break/next, jumping to top level` and a blank app...*
 </p>
 
 ```{r shiny-outputs-matching-ids1, eval = FALSE}
@@ -340,6 +345,8 @@ In the `ui` we saw that each output ID created by the `server` had a unique ID n
 ```{r shiny-render, eval=T, echo=F}
 include_graphics(here::here("images", "shiny_render.png"))
 ```
+
+<br>  
 
 ## Putting it all together
 
@@ -445,6 +452,7 @@ Let's break down what we just did.
 
 [^5]: Although we don't cover it in this module, you can also split your App into 3 files: `ui.R` (for the `ui`), `server.R` (for the `server`), and `global.R` (loads all App dependencies). When an App becomes big and complex, splitting it up into smaller parts can make it easier to develop. 
 
+<br>  
 
 ## Share and deploy a Shiny App
 
@@ -459,6 +467,9 @@ A relatively painless way to deploy is via [shinyapps.io](https://www.shinyapps.
 `{shiny}` is open source, and in that spirit, the open source [Shiny Server](https://www.rstudio.com/products/shiny/shiny-server/) can be installed on any local or cloud server (e.g., AWS, Google Cloud, Microsoft Azure). If you don't have a background in cloud computing, your System Administrator (Sys Admin) can help you move your App onto a cloud or company server[^6]. Although this option requires more manual setup than shinyapps.io, it offers a non-commercial alternative, and perhaps more control depending on your needs.
 
 [^6]: The [Shiny Server Administrator's Guide](%5Bhttps://docs.rstudio.com/shiny-server/)](<https://docs.rstudio.com/shiny-server/>)) provides detailed documentation geared towards System Administrators that will help in deploying a Shiny App.
+
+
+<br>  
 
 ## Extending Shiny
 
