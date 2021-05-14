@@ -13,10 +13,10 @@ knitr::opts_chunk$set(echo = TRUE)
 
 <center>
 
-# [[1. Introductory Course]{style="color: #009E73"}](intro/index.html)
+# [[Introductory course]{style="color: #009E73"}](intro/index.html)
 
 <br>
 
-# [[2. Intermediate Course]{style="color: #0072B2"}](intermediate/index.html)
+# [[Intermediate course]{style="color: #0072B2"}](intermediate/index.html)
 
 </center>
