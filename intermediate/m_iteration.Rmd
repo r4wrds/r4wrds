@@ -1,0 +1,81 @@
+---
+title: "From imperative to functional programming"
+description: | 
+   Conceptual code 
+output: 
+  distill::distill_article:
+    toc: true
+---
+
+```{r setup, include=FALSE, purl=FALSE, message=FALSE}
+
+library(knitr)
+library(glue)
+library(here)
+
+```
+
+::: {.obj}
+**Learning objectives**
+
+-   Understand the costs and benefits of imperative and functional programming\
+-   Practice functional programming with `lapply()` and `{purrr}`\
+-   Understand how interact with the `list` object type\
+:::
+
+<br>
+
+## Many paths to the same summit
+
+One of the wonderful things about `R` is that there are often many ways to achieve the same result. This makes `R` expressive, and as you practice and expand your `R` vocabulary, you'll inevitably find multiple ways to obtain the same results. Some ways may be long and meandering, and others may be more direct and easy to remember. In this module we will review imperative (e.g., for loops) and functional programming, which are two ways to ways to iterate. For most parallel problems (i.e., the current operation does not depend on the one that came before), functional programming offers significant advantages to imperative programming. However, both functional and imperative programming are powerful ways to automate processes and workflows. We will review when to use each, and their pros and cons.
+
+The core objective of this lesson is to practice harnessing the power of iteration in your workflows, and to iterate with functional programming. If you can define a function for one object in `R`, functional programming allows you to scale that function an arbitrarily large number of objects (assuming you have enough compute). Together, functional programming and iteration allow automation at scale, and put `R` a cut above GUI-based data workflows that require "clicking though" an analysis. A mastery of functional programming means you can turn a workflow into a function and easily reproduce work. A mastery of iteration means you can apply developed functions many times with little effort. And finally, a mastery of automation means you can remove yourself from running the code entirely so that it happens all on its own -- we will demonstrate approaches to automation in the next module. 
+
+<br>
+
+## `for` loops
+
+> "Don’t repeat yourself. It's not only repetitive, it's redundant, and people have heard it before." -Lemony Snicket
+
+The `for` loop is ubiquitous across programming languages and a fundamental concept. It's a good place to begin a discussion of iteration because it makes iteration very explicit - you can see exactly what is taking place in each iteration.  
+
+A common problem we might face is reading multiple data frames into `R`.  
+
+
+
+
+> [For loops] are a great place to start [iteration] because they make iteration very explicit, so it's obvious what’s happening. -Hadley Wickham
+
+
+
+
+
+
+> [F]or loops are quite verbose, and require quite a bit of bookkeeping code that is duplicated for every for loop. Functional programming (FP) offers tools to extract out this duplicated code, so each common for loop pattern gets its own function. -Hadley Wickham
+
+### `while` loops
+
+
+## `lapply()`
+
+
+## ``
+
+
+
+<br>  
+
+## Additional Resources
+
+https://r4ds.had.co.nz/iteration.html
+
+https://learning.acm.org/techtalks/functionalprogramming
+
+
+*Lesson adapted from [R for Data Science, Iteration](https://r4ds.had.co.nz/iteration.html).*
+
+<br>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<a href="m_simple_shiny.html" class="btn btn-secondary" style="float: left">Previous module:<br>Simple Shiny</a> <a href="m_reproducible_workflows.html" class="btn btn-secondary" style="float: right;">Next module:<br>Reproducible Workflows</a>
