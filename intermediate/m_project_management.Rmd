@@ -10,6 +10,7 @@ output:
 ```{r setup, include=FALSE, purl=FALSE, message=FALSE}
 
 library(knitr)
+library(purrr)
 
 ```
 
@@ -24,9 +25,18 @@ library(knitr)
 -   Understand package environments and how to manage them with `{renv}`
 :::
 
+<br>  
+
 ## First principles
 
-The first step in any data science project is to set up and maintain a clean, predictable **development environment**. As you accumulate raw data, write code, and generate results, things can get messy if you don't stick to good programming naming and organization habits. In this module we'll cover how to keep your projects organized and consistent, which ultimately will make projects more reproducible and keep your workflow more efficient and fun.
+```{r updatepkg, fig.cap="What to avoid building (Source: https://xkcd.com/2054/).", eval=T, echo=F}
+
+include_graphics(here::here("images", "data_pipeline_2x.png"))
+
+```
+
+
+The first step in any data science project is to set up and maintain a clean, predictable **development environment**. As you accumulate raw data, write code, and generate results, things can get messy if you don't stick to good programming naming and organization habits. In this module we'll cover how to keep your projects organized and consistent, which will make your projects more reproducible, keep your workflows efficient, firm up your code to stand the test of time, and give your code structure so it's easy to maintain when things break or you need to revisit it down the line.
 
 <aside>
 
@@ -51,6 +61,8 @@ After reviewing core introductory topics, we will discuss `.RProfile` and `.Renv
  - [Filenaming](../intro/m_project_management.html#safe-file-naming)
  - [Relative filepaths and the **`{here}`** package](../intro/m_project_management.html#file-paths)
  - [Best practices for project organization](../intro/m_project_management.html#best-practices-organization-tips)
+
+<br>  
 
 # .RProfile
 
@@ -79,6 +91,9 @@ We can create or edit a local or *project-level* `.RProfile` with the `scope` ar
 ```{r usethis-rprofile2, eval = FALSE}
 usethis::edit_r_profile(scope = "project")
 ```
+
+
+<br>  
 
 ## Using `.Rprofile`
 
@@ -115,6 +130,8 @@ rm(animals, quotes) # remove the objects we just created
 
 ```
 
+
+<br>  
 
 # .Renviron
 
@@ -186,7 +203,6 @@ Important note, both these files `.Renviron` and `.Rprofile` need to end with a 
 <p style="line-height: 1.5em;">
 In the example function above, we might notice that reading in a url from a csv every time we run `inspire_me()` is a lot of unnecessary overhead. Where else might we be able to read that csv in automatically when R starts up, so that it's available for our `inspire_me()` function, and that we only need to read it once?
 </p>
-:::
 
 
 <br>
@@ -195,7 +211,8 @@ In the example function above, we might notice that reading in a url from a csv 
   <summary class="challenge-ans-title"><font color="#0072B2">**Click for Answers!**</font></summary>
   <div class="challenge-ans-body">
   
-We can move read step of the csv into a project-level RProfile, so it's available to the project where we need this csv, but not to any general R session we may open outside of the project.
+We can move read step of the csv into a project-level RProfile, so it's available to the project where we need this csv, but not to any general R session we may open outside of the project.  
+
 
 .RProfile
 
@@ -230,9 +247,10 @@ inspire_me <- function(animal){
 
   </div>
 </details>
+:::
 
 
-
+<br>  
 
 # Strategies to organize projects/code
 
@@ -352,13 +370,14 @@ Now in our `/code` directory, we create a script, `01_control.R` to source our f
 
 Save as **`/code/01_control.R`** and run.
 
-```{r source-functions-in-folder}
+```{r source-functions-in-folder, eval=FALSE}
 # packages needed for this script
 pkgs <- c("readr", "cowsay", "here", "tidyverse", "glue")
-purrr::walk(pkgs, require, character.only = TRUE)
+walk(pkgs, require, character.only = TRUE)
 
 # silently source all functions using the purrr::walk function
-walk(list.files(here("functions"), full.names = TRUE), ~source(.x))
+fns <- list.files(here("functions"), full.names = TRUE)
+walk(fns, ~source(.x))
 
 # define the url where quotes are located
 # get pieces to make link
@@ -372,6 +391,12 @@ f_read_data(url) %>%
   f_inspire_me()
 
 ```
+
+```{r, echo = FALSE}
+cowsay::say(what = "You can't stop the waves, but you can \nlearn to surf. -Jon Kabat-Zinn", by = "yoda")
+
+```
+
 
 `source()` is the key to chaining together many scripts. In the example above, we were able to abstract functions into a separate folder which makes keeping track of them much easier than if they cluttered our control script. 
 
@@ -392,6 +417,7 @@ If project management and reproducible data pipelines are interesting to you, ch
 
 :::
 
+<br>  
 
 # `{renv}`
 
