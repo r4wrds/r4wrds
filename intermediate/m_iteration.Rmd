@@ -1,5 +1,5 @@
 ---
-title: "From imperative to functional programming"
+title: "From iterative to functional programming"
 description: | 
    Conceptual code 
 output: 
@@ -18,7 +18,7 @@ library(here)
 ::: {.obj}
 **Learning objectives**
 
--   Understand the costs and benefits of imperative and functional programming\
+-   Understand the costs and benefits of iterative and functional programming\
 -   Practice functional programming with `lapply()` and `{purrr}`\
 -   Understand how interact with the `list` object type\
 :::
@@ -27,12 +27,19 @@ library(here)
 
 ## Many paths to the same summit
 
-One of the wonderful things about `R` is that there are often many ways to achieve the same result. This makes `R` expressive, and as you practice and expand your `R` vocabulary, you'll inevitably find multiple ways to obtain the same results. Some ways may be long and meandering, and others may be more direct and easy to remember. In this module we will review imperative (e.g., for loops) and functional programming, which are two ways to ways to iterate. For most parallel problems (i.e., the current operation does not depend on the one that came before), functional programming offers significant advantages to imperative programming. However, both functional and imperative programming are powerful ways to automate processes and workflows. We will review when to use each, and their pros and cons.
+One of the wonderful things about `R` is that there are often many ways to achieve the same result. This makes `R` expressive, and as you practice and expand your `R` vocabulary, you'll inevitably find multiple ways to obtain the same results. Some ways may be long and meandering, and others may be more direct and easy to remember. In this module we will review iterative (e.g., for loops) and functional programming, which are two approaches to repeat a task. For most parallel problems (i.e., the current operation does not depend on the one that came before), functional programming offers significant advantages to iterative programming. However, both functional and iterative programming are powerful ways to automate processes and workflows. We will review when to use each, and their pros and cons.
 
-The core objective of this lesson is to practice harnessing the power of iteration in your workflows, and to iterate with functional programming. If you can define a function for one object in `R`, functional programming allows you to scale that function an arbitrarily large number of objects (assuming you have enough compute). Together, functional programming and iteration allow automation at scale, and put `R` a cut above GUI-based data workflows that require "clicking though" an analysis. A mastery of functional programming means you can turn a workflow into a function and easily reproduce work. A mastery of iteration means you can apply developed functions many times with little effort. And finally, a mastery of automation means you can remove yourself from running the code entirely so that it happens all on its own -- we will demonstrate approaches to automation in the next module. 
+> Iteration is...
 
-In this module, let's imagine you're a data manager, and need to provide data to a group of users. We'll practice iteration on reading and writing data to illustrate a transition from imperative to functional programming.
+> Functional programming is...
 
+The core objective of this lesson is to practice harnessing the power of iteration in your workflows, and to iterate with functional programming. If you can define a function to work with one object in `R`, functional programming allows you to scale that function to any number of objects (assuming you have enough computing resources). Together, functional programming and iteration allow automation at scale, and put `R` a cut above GUI-based data workflows that require "clicking though" an analysis. 
+
+ - Proficiency in **functional programming** means you can turn an entire workflow into a function, or individual steps for a workflow can each be discrete functions, making it easy to reproduce or revise your work.
+ - Proficiency in **iteration** means you can apply developed functions many times with little effort, meaning you can work with small or large datasets with ease. 
+ - And proficiency in **automation** means you can remove yourself from running the code entirely so that it happens all on its own -- we will demonstrate approaches to automation in the next module. 
+
+In this module, let's imagine you're a data manager, and need to provide data to a group of users. We'll practice iteration on reading and writing data to illustrate a transition from iterative to functional programming.
 
 <br>
 
@@ -40,7 +47,7 @@ In this module, let's imagine you're a data manager, and need to provide data to
 
 > "Don’t repeat yourself. It's not only repetitive, it's redundant, and people have heard it before." -Lemony Snicket
 
-The `for` loop is ubiquitous across programming languages and a fundamental concept that allows us to obey a core concept in programming: don't repeat yourself. The `for` loop is a good place to begin a discussion of iteration because it makes iteration very explicit - you can see exactly what is taking place in each iteration, or loop.  
+The `for` loop is ubiquitous across programming languages and a fundamental concept that allows us to obey a core concept in programming: don't repeat yourself. The `for` loop is a good place to begin a discussion of iteration because it makes iteration very explicit&mdash;you can see exactly what is taking place in each iteration, or loop.  
 
 ```{r preprocess, eval = FALSE, include = FALSE}
 library(tidyverse)
@@ -91,7 +98,7 @@ for(i in seq_along(l)){
 After the loop finished, if run `i` in the console, and notice that it has a value of ``r length(l)``. That's because `i` is updated as the loop evaluates, and ``r length(l)`` is the last iteration of `i` in the loop. This can be useful when debugging a loop because it tells you the last index that the loop was evaluated and can identify where a problem is that breaks the loop.
 </aside>
 
-What happened above is that we evaluated the loop first starting with 1 in the place of `i`, and went to `length(l)`, which is ``r length(l)``, each time placing the integer wherever there is an `i` in the above loop. Although our index is `i`, we can use any other character string, like `j`, `k`, or even `index` -- its only purpose is to hold the index that we iterate through.
+What happened above is that we evaluated the loop first starting with 1 in the place of `i`, and went to `length(l)`, which is ``r length(l)``, each time placing the integer wherever there is an `i` in the above loop. Although our index is `i`, we can use any other character string, like `j`, `k`, or even `index` &mdash; its only purpose is to hold the index that we iterate through.
 
 After the loop evaluates, we can access each element of the list with double bracket `[[` notation, subsetting either by an integer index, or a name if one exists. This list doesn't have names, but we could set them by assigning a vector of names to `names(l)`.
 
@@ -100,9 +107,9 @@ After the loop evaluates, we can access each element of the list with double bra
 l[[1]] 
 ```
 
-For loops work well, but happen sequentially, and require us to think of code in terms of objects that we iterate through, index by index. This can result in a lot of duplicated code, and remember that a core rule of good programming is to not repeat oneself.
+`for` loops work well, but happen sequentially, and require us to think of code in terms of objects that we iterate through, index by index. This can result in a lot of duplicated code, and remember that a core rule of good programming is to not repeat oneself.
 
-Let's imagine now that you needed to write each of these data into a separate file, separated by the unique ID of each station (e.g., the `SITE_CODE`). Your entire loop would look like this.
+Let's imagine now that you needed to write each of these data into a separate file, separated by the unique ID of each station (e.g., the `SITE_CODE`). Your entire loop would look like this:
 
 ```{r for-duplicate-code, eval = FALSE}
 # initialize a list of defined length
@@ -114,13 +121,15 @@ for(i in seq_along(l)){
 }
 
 # combine all list elements into a single dataframe
-# then split into another list by SITE_CODE. only take
+# then split into another list by SITE_CODE.
 ldf <- bind_rows(l)
 ldf <- split(ldf, ldf$SITE_CODE)
 
 # loop over each list element and write a csv file
 dir.create(here("data", "gwl", "site_code"))
+# here we make a list of files names ( names(ldf) is a vector )
 files_out <- glue::glue("{here('data', 'gwl', 'site_code', names(ldf))}.csv")
+
 for(i in seq_along(ldf)){
   write_csv(ldf[[i]], files_out[i])
 }
@@ -140,14 +149,14 @@ files_out <- here("data", "gwl", "site_code",
 ```
 
 
-This is a lot of code to accomplish a relatively simple iterative workflow of reading in a directory of files, combining them, and writing them out again. Functional programming can simplify loop-based workflows, run faster, and encourage you to think conceptually about the transformations at play, without worrying about tracking a changing index. Moreover, loops in `R` are usually unnecessary unless the result of the `i`th index depends on the `i-1` index.
+This is a lot of code to accomplish a relatively simple iterative workflow of reading in a directory of files, combining them, and writing them out again. Functional programming can simplify loop-based workflows, run faster, and encourage you to think conceptually about the transformations at play, without worrying about tracking a changing index. Moreover, loops in `R` are usually unnecessary unless the result of the `i`th index depends on the `i-1` (previous) index.
 
 
-<br>  
+
 
 ## `lapply()`
 
-The `apply` family of functions, specifically `lapply()` and `mapply()` in base `R` give us a toolkit for functional programming. For example, we can simplify the loops above as:
+The `apply` family of functions, specifically `lapply()` and `mapply()` in base `R` give us a toolkit for functional programming. `lapply()` is `list` apply. The apply functions are designed to iterate over lists, matrices, rows, or columns, and are very flexible functions. For example, we can simplify the `for` loops above as:
 
 ```{r lapply, eval = FALSE}
 
@@ -158,7 +167,7 @@ l <- lapply(files_in, read_csv)
 ldf <- bind_rows(l)
 ldf <- split(ldf, ldf$SITE_CODE)
 
-# write
+# write out: requires function (write_csv) with 2 args (x=ldf & y=files_out)
 mapply(function(x, y) write_csv(x, y), ldf, files_out) 
 
 ```
@@ -170,7 +179,7 @@ Notice that we don't need to initialize a list to store output, or keep track of
 
 ## `map()`
 
-The `map` family of functions in `{purrr}` improves on base `R`'s `apply` functions with simplified syntax, type-specific output that makes it harder to accidentally create errors, and convenience functions for common operations. When we combine `map()` with pipes (`%>%`) we can greatly simplify our code.
+The `map` family of functions in the `{purrr}` package improves on base `R`'s `apply` functions with simplified syntax, type-specific output that makes it harder to accidentally create errors, and convenience functions for common operations. When we combine `map()` with pipes (`%>%`) we can greatly simplify our code.
 
 First, to mimic what we did with `lapply()` above:
 
@@ -253,7 +262,11 @@ map_df(files_in, ~read_csv(.x)) %>%
 
 The `~`, `.x`, and `.y` syntax may seem confusing at first, but it provides a consistent syntax to express complex ideas about your code, and more importantly, the emphasis is on keeping track of functions rather than creating and managing the scaffolding of `for` loops. 
 
-Taking things one step further, imagine you were only interested in "Observation" `WELL_USE`s, needed to convert the `WELL_DEPTH` from feet to meters, and needed to output the data as three shapefiles, one for each county. 
+Taking things one step further, imagine you were: 
+
+ - only interested in `WELL_USE` types equal to "`Observation`"
+ - you needed to convert the `WELL_DEPTH` from feet to meters
+ - you needed to output the data as three shapefiles, one for each county
 
 We could capture these transform steps in a function, store it in our `/functions` folder as described in the project management module, and in this way, clean up our workspace so we can keep track of the functions applied on our data and keep our scripts short and readable.  
 
@@ -294,7 +307,7 @@ Now we check the `/results` directory, to verify it is populated with the shapef
 
 ## Additional Resources
 
-Iteration is a core skill that will allow you scale your ability to work by creating reproducible workflows. Combined with a mastery of functional programming, you will more easily develop and store functions, declutter your workspace to focus on important transformations, streamline tracking down and fixing bugs, and keep track of your data pipelines. Your ability to perform and re-perform arbitrarily complex workflows will exponentially increase. 
+Iteration is a core skill that will allow you to scale your workflow from small to large while maintaining reproducibility. Combined with a proficiency in functional programming, you will more easily develop and store functions, declutter your workspace to focus on important transformations, streamline tracking down and fixing bugs, and keep track of your data pipelines. Your ability to perform and re-perform arbitrarily complex workflows will exponentially increase. 
 
 We recommend the following places to start to learn more about functional programming in `R`:
 
