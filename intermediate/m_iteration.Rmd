@@ -33,6 +33,7 @@ The core objective of this lesson is to practice harnessing the power of iterati
 
 In this module, let's imagine you're a data manager, and need to provide data to a group of users. We'll practice iteration on reading and writing data to illustrate a transition from imperative to functional programming.
 
+
 <br>
 
 ## `for` loops
@@ -41,11 +42,12 @@ In this module, let's imagine you're a data manager, and need to provide data to
 
 The `for` loop is ubiquitous across programming languages and a fundamental concept that allows us to obey a core concept in programming: don't repeat yourself. The `for` loop is a good place to begin a discussion of iteration because it makes iteration very explicit - you can see exactly what is taking place in each iteration, or loop.  
 
-```{r, eval = FALSE, include = FALSE}
+```{r preprocess, eval = FALSE, include = FALSE}
 library(tidyverse)
 library(here)
 read_csv(here("data","gwl","stations.csv")) %>% 
-  # filter(COUNTY_NAME %in% c("Sacramento", "El Dorado", "Placer")) %>% 
+  select(-WCR_NO) %>% # some character v integer issues to avoid
+  filter(COUNTY_NAME %in% c("Sacramento", "El Dorado", "Placer")) %>%
   group_split(COUNTY_NAME) %>% 
   walk(
     ~write_csv(
@@ -56,63 +58,254 @@ read_csv(here("data","gwl","stations.csv")) %>%
   )
 ```
 
-A common problem we might face is reading multiple data frames into `R`. In the `/data/gwl` folder, we have station data for El Dorado, Placer, and Sacramento Counties. We can read these in one by one by copy and pasting code, but not only would this take a lot of time (there are 58 CA counties in this folder), but we're also repeating ourselves. 
+A common problem we might face is reading multiple data frames into `R`. In the `/data/gwl` folder, we have station data for El Dorado, Placer, and Sacramento Counties. We can read these in one by one by copy and pasting code, but we're repeating ourselves. This may not matter for only 3 counties, but if we were to use all 58 counties with groundwater level data, this would be a non-scaleable approach prone to human error.
 
-```{r, eval = FALSE}
+```{r read-no, eval = FALSE}
 library(tidyverse)
 library(here)
 
-alameda <- read_csv(here("data", "gwl", "county", "alameda.csv"))
-alpine  <- read_csv(here("data", "gwl", "county", "alpine.csv"))
-
-# ...
-
-yuba  <- read_csv(here("data", "gwl", "county", "yuba.csv"))
+eldorado <- read_csv(here("data", "gwl", "county", "El Dorado.csv"))
+placer   <- read_csv(here("data", "gwl", "county", "Placer.csv"))
+sac      <- read_csv(here("data", "gwl", "county", "Sacramento.csv"))
 ```
 
-We can replace this code with a for loop and read all of these items into a `list`.
+We can replace this code with a for loop and read all of these items into a `list`[^1].  
 
-<aside>
-For a review of `R`'s `list` data structure, see the [data structures module](../intro/m_data_structures.html#list).
-</aside>
+[^1]: For a review of `R`'s `list` data structure, see the [data structures module](../intro/m_data_structures.html#list) and Hadley Wickham's excellent *"R for Data Science"* chapter on [vectors](https://r4ds.had.co.nz/vectors.html).
 
-```{r}
+
+```{r read-for}
 # list all files we want to read in
-f <- list.files(here("data", "gwl", "county"), full.names = TRUE)
+files_in <- list.files(here("data", "gwl", "county"), full.names = TRUE)
 
 # initialize a list of defined length
-l <- vector("list", length = length(f))
+l <- vector("list", length = length(files_in))
 
 # loop over all files and read them into each element of the list
 for(i in seq_along(l)){
-  l[[i]] <- read_csv(f[i])
+  l[[i]] <- read_csv(files_in[i])
 }
 ```
 
+<aside>
+After the loop finished, if run `i` in the console, and notice that it has a value of ``r length(l)``. That's because `i` is updated as the loop evaluates, and ``r length(l)`` is the last iteration of `i` in the loop. This can be useful when debugging a loop because it tells you the last index that the loop was evaluated and can identify where a problem is that breaks the loop.
+</aside>
+
+What happened above is that we evaluated the loop first starting with 1 in the place of `i`, and went to `length(l)`, which is ``r length(l)``, each time placing the integer wherever there is an `i` in the above loop. Although our index is `i`, we can use any other character string, like `j`, `k`, or even `index` -- its only purpose is to hold the index that we iterate through.
+
+After the loop evaluates, we can access each element of the list with double bracket `[[` notation, subsetting either by an integer index, or a name if one exists. This list doesn't have names, but we could set them by assigning a vector of names to `names(l)`.
+
+```{r double-bracket, eval = FALSE}
+# access first list element - El Dorado county dataframe
+l[[1]] 
+```
+
+For loops work well, but happen sequentially, and require us to think of code in terms of objects that we iterate through, index by index. This can result in a lot of duplicated code, and remember that a core rule of good programming is to not repeat oneself.
+
+Let's imagine now that you needed to write each of these data into a separate file, separated by the unique ID of each station (e.g., the `SITE_CODE`). Your entire loop would look like this.
+
+```{r for-duplicate-code, eval = FALSE}
+# initialize a list of defined length
+l <- vector("list", length = length(files_in))
+
+# loop over all files and read them into each element of the list
+for(i in seq_along(l)){
+  l[[i]] <- read_csv(files_in[i])
+}
+
+# combine all list elements into a single dataframe
+# then split into another list by SITE_CODE. only take
+ldf <- bind_rows(l)
+ldf <- split(ldf, ldf$SITE_CODE)
+
+# loop over each list element and write a csv file
+dir.create(here("data", "gwl", "site_code"))
+files_out <- glue::glue("{here('data', 'gwl', 'site_code', names(ldf))}.csv")
+for(i in seq_along(ldf)){
+  write_csv(ldf[[i]], files_out[i])
+}
+```
+
+<aside>
+<br>
+`dplyr::bind_rows(l)` row binds a list of `data.frame`s similar to base `R`'s `do.call(rbind.data.frame, l)`, but is more strict, and will throw an error if column types don't match.
+</aside>
+
+```{r hide, echo = FALSE, message=FALSE, error=FALSE}
+ldf <- bind_rows(l)
+ldf <- split(ldf, ldf$SITE_CODE)
+dir.create(here("data", "gwl", "site_code"))
+files_out <- here("data", "gwl", "site_code", 
+                  paste0(names(ldf), ".csv"))
+```
 
 
-> [F]or loops are quite verbose, and require quite a bit of bookkeeping code that is duplicated for every for loop. Functional programming (FP) offers tools to extract out this duplicated code, so each common for loop pattern gets its own function. -Hadley Wickham
+This is a lot of code to accomplish a relatively simple iterative workflow of reading in a directory of files, combining them, and writing them out again. Functional programming can simplify loop-based workflows, run faster, and encourage you to think conceptually about the transformations at play, without worrying about tracking a changing index. Moreover, loops in `R` are usually unnecessary unless the result of the `i`th index depends on the `i-1` index.
 
-### `while` loops
 
+<br>  
 
 ## `lapply()`
 
+The `apply` family of functions, specifically `lapply()` and `mapply()` in base `R` give us a toolkit for functional programming. For example, we can simplify the loops above as:
 
-## ``
+```{r lapply, eval = FALSE}
 
+# read
+l <- lapply(files_in, read_csv)
+
+# bind and split by SITE_CODE
+ldf <- bind_rows(l)
+ldf <- split(ldf, ldf$SITE_CODE)
+
+# write
+mapply(function(x, y) write_csv(x, y), ldf, files_out) 
+
+```
+
+Notice that we don't need to initialize a list to store output, or keep track of indices. The emphasis is on the transformation taking place, not index bookkeeping, and setting up looping patterns. The result is the same, and we have a much clearer way to approach the problem.
+
+
+<br>  
+
+## `map()`
+
+The `map` family of functions in `{purrr}` improves on base `R`'s `apply` functions with simplified syntax, type-specific output that makes it harder to accidentally create errors, and convenience functions for common operations. When we combine `map()` with pipes (`%>%`) we can greatly simplify our code.
+
+First, to mimic what we did with `lapply()` above:
+
+```{r map-simple, eval = FALSE}
+
+# read
+l <- map(files_in, ~read_csv(.x))
+
+# bind and split by SITE_CODE
+ldf <- bind_rows(l)
+ldf <- group_split(ldf, SITE_CODE)
+
+# write
+walk2(ldf, files_out, ~write_csv(.x, .y)) 
+
+```
+
+The `.x` signifies each of the individual elements of passed into the function, and can be thought of as a placeholder for the input. We begin `read_csv()` with a `~` to indicate the beginning of a function.
+
+We can further simplify our code with `map_df()` to automatically row bind the list elements into one dataframe. Moreover, we can pipe these statements together to avoid creating the intermediate `ldf` object.  
+
+```{r map-complex, eval = FALSE}
+
+# read and bind, split, and write
+map_df(files_in, ~read_csv(.x)) %>% 
+  group_split(SITE_CODE) %>% 
+  walk2(files_out, ~write_csv(.x, .y))
+
+```
+
+Let's break down what we did above.
+
+
+1. We mapped the function `read_csv()` over the vector of file paths, `files_in`. Although this function is simple, in practice we can map a large and complex function in the same way. The `_df` in `map_df()` means we pass the list otherwise returned by `map()` into `bind_rows()`, and thus return one combined dataframe of all the csv files we read instead of a list of dataframes.
+2. We used `group_split()` to split the combined dataframe by `SITE_CODE` which returns a list of dataframes ordered by the unique values of the grouping variable. This is identical to base `R`'s `split()` except it doesn't return a named list.  
+3. We `walk2()`ed over the list of dataframes (one for each `SITE_CODE`), and the `files_out` vector from above, and wrote a csv for each pair of objects (dataframe and file name).
+
+
+
+:::challenge
+
+<font color="#009E73">**Extra information**</font> 
+
+<p style="line-height: 1.5em;">
+What would happen if we used `map2()` instead of `walk2()` in the code above?
+</p>
+
+
+<details>
+  <summary class="challenge-ans-title"><font color="#0072B2">**Click for the Answer!**</font></summary>
+  <div class="challenge-ans-body">
+  
+  `walk2()` is a special case of `walk()` which takes 2 vector inputs instead of 1. The first and second vector inputs are called in the function with `.x` and `.y` like so: `walk2(input_1, input_2, ~function(.x, .y))`. We use `walk()` instead of `map()` whenever we want the side effect of the function, like writing a file. We could also use `map()` here, but it would unnecessarily print each of the `r length(files_out)` dataframes. 
+  
+  You may now we wondering if there is a `map3()`, `map4()` and so on. To map over more than 2 inputs at once, check out the "parallel" map `purrr::pmap()` function, which is similar to base `R`'s `mapply()`. 
+  
+  </div>
+</details>
+
+:::
+
+
+<br>  
+
+You may notice that we used an intermediate object (`files_out`) from above. We could re-write our chain without this object by creating it within the function call:
+
+```{r map-complex2, eval = FALSE}
+
+# read, bind, and write
+map_df(files_in, ~read_csv(.x)) %>% 
+  group_split(SITE_CODE) %>% 
+  walk(
+    ~write_csv(
+      .x, 
+      paste0(here("data","gwl","site_code"), "/", .x$SITE_CODE[1], ".csv")
+    )
+  )
+
+```
+
+The `~`, `.x`, and `.y` syntax may seem confusing at first, but it provides a consistent syntax to express complex ideas about your code, and more importantly, the emphasis is on keeping track of functions rather than creating and managing the scaffolding of `for` loops. 
+
+Taking things one step further, imagine you were only interested in "Observation" `WELL_USE`s, needed to convert the `WELL_DEPTH` from feet to meters, and needed to output the data as three shapefiles, one for each county. 
+
+We could capture these transform steps in a function, store it in our `/functions` folder as described in the project management module, and in this way, clean up our workspace so we can keep track of the functions applied on our data and keep our scripts short and readable.  
+
+Store this in a file `/functions/f_import_clean.R`: 
+
+```{r map-function-transform, eval = FALSE}
+# imports dataframe, filters to observation wells,
+# converts well depth feet to meters, projects to epgs 3310
+# and exports the data
+f_import_clean_export <- function(file_in, file_out){
+  read_csv(file_in) %>% 
+    filter(WELL_USE == "Observation") %>% 
+    mutate(well_depth_m = WELL_DEPTH * 0.3048) %>% 
+    sf::st_as_sf(coords = c("LONGITUDE", "LATITUDE"), crs = 4269) %>% 
+    sf::st_transform(3310) %>% 
+    sf::st_write(file_out, delete_layer = TRUE)
+}
+```
+
+Now we can `walk()` inputs over this function with ease in our main script without keeping track of loops and indices, or even the function internals, which are stored in their own file. 
+
+```{r map-complex-2, eval = FALSE}
+source(here("functions", "f_import_clean_export.R"))
+
+dir.create(here("results"))
+
+files_in  <- list.files(here("data", "gwl", "county"), full.names = TRUE)
+files_out <- here("results", str_replace_all(basename(files_in), ".csv", ".shp"))
+
+walk2(files_in, files_out, ~f_import_clean_export(.x, .y))
+
+```
+
+Now we check the `/results` directory, to verify it is populated with the shapefiles we just wrote. 
 
 
 <br>  
 
 ## Additional Resources
 
-https://r4ds.had.co.nz/iteration.html
+Iteration is a core skill that will allow you scale your ability to work by creating reproducible workflows. Combined with a mastery of functional programming, you will more easily develop and store functions, declutter your workspace to focus on important transformations, streamline tracking down and fixing bugs, and keep track of your data pipelines. Your ability to perform and re-perform arbitrarily complex workflows will exponentially increase. 
 
-https://learning.acm.org/techtalks/functionalprogramming
+We recommend the following places to start to learn more about functional programming in `R`:
+
+* *R for Data Science* book section on [Programming](https://r4ds.had.co.nz/program-intro.html)  
+* [A talk about functional programming](https://learning.acm.org/techtalks/functionalprogramming) by Hadley Wickham  
+* *Advanced R* book chapter on [Functional programming](https://adv-r.hadley.nz/fp.html)  
 
 
-*Lesson adapted from [R for Data Science, Iteration](https://r4ds.had.co.nz/iteration.html).*
+<br> 
+
+*Lesson adapted from [R for Data Science](https://r4ds.had.co.nz/iteration.html).*
 
 <br>
 
