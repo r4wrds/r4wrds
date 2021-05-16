@@ -251,9 +251,14 @@ In our example we want to make sure we keep our **`main`** branch clean and up-t
 We can create a branch in RStudio in one of two ways:
 
  - `Tools > Terminal > New Terminal` and look for the Terminal tab in RStudio. Click on it, and at the prompt, type `git checkout -b BRANCH_NAME`.
- - Using the **`Git`** tab in RStudio and clicking on the **`New Branch`** button.
-
+ - Using the **`Git`** tab in RStudio and clicking on the **`New Branch`** button, type in the branch name, make sure the Remote is set to `origin` and click **`Create`**!
+ 
 Let's create a new branch called `jo_download_data`. Ideally, each team member will do the same, and each of these branches comes from the **`main`** branch, which is the main trunk or "clean" version of the project.
+
+```{r, eval=TRUE, echo=FALSE, out.height="70%"}
+include_graphics(here("images/new_branch_1.png"))
+```
+
 
 (ref:startingBranch) <font color="#5f3dc4">**Jo**</font> creates a new branch from **`main`** to do her data download task.
 
@@ -271,10 +276,107 @@ Jo's task is to download the data. Because this is a task that will need to happ
 As she works, the general process she follows is: 
 
  1. Do some work, add some files, scripts, etc. To version control these changes, we need to stage or `add` that work so it can be *versioned* by `git`. We do this with `git add <my_file>` or check the **`Staged`** buttons in the RStudio `git` panel.
+ 
  2. Add a `commit` message that is succinct but descriptive (i.e., `added water data files`). These are the messages you'll be able to go back to if you want to travel back in time and see a different version of something...so be kind to your future self and add something helpful. 
  3. `push` this up to the Github `remote` repository in the cloud! 
  
  Remember, you can commit as frequently as you like, and push at the end of the day, or push every time you commit. The timestamp identifier is added with a commit message, not with the push.
+ 
+:::challenge
+
+<font color="#009E73">**You Try!**</font> 
+
+<p style="line-height: 1.5em;">
+
+Take the following function and:
+ 
+ - Make a new folder in your project called `code`, save as a script called `01_download_data.R`
+ - `stage` it (either through the Git tab, or via `git add`), 
+ - `commit` (add a message!), 
+ - `push` to the `jo_download_data` branch
+
+</p>
+
+```{r getData, echo=TRUE, eval=FALSE}
+library(fs)
+library(dataRetrieval)
+library(readr)
+library(glue)
+
+# make a function to download data, defaults to current date for end
+
+# function: dates as "YYYY-MM-DD"
+get_daily_flow <- function(gage_no){
+
+  # create folder to save data
+  fs::dir_create("data_raw")
+
+  # set parameters to download data
+  siteNo <- gage_no # The USGS gage number
+  pCode <- "00060" # 00060 is discharge parameter code
+
+  # get NWIS daily data: CURRENT YEAR
+  dat <- readNWISdv(siteNumbers = siteNo,
+                    parameterCd = pCode)
+  # add water year
+  dat <- addWaterYear(dat)
+  # rename the columns
+  dat <- renameNWISColumns(dat)
+
+  # save out
+  write_csv(dat,
+            file =
+              glue("data_raw/nfa_updated_{Sys.Date()}.csv"))
+}
+
+# RUN with:
+#siteNo <- "11427000"# NF American River
+# get_daily_flow(siteNo)
+
+```
+ 
+:::
+
+<details>
+  <summary class="challenge-ans-title"><font color="#0072B2">**Answers!**</font></summary>
+  <div class="challenge-ans-body">
+
+Once we've made our script and saved it in the `code` folder, we should see something like this in our **`Git`** tab... notice the change when the box is checked.
+
+```{r gitstage1, layout="l-body-outset", eval=TRUE, echo=FALSE, out.width="49%", fig.show='hold'}
+
+include_graphics(c(here("images/git_add-1.png"), here("images/git_add-2.png")))
+
+```
+
+Next we want to **`commit`** and add a message. Note when we first click the `Commit` button, we'll see this screen:
+
+```{r gitstage2, layout="l-body-outset", eval=TRUE, echo=FALSE, fig.show='hold'}
+
+include_graphics(here("images/git_staged_1.png"))
+
+```
+
+Then when we enter a `commit` message and click `Commit`, we'll end up with this, which tells us our commit worked...but it's still only *local*! Note we'll have a message saying our branch is "*`ahead of origin/jo_download_data by 1 commit.`*" That's ok, it just means we still need to **`push`** our changes up to the branch.
+
+```{r gitstage3, layout="l-body-outset", eval=TRUE, echo=FALSE, fig.show='hold'}
+
+include_graphics(here("images/git_commit_commit.png"))
+
+```
+
+The final step is to **`push`** our changes up to the cloud. Click **`Push`** and hopefully we will get  message back like this. This means things worked...a final check would be go to Github and make sure the file is online!
+
+```{r gitstage4, layout="l-body-outset", eval=TRUE, echo=FALSE, fig.show='hold'}
+
+include_graphics(here("images/git_push_return.png"))
+
+```
+
+
+  </div>
+</details>
+
  
 
 <aside>
@@ -283,11 +385,52 @@ As she works, the general process she follows is:
  
 </aside>
 
+### Pull Requests
+
+The next step in this `version control` odyssey is to get <font color="#5f3dc4">**Jo's**</font> work into the **`main`** branch. Here we use a ***Pull Request***. This is a way to review the changes, check for any conflicts (if for instance, folks were working on the same file), and then **Merge** these changes into the **`main`** branch. Then we can delete the branch, and create another one to work on the next task, and so on.
+
+Here's what we might see on Github if we visited our `water-is-life` repository after we pushed our changes up. First, we will hopefully see an option to make a pull request because Github recognizes there are changes from another branch that aren't in the `main` branch. We want to click the **Compare and pull request** button.
+
+```{r pr1, layout="l-body-outset", eval=TRUE, echo=FALSE}
+
+include_graphics(here("images/git_pr1.png"))
+
+```
+
+Next we have an option to add some additional descriptions, comments, about what this PR (pull request) is doing, and why. We can tag a review, add labels, milestones, etc. These are all helpful sometimes for keeping track of what's done and what's not.
+
+```{r pr2, layout="l-body-outset", eval=TRUE, echo=FALSE}
+
+include_graphics(here("images/git_pr2.png"))
+
+```
+
+After we click the green **Create pull request** button, we should see something that looks like the following. **Important**! We ideally will see a green checkmark with a message "**This branch has no conflicts with the base branch**, which means, our **`main`** branch can easily merge this new work in! 
+
+```{r pr3, layout="l-body-outset", eval=TRUE, echo=FALSE}
+
+include_graphics(here("images/git_pr3.png"))
+
+```
+
+Go ahead and click **Merge pull request**, and wait until you see a screen shortly after that says the **Pull request was successfully merged and closed**! 
+
+```{r pr4, layout="l-body-outset", eval=TRUE, echo=FALSE}
+
+include_graphics(here("images/git_pr4.png"))
+
+```
+
 
 
 ### `fetch` and `pull`
 
  
+
+
+## Notes
+
+
 <aside>
 
 **Exiting `vim`**: if you end up in a text editor and aren't sure how to exit, you may be in `vim`. It is the default editor for many systems and programs. To exit without saving changes, hit **`Esc`**, then type **`:q!`** and hit **`Enter`**. To save changes, hit **`Esc`** and then type **`:wq`** and hit **`Enter`**.
@@ -295,7 +438,7 @@ As she works, the general process she follows is:
 </aside>
 
 
-## Notes
+
 
  - the difference between public and private repos, how and why to use branching (idea of parallel work on collaborative projects), submitting a pull request.
  - `.gitignore`: use it to ignore entire directories and other files, especially files >= 125MB, and for files that you may use for internal analysis (e.g., rds) that may be quite large.
@@ -316,3 +459,11 @@ As she works, the general process she follows is:
 
 - discuss committing .html, shapefiles, etc. 
 - Ignore large files or data. 
+
+
+<br> 
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<a href="index.html" class="btn btn-secondary" style="float: left">Previous module:<br> Project Management</a>
+<a href="m_version_control.html" class="btn btn-secondary" style="float: right;">Next module:<br> Iteration</a>  
