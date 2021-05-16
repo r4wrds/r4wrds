@@ -46,40 +46,46 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
+    background-color: #ffffff;
+    color: #a0a0a0;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #a0a0a0;  padding-left: 4px; }
 div.sourceCode
-  {   }
+  { color: #1f1c1b; background-color: #ffffff; }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; } /* Alert */
-code span.an { color: #008000; } /* Annotation */
-code span.at { } /* Attribute */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #0000ff; } /* ControlFlow */
-code span.ch { color: #008080; } /* Char */
-code span.cn { color: #585cf6; } /* Constant */
-code span.co { color: #4c886b; } /* Comment */
-code span.cv { color: #008000; } /* CommentVar */
-code span.do { color: #008000; } /* Documentation */
-code span.dv { color: #0000cd; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #0000cd; } /* Float */
-code span.im { } /* Import */
-code span.in { color: #008000; } /* Information */
-code span.kw { color: #0000ff; } /* Keyword */
-code span.op { color: #687687; } /* Operator */
-code span.ot { color: #ff4000; } /* Other */
-code span.pp { color: #ff4000; } /* Preprocessor */
-code span.sc { color: #008080; } /* SpecialChar */
-code span.ss { color: #008080; } /* SpecialString */
-code span.st { color: #036a07; } /* String */
-code span.va { } /* Variable */
-code span.vs { color: #008080; } /* VerbatimString */
-code span.wa { color: #008000; font-weight: bold; } /* Warning */
+code span { color: #1f1c1b; } /* Normal */
+code span.al { color: #bf0303; background-color: #f7e6e6; font-weight: bold; } /* Alert */
+code span.an { color: #ca60ca; } /* Annotation */
+code span.at { color: #0057ae; } /* Attribute */
+code span.bn { color: #b08000; } /* BaseN */
+code span.bu { color: #644a9b; font-weight: bold; } /* BuiltIn */
+code span.cf { color: #1f1c1b; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #924c9d; } /* Char */
+code span.cn { color: #aa5500; } /* Constant */
+code span.co { color: #898887; } /* Comment */
+code span.cv { color: #0095ff; } /* CommentVar */
+code span.do { color: #607880; } /* Documentation */
+code span.dt { color: #0057ae; } /* DataType */
+code span.dv { color: #b08000; } /* DecVal */
+code span.er { color: #bf0303; text-decoration: underline; } /* Error */
+code span.ex { color: #0095ff; font-weight: bold; } /* Extension */
+code span.fl { color: #b08000; } /* Float */
+code span.fu { color: #644a9b; } /* Function */
+code span.im { color: #ff5500; } /* Import */
+code span.in { color: #b08000; } /* Information */
+code span.kw { color: #1f1c1b; font-weight: bold; } /* Keyword */
+code span.op { color: #1f1c1b; } /* Operator */
+code span.ot { color: #006e28; } /* Other */
+code span.pp { color: #006e28; } /* Preprocessor */
+code span.re { color: #0057ae; background-color: #e0e9f8; } /* RegionMarker */
+code span.sc { color: #3daee9; } /* SpecialChar */
+code span.ss { color: #ff5500; } /* SpecialString */
+code span.st { color: #bf0303; } /* String */
+code span.va { color: #0057ae; } /* Variable */
+code span.vs { color: #bf0303; } /* VerbatimString */
+code span.wa { color: #bf0303; } /* Warning */
 </style>
 
   <!--radix_placeholder_meta_tags-->
@@ -2264,13 +2270,13 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
     background-color: rgba(0,0,0,.1);
   }
 
+
   /*grey code block*/
 
   .sourceCode {
     background-color:#f4f4f4;
     border-radius: 4px;
   }
-
 
   </style>
   <!--/radix_placeholder_site_in_header-->
@@ -2642,9 +2648,6 @@ There are many ways to query or use logical tests for data. In other languages l
 </div>
 <pre><code>[1] 4</code></pre>
 </div>
-<aside>
-We can also name a list, for example, <code>names(l) &lt;- c("dry", "reach", "flow", "string")</code> and then access list elements by <strong>name</strong> instead of index, like so: <code>l[["dry"]]</code>
-</aside>
 <p>We can access list elements with double bracket notation <code>[[</code> and the index (think row number) of the element we want.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -2666,6 +2669,15 @@ We can also name a list, for example, <code>names(l) &lt;- c("dry", "reach", "fl
 </div>
 <pre><code>[1]   0  57 128</code></pre>
 </div>
+<p>We can also name a list, and then access list elements with double-bracket notation and <strong>name</strong> instead of index, like so:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>l</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"dry"</span>, <span class='st'>"reach"</span>, <span class='st'>"flow"</span>, <span class='st'>"string"</span><span class='op'>)</span>
+<span class='va'>l</span><span class='op'>[[</span><span class='st'>"dry"</span><span class='op'>]</span><span class='op'>]</span>
+</code></pre>
+</div>
+<pre><code>[1]  TRUE FALSE FALSE</code></pre>
+</div>
 <h3 id="data.frame-and-tibble">data.frame and tibble</h3>
 <p>The <code>data.frame</code> is perhaps the most common form of data you will encounter in R, and the focus of most of the rest of the modules in the course. The data frame is a set of named vectors arranged as columns all of a common length, typically atomic vectors, but they can host general vectors or lists as well<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
 <p>Let’s use the vectors we created earlier to make a <code>data.frame</code> called <code>riv</code>.</p>
@@ -2684,7 +2696,7 @@ We can also name a list, for example, <code>names(l) &lt;- c("dry", "reach", "fl
 <p>We can access any column from the data frame as a vector using the <code>$</code> notation. In RStudio, typing <code>$</code> also brings up an auto-complete, and we can see all of the columns in the <code>data.frame</code>.</p>
 <aside>
 <div class="layout-chunk" data-layout="l-body">
-<div class="figure"><span id="fig:unnamed-chunk-3"></span>
+<div class="figure"><span id="fig:unnamed-chunk-4"></span>
 <img src="images/R_dollar_sign_example.png" alt="Use $ to access columns" width="80%" />
 <p class="caption">
 Figure 1: Use $ to access columns
@@ -2869,7 +2881,7 @@ Figure 1: Use $ to access columns
 <p><br></p>
 <p><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"></p>
 <p><a href="m_ggplot.html" class="btn btn-secondary" style="float: left">Previous module:<br> Data Visualization</a> <a href="m_dplyr.html" class="btn btn-secondary" style="float: right;">Next module:<br> Data Wrangling</a></p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <section class="footnotes" role="doc-endnotes">
 <hr />
 <ol>
