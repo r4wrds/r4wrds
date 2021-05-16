@@ -89,29 +89,29 @@ code span.wa { color: #bf0303; } /* Warning */
 </style>
 
   <!--radix_placeholder_meta_tags-->
-  <title>R for Water Resources Data Science: From imperative to functional programming</title>
+  <title>R for Water Resources Data Science: From loops to functions</title>
 
-  <meta property="description" itemprop="description" content="Conceptual code"/>
+  <meta property="description" itemprop="description" content="Multiple ways to iterate in `R`"/>
 
 
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-  <meta property="og:title" content="R for Water Resources Data Science: From imperative to functional programming"/>
+  <meta property="og:title" content="R for Water Resources Data Science: From loops to functions"/>
   <meta property="og:type" content="article"/>
-  <meta property="og:description" content="Conceptual code"/>
+  <meta property="og:description" content="Multiple ways to iterate in `R`"/>
   <meta property="og:locale" content="en_US"/>
   <meta property="og:site_name" content="R for Water Resources Data Science"/>
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
-  <meta property="twitter:title" content="R for Water Resources Data Science: From imperative to functional programming"/>
-  <meta property="twitter:description" content="Conceptual code"/>
+  <meta property="twitter:title" content="R for Water Resources Data Science: From loops to functions"/>
+  <meta property="twitter:description" content="Multiple ways to iterate in `R`"/>
 
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","output"]}},"value":[{"type":"character","attributes":{},"value":["From imperative to functional programming"]},{"type":"character","attributes":{},"value":["Conceptual code \n"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","output"]}},"value":[{"type":"character","attributes":{},"value":["From loops to functions"]},{"type":"character","attributes":{},"value":["Multiple ways to iterate in `R`\n"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2300,7 +2300,7 @@ code span.wa { color: #bf0303; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"From imperative to functional programming","description":"Conceptual code","authors":[]}
+{"title":"From loops to functions","description":"Multiple ways to iterate in `R`","authors":[]}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2345,10 +2345,10 @@ Modules
 <!--/radix_placeholder_site_before_body-->
 
 <div class="d-title">
-<h1>From imperative to functional programming</h1>
+<h1>From loops to functions</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
-<p><p>Conceptual code</p></p>
+<p><p>Multiple ways to iterate in <code>R</code></p></p>
 </div>
 
 
@@ -2368,9 +2368,11 @@ Modules
 <div class="obj">
 <p><strong>Learning objectives</strong></p>
 <ul>
-<li>Understand the costs and benefits of imperative and functional programming<br />
+<li>Understand the costs and benefits of loops and functional programming<br />
 </li>
-<li>Practice functional programming with <code>lapply()</code> and <code>{purrr}</code><br />
+<li>Practice iteration with <code>for</code> loops<br />
+</li>
+<li>Practice iteration with <code>lapply()</code> and the <code>{purrr}</code> family of functions<br />
 </li>
 <li>Understand how interact with the <code>list</code> object type<br />
 </li>
@@ -2378,16 +2380,24 @@ Modules
 </div>
 <p><br></p>
 <h2 id="many-paths-to-the-same-summit">Many paths to the same summit</h2>
-<p>One of the wonderful things about <code>R</code> is that there are often many ways to achieve the same result. This makes <code>R</code> expressive, and as you practice and expand your <code>R</code> vocabulary, you’ll inevitably find multiple ways to obtain the same results. Some ways may be long and meandering, and others may be more direct and easy to remember. In this module we will review imperative (e.g., for loops) and functional programming, which are two ways to ways to iterate. For most parallel problems (i.e., the current operation does not depend on the one that came before), functional programming offers significant advantages to imperative programming. However, both functional and imperative programming are powerful ways to automate processes and workflows. We will review when to use each, and their pros and cons.</p>
-<p>The core objective of this lesson is to practice harnessing the power of iteration in your workflows, and to iterate with functional programming. If you can define a function for one object in <code>R</code>, functional programming allows you to scale that function an arbitrarily large number of objects (assuming you have enough compute). Together, functional programming and iteration allow automation at scale, and put <code>R</code> a cut above GUI-based data workflows that require “clicking though” an analysis. A mastery of functional programming means you can turn a workflow into a function and easily reproduce work. A mastery of iteration means you can apply developed functions many times with little effort. And finally, a mastery of automation means you can remove yourself from running the code entirely so that it happens all on its own – we will demonstrate approaches to automation in the next module.</p>
-<p>In this module, let’s imagine you’re a data manager, and need to provide data to a group of users. We’ll practice iteration on reading and writing data to illustrate a transition from imperative to functional programming.</p>
+<p>One of the wonderful things about <code>R</code> is that there are often many ways to achieve the same result. This makes <code>R</code> expressive, and as you practice and expand your <code>R</code> vocabulary, you’ll inevitably find multiple ways to obtain the same results. Some ways may be long and meandering, and others may be more direct and easy to remember. In this module we will practice two approaches towards <strong>iteration</strong>—the art of not repeating yourself—specifically, <code>for</code> loops<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> and functions (functional programming).</p>
+<p>For most parallel problems (i.e., the current operation does not depend on the one that came before), functional programming offers significant advantages to <code>for</code> loops. However, both loops and functions are powerful ways to automate processes and workflows. We will review how and when to use each, and their pros and cons.</p>
+<p>The core objective of this lesson is to practice harnessing the power of iteration in your workflows, and to demonstrate ways to iterate with functional programming. If you can define a function to work with one object in <code>R</code>, functional programming allows you to scale that function to any number of objects (assuming you have enough computing resources). Together, functional programming and iteration allow automation at scale, and put <code>R</code> a cut above GUI-based data workflows that require “clicking though” an analysis.</p>
+<ul>
+<li>Proficiency in <strong>functional programming</strong> means you can turn an entire workflow into a function, or individual steps for a workflow can each be discrete functions, making it easy to reproduce or revise your work.<br />
+</li>
+<li>Proficiency in <strong>iteration</strong> means you can apply developed functions many times with little effort, which allows you to work with small or large datasets with ease.<br />
+</li>
+<li>Proficiency in <strong>automation</strong> means you can remove yourself from running the code entirely so that it happens all on its own—we will demonstrate approaches to automation in the next module.</li>
+</ul>
+<p>In this module, let’s imagine you’re a data manager, and need to provide data to a group of users. We’ll practice iteration on reading and writing data to illustrate a transition from <code>for</code> loops to functional programming.</p>
 <p><br></p>
 <h2 id="for-loops"><code>for</code> loops</h2>
 <blockquote>
 <p>“Don’t repeat yourself. It’s not only repetitive, it’s redundant, and people have heard it before.” -Lemony Snicket</p>
 </blockquote>
-<p>The <code>for</code> loop is ubiquitous across programming languages and a fundamental concept that allows us to obey a core concept in programming: don’t repeat yourself. The <code>for</code> loop is a good place to begin a discussion of iteration because it makes iteration very explicit - you can see exactly what is taking place in each iteration, or loop.</p>
-<p>A common problem we might face is reading multiple data frames into <code>R</code>. In the <code>/data/gwl</code> folder, we have station data for El Dorado, Placer, and Sacramento Counties. We can read these in one by one by copy and pasting code, but we’re repeating ourselves. This may not matter for only 3 counties, but if we were to use all 58 counties with groundwater level data, this would be a non-scaleable approach prone to human error.</p>
+<p>The <code>for</code> loop is ubiquitous across programming languages and a fundamental concept that allows us to obey a core concept in programming: don’t repeat yourself. The <code>for</code> loop is a good place to begin a discussion of iteration because it makes iteration very explicit—you can see exactly what is taking place in each iteration, or loop.</p>
+<p>A common problem we might face is reading multiple data frames into <code>R</code>. In the <code>/data/gwl</code> folder, we have station data for El Dorado, Placer, and Sacramento counties. We can read these in one by one by copy and pasting code, but we’re repeating ourselves. This may not matter for only 3 counties, but if we were to use all 58 counties with groundwater level data, this would be a non-scaleable approach prone to human error.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
@@ -2399,7 +2409,7 @@ Modules
 </code></pre>
 </div>
 </div>
-<p>We can replace this code with a for loop and read all of these items into a <code>list</code><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
+<p>We can replace this code with a for loop and read all of these items into a <code>list</code><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># list all files we want to read in</span>
@@ -2416,9 +2426,9 @@ Modules
 </div>
 </div>
 <aside>
-After the loop finished, if run <code>i</code> in the console, and notice that it has a value of <code>3</code>. That’s because <code>i</code> is updated as the loop evaluates, and <code>3</code> is the last iteration of <code>i</code> in the loop. This can be useful when debugging a loop because it tells you the last index that the loop was evaluated and can identify where a problem is that breaks the loop.
+<p>After the loop finished, if you run <code>i</code> in the console, you’ll notice that it has a value of 3. That’s because <code>i</code> is updated as the loop evaluates, and 3 is the last iteration of <code>i</code> in the loop. This can be useful when debugging a loop because the last index that the loop was evaluated may identify the location of a problem that breaks the loop.</p>
 </aside>
-<p>What happened above is that we evaluated the loop first starting with 1 in the place of <code>i</code>, and went to <code>length(l)</code>, which is <code>3</code>, each time placing the integer wherever there is an <code>i</code> in the above loop. Although our index is <code>i</code>, we can use any other character string, like <code>j</code>, <code>k</code>, or even <code>index</code> – its only purpose is to hold the index that we iterate through.</p>
+<p>What happened above is that we evaluated the loop first starting with 1 in the place of <code>i</code>, and went to <code>length(l)</code>, which is 3, each time placing the integer wherever there is an <code>i</code> in the above loop. Although our index is <code>i</code>, we can use any other unquoted character string, like <code>j</code>, <code>k</code>, or even <code>index</code> — its only purpose is to hold the index that we iterate through.</p>
 <p>After the loop evaluates, we can access each element of the list with double bracket <code>[[</code> notation, subsetting either by an integer index, or a name if one exists. This list doesn’t have names, but we could set them by assigning a vector of names to <code>names(l)</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -2427,8 +2437,8 @@ After the loop finished, if run <code>i</code> in the console, and notice that i
 </code></pre>
 </div>
 </div>
-<p>For loops work well, but happen sequentially, and require us to think of code in terms of objects that we iterate through, index by index. This can result in a lot of duplicated code, and remember that a core rule of good programming is to not repeat oneself.</p>
-<p>Let’s imagine now that you needed to write each of these data into a separate file, separated by the unique ID of each station (e.g., the <code>SITE_CODE</code>). Your entire loop would look like this.</p>
+<p><code>for</code> loops happen sequentially, and require us to think of code in terms of objects that we iterate through, index by index. This can result in both slower and duplicated (verbose) code. In addition to writing efficient code, a core rule of good programming is to not repeat oneself.</p>
+<p>Let’s imagine now that you needed to write each of these data into a separate file, separated by the unique ID of each station (e.g., the <code>SITE_CODE</code>). Your entire loop would look like this:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># initialize a list of defined length</span>
@@ -2440,13 +2450,15 @@ After the loop finished, if run <code>i</code> in the console, and notice that i
 <span class='op'>}</span>
 
 <span class='co'># combine all list elements into a single dataframe</span>
-<span class='co'># then split into another list by SITE_CODE. only take</span>
+<span class='co'># then split into another list by SITE_CODE.</span>
 <span class='va'>ldf</span> <span class='op'>&lt;-</span> <span class='fu'>bind_rows</span><span class='op'>(</span><span class='va'>l</span><span class='op'>)</span>
 <span class='va'>ldf</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/split.html'>split</a></span><span class='op'>(</span><span class='va'>ldf</span>, <span class='va'>ldf</span><span class='op'>$</span><span class='va'>SITE_CODE</span><span class='op'>)</span>
 
 <span class='co'># loop over each list element and write a csv file</span>
 <span class='fu'><a href='https://rdrr.io/r/base/files2.html'>dir.create</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/here/man/here.html'>here</a></span><span class='op'>(</span><span class='st'>"data"</span>, <span class='st'>"gwl"</span>, <span class='st'>"site_code"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='co'># here we make a list of files names ( names(ldf) is a vector )</span>
 <span class='va'>files_out</span> <span class='op'>&lt;-</span> <span class='fu'>glue</span><span class='fu'>::</span><span class='fu'><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></span><span class='op'>(</span><span class='st'>"{here('data', 'gwl', 'site_code', names(ldf))}.csv"</span><span class='op'>)</span>
+
 <span class='kw'>for</span><span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_along</a></span><span class='op'>(</span><span class='va'>ldf</span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span>
   <span class='fu'>write_csv</span><span class='op'>(</span><span class='va'>ldf</span><span class='op'>[[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>]</span>, <span class='va'>files_out</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>)</span>
 <span class='op'>}</span>
@@ -2454,15 +2466,14 @@ After the loop finished, if run <code>i</code> in the console, and notice that i
 </div>
 </div>
 <aside>
-<br> <code>dplyr::bind_rows(l)</code> row binds a list of <code>data.frame</code>s similar to base <code>R</code>’s <code>do.call(rbind.data.frame, l)</code>, but is more strict, and will throw an error if column types don’t match.
+<p><br> <code>dplyr::bind_rows(l)</code> row binds a list of <code>data.frame</code>s similar to base <code>R</code>’s <code>do.call(rbind.data.frame, l)</code>, but is more strict, and will throw an error if column types don’t match.</p>
 </aside>
 <div class="layout-chunk" data-layout="l-body">
 
 </div>
-<p>This is a lot of code to accomplish a relatively simple iterative workflow of reading in a directory of files, combining them, and writing them out again. Functional programming can simplify loop-based workflows, run faster, and encourage you to think conceptually about the transformations at play, without worrying about tracking a changing index. Moreover, loops in <code>R</code> are usually unnecessary unless the result of the <code>i</code>th index depends on the <code>i-1</code> index.</p>
-<p><br></p>
+<p>This is a lot of code to accomplish a relatively standard iterative workflow of reading in a directory of files, combining them, and writing them out. Functional programming can simplify loop-based workflows, run faster, and encourage you to think conceptually about the transformations at play, without worrying about tracking a changing index. Moreover, loops in <code>R</code> are usually unnecessary unless the result of the <code>i</code>th index depends on the <code>i-1</code> (previous) index.</p>
 <h2 id="lapply"><code>lapply()</code></h2>
-<p>The <code>apply</code> family of functions, specifically <code>lapply()</code> and <code>mapply()</code> in base <code>R</code> give us a toolkit for functional programming. For example, we can simplify the loops above as:</p>
+<p>Base <code>R</code> gives us a toolkit for functional programming via the <code>apply</code> family of functions, specifically <code>lapply()</code> and <code>mapply()</code>. The “l” in <code>lapply()</code> stands for “<code>list</code>”, and can be read as “list apply”. The <code>apply</code> functions are designed to iterate over lists, matrices, rows, or columns, and are very flexible. For example, we can simplify the <code>for</code> loops above as:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># read</span>
@@ -2472,15 +2483,27 @@ After the loop finished, if run <code>i</code> in the console, and notice that i
 <span class='va'>ldf</span> <span class='op'>&lt;-</span> <span class='fu'>bind_rows</span><span class='op'>(</span><span class='va'>l</span><span class='op'>)</span>
 <span class='va'>ldf</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/split.html'>split</a></span><span class='op'>(</span><span class='va'>ldf</span>, <span class='va'>ldf</span><span class='op'>$</span><span class='va'>SITE_CODE</span><span class='op'>)</span>
 
-<span class='co'># write</span>
+<span class='co'># write out: requires function (write_csv) </span>
+<span class='co'># with 2 args (x = ldf &amp; y = files_out)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/mapply.html'>mapply</a></span><span class='op'>(</span><span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span> <span class='fu'>write_csv</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span>, <span class='va'>ldf</span>, <span class='va'>files_out</span><span class='op'>)</span> 
+</code></pre>
+</div>
+</div>
+<p>We can make this clearer by extracting the <em>anonymous function</em><a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> above, assigning it to an identifier, and calling that in <code>mapply()</code>:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>my_function</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span><span class='op'>{</span> 
+  <span class='fu'>write_csv</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span>
+<span class='op'>}</span>
+
+<span class='fu'><a href='https://rdrr.io/r/base/mapply.html'>mapply</a></span><span class='op'>(</span><span class='va'>my_function</span>, <span class='va'>ldf</span>, <span class='va'>files_out</span><span class='op'>)</span> 
 </code></pre>
 </div>
 </div>
 <p>Notice that we don’t need to initialize a list to store output, or keep track of indices. The emphasis is on the transformation taking place, not index bookkeeping, and setting up looping patterns. The result is the same, and we have a much clearer way to approach the problem.</p>
 <p><br></p>
 <h2 id="map"><code>map()</code></h2>
-<p>The <code>map</code> family of functions in <code>{purrr}</code> improves on base <code>R</code>’s <code>apply</code> functions with simplified syntax, type-specific output that makes it harder to accidentally create errors, and convenience functions for common operations. When we combine <code>map()</code> with pipes (<code>%&gt;%</code>) we can greatly simplify our code.</p>
+<p>The <code>map</code> family of functions in the <code>{purrr}</code> package improves on base <code>R</code>’s <code>apply</code> functions with simplified syntax, type-specific output that makes it harder to accidentally create errors, and convenience functions for common operations. When we combine <code>map()</code> with pipes (<code>%&gt;%</code>) we can greatly simplify our code.</p>
 <p>First, to mimic what we did with <code>lapply()</code> above:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -2512,12 +2535,12 @@ After the loop finished, if run <code>i</code> in the console, and notice that i
 <li>We mapped the function <code>read_csv()</code> over the vector of file paths, <code>files_in</code>. Although this function is simple, in practice we can map a large and complex function in the same way. The <code>_df</code> in <code>map_df()</code> means we pass the list otherwise returned by <code>map()</code> into <code>bind_rows()</code>, and thus return one combined dataframe of all the csv files we read instead of a list of dataframes.</li>
 <li>We used <code>group_split()</code> to split the combined dataframe by <code>SITE_CODE</code> which returns a list of dataframes ordered by the unique values of the grouping variable. This is identical to base <code>R</code>’s <code>split()</code> except it doesn’t return a named list.<br />
 </li>
-<li>We <code>walk2()</code>ed over the list of dataframes (one for each <code>SITE_CODE</code>), and the <code>files_out</code> vector from above, and wrote a csv for each pair of objects (dataframe and file name).</li>
+<li>We <code>walk2()</code>ed over the list of dataframes (one for each <code>SITE_CODE</code>), and the <code>files_out</code> vector from above, and wrote a csv for each pair of objects (<code>.x</code> = dataframe and <code>.y</code> = output file path).</li>
 </ol>
 <div class="challenge">
 <p><font color="#009E73"><strong>Extra information</strong></font></p>
 <p style="line-height: 1.5em;">
-What would happen if we used <code>map2()</code> instead of <code>walk2()</code> in the code above?
+<p>What would happen if we used <code>map2()</code> instead of <code>walk2()</code> in the code above?</p>
 </p>
 <details>
 <summary class="challenge-ans-title">
@@ -2545,15 +2568,19 @@ What would happen if we used <code>map2()</code> instead of <code>walk2()</code>
 </code></pre>
 </div>
 </div>
-<p>The <code>~</code>, <code>.x</code>, and <code>.y</code> syntax may seem confusing at first, but it provides a consistent syntax to express complex ideas about your code, and more importantly, the emphasis is on keeping track of functions rather than creating and managing the scaffolding of <code>for</code> loops.</p>
-<p>Taking things one step further, imagine you were only interested in “Observation” <code>WELL_USE</code>s, needed to convert the <code>WELL_DEPTH</code> from feet to meters, and needed to output the data as three shapefiles, one for each county.</p>
-<p>We could capture these transform steps in a function, store it in our <code>/functions</code> folder as described in the project management module, and in this way, clean up our workspace so we can keep track of the functions applied on our data and keep our scripts short and readable.</p>
+<p>The <code>~</code>, <code>.x</code>, and <code>.y</code> syntax may seem confusing at first, but with some practice it will become easier, and it provides a consistent syntax to express complex ideas about your code. More more importantly, the emphasis is on keeping track of functions rather than creating and managing the scaffolding of <code>for</code> loops.</p>
+<p>Taking things one step further, imagine you were:</p>
+<ul>
+<li>only interested in <code>WELL_USE</code> types equal to “<code>Observation</code>”</li>
+<li>you needed to convert the <code>WELL_DEPTH</code> from feet to meters</li>
+<li>you needed to output the data as three shapefiles, one for each county</li>
+</ul>
+<p>We could capture these transform steps in a function, store it in our <code>/functions</code> folder <a href="m_project_management.html#strategies-to-organize-projectscode">as described in the project management module</a>, and in this way, clean up our workspace so we can keep track of the functions applied on our data and keep our scripts short and readable.</p>
 <p>Store this in a file <code>/functions/f_import_clean.R</code>:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># imports dataframe, filters to observation wells,</span>
-<span class='co'># converts well depth feet to meters, projects to epgs 3310</span>
-<span class='co'># and exports the data</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># import dataframe, filter to observation wells, convert well </span>
+<span class='co'># depth feet to meters, project to epgs 3310, &amp; export the data</span>
 <span class='va'>f_import_clean_export</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>file_in</span>, <span class='va'>file_out</span><span class='op'>)</span><span class='op'>{</span>
   <span class='fu'>read_csv</span><span class='op'>(</span><span class='va'>file_in</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
     <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>WELL_USE</span> <span class='op'>==</span> <span class='st'>"Observation"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
@@ -2565,13 +2592,15 @@ What would happen if we used <code>map2()</code> instead of <code>walk2()</code>
 </code></pre>
 </div>
 </div>
-<p>Now we can <code>walk()</code> inputs over this function with ease in our main script without keeping track of loops and indices, or even the function internals, which are stored in their own file.</p>
+<p>Now we can <code>walk()</code> inputs over this function with ease in our main script without keeping track of loops and indices, or even the function internals, which are neatly stored in their own file.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/source.html'>source</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/here/man/here.html'>here</a></span><span class='op'>(</span><span class='st'>"functions"</span>, <span class='st'>"f_import_clean_export.R"</span><span class='op'>)</span><span class='op'>)</span>
 
+<span class='co'># create a directory to store results</span>
 <span class='fu'><a href='https://rdrr.io/r/base/files2.html'>dir.create</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/here/man/here.html'>here</a></span><span class='op'>(</span><span class='st'>"results"</span><span class='op'>)</span><span class='op'>)</span>
 
+<span class='co'># vectors with function args: input (.x) &amp; output (.y) files</span>
 <span class='va'>files_in</span>  <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.files.html'>list.files</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/here/man/here.html'>here</a></span><span class='op'>(</span><span class='st'>"data"</span>, <span class='st'>"gwl"</span>, <span class='st'>"county"</span><span class='op'>)</span>, full.names <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 <span class='va'>files_out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/here/man/here.html'>here</a></span><span class='op'>(</span><span class='st'>"results"</span>, <span class='fu'>str_replace_all</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/basename.html'>basename</a></span><span class='op'>(</span><span class='va'>files_in</span><span class='op'>)</span>, <span class='st'>".csv"</span>, <span class='st'>".shp"</span><span class='op'>)</span><span class='op'>)</span>
 
@@ -2582,7 +2611,7 @@ What would happen if we used <code>map2()</code> instead of <code>walk2()</code>
 <p>Now we check the <code>/results</code> directory, to verify it is populated with the shapefiles we just wrote.</p>
 <p><br></p>
 <h2 id="additional-resources">Additional Resources</h2>
-<p>Iteration is a core skill that will allow you scale your ability to work by creating reproducible workflows. Combined with a mastery of functional programming, you will more easily develop and store functions, declutter your workspace to focus on important transformations, streamline tracking down and fixing bugs, and keep track of your data pipelines. Your ability to perform and re-perform arbitrarily complex workflows will exponentially increase.</p>
+<p>Iteration is a core skill that will allow you to scale your workflow from small to large while maintaining reproducibility. Combined with a proficiency in functional programming, you will more easily develop and store functions, declutter your workspace to focus on important transformations, streamline tracking down and fixing bugs, and keep track of your data pipelines. Your ability to perform and re-perform arbitrarily complex workflows will exponentially increase.</p>
 <p>We recommend the following places to start to learn more about functional programming in <code>R</code>:</p>
 <ul>
 <li><em>R for Data Science</em> book section on <a href="https://r4ds.had.co.nz/program-intro.html">Programming</a><br />
@@ -2600,7 +2629,9 @@ What would happen if we used <code>map2()</code> instead of <code>walk2()</code>
 <section class="footnotes" role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1" role="doc-endnote"><p>For a review of <code>R</code>’s <code>list</code> data structure, see the <a href="../intro/m_data_structures.html#list">data structures module</a> and Hadley Wickham’s excellent <em>“R for Data Science”</em> chapter on <a href="https://r4ds.had.co.nz/vectors.html">vectors</a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1" role="doc-endnote"><p>For loops are an example of <a href="https://en.wikipedia.org/wiki/Imperative_programming"><em>imperative programming</em></a>, which differs from <a href="https://en.wikipedia.org/wiki/Functional_programming"><em>functional programming</em></a> in that it emphasizes the steps to take to change the state of a computer rather than composing and applying functions.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p>For a review of <code>R</code>’s <code>list</code> data structure, see the <a href="../intro/m_data_structures.html#list">data structures module</a> and Hadley Wickham’s excellent <em>“R for Data Science”</em> chapter on <a href="https://r4ds.had.co.nz/vectors.html">vectors</a>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3" role="doc-endnote"><p>An anonymous function is a function that is not assigned to an identifier. In other words, it is created and used but doesn’t exist in the Gobal Environment as a function you can call by name. The benefit of using anonymous functions is that they allow you to quickly write single-use functions without storing and managing them. For example, in the expression <code>lapply(1:5, function(x) print(x))</code>, the anonymous function is <code>function(x) print(x)</code>. To make it a regular, named function, we assign it to a value, like <code>print_value &lt;- function(x) print(x)</code>. Then it can be called by name like so: <code>lapply(1:5, print_value)</code>.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 <!--radix_placeholder_article_footer-->
