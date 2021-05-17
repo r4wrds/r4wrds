@@ -1,7 +1,7 @@
 ---
-title: "From iteration to functional programming"
+title: "Reproducible workflows and automation"
 description: | 
-   Conceptual code 
+   How to make computers do your bidding  
 output: 
   distill::distill_article:
     toc: true
@@ -30,4 +30,4 @@ library(here)
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-<a href="index.html" class="btn btn-secondary" style="float: left">Previous module:<br>Simple Shiny</a> <a href="m_git.html" class="btn btn-secondary" style="float: right;">Next module:<br>Approaches to work with Complex Data</a>
+<a href="m_iteration.html" class="btn btn-secondary" style="float: left">Previous module:<br>Iteration</a> <a href="m_parameterized_reports.html" class="btn btn-secondary" style="float: right;">Next module:<br>Parameterized reports</a>
