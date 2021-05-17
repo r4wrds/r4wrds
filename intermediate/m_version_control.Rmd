@@ -397,7 +397,7 @@ include_graphics(here("images/git_pr1.png"))
 
 ```
 
-Next we have an option to add some additional descriptions, comments, about what this PR (pull request) is doing, and why. We can tag a review, add labels, milestones, etc. These are all helpful sometimes for keeping track of what's done and what's not.
+Next we have an option to add some additional descriptions, comments, about what this PR (pull request) is doing, and why. We can tag a review, add labels, milestones, etc. These are all helpful for keeping track of what's done and what's not.
 
 ```{r pr2, layout="l-body-outset", eval=TRUE, echo=FALSE}
 
@@ -406,6 +406,18 @@ include_graphics(here("images/git_pr2.png"))
 ```
 
 After we click the green **Create pull request** button, we should see something that looks like the following. **Important**! We ideally will see a green checkmark with a message "**This branch has no conflicts with the base branch**, which means, our **`main`** branch can easily merge this new work in! 
+
+<aside>
+
+`merge conflicts` are not something to be worried about, they happen, and there are a number of ways to resolve them. A good resource and walk through using [Github is here](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/resolving-a-merge-conflict-on-github), or with [command line here](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/resolving-a-merge-conflict-using-the-command-line).
+
+</aside>
+
+<aside>
+
+**Exiting `vim`**: if you end up in a text editor and aren't sure how to exit, you may be in `vim`. It is the default editor for many systems and programs. To exit without saving changes, hit **`Esc`**, then type **`:q!`** and hit **`Enter`**. To save changes, hit **`Esc`** and then type **`:wq`** and hit **`Enter`**.
+
+</aside>
 
 ```{r pr3, layout="l-body-outset", eval=TRUE, echo=FALSE}
 
@@ -421,29 +433,65 @@ include_graphics(here("images/git_pr4.png"))
 
 ```
 
-
-
 ### `fetch` and `pull`
 
+Now that <font color="#5f3dc4">**Jo**</font> has completed the first part of the team task, we want to move to the second task, which is cleaning the data. Thankfully <font color="#2b8a3e">**Mo**</font> is a great data analyst, and has a script that will clean up the code and visualize it for us. But first, <font color="#2b8a3e">**Mo**</font> needs to `pull` the changes that <font color="#5f3dc4">**Jo**</font> just merged into the `main` repository. There are two approaches to this. One is to use a `git fetch`, the other is a `git pull`. The main difference between the two: 
+
+ - **`fetch`**: The safe version, because it downloads any remote content from the repository, but *does not update your local repository state*. It just keeps a copy of the remote content, leaving any current work intact. To fully integrate the new content, we need to follow a `fetch` by a `merge`.
+ - **`pull`**: This downloads the remote content and then immediately `merges` the content with your local state, but if you have pending work, this will create something called a **merge conflict**^[https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/resolving-a-merge-conflict-on-github]. 
  
+So, <font color="#2b8a3e">**Mo**</font> needs to **`pull`** changes in to his branch from `main` and proceed with the task. Here we assume <font color="#5f3dc4">**Jo**</font> has already completed work on her branch to download data and clean and transform the data.
+ 
+```{r git3, eval=TRUE, echo=FALSE}
+
+include_graphics(here("images/gather_clean_data_together_3b.png"))
+
+```
 
 
-## Notes
+:::challenge
+
+<font color="#009E73">**You Try!**</font> 
+
+<p style="line-height: 1.5em;">
+
+Take the following code from <font color="#2b8a3e">**Mo**</font> and:  
+
+ - create a unique branch: `mo_cleanviz`
+ - save [**this code**](https://raw.githubusercontent.com/ryanpeek/water-is-life/main/code/02_clean_visualize.R) to a new script at `code/02_clean_visualize.R`
+ - `stage` it (either through the Git tab, or via `git add`), 
+ - `commit` (add a message!), 
+ - `push` to <font color="#2b8a3e">**Mo's**</font> branch
+ - Finish by adding a Pull Request and merging back to **`main`**!
+
+</p>
+ 
+:::
+
+<details>
+  <summary class="challenge-ans-title"><font color="#0072B2">**Answers!**</font></summary>
+  <div class="challenge-ans-body">
+
+So we now have a `commit` history that might look something like this.
+
+```{r cleanViz, layout="l-body-outset", eval=TRUE, echo=FALSE, fig.show='hold'}
+
+include_graphics(glue("images/gather_clean_data_together_5.png"))
+
+```
+
+What is one explanation for commit **4**?
+
+  </div>
+</details>
 
 
-<aside>
+## Additional Git Details
 
-**Exiting `vim`**: if you end up in a text editor and aren't sure how to exit, you may be in `vim`. It is the default editor for many systems and programs. To exit without saving changes, hit **`Esc`**, then type **`:q!`** and hit **`Enter`**. To save changes, hit **`Esc`** and then type **`:wq`** and hit **`Enter`**.
+While there are many more details important to learning version control, many come with more practice and expertise. However, a few important tidbits:
 
-</aside>
-
-
-
-
- - the difference between public and private repos, how and why to use branching (idea of parallel work on collaborative projects), submitting a pull request.
- - `.gitignore`: use it to ignore entire directories and other files, especially files >= 125MB, and for files that you may use for internal analysis (e.g., rds) that may be quite large.
- - Basic commands: Fetch, pull, merge, branch + add/commit
- - For merge conflicts...use text file example of comment/code on same line. Show head/diff, choose one and save, here’s what it looks like on desktop, and online.
+ - When working on Github, there are options for `private` and `public` repositories. `private` repos are only visible to you and any collaborators you've added to your repo. 
+ - `.gitignore`: use it to ignore entire directories and other files, especially files >= 125MB, and for files that you may use for internal analysis (e.g., rds) that may be quite large. Github will complain with any file over about ~50MB, and will not be very feasible with files greater than 100MB.
 
 
 
