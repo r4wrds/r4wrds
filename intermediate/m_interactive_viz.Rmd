@@ -1,7 +1,7 @@
 ---
 title: "Interactive Visualization"
 description: | 
-   description
+   Having fun with interactivity in R
 output: 
   distill::distill_article:
     toc: true
@@ -22,5 +22,19 @@ library(here)
 -   B
 -   C
 :::
+
+
+
+
+Demo with first data set driven by student google form to inspire: 
+Question: where is your favorite place to eat? How do you display this data?
+Interactive introduction of course participants to motivate and inspire: everyone will input their name, division, comfort with R on a scale from 1-10 (novice to expert), one thing they hope to learn, work email address, and the street address of their favorite place to eat or get coffee (may need to look it up on Google Maps). Tell people to only input things they’re comfortable sharing on the web since it will become part of the course github site.
+This is done in a Google Sheet, and we’ll run a script that scrapes this table and generates an interactive leaflet map showing markers at everyone’s favorite restaurant/cafe, colored by experience level (1-10), and with hover labels that show the answers of each person. We will then share a script with students that accomplishes this on their desktop by reading the csv that we upload to Github. This exercise will introduce students to each other, demonstrate some of the skills we’ll learn in the course (custom functions, pulling data from APIs, automation, interactive mapping), and inspire.
+Introduce data
+Mapview: easy to use to plot a first cut of spatial data, great for EDA
+Leaflet: more advanced visualization. Markers, popups, labels
+Mention how to put this into a dashboard or Rmd html_document
+Flexdashboard
+ 
 
 
