@@ -18,10 +18,80 @@ library(here)
 ::: {.obj}
 **Learning objectives**
 
--   A
--   B
--   C
+-   Practice functional programming iterative workflows to power reproducible analyses
+-   Understand how to use nested lists within dataframes
+-   Practice conditional execution
+-   Discuss task schedulers and strategies to automate workflows  
 :::
+
+
+<br>
+
+## Reproducible workflows
+
+We're going to extend lessons in functional programming from the previous [module on iteration](m_iteration.html), as well as project management best practices discussed in the [project management module](m_project_management.html). 
+
+
+<br>
+
+## Case Study: groundwater level trend analysis
+
+Story: we want to assess change in groundwater level across all stations and plot it on a map.
+
+
+
+### Conditional execution
+
+If statements within a function
+
+Example for transforming spatial data to the same projection if the crs differs. First plot different crs, and then abstract it into a code chunk with a variable for the default crs used in a project.
+
+
+
+### Nested lists
+
+Story: we want to assess change in groundwater level across all stations and plot it on a map. Plot beta_1. How we can get this with iteration. Begin with one linear model on one station. Then use lists. Introduce: Nested lists (explain list-columns) (linear models - slope of many dataframes)
+
+
+
+### When to write a function
+
+If you copy paste a workflow more than 3 times, write a function
+reproducible workflows
+
+Keeping other users in mind, using `stop()`
+
+safely(), possibly() - toy cases to demo these functions
+
+
+
+### When to define a pipeline
+
+Analogy of watering a garden of plants one by one, or having one drip irrigation line. 
+
+How and when to use `source(my_script.R)` to abstract out functions and other preprocessing pipelines to simplify scripts. The idea of scripts that build on one another in an increasingly complex project.
+
+Take example above and make a control.R - to be used later with task scheduler or cron - we know this data updates monthly, so set it there. Imagine for flow data, this can be every day! Data frequency, latency.  
+
+
+### Automation
+
+Extend analogy of the drip irrigation line to one with a timer. 
+
+
+### Logging
+
+When things are running without your supervision, things may break so it's a good idea to print information whenever the job kicks off so you can review this information in case something doesn't go as planned. This is known as **logging**, which is cornerstone in software engineering, but less so in data science. Logging becomes important for larger jobs with potential to break, or when inputs may sufficiently change in such a way that breaks code.  
+
+
+<br>
+
+## Case Study: groundwater level trend analysis
+
+
+<br>
+
+## Case Study: groundwater level trend analysis
 
 
 
