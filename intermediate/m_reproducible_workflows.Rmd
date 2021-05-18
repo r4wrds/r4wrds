@@ -61,6 +61,14 @@ reproducible workflows
 
 Keeping other users in mind, using `stop()`
 
+
+- make one plot, then function 
+
+- write one data set, then funtion for it all
+
+imagemagik the plots into a gif
+
+
 safely(), possibly() - toy cases to demo these functions
 
 
@@ -76,7 +84,17 @@ Take example above and make a control.R - to be used later with task scheduler o
 
 ### Automation
 
+(ref:automate-fig) *Figure caption TBD*
+
+
+```{r automate-fig, eval=TRUE, echo=FALSE, out.width='100%', fig.cap='(ref:automate-fig)'}
+
+knitr::include_graphics(here("images", "automation.png"))
+
+```
+
 Extend analogy of the drip irrigation line to one with a timer. 
+
 
 
 ### Logging
@@ -86,12 +104,11 @@ When things are running without your supervision, things may break so it's a goo
 
 <br>
 
-## Case Study: groundwater level trend analysis
+## Additional resources
 
-
-<br>
-
-## Case Study: groundwater level trend analysis
+- cron blog posst
+- windows task sceduler link
+- something from efficient R?
 
 
 

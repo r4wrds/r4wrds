@@ -89,29 +89,29 @@ code span.wa { color: #bf0303; } /* Warning */
 </style>
 
   <!--radix_placeholder_meta_tags-->
-  <title>R for Water Resources Data Science: From iteration to functional programming</title>
+  <title>R for Water Resources Data Science: Reproducible workflows and automation</title>
 
-  <meta property="description" itemprop="description" content="Conceptual code"/>
+  <meta property="description" itemprop="description" content="How to make computers do your bidding"/>
 
 
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-  <meta property="og:title" content="R for Water Resources Data Science: From iteration to functional programming"/>
+  <meta property="og:title" content="R for Water Resources Data Science: Reproducible workflows and automation"/>
   <meta property="og:type" content="article"/>
-  <meta property="og:description" content="Conceptual code"/>
+  <meta property="og:description" content="How to make computers do your bidding"/>
   <meta property="og:locale" content="en_US"/>
   <meta property="og:site_name" content="R for Water Resources Data Science"/>
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
-  <meta property="twitter:title" content="R for Water Resources Data Science: From iteration to functional programming"/>
-  <meta property="twitter:description" content="Conceptual code"/>
+  <meta property="twitter:title" content="R for Water Resources Data Science: Reproducible workflows and automation"/>
+  <meta property="twitter:description" content="How to make computers do your bidding"/>
 
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","output"]}},"value":[{"type":"character","attributes":{},"value":["From iteration to functional programming"]},{"type":"character","attributes":{},"value":["Conceptual code \n"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","output"]}},"value":[{"type":"character","attributes":{},"value":["Reproducible workflows and automation"]},{"type":"character","attributes":{},"value":["How to make computers do your bidding  \n"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2300,7 +2300,7 @@ code span.wa { color: #bf0303; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"From iteration to functional programming","description":"Conceptual code","authors":[]}
+{"title":"Reproducible workflows and automation","description":"How to make computers do your bidding","authors":[]}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2345,25 +2345,84 @@ Modules
 <!--/radix_placeholder_site_before_body-->
 
 <div class="d-title">
-<h1>From iteration to functional programming</h1>
+<h1>Reproducible workflows and automation</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
-<p><p>Conceptual code</p></p>
+<p><p>How to make computers do your bidding</p></p>
 </div>
 
 
 <div class="d-article">
+<div class="d-contents d-contents-float">
+<nav class="l-text toc figcaption" id="TOC">
+<h3>Contents</h3>
+<ul>
+<li><a href="#reproducible-workflows">Reproducible workflows</a></li>
+<li><a href="#case-study-groundwater-level-trend-analysis">Case Study: groundwater level trend analysis</a>
+<ul>
+<li><a href="#conditional-execution">Conditional execution</a></li>
+<li><a href="#nested-lists">Nested lists</a></li>
+<li><a href="#when-to-write-a-function">When to write a function</a></li>
+<li><a href="#when-to-define-a-pipeline">When to define a pipeline</a></li>
+<li><a href="#automation">Automation</a></li>
+<li><a href="#logging">Logging</a></li>
+</ul></li>
+<li><a href="#additional-resources">Additional resources</a></li>
+</ul>
+</nav>
+</div>
 <div class="obj">
 <p><strong>Learning objectives</strong></p>
 <ul>
-<li>A</li>
-<li>B</li>
-<li>C</li>
+<li>Practice functional programming iterative workflows to power reproducible analyses</li>
+<li>Understand how to use nested lists within dataframes</li>
+<li>Practice conditional execution</li>
+<li>Discuss task schedulers and strategies to automate workflows<br />
+</li>
 </ul>
 </div>
 <p><br></p>
+<h2 id="reproducible-workflows">Reproducible workflows</h2>
+<p>We’re going to extend lessons in functional programming from the previous <a href="m_iteration.html">module on iteration</a>, as well as project management best practices discussed in the <a href="m_project_management.html">project management module</a>.</p>
+<p><br></p>
+<h2 id="case-study-groundwater-level-trend-analysis">Case Study: groundwater level trend analysis</h2>
+<p>Story: we want to assess change in groundwater level across all stations and plot it on a map.</p>
+<h3 id="conditional-execution">Conditional execution</h3>
+<p>If statements within a function</p>
+<p>Example for transforming spatial data to the same projection if the crs differs. First plot different crs, and then abstract it into a code chunk with a variable for the default crs used in a project.</p>
+<h3 id="nested-lists">Nested lists</h3>
+<p>Story: we want to assess change in groundwater level across all stations and plot it on a map. Plot beta_1. How we can get this with iteration. Begin with one linear model on one station. Then use lists. Introduce: Nested lists (explain list-columns) (linear models - slope of many dataframes)</p>
+<h3 id="when-to-write-a-function">When to write a function</h3>
+<p>If you copy paste a workflow more than 3 times, write a function reproducible workflows</p>
+<p>Keeping other users in mind, using <code>stop()</code></p>
+<ul>
+<li><p>make one plot, then function</p></li>
+<li><p>write one data set, then funtion for it all</p></li>
+</ul>
+<p>imagemagik the plots into a gif</p>
+<p>safely(), possibly() - toy cases to demo these functions</p>
+<h3 id="when-to-define-a-pipeline">When to define a pipeline</h3>
+<p>Analogy of watering a garden of plants one by one, or having one drip irrigation line.</p>
+<p>How and when to use <code>source(my_script.R)</code> to abstract out functions and other preprocessing pipelines to simplify scripts. The idea of scripts that build on one another in an increasingly complex project.</p>
+<p>Take example above and make a control.R - to be used later with task scheduler or cron - we know this data updates monthly, so set it there. Imagine for flow data, this can be every day! Data frequency, latency.</p>
+<h3 id="automation">Automation</h3>
+
+<div class="layout-chunk" data-layout="l-body">
+<div class="figure"><span id="fig:automate-fig"></span>
+<img src="images/automation.png" alt="Figure caption TBD" width="100%" />
+<p class="caption">
+Figure 1: <em>Figure caption TBD</em>
+</p>
+</div>
+</div>
+<p>Extend analogy of the drip irrigation line to one with a timer.</p>
+<h3 id="logging">Logging</h3>
+<p>When things are running without your supervision, things may break so it’s a good idea to print information whenever the job kicks off so you can review this information in case something doesn’t go as planned. This is known as <strong>logging</strong>, which is cornerstone in software engineering, but less so in data science. Logging becomes important for larger jobs with potential to break, or when inputs may sufficiently change in such a way that breaks code.</p>
+<p><br></p>
+<h2 id="additional-resources">Additional resources</h2>
+<p><br></p>
 <p><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"></p>
-<p><a href="index.html" class="btn btn-secondary" style="float: left">Previous module:<br>Simple Shiny</a> <a href="m_git.html" class="btn btn-secondary" style="float: right;">Next module:<br>Approaches to work with Complex Data</a></p>
+<p><a href="m_iteration.html" class="btn btn-secondary" style="float: left">Previous module:<br>Iteration</a> <a href="m_parameterized_reports.html" class="btn btn-secondary" style="float: right;">Next module:<br>Parameterized reports</a></p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
