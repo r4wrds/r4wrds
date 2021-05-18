@@ -298,6 +298,7 @@ Take the following function and:
 </p>
 
 ```{r getData, echo=TRUE, eval=FALSE}
+
 library(fs)
 library(dataRetrieval)
 library(readr)
@@ -435,10 +436,10 @@ include_graphics(here("images/git_pr4.png"))
 
 ### `fetch` and `pull`
 
-Now that <font color="#5f3dc4">**Jo**</font> has completed the first part of the team task, we want to move to the second task, which is cleaning the data. Thankfully <font color="#2b8a3e">**Mo**</font> is a great data analyst, and has a script that will clean up the code and visualize it for us. But first, <font color="#2b8a3e">**Mo**</font> needs to `pull` the changes that <font color="#5f3dc4">**Jo**</font> just merged into the `main` repository. There are two approaches to this. One is to use a `git fetch`, the other is a `git pull`. The main difference between the two: 
+Now that <font color="#5f3dc4">**Jo**</font> has completed the first part of the team task, we want to move to the second task, which is cleaning the data. Thankfully <font color="#2b8a3e">**Mo**</font> is a great data/visualization analyst, and has a script that will clean up the code and visualize it for us. But first, <font color="#2b8a3e">**Mo**</font> needs to `pull` the changes that <font color="#5f3dc4">**Jo**</font> just merged into the `main` repository. There are two approaches to this. One is to use a `git fetch`, the other is a `git pull`. The main difference between the two: 
 
  - **`fetch`**: The safe version, because it downloads any remote content from the repository, but *does not update your local repository state*. It just keeps a copy of the remote content, leaving any current work intact. To fully integrate the new content, we need to follow a `fetch` by a `merge`.
- - **`pull`**: This downloads the remote content and then immediately `merges` the content with your local state, but if you have pending work, this will create something called a **merge conflict**^[https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/resolving-a-merge-conflict-on-github]. 
+ - **`pull`**: This downloads the remote content and then immediately `merges` the content with your local state, but if you have pending work, this will create something called a **merge conflict**, but not to worry, these can be fixed!^[https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/resolving-a-merge-conflict-on-github]. 
  
 So, <font color="#2b8a3e">**Mo**</font> needs to **`pull`** changes in to his branch from `main` and proceed with the task. Here we assume <font color="#5f3dc4">**Jo**</font> has already completed work on her branch to download data and clean and transform the data.
  
@@ -457,12 +458,13 @@ include_graphics(here("images/gather_clean_data_together_3b.png"))
 
 Take the following code from <font color="#2b8a3e">**Mo**</font> and:  
 
- - create a unique branch: `mo_cleanviz`
+ - `pull` changes into the repository so everything is up-to-date!
+ -create a unique branch: `mo_cleanviz`
  - save [**this code**](https://raw.githubusercontent.com/ryanpeek/water-is-life/main/code/02_clean_visualize.R) to a new script at `code/02_clean_visualize.R`
  - `stage` it (either through the Git tab, or via `git add`), 
  - `commit` (add a message!), 
  - `push` to <font color="#2b8a3e">**Mo's**</font> branch
- - Finish by adding a Pull Request and merging back to **`main`**!
+ - Finish by adding a **Pull Request** and merging back to **`main`**!
 
 </p>
  
@@ -474,39 +476,59 @@ Take the following code from <font color="#2b8a3e">**Mo**</font> and:
 
 So we now have a `commit` history that might look something like this.
 
-```{r cleanViz, layout="l-body-outset", eval=TRUE, echo=FALSE, fig.show='hold'}
+```{r cleanViz, eval=TRUE, echo=FALSE, fig.show='hold'}
 
-include_graphics(glue("images/gather_clean_data_together_5.png"))
+include_graphics(glue("images/gather_clean_data_together_5b.png"))
 
 ```
 
-What is one explanation for commit **4**?
+What is one explanation for commit **4**? We also have a project that is very easy to re-run and update, and it can be updated or integrated into a parameterized [Rmarkdown report](https://raw.githubusercontent.com/ryanpeek/water-is-life/main/summary_report.Rmd) which could be shared and updated easily.
+
+```{r VizExample, layout="l-body-outset", eval=TRUE, echo=FALSE, fig.show='hold'}
+
+include_graphics(glue("images/figure_flow_ribbon_wy_facet.png"))
+
+```
+
 
   </div>
 </details>
 
+## Closing the loop
+
+So, we've now walked through how to create branches, add or revise files, and then commit and push these changes to a shared repository for collaborative projects. Importantly, it's generally a good idea to always `pull`/`fetch` at the beginning of each work session so you have the most-up-to-date changes. And if something needs to be fixed, you can always pull a specific branch and make a change and pull request for that branch before pull requesting and merging back to the `main`. 
+
+<aside>
+
+For example, if Jo needed to make a quick fix to some data analysis, she could pull Mo's branch, make a fix (commit **4**), and merge that back into the same branch before he finalizes the analysis and merges back to the `main` branch.
+
+</aside>
+
+```{r gitbranch5, eval=TRUE, echo=FALSE}
+
+include_graphics(glue("images/gather_clean_data_together_6.png"))
+
+```
+
+This is a simplified workflow, but it is very powerful. There are additional options within this workflow, like reverting to previous versions, pruning branches or git history, and more, but the core steps to successfully using version control really rely on the material covered above, with practice! 
 
 ## Additional Git Details
 
 While there are many more details important to learning version control, many come with more practice and expertise. However, a few important tidbits:
 
- - When working on Github, there are options for `private` and `public` repositories. `private` repos are only visible to you and any collaborators you've added to your repo. 
- - `.gitignore`: use it to ignore entire directories and other files, especially files >= 125MB, and for files that you may use for internal analysis (e.g., rds) that may be quite large. Github will complain with any file over about ~50MB, and will not be very feasible with files greater than 100MB.
+ - When working on Github, there are options for `private` and `public` repositories. `private` repos are only visible to you and any collaborators you've added to your repo. Certain accounts permit unlimited `private` repos.
+ - `.gitignore`: We can access or create this file with the `usethis::edit_git_ignore()` function. Any file extension or specific file we include in our `.gitignore` file will mean `git` ignores it. This is helpful for hidden files or temporary files that may change a lot (i.e., `*.html`) but aren't necessary to version contol. You can even ignore entire directories or large files ( >= 100MB).
+ - Additionally the **`usethis::git_vaccinate()`** function to insure there are no issues or secure files that may get accidentally added to your version control repository.
+ - Large files...Github is great, but less ideal for large files. Github will complain with any file over about ~50MB, and anything greater than 100MB requires [`git-lfs`](https://git-lfs.github.com) (large file sizes), but it is still unwieldy. See [this article for suggestions and options](https://docs.github.com/en/github/managing-large-files/collaboration-with-git-large-file-storage)
 
 
-
-## Additional Resources & Tutorials
+## Resources & Tutorials
 
  - https://swcarpentry.github.io/git-novice/
  - https://learngitbranching.js.org
  - [r for excel with github](https://rstudio-conf-2020.github.io/r-for-excel/github.html)
  - [Excuse me do you have a moment to talk version control by Jenny Bryan](https://peerj.com/preprints/3159/)
  - [Github for project management](https://openscapes.github.io/series/github-issues.html)
-
-- git vaccinate with usethis to insure no issues with hidden/secure files
-
-- discuss committing .html, shapefiles, etc. 
-- Ignore large files or data. 
 
 
 <br> 
