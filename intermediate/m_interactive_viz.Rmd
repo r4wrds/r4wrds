@@ -5,6 +5,8 @@ description: |
 output: 
   distill::distill_article:
     toc: true
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE, purl=FALSE, message=FALSE}
@@ -18,18 +20,77 @@ library(here)
 ::: {.obj}
 **Learning objectives**
 
--   A
--   B
--   C
+-  How to use interactive visualization in R
+-  Workflows to go from data to visualization
+-  Understand a visualization objective
 :::
 
 
+# Why interactive visualizations?
+
+One of the most exciting and rewarding parts of learning to code is the ability to ***see results***! Visualization is one of `R`'s strengths, and there are a seemingly constantly growing number of packages that can assist you in customizing just about any visualization you can think of. Importantly, this allows users to access and interact with data on a level that would not otherwise be possible.
+
+We can learn new things and develop new questions by effectively interacting with data...so the ability to stitch raw data into something visual can help provide unique insight that may be much harder to discern with a table or some raw data.
+
+Let's demonstrate a simple way we can collect data, update it *automagically*, and visualize in a fairly streamlined manner. Keep in mind, this is one approach, but there are many, with increasing complexity. But when starting out, working examples (as in, it works when you try it!) are the best way to build your proficiency in R programming.
+
+## Mapping with Geocoder
+
+This example will couple the power of collecting user input (favorite places to eat/drink) with interactive mapping. We'll use a Form to collect some data, and then display that via a map. This illustrates some of the power (and fun!) of programming in R.
+
+### Collect Data
+
+Answer as many questions as you feel comfortable, but at minimum, the street address/name of your favorite place to eat or get a beverage (hot or cold).
+
+<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfy6hsEVZ2b0yvAnK907ESR83j0M8jqEM7cFyXKjKpo8GGwnw/viewform?embedded=true" width="640" height="1026" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
 
 
-Demo with first data set driven by student google form to inspire: 
-Question: where is your favorite place to eat? How do you display this data?
-Interactive introduction of course participants to motivate and inspire: everyone will input their name, division, comfort with R on a scale from 1-10 (novice to expert), one thing they hope to learn, work email address, and the street address of their favorite place to eat or get coffee (may need to look it up on Google Maps). Tell people to only input things they’re comfortable sharing on the web since it will become part of the course github site.
-This is done in a Google Sheet, and we’ll run a script that scrapes this table and generates an interactive leaflet map showing markers at everyone’s favorite restaurant/cafe, colored by experience level (1-10), and with hover labels that show the answers of each person. We will then share a script with students that accomplishes this on their desktop by reading the csv that we upload to Github. This exercise will introduce students to each other, demonstrate some of the skills we’ll learn in the course (custom functions, pulling data from APIs, automation, interactive mapping), and inspire.
+### Import and Map Data
+
+We'll need these packages to work with this data.
+
+```{r pkgs, message=FALSE, warning=FALSE}
+
+library(tidygeocoder) # geocode our addresses
+library(tidyverse) # wrangle data
+library(janitor) # clean column names
+library(sf) # make spatial data
+library(mapview) # interactive maps!
+mapviewOptions(fgb = FALSE)
+
+
+```
+
+Here's the whole script we need! To generate a public `.csv` from a Form, we can use `File > Publish to the Web`. Importantly, here we are publishing to a `.csv` so we can read the data in directly and simply using `read_csv`. We then clean, make it into an `sf` object, and map!
+
+```{r mapview, layout="1-page", echo=TRUE, eval=TRUE}
+
+# the url for the data:
+form_data <- paste0("https://docs.google.com/spreadsheets/d/e/",
+                    "2PACX-1vSODxBm_z5Gu8a42C6ZFEa3S5iTbYV-",
+                    "qucCGvasGS6c0qFUAml5vSMEgbvI9PYo1HJ20Y_WY62aTAb-",
+                    "/pub?gid=1462593645&single=true&output=csv")
+
+# read in url and clean
+dat <- read_csv(form_data) %>% clean_names() %>% rename(address=3)
+
+# geocode
+dat_geo <- dat %>%
+  geocode(address, method = 'osm', lat = latitude , long = longitude)
+
+# make into sf object so we can map
+dat_geo <- dat_geo %>% 
+  st_as_sf(coords = c("longitude", "latitude"), crs=4269, remove = FALSE )
+
+# map!
+mapview(dat_geo, zcol="comfort_using_r", layer.name="R comfort level", cex=6.5)
+
+```
+
+
+# Other Examples
+
+
 Introduce data
 Mapview: easy to use to plot a first cut of spatial data, great for EDA
 Leaflet: more advanced visualization. Markers, popups, labels
