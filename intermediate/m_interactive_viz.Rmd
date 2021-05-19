@@ -54,6 +54,7 @@ We'll need these packages to work with this data.
 library(tidygeocoder) # geocode our addresses
 library(tidyverse) # wrangle data
 library(janitor) # clean column names
+library(glue)
 library(sf) # make spatial data
 library(mapview) # interactive maps!
 mapviewOptions(fgb = FALSE)
@@ -80,22 +81,190 @@ dat_geo <- dat %>%
 
 # make into sf object so we can map
 dat_geo <- dat_geo %>% 
-  st_as_sf(coords = c("longitude", "latitude"), crs=4269, remove = FALSE )
+  st_as_sf(coords = c("longitude", "latitude"), crs=4326, remove = FALSE )
 
 # map!
 mapview(dat_geo, zcol="comfort_using_r", layer.name="R comfort level", cex=6.5)
 
 ```
 
+### Use `{leaflet}`
 
-# Other Examples
+We used {`mapview`} above, but we could also use the `{leaflet}` package to make a more customizable map with some fancy icons, and a measuring tool, to see how far each location is from wherever it is you are interested. Or what the the total area is that encompasses all our points.
+
+```{r leaflet, layout="1-page"}
+
+library(leafpm)
+library(leaflet)
+library(leaflet.extras)
+library(htmltools)
+
+# set up our map
+m <- leaflet() %>%
+  # add tiles or the "basemaps"
+  addTiles(group = "OSM") %>% # defaults to Open Street Maps
+  addProviderTiles(providers$CartoDB.Positron, group="Positron") %>% 
+  addProviderTiles(providers$Stamen.TonerLite, group = "Toner Lite") %>%
+  addMarkers(icon=icons(
+    iconUrl = "https://leafletjs.com/examples/custom-icons/leaf-green.png",
+    shadowUrl = "https://leafletjs.com/examples/custom-icons/leaf-shadow.png",
+    iconWidth = 38, iconHeight = 95, shadowWidth = 50, shadowHeight = 64,
+    iconAnchorX = 22, iconAnchorY = 94, shadowAnchorX = 4, shadowAnchorY = 62,
+    popupAnchorX = -3, popupAnchorY = -76),
+  lng=-121.4944, lat=38.5816, 
+  popup="Sacramento!", group = "Home") %>% 
+  addMarkers(data = dat_geo, group = "Food & Drink",
+             label = ~htmlEscape(first_name),
+             popup = glue("<b>Name:</b> {dat_geo$first_name}<br>
+                          <b>Address:</b> {dat_geo$address}<br>
+                          <b>R comfort (1-10):</b>{dat_geo$comfort_using_r}")
+             )  %>% 
+  addLayersControl(
+    baseGroups = c("Toner Lite", "Positron", "OSM"),
+    overlayGroups = c("Home", "Food & Drink"),
+    options = layersControlOptions(collapsed = FALSE)
+  ) %>% 
+  addMeasure()
+
+m  # Print the map
+
+```
 
 
-Introduce data
-Mapview: easy to use to plot a first cut of spatial data, great for EDA
-Leaflet: more advanced visualization. Markers, popups, labels
-Mention how to put this into a dashboard or Rmd html_document
-Flexdashboard
- 
+## Using D3
+
+A powerful visualization tool is the [D3.js](https://d3js.org) (javascript) library, which has some amazing options. What's great is there are ways to easily translate your R code into D3, via packages like [{`r2d3`}](https://rstudio.github.io/r2d3/index.html).
+
+Here's an example of a calendar visualization, based on the stock market open and close between 2006 and 2010.
+
+```{r, eval=TRUE, echo=FALSE}
+library(r2d3)
+
+r2d3(data = read_csv("https://raw.githubusercontent.com/rstudio/r2d3/master/vignettes/gallery/calendar/dji-latest.csv"), d3_version = 4, container = "div", options = list(start = 2006, end = 2011), script = here("functions","calendar.js"))
+```
+
+### A Network with D3
+
+Another example of a way to interactively engage with data is networks. Here's a simple example of an interactive network visualization:
+
+```{r d3, layout="1-page"}
+# Libraries
+library(igraph)
+library(networkD3)
+
+# create a dataset:
+data <- tibble(
+  from=c("Dam","Dam","Dam", "Dam",
+         "River","River","River", "River","River",
+         "Canal", "Canal", 
+         "Diversion","Diversion", 
+         "Reservoir", "Reservoir","Reservoir",
+         "Lake","Lake","Lake", "Lake", 
+         "Road","Road","Road",
+         "Culvert", "Culvert",
+         "Fish", "Fish","Fish",
+         "Frog","Frog","Frog",
+         "MacroInvertebrates","MacroInvertebrates"),
+  to=c("River","Reservoir","Canal","Diversion",
+       "Lake","Reservoir","Frog","Fish","MacroInvertebrates",
+       "Diversion", "Reservoir",
+       "Dam", "River",
+       "River","Dam","Fish",
+       "Fish","Dam","Frog","MacroInvertebrates",
+       "Fish","Dam", "Canal",
+       "Road", "Dam",
+       "Frog", "River","MacroInvertebrates",
+       "Fish", "River", "Lake",
+       "River", "Lake")
+)
+
+# Plot
+(p <- simpleNetwork(data, height="600px", width="600px", 
+                    fontSize = 16, fontFamily = "serif",
+                    nodeColour = "darkblue", linkColour = "steelblue",
+                    opacity = 0.9, zoom = TRUE, charge=-500))
+
+```
+
+If we wanted to save this interactive visualization and send it as a standalone `.html` file, we could use the following code:
+
+```{r, eval=FALSE}
+
+# save the widget
+library(htmlwidgets)
+saveWidget(p, file=here("output","network_interactive.html"))
+
+```
+
+
+## Plotly
+
+Another great tool for interacting with data is the `{plotly}` package, which if using the `{ggplot2}` framework, has a very handy function you can wrap around pretty much any `ggplot`: `ggplotly()`. This allows you to click, hover, zoom, etc. inside your plot, and is a very useful tool for exploring data.
+
+Here's a quick example, say you were asked to find the date of a peak flow for a given year, or an outlier in a graph? We could figure this out with some `dplyr::filter` and additional queries of our data, but it would also be easy to visually look and see what this is on a plot. This is where the power of `plotly` can be very helpful.
+
+Let's use the [CalEnviroScreen data](https://oehha.ca.gov/calenviroscreen/report/calenviroscreen-30) from Sacramento County from a [previous module](). Recall, higher scores mean a higher impact of pollution to a community. 
+
+```{r ciplot, layout="1-page", eval=TRUE, echo=TRUE, fig.cap="Static plot of CES data...how do we interact with these data?"}
+
+# load CES data for Sacramento county
+ces3_sac <- readRDS(here::here("data", "ces3_sac.rds"))
+
+mapview(ces3_sac, zcol="CIscoreP")
+
+```
+
+Let's make a static plot that shows the association between groundwater threats and the CES score. The trend is interesting, but what if we want to know what census tracts are associated with outliers (high or low) on this static plot?
+
+```{r}
+# plot of Groundwater threats vs. CES score
+(ces_plot <- ggplot(data = ces3_sac, 
+                    aes(x = gwthreatsP, y = CIscoreP, label=tract)) + 
+    geom_point() +
+    geom_smooth(method = "gam") +
+    cowplot::theme_half_open() +
+    labs(title="CalEnviroscreen Score vs. 
+         Groundwater Threats in Sacramento County",
+         subtitle="Higher CI Score indicates higher threat or impact to community",
+         x="Groundwater Threats (percentile)", y="CI Score (percentile)"))
+  
+```
+
+Try wrapping the exact plot above with `ggplotly()`. Now we can quickly interact and select data of interest. Try hovering your pointer over a point on the plot below. Or, click and drag to select a specific region of the plot to zoom into just that region. You can double click to return to the original zoom level.
+
+```{r plotlyCI, eval=TRUE, echo=TRUE}
+
+library(plotly)
+ggplotly(ces_plot)
+
+
+```
+
+
+## Summary
+
+There are many options to make very fancy visualizations in R, but remember to consider what the objective is, and how you can frame things for the end user. We like stories, so while a really cool visualization may definitely grab someone's attention, it can be much more powerful if it's coupled with a story. Or, sometimes data visualization can be a really important tool for Exploratory Data Analysis (see [EDA](../intro/m_exploratory_DA.html)). 
+
+Whatever the visualization, if it communicates data in a way that provides new insight, or provides a easier medium to transfer information (i.e., with an Rmarkdown document), the ability to quickly take data, transform it, and visualize it is a powerful skill to have.
+
+
+
+## More Resources
+
+ - [Rmarkdown Flexdashboard](https://pkgs.rstudio.com/flexdashboard/)
+ - [R2D3 Visualizations](https://rstudio.github.io/r2d3/index.html)
+ - [RGraph Gallery](https://www.r-graph-gallery.com/index.html)
+ - All things [Shiny](https://shiny.rstudio.com/gallery/)
+ - [Network visualization](https://kateto.net/network-visualization)
+
+
+
+<br> 
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<a href="index.html" class="btn btn-secondary" style="float: left">Previous module:<br>Version Control</a> <a href="m_version_control.html" class="btn btn-secondary" style="float: right;">Next module:<br>Reproducible Workflows</a>
+
+
 
 
