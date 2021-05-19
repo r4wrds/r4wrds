@@ -50,7 +50,7 @@ We should always strive for at least a degree of automation represented by the l
 
 [^1]: As discussed in the project management module, [abstracting functions from code](m_project_management.html#abstracting-functions-from-code) is a best practice of defining functions and storing them in separate scripts to keep your workspace easier to read and de-bug.  
 
-Whether or not to write wrapper programs or set task schedulers depends on the needs of the workflow; guidance on when and when to not automate will be discussed in this module. 
+Whether or not to write wrapper programs or configure task schedulers depends on the needs of the workflow. Guidance on when and when to not automate will be discussed in this module. 
 
 To demonstrate varying degrees of automation in a real-life example and extend our practice of functional programming, we will focus on a case study using the DWR's Periodic Groundwater Level Database.
 
@@ -59,15 +59,17 @@ To demonstrate varying degrees of automation in a real-life example and extend o
 
 ## Case Study: groundwater level trend analysis
 
-The California Department of Water Resources publishes a routine report on groundwater level conditions that shows, on a point-by-point basis, the groundwater level trend at that point. Short-term (i.e., 1, 3, and 5 year) trends are shown, as well as long-term trends (i.e., 10 and 20 years). 
+The California Department of Water Resources publishes a routine report on groundwater level conditions that shows groundwater level trends on a point-by-point basis. Short-term (i.e., 1, 3, and 5 year) and long-term trends (i.e., 10 and 20 years) are displayed in the report. 
 
-Imagine we want to assess change in groundwater level across all stations and plot it on a map.
 
 (ref:ca-dwr-fig) *The ["California Groundwater Conditions Update - Spring 2020", DWR (2020)](https://water.ca.gov/-/media/DWR-Website/Web-Pages/Programs/Groundwater-Management/Data-and-Tools/Files/Maps/Groundwater-Level-Change/DOTMAP_Reports/Spring-2020-Groundwater-DOTMAP-Report.pdf) demonstrates the rate and direction of groundwater level change over different time periods, shown here is the 20000-2020 trend.*
 
 ```{r ca-dwr, eval=TRUE, echo=FALSE, fig.cap='(ref:ca-dwr-fig)'}
 knitr::include_graphics(here("images", "dwr_gwl.png"))
 ```
+
+Let's imagine that our task is to assess change in groundwater level across all stations and plot it on a map, just as we see in the report. In the sections that follow we will do exactly that, and demonstrate best practices in creating a reproducible, automatable pipeline, along the way covering key concepts including xyz.
+
 
 ### Conditional execution
 
