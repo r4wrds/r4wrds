@@ -83,11 +83,11 @@ form_data <- paste0("https://docs.google.com/spreadsheets/d/e/",
 # read in url and clean
 dat <- read_csv(form_data) %>% 
   clean_names() %>% 
-  rename(address = 3)
+  rename( dining_name = 3, dining_address = 4)
 
 # geocode using Open Street Map (osm) API because it's free
 dat_geo <- dat %>%
-  geocode(address, method = 'osm', lat = latitude , long = longitude)
+  geocode(dining_address, method = 'osm', lat = latitude , long = longitude)
 
 # make into sf object so we can map
 dat_geo <- dat_geo %>% 
@@ -107,7 +107,7 @@ mapview(
 
 We used {`mapview`} above, but we could also use the `{leaflet}` package to make a more customizable map with some fancy icons and a measuring tool, to calculate how far each location is from a point of interest, or the the total area that encompasses all our points.
 
-```{r leaflet, layout="l-screen"}
+```{r leaflet, layout="l-page"}
 
 library(leafpm)
 library(leaflet)
@@ -133,7 +133,8 @@ m <- leaflet() %>%
     label = ~htmlEscape(first_name),
     popup = glue(
       "<b>Name:</b> {dat_geo$first_name}<br>
-      <b>Address:</b> {dat_geo$address}<br>
+      <b>Food_Name:</b> {dat_geo$dining_name}<br>
+      <b>Food_Address:</b> {dat_geo$dining_address}<br>
       <b>R comfort (1-10):</b>{dat_geo$comfort_using_r}"
     )
   )  %>% 
@@ -209,6 +210,12 @@ data <- tibble(
 
 ```
 
+<aside>
+
+When we wrap code with `()`, as we did with the plot above, it will evaluate the code and provide the output in the `Console`, `Plots`, or `Viewer` tab (depending on the code). This is a handy shortcut instead of having to save the object `p <- my_code` and then call/print the object `p`. We use `(p <- my_code)`.
+
+</aside>
+
 If we wanted to save this interactive visualization and send it as a standalone `.html` file, we could use the following code:
 
 ```{r, eval=FALSE}
@@ -229,7 +236,7 @@ For example, say you were asked to find the date of a peak flow for a given year
 
 Let's use the [CalEnviroScreen data](https://oehha.ca.gov/calenviroscreen/report/calenviroscreen-30) from Sacramento County from a [previous module](../intro/m_exploratory_DA.html#question-4-relating-groundwater-to-ces-scores). Recall, higher scores mean a higher impact of pollution to a community.
 
-```{r ciplot, layout="l-page", eval=TRUE, echo=TRUE, fig.cap="Static plot of CES data...how do we interact with these data?"}
+```{r ciplot, eval=TRUE, echo=TRUE}
 
 # load CES data for Sacramento county
 ces3_sac <- readRDS(here::here("data", "ces3_sac.rds"))
@@ -240,13 +247,13 @@ mapview(ces3_sac, zcol = "CIscoreP")
 
 Let's make a static plot that shows the association between groundwater threats and the CES score. The trend is interesting, but what if we want to know what census tracts are associated with outliers (high or low) on this static plot?
 
-```{r}
+```{r, layout="l-page", out.width="90%"}
 # plot of Groundwater threats vs. CES score
 (ces_plot <- ces3_sac %>% 
    ggplot(aes(x = gwthreatsP, y = CIscoreP, label = tract)) + 
    geom_point() +
    geom_smooth(method = "gam") +
-   cowplot::theme_half_open() +
+   cowplot::theme_half_open(font_size = 12) +
    labs(
      title = "CES Score vs. Groundwater Threats in Sacramento County",
      subtitle = "Higher CI Score indicates higher threat/impact",
@@ -259,7 +266,7 @@ Let's make a static plot that shows the association between groundwater threats 
 
 Try wrapping the exact plot above with `ggplotly()`. Now we can quickly interact and select data of interest. Try hovering your pointer over a point on the plot below. Or, click and drag to select a specific region of the plot to zoom into just that region. You can double click to return to the original zoom level. Visual inspection like so can help us quickly explore large and complex datasets, and identify the next step in our workflow.
 
-```{r plotlyCI, layout="l-page", eval=TRUE, echo=TRUE}
+```{r plotlyCI, layout="l-page", eval=TRUE, echo=TRUE, fig.height=6}
 
 library(plotly)
 ggplotly(ces_plot)
