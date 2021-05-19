@@ -1,7 +1,7 @@
 ---
 title: "Advanced spatial R and mapmaking"
 description: | 
-   description
+   From 1,000 point-clicks to 1 script...
 output: 
   distill::distill_article:
     toc: true
@@ -18,9 +18,54 @@ library(here)
 ::: {.obj}
 **Learning objectives**
 
--   A
--   B
--   C
+-   Learn to extend and use {sf} for geospatial work
+-   Understand power of script-based geospatial/mapping
+-   Learn how to expand geospatial skills in R
 :::
 
 
+## Overview
+
+Ability to work all in one place is powerful and reduces mental workload to switch programs, stay organized, and deal with import/export.
+
+Python ESRI is great but....
+
+You have entire stats and modeling toolboxes in R available to your data
+
+We can do this in R & functional programming to a spatial problem
+
+You can use the same functions!
+
+## Common Geospatial Tasks
+
+There are some common tasks that are often required or repeated, and using a GUI-based approach, these tasks will always require the same number of point and clicks. With a script-based approach, it's much easier to recycle previous code, or just change a variable and re-run the code. This efficiency is magnified immensely when it can be automated or iterated over the same task through time, or multiple data sets.
+
+For example, some common tasks may include:
+
+ - Cropping/creating a specific region or subset of spatial data for different users
+ - Make a map with common layers or components but updated data
+ - Integrating or spatial joining of datasets
+ - Reprojecting spatial data 
+ 
+ 
+### Notes
+ 
+st_read, st_transform, st_buffer, st_union, st_intersection, group_split, st_write to multiple directories - now you’re a data provider
+Use GSOD lesson and show climate stations with climate data, write out by county: https://ryanpeek.org/mapping-in-R-workshop/03_spatial_joins.html
+You want to find the nearest river/WQ stations to a groundwater area of interest?
+Spatial joins, st_nearest, buffering
+Why click button GIS tasks may be easier to integrate with R? What if you needed to do this for each county or river?
+End up with a list of stations/points that we can map with the buffer
+How to pull spatial river data or other spatial data via R (nhdtoolsPlus package, dataRetrieval)
+Adding more content on spatial operations (buffer, nearest, measurements)
+Reading a zipped shapefile directly into R, use it, and move out!
+Joins (spatial and non-spatial)
+Join physical datasets with Redlining and CalEnviroScreen data
+Join by census tract, or join by what points fall within a certain county or tract
+Can use the climate station example too (https://ryanpeek.org/mapping-in-R-workshop/03_spatial_joins.html)
+Mapping with layers: tmap and tmaptools
+Show basemap options with tmaptools
+Add elevation with elevatr
+Mapedit and digitizing with R: how to create spatial objects from scratch from within R.
+Save custom polygon using mapedit from temp object in R to rds
+Select with mapedit and save 
