@@ -216,7 +216,7 @@ mapview(ces3_sac, zcol="CIscoreP")
 
 Let's make a static plot that shows the association between groundwater threats and the CES score. The trend is interesting, but what if we want to know what census tracts are associated with outliers (high or low) on this static plot?
 
-```{r}
+```{r, layout="1-page"}
 # plot of Groundwater threats vs. CES score
 (ces_plot <- ggplot(data = ces3_sac, 
                     aes(x = gwthreatsP, y = CIscoreP, label=tract)) + 
@@ -232,7 +232,7 @@ Let's make a static plot that shows the association between groundwater threats 
 
 Try wrapping the exact plot above with `ggplotly()`. Now we can quickly interact and select data of interest. Try hovering your pointer over a point on the plot below. Or, click and drag to select a specific region of the plot to zoom into just that region. You can double click to return to the original zoom level.
 
-```{r plotlyCI, eval=TRUE, echo=TRUE}
+```{r plotlyCI, layout="1-page", eval=TRUE, echo=TRUE}
 
 library(plotly)
 ggplotly(ces_plot)
