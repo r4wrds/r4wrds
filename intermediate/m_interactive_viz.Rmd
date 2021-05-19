@@ -1,7 +1,7 @@
 ---
 title: "Interactive Visualization"
 description: | 
-   Having fun with interactivity in R
+   Having fun with interactivity in `R`
 output: 
   distill::distill_article:
     toc: true
@@ -20,30 +20,36 @@ library(here)
 ::: {.obj}
 **Learning objectives**
 
--  How to use interactive visualization in R
--  Workflows to go from data to visualization
--  Understand a visualization objective
+-   How to use interactive visualization in `R`
+-   Workflows to go from data to visualization
+-   Understand a visualization objective
 :::
 
+<br>
 
-# Why interactive visualizations?
+## Why interactive visualizations?
 
 One of the most exciting and rewarding parts of learning to code is the ability to ***see results***! Visualization is one of `R`'s strengths, and there are a seemingly constantly growing number of packages that can assist you in customizing just about any visualization you can think of. Importantly, this allows users to access and interact with data on a level that would not otherwise be possible.
 
-We can learn new things and develop new questions by effectively interacting with data...so the ability to stitch raw data into something visual can help provide unique insight that may be much harder to discern with a table or some raw data.
+Because we can learn new things and develop new questions by effectively interacting with data, the ability to stitch raw data into something visual can help provide unique insight that may be much harder to discern with a table or some raw data.
 
-Let's demonstrate a simple way we can collect data, update it *automagically*, and visualize in a fairly streamlined manner. Keep in mind, this is one approach, but there are many, with increasing complexity. But when starting out, working examples (as in, it works when you try it!) are the best way to build your proficiency in R programming.
+Let's demonstrate a simple way we can collect data, update it *automagically*, and visualize in a fairly streamlined manner. Keep in mind, this is one approach, but there are many more, with increasing complexity. But for illustration, "working" examples (as in, it works when you try it!) are the best way to build your proficiency in `R` programming.
+
+<br>
 
 ## Mapping with Geocoder
 
-This example will couple the power of collecting user input (favorite places to eat/drink) with interactive mapping. We'll use a Form to collect some data, and then display that via a map. This illustrates some of the power (and fun!) of programming in R.
+This example will couple the power of collecting user input (favorite places to eat/drink) with interactive mapping. We'll use a Form to collect some data, and then display that via a map. This illustrates some of the power (and fun!) of programming in `R`.
 
 ### Collect Data
 
 Answer as many questions as you feel comfortable, but at minimum, the street address/name of your favorite place to eat or get a beverage (hot or cold).
 
-<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfy6hsEVZ2b0yvAnK907ESR83j0M8jqEM7cFyXKjKpo8GGwnw/viewform?embedded=true" width="640" height="1026" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfy6hsEVZ2b0yvAnK907ESR83j0M8jqEM7cFyXKjKpo8GGwnw/viewform?embedded=true" width="640" height="1026" frameborder="0" marginheight="0" marginwidth="0">
 
+Loading...
+
+</iframe>
 
 ### Import and Map Data
 
@@ -52,47 +58,56 @@ We'll need these packages to work with this data.
 ```{r pkgs, message=FALSE, warning=FALSE}
 
 library(tidygeocoder) # geocode our addresses
-library(tidyverse) # wrangle data
-library(janitor) # clean column names
-library(glue)
-library(sf) # make spatial data
-library(mapview) # interactive maps!
+library(tidyverse)    # wrangle data
+library(janitor)      # clean column names
+library(glue)         # modern paste() function
+library(sf)           # make spatial data
+library(mapview)      # interactive maps!
 mapviewOptions(fgb = FALSE)
 
 
 ```
 
-Here's the whole script we need! To generate a public `.csv` from a Form, we can use `File > Publish to the Web`. Importantly, here we are publishing to a `.csv` so we can read the data in directly and simply using `read_csv`. We then clean, make it into an `sf` object, and map!
+The entire script we need is below (don't forget to include the packages above). To generate a public `.csv` from a Form, we can use `File > Publish to the Web`[^1]. Importantly, here we are publishing to a `.csv` so we can read the data in directly and simply using `read_csv`. We then clean, convert it into an `sf` object, and map!
 
-```{r mapview, layout="1-page", echo=TRUE, eval=TRUE}
+[^1]: Note that these instructions are specific to Google Drive, where we created the Form, but most cloud-based repositories (Box, Dropbox, etc) have some version of allowing public read access of files (including csv files). We chose a Google Form in this example because of the integration between the Form and a readable csv.
 
-# the url for the data:
+```{r mapview, layout="l-page", echo=TRUE, eval=TRUE}
+
+# the url for the Form data 
 form_data <- paste0("https://docs.google.com/spreadsheets/d/e/",
                     "2PACX-1vSODxBm_z5Gu8a42C6ZFEa3S5iTbYV-",
                     "qucCGvasGS6c0qFUAml5vSMEgbvI9PYo1HJ20Y_WY62aTAb-",
                     "/pub?gid=1462593645&single=true&output=csv")
 
 # read in url and clean
-dat <- read_csv(form_data) %>% clean_names() %>% rename(address=3)
+dat <- read_csv(form_data) %>% 
+  clean_names() %>% 
+  rename(address = 3)
 
-# geocode
+# geocode using Open Street Map (osm) API because it's free
 dat_geo <- dat %>%
   geocode(address, method = 'osm', lat = latitude , long = longitude)
 
 # make into sf object so we can map
 dat_geo <- dat_geo %>% 
-  st_as_sf(coords = c("longitude", "latitude"), crs=4326, remove = FALSE )
+  st_as_sf(coords = c("longitude", "latitude"), crs = 4326, remove = FALSE)
 
 # map!
-mapview(dat_geo, zcol="comfort_using_r", layer.name="R comfort level", cex=6.5)
+mapview(
+  dat_geo, 
+  zcol = "comfort_using_r", 
+  layer.name = "R comfort level", 
+  cex = 6.5
+)
 
 ```
 
 ### Use `{leaflet}`
 
-We used {`mapview`} above, but we could also use the `{leaflet}` package to make a more customizable map with some fancy icons, and a measuring tool, to see how far each location is from wherever it is you are interested. Or what the the total area is that encompasses all our points.
+We used {`mapview`} above, but we could also use the `{leaflet}` package to make a more customizable map with some fancy icons and a measuring tool, to calculate how far each location is from a point of interest, or the the total area that encompasses all our points.
 
-```{r leaflet, layout="1-page"}
+```{r leaflet, layout="l-screen"}
 
 library(leafpm)
 library(leaflet)
@@ -105,20 +120,23 @@ m <- leaflet() %>%
   addTiles(group = "OSM") %>% # defaults to Open Street Maps
   addProviderTiles(providers$CartoDB.Positron, group="Positron") %>% 
   addProviderTiles(providers$Stamen.TonerLite, group = "Toner Lite") %>%
-  addMarkers(icon=icons(
+  addMarkers(icon = icons(
     iconUrl = "https://leafletjs.com/examples/custom-icons/leaf-green.png",
     shadowUrl = "https://leafletjs.com/examples/custom-icons/leaf-shadow.png",
     iconWidth = 38, iconHeight = 95, shadowWidth = 50, shadowHeight = 64,
     iconAnchorX = 22, iconAnchorY = 94, shadowAnchorX = 4, shadowAnchorY = 62,
     popupAnchorX = -3, popupAnchorY = -76),
-  lng=-121.4944, lat=38.5816, 
-  popup="Sacramento!", group = "Home") %>% 
-  addMarkers(data = dat_geo, group = "Food & Drink",
-             label = ~htmlEscape(first_name),
-             popup = glue("<b>Name:</b> {dat_geo$first_name}<br>
-                          <b>Address:</b> {dat_geo$address}<br>
-                          <b>R comfort (1-10):</b>{dat_geo$comfort_using_r}")
-             )  %>% 
+  lng = -121.4944, lat = 38.5816, 
+  popup = "Sacramento!", group = "Home") %>% 
+  addMarkers(
+    data = dat_geo, group = "Food & Drink",
+    label = ~htmlEscape(first_name),
+    popup = glue(
+      "<b>Name:</b> {dat_geo$first_name}<br>
+      <b>Address:</b> {dat_geo$address}<br>
+      <b>R comfort (1-10):</b>{dat_geo$comfort_using_r}"
+    )
+  )  %>% 
   addLayersControl(
     baseGroups = c("Toner Lite", "Positron", "OSM"),
     overlayGroups = c("Home", "Food & Drink"),
@@ -130,6 +148,7 @@ m  # Print the map
 
 ```
 
+<br>
 
 ## Using D3
 
@@ -147,42 +166,46 @@ r2d3(data = read_csv("https://raw.githubusercontent.com/rstudio/r2d3/master/vign
 
 Another example of a way to interactively engage with data is networks. Here's a simple example of an interactive network visualization:
 
-```{r d3, layout="1-page"}
+```{r d3, layout="l-page"}
 # Libraries
 library(igraph)
 library(networkD3)
 
 # create a dataset:
 data <- tibble(
-  from=c("Dam","Dam","Dam", "Dam",
-         "River","River","River", "River","River",
-         "Canal", "Canal", 
-         "Diversion","Diversion", 
-         "Reservoir", "Reservoir","Reservoir",
-         "Lake","Lake","Lake", "Lake", 
-         "Road","Road","Road",
-         "Culvert", "Culvert",
-         "Fish", "Fish","Fish",
-         "Frog","Frog","Frog",
-         "MacroInvertebrates","MacroInvertebrates"),
-  to=c("River","Reservoir","Canal","Diversion",
-       "Lake","Reservoir","Frog","Fish","MacroInvertebrates",
-       "Diversion", "Reservoir",
-       "Dam", "River",
-       "River","Dam","Fish",
-       "Fish","Dam","Frog","MacroInvertebrates",
-       "Fish","Dam", "Canal",
-       "Road", "Dam",
-       "Frog", "River","MacroInvertebrates",
-       "Fish", "River", "Lake",
-       "River", "Lake")
+  from = c(
+    "Dam","Dam","Dam", "Dam",
+    "River","River","River", "River","River",
+    "Canal", "Canal", 
+    "Diversion","Diversion", 
+    "Reservoir", "Reservoir","Reservoir",
+    "Lake","Lake","Lake", "Lake", 
+    "Road","Road","Road",
+    "Culvert", "Culvert",
+    "Fish", "Fish","Fish",
+    "Frog","Frog","Frog",
+    "MacroInvertebrates","MacroInvertebrates"
+  ),
+  to = c(
+    "River","Reservoir","Canal","Diversion",
+    "Lake","Reservoir","Frog","Fish","MacroInvertebrates",
+    "Diversion", "Reservoir",
+    "Dam", "River",
+    "River","Dam","Fish",
+    "Fish","Dam","Frog","MacroInvertebrates",
+    "Fish","Dam", "Canal",
+    "Road", "Dam",
+    "Frog", "River","MacroInvertebrates",
+    "Fish", "River", "Lake",
+    "River", "Lake"
+  )
 )
 
 # Plot
-(p <- simpleNetwork(data, height="600px", width="600px", 
+(p <- simpleNetwork(data, height = "600px", width = "600px", 
                     fontSize = 16, fontFamily = "serif",
                     nodeColour = "darkblue", linkColour = "steelblue",
-                    opacity = 0.9, zoom = TRUE, charge=-500))
+                    opacity = 0.9, zoom = FALSE, charge = -500))
 
 ```
 
@@ -192,47 +215,51 @@ If we wanted to save this interactive visualization and send it as a standalone 
 
 # save the widget
 library(htmlwidgets)
-saveWidget(p, file=here("output","network_interactive.html"))
+saveWidget(p, file = here("output","network_interactive.html"))
 
 ```
 
+<br>
 
 ## Plotly
 
-Another great tool for interacting with data is the `{plotly}` package, which if using the `{ggplot2}` framework, has a very handy function you can wrap around pretty much any `ggplot`: `ggplotly()`. This allows you to click, hover, zoom, etc. inside your plot, and is a very useful tool for exploring data.
+Another great tool for interacting with data is the `{plotly}` package, which if using the `{ggplot2}` framework, has a very handy `ggplotly()` function which you can wrap around pretty much any `ggplot` to turn a static plot into an interactive one. This allows you to click, hover, zoom, etc. inside your plot, and is a very useful tool for exploring data.
 
-Here's a quick example, say you were asked to find the date of a peak flow for a given year, or an outlier in a graph? We could figure this out with some `dplyr::filter` and additional queries of our data, but it would also be easy to visually look and see what this is on a plot. This is where the power of `plotly` can be very helpful.
+For example, say you were asked to find the date of a peak flow for a given year, or an outlier in a graph. We could figure this out with `dplyr::filter()` and additional queries of our data, but it would also be easy to visually look and see the date of peak flow on a plot. This is where the power of `plotly` can be very helpful.
 
-Let's use the [CalEnviroScreen data](https://oehha.ca.gov/calenviroscreen/report/calenviroscreen-30) from Sacramento County from a [previous module](). Recall, higher scores mean a higher impact of pollution to a community. 
+Let's use the [CalEnviroScreen data](https://oehha.ca.gov/calenviroscreen/report/calenviroscreen-30) from Sacramento County from a [previous module](../intro/m_exploratory_DA.html#question-4-relating-groundwater-to-ces-scores). Recall, higher scores mean a higher impact of pollution to a community.
 
-```{r ciplot, layout="1-page", eval=TRUE, echo=TRUE, fig.cap="Static plot of CES data...how do we interact with these data?"}
+```{r ciplot, layout="l-page", eval=TRUE, echo=TRUE, fig.cap="Static plot of CES data...how do we interact with these data?"}
 
 # load CES data for Sacramento county
 ces3_sac <- readRDS(here::here("data", "ces3_sac.rds"))
 
-mapview(ces3_sac, zcol="CIscoreP")
+mapview(ces3_sac, zcol = "CIscoreP")
 
 ```
 
 Let's make a static plot that shows the association between groundwater threats and the CES score. The trend is interesting, but what if we want to know what census tracts are associated with outliers (high or low) on this static plot?
 
-```{r, layout="1-page"}
+```{r}
 # plot of Groundwater threats vs. CES score
-(ces_plot <- ggplot(data = ces3_sac, 
-                    aes(x = gwthreatsP, y = CIscoreP, label=tract)) + 
-    geom_point() +
-    geom_smooth(method = "gam") +
-    cowplot::theme_half_open() +
-    labs(title="CalEnviroscreen Score vs. 
-         Groundwater Threats in Sacramento County",
-         subtitle="Higher CI Score indicates higher threat or impact to community",
-         x="Groundwater Threats (percentile)", y="CI Score (percentile)"))
+(ces_plot <- ces3_sac %>% 
+   ggplot(aes(x = gwthreatsP, y = CIscoreP, label = tract)) + 
+   geom_point() +
+   geom_smooth(method = "gam") +
+   cowplot::theme_half_open() +
+   labs(
+     title = "CES Score vs. Groundwater Threats in Sacramento County",
+     subtitle = "Higher CI Score indicates higher threat/impact",
+     x = "Groundwater Threats (percentile)", 
+     y = "CI Score (percentile)"
+   )
+)
   
 ```
 
-Try wrapping the exact plot above with `ggplotly()`. Now we can quickly interact and select data of interest. Try hovering your pointer over a point on the plot below. Or, click and drag to select a specific region of the plot to zoom into just that region. You can double click to return to the original zoom level.
+Try wrapping the exact plot above with `ggplotly()`. Now we can quickly interact and select data of interest. Try hovering your pointer over a point on the plot below. Or, click and drag to select a specific region of the plot to zoom into just that region. You can double click to return to the original zoom level. Visual inspection like so can help us quickly explore large and complex datasets, and identify the next step in our workflow.
 
-```{r plotlyCI, layout="1-page", eval=TRUE, echo=TRUE}
+```{r plotlyCI, layout="l-page", eval=TRUE, echo=TRUE}
 
 library(plotly)
 ggplotly(ces_plot)
@@ -240,31 +267,26 @@ ggplotly(ces_plot)
 
 ```
 
+<br>
 
 ## Summary
 
-There are many options to make very fancy visualizations in R, but remember to consider what the objective is, and how you can frame things for the end user. We like stories, so while a really cool visualization may definitely grab someone's attention, it can be much more powerful if it's coupled with a story. Or, sometimes data visualization can be a really important tool for Exploratory Data Analysis (see [EDA](../intro/m_exploratory_DA.html)). 
+There are many options to make very fancy visualizations in R, but remember to consider the objective of your work, and how to use visualization as a tool to communicate with the end user. Stories are powerful, and although a flashy visualization may grab someone's attention, it will have more impact if it tells a story. At other times, the end user of interactive data visualization is you (the analyst!), as interactive visualization is an important tool for Exploratory Data Analysis (see the [EDA module](../intro/m_exploratory_DA.html)).
 
-Whatever the visualization, if it communicates data in a way that provides new insight, or provides a easier medium to transfer information (i.e., with an Rmarkdown document), the ability to quickly take data, transform it, and visualize it is a powerful skill to have.
+Whatever the visualization, if it communicates data in a way that provides new insight, or provides a easier medium to transfer information (i.e., with an Rmarkdown document), the ability to quickly take data, transform it, and visualize it is a powerful skill to practice.
 
+<br>
 
+## Additional Resources
 
-## More Resources
+-   [Rmarkdown Flexdashboard](https://pkgs.rstudio.com/flexdashboard/)
+-   [`{r2d3}` Visualizations](https://rstudio.github.io/r2d3/index.html)
+-   [RGraph Gallery](https://www.r-graph-gallery.com/index.html)
+-   All things [Shiny](https://shiny.rstudio.com/gallery/)
+-   [Network visualization](https://kateto.net/network-visualization)
 
- - [Rmarkdown Flexdashboard](https://pkgs.rstudio.com/flexdashboard/)
- - [R2D3 Visualizations](https://rstudio.github.io/r2d3/index.html)
- - [RGraph Gallery](https://www.r-graph-gallery.com/index.html)
- - All things [Shiny](https://shiny.rstudio.com/gallery/)
- - [Network visualization](https://kateto.net/network-visualization)
-
-
-
-<br> 
+<br>
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-<a href="index.html" class="btn btn-secondary" style="float: left">Previous module:<br>Version Control</a> <a href="m_version_control.html" class="btn btn-secondary" style="float: right;">Next module:<br>Reproducible Workflows</a>
-
-
-
-
+<a href="m_version_control.html" class="btn btn-secondary" style="float: left">Previous module:<br>Version Control</a> <a href="m_simple_shiny.html" class="btn btn-secondary" style="float: right;">Next module:<br>Simple Shiny</a>
