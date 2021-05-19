@@ -213,7 +213,7 @@ ggplot() +
   geom_histogram(data = gwl, aes(x = GSE_WSE))
 ```
 
-Notice that `geom_histogram()` takes only one argument for the x-axis and **computes** the bins for the y-axis. It appears that depths to groundwater range from around 130 to 160, with a median around 145. the default number of bins used is 30, but we can change this value.
+Notice that `geom_histogram()` takes only one argument for the x-axis and **computes** the bins for the y-axis. It appears that depths to groundwater range from around 130 to 160, with a median around 145. The default number of bins used is 30, but we can change this value.
 
 ```{r geom-hist2}
 ggplot(data = gwl) + 
@@ -597,7 +597,10 @@ p + theme_classic()
 
 ## Extending ggplot2
 
-If you want to learn more about {ggplot2}, the definitive text is [ggplot2: elegant graphics for data analysis](https://ggplot2-book.org/index.html).  
+If you want to learn more about `{ggplot2}`, check out these two free online resources:  
+
+- [ggplot2: elegant graphics for data analysis](https://ggplot2-book.org/index.html): This is the definitive ggplot2 guide written by the package author that emphasizes code and ggplot2 fundamental skills and concepts.  
+- [Fundamentals of Data Visualization](https://clauswilke.com/dataviz/): This book emphasizes principles of good data visualization that will inform the graphics you create.  
 
 
 <br>  

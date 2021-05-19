@@ -274,7 +274,6 @@ length(l)
 
 ```
 
-<aside> We can also name a list, for example, `names(l) <- c("dry", "reach", "flow", "string")` and then access list elements by **name** instead of index, like so: `l[["dry"]]`  </aside>
 
 We can access list elements with double bracket notation `[[` and the index (think row number) of the element we want. 
 
@@ -290,6 +289,14 @@ l[[2]]
 l[[3]]
 
 ```
+
+We can also name a list, and then access list elements with double-bracket notation and **name** instead of index, like so: 
+
+```{r}
+names(l) <- c("dry", "reach", "flow", "string")
+l[["dry"]]
+```
+
 
 
 ### data.frame and tibble
