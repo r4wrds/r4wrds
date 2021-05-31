@@ -5,6 +5,8 @@ description: |
 output: 
   distill::distill_article:
     toc: true
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE, purl=FALSE, message=FALSE}
@@ -19,22 +21,18 @@ library(here)
 **Learning objectives**
 
 -   Learn to extend and use {sf} for geospatial work
--   Understand power of script-based geospatial/mapping
--   Learn how to expand geospatial skills in R
+-   Understand the power of script-based geospatial/mapping
+-   Expand your geospatial skills in R!
 :::
 
 
 ## Overview
 
-Ability to work all in one place is powerful and reduces mental workload to switch programs, stay organized, and deal with import/export.
+The ability to work in one place or with one program from start to finish is powerful and more efficient. By sticking with one single framework or set of tools, we can reduce the mental workload necessary when switch between programs, staying organized in each, and dealing with import/export across multiple programs. While different tools such as ESRI (or ArcPy extensions) are good, they require a paid license and typically still use point-click user interfaces.
 
-Python ESRI is great but....
+The advantage `R` has over these other tools is that it is freely available, provides access to entire statistical/modeling toolboxes, and spatial analysis and mapmaking tools, all while remaining in a single place. 
 
-You have entire stats and modeling toolboxes in R available to your data
-
-We can do this in R & functional programming to a spatial problem
-
-You can use the same functions!
+If we use a functional programming approach (described in previous modules [link]() ) for spatial problems, `R` can be a very robust and powerful tool for analysis and spatial visualization of data! Furthermore, once analyses have been completed, we can re-use the scripts and functions for common spatial tasks (like making maps or exporting specific spatial files).
 
 ## Common Geospatial Tasks
 
@@ -43,29 +41,157 @@ There are some common tasks that are often required or repeated, and using a GUI
 For example, some common tasks may include:
 
  - Cropping/creating a specific region or subset of spatial data for different users
- - Make a map with common layers or components but updated data
+ - Making a map with common layers or components but updated data
  - Integrating or spatial joining of datasets
- - Reprojecting spatial data 
+ - Reprojecting spatial data
  
+## The power of a script-based analysis with `{sf}`
+
+The `{sf}` package truly makes working with vector-based spatial data easy. We can use a pipeline that includes:
+
+ - `st_read`: read spatial data in (e.g., shapefiles)
+ - `st_transform`: transform or reproject data
+ - `st_buffer`: buffer around data
+ - `st_union`: combine data into one layer
+ - `st_intersection`: crop or intersect one data by another
+ - `group_split` & `st_write` to split data by a column or attribute and write out
  
-### Notes
- 
-st_read, st_transform, st_buffer, st_union, st_intersection, group_split, st_write to multiple directories - now you’re a data provider
+There are many more options that can be added or subtracted from these pieces, but at the core, we can use this very functional approach to provide data, make maps, conduct analysis, and so much more.
+
+## A Climate/Hydrology Example
+
+Let's use an example where we take global climate data and crop it down to just an area of interest and then join it to additional data and write it back out for each county in California.
+
+### The Packages
+
+```{r libraries}
+
+library(here)
+library(sf)
+library(dplyr)
+library(viridis)
+library(ggplot2)
+# library(tigris)
+library(USAboundaries)
+library(rnaturalearth)
+library(GSODR)
+library(ggrepel)
+library(cowplot)
+
+```
+
+### Get State & County Data
+
+First we want to get state and county boundaries. The {USAboundaries} package
+
+```{r boundaries}
+
+# get USA states, filter out Puerto Rico, Alaska, and Hawaii for now
+us <- us_boundaries(type="state", resolution = "low") %>% 
+  filter(!state_abbr %in% c("PR", "AK", "HI"))
+
+# get CA boundary with high definition
+ca <- USAboundaries::us_states(resolution = "high", states = "CA")
+
+# make a box around CA (a grid with an n=1) for inset
+ca_box <- st_make_grid(ca, n = 1)
+
+# get CA county boundary
+ca_co <- USAboundaries::us_counties(resolution = "high", states = "CA")
+
+# make sure we have all the pieces with a quick test plot
+plot(us$geometry)
+plot(ca$geometry, add=T, col="gray50", border="maroon")
+plot(ca_co$geometry, add=T, border="pink", col=NA)
+plot(ca_box, add=T, border="red3", col=NA, lwd=2)
+
+```
+
+### Get Climate Data from the [GSODR](https://ropensci.github.io/GSODR/)
+
+Now we can look at all the historical climate station data available and filter to just California.
+
+```{r}
+
+# load the isd_history file:
+load(system.file("extdata", "isd_history.rda", package = "GSODR"))
+
+# make spatial
+isd_history <- as.data.frame(isd_history) %>% 
+  st_as_sf(coords=c("LON","LAT"), crs=4326, remove=FALSE)  
+
+# filter to US and CA, many sites out in buoys along coast
+isd_history_ca <- dplyr::filter(isd_history, CTRY=="US", STATE=="CA")
+
+# view!
+library(rnaturalearth)
+library(rnaturalearthdata)
+
+# get countries
+world <- ne_countries(scale = "medium", returnclass = "sf")
+
+# plot
+plot(isd_history$geometry, pch=16, cex=0.2, col="gray50")
+plot(world$geometry, add=T, border = "gray10")
+plot(ca$geometry, col="maroon", add=TRUE)
+title("GSOD Climate Stations")
+
+```
+
+
+## Filter Data
+
+```{r}
+# look at CA sites only
+plot(ca$geometry, col=alpha("gray", 0.5), border="#440154FF", lwd=1.5)
+plot(isd_history_ca$geometry, add=T, pch=21, bg="#21908CFF", cex=0.7, col="black")
+title("GSOD Climate Stations labeled as CA")
+```
+
+
+## JOINS
+
+```{r}
+# Get CA county POLYGONS that contain ISD points 
+# does not bring attributes from points forward
+ca_co_isd_poly <- ca_co[isd_history, ]
+
+# anti_join: find counties with no points
+# Find Counties that don't contain ISD points
+ca_co_poly_anti <- ca_co[!lengths(st_intersects(ca_co, isd_history_ca)), ]
+
+
+plot(ca_co_isd_poly$geometry, col=alpha("blue",0.3))
+plot(ca_co_poly_anti$geometry, add=T, col="darkgreen")
+plot(isd_history_ca$geometry, add=T, pch=21, bg="yellow", cex=0.3, col="black")
+title("Counties with GSOD ISD Stations (blue), 
+      Counties with no stations (green)")
+```
+
+
 Use GSOD lesson and show climate stations with climate data, write out by county: https://ryanpeek.org/mapping-in-R-workshop/03_spatial_joins.html
+
 You want to find the nearest river/WQ stations to a groundwater area of interest?
+
 Spatial joins, st_nearest, buffering
 Why click button GIS tasks may be easier to integrate with R? What if you needed to do this for each county or river?
 End up with a list of stations/points that we can map with the buffer
+
 How to pull spatial river data or other spatial data via R (nhdtoolsPlus package, dataRetrieval)
+
 Adding more content on spatial operations (buffer, nearest, measurements)
+
 Reading a zipped shapefile directly into R, use it, and move out!
+
 Joins (spatial and non-spatial)
 Join physical datasets with Redlining and CalEnviroScreen data
 Join by census tract, or join by what points fall within a certain county or tract
-Can use the climate station example too (https://ryanpeek.org/mapping-in-R-workshop/03_spatial_joins.html)
+Can use the climate station example too 
+
 Mapping with layers: tmap and tmaptools
 Show basemap options with tmaptools
 Add elevation with elevatr
+
 Mapedit and digitizing with R: how to create spatial objects from scratch from within R.
 Save custom polygon using mapedit from temp object in R to rds
 Select with mapedit and save 
