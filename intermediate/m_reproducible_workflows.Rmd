@@ -32,11 +32,15 @@ In this module, we extend lessons in functional programming from the previous [m
 
 As you expand your ability to write `R` code, **automation** becomes possible. "Automation" can mean different things, but generally refers to the process of replacing time that you would spend on a workflow with a computer program, or an `R` script in the context of this course. The beauty of automation is that you can create workflows that would be nearly impossible to complete in a human lifetime, and run them thousands of times, all while you're out on a coffee break. In some circles, this is sometimes jokingly referred to as, "making computers do your bidding." Automation happens whenever you write a program that saves you time, freeing you to do other things.
 
-The very act of writing an `R` script (or program) to perform analyses is automation, because you have automated the need to point and click through various tasks and type instructions at particular times in a traditional point-and-click workflow.
+The very act of writing an `R` script (or program) to perform analyses is automation, because you have automated the need to point and click through various tasks and type instructions at particular times, such as in a traditional point-and-click workflow.
 
-However, the `R` program still needs a human to run it, and perhaps you have not one, but a chain of 5 scripts that are evaluated sequentially to import, clean, model, visualize, and output data. Someone needs to run the program. Another step up the automation ladder is to wrap these 5 scripts in a single program that calls them all in sequence, like a master switch. Instead of running 5 scripts, now we only need to run 1.
+However, any `R` program you write still needs a human to run it, and perhaps you have not one, but a chain of 5 scripts that are evaluated sequentially to import, clean, model, visualize, and output data. Someone needs to run the program. Another step up the automation ladder is to wrap these 5 scripts in a single program that calls them all in sequence, like a master switch. Instead of running 5 scripts, now we only need to run 1.
 
-There is still automation potential. We can write another program to call the "master switch" at specified times, fully remove ourselves from the pipeline, and rest assured that our program will run all on its own (although it may require maintenance from time to time).
+There is still further automation potential. We can write another program to call the "master switch" at specified times, fully remove ourselves from the pipeline, and allow the program will run all on its own (although it may require maintenance from time to time).  
+
+<aside>
+Any time we have a fully automated program that runs on its own, **logging** should be implemented. Logging allows us to monitor an automated process, and diagnose and quickly fix anything that went wrong.  
+</aside>
 
 (ref:automate-fig) *Automation is like watering a row of plants. Each program is like a bucket that waters one plant at a time. Wrapping the programs into a single "master switch" control script is like installing drip irrigation so that all plants are watered at once. In order to fully automate, we can set a task scheduler, which is like adding a timer onto our drip irrigation system.*
 
@@ -134,7 +138,7 @@ d <- st_as_sf(d, coords = c("LONGITUDE", "LATITUDE"), crs = 4269)
 group_by(d, SITE_CODE) %>% 
   slice(1) %>% 
   ungroup() %>% 
-  mapview(popup = NULL)
+  mapview(popup = NULL, layer.name = "Groundwater stations")
 ```
 
 ### Nested lists
@@ -145,9 +149,9 @@ $$
 \hat{Y}_i = \beta_0 + \beta_1(X_i) + \epsilon_i
 $$
 
-Time alone is actually a poor predictor of groundwater level (and shouldn't be interpreted in a strict statistical sense), but for our purposes, the linear model above is useful because the $\beta_1$ coefficient can be interpreted as the average groundwater level trend at a monitoring site over some time frame. If $\beta_1 > 0$, the average groundwater level is increasing, and if $\beta_1 < 0$, it is decreasing. The magnitude of $\beta_1$ tells us by how much the groundwater level is increasing or decreasing and can be plotted per monitoring site, and compared to other monitoring sites to understand the spatial distribution of groundwater level change in a region. In this example, our region of interest is Sacramento County, but as we will demonstrate, we will create a function that allows us to apply this workflow to any county, or even the entire state.  
+Time alone is actually a poor predictor of groundwater level (and shouldn't be interpreted in a strict statistical sense), but for our purposes, the linear model above is useful because the $\beta_1$ coefficient can be interpreted as the average groundwater level trend at a monitoring site over some time frame. If $\beta_1 > 0$, the average groundwater level is increasing, and if $\beta_1 < 0$, it is decreasing. The magnitude of $\beta_1$ tells us by how much the groundwater level is increasing or decreasing and can be plotted per monitoring site, and compared to other monitoring sites to understand the spatial distribution of groundwater level change in a region. In this example, our region of interest is Sacramento County, but in the spirit of automation, we will create a function that allows us to apply this workflow to any county, or even the entire state.  
 
-To apply a linear model to each monitoring site, we'll use the `lm()` function in base `R`. If we apply the function to our entire dataset, we'll end up with one linear model of all groundwater levels in Sacramento county:
+To apply a linear model to each monitoring site, we use the `lm()` function in base `R`. If we apply the function to our entire dataset, we end up with a linear model of all groundwater levels in Sacramento county:
 
 ```{r gwl-1}
 ggplot(d) +
@@ -166,7 +170,7 @@ ggplot(d_recent) +
   geom_smooth(aes(MSMT_DATE, WSE), method = "lm", se = FALSE)
 ```
 
-What we need is a linear model for each and every one of the individual stations in this dataset. For example, here are a few of the monitoring sites.
+However, this isn't quite what we need. What we need is a linear model for *each and every one of the individual stations in this dataset*. For example, here are a few of the monitoring sites.
 
 ```{r gwl-3}
 d_recent %>% 
@@ -177,7 +181,7 @@ d_recent %>%
   facet_wrap(~SITE_CODE)
 ```
 
-`{ggplot2}` is great for visualizing what we are looking for. Now, it's time to calculate those numbers with `lm()`. We will use `{broom}` to tidy up model results in a clean dataframe. Note that because the class of our `MSMT_DATE` column is `"POSIXct"`, the units returned for our coefficient $\beta_1$ will be in $ft/sec$ rather than the the more intuitive $ft/yr$, thus we define a function to handle this conversion. For the entire dataset the average annual change in groundwater level over the 20 year timeframe is:
+`{ggplot2}` is great for visualizing what we are looking for. Now, it's time to calculate those numbers with `lm()`. We will use `{broom}` to tidy up model results in a clean dataframe. Note that because the class of our `MSMT_DATE` column is `"POSIXct"`, the units returned for our coefficient $\beta_1$ will be in $ft/sec$ rather than the more intuitive $ft/yr$, thus we define a function to handle the conversion from $ft/sec$ to $ft/yr$. For the entire dataset the average annual change in groundwater level over the 20 year timeframe is:
 
 ```{r gwl-sac}
 # convert from seconds to years
@@ -199,7 +203,7 @@ broom::tidy(m) %>%
 
 From above, we see that the average annual decline is `r round(sec_to_yr(coefficients(m)["MSMT_DATE"]), 2)` $ft/yr$.  
 
-We could turn this linear model call into a function and apply over a list of dataframes created by `split(d, d$SITE_CODE)` (or the tidyverse equivalent, `group_split(d, SITE_CODE)`), but there's a better way with functional programming.
+We could turn this linear model call into a function and loop over it with a `for` loop, saving each model result in a list element. We could also map this function over a list of dataframes created by `split(d, d$SITE_CODE)` (or the tidyverse equivalent, `group_split(d, SITE_CODE)`), but there's a better way with functional programming.
 
 We will use nested lists, specifically with the `tidyr::nest()` function, which allows us to convert a dataframe grouped by some variable (in our case it will be `SITE_CODE`) into a dataframe with a column that "nests" the data for each unique grouping variable. For instance:
 
@@ -210,13 +214,13 @@ l <- d_recent %>%
 l
 ```
 
-The resulting dataframe has a number of rows equal to the length of unique values in the `SITE_CODE` column, and a column called `data` with nested dataframes, one for each `SITE_CODE` (grouping variable). Let's inspect the first dataframe:;
+The resulting dataframe has a number of rows equal to the length of unique values in the `SITE_CODE` column, and a column called `data` with nested dataframes, one for each `SITE_CODE` (grouping variable). Notice that in the `data` column above, each nested dataframe has 4 columns, but a differing number of rows (groundwater level observations). This makes sense because each monitoring station has the same number of fields, but a different number of samples. Let's inspect the first dataframe:
 
 ```{r nest2}
 l$data[[1]]
 ```
 
-The beauty of having data nested in this way is that we can mutate new columns on the dataframe based on the nested `data` column by mapping over each of the dataframes:
+With nested data, we we can mutate new columns on the dataframe based onto the nested `data` column by mapping over each dataframe. For instance, we can add a linear model:
 
 ```{r nest3}
 d_recent %>% 
@@ -229,7 +233,7 @@ d_recent %>%
   )
 ```
 
-Now we have a linear model output object per `SITE_CODE`, but let's not stop there. Let's also extract the intercept ($\beta_1$), mutate new columns indicating the direction and magnitude of the rate, convert units to $ft/yr$, and `unnest()` the data. 
+Now we have a linear model output object per `SITE_CODE`, but let's not stop there. Let's also mutate new columns with the intercept ($\beta_1$), the direction and magnitude of the intercept, convert units to $ft/yr$, and `unnest()` the data. 
 
 ```{r nest4}
 d_recent <- d_recent %>% 
@@ -253,7 +257,7 @@ d_recent <- d_recent %>%
 
 Take a moment to `View(d_recent)` and inspect the new columns. 
 
-Now we can visualize trends for each station like before. Note hat not all records are a full 20 years long!  
+Now we can visualize trends for each station like before. Note that not all records are a full 20 years long!  
 
 ```{r nest5}
 d_recent %>% 
@@ -265,9 +269,9 @@ d_recent %>%
   labs(color = "Trend")
 ```
 
-Let's not forget that these trends have a spatial component. Let's only visualize sites with a `duration_yr` of 5 years or more.  
+Don't forget that these trends have a spatial component. Let's now only visualize sites with a `duration_yr` of 5 years or more.  
 
-```{r nest6}
+```{r nest6, warning=FALSE, message=FALSE}
 # slice the first observation per SITE_ID (for location) and 
 # re-convert to sf which is lost during nest and unnest
 d_map <- d_recent %>% 
@@ -293,23 +297,23 @@ sac <- st_read(here("data", "shp", "sac", "sac_county.shp")) %>%
 ggplot() +
   geom_sf(data = sac) +
   geom_sf(data = d_map, aes(fill = direction), pch = 21, size = 2) +
-  guides(fill = FALSE) +
-  theme_void()
+  theme_void() +
+  labs(fill = "Groundwater trend")
 
 # plot magnitude bins
 ggplot() +
   geom_sf(data = sac) +
   geom_sf(data = d_map, aes(color = bin), size = 2, alpha = 0.8) +
-  rcartocolor::scale_color_carto_d("",palette = "TealRose") +
+  rcartocolor::scale_color_carto_d("Groundwater trend", palette = "TealRose") +
   theme_void()
 ```
 
-The map above suggest there are only 3 locations in the basin that show an absolute change of more than 2.5 $ft/yr$. Most of the longer term monitoring locations have an annual absolute rate of change within 0-2.5 $ft/yr$. Without knowing exactly which sites were selected in Sacramento county, a quick comparison with Figure \@ref(fig:ca-dwr) suggests that our calculated groundwater level trends are similar in magnitude.
+The map above suggest there are only 3 locations in the basin that show an absolute change of more than 2.5 $ft/yr$. Most of the longer term monitoring locations have an annual absolute rate of change within 0-2.5 $ft/yr$. A quick comparison with Figure \@ref(fig:ca-dwr) suggests that our calculated groundwater level trends are similar in magnitude.
 
 
 ### How to write helpful functions
 
-Everything we've done until this point is valuable analysis, but is it reproducible? In the sense that we can re-run these scripts on new data, yes, but we can apply some principles of good project management to refactor our code into functions and programs (scripts) that are easy to re-run (Figure \@ref(fig:cautomate-fig), left-most situation). We will go one step further and wrap everything into a control script (Figure \@ref(fig:cautomate-fig), center situation), and in the next section, we'll discuss how to fully automate (Figure \@ref(fig:cautomate-fig), right-most situation).  
+Everything we've done until this point is valuable, but is it reproducible? In the sense that we can re-run these scripts on new data, yes, but we can apply project management best practices and refactor our code into functions and programs (scripts) that are easy to re-run (Figure \@ref(fig:automate-fig), left-most situation). We can go one step further and wrap everything into a control script (Figure \@ref(fig:automate-fig), center situation), and in the next section, we'll discuss how to fully automate (Figure \@ref(fig:automate-fig), right-most situation).  
 
 In the spirit of "don't repeat yourself" (DRY), it's often said:  
 
@@ -339,63 +343,68 @@ f_wcr_download <- function(dir_out, urls){
 
 ```
 
-Next, the import function should be saved as `functions/f_wcr_import.R`. Let's design it so that the user provides a valid county, and the function returns a helpful message in case they don't provide a valid county. 
+Next, the import function should be saved as `functions/f_wcr_import.R`. Let's design it so that the user provides a county and a vector of input files. The function returns a helpful message in case they don't provide a valid county. Along the way, we also provide helpful messages with `cat()` statements that print messages to the terminal as the function moves along. Messages like this are can be considered rudimentary form of logging which provides a user information on the status of a function, and may help diagnose and fix errors that may arise by showing the last place where a successful `cat()` message printed. 
+
+<aside>
+🐈 `cat()` stands for "concatenate and print". It takes any number of objects, concatenates them with a space in-between, and prints them to the console. In the function below, we add `"/n"` (newlines) to each `cat()` call so that the next `cat()` message begins on a new line in the console.  
+</aside>
 
 ```{r f-wcr-import}
 
 # import downloaded wcr data
 f_wcr_import <- function(county, files_in){
-  # valid counties from entire dataset, i.e., 
+  # valid counties from entire dataset, i.e.,
   # dput(sort(unique(d$COUNTY_NAME)))
   counties_valid <-
-    c("Alameda", "Alpine", "Amador", "Butte", "Calaveras", "Colusa", 
-      "Contra Costa", "Del Norte", "El Dorado", "Fresno", "Glenn", 
-      "Humboldt", "Imperial", "Inyo", "Kern", "Kings", "Klamath, OR", 
-      "Lake", "Lassen", "Los Angeles", "Madera", "Marin", "Mariposa", 
-      "Mendocino", "Merced", "Modoc", "Mono", "Monterey", "Napa", "Nevada", 
-      "Orange", "Placer", "Plumas", "Riverside", "Sacramento", "San Benito", 
-      "San Bernardino", "San Diego", "San Francisco", "San Joaquin", 
-      "San Luis Obispo", "San Mateo", "Santa Barbara", "Santa Clara", 
-      "Santa Cruz", "Shasta", "Sierra", "Siskiyou", "Solano", "Sonoma", 
-      "Stanislaus", "Sutter", "Tehama", "Tulare", "Tuolumne", "Ventura", 
+    c("Alameda", "Alpine", "Amador", "Butte", "Calaveras", "Colusa",
+      "Contra Costa", "Del Norte", "El Dorado", "Fresno", "Glenn",
+      "Humboldt", "Imperial", "Inyo", "Kern", "Kings", "Klamath, OR",
+      "Lake", "Lassen", "Los Angeles", "Madera", "Marin", "Mariposa",
+      "Mendocino", "Merced", "Modoc", "Mono", "Monterey", "Napa", "Nevada",
+      "Orange", "Placer", "Plumas", "Riverside", "Sacramento", "San Benito",
+      "San Bernardino", "San Diego", "San Francisco", "San Joaquin",
+      "San Luis Obispo", "San Mateo", "Santa Barbara", "Santa Clara",
+      "Santa Cruz", "Shasta", "Sierra", "Siskiyou", "Solano", "Sonoma",
+      "Stanislaus", "Sutter", "Tehama", "Tulare", "Tuolumne", "Ventura",
       "Yolo", "Yuba", "ALL")
-  
+
   # ensure input county is valid before reading in data
   if(! county %in% counties_valid) {
     stop(
-      glue("Provided county is invalid. Did you mean one of the following?
+      glue("The provided county is invalid. Did you mean one of:
            {paste(counties_valid, collapse = ', ')}"),
       call. = FALSE
     )
   }
-  
+
   cat("Valid county provided, now proceeding to read data...", "\n")
-  
+
   # read and combine - use datatable for speed and memory management
-  d <- map(files_in, ~data.table::fread(.x)) %>% 
-    reduce(left_join, by = "SITE_CODE") 
-  
+  d <- map(files_in, ~data.table::fread(.x)) %>%
+    reduce(left_join, by = "SITE_CODE")
+
   cat("Files read and combined...", "\n")
-  
+
   # if a county is supplied (not requesting ALL the data), filter to it
   if(county != "ALL"){
     cat("Filtering to", county, "county...", "\n")
     d <- filter(d, COUNTY_NAME == county)
   }
-  
+
   # select only relevant columns & convert to sf object
   cat("Selecting relevant columns...", "\n")
-  d <- d %>% 
-    select(SITE_CODE, MSMT_DATE, WSE, LONGITUDE, LATITUDE, WELL_DEPTH) %>% 
-    st_as_sf(d, coords = c("LONGITUDE", "LATITUDE"), crs = 4269) 
-  
-  cat("Compelete!", "\n")
+  d <- d %>%
+    select(SITE_CODE, MSMT_DATE, GWE, LONGITUDE, LATITUDE, WELL_DEPTH) %>%
+    filter(!is.na(LONGITUDE) & !is.na(LATITUDE)) %>% 
+    st_as_sf(coords = c("LONGITUDE", "LATITUDE"), crs = 4269)
+
+  cat("Data import compelte.", "\n")
   return(d)
 }
 
 ```
 
-Notice the use of conditional execution (`if()` statements that check if certain criteria apply before proceeding), coupled with `stop()` functions that terminate the function call. It doesn't make sense to read in an entire dataframe and filter by a character sting that's not present in the data, so we check for that condition before proceeding. We also provide helpful error message in case someone enters an incorrect county. We added a valid county called "ALL" which if passed to the function, doesn't filter the data to a county, such that the entire dataset is returned. All throughout, we added helpful `cat()` messages so that as this function is chugging along, messages are printed to the console to let us know what's happening under the hood. This also helps with debugging and logging (as we will discuss later).
+Notice the use of conditional execution (`if()` statements that check if certain criteria apply before proceeding), coupled with `stop()` functions that terminate the function call. It doesn't make sense to read in an entire dataframe and filter by a county name character sting that's not present in the data, so we check for that condition before proceeding and provide a helpful error message in case the user enters an incorrect county. We added a valid county called "ALL" which if passed to the function, doesn't filter the data to a county, and instead returns the entire dataset. All throughout, we added helpful `cat()` messages so that as this function is chugging along, messages are printed to the console to let us know what's happening under the hood. This also helps with debugging and logging (as we will discuss later).
 
 To verify our function works as expected, let's trigger an error message by asking it to return groundwater levels from a county that doesn't exist in the vector of valid counties. 
 
@@ -404,14 +413,7 @@ f_wcr_import(county = "Tatooine")
 ```
 
 ```
-Error: The provided county is invalid. Did you mean one of:
-Alameda, Alpine, Amador, Butte, Calaveras, Colusa, Contra Costa, Del Norte, 
-El Dorado, Fresno, Glenn, Humboldt, Imperial, Inyo, Kern, Kings, Klamath, OR, 
-Lake, Lassen, Los Angeles, Madera, Marin, Mariposa, Mendocino, Merced, Modoc, 
-Mono, Monterey, Napa, Nevada, Orange, Placer, Plumas, Riverside, Sacramento, 
-San Benito, San Bernardino, San Diego, San Francisco, San Joaquin, San Luis Obispo, 
-San Mateo, Santa Barbara, Santa Clara, Santa Cruz, Shasta, Sierra, Siskiyou, 
-Solano, Sonoma, Stanislaus, Sutter, Tehama, Tulare, Tuolumne, Ventura, Yolo, Yuba, ALL
+Error: County must be one of: Alameda, Alpine, Amador, Butte, Calaveras, Colusa, Contra Costa, Del Norte, El Dorado, Fresno, Glenn, Humboldt, Imperial, Inyo, Kern, Kings, Klamath, OR, Lake, Lassen, Los Angeles, Madera, Marin, Mariposa, Mendocino, Merced, Modoc, Mono, Monterey, Napa, Nevada, Orange, Placer, Plumas, Riverside, Sacramento, San Benito, San Bernardino, San Diego, San Francisco, San Joaquin, San Luis Obispo, San Mateo, Santa Barbara, Santa Clara, Santa Cruz, Shasta, Sierra, Siskiyou, Solano, Sonoma, Stanislaus, Sutter, Tehama, Tulare, Tuolumne, Ventura, Yolo, Yuba, ALL
 ```
 
 Next, we need to clean our data. You can imagine a much more extensive cleaning process for another dataset, but in our simple example, all we want to do is provide the user with the option to set a start and end time to filter the data by. Importantly, we want to ensure that the date arguments passed to the function are valid "Date", "POSIXct", or "POSIXt" object classes so a proper filter occurs. 
@@ -445,24 +447,29 @@ f_wcr_clean <- function(df, start_date = NULL, end_date = NULL){
 
   # if start and end date are NULL, use the min and max date
   if(is.null(start_date)){
-    cat("Start date null... ")
     start_date <- min(df$MSMT_DATE, na.rm = TRUE)
-    cat("using min date in dataframe:", as.character(start_date), "\n")
+    cat("Start date NULL, using min date:", as.character(start_date), "\n")
   }
   if(is.null(end_date)){
-    cat("End date null... ")
     end_date <- max(df$MSMT_DATE, na.rm = TRUE)
-    cat("using max date in dataframe:", as.character(end_date), "\n")
+    cat("End date NULL, using max date:", as.character(end_date), "\n")
   }
 
   # filter to date range and clean
   df <- filter(df, MSMT_DATE >= start_date & MSMT_DATE <= end_date)
-
+  
+  cat(
+    "Data filtered between", 
+    as.character(start_date), "and", 
+    as.character(end_date),   "\n "
+  )
+  
   return(df)
 }
+
 ```
 
-Notice that most of this function is focused not on the transformation, but rather, checking that the correct object classes are passed into the function, and sensibly imputing argument values if they're not provided by the user. The actual `filter()` statement only takes 1 line of code, but by the time we arrive at this point, we're fairly confident that the function will work as expected. The amount of time you should spend tuning functions like this depends on how much you anticipate others using them, and how much you want to constrain their use and messaging. Not every project requires this level of detail. 
+Notice that the vast majority of this function is focused not on the transformation, but rather, checking that the correct object classes are passed into the function, and sensibly imputing argument values if they're not provided by the user (i.e., if not provided as arguments, start and end dates are assigned as the min and max dates). The actual `filter()` statement only takes 1 line of code, but by the time we arrive at this point, we're confident that the function will work as expected. The amount of time you should spend fine-tuning functions like so depends on how much you anticipate others using them, and how much you want to constrain their use and messaging. Not every project requires this level of detail. 
 
 Moving on, after cleaning, it's time to model. Save another function `functions/f_wcr_model.R` that calculates the linear model at each `SITE_CODE`:
 
@@ -477,7 +484,7 @@ f_wcr_model <- function(df){
     nest() %>%
     mutate(
       # map a linear model across data, extract slope magnitude & direction
-      model     = map(data, ~lm(WSE ~ MSMT_DATE, data = .x)),
+      model     = map(data, ~lm(GWE ~ MSMT_DATE, data = .x)),
       b1        = map(model, ~coefficients(.x)[["MSMT_DATE"]]),
       b1        = map(b1, ~sec_to_yr(.x)),
       direction = map(b1, ~ifelse(.x >= 0, "increase", "decline")),

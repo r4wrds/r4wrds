@@ -1,9 +1,22 @@
 # visualize results and save
-f_wcr_visualize <- function(df, type){
-  if(type == "timeseries"){
-    p <-
-  }
-
+f_wcr_visualize_map <- function(df, type){
+  
+  # slice the first observation per SITE_ID (for location) and
+  # re-convert to sf which is lost during nest and unnest
+  d_map <- d_recent %>%
+    group_by(SITE_CODE) %>%
+    slice(1) %>%
+    ungroup() %>%
+    st_as_sf() %>%
+    filter(length_yr >= 5)
+  
+  # plot magnitude bins
+  p <- ggplot() +
+    geom_sf(data = sac) +
+    geom_sf(data = d_map, aes(color = bin), size = 2, alpha = 0.8) +
+    rcartocolor::scale_color_carto_d("", palette = "TealRose") +
+    theme_void()
+  
   return(p)
 }
 
