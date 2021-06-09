@@ -22,6 +22,8 @@ f_wcr_clean <- function(df, start_date = NULL, end_date = NULL){
     )
   }
 
+  cat("Cleaning data", "\n")
+
   # if start and end date are NULL, use the min and max date
   if(is.null(start_date)){
     start_date <- min(df$MSMT_DATE, na.rm = TRUE)
@@ -34,12 +36,12 @@ f_wcr_clean <- function(df, start_date = NULL, end_date = NULL){
 
   # filter to date range and clean
   df <- filter(df, MSMT_DATE >= start_date & MSMT_DATE <= end_date)
-  
+
   cat(
-    "Data filtered between", 
-    as.character(start_date), "and", 
+    "Data filtered between",
+    as.character(start_date), "and",
     as.character(end_date),   "\n "
   )
-  
+
   return(df)
 }

@@ -1,5 +1,10 @@
 # build linear model for each unique SITE ID and
 # add important columns (direction), beta_1 coefficient
+sec_to_yr <- function(sec){
+  yr <- sec * 31557600
+  return(yr)
+}
+
 f_wcr_model <- function(df){
   result <- df %>%
     group_by(SITE_CODE) %>%

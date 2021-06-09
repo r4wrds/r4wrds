@@ -28,7 +28,7 @@ library(here)
 
 ## Reproducible workflows and automation
 
-In this module, we extend lessons in functional programming from the previous [module on iteration](m_iteration.html), as well as best practices discussed in the [project management module](m_project_management.html) to approach a case study. Specal attention is paid to automation.
+In this module, we extend lessons in functional programming from the previous [module on iteration](m_iteration.html), as well as best practices discussed in the [project management module](m_project_management.html) to approach a case study. Special attention is paid to automation.
 
 As you expand your ability to write `R` code, **automation** becomes possible. "Automation" can mean different things, but generally refers to the process of replacing time that you would spend on a workflow with a computer program, or an `R` script in the context of this course. The beauty of automation is that you can create workflows that would be nearly impossible to complete in a human lifetime, and run them thousands of times, all while you're out on a coffee break. In some circles, this is sometimes jokingly referred to as, "making computers do your bidding." Automation happens whenever you write a program that saves you time, freeing you to do other things.
 
@@ -235,7 +235,7 @@ d_recent %>%
 
 Now we have a linear model output object per `SITE_CODE`, but let's not stop there. Let's also mutate new columns with the intercept ($\beta_1$), the direction and magnitude of the intercept, convert units to $ft/yr$, and `unnest()` the data. 
 
-```{r nest4}
+```{r nest4a, eval = FALSE}
 d_recent <- d_recent %>% 
   group_by(SITE_CODE) %>% 
   # nest the data per SITE_CODE grouping variable
@@ -253,6 +253,11 @@ d_recent <- d_recent %>%
   # unnest all columns so we can access values
   unnest(c(data, b1:length_yr)) %>% 
   select(-model)
+```
+
+```{r nest4b, echo=FALSE}
+# write_rds(d_recent, here("data", "d_recent.rds"))
+d_recent <- read_rds(here("data", "d_recent.rds"))
 ```
 
 Take a moment to `View(d_recent)` and inspect the new columns. 
@@ -371,8 +376,7 @@ f_wcr_import <- function(county, files_in){
   # ensure input county is valid before reading in data
   if(! county %in% counties_valid) {
     stop(
-      glue("The provided county is invalid. Did you mean one of:
-           {paste(counties_valid, collapse = ', ')}"),
+      glue("County must be one of: {paste(counties_valid, collapse = ', ')}"),
       call. = FALSE
     )
   }
@@ -394,11 +398,11 @@ f_wcr_import <- function(county, files_in){
   # select only relevant columns & convert to sf object
   cat("Selecting relevant columns...", "\n")
   d <- d %>%
-    select(SITE_CODE, MSMT_DATE, GWE, LONGITUDE, LATITUDE, WELL_DEPTH) %>%
+    select(SITE_CODE, MSMT_DATE, WSE, LONGITUDE, LATITUDE, WELL_DEPTH) %>%
     filter(!is.na(LONGITUDE) & !is.na(LATITUDE)) %>% 
     st_as_sf(coords = c("LONGITUDE", "LATITUDE"), crs = 4269)
 
-  cat("Data import compelte.", "\n")
+  cat("Data import complete.", "\n")
   return(d)
 }
 
@@ -413,7 +417,14 @@ f_wcr_import(county = "Tatooine")
 ```
 
 ```
-Error: County must be one of: Alameda, Alpine, Amador, Butte, Calaveras, Colusa, Contra Costa, Del Norte, El Dorado, Fresno, Glenn, Humboldt, Imperial, Inyo, Kern, Kings, Klamath, OR, Lake, Lassen, Los Angeles, Madera, Marin, Mariposa, Mendocino, Merced, Modoc, Mono, Monterey, Napa, Nevada, Orange, Placer, Plumas, Riverside, Sacramento, San Benito, San Bernardino, San Diego, San Francisco, San Joaquin, San Luis Obispo, San Mateo, Santa Barbara, Santa Clara, Santa Cruz, Shasta, Sierra, Siskiyou, Solano, Sonoma, Stanislaus, Sutter, Tehama, Tulare, Tuolumne, Ventura, Yolo, Yuba, ALL
+Error: County must be one of: Alameda, Alpine, Amador, Butte, Calaveras, Colusa,
+Contra Costa, Del Norte, El Dorado, Fresno, Glenn, Humboldt, Imperial, Inyo, 
+Kern, Kings, Klamath, OR, Lake, Lassen, Los Angeles, Madera, Marin, Mariposa, 
+Mendocino, Merced, Modoc, Mono, Monterey, Napa, Nevada, Orange, Placer, Plumas, 
+Riverside, Sacramento, San Benito, San Bernardino, San Diego, San Francisco, 
+San Joaquin, San Luis Obispo, San Mateo, Santa Barbara, Santa Clara, Santa Cruz,
+Shasta, Sierra, Siskiyou, Solano, Sonoma, Stanislaus, Sutter, Tehama, Tulare, 
+Tuolumne, Ventura, Yolo, Yuba, ALL
 ```
 
 Next, we need to clean our data. You can imagine a much more extensive cleaning process for another dataset, but in our simple example, all we want to do is provide the user with the option to set a start and end time to filter the data by. Importantly, we want to ensure that the date arguments passed to the function are valid "Date", "POSIXct", or "POSIXt" object classes so a proper filter occurs. 
@@ -445,6 +456,8 @@ f_wcr_clean <- function(df, start_date = NULL, end_date = NULL){
     )
   }
 
+  cat("Cleaning data", "\n")
+
   # if start and end date are NULL, use the min and max date
   if(is.null(start_date)){
     start_date <- min(df$MSMT_DATE, na.rm = TRUE)
@@ -457,13 +470,13 @@ f_wcr_clean <- function(df, start_date = NULL, end_date = NULL){
 
   # filter to date range and clean
   df <- filter(df, MSMT_DATE >= start_date & MSMT_DATE <= end_date)
-  
+
   cat(
-    "Data filtered between", 
-    as.character(start_date), "and", 
+    "Data filtered between",
+    as.character(start_date), "and",
     as.character(end_date),   "\n "
   )
-  
+
   return(df)
 }
 
@@ -473,18 +486,22 @@ Notice that the vast majority of this function is focused not on the transformat
 
 Moving on, after cleaning, it's time to model. Save another function `functions/f_wcr_model.R` that calculates the linear model at each `SITE_CODE`:
 
-```{r}
+```{r, f-model}
 # build linear model for each unique SITE ID and
 # add important columns (direction), beta_1 coefficient
+sec_to_yr <- function(sec){
+  yr <- sec * 31557600
+  return(yr)
+}
+
 f_wcr_model <- function(df){
-  
   result <- df %>%
     group_by(SITE_CODE) %>%
     # nest the data per SITE_CODE grouping variable
     nest() %>%
     mutate(
       # map a linear model across data, extract slope magnitude & direction
-      model     = map(data, ~lm(GWE ~ MSMT_DATE, data = .x)),
+      model     = map(data, ~lm(WSE ~ MSMT_DATE, data = .x)),
       b1        = map(model, ~coefficients(.x)[["MSMT_DATE"]]),
       b1        = map(b1, ~sec_to_yr(.x)),
       direction = map(b1, ~ifelse(.x >= 0, "increase", "decline")),
@@ -500,109 +517,320 @@ f_wcr_model <- function(df){
 }
 ```
 
-Finally, we need to visualize and save these data. Add another function `functions/f_wcr_visualize.R`
+Next, we need to visualize and save these data. Add another function `functions/f_wcr_visualize_map.R` which creates the reproduced DWR map above. 
 
-```{r}
+```{r, f-viz-map}
+# visualize results 
+f_wcr_visualize_map <- function(df, yr_min){
+
+  # slice the first observation per SITE_ID (for location) and
+  # re-convert to sf which is lost during nest and unnest
+  d_map <- df %>%
+    group_by(SITE_CODE) %>%
+    slice(1) %>%
+    ungroup() %>%
+    st_as_sf() %>%
+    filter(length_yr >= yr_min) %>%
+    # create a bin for trend magnitude that matches DWR bins (Fig 2)
+    mutate(
+      bin = cut(
+        b1,
+        breaks = c(-1000, -2.5, 0, 2.5, 1000),
+        labels = c("Increase > 2.5 ft/yr", "Increase 0 - 2.5 ft/yr",
+                   "Decrease 0 - 2.5f ft/yr", "Decrease > 2.5 ft/yr")
+      )
+    )
+
+  # sacramento county polygon
+  sac <- st_read(here("data", "shp", "sac", "sac_county.shp")) %>%
+    st_transform(st_crs(d_map))
+
+  # plot magnitude bins
+  p <- ggplot() +
+    geom_sf(data = sac) +
+    geom_sf(data = d_map, aes(fill = bin), pch = 21, size = 3, alpha = 0.9) +
+    rcartocolor::scale_fill_carto_d("", palette = "TealRose") +
+    theme_void()
+
+  return(p)
+}
+
+```
+
+Add another function `functions/f_wcr_visualize_timeseries.R` which writes a plot of the groundwater level over time, and shows its location on a map.
+
+```{r, f-viz-timeseries}
+# visualize timeseries of groundwater level with a map
+f_wcr_visualize_timeseries <- function(df, dir_out){
+  dir.create(dir_out)
+
+  # color of trend - up or down
+  col_trend <- ifelse(df$direction[1] == "decline", "red", "blue")
+
+  # create the hydrograph
+  p_hydrograph <- df %>%
+    ggplot(aes(MSMT_DATE, WSE)) +
+    geom_line() +
+    geom_smooth(
+      color = col_trend, method = "lm", se = FALSE,
+      lwd = 2, linetype = "dashed"
+      ) +
+    guides(color = FALSE) +
+    labs(title = glue::glue("{df$SITE_CODE[1]}, {round(df$b1[1], 2)} ft/yr")) +
+    theme_minimal()
+
+  # create the map
+  # make measurements data spatial if not already
+  df_sf <- st_as_sf(df)
+
+  # sacramento county polygon
+  sac <- st_read(here("data", "shp", "sac", "sac_county.shp")) %>%
+    st_transform(st_crs(df_sf))
+
+  # map
+  p_map <- ggplot() +
+    geom_sf(data = sac) +
+    theme_void() +
+    geom_sf(data = df_sf[1, ], color = col_trend, size = 4, alpha = 0.9)
+
+  # combine plots: requires {pathwork}
+  p_combined <- p_map + p_hydrograph
+
+  # save
+  ggsave(
+    file.path(dir_out, glue::glue("{df$SITE_CODE[1]}.png")),
+    p_combined,
+    height = 4, width = 12
+  )
+
+}
 
 ```
 
 
-Now that we have functions defined, let's define modules that download, import and clean, model, visualize, and write. 
+And finally, we want to save these data. We can write another function for that, but we can also achieve that pretty simply within the control script using functional programming, so we'll do that.
+
+Now that we have functions defined, let's define one control module to download, import and clean, model, visualize, and write. Save this as a new file `code/00_control.R`.
 
 
 ```{r, eval = FALSE}
-list.files(here::here("functions"), pattern = "wcr", full.names = TRUE) %>% 
+library(tidyverse)
+library(sf)
+library(here)
+library(pathwork)
+
+# load functions
+list.files(here("functions"), full.names = TRUE, pattern = "f_wcr") %>%
   walk(~source(.x))
 
-# ------------------------------------------------------------------------
-# arguments needed by functions
-
-# urls for data to download
-base_url <- 
+# urls for data
+base_url <-
   "https://data.cnra.ca.gov/dataset/dd9b15f5-6d08-4d8c-bace-37dc761a9c08/resource/"
 urls <- paste0(
-  base_url, 
+  base_url,
   c("af157380-fb42-4abf-b72a-6f9f98868077/download/stations.csv",
     "bfa9f262-24a1-45bd-8dc8-138bc8107266/download/measurements.csv",
     "f1deaa6d-2cb5-4052-a73f-08a69f26b750/download/perforations.csv")
 )
 
-# directory to save downloaded data
-dir_out <- here("data", "pgwl")
-
-# input location for files
-files_in <- file.path(dir_out, basename(urls))
+# data path to download files and read them
+data_path <- here("data", "pgwl")
 
 # ------------------------------------------------------------------------
-# download wcr data
-f_wcr_download(dir_out, urls)
+# download data
+f_wcr_download(data_path, urls = urls)
 
-# import wcr data, clean, and model
-d <- f_wcr_import(county = "Sacramento", files_in = files_in) %>%
-  f_wcr_clean(start_date = ymd("2000-01-01"), 
-              end_date   = ymd("2021-01-01")) %>% 
+# ------------------------------------------------------------------------
+# import, clean, and model
+d <-
+  # import downloaded data
+  f_wcr_import(
+    county   = "Sacramento",
+    files_in = list.files(data_path, full.names = TRUE)
+  ) %>%
+  # minor cleaning of one unreasonable value
+  filter(WSE >-200) %>%
+  # clean data
+  f_wcr_clean(start_date = lubridate::ymd("2000-01-01")) %>%
+  # fit a linear model for each SITE_CODE group, extract beta_1
   f_wcr_model()
 
-# visualize and export 
+# ------------------------------------------------------------------------
+# visualize big picture map
+# create output directory if it doesn't already exist
+path_plot <- here("results", "plot")
+dir.create(path_plot)
+
+p <- f_wcr_visualize_map(d, yr_min = 5)
+ggsave(file.path(path_plot, "00_ALL.png"), p, height = 6, width = 6)
+
+# write all timeseries plots. use map instead of walk because we want
+# to capture output to inspect
+safely_viz <- safely(f_wcr_visualize_timeseries)
+errs <- group_split(d, SITE_CODE) %>% map(~safely_viz(.x, path_plot))
+
+# ------------------------------------------------------------------------
+# write
+# create output directory if it doesn't already exist
+path_csv <- here("results", "csv")
+dir.create(path_csv)
+
+# write all results as one big csv and use default ordering to sort
+write_csv(d, file.path(path_csv, "00_ALL.csv"))
+
+# silently write a separate csv for each group
+d %>%
+  split(.$SITE_CODE) %>%
+  walk(~write_csv(.x, file.path(path_csv, glue::glue("{.x$SITE_CODE[1]}.csv"))))
+
 ```
 
+Notice the use of `purrr::safely()` when calling the `f_wcr_visualize_timeseries()` function. Sometimes, when mapping over many inputs (for instance `r length(unique(d$SITE_CODE))` `SITE_CODE`s), we may encounter an error in one of the elements that stops the function from completing. `safely()` always succeeds, and we can go back and inspect errors because the function returns a list of results and errors (if they occur).
+
+<aside>
+Another related error-handling verb is `possibly()` which works like `safely`, but allows us to specify a default value to insert for each error.
+</aside>
+
+In this pipeline, we actually see some errors when we have a `SITE_CODE` with only one measurement. We can't create a `geom_smooth()` ggplot layer with only one point, so it throws an error. But assuming we didn't know that, we could figure it out by inspecting the output of the `safely()` function: 
+
+```{r safely, eval = FALSE}
+errs %>% 
+  transpose() %>% 
+  simplify_all() %>% 
+  unlist()
+```
+
+```
+$error.message
+[1] "'gpar' element 'fontsize' must not be length 0"
+
+$error.call
+check.length(gparname)
+```
+
+We can browse `errs` to find the indices of these locations, or find them with code:
+
+```{r safely2, eval = FALSE}
+i <- which(map_lgl(simplify_all(errs), ~!is.null(.x)) == TRUE)
+i
+```
+
+```
+[1]  54 119
+```
+
+If we inspect these indices, we can verify that they only have one measurement each. By using `safely()`, we were able to not let these 2 elements stall the entire pipeline of `r length(unique(d$SITE_CODE))` elements.
+
+```{r safely3, eval = FALSE}
+group_split(d, SITE_CODE)[i]
+```
+
+```
+[[1]]
+# A tibble: 1 x 8
+  SITE_CODE          MSMT_DATE             WSE WELL_DEPTH
+  <chr>              <dttm>              <dbl>      <int>
+1 383434N1214367W001 2000-04-24 00:00:00 -41.4        160
+# … with 4 more variables: geometry <POINT [°]>, b1 <dbl>,
+#   direction <chr>, length_yr <dbl>
+
+[[2]]
+# A tibble: 1 x 8
+  SITE_CODE          MSMT_DATE             WSE WELL_DEPTH
+  <chr>              <dttm>              <dbl>      <int>
+1 385312N1215006W001 2001-05-29 00:00:00  1.13         75
+# … with 4 more variables: geometry <POINT [°]>, b1 <dbl>,
+#   direction <chr>, length_yr <dbl>
+```
+
+To conclude, we abstracted our tasks to a set of functions, each contained in multiple, short, modular scripts rather than one massive and unwieldy script. This helps with maintenance, portability, and reproducibility. We used functional programming to replace `for` loops, and demonstrated how use `safely()` for error handling, as errors are a part of life when working with large lists, making requests from APIs or fileservers, and scaling processes to a large number of inputs. 
+
+<br>
+
+::: {.challenge}
+**Pause and think**
+
+Imagine you wanted to scale this analysis beyond Sacramento county to Placer County. How would you approach this? 
+
+How could you scale to all counties in California?
+
+What would you need to scale to all counties in the United States?
+
+:::
 
 
-Keeping other users in mind, using `stop()` and `cat()` messages.
+<details>
 
-args: start date, end date (for the filter pre-lm), trim_outliers (to illustrate conditional execution)
+<summary class="challenge-ans-title">**Click for Answers!**</summary>
 
--   make one plot, then function
+<div class="challenge-ans-body">
 
--   write one data set, then function for it all
+As with all things in coding, there are many ways to accomplish this, but some ways are more efficient than others.
 
-imagemagik the plots into a gif
+Notice that `f_wcr_import()` has an argument `county`. To scale the analysis to Placer county, we would simply change the `county` argument to `"Placer"`. However, you may notice that `f_wcr_visualize_map()` and `f_wcr_visualize_timeseries()` both depend on a Sacramento county polygon, so you can swap that out with a Placer county polygon and be off to the races.  
 
-safely(), possibly() - toy cases to demo these functions
+However, if you wanted to scale this to the state, you'd need to assemble polygons for all counties in the state. That sounds time consuming. However, as with most things, it's good practice to google what feels like a common problem, because chances are you're not the first person with this problem! In fact, there's a great way to grab county data from directly within `R` using the `{maps}` package. 
 
-### Conditional execution
+```{r, maps-pkg}
+library(maps)
+counties <- st_as_sf(map("county", plot = FALSE, fill = TRUE))
+counties <- subset(counties, grepl("california", counties$ID))
+plot(counties)
+```
 
-If statements within a function
+With all California counties in hand, we can re-write the function to filter this polygon to the county of interest. 
 
-Example for transforming spatial data to the same projection if the crs differs. First plot different crs, and then abstract it into a code chunk with a variable for the default crs used in a project.
+Going one step further, if we had a dataset of groundwater levels across the entire US, `{maps}` has county polygons for each county, so it wouldn't be difficult to extend our code to a nationwide analysis. 
 
--   maybe later use it to trim outliers with arg `trim_outliers` and `if isTRUE(trim_outlies){trim 'em}`
 
--   another if statement for argument `county`, when, if NULL, does the operation on th entire dataset.
+</div>
 
-### When to define a pipeline
+</details>
 
-Analogy of watering a garden of plants one by one, or having one drip irrigation line.
+<br>
 
-How and when to use `source(my_script.R)` to abstract out functions and other preprocessing pipelines to simplify scripts. The idea of scripts that build on one another in an increasingly complex project.
-
-Take example above and make a control.R - to be used later with task scheduler or cron - we know this data updates monthly, so set it there. Imagine for flow data, this can be every day! Data frequency, latency.
 
 ### Task scheduling
 
-Here's how to use task scheduler and cron
+Let's imagine that these groundwater levels were not the DWR periodic groundwater level database, but rather a set of continuous monitoring sensors on telemetry that updated daily, and you needed to kick this pipeline off every day at 10am. Surely you wouldn't manually run `00_control.R` every morning. You'd use a task scheduler.
+
+Task schedulers vary by system. In general, they run a program at defined intervals. We won't set one up in this course, but it's good to know about them:
+
+-   [How to set up a task scheduler on Windows](https://stackoverflow.com/questions/2793389/scheduling-r-script)  
+-   [How to set up `cron`, an open source task scheduler for Linux](https://www.richpauloo.com/post/crontabs/)    
+
+<aside>
+Also check out the [`{taskscheduleR}`](https://github.com/bnosac/taskscheduleR) and [`{cronR}`](https://github.com/bnosac/cronR) packages for Windows and Linux, which have RStudio add-ins.
+</aside>
+
 
 ### Logging
 
-When things are running without your supervision, things may break so it's a good idea to print information whenever the job kicks off so you can review this information in case something doesn't go as planned. This is known as **logging**, which is cornerstone in software engineering, but less so in data science. Logging becomes important for larger jobs with potential to break, or when inputs may sufficiently change in such a way that breaks code.
+Whenever code is running without your supervision on a task scheduler, things may break so it's a good idea to print information whenever the job kicks off so you can review this information in case something doesn't go as planned. We've been decorating our code with `cat()` statements that print updates to the console, and this is helpful, but we can be much more sophisticated and start **logging**. Logging is cornerstone in software engineering, but less so in data science. Logging is important for larger jobs that run often (e.g., anything on a task scheduler) with potential to break, or that may be subject to inputs that sufficiently change and that may breaks code.
+
+A full discussion of logging is out of scope for this lesson, but you can learn more about logging by browsing these packages:
+
+- [`{lgr}`](https://github.com/s-fleck/lgr)  
+- [`{logger}`](https://github.com/daroczig/logger/)  
+
 
 <br>
 
 ## When to not automate
 
-As a data scientist, you'll often need to perform once-over ad-hoc analyses. You may or may not need to return to these analyses, or components of the analyses. Automation takes time, and just because we have the tools to automate doesn't mean that we should. Whether or not you should automate depends on how often you anticipate the workflow needs to be re-evaluated. The more the workflow needs to be run, the more time we can justify spending on firming up the reproducibility and automation potential of program. When it's not immediately apparant that automation is necessary (e.g., "a daily report of streamflow automatically scraped from 1,000 sensors") a general rule of thumb for whether or not to automate may boil down to the following considerataion:
+As a data scientist, you'll often perform once-over ad-hoc analyses. You may or may not need to return to these analyses, or components of the analyses. Automation takes time, and just because we have the tools to automate doesn't mean that you always should. Whether or not you should automate depends on how often you anticipate the workflow needs to be re-evaluated. The more the workflow needs to be run, the more time we can justify spending on firming up the reproducibility and automation potential of program. When it's not immediately apparent that automation is necessary (e.g., "a daily report of streamflow automatically scraped from 1,000 sensors that we set up on a task scheduler") a general rule of thumb for whether or not to automate may boil down to the following consideration:
 
 > Will the time saved in the future by automation exceed the time spent automating the process now? If so, automate.
 
-(ref:automate-xkcd2-fig) *Figure caption TBD*
+(ref:automate-xkcd2-fig) *Figure credit: [xkcd, 1205](https://xkcd.com/1205/)*
 
 ```{r time-fig, eval=TRUE, echo=FALSE, out.width='75%',fig.cap='(ref:automate-xkcd2-fig)'}
 knitr::include_graphics(here("images", "is_it_worth_the_time.png"))
 ```
 
-Don't underestimate the time it can take to automate either.
+Don't underestimate the time it can take to automate.
 
-(ref:automate-xkcd-fig) *Figure caption TBD*
+(ref:automate-xkcd-fig) *Figure credit: [xkcd, 1319](https://xkcd.com/1319/)*
 
 ```{r no-automate-fig, eval=TRUE, echo=FALSE, out.width='75%',fig.cap='(ref:automate-xkcd-fig)'}
 knitr::include_graphics(here("images", "automation_xkcd.png"))
@@ -618,15 +846,25 @@ We've all done a point-and-click analysis before that becomes unwieldy, large, a
 2.  certain parts of the workflow were subjective, so repeating it would yield a different result\
 3.  repeating one part of the workflow would invalidate downstream components and derivative products of the workflow, creating even more work
 
-Code is best thought of as a set of instructions. No matter the language the code is in, whether it's `R`, `Python`, or another language for data science, at its most fundamental level, the code represents a linear set of instructions to carry out on a computer. Coding is the automation of routine point-and-click tasks, and a good program (e.g., `.R` script) will replace the need to click thrugh an analysis. Moreover, as data volume (size) and frequency (timing) increase, many point-and-click software tools are stretched to their limits and become slow or non-responsive, but lower-level code still works, and usually works much faster.
+Writing code is all about ensuring reproducibility and automation so we never find ourselves in this position. Writing *efficient* code ensures that the code is *easy* to interact with, debug, and modify.  
+
+> code = instructions
+
+No matter the language the code is in, whether it's `R`, `Python`, `Julia` or something else, at its most fundamental level, code is a set of **instructions** to execute. In the data science world, coding allows automation of routine point-and-click tasks, and a good program (e.g., `.R` script) will replace the need to click through an analysis. Moreover, as data volume (size) and frequency (timing) increase, many point-and-click software tools are stretched to their limits and become slow or non-responsive. Code usually runs without the overhead of graphics processors, can be used again and again, and can be automated to run on its own.
+
+As you grow in your capability with `R`, you will naturally find yourself able to interact with other languages and systems because at the end of the day, you're in the business of writing instructions for computers to carry out, and these instructions usually involve similar tasks.  
 
 <br>
 
 ## Additional resources
 
--   cron blog posst
--   windows task sceduler link
--   something from efficient R?
+**Convert your `R` code into command line tools**: RStudio is a great interactive development environment (IDE) for writing `R` code, but it's important to remember that R is essentially a program on your computer that you can access and interact with via the command line using the utility `Rscript`. If you need to scale your work to a cluster, or your work expands to involve other programmers who may be less familiar with `R`, you may need to package your `R` code as a command line tool, which is a familiar format for data engineers, data scientists, and developers coming from other backgrounds. A command line tool is essentially a program that can be called from the command line, and passed arguments like so:  
+
+```{r, eval = FALSE}
+Rscript my_script.R arg1 arg2 arg3
+```
+
+Learn more about turning your `R` code into a command line tool in [this Software Carpentry lesson](https://swcarpentry.github.io/r-novice-inflammation/05-cmdline/).  
 
 <br>
 

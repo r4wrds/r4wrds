@@ -1,3 +1,4 @@
+# import downloaded wcr data
 f_wcr_import <- function(county, files_in){
   # valid counties from entire dataset, i.e.,
   # dput(sort(unique(d$COUNTY_NAME)))
@@ -17,8 +18,7 @@ f_wcr_import <- function(county, files_in){
   # ensure input county is valid before reading in data
   if(! county %in% counties_valid) {
     stop(
-      glue("The provided county is invalid. Did you mean one of:
-           {paste(counties_valid, collapse = ', ')}"),
+      glue("County must be one of: {paste(counties_valid, collapse = ', ')}"),
       call. = FALSE
     )
   }
@@ -40,8 +40,8 @@ f_wcr_import <- function(county, files_in){
   # select only relevant columns & convert to sf object
   cat("Selecting relevant columns...", "\n")
   d <- d %>%
-    select(SITE_CODE, MSMT_DATE, GWE, LONGITUDE, LATITUDE, WELL_DEPTH) %>%
-    filter(!is.na(LONGITUDE) & !is.na(LATITUDE)) %>% 
+    select(SITE_CODE, MSMT_DATE, WSE, LONGITUDE, LATITUDE, WELL_DEPTH) %>%
+    filter(!is.na(LONGITUDE) & !is.na(LATITUDE)) %>%
     st_as_sf(coords = c("LONGITUDE", "LATITUDE"), crs = 4269)
 
   cat("Data import complete.", "\n")
