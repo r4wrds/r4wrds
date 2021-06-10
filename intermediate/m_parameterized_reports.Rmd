@@ -18,9 +18,16 @@ library(here)
 ::: {.obj}
 **Learning objectives**
 
--   A
--   B
--   C
+-   Extend functional programming skills to automate `.Rmd` reports  
+-   Understand the available types of reports provided by `{rmarkdown}`  
 :::
 
+Analyses typically lead to figures, tables, and a narrative interpreting these information. The [`{rmarkdown}`](https://rmarkdown.rstudio.com/) package provides `R` users with a standardized approach for turning `R` analyses into reports, documents, presentations, dashboards, and websites. In this module, we assume familiarity with `{rmarkdown}`, and extend the previous modules on iteration, functional programming, and reproducible workflows to demonstrate how to iterate over reports.
+
+<aside>
+If needed, review the [introduction to `{rmarkdown}`](../intro/m_intro_Rmarkdown.html).
+</aside>
+
+
+## 
 
