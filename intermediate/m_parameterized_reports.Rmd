@@ -28,6 +28,20 @@ Analyses typically lead to figures, tables, and a narrative interpreting these i
 If needed, review the [introduction to `{rmarkdown}`](../intro/m_intro_Rmarkdown.html).
 </aside>
 
+Let's assume that we want to generate a report on groundwater level trends for a set of counties. 
+
 
 ## 
+
+
+
+## Additional Resources
+
+
+
+<br>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<a href="m_reproducible_workflows.html" class="btn btn-secondary" style="float: left">Previous module:<br>Reproducible Workflows</a> <a href="m_advanced_spatial.html" class="btn btn-secondary" style="float: right;">Next module:<br>Advanced spatial</a>
 
