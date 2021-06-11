@@ -40,7 +40,8 @@ f_wcr_import <- function(county, files_in){
   # select only relevant columns & convert to sf object
   cat("Selecting relevant columns...", "\n")
   d <- d %>%
-    select(SITE_CODE, MSMT_DATE, WSE, LONGITUDE, LATITUDE, WELL_DEPTH) %>%
+    select(SITE_CODE, MSMT_DATE, WSE, LONGITUDE,
+           LATITUDE, WELL_DEPTH, COUNTY_NAME) %>%
     filter(!is.na(LONGITUDE) & !is.na(LATITUDE)) %>%
     st_as_sf(coords = c("LONGITUDE", "LATITUDE"), crs = 4269)
 
