@@ -1,0 +1,49 @@
+---
+title: "`r paste(params$county, 'Groundwater Levels')`"
+output: html_document
+params:
+  county: "placeholder"
+---
+
+```{r, echo = FALSE, message = FALSE, error = FALSE, warning = FALSE}
+library(tidyverse)
+library(here)
+library(sf)
+library(mapview)
+mapviewOptions(fgb = FALSE)
+
+# filter all groundwater level data (already loaded into memory) by 
+# the supplied county
+d <- filter(gwl, COUNTY_NAME == params$county)
+
+```
+
+
+This report shows groundwater levels in `r params$county` county from `r min(d$MSMT_DATE, na.rm = TRUE)` to `r max(d$MSMT_DATE, na.rm = TRUE)`, downloaded from the DWR [Periodic Groundwater Level Database](https://data.cnra.ca.gov/dataset/periodic-groundwater-level-measurements) on .
+
+## Distribution of measurements over time:
+
+50% of measured values occur on or after `r median(d$MSMT_DATE, na.rm = TRUE)`. 
+
+```{r}
+d %>% 
+  ggplot() +
+  geom_histogram(aes(MSMT_DATE)) +
+  theme_minimal() +
+  labs(
+    title = "Count of groundwater level measurements over time",
+    x = "", y = "Count"
+  )
+```
+
+
+## Locations of measurements
+
+```{r}
+d %>% 
+  group_by(SITE_CODE) %>% 
+  slice(1) %>% 
+  mapview(layer.name = "Groundwater level measurements")
+```
+
+

@@ -79,7 +79,7 @@ In the code, we could then access the value `"2021-01-01"` with `params$start_da
 
 ## Case study: automated reports
 
-Let's apply `params` to our task: generate an `html_document` per county. To illustrate, we will use a simplified, pre-processed dataset of 3 counties (Sacramento, Yolo, and San Joaquin counties).
+Let's apply `params` to our task: generate an `html_document` per county. To illustrate, we will use a simplified, pre-processed dataset of 3 counties (Sacramento, Yolo, and San Joaquin counties). Read in the data and take a look at the fields.
 
 ```{r read-counties}
 library(tidyverse)
@@ -90,12 +90,12 @@ library(sf)
 gwl <- read_rds(here("data", "sac_yolo_sj.rds"))
 
 gwl %>% 
+  group_by(SITE_CODE) %>% 
   slice(1) %>% 
-  plot("COUNTY_NAME")
-
+  plot()
 ```
 
-
+We will iterate over the `COUNTY_NAME` to create three reports, one for each county. First, 
 
 
 
