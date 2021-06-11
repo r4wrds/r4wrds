@@ -95,7 +95,7 @@ gwl %>%
   plot()
 ```
 
-We will iterate over the `COUNTY_NAME` to create three reports, one for each county. First, 
+We will iterate over the `COUNTY_NAME` to create three reports, one for each county. Copy and paste the following code into a new file `reports/gwl_report.Rmd`
 
 
 
