@@ -41,10 +41,12 @@ According to [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmark
 - Running a single analysis multiple times for different assumptions.  
 - Controlling the behavior of knitr (e.g., specify if you want the code to be displayed or not).  
 
-In this module, we will focus on example use case 1, and build paramaterized reports for a set of geographic locations. Throughout this course, we've been working with groundwater elevation data across California counties. Let's imagine that we want to generate a report on groundwater level trends for a set of counties. Although the RStudio Interactive Development Environment (IDE) encourages knitting RMarkdown documents by clicking a button, we can also knit documents via: `knitr::knit()`. Iterating over `knit()` is the key to easily generating many paramaterized reports.
+In this module, we will focus on example use case 1, and build paramaterized reports for a set of geographic locations. Throughout this course, we've been working with groundwater elevation data across California counties. Let's imagine that we want to generate a report on groundwater level trends for a set of counties.
+
+Although the RStudio Interactive Development Environment (IDE) encourages knitting RMarkdown documents by clicking a button, we can also knit documents via: `rmarkdown::render()`. Iterating over `render()` is the key to scaling paramaterized reports. To iterate over R Markdown reports, we must first understand how to use `params`.  
 
 
-```{r create-data, eval = FALSE}
+```{r create-data, echo = FALSE, eval = FALSE}
 # create a file to work with that includes only Sac, Yolo, and SJ counties
 data_path <- here("data", "pgwl")
 counties  <- c("Sacramento", "Yolo", "San Joaquin")
@@ -61,14 +63,67 @@ sep %>% write_rds(here("data", "sac_yolo_sj.rds"))
 
 ## `params`
 
-A paramaterized .Rmd file takes in the YAML header a set of `params` which are bound into a named list called `params` and accessed with code from within the .Rmd file with `params$<paramater-name>`. For example, consider the example YAML:
+A paramaterized .Rmd file takes a set of `params` (short for "parameters") in the YAML header, which are bound into a named list called `params` and accessed with code from within the .Rmd file with `params$<paramater-name>`. For example, consider the example YAML:
 
 ```
 title: "My awesome paramaterized report"
 output: html_document
 params:
-  
+  start_date: 2021-01-01
+  watershed: Yuba
+  data: gwl_yuba.csv
 ```
+
+In the code, we could then access the value `"2021-01-01"` with `params$start_date`. Similarly, `params$watershed` will equal `"Yuba"` and `params$data` will equal `"gwl_yuba.csv"`.
+
+
+## Case study: automated reports
+
+Let's apply `params` to our task: generate an `html_document` per county. To illustrate, we will use a simplified, pre-processed dataset of 3 counties (Sacramento, Yolo, and San Joaquin counties).
+
+```{r read-counties}
+library(tidyverse)
+library(here)
+library(sf)
+
+# groundwater level data for Sacramento, Yolo, San Joaquin counties
+gwl <- read_rds(here("data", "sac_yolo_sj.rds"))
+
+gwl %>% 
+  slice(1) %>% 
+  plot("COUNTY_NAME")
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## In-line `R`
+
+Within an `.Rmd` we can also insert `R` output in-line using the following syntax:
+
+```{r, eval=FALSE, include=TRUE}
+`r <function>`
+```
+
+So for instance we can write a string like: 
+
+```{md, eval=FALSE, include=TRUE}
+The mean of 1 and 3 is `r mean(c(1,3))`.
+```
+
+And when the document knits get: The mean of 1 and 3 is `r mean(c(1,3))`.
+
 
 
 
