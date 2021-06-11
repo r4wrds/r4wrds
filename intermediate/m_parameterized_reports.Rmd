@@ -44,6 +44,21 @@ According to [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmark
 In this module, we will focus on example use case 1, and build paramaterized reports for a set of geographic locations. Throughout this course, we've been working with groundwater elevation data across California counties. Let's imagine that we want to generate a report on groundwater level trends for a set of counties. Although the RStudio Interactive Development Environment (IDE) encourages knitting RMarkdown documents by clicking a button, we can also knit documents via: `knitr::knit()`. Iterating over `knit()` is the key to easily generating many paramaterized reports.
 
 
+```{r create-data, eval = FALSE}
+# create a file to work with that includes only Sac, Yolo, and SJ counties
+data_path <- here("data", "pgwl")
+counties  <- c("Sacramento", "Yolo", "San Joaquin")
+sep <- map_df(
+  counties,
+  ~f_wcr_import(
+    county   = .x,
+    files_in = list.files(data_path, full.names = TRUE)
+  )
+)
+sep %>% write_rds(here("data", "sac_yolo_sj.rds"))
+```
+
+
 ## `params`
 
 A paramaterized .Rmd file takes in the YAML header a set of `params` which are bound into a named list called `params` and accessed with code from within the .Rmd file with `params$<paramater-name>`. For example, consider the example YAML:
