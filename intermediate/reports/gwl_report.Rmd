@@ -5,45 +5,109 @@ params:
   county: "placeholder"
 ---
 
+<br>
+
 ```{r, echo = FALSE, message = FALSE, error = FALSE, warning = FALSE}
 library(tidyverse)
 library(here)
 library(sf)
 library(mapview)
+library(maps)
+library(DT)
 mapviewOptions(fgb = FALSE)
+
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, out.width = "100%")
 
 # filter all groundwater level data (already loaded into memory) by 
 # the supplied county
 d <- filter(gwl, COUNTY_NAME == params$county)
 
+# extract the county spatial file
+county_sf <- st_as_sf(map("county", plot = FALSE, fill = TRUE)) %>% 
+  filter(ID == paste0("california,", tolower(params$county)))
+
 ```
 
 
-This report shows groundwater levels in `r params$county` county from `r min(d$MSMT_DATE, na.rm = TRUE)` to `r max(d$MSMT_DATE, na.rm = TRUE)`, downloaded from the DWR [Periodic Groundwater Level Database](https://data.cnra.ca.gov/dataset/periodic-groundwater-level-measurements) on .
+This report shows groundwater levels in `r params$county` county.
 
-## Distribution of measurements over time:
+Dates range from `r min(d$MSMT_DATE, na.rm = TRUE)` to `r max(d$MSMT_DATE, na.rm = TRUE)`.
 
-50% of measured values occur on or after `r median(d$MSMT_DATE, na.rm = TRUE)`. 
+Data source: [DWR Periodic Groundwater Level Database](https://data.cnra.ca.gov/dataset/periodic-groundwater-level-measurements).
 
-```{r}
+<br>
+
+## Distribution of measurements over time
+
+50% of measured values occur on or after `r median(d$MSMT_DATE, na.rm = TRUE)`.
+
+```{r hist, echo = FALSE}
 d %>% 
   ggplot() +
   geom_histogram(aes(MSMT_DATE)) +
   theme_minimal() +
-  labs(
-    title = "Count of groundwater level measurements over time",
-    x = "", y = "Count"
+  labs(title = "", x = "", y = "Count")
+```
+
+
+<br>
+
+## Monitoring sites
+
+```{r map, echo = FALSE}
+# mapview of county outline
+county_mv <- mapview(
+  county_sf, layer.name = paste(params$county, "county"), 
+  lwd = 2, color = "red", alpha.regions = 0
+)
+
+# mapview of monitoring points
+points_mv <- d %>% 
+  group_by(SITE_CODE) %>% 
+  slice(1) %>% 
+  select(-MSMT_DATE) %>% # remove msmt date b/c its irrelevant
+  mapview(layer.name = "Monitoring stations")
+
+county_mv + points_mv
+```
+
+<br>
+
+## All groundwater levels
+
+```{r plot, echo = FALSE}
+# interactive hydrograph
+p <- ggplot(d, aes(MSMT_DATE, WSE, color = SITE_CODE)) + 
+  geom_line(alpha = 0.5) +
+  guides(color = FALSE)
+plotly::ggplotly(p)
+```
+
+<br> 
+
+```{r dt, echo = FALSE}
+# data table of median groundwater level per site, per year
+d %>% 
+  select(-c("COUNTY_NAME", "WELL_DEPTH")) %>%
+  st_drop_geometry() %>% 
+  mutate(YEAR = lubridate::year(MSMT_DATE)) %>% 
+  group_by(SITE_CODE, YEAR) %>% 
+  summarise(WSE_MEDIAN = median(WSE, na.rm = TRUE)) %>%
+  ungroup() %>% 
+  DT::datatable(
+    extensions = 'Buttons', options = list(
+      dom = 'Bfrtip',
+      buttons = 
+        list('copy', 'print', list(
+          extend  = 'collection',
+          buttons = c('csv', 'excel', 'pdf'),
+          text    = 'Download'
+        ))
+    )
   )
 ```
 
 
-## Locations of measurements
+***
 
-```{r}
-d %>% 
-  group_by(SITE_CODE) %>% 
-  slice(1) %>% 
-  mapview(layer.name = "Groundwater level measurements")
-```
-
-
+Report generated on `r Sys.Date()`.
