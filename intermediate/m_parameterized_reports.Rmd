@@ -1,7 +1,7 @@
 ---
 title: "Parameterized reports"
 description: | 
-   description
+   How to automate routine reporting
 output: 
   distill::distill_article:
     toc: true
@@ -22,22 +22,44 @@ library(here)
 -   Understand the available types of reports provided by `{rmarkdown}`  
 :::
 
+<br>
+
+> "Your success in life will be determined largely by your ability to speak, your ability to write, and the quality of your ideas, in that order." — [Patrick Winston (1943-2019)](https://www.youtube.com/watch?v=Unzc731iCUY&t=37s)
+
+Data science is the art of combining domain knowledge, statistics, math, programming, and visualization to find order and meaning in disorganized information. Communicating the results of your analyses, or ability to make data "speak", is of utmost importance. The modern day open source package ecosystem is full of powerful ways to give voice to our analyses.
+
 Analyses typically lead to figures, tables, and a narrative interpreting these information. The [`{rmarkdown}`](https://rmarkdown.rstudio.com/) package provides `R` users with a standardized approach for turning `R` analyses into reports, documents, presentations, dashboards, and websites. In this module, we assume familiarity with `{rmarkdown}`, and extend the previous modules on iteration, functional programming, and reproducible workflows to demonstrate how to iterate over reports.
 
 <aside>
-If needed, review the [introduction to `{rmarkdown}`](../intro/m_intro_Rmarkdown.html).
+Review the [introduction to `{rmarkdown}`](../intro/m_intro_Rmarkdown.html) if needed.
 </aside>
 
-Let's assume that we want to generate a report on groundwater level trends for a set of counties. 
+According to [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/params-declare.html), some example use cases for creating a paramaterized report include:  
+
+- Showing results for a specific geographic location.  
+- Running a report that covers a specific time period.  
+- Running a single analysis multiple times for different assumptions.  
+- Controlling the behavior of knitr (e.g., specify if you want the code to be displayed or not).  
+
+In this module, we will focus on example use case 1, and build paramaterized reports for a set of geographic locations. Throughout this course, we've been working with groundwater elevation data across California counties. Let's imagine that we want to generate a report on groundwater level trends for a set of counties. Although the RStudio Interactive Development Environment (IDE) encourages knitting RMarkdown documents by clicking a button, we can also knit documents via: `knitr::knit()`. Iterating over `knit()` is the key to easily generating many paramaterized reports.
 
 
-## 
+## `params`
+
+A paramaterized .Rmd file takes in the YAML header a set of `params` which are bound into a named list called `params` and accessed with code from within the .Rmd file with `params$<paramater-name>`. For example, consider the example YAML:
+
+```
+title: "My awesome paramaterized report"
+output: html_document
+params:
+  
+```
 
 
 
 ## Additional Resources
 
-
+- [RMarkdown guide for paramaterized reports](https://bookdown.org/yihui/rmarkdown/parameterized-reports.html)  
 
 <br>
 
