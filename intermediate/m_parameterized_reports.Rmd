@@ -175,7 +175,7 @@ Within an `.Rmd` we can insert `R` code in-line using the following syntax:
 ```{r, eval=FALSE, include=TRUE}
 `r <function>`
 ```
-
+  
 So for instance we can write a string like: 
 
 ```{md, eval=FALSE, include=TRUE}
