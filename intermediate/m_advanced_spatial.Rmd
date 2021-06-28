@@ -60,7 +60,7 @@ There are many more options that can be added or subtracted from these pieces, b
 
 ## A Climate/Hydrology Example
 
-Let's use an example where we take global climate data and crop it down to just an area of interest and then join it to additional data and write it back out for each county in California.
+Let's use an example where we take global climate data and crop it down to just an area of interest and then join it to additional data and write it back out a few counties of interest in California (Placer, Sacramento, San Joaquin, Sutter).
 
 ### The Packages
 
@@ -77,17 +77,19 @@ library(rnaturalearth)
 library(GSODR)
 library(ggrepel)
 library(cowplot)
+library(mapview)      # interactive maps!
+mapviewOptions(fgb = FALSE)
 
 ```
 
 ### Get State & County Data
 
-First we want to get state and county boundaries. The {USAboundaries} package
+First we want to get state and county boundaries. The {USAboundaries} package is excellent for this.
 
 ```{r boundaries}
 
 # get USA states, filter out Puerto Rico, Alaska, and Hawaii for now
-us <- us_boundaries(type="state", resolution = "low") %>% 
+us <- USAboundaries::us_boundaries(type="state", resolution = "low") %>% 
   filter(!state_abbr %in% c("PR", "AK", "HI"))
 
 # get CA boundary with high definition
@@ -109,7 +111,7 @@ plot(ca_box, add=T, border="red3", col=NA, lwd=2)
 
 ### Get Climate Data from the [GSODR](https://ropensci.github.io/GSODR/)
 
-Now we can look at all the historical climate station data available and filter to just California.
+Next let's take historical global climate data stations and filter to just California counties of interest.
 
 ```{r}
 
@@ -122,6 +124,12 @@ isd_history <- as.data.frame(isd_history) %>%
 
 # filter to US and CA, many sites out in buoys along coast
 isd_history_ca <- dplyr::filter(isd_history, CTRY=="US", STATE=="CA")
+
+```
+
+Now let's plot all the stations globally and see what we have. Here we can leverage the many points to actually help fill out our global outlines a bit (there are `r nrow(isd_history)` stations to work with!).
+
+```{r, layout="l-page"}
 
 # view!
 library(rnaturalearth)
@@ -141,31 +149,75 @@ title("GSOD Climate Stations")
 
 ## Filter Data
 
-```{r}
+Next we can zoom into just California. There are `r nrow(isd_history_ca)` total stations.
+
+```{r, layout="l-page"}
+
 # look at CA sites only
 plot(ca$geometry, col=alpha("gray", 0.5), border="#440154FF", lwd=1.5)
+plot(ca_co$geometry, add=T, border="purple", col=NA)
 plot(isd_history_ca$geometry, add=T, pch=21, bg="#21908CFF", cex=0.7, col="black")
 title("GSOD Climate Stations labeled as CA")
 ```
 
+Ok! Let's quickly filter down to the counties of interest and look at joining these data.
 
 ## JOINS
 
+First we filter to 4 specific counties, then join to the climate data stations. Note, we are using a spatial join here, which gets polygons that contain points.
+
 ```{r}
+
+# get specific counties
+ca_co_select <- ca_co %>% filter(name %in% 
+                                   c("Sacramento", "Placer",
+                                     "San Joaquin", "Sutter"))
+
 # Get CA county POLYGONS that contain ISD points 
 # does not bring attributes from points forward
-ca_co_isd_poly <- ca_co[isd_history, ]
+ca_co_isd_poly <- ca_co_select[isd_history, ]
 
-# anti_join: find counties with no points
-# Find Counties that don't contain ISD points
+# anti_join: find counties that don't contain ISD points
 ca_co_poly_anti <- ca_co[!lengths(st_intersects(ca_co, isd_history_ca)), ]
 
+plot(ca_co_select$geometry, col=alpha("gray",0.3))
+plot(ca_co_isd_poly$geometry, col=alpha("blue",0.3), add=TRUE)
+plot(isd_history_ca$geometry, add=T, pch=21, bg="yellow", cex=1.2, col="black")
+title("Counties with GSOD ISD Stations (blue)")
+```
 
-plot(ca_co_isd_poly$geometry, col=alpha("blue",0.3))
-plot(ca_co_poly_anti$geometry, add=T, col="darkgreen")
-plot(isd_history_ca$geometry, add=T, pch=21, bg="yellow", cex=0.3, col="black")
-title("Counties with GSOD ISD Stations (blue), 
-      Counties with no stations (green)")
+Ok, so there are 3 counties that have stations. Let's actually get the data from those counties and join to the nearest groundwater station associated with each.
+
+### Get GSOD Data for Selected Stations
+
+Here we use a spatial join to grab just the stations from our selected counties, and make a quick map with the mapview package.
+
+```{r}
+
+isd_select <- st_join(isd_history_ca, ca_co_isd_poly, left=FALSE)
+
+mapview(isd_select, zcol="name", layer.name="County") +
+  mapview(ca_co_isd_poly, alpha=0.5, legend=FALSE)
+
+```
+
+Then we can see what the longest data period is for these data and pull just one station per county.
+
+```{r}
+
+library(lubridate)
+
+stations <- isd_select %>% 
+  mutate(date_begin = ymd(BEGIN),
+         date_end = ymd(END), 
+         tot_yrs = time_length(interval(date_begin, date_end), "year"))
+
+# if we want to take a look at this
+stations %>% group_by(name) %>% 
+  filter(tot_yrs == max(tot_yrs)) %>% 
+  select(STNID:LON, tot_yrs) %>% 
+  glimpse()
+
 ```
 
 
