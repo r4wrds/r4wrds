@@ -111,7 +111,7 @@ plot(ca_box, add=T, border="red3", col=NA, lwd=2)
 
 ### Get Climate Data from the [GSODR](https://ropensci.github.io/GSODR/)
 
-Next let's take historical global climate data stations and filter to just California counties of interest.
+Next let's take historical global climate data stations (Global Surface Summary of the Day=GSOD^[ For more about the GSOD data, see NOAA's site [here](https://www.ncei.noaa.gov/access/metadata/landing-page/bin/iso?id=gov.noaa.ncdc:C00516)]) and filter to stations that are just in California.
 
 ```{r}
 
@@ -149,7 +149,7 @@ title("GSOD Climate Stations")
 
 ## Filter Data
 
-Next we can zoom into just California. There are `r nrow(isd_history_ca)` total stations.
+Next we can zoom into just California. There are `r nrow(isd_history_ca)` total stations we can work with, but not all counties have stations.
 
 ```{r, layout="l-page"}
 
@@ -160,37 +160,49 @@ plot(isd_history_ca$geometry, add=T, pch=21, bg="#21908CFF", cex=0.7, col="black
 title("GSOD Climate Stations labeled as CA")
 ```
 
-Ok! Let's quickly filter down to the counties of interest and look at joining these data.
 
-## JOINS
 
-First we filter to 4 specific counties, then join to the climate data stations. Note, we are using a spatial join here, which gets polygons that contain points.
+## Filters & Spatial Joins
 
-```{r}
+Ok! Let's quickly filter down to the counties of interest (Placer, Sacramento, San Joaquin, Sutter), and select a single station from each county that has a station.
+
+First we filter to 4 specific counties, then join to the climate data stations. Note, we are using a spatial join here, which gets polygons that contain points. We can also use an anti_join (the `!`) to find counties that contain *no* stations. These operations can be helpful when exploring and understanding a dataset, to identify gaps, highlight specific areas, etc.
+
+```{r, layout="l-page"}
 
 # get specific counties
 ca_co_select <- ca_co %>% filter(name %in% 
                                    c("Sacramento", "Placer",
                                      "San Joaquin", "Sutter"))
 
-# Get CA county POLYGONS that contain ISD points 
+# check CRS is the same
+identical(st_crs(ca_co_select)$epsg, st_crs(isd_history)$epsg)
+
+# SPATIAL JOIN: Get CA county POLYGONS that contain ISD points 
 # does not bring attributes from points forward
-ca_co_isd_poly <- ca_co_select[isd_history, ]
+ca_co_isd_poly <- ca_co_select[isd_history_ca, ]
 
 # anti_join: find counties that don't contain ISD points
 ca_co_poly_anti <- ca_co[!lengths(st_intersects(ca_co, isd_history_ca)), ]
 
-plot(ca_co_select$geometry, col=alpha("gray",0.3))
-plot(ca_co_isd_poly$geometry, col=alpha("blue",0.3), add=TRUE)
-plot(isd_history_ca$geometry, add=T, pch=21, bg="yellow", cex=1.2, col="black")
-title("Counties with GSOD ISD Stations (blue)")
+# plot of all CA counties with and without ISD stations
+plot(ca_co$geometry, col=alpha("gray70",0.3))
+#plot(ca_co_select$geometry, col=alpha("gray",0.3))
+plot(ca_co_poly_anti$geometry, col=alpha("purple",0.3), add=TRUE)
+plot(ca_co_isd_poly$geometry, col=alpha("forestgreen",0.6), add=TRUE)
+plot(isd_history_ca$geometry, add=T, pch=21, bg="yellow", cex=0.8, col="black")
+title("Counties with GSOD ISD Stations (green)\n No Stations (purple)")
 ```
 
-Ok, so there are 3 counties that have stations. Let's actually get the data from those counties and join to the nearest groundwater station associated with each.
+Ok, so there are 3 counties from our list that have GSOD stations. Let's find out some more info on the specific stations from our counties of interest, and pull one station per county. In this case, let's pull the station that has the most data (or longest period of time), so we can join these data to the nearest groundwater station.
 
-### Get GSOD Data for Selected Stations
+## Select GSOD Stations for Selected Counties
 
-Here we use a spatial join to grab just the stations from our selected counties, and make a quick map with the mapview package.
+Here we use `st_join` directly to filter points that fall within polygons. Here, that's the GSOD stations that fall within our selected counties. 
+
+<aside>
+When we have 2 `{sf}` dataframes, we can also spatially join using the `[ ]` notation as we did in the county joins above. `st_join()` and `[ ]` are equivalent when spatial data shares the same CRS.
+</aside>
 
 ```{r}
 
@@ -201,19 +213,66 @@ mapview(isd_select, zcol="name", layer.name="County") +
 
 ```
 
-Then we can see what the longest data period is for these data and pull just one station per county.
+### Writing Spatial Data Out
+
+We may want to save these data and send to colleagues before we proceed with further analysis. As we've shown before, functional programming is a great option, and we can create a function to split data and write it out for future use, or to share and distribute. Here we are using a fairly simple example, but the concept can be expanded.
+
+Let's use the `{purrr}` package to iterate over two different lists and write them to a geopackage (a self contained spatial database). Geopackages are a great way to save vector-based spatial data, they can be read by ArcGIS and spatial software, and they are compact and self-contained (unlike shapefiles).
+
+```{r, echo=TRUE, eval=FALSE}
+library(purrr)
+library(janitor)
+
+# first split ISD data by county:
+isd_select_split <- isd_select %>% 
+  rename(cnty_name=name) %>% # avoid duplicate names
+  split(.$cnty_name) # split by cnty name
+
+# split county data by county
+ca_co_select_split <- ca_co_isd_poly %>% 
+  rename(cnty_name=name) %>% # avoid duplicate names
+  split(.$cnty_name) # split by cnty name
+
+# make a list of clean names with janitor pkg
+(clean_cnty_names <- make_clean_names(ca_co_isd_poly$name))
+
+# now apply function to write out points by county
+map2(isd_select_split, # list of points
+     clean_cnty_names, #list of cnty names
+     ~st_write(.x, 
+               dsn = glue("data/{.y}_gsod.gpkg"),
+               layer = glue("{.y}_isd_pts")))
+
+# to add additional layers we can do the same with a diff layer
+map2(ca_co_select_split, # list of points
+     clean_cnty_names, #list of cnty names
+     ~st_write(.x, 
+               dsn = glue("data/{.y}_gsod.gpkg"),
+               layer = glue("{.y}_isd_cnty")))
+
+# check layers in one of gpkg files:
+st_layers("data/placer_gsod.gpkg")
+
+```
+
+
+## Filter Data
+
+Now we have a subset of stations to use, let's filter these down to one per county for now. Let's use the station that has the longest period of record, and we can then pair this with the nearest groundwater station.
 
 ```{r}
 
 library(lubridate)
 
+# calculate the duration of data for each station
 stations <- isd_select %>% 
   mutate(date_begin = ymd(BEGIN),
          date_end = ymd(END), 
          tot_yrs = time_length(interval(date_begin, date_end), "year"))
 
-# if we want to take a look at this
+# group by county name
 stations %>% group_by(name) %>% 
+  # get the station with the longest set of data
   filter(tot_yrs == max(tot_yrs)) %>% 
   select(STNID:LON, tot_yrs) %>% 
   glimpse()
