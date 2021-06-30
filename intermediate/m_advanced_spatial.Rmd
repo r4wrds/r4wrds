@@ -463,13 +463,17 @@ all_nldi <- map(isd_stations_keep$geometry,
                           find = c("nwis", "flowlines", "basin")))
 
 # add names based on county
-all_nldi <- set_names(all_nldi, glue("nldi_{substr(isd_stations_keep$NAME, 1, 5)}"))
+all_nldi <- set_names(all_nldi,
+                      glue("nldi_{substr(isd_stations_keep$NAME, 1, 5)}"))
+
 names(all_nldi)
 
-# split these into specific counties
+# split these into data frames by specific counties/stations
 all_nldi %>% list2env(.GlobalEnv)
 
-mapview(nldi_SACRA, legend=FALSE) + mapview(nldi_STOCK, legend=FALSE)+ mapview(isd_stations_keep, col.regions="yellow", cex=5)
+mapview(nldi_SACRA, legend=FALSE) + 
+  mapview(nldi_STOCK, legend=FALSE) + 
+  mapview(isd_stations_keep, col.regions="yellow", cex=5)
 
 ```
 
@@ -481,8 +485,10 @@ Next, let's filter to stations that have flow data (generally these have 8-digit
 usgs_stations <- map(all_nldi, "DM_nwissite") %>% bind_rows() %>% 
   filter(stringr::str_count(identifier) < 9) 
 
-mapview(nldi_SACRA$DM_flowlines, legend=FALSE) + mapview(nldi_STOCK$DM_flowlines, legend=FALSE) +
-  mapview(usgs_stations) + mapview(isd_stations_keep, col.regions="yellow", cex=5)
+mapview(nldi_SACRA$DM_flowlines, legend=FALSE) +
+  mapview(nldi_STOCK$DM_flowlines, legend=FALSE) +
+  mapview(usgs_stations, col.regions="steelblue") +
+  mapview(isd_stations_keep, col.regions="yellow", cex=5)
 
 ```
 
@@ -502,6 +508,19 @@ usgs_nearest_index <- st_nearest_feature(isd_stations_keep, usgs_stations)
 # now filter using the row index
 usgs_stations_final <- usgs_stations[usgs_nearest_index,]
 
+# get vector of distances from each ISD station to nearest USGS station
+dist_to_isd <- st_distance(isd_stations_keep, 
+                           usgs_stations_final, 
+                           by_element=TRUE)
+
+# use units package to convert units to miles or km
+(dist_to_isd_mi <- units::set_units(dist_to_isd, miles))
+(dist_to_isd_km <- units::set_units(dist_to_isd, km))
+
+# bind back to final dataset:
+usgs_stations_final <- usgs_stations_final %>% 
+  cbind(dist_to_isd_mi, dist_to_isd_km)
+
 # now plot!
 mapview(usgs_stations, cex=2.75, col.regions="gray",
         layer.name="USGS Stations") +
@@ -514,38 +533,58 @@ mapview(usgs_stations, cex=2.75, col.regions="gray",
 
 ```
 
-### Add Distance Data
+### Select Nearest by Distance
 
-If we want to calculate the distance between each feature, we can use `st_distance` and filter/sort based on these data.
+If we want to select more than a single point based on a threshold distance we can use a non-overlapping join and specify a distance. Here it's best to use a projected CRS.
 
 ```{r calc-dist}
 
-sf_use_s2(FALSE) # deal with new s2 (spherical geometry calculations)
+usgs_stations <- st_transform(usgs_stations, 3310)
+isd_stations_keep <- st_transform(isd_stations_keep, 3310)
 
-# get vector of distances from each gw station to the nearest isd station
-dist_to_isd <- st_distance(isd_stations_keep, usgs_stations_final, by_element=TRUE)
+# use a search within 30km to select stations
+usgs_stations_30km <- st_join(isd_stations_keep,
+                              usgs_stations,
+                              st_is_within_distance,
+                              dist = 30000) %>% 
+  st_drop_geometry() %>% 
+  st_as_sf(coords=c("X","Y"), crs=4326)
 
-# use units package to convert units to miles or km
-(dist_to_isd_mi <- units::set_units(dist_to_isd, miles))
-(dist_to_isd_km <- units::set_units(dist_to_isd, km))
 
-# bind back to final dataset:
-usgs_stations_final <- usgs_stations_final %>% 
-  cbind(dist_to_isd_mi, dist_to_isd_km)
+mapview(usgs_stations_30km, col.regions="yellow") +
+  mapview(isd_stations_keep, col.regions="forestgreen")
 
 ```
+
+
+<aside>
+Why did we use `st_drop_geometry()`? Sometimes it's cleaner (and faster) to operate on the `data.frame` without any of the spatial data. Especially when we have many hundreds or thousands of complex spatial data, or we want to create a new geometry.
+</aside>
+
 
 ### Download NLDI Data
 
 Now we have our stations of interest, and our climate data, let's download river flow data.
 
 ```{r download-nldi}
+
+# see what data is available for a station:
+dataRetrieval::whatNWISdata(siteNumber=usgs_stations_30km$identifier, 
+                            service="dv", 
+                            parameterCd=c("00060", "00010"),
+                            statCd = "00003")
+
+
 # Extract Streamflow for identified sites
-Q <- readNWISdv(usgs_stations$identifier, 
+Q <- readNWISdv(usgs_stations_30km$identifier, 
                 parameterCd = "00060", 
-                startDate = "1980-10-01") %>% 
+                startDate = "1960-10-01") %>% 
   renameNWISColumns()
 
+wTemp <- readNWISdv(usgs_stations_30km$identifier, 
+                parameterCd = "00010", 
+                startDate = "1960-10-01") %>% 
+  renameNWISColumns()
 
 
 ```
@@ -559,143 +598,22 @@ Now we have the data, let's plot!
 (hydro <- ggplot() + 
   geom_line(data = Q, aes(x = Date, y = Flow, col = site_no),
             size = .5) + 
-  facet_wrap(~site_no, nrow = 4) + 
+  facet_wrap(~site_no, scales = "free_x") + 
   theme_minimal() + 
   scale_color_brewer(palette = "Set1") +
   theme(legend.position = "none"))
 
-map <- ggplot() + 
-  geom_sf(data = fountainCreek$basin, col = NA) + 
-  geom_sf(data = fountainCreek$UM_flowlines, col = "blue", alpha = .5) + 
-  geom_sf(data = fountainCreek$UM_nwissite, 
-          aes(col = identifier)) + 
-  scale_color_brewer(palette = "Set1") +
-  theme_void() +
-  labs(title = "2020 Streamflow",
-       caption = "Fountain Creek, Colorado") + 
-  theme(legend.position = "none",
-         plot.title = element_text(face = "bold", hjust = .5))
 
-grid.arrange(hydro, map, nrow = 1)
-```
-
-
-## Get Groundwater Stations and Join to Nearest
-
-
-Now we can join these data and see what data (if any) fall into our 5km buffers. Here we can use the `st_intersection` function.
-
-```{r gw-st-intersection}
-
-# this takes a second!
-gw_stations_select <- st_intersection(gw_stations_filt, isd_stations_buff_5km)
-
-# how many per county?
-gw_stations_select %>% st_drop_geometry() %>% 
-  group_by(COUNTY_NAME) %>% tally()
-
-```
-
-<aside>
-Why did we use `st_drop_geometry()`? Sometimes it's cleaner (and faster) to operate on the `data.frame` without any of the spatial data. Especially when we have many hundreds or thousands of complex spatial data.
-</aside>
-
-## Get GW Data
-
-Great, so there are a good number of stations to work with. Let's filter the groundwater data to find the station with the best long running dataset we can pair with the climate data.
-
-```{r gw-data}
-# get data (it's large, but can read straight from zip!)
-gw_data <- read_csv(here("data", "gwl", "measurements.csv.zip"))
-
-# filter to our selected stations
-gw_data_filt <- gw_data %>% 
-  filter(SITE_CODE %in% gw_stations_select$SITE_CODE) %>% 
-  # join station metadata in
-  left_join(., gw_stations_select)
-
-# now look at how many records exist for depth to groundwater,
-# by county and station:
-gw_data_filt %>% group_by(COUNTY_NAME, SITE_CODE) %>% 
-  filter(!is.na(GSE_WSE)) %>% tally() %>% 
-  filter(n>20) %>% # keep stations with more than 20 observations 
-  DT::datatable()
-
-# make a list of these station ids
-gw_data_filt %>% group_by(COUNTY_NAME, SITE_CODE) %>% 
-  filter(!is.na(GSE_WSE)) %>% tally() %>% 
-  filter(n>100) %>% 
-  pull(SITE_CODE) -> gw_stations_w_data
+# Plot temp
+(gg_temp <- ggplot() + 
+  geom_line(data = wTemp, aes(x = Date, y = Wtemp, col = site_no),
+            size = .5) + 
+  facet_wrap(~site_no) + 
+  theme_minimal() + 
+  scale_color_viridis_d() +
+  theme(legend.position = "none"))
 
 ```
 
 
-```{r gw-filt}
-# filter to our stations of interest
-gw_long_data <- gw_data_filt %>% 
-  filter(SITE_CODE %in% gw_stations_w_data) %>% 
-  # join station metadata in
-  left_join(., gw_stations_select)
 
-```
-
-### Visualize!
-
-Let's take these data and visualize them. It's always helpful to visually inspect things
-
-```{r gw-ggplot}
-gw_long_data %>% 
-  ggplot(aes(x=MSMT_DATE, y=GSE_WSE, group = SITE_CODE, color=COUNTY_NAME)) +
-  geom_line(alpha = 0.5, show.legend=FALSE) +
-  theme_classic() + 
-  facet_grid(~COUNTY_NAME, scales = "free")
-
-```
-
-
-## Plot GW vs. Temperature
-
-Let's plot GW levels vs. precipitation. We need to join the climate data that we averaged to daily values with the groundwater data. We can join using the `STNID` and `NAME` columns.
-
-```{r}
-
-# make full date col to join on
-climdata <- climdata %>% 
-  mutate(DATE=ymd(paste0(YEAR,"-", MONTH, "-", DAY)))
-
-gw_data_out <- gw_data_out %>% 
-  mutate(DATE = as.Date(MSMT_DATE))
-
-# now join the raw data together:
-clim_day_w_gw <- left_join(climdata, gw_data_out, by=c("STNID", "NAME", "DATE")) %>% 
-  # remove NA
-  filter(!is.na(GSE_WSE))
-
-ggplot() + 
-  geom_line(data=clim_day_w_gw, aes(x=DATE, y=GSE_WSE), color="darkblue") +
-  geom_col(data=clim_day_w_gw, aes(x=DATE, y=PRCP), color="purple", alpha=0.5) +
-  theme_classic() +
-  facet_wrap(~NAME)
-
-ggplot() + 
-  geom_line(data=clim_day_w_gw, aes(x=DATE, y=GSE_WSE), color="darkblue") +
-  geom_path(data=clim_day_w_gw, aes(x=DATE, y=TEMP), color="purple", alpha=0.5) +
-  theme_classic() +
-  facet_wrap(~NAME)
-
-
-```
-
-
- - plot groundwater vs. temperature (or something like that)
-
-
-Use GSOD lesson and show climate stations with climate data, write out by county: https://ryanpeek.org/mapping-in-R-workshop/03_spatial_joins.html
-
-You want to find the nearest river/WQ stations to a groundwater area of interest?
-
-Spatial joins, st_nearest, buffering
-Why click button GIS tasks may be easier to integrate with R? What if you needed to do this for each county or river?
-End up with a list of stations/points that we can map with the buffer
-
-How to pull spatial river data or other spatial data via R (nhdtoolsPlus package, dataRetrieval)
