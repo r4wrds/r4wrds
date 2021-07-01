@@ -1,6 +1,6 @@
 # r4wrds
 
-[r4wrds.com](r4wrds.com) stands for "R for Water Resources Data Science". This repository is used to build the website.  
+[r4wrds.com](r4wrds.com) stands for "R for Water Resources Data Science". This repository builds the [distill](https://rstudio.github.io/distill/) website.  
 
 
 # Developer guide
@@ -9,7 +9,7 @@ Clone this repo, and open `WRDS_index.RProj`, which will trigger [`{renv}`](http
 
 Depending on your system build, you may need to configure `{rJava}`, `{sf}`, and `GDAL`. 
 
-If you run into issues, these links may be helpful towards those ends:
+If you run into issues, these links may be helpful:
 
 * [rJava](https://github.com/rstudio/rstudio/issues/2254#issuecomment-418830716)
 * [sf](https://r-spatial.github.io/sf/#installing)
