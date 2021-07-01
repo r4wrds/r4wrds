@@ -51,15 +51,14 @@ knitr::include_graphics(path = "https://raw.githubusercontent.com/allisonhorst/s
 
 **Course Modules**
 
-1. [Check/Update R/RStudio and Packages](m_updating_r.html)  
-3. [Version Control with git](m_version_control.html) 
-4. [Project Management and workflows](m_project_management.html)   
-5. [Interactive visualization](m_interactive_viz.html)   
-6. [Simple shiny](m_simple_shiny.html)    
-7. [Iteration with complex data](m_iteration_complex.html)    
-8. [Parameterized reports](m_parameterized_reports.html)
-9. [Advanced spatial R and mapmaking](m_advanced_spatial.html)
-9. [Pulling data from APIs](m_getting_data_api.html)
+1. [Check/Update `R`/RStudio and Packages](m_updating_r.html)  
+2. [Version Control with git](m_version_control.html) 
+3. [Project Management and workflows](m_project_management.html)   
+4. [Interactive visualization](m_interactive_viz.html)   
+5. [Simple shiny](m_simple_shiny.html)    
+6. [Iteration and functional programming](m_iteration.html)    
+7. [Parameterized reports](m_parameterized_reports.html)
+8. [Advanced spatial `R` and mapmaking](m_advanced_spatial.html)
 
 :::
 
@@ -101,8 +100,7 @@ Content in these lessons has been modified and/or adapted from [Data Carpentry: 
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-
-<a href="m_project_management.html" class="btn btn-secondary" style="float: right;">Next module:<br> Project Management</a>  
+<a href="m_updating_r.html" class="btn btn-secondary" style="float: right;">Next module:<br> Updating `R`</a>  
 
 
 ---

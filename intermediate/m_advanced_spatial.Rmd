@@ -1,5 +1,5 @@
 ---
-title: "Advanced spatial R and mapmaking"
+title: "8. Advanced spatial R and mapmaking"
 description: | 
    From 1,000 point-clicks to 1 script...
 output: 
@@ -820,5 +820,5 @@ We've covered a handful of packages and functions in this module, but many more 
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-<a href="m_parameterized_reports.html" class="btn btn-secondary" style="float: left">Previous module:<br> Paramaterized reports</a>
+<a href="m_parameterized_reports.html" class="btn btn-secondary" style="float: left">Previous module:<br>7. Paramaterized reports</a>
 

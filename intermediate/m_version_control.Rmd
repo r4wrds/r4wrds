@@ -1,5 +1,5 @@
 ---
-title: "Version Control with `git`"
+title: "2. Version Control with `git`"
 description: | 
    A time machine you can share...
 output: 
@@ -560,4 +560,4 @@ Although there are many more details important to learning version control, many
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-<a href="m_project_management.html" class="btn btn-secondary" style="float: left">Previous module:<br> Project Management</a> <a href="m_vinteractive_viz.html" class="btn btn-secondary" style="float: right;">Next module:<br> Interactive Visualization</a>
+<a href="m_updating_r.html" class="btn btn-secondary" style="float: left">Previous module:<br> 1. Updating `R`</a> <a href="m_project_management.html" class="btn btn-secondary" style="float: right;">Next module:<br> 3. Project Management</a>
