@@ -89,14 +89,14 @@ code span.wa { color: #bf0303; } /* Warning */
 </style>
 
   <!--radix_placeholder_meta_tags-->
-  <title>R for Water Resources Data Science: Spreadsheets &amp; Pivoting</title>
+  <title>R for Water Resources Data Science: 8. Spreadsheets &amp; Pivoting</title>
 
   <meta property="description" itemprop="description" content="Tidy data and best practices for spreadsheets!"/>
 
 
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-  <meta property="og:title" content="R for Water Resources Data Science: Spreadsheets &amp; Pivoting"/>
+  <meta property="og:title" content="R for Water Resources Data Science: 8. Spreadsheets &amp; Pivoting"/>
   <meta property="og:type" content="article"/>
   <meta property="og:description" content="Tidy data and best practices for spreadsheets!"/>
   <meta property="og:locale" content="en_US"/>
@@ -104,14 +104,14 @@ code span.wa { color: #bf0303; } /* Warning */
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
-  <meta property="twitter:title" content="R for Water Resources Data Science: Spreadsheets &amp; Pivoting"/>
+  <meta property="twitter:title" content="R for Water Resources Data Science: 8. Spreadsheets &amp; Pivoting"/>
   <meta property="twitter:description" content="Tidy data and best practices for spreadsheets!"/>
 
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","output"]}},"value":[{"type":"character","attributes":{},"value":["Spreadsheets & Pivoting"]},{"type":"character","attributes":{},"value":["Tidy data and best practices for spreadsheets!\n"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc","highlight"]}},"value":[{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["kate"]}]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","output"]}},"value":[{"type":"character","attributes":{},"value":["8. Spreadsheets & Pivoting"]},{"type":"character","attributes":{},"value":["Tidy data and best practices for spreadsheets!\n"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc","highlight"]}},"value":[{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["kate"]}]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2036,7 +2036,7 @@ code span.wa { color: #bf0303; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2079,8 +2079,8 @@ code span.wa { color: #bf0303; } /* Warning */
 
   /*blue comment box */
   .blue {
-      background-color:#e6f0ff; 
-      border-radius: 4px; 
+      background-color:#e6f0ff;
+      border-radius: 4px;
       padding: 12px;
   }
 
@@ -2093,16 +2093,16 @@ code span.wa { color: #bf0303; } /* Warning */
 
   /* make marker something before click */
   summary::before {
-      font-family: "Font Awesome 5 Free"; 
-      font-weight: 900; 
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
       content: "\f13a";
       color: #228B22;
   }
 
   /* and after click */
   details[open] summary:before {
-      font-family: "Font Awesome 5 Free"; 
-      font-weight: 900; 
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
       content: "\f139";
       color: gray;
   }
@@ -2141,7 +2141,7 @@ code span.wa { color: #bf0303; } /* Warning */
         font-weight: normal;
   }
 
-  /* see giraffe teacup site for great css tips: https://github.com/tinystats/teacups-giraffes-and-statistics/blob/master/assets/style.css 
+  /* see giraffe teacup site for great css tips: https://github.com/tinystats/teacups-giraffes-and-statistics/blob/master/assets/style.css
   css below is adapted from that page */
 
   .obj {
@@ -2169,8 +2169,8 @@ code span.wa { color: #bf0303; } /* Warning */
 
   .challenge {
     color: #002855;
-    background-color:#e6f0ff; 
-    border-radius: 4px; 
+    background-color:#e6f0ff;
+    border-radius: 4px;
     padding: 12px;
     font-size: 16px;
     line-height: 1.3em;
@@ -2207,12 +2207,12 @@ code span.wa { color: #bf0303; } /* Warning */
       right:0;
       bottom:0;
     }
-    
-  .lil-image-text { 
+
+  .lil-image-text {
       margin-right: auto;
       margin-bottom: 20px;
       margin-left: auto;
-      text-align: center; 
+      text-align: center;
       display:block;
       font-family: 'Lora', serif;
         font-size: 24px;
@@ -2223,22 +2223,22 @@ code span.wa { color: #bf0303; } /* Warning */
         color: #fff;
     }
 
-  .big-image-text { 
+  .big-image-text {
     letter-spacing: 0.065em;
     line-height: 1em;
     font-size: 68px;
     text-transform: uppercase;
-    text-align: center; 
+    text-align: center;
     display:block;
     color: #fff;
     margin-bottom: 3rem;
   }
 
-  .lil-image-text-dark { 
+  .lil-image-text-dark {
       margin-right: auto;
       margin-bottom: 24px;
       margin-left: auto;
-      text-align: center; 
+      text-align: center;
       display:block;
       font-family: 'Lora', serif;
         font-size: 40px;
@@ -2249,12 +2249,12 @@ code span.wa { color: #bf0303; } /* Warning */
         color: #191919;
     }
 
-  .big-image-text-dark { 
+  .big-image-text-dark {
     letter-spacing: 0.065em;
     line-height: 1em;
     font-size: 68px;
     text-transform: uppercase;
-    text-align: center; 
+    text-align: center;
     display:block;
     color: #191919;
     margin-bottom: 3rem;
@@ -2275,7 +2275,32 @@ code span.wa { color: #bf0303; } /* Warning */
 
   .sourceCode {
     background-color:#f4f4f4;
+    border-radius: 4px;
   }
+
+
+  /*make the link in the appendix more readable against the grey text*/
+  d-appendix a:link {
+    color: blue;
+    background-color: transparent;
+    text-decoration: none;
+  }
+  d-appendix a:visited {
+    color: lightblue;
+    background-color: transparent;
+    text-decoration: none;
+  }
+  d-appendix a:hover {
+    color: lightblue;
+    background-color: transparent;
+    text-decoration: underline;
+  }
+  d-appendix a:active {
+    color: blue;
+    background-color: transparent;
+    text-decoration: underline;
+  }
+
   </style>
   <!--/radix_placeholder_site_in_header-->
 
@@ -2288,7 +2313,7 @@ code span.wa { color: #bf0303; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Spreadsheets & Pivoting","description":"Tidy data and best practices for spreadsheets!","authors":[]}
+{"title":"8. Spreadsheets & Pivoting","description":"Tidy data and best practices for spreadsheets!","authors":[]}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2337,7 +2362,7 @@ Modules
 <!--/radix_placeholder_site_before_body-->
 
 <div class="d-title">
-<h1>Spreadsheets &amp; Pivoting</h1>
+<h1>8. Spreadsheets &amp; Pivoting</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
 <p><p>Tidy data and best practices for spreadsheets!</p></p>
@@ -2504,11 +2529,11 @@ The <a href="https://r4ds.had.co.nz/dates-and-times.html#creating-datetimes#from
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://readxl.tidyverse.org'>readxl</a></span><span class='op'>)</span>
-<span class='va'>ces</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readxl.tidyverse.org/reference/read_excel.html'>read_xlsx</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/here/man/here.html'>here</a></span><span class='op'>(</span><span class='st'>"data"</span>, <span class='st'>"calenviroscreen"</span>, <span class='st'>"ces3results.xlsx"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>ces</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readxl.tidyverse.org/reference/read_excel.html'>read_xlsx</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"data"</span>, <span class='st'>"calenviroscreen"</span>, <span class='st'>"ces3results.xlsx"</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>ces</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>tibble[,57] [8,035 × 57] (S3: tbl_df/tbl/data.frame)
+<pre><code>tibble [8,035 × 57] (S3: tbl_df/tbl/data.frame)
  $ Census Tract                                       : num [1:8035] 6019001100 6071001600 6019000200 6077000801 6019001500 ...
  $ Total Population                                   : num [1:8035] 3174 6133 3167 6692 2206 ...
  $ California County                                  : chr [1:8035] &quot;Fresno&quot; &quot;San Bernardino&quot; &quot;Fresno&quot; &quot;San Joaquin&quot; ...
@@ -2577,7 +2602,7 @@ Percentile Range                       : chr [1:8035] &quot;95-100% (highest sco
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>ces</span> <span class='op'>&lt;-</span> <span class='va'>ces</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>mutate</span><span class='op'>(</span><span class='fu'>across</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>`Ozone`</span><span class='op'>:</span><span class='va'>`Pop. Char. Pctl`</span><span class='op'>)</span>, <span class='va'>as.numeric</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/across.html'>across</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>`Ozone`</span><span class='op'>:</span><span class='va'>`Pop. Char. Pctl`</span><span class='op'>)</span>, <span class='va'>as.numeric</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
@@ -2623,7 +2648,7 @@ Figure 4: <em>Illustration by <span class="citation" data-cites="allison_horst">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>ces_long</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>tibble[,13] [369,610 × 13] (S3: tbl_df/tbl/data.frame)
+<pre><code>tibble [369,610 × 13] (S3: tbl_df/tbl/data.frame)
  $ Census Tract                                       : num [1:369610] 6019001100 6019001100 6019001100 6019001100 6019001100 ...
  $ Total Population                                   : num [1:369610] 3174 3174 3174 3174 3174 ...
  $ California County                                  : chr [1:369610] &quot;Fresno&quot; &quot;Fresno&quot; &quot;Fresno&quot; &quot;Fresno&quot; ...
@@ -2665,7 +2690,7 @@ Figure 5: <em>Illustrations from the Openscapes blog Tidy Data for reproducibili
 </div>
 <p><br></p>
 <p><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"></p>
-<p><a href="m_dplyr.html" class="btn btn-secondary" style="float: left">Previous module:<br> Data Wrangling</a> <a href="m_intro_mapmaking.html" class="btn btn-secondary" style="float: right;">Next module:<br> Spatial Data</a></p>
+<p><a href="m_dplyr.html" class="btn btn-secondary" style="float: left">Previous module:<br> 7. Data Wrangling</a> <a href="m_intro_mapmaking.html" class="btn btn-secondary" style="float: right;">Next module:<br> 9. Spatial Data</a></p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <section class="footnotes" role="doc-endnotes">
 <hr />
@@ -2686,7 +2711,10 @@ Figure 5: <em>Illustrations from the Openscapes blog Tidy Data for reproducibili
 <!--radix_placeholder_site_after_body-->
 <!--/radix_placeholder_site_after_body-->
 <!--radix_placeholder_appendices-->
-<div class="appendix-bottom"></div>
+<div class="appendix-bottom">
+<h3 id="updates-and-corrections">Corrections</h3>
+<p>If you see mistakes or want to suggest changes, please <a href="https://github.com/ryanpeek/r4wrds/issues/new">create an issue</a> on the source repository.</p>
+</div>
 <!--/radix_placeholder_appendices-->
 <!--radix_placeholder_navigation_after_body-->
 <div class="distill-site-nav distill-site-footer">

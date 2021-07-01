@@ -730,7 +730,7 @@ Next we can download a basemap layer to use in our map. For this we need to spec
 
 <aside>
 
-Note, the `read_osm` package requires `{rJava}`, which may be tricky to install. Please see this poste on Github for a potential way to resolve these issues: https://github.com/rstudio/rstudio/issues/2254#issuecomment-418830716
+Note, the `read_osm` function requires `{rJava}`, which may be tricky to install. See [this post on Github](https://github.com/rstudio/rstudio/issues/2254#issuecomment-418830716) for a potential way to resolve these issues. 
 
 </aside>
 

@@ -46,66 +46,72 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
+    background-color: #ffffff;
+    color: #a0a0a0;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #a0a0a0;  padding-left: 4px; }
 div.sourceCode
-  {   }
+  { color: #1f1c1b; background-color: #ffffff; }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; } /* Alert */
-code span.an { color: #008000; } /* Annotation */
-code span.at { } /* Attribute */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #0000ff; } /* ControlFlow */
-code span.ch { color: #008080; } /* Char */
-code span.cn { color: #585cf6; } /* Constant */
-code span.co { color: #4c886b; } /* Comment */
-code span.cv { color: #008000; } /* CommentVar */
-code span.do { color: #008000; } /* Documentation */
-code span.dv { color: #0000cd; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #0000cd; } /* Float */
-code span.im { } /* Import */
-code span.in { color: #008000; } /* Information */
-code span.kw { color: #0000ff; } /* Keyword */
-code span.op { color: #687687; } /* Operator */
-code span.ot { color: #ff4000; } /* Other */
-code span.pp { color: #ff4000; } /* Preprocessor */
-code span.sc { color: #008080; } /* SpecialChar */
-code span.ss { color: #008080; } /* SpecialString */
-code span.st { color: #036a07; } /* String */
-code span.va { } /* Variable */
-code span.vs { color: #008080; } /* VerbatimString */
-code span.wa { color: #008000; font-weight: bold; } /* Warning */
+code span { color: #1f1c1b; } /* Normal */
+code span.al { color: #bf0303; background-color: #f7e6e6; font-weight: bold; } /* Alert */
+code span.an { color: #ca60ca; } /* Annotation */
+code span.at { color: #0057ae; } /* Attribute */
+code span.bn { color: #b08000; } /* BaseN */
+code span.bu { color: #644a9b; font-weight: bold; } /* BuiltIn */
+code span.cf { color: #1f1c1b; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #924c9d; } /* Char */
+code span.cn { color: #aa5500; } /* Constant */
+code span.co { color: #898887; } /* Comment */
+code span.cv { color: #0095ff; } /* CommentVar */
+code span.do { color: #607880; } /* Documentation */
+code span.dt { color: #0057ae; } /* DataType */
+code span.dv { color: #b08000; } /* DecVal */
+code span.er { color: #bf0303; text-decoration: underline; } /* Error */
+code span.ex { color: #0095ff; font-weight: bold; } /* Extension */
+code span.fl { color: #b08000; } /* Float */
+code span.fu { color: #644a9b; } /* Function */
+code span.im { color: #ff5500; } /* Import */
+code span.in { color: #b08000; } /* Information */
+code span.kw { color: #1f1c1b; font-weight: bold; } /* Keyword */
+code span.op { color: #1f1c1b; } /* Operator */
+code span.ot { color: #006e28; } /* Other */
+code span.pp { color: #006e28; } /* Preprocessor */
+code span.re { color: #0057ae; background-color: #e0e9f8; } /* RegionMarker */
+code span.sc { color: #3daee9; } /* SpecialChar */
+code span.ss { color: #ff5500; } /* SpecialString */
+code span.st { color: #bf0303; } /* String */
+code span.va { color: #0057ae; } /* Variable */
+code span.vs { color: #bf0303; } /* VerbatimString */
+code span.wa { color: #bf0303; } /* Warning */
 </style>
 
   <!--radix_placeholder_meta_tags-->
-  <title>R for Water Resources Data Science: Resources</title>
+  <title>R for Water Resources Data Science: 7. Parameterized reports</title>
 
-  <meta property="description" itemprop="description" content="Continue along your journey in mastering R"/>
+  <meta property="description" itemprop="description" content="How to automate routine reporting"/>
 
 
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-  <meta property="og:title" content="R for Water Resources Data Science: Resources"/>
+  <meta property="og:title" content="R for Water Resources Data Science: 7. Parameterized reports"/>
   <meta property="og:type" content="article"/>
-  <meta property="og:description" content="Continue along your journey in mastering R"/>
+  <meta property="og:description" content="How to automate routine reporting"/>
   <meta property="og:locale" content="en_US"/>
   <meta property="og:site_name" content="R for Water Resources Data Science"/>
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
-  <meta property="twitter:title" content="R for Water Resources Data Science: Resources"/>
-  <meta property="twitter:description" content="Continue along your journey in mastering R"/>
+  <meta property="twitter:title" content="R for Water Resources Data Science: 7. Parameterized reports"/>
+  <meta property="twitter:description" content="How to automate routine reporting"/>
 
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","site"]}},"value":[{"type":"character","attributes":{},"value":["Resources"]},{"type":"character","attributes":{},"value":["Continue along your journey in mastering R\n"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_website"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","output"]}},"value":[{"type":"character","attributes":{},"value":["7. Parameterized reports"]},{"type":"character","attributes":{},"value":["How to automate routine reporting\n"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2030,8 +2036,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
-  <link href="site_libs/font-awesome-5.3.1/css/fontawesome-all.min.css" rel="stylesheet" />
+  <script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2045,10 +2050,20 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
   @import url('https://fonts.googleapis.com/css?family=Lora:400,400i&display=swap');
   @import url('https://fonts.googleapis.com/css?family=Roboto:400,400i&display=swap');
 
+
   body {font-size: 15px; line-height: 1.6;}
-  h1 {font-size: 40px;}
-  h2 {font-size: 30px;}
-  h3 {font-size: 23px;}
+  h1 {
+    font-size: 40px;
+    line-height: 1.2em;
+  }
+  h2 {
+    font-size: 30px;
+    line-height: 1.2em;
+  }
+  h3 {
+    font-size: 23px;
+    line-height: 1.2em;
+  }
 
 
   .navbar-inverse {
@@ -2074,8 +2089,8 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 
   /*blue comment box */
   .blue {
-      background-color:#e6f0ff; 
-      border-radius: 4px; 
+      background-color:#e6f0ff;
+      border-radius: 4px;
       padding: 12px;
   }
 
@@ -2088,16 +2103,16 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 
   /* make marker something before click */
   summary::before {
-      font-family: "Font Awesome 5 Free"; 
-      font-weight: 900; 
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
       content: "\f13a";
       color: #228B22;
   }
 
   /* and after click */
   details[open] summary:before {
-      font-family: "Font Awesome 5 Free"; 
-      font-weight: 900; 
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
       content: "\f139";
       color: gray;
   }
@@ -2136,7 +2151,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
         font-weight: normal;
   }
 
-  /* see giraffe teacup site for great css tips: https://github.com/tinystats/teacups-giraffes-and-statistics/blob/master/assets/style.css 
+  /* see giraffe teacup site for great css tips: https://github.com/tinystats/teacups-giraffes-and-statistics/blob/master/assets/style.css
   css below is adapted from that page */
 
   .obj {
@@ -2164,8 +2179,8 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 
   .challenge {
     color: #002855;
-    background-color:#e6f0ff; 
-    border-radius: 4px; 
+    background-color:#e6f0ff;
+    border-radius: 4px;
     padding: 12px;
     font-size: 16px;
     line-height: 1.3em;
@@ -2202,12 +2217,12 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
       right:0;
       bottom:0;
     }
-    
-  .lil-image-text { 
+
+  .lil-image-text {
       margin-right: auto;
       margin-bottom: 20px;
       margin-left: auto;
-      text-align: center; 
+      text-align: center;
       display:block;
       font-family: 'Lora', serif;
         font-size: 24px;
@@ -2218,22 +2233,22 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
         color: #fff;
     }
 
-  .big-image-text { 
+  .big-image-text {
     letter-spacing: 0.065em;
     line-height: 1em;
     font-size: 68px;
     text-transform: uppercase;
-    text-align: center; 
+    text-align: center;
     display:block;
     color: #fff;
     margin-bottom: 3rem;
   }
 
-  .lil-image-text-dark { 
+  .lil-image-text-dark {
       margin-right: auto;
       margin-bottom: 24px;
       margin-left: auto;
-      text-align: center; 
+      text-align: center;
       display:block;
       font-family: 'Lora', serif;
         font-size: 40px;
@@ -2244,12 +2259,12 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
         color: #191919;
     }
 
-  .big-image-text-dark { 
+  .big-image-text-dark {
     letter-spacing: 0.065em;
     line-height: 1em;
     font-size: 68px;
     text-transform: uppercase;
-    text-align: center; 
+    text-align: center;
     display:block;
     color: #191919;
     margin-bottom: 3rem;
@@ -2265,6 +2280,37 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
     background-color: rgba(0,0,0,.1);
   }
 
+
+  /*grey code block*/
+
+  .sourceCode {
+    background-color:#f4f4f4;
+    border-radius: 4px;
+  }
+
+
+  /*make the link in the appendix more readable against the grey text*/
+  d-appendix a:link {
+    color: blue;
+    background-color: transparent;
+    text-decoration: none;
+  }
+  d-appendix a:visited {
+    color: lightblue;
+    background-color: transparent;
+    text-decoration: none;
+  }
+  d-appendix a:hover {
+    color: lightblue;
+    background-color: transparent;
+    text-decoration: underline;
+  }
+  d-appendix a:active {
+    color: blue;
+    background-color: transparent;
+    text-decoration: underline;
+  }
+
   </style>
   <!--/radix_placeholder_site_in_header-->
 
@@ -2277,7 +2323,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Resources","description":"Continue along your journey in mastering R","authors":[]}
+{"title":"7. Parameterized reports","description":"How to automate routine reporting","authors":[]}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2285,7 +2331,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <header class="header header--fixed" role="banner">
 <nav class="distill-site-nav distill-site-header">
 <div class="nav-left">
-<a href="index.html" class="title">R4WRDS Introductory Course</a>
+<a href="index.html" class="title">R4WRDS Intermediate Course</a>
 </div>
 <div class="nav-right">
 <div class="nav-dropdown">
@@ -2295,20 +2341,16 @@ Modules
 <span class="down-arrow">&#x25BE;</span>
 </button>
 <div class="nav-dropdown-content">
-<a href="m_install_R.html">Module 1: Install R and RStudio</a>
-<a href="m_getting_started.html">Module 2: Get oriented in RStudio</a>
-<a href="m_project_management.html">Module 3: Project management</a>
-<a href="m_importing_and_exporting_data.html">Module 4: Import and export data</a>
-<a href="m_ggplot.html">Module 5: Data visualization</a>
-<a href="m_data_structures.html">Module 6: Data structures</a>
-<a href="m_dplyr.html">Module 7: Data wrangling</a>
-<a href="m_pivots.html">Module 8: Spreadsheets &amp; Pivots</a>
-<a href="m_functions.html">Module 9: Functions</a>
-<a href="m_joins.html">Module 10: Joins &amp; binds</a>
-<a href="m_intro_mapmaking.html">Module 11: Spatial data</a>
-<a href="m_exploratory_DA.html">Module 12: EDA</a>
-<a href="m_intro_Rmarkdown.html">Module 13: RMarkdown</a>
-<a href="m_troubleshooting.html">Module 14: Troubleshooting</a>
+<a href="m_install_R.html">Module 1: </a>
+<a href="m_getting_started.html">Module 2: </a>
+<a href="m_project_management.html">Module 3:</a>
+<a href="m_importing_and_exporting_data.html">Module 4:</a>
+<a href="m_ggplot.html">Module 5:</a>
+<a href="m_data_structures.html">Module 6: </a>
+<a href="m_dplyr.html">Module 7: </a>
+<a href="m_pivots.html">Module 8: </a>
+<a href="m_functions.html">Module 9: </a>
+<a href="m_joins.html">Module 10: s</a>
 </div>
 </div>
 <a href="../index.html">
@@ -2326,86 +2368,271 @@ Modules
 <!--/radix_placeholder_site_before_body-->
 
 <div class="d-title">
-<h1>Resources</h1>
+<h1>7. Parameterized reports</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
-<p><p>Continue along your journey in mastering R</p></p>
+<p><p>How to automate routine reporting</p></p>
 </div>
 
 
 <div class="d-article">
-<p><br></p>
-<p>This page contains links to the data we’re using in our workshop, and a sample of a few useful resources online and in print. This is by no means a comprehensive list, but hopefully a launching pad for useful website and books. All of these examples provide code you can try!</p>
-<h2 class="tabset tabset-fade tabset-pills" id="section"></h2>
-<h3 id="live-coding">Live Coding</h3>
-<p><br></p>
-<p><i class="fas  fa-code fa-pull-left " style="color:darkpurple;"></i>: For live-coding, we will save whatever code we run to a live webpage via Dropbox. This will update every time we save our code, which means you can refresh the page to see whatever code we are typing, copy it, and download this file at anytime. Please bookmark and open the appropriate link in your favorite web-browser.</p>
+<div class="d-contents d-contents-float">
+<nav class="l-text toc figcaption" id="TOC">
+<h3>Contents</h3>
 <ul>
-<li><p><a href="https://dl.dropboxusercontent.com/s/dxvv3az1t11vnqc/2020-10-13_cabw_r_livecode.R?dl=0"><strong>Day 1</strong></a></p></li>
-<li><p><a href="https://dl.dropboxusercontent.com/s/1qb54zz7bexqoj8/2020-10-14_cabw_r_livecode.R?dl=0"><strong>Day 2</strong></a></p></li>
+<li><a href="#params"><code>params</code></a></li>
+<li><a href="#set-up-a-report-with-params">Set up a report with <code>params</code></a></li>
+<li><a href="#iterate-over-a-report">Iterate over a report</a></li>
+<li><a href="#in-line-r">In-line <code>R</code></a></li>
+<li><a href="#additional-resources">Additional Resources</a></li>
 </ul>
-<h3 id="lesson-datasets">Lesson Datasets</h3>
-<p>This is a list of the data sources used in this workshop.</p>
-<p><br></p>
-<h4 id="lesson-datasets-1"><em><i class="fas  fa-database fa-pull-left " style="color:slateblue;"></i> Lesson Datasets</em></h4>
+</nav>
+</div>
+<div class="obj">
+<p><strong>Learning objectives</strong></p>
 <ul>
-<li><a href="https://github.com/ucd-cws/CABW2020_R_training/raw/main/data/datazip.zip">Full Dataset as a zipped folder</a>. Inside you’ll find these files:
-<ul>
-<li><strong>Longitude-Latitude Data:</strong> <a href="https://raw.githubusercontent.com/ucd-cws/CABW2020_R_training/main/data/latlon.csv"><code>latlon.csv</code></a></li>
-<li><strong>CSCI Data:</strong> <a href="https://raw.githubusercontent.com/ucd-cws/CABW2020_R_training/main/data/cscidat.csv"><code>cscidat.csv</code></a></li>
-<li><strong>ASCI Data:</strong> <a href="https://raw.githubusercontent.com/ucd-cws/CABW2020_R_training/main/data/ascidat.csv"><code>ascidat.csv</code></a></li>
-</ul></li>
-<li>Spatial Data (generated using <a href="https://ucd-cws.github.io/CABW2020_R_training/m3_1_usaboundaries.html">this lesson</a> ) is available as a <a href="https://github.com/ucd-cws/CABW2020_R_training/raw/main/data/ca_spatial_data.zip">zipped folder here</a>. This folder contains:
-<ul>
-<li><strong>states_boundaries.shp</strong> (along with associated .prj, .dbf, .shx)</li>
-<li><strong>states_boundaries.kml</strong> A google earth kml file</li>
-<li><strong>ca_counties_boundaries.geojson</strong> A geojson of counties in CA</li>
-</ul></li>
+<li>Extend functional programming skills to automate <code>.Rmd</code> reports<br />
+</li>
+<li>Understand the available types of reports provided by <code>{rmarkdown}</code><br />
+</li>
 </ul>
-<h3 id="resources">Resources</h3>
+</div>
 <p><br></p>
-<h4 id="lessons-tutorials"><em><i class="fab  fa-r-project fa-pull-left " style="color:steelblue;"></i> Lessons &amp; Tutorials</em></h4>
+<blockquote>
+<p>“Your success in life will be determined largely by your ability to speak, your ability to write, and the quality of your ideas, in that order.” — <a href="https://www.youtube.com/watch?v=Unzc731iCUY&amp;t=37s">Patrick Winston (1943-2019)</a></p>
+</blockquote>
+<p>Data science is the art of combining domain knowledge, statistics, math, programming, and visualization to find order and meaning in disorganized information. Communicating the results of your analyses, or ability to make data “speak”, is of utmost importance. The modern day open source package ecosystem is full of powerful ways to give voice to our analyses.</p>
+<p>Analyses typically lead to figures, tables, and interpretation of these information. The <a href="https://rmarkdown.rstudio.com/"><code>{rmarkdown}</code></a> package provides <code>R</code> users with a standardized approach for turning <code>R</code> analyses into reports, documents, presentations, dashboards, and websites. In this module, we assume familiarity with <code>{rmarkdown}</code>, and extend the previous modules on iteration, functional programming, and reproducible workflows to demonstrate how to iterate over reports.</p>
+<aside>
+Review the <a href="../intro/m_intro_Rmarkdown.html">introduction to <code>{rmarkdown}</code></a> if needed.
+</aside>
+<p>According to <a href="https://bookdown.org/yihui/rmarkdown/params-declare.html">R Markdown: The Definitive Guide</a>, some example use cases for creating a parameterized report include:</p>
 <ul>
-<li><a href="http://data-lessons.github.io/gapminder-R/">Software Carpentry: <strong>R for Reproducible Scientific Analysis</strong></a></li>
-<li><a href="http://www.datacarpentry.org/R-ecology-lesson/">Data Carpentry: <strong>R for Data Analysis and Visualization of Ecological Data</strong></a></li>
-<li><a href="http://www.datacarpentry.org/spreadsheet-ecology-lesson/">Data Carpentry: <strong>Data Organization in Spreadsheets</strong></a></li>
-<li><a href="https://www.rstudio.com/resources/webinars/"><strong>RStudio Webinars</strong>, many topics</a></li>
-<li><a href="http://www.rstudio.com/resources/cheatsheets/">Topical cheatsheets from <strong>RStudio</strong>, also viewed from the help menu</a></li>
-<li><a href="http://cran.r-project.org/doc/contrib/Short-refcard.pdf">Cheatsheet from CRAN of <strong>base R functions</strong></a></li>
+<li>Showing results for a specific geographic location.<br />
+</li>
+<li>Running a report that covers a specific time period.<br />
+</li>
+<li>Running a single analysis multiple times for different assumptions.<br />
+</li>
+<li>Controlling the behavior of knitr (e.g., specify if you want the code to be displayed or not).</li>
 </ul>
-<p><br></p>
-<h4 id="ebookscourses"><em><i class="fas  fa-book fa-pull-left " style="color:black;"></i> eBooks/Courses</em></h4>
-<ul>
-<li><a href="http://stat545.com/">Jenny Bryan’s <strong>Stat545.com</strong></a></li>
-<li><a href="http://r4ds.had.co.nz/">Garrett Grolemund and Hadley Wickham’s <strong>R For Data Science</strong></a></li>
-<li><a href="https://ismayc.github.io/moderndiver-book/">Chester Ismay and Albert Y. Kim’s <strong>Modern DiveR</strong></a></li>
-<li><a href="http://tidytextmining.com/">Julia Silge and David Robinson <strong>Text Mining with R</strong></a></li>
-<li><a href="http://adv-r.had.co.nz/">Hadley Wickham’s <strong>Advanced R</strong></a></li>
-</ul>
-<p><br></p>
-<h4 id="gitgithub"><em><i class="fab  fa-github fa-pull-left " style="color:gray50;"></i> Git/Github</em></h4>
-<ul>
-<li><a href="http://happygitwithr.com/">Jenny Bryan’s <strong>Happy Git and Github for the useR</strong></a></li>
-<li><a href="https://ourcodingclub.github.io/2017/02/27/git.html">Coding Club <strong>Intro to Github</strong></a></li>
-</ul>
-<h3 id="feedback">Feedback</h3>
-<p><br></p>
-<p><i class="fas  fa-comment fa-pull-left " style="color:darkpurple;"></i>: We would like your input to make this a better learning experience for participants and instructors. We’ll use this form at set points throughout the workshop to get your feedback on what has worked or not worked.</p>
-<ul>
-<li><a href="https://forms.gle/g55hdNVyEHfKxbFA6">Short Survey Here!</a></li>
-</ul>
-<h2 class="unnumbered" id="section-1"></h2>
-<p><br></p>
-
+<p>In this module, we will focus on the first case, and build parameterized reports for a set of geographic locations. Throughout this course, we’ve been working with groundwater elevation data across California counties. Let’s imagine that we want to generate a report on groundwater level trends for a set of counties.</p>
+<p>Although the RStudio Interactive Development Environment (IDE) encourages knitting RMarkdown documents by clicking a button, we can also knit documents via: <code>rmarkdown::render()</code>. Iterating over <code>render()</code> is the key to scaling parameterized reports. To iterate over R Markdown reports, we must first understand how to use <code>params</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="figure"><span id="fig:remoteLearning"></span>
-<img src="https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/monster_support.jpg" alt="Artwork by @allison_horst" width="100%" />
-<p class="caption">
-Figure 1: <em>Artwork by <span class="citation" data-cites="allison_horst">@allison_horst</span></em>
-</p>
+
+</div>
+<p><br></p>
+<h2 id="params"><code>params</code></h2>
+<p>A parameterized .Rmd file takes a set of <code>params</code> (short for “parameters”) in the YAML header, which are bound into a named list called <code>params</code> and accessed with code from within the .Rmd file with <code>params$&lt;paramater-name&gt;</code>. For example, consider the example YAML:</p>
+<pre><code>title: &quot;My awesome paramaterized report&quot;
+output: html_document
+params:
+  start_date: 2021-01-01
+  watershed: Yuba
+  data: gwl_yuba.csv</code></pre>
+<p>In the code, we could then access the value <code>"2021-01-01"</code> with <code>params$start_date</code>. Similarly, <code>params$watershed</code> will equal <code>"Yuba"</code> and <code>params$data</code> will equal <code>"gwl_yuba.csv"</code>.</p>
+<p><br></p>
+<h2 id="set-up-a-report-with-params">Set up a report with <code>params</code></h2>
+<p>Let’s apply <code>params</code> to our task and generate an <code>html_document</code> for a set of counties. To illustrate, we will use a simplified, pre-processed dataset of 3 counties (Sacramento, Yolo, and San Joaquin counties). If you’re motivated to do so, you can use the entire groundwater level dataset of &gt; 2 million records to scale the process to all counties. Read in the data and take a look at the fields.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://here.r-lib.org/'>here</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://r-spatial.github.io/sf/'>sf</a></span><span class='op'>)</span>
+
+<span class='co'># groundwater level data for Sacramento, Yolo, San Joaquin counties</span>
+<span class='va'>gwl</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_rds.html'>read_rds</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"data"</span>, <span class='st'>"sac_yolo_sj.rds"</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='va'>gwl</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>SITE_CODE</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://r-spatial.github.io/sf/reference/plot.html'>plot</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="m_parameterized_reports_files/figure-html5/read-counties-1.png" width="624" /></p>
+</div>
+<p>We will iterate over the <code>COUNTY_NAME</code> to create three reports, one for each county. Copy and paste the following code into a new file <code>reports/gwl_report.Rmd</code></p>
+<div class="layout-chunk" data-layout="l-body">
+<pre><code>---
+title: &quot;`r paste(params$county, &#39;Groundwater Levels&#39;)`&quot;
+output: html_document
+params:
+  county: &quot;placeholder&quot;
+---
+
+&lt;br&gt;
+
+```{r, echo = FALSE, message = FALSE, error = FALSE, warning = FALSE}
+library(tidyverse)
+library(here)
+library(sf)
+library(mapview)
+library(maps)
+library(DT)
+mapviewOptions(fgb = FALSE)
+
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, out.width = &quot;100%&quot;)
+
+# filter all groundwater level data (already loaded into memory) by 
+# the supplied county
+d &lt;- filter(gwl, COUNTY_NAME == params$county)
+
+# extract the county spatial file
+county_sf &lt;- st_as_sf(map(&quot;county&quot;, plot = FALSE, fill = TRUE)) %&gt;% 
+  filter(ID == paste0(&quot;california,&quot;, tolower(params$county)))
+
+```
+
+
+This report shows groundwater levels in `r params$county` county.
+
+Dates range from `r min(d$MSMT_DATE, na.rm = TRUE)` to `r max(d$MSMT_DATE, na.rm = TRUE)`.
+
+Data source: [DWR Periodic Groundwater Level Database](https://data.cnra.ca.gov/dataset/periodic-groundwater-level-measurements).
+
+&lt;br&gt;
+
+## Distribution of measurements over time
+
+50% of measured values occur on or after `r median(d$MSMT_DATE, na.rm = TRUE)`.
+
+```{r hist, echo = FALSE}
+d %&gt;% 
+  ggplot() +
+  geom_histogram(aes(MSMT_DATE)) +
+  theme_minimal() +
+  labs(title = &quot;&quot;, x = &quot;&quot;, y = &quot;Count&quot;)
+```
+
+
+&lt;br&gt;
+
+## Monitoring sites
+
+```{r map, echo = FALSE}
+# mapview of county outline
+county_mv &lt;- mapview(
+  county_sf, layer.name = paste(params$county, &quot;county&quot;), 
+  lwd = 2, color = &quot;red&quot;, alpha.regions = 0
+)
+
+# mapview of monitoring points
+points_mv &lt;- d %&gt;% 
+  group_by(SITE_CODE) %&gt;% 
+  slice(1) %&gt;% 
+  select(-MSMT_DATE) %&gt;% # remove msmt date b/c its irrelevant
+  mapview(layer.name = &quot;Monitoring stations&quot;)
+
+county_mv + points_mv
+```
+
+&lt;br&gt;
+
+## All groundwater levels
+
+```{r plot, echo = FALSE}
+# interactive hydrograph
+p &lt;- ggplot(d, aes(MSMT_DATE, WSE, color = SITE_CODE)) + 
+  geom_line(alpha = 0.5) +
+  guides(color = FALSE)
+plotly::ggplotly(p)
+```
+
+&lt;br&gt; 
+
+```{r dt, echo = FALSE}
+# data table of median groundwater level per site, per year
+d %&gt;% 
+  select(-c(&quot;COUNTY_NAME&quot;, &quot;WELL_DEPTH&quot;)) %&gt;%
+  st_drop_geometry() %&gt;% 
+  mutate(YEAR = lubridate::year(MSMT_DATE)) %&gt;% 
+  group_by(SITE_CODE, YEAR) %&gt;% 
+  summarise(WSE_MEDIAN = median(WSE, na.rm = TRUE)) %&gt;%
+  ungroup() %&gt;% 
+  DT::datatable(
+    extensions = &#39;Buttons&#39;, options = list(
+      dom = &#39;Bfrtip&#39;,
+      buttons = 
+        list(&#39;copy&#39;, &#39;print&#39;, list(
+          extend  = &#39;collection&#39;,
+          buttons = c(&#39;csv&#39;, &#39;excel&#39;, &#39;pdf&#39;),
+          text    = &#39;Download&#39;
+        ))
+    )
+  )
+```
+
+
+***
+
+Report generated on `r Sys.Date()`.</code></pre>
+</div>
+<div class="challenge">
+<p><strong>Pause and think</strong></p>
+<p>Take a moment to read the <code>.Rmd</code> file above and see what it does. Notice where <code>params$county</code> is located in the document. Particularly, in the first code chunk it’s used to filter the groundwater level data (assumed to be in memory so we only load it once rather than every time we run this script) down to the county parameter.</p>
+<pre><code>d &lt;- filter(gwl, COUNTY_NAME == params$county)</code></pre>
+<p>Next, how might you write an <code>.Rmd</code> file like the one above and test that everything looks the way you want it to before calling it done? In other words, would you start by writing <code>params$county</code> in all places it needs to be or start with one county, make sure everything works, and then substitute in <code>params$county</code>?</p>
+</div>
+<p><br></p>
+<h2 id="iterate-over-a-report">Iterate over a report</h2>
+<p>Finally, we create a vector of counties we want to write reports for and iterate over them. We also need to specify the output location of each file. Since we are writing <code>html_documents</code>, the file extension is <code>.html</code>. Using <code>walk2()</code> from our functional programming toolkit, we can pass in the counties vector and the output file paths into <code>rmarkdown::render()</code> and silently write the files.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># unique counties to write reports for</span>
+<span class='va'>counties</span>  <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>gwl</span><span class='op'>$</span><span class='va'>COUNTY_NAME</span><span class='op'>)</span>
+
+<span class='co'># output file names</span>
+<span class='va'>files_out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/chartr.html'>tolower</a></span><span class='op'>(</span><span class='va'>counties</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>str_replace_all</span><span class='op'>(</span><span class='st'>" "</span>, <span class='st'>"_"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='va'>.</span>, <span class='st'>".html"</span><span class='op'>)</span>
+
+<span class='co'># silently (walk) over the county names and file names, </span>
+<span class='co'># creating a report for each combination</span>
+<span class='fu'><a href='https://purrr.tidyverse.org/reference/map2.html'>walk2</a></span><span class='op'>(</span>
+  <span class='va'>counties</span>, 
+  <span class='va'>files_out</span>,
+  <span class='op'>~</span><span class='fu'>rmarkdown</span><span class='fu'>::</span><span class='fu'><a href='https://pkgs.rstudio.com/rmarkdown/reference/render.html'>render</a></span><span class='op'>(</span>
+    input       <span class='op'>=</span> <span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"reports"</span>, <span class='st'>"gwl_report.Rmd"</span><span class='op'>)</span>, 
+    output_file <span class='op'>=</span> <span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"reports"</span>, <span class='va'>.y</span><span class='op'>)</span>,
+    params      <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>county <span class='op'>=</span> <span class='va'>.x</span><span class='op'>)</span>
+  <span class='op'>)</span>
+<span class='op'>)</span>
+</code></pre>
 </div>
 </div>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<p>Open and explore each of the files that were written.</p>
+<p><br></p>
+<div class="challenge">
+<p><strong>Pause and think</strong></p>
+<p>If we wanted to automate reports like this and have them published online or emailed to our team every morning at 7AM, what tools would we need?</p>
+<p>Hint: see the <a href="m_reproducible_workflows.html#task-scheduling">automation module section on task schedulers</a>.</p>
+</div>
+<p><br></p>
+<h2 id="in-line-r">In-line <code>R</code></h2>
+<p>Within an <code>.Rmd</code> we can insert <code>R</code> code in-line using the following syntax:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>`r &lt;function&gt;`</span>
+</code></pre>
+</div>
+</div>
+<p>So for instance we can write a string like:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode" id="cb4"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>The mean of 1 and 3 is <span class="in">`r mean(c(1,3))`</span>.</span></code></pre></div>
+</div>
+<p>And when the document knits, we get: The mean of 1 and 3 is 2.</p>
+<p>Consider this as an approach to add specific output about each site in the text narrative.</p>
+<p><br></p>
+<h2 id="additional-resources">Additional Resources</h2>
+<p>Although we only demonstrated one type of output report in this module, the <code>html_document</code>, there are many other output formats that you can parameterize and iterate over, including <a href="https://bookdown.org/yihui/rmarkdown/word-document.html">Word documents</a>, <a href="https://bookdown.org/yihui/rmarkdown/pdf-document.html">PDFs</a>, <a href="https://pkgs.rstudio.com/flexdashboard/index.html">flexdashboards</a>, and presentations.</p>
+<aside>
+View some of the available <a href="https://rmarkdown.rstudio.com/formats.html">R Markdown output formats here</a>.
+</aside>
+<p>To dig deeper, see the official <a href="https://bookdown.org/yihui/rmarkdown/parameterized-reports.html">RMarkdown guide for paramaterized reports</a>.</p>
+<p><br></p>
+<p><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"></p>
+<p><a href="m_iteration.html" class="btn btn-secondary" style="float: left">Previous module:<br>6. Iteration</a> <a href="m_advanced_spatial.html" class="btn btn-secondary" style="float: right;">Next module:<br>8. Advanced spatial</a></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
@@ -2417,7 +2644,10 @@ Figure 1: <em>Artwork by <span class="citation" data-cites="allison_horst">@alli
 <!--radix_placeholder_site_after_body-->
 <!--/radix_placeholder_site_after_body-->
 <!--radix_placeholder_appendices-->
-<div class="appendix-bottom"></div>
+<div class="appendix-bottom">
+<h3 id="updates-and-corrections">Corrections</h3>
+<p>If you see mistakes or want to suggest changes, please <a href="https://github.com/ryanpeek/r4wrds/issues/new">create an issue</a> on the source repository.</p>
+</div>
 <!--/radix_placeholder_appendices-->
 <!--radix_placeholder_navigation_after_body-->
 <div class="distill-site-nav distill-site-footer">

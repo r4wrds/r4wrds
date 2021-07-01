@@ -89,14 +89,14 @@ code span.wa { color: #bf0303; } /* Warning */
 </style>
 
   <!--radix_placeholder_meta_tags-->
-  <title>R for Water Resources Data Science: Version Control with `git`</title>
+  <title>R for Water Resources Data Science: 2. Version Control with `git`</title>
 
   <meta property="description" itemprop="description" content="A time machine you can share..."/>
 
 
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-  <meta property="og:title" content="R for Water Resources Data Science: Version Control with `git`"/>
+  <meta property="og:title" content="R for Water Resources Data Science: 2. Version Control with `git`"/>
   <meta property="og:type" content="article"/>
   <meta property="og:description" content="A time machine you can share..."/>
   <meta property="og:locale" content="en_US"/>
@@ -104,14 +104,14 @@ code span.wa { color: #bf0303; } /* Warning */
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
-  <meta property="twitter:title" content="R for Water Resources Data Science: Version Control with `git`"/>
+  <meta property="twitter:title" content="R for Water Resources Data Science: 2. Version Control with `git`"/>
   <meta property="twitter:description" content="A time machine you can share..."/>
 
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","output"]}},"value":[{"type":"character","attributes":{},"value":["Version Control with `git`"]},{"type":"character","attributes":{},"value":["A time machine you can share...\n"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","output"]}},"value":[{"type":"character","attributes":{},"value":["2. Version Control with `git`"]},{"type":"character","attributes":{},"value":["A time machine you can share...\n"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2036,7 +2036,7 @@ code span.wa { color: #bf0303; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2288,6 +2288,29 @@ code span.wa { color: #bf0303; } /* Warning */
     border-radius: 4px;
   }
 
+
+  /*make the link in the appendix more readable against the grey text*/
+  d-appendix a:link {
+    color: blue;
+    background-color: transparent;
+    text-decoration: none;
+  }
+  d-appendix a:visited {
+    color: lightblue;
+    background-color: transparent;
+    text-decoration: none;
+  }
+  d-appendix a:hover {
+    color: lightblue;
+    background-color: transparent;
+    text-decoration: underline;
+  }
+  d-appendix a:active {
+    color: blue;
+    background-color: transparent;
+    text-decoration: underline;
+  }
+
   </style>
   <!--/radix_placeholder_site_in_header-->
 
@@ -2300,7 +2323,7 @@ code span.wa { color: #bf0303; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Version Control with `git`","description":"A time machine you can share...","authors":[]}
+{"title":"2. Version Control with `git`","description":"A time machine you can share...","authors":[]}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2345,7 +2368,7 @@ Modules
 <!--/radix_placeholder_site_before_body-->
 
 <div class="d-title">
-<h1>Version Control with git</h1>
+<h1>2. Version Control with git</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
 <p><p>A time machine you can share…</p></p>
@@ -2440,16 +2463,15 @@ Modules
 <p><br></p>
 <h2 id="learning-git-through-a-project">Learning <code>git</code> through a project</h2>
 <p>Sometimes the best way to learn is to walk through a real-world example. Let’s walk through a simplified example of a common set of tasks a team may face using <code>R</code> and learning <code>git</code> along the way.</p>
-<p>Let’s imagine we have a team of 3 folks, <font color="#5f3dc4"><strong>Jo</strong></font>, <font color="#2b8a3e"><strong>Mo</strong></font>, and <font color="#e67700"><strong>Main</strong></font>. Each has a unique skill set, and each knows how to use <code>R</code> and <code>git</code>. The team is tasked with downloading and visualizing flow data for a specific river gage to provide status report updates on a monthly basis, which are used for various regulatory actions (i.e., how much water is available for diversion, how flows relate to period of record averages, etc).</p>
+<p>Let’s imagine we have a team, <font color="#5f3dc4"><strong>Jo</strong></font> and <font color="#2b8a3e"><strong>Mo</strong></font>. Each has a unique skill set, and each knows how to use <code>R</code> and <code>git</code>. The team is tasked with downloading and visualizing flow data for a specific river gage to provide status report updates on a monthly basis, which are used for various regulatory actions (i.e., how much water is available for diversion, how flows relate to period of record averages, etc). In this case, the <em>cloud</em> is Github where our <font color="#e67700"><strong><code>main</code></strong></font> repository lives. More on this in a moment. First we need to make sure everything is setup and installed before we begin our <code>git</code> project!</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="figure"><span id="fig:git1"></span>
-<img src="images/team_and_task_annot.png" alt="An example team and workflow." width="80%" />
+<img src="images/team_and_task_v2.png" alt="An example team and workflow." width="80%" />
 <p class="caption">
 Figure 1: An example team and workflow.
 </p>
 </div>
 </div>
-<p>Let’s get this team started on their! First we need to make sure everything is setup and installed.</p>
 <h3 id="setup-git-locally">Setup <code>git</code> locally</h3>
 <p>We highly recommend Jenny Bryan &amp; Jim Hester’s <a href="https://happygitwithr.com">happygitwithr</a> website because it covers everything (and more) that you may encounter when using <code>git</code> with R. In particular, please take a moment to check/update your <code>git</code> installation and configure Github. The following links will help with this:</p>
 <ul>
@@ -2512,7 +2534,7 @@ Figure 1: An example team and workflow.
 </div>
 <p>Great! We should now have an RStudio project that is version controlled with <code>git</code>, and there is a local copy we can work with on our computer.</p>
 <h3 id="collaborative-github-settings">Collaborative Github Settings</h3>
-<p>Since we are working on a collaborative project, we need to make sure our collaborators have access to make changes to our repository. So, if <font color="#e67700"><strong>Main</strong></font> created the repository, they would need to add fellow collaborators to the repository. Let’s do that now:</p>
+<p>Since we are working on a collaborative project, we need to make sure our collaborators have access to make changes to our repository. So, if <font color="#5f3dc4"><strong>Jo</strong></font> created the repository, they would need to add fellow collaborators to the repository. Let’s do that now:</p>
 <ul>
 <li>Go to Github.com and login</li>
 <li>Navigate to your repository <code>water-is-life</code></li>
@@ -2565,14 +2587,14 @@ Figure 5: Example of multiple branches in a project splitting off the main branc
 </div>
 </div>
 <h3 id="create-a-branch">Create a branch</h3>
-<p>In our example we want to make sure we keep our <strong><code>main</code></strong> branch clean and up-to-date with changes we are happy with…all other work will go through a branch, pull request, review, and merge process to minimize conflicts or duplication of work.</p>
-<p><font color="#5f3dc4"><strong>Jo</strong></font> is a wizard at grabbing the data we want to work with and saving it in an organized way. She’s cloned the repository to her computer, and the first thing she wants to do is create a fresh branch to work off of, so her changes can be reviewed before being <code>merged</code> into the <strong><code>main</code></strong> branch.</p>
+<p>In our example we want to make sure we keep our <font color="#e67700"><strong><code>main</code></strong></font> branch clean and up-to-date with changes we are happy with…all other work will go through a <code>branch</code>, <em>pull request</em>, <strong>review</strong>, and <strong><code>merge</code></strong> process to minimize conflicts or duplication of work.</p>
+<p><font color="#5f3dc4"><strong>Jo</strong></font> is a wizard at grabbing the data we want to work with and saving it in an organized way. She’s cloned the repository to her computer, and the first thing she wants to do is create a fresh branch to work off of, so her changes can be reviewed before being <code>merged</code> into the <font color="#e67700"><strong><code>main</code></strong></font> branch.</p>
 <p>We can create a branch in RStudio in one of two ways:</p>
 <ul>
-<li><code>Tools &gt; Terminal &gt; New Terminal</code> and look for the Terminal tab in RStudio. Click on it, and at the prompt, type <code>git checkout -b BRANCH_NAME</code>.</li>
+<li><code>Tools &gt; Terminal &gt; New Terminal</code> and look for the Terminal tab in RStudio. Click on it, and at the prompt, type:  <strong><code>git checkout -b BRANCH_NAME</code></strong>.</li>
 <li>Using the <strong><code>Git</code></strong> tab in RStudio and clicking on the <strong><code>New Branch</code></strong> button, type in the branch name, make sure the Remote is set to <code>origin</code> and click <strong><code>Create</code></strong>!</li>
 </ul>
-<p>Let’s create a new branch called <code>jo_download_data</code>. Ideally, each team member will do the same, and each of these branches comes from the <strong><code>main</code></strong> branch, which is the main trunk or “clean” version of the project.</p>
+<p>Let’s create a new branch called <code>jo_download_data</code>. Ideally, each team member will do the same, and each of these branches comes from the <font color="#e67700"><strong><code>main</code></strong></font> branch, which is the main trunk or “clean” version of the project.</p>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="images/new_branch_1.png" width="354" height="70%" /></p>
 </div>
@@ -2581,7 +2603,7 @@ Figure 5: Example of multiple branches in a project splitting off the main branc
 <div class="figure"><span id="fig:startingBranch"></span>
 <img src="images/jo_data_gather_branch.png" alt="Jo creates a new branch from main to write a data download script in R." width="693" height="80%" />
 <p class="caption">
-Figure 6: <font color="#5f3dc4"><strong>Jo</strong></font> creates a new branch from <strong><code>main</code></strong> to write a data download script in <code>R</code>.
+Figure 6: <font color="#5f3dc4"><strong>Jo</strong></font> creates a new branch from <font color="#e67700"><strong><code>main</code></strong></font> to write a data download script in <code>R</code>.
 </p>
 </div>
 </div>
@@ -2666,7 +2688,7 @@ Figure 6: <font color="#5f3dc4"><strong>Jo</strong></font> creates a new branch 
 <div class="layout-chunk" data-layout="l-body-outset">
 <p><img src="images/git_commit_commit.png" width="697" /></p>
 </div>
-<p>The final step is to <strong><code>push</code></strong> our changes up to the cloud. Click <strong><code>Push</code></strong> and you should get message back like this. This means things worked…a final check would be go to Github and make sure the file is online!</p>
+<p>The final step is to <strong><code>push</code></strong> our changes up to the cloud. Click <strong><code>Push</code></strong> and you should get a message back like this. This means things worked…a final check would be go to Github and make sure the file is online!</p>
 <div class="layout-chunk" data-layout="l-body-outset">
 <p><img src="images/git_push_return.png" width="703" /></p>
 </div>
@@ -2676,7 +2698,7 @@ Figure 6: <font color="#5f3dc4"><strong>Jo</strong></font> creates a new branch 
 <p>Think of every commit you make as a train station. The more commits you make (and the more descriptive they are) the easier it will be to get around…particularly because your train can travel <em>back in time</em>!</p>
 </aside>
 <h3 id="pull-requests">Pull Requests</h3>
-<p>The next step in this <code>version control</code> odyssey is to get <font color="#5f3dc4"><strong>Jo’s</strong></font> work from the <code>jo_download_data</code> branch into the <strong><code>main</code></strong> branch. Here we use a <strong><em>Pull Request</em></strong>. This is a way to review the changes, check for any conflicts (if for instance, folks were working on the same file), and then <strong>Merge</strong> these changes into the <strong><code>main</code></strong> branch. Then we can delete the <code>jo_download_data</code> branch, create another one to work on the next task, and so on.</p>
+<p>The next step in this <code>version control</code> odyssey is to get <font color="#5f3dc4"><strong>Jo’s</strong></font> work from the <code>jo_download_data</code> branch into the <font color="#e67700"><strong><code>main</code></strong></font> branch. Here we use a <strong><em>Pull Request</em></strong>. This is a way to review the changes, check for any conflicts (if for instance, folks were working on the same file), and then <strong>Merge</strong> these changes into the <font color="#e67700"><strong><code>main</code></strong></font> branch. Then we can delete the <code>jo_download_data</code> branch, create another one to work on the next task, and so on.</p>
 <p>Here’s what we might see on Github if we visited our <code>water-is-life</code> repository after we pushed our changes up. First, we will hopefully see an option to make a pull request because Github recognizes there are changes from another branch that aren’t in the <code>main</code> branch. We want to click the <strong>Compare and pull request</strong> button.</p>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="images/git_pr1.png" width="915" /></p>
@@ -2702,12 +2724,12 @@ Figure 6: <font color="#5f3dc4"><strong>Jo</strong></font> creates a new branch 
 </div>
 <p><br></p>
 <h3 id="fetch-and-pull"><code>fetch</code> and <code>pull</code></h3>
-<p>Now that <font color="#5f3dc4"><strong>Jo</strong></font> has completed the first part of the team task, we want to move to the second task, which is cleaning the data. Thankfully <font color="#2b8a3e"><strong>Mo</strong></font> is great at data visualization, and has a script that will clean up the code and visualize it for us. But first, <font color="#2b8a3e"><strong>Mo</strong></font> needs to <code>pull</code> the changes that <font color="#5f3dc4"><strong>Jo</strong></font> just merged into the <code>main</code> repository. There are two approaches to this. One is to use a <code>git fetch</code>, the other is a <code>git pull</code>. The main difference between the two:</p>
+<p>Now that <font color="#5f3dc4"><strong>Jo</strong></font> has completed the first part of the team task, we want to move to the second task, which is cleaning the data. Thankfully <font color="#2b8a3e"><strong>Mo</strong></font> is great at data visualization, and has a script that will clean up the code and visualize it for us. But first, <font color="#2b8a3e"><strong>Mo</strong></font> needs to <code>pull</code> the changes that <font color="#5f3dc4"><strong>Jo</strong></font> just merged into the <font color="#e67700"><strong><code>main</code></strong></font> repository. There are two approaches to this. One is to use a <code>git fetch</code>, the other is a <code>git pull</code>. The main difference between the two:</p>
 <ul>
 <li><strong><code>fetch</code></strong>: The safe version, because it downloads any remote content from the repository, but <em>does not update your local repository state</em>. It just keeps a copy of the remote content, leaving any current work intact. To fully integrate the new content, we need to follow a <code>fetch</code> by a <code>merge</code>.</li>
 <li><strong><code>pull</code></strong>: This downloads the remote content and then immediately <code>merges</code> the content with your local state, but if you have pending work, this will create something called a <strong>merge conflict</strong>, but not to worry, these can be fixed!<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a>.</li>
 </ul>
-<p><font color="#2b8a3e"><strong>Mo</strong></font> needs to <strong><code>pull</code></strong> changes in to his branch from <code>main</code> and proceed with the task. Here we assume <font color="#5f3dc4"><strong>Jo</strong></font> has already completed work on her branch to download data and clean and transform the data.</p>
+<p><font color="#2b8a3e"><strong>Mo</strong></font> needs to <strong><code>pull</code></strong> changes in to his branch from <font color="#e67700"><strong><code>main</code></strong></font> and proceed with the task. Here we assume <font color="#5f3dc4"><strong>Jo</strong></font> has already completed work on her branch to download, clean, and transform the data.</p>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="images/gather_clean_data_together_3b.png" width="1146" /></p>
 </div>
@@ -2724,7 +2746,7 @@ Figure 6: <font color="#5f3dc4"><strong>Jo</strong></font> creates a new branch 
 <li><code>stage</code> it (either through the Git tab, or via <code>git add</code>),</li>
 <li><code>commit</code> (add a message!),</li>
 <li><code>push</code> to <font color="#2b8a3e"><strong>Mo’s</strong></font> branch</li>
-<li>Finish by adding a <strong>Pull Request</strong> and merging back to <strong><code>main</code></strong>!</li>
+<li>Finish by adding a <strong>Pull Request</strong> and merging back to <font color="#e67700"><strong><code>main</code></strong></font>!</li>
 </ul>
 </p>
 </div>
@@ -2747,7 +2769,7 @@ Figure 6: <font color="#5f3dc4"><strong>Jo</strong></font> creates a new branch 
 <h2 id="closing-the-loop">Closing the loop</h2>
 <p>We’ve reviewed how to create branches, add and revise files, and then commit and push these changes to a shared repository for collaborative projects. Importantly, it’s best practice to always <code>pull</code>/<code>fetch</code> at the beginning of each work session so you have the most-up-to-date changes. And if something needs to be fixed, you can always pull a specific branch and make a change and pull request for that branch before pull requesting and merging back to the <code>main</code>.</p>
 <aside>
-<p>For example, if Jo needed to make a quick fix to some data analysis, she could pull Mo’s branch, make a fix (commit <strong>4</strong>), and merge that back into the same branch before he finalizes the analysis and merges back to the <code>main</code> branch.</p>
+<p>For example, if <font color="#5f3dc4"><strong>Jo</strong></font> needed to make a quick fix to some data analysis, she could pull <font color="#2b8a3e"><strong>Mo’s</strong></font> branch, make a fix (commit <strong>4</strong>), and merge that back into the same branch before he finalizes the analysis and merges back to the <font color="#e67700"><strong><code>main</code></strong></font> branch.</p>
 </aside>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="images/gather_clean_data_together_6.png" width="1354" /></p>
@@ -2774,7 +2796,7 @@ Figure 6: <font color="#5f3dc4"><strong>Jo</strong></font> creates a new branch 
 </ul>
 <p><br></p>
 <p><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"></p>
-<p><a href="m_project_management.html" class="btn btn-secondary" style="float: left">Previous module:<br> Project Management</a> <a href="m_vinteractive_viz.html" class="btn btn-secondary" style="float: right;">Next module:<br> Interactive Visualization</a></p>
+<p><a href="m_updating_r.html" class="btn btn-secondary" style="float: left">Previous module:<br> 1. Updating <code>R</code></a> <a href="m_project_management.html" class="btn btn-secondary" style="float: right;">Next module:<br> 3. Project Management</a></p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <section class="footnotes" role="doc-endnotes">
 <hr />
@@ -2799,7 +2821,10 @@ Figure 6: <font color="#5f3dc4"><strong>Jo</strong></font> creates a new branch 
 <!--radix_placeholder_site_after_body-->
 <!--/radix_placeholder_site_after_body-->
 <!--radix_placeholder_appendices-->
-<div class="appendix-bottom"></div>
+<div class="appendix-bottom">
+<h3 id="updates-and-corrections">Corrections</h3>
+<p>If you see mistakes or want to suggest changes, please <a href="https://github.com/ryanpeek/r4wrds/issues/new">create an issue</a> on the source repository.</p>
+</div>
 <!--/radix_placeholder_appendices-->
 <!--radix_placeholder_navigation_after_body-->
 <div class="distill-site-nav distill-site-footer">
