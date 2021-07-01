@@ -118,17 +118,13 @@ library(htmltools)
 m <- leaflet() %>%
   # add tiles or the "basemaps"
   addTiles(group = "OSM") %>% # defaults to Open Street Maps
-  addProviderTiles(providers$CartoDB.Positron, group="Positron") %>% 
+  addProviderTiles(providers$CartoDB.Positron, group = "Positron") %>% 
   addProviderTiles(providers$Stamen.TonerLite, group = "Toner Lite") %>%
-  addMarkers(icon = icons(
-    iconUrl = "https://leafletjs.com/examples/custom-icons/leaf-green.png",
-    shadowUrl = "https://leafletjs.com/examples/custom-icons/leaf-shadow.png",
-    iconWidth = 38, iconHeight = 95, shadowWidth = 50, shadowHeight = 64,
-    iconAnchorX = 22, iconAnchorY = 94, shadowAnchorX = 4, shadowAnchorY = 62,
-    popupAnchorX = -3, popupAnchorY = -76),
-  lng = -121.4944, lat = 38.5816, 
-  popup = "Sacramento!", group = "Home") %>% 
-  addMarkers(
+  addCircleMarkers(
+    lng = -121.4944, lat = 38.5816, fillColor = "red", color = "black",
+    popup = "Sacramento!", group = "Home",
+  ) %>% 
+  addCircleMarkers(
     data = dat_geo, group = "Food & Drink",
     label = ~htmlEscape(first_name),
     popup = glue(
