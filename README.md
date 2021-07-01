@@ -5,11 +5,15 @@
 
 # Developer guide
 
-renv
+Clone this repo, and open `WRDS_index.RProj`, which will trigger [`{renv}`](https://rstudio.github.io/renv/articles/collaborating.html) to install package dependencies. 
 
-rJava
+Depending on your system build, you may need to configure `{rJava}`, `{sf}`, and `GDAL`. 
 
-sf and GDAL
+If you run into issues, these links may be helpful towards those ends:
+
+* [rJava](https://github.com/rstudio/rstudio/issues/2254#issuecomment-418830716)
+* [sf](https://r-spatial.github.io/sf/#installing)
+* [GDAL](https://r-spatial.github.io/sf/#macos)
 
 
 # Build
