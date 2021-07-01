@@ -1,5 +1,5 @@
 ---
-title: "Intro to Rmarkdown"
+title: "13. Intro to Rmarkdown"
 description: | 
   Save time and have fun with reproducible documents + code! 
 output: 
@@ -400,6 +400,6 @@ Here's a sample of some good resources that are freely available online:
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-<a href="m_exploratory_DA.html" class="btn btn-secondary" style="float: left">Previous module:<br> EDA</a>
-<a href="m_troubleshooting.html" class="btn btn-secondary" style="float: right;">Next module:<br> Troubleshooting</a>  
+<a href="m_exploratory_DA.html" class="btn btn-secondary" style="float: left">Previous module:<br> 12. EDA</a>
+<a href="m_troubleshooting.html" class="btn btn-secondary" style="float: right;">Next module:<br> 14. Troubleshooting</a>  
 

@@ -1,5 +1,5 @@
 ---
-title: "Getting Started with R for Water Resources Data Science"
+title: "2. Getting Started with R for Water Resources Data Science"
 description: | 
   Unleash your potential to work with any kind of data...
 output: 
@@ -208,5 +208,5 @@ apropos("print") # Returns all available functions with "print" in the name
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-<a href="m_install_R.html" class="btn btn-secondary" style="float: left">Previous module:<br> Install R/RStudio</a>
-<a href="m_project_management.html" class="btn btn-secondary" style="float: right;">Next module:<br> Project Management</a>  
+<a href="m_install_R.html" class="btn btn-secondary" style="float: left">Previous module:<br> 1. Install R/RStudio</a>
+<a href="m_project_management.html" class="btn btn-secondary" style="float: right;">Next module:<br> 3. Project Management</a>  

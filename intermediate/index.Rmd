@@ -1,5 +1,5 @@
 ---
-title: "Welcome!"
+title: "R4WRDS Intermediate Course"
 description: |
   Increasing your efficiency with reproducible workflows in R
 site: distill::distill_website
@@ -27,16 +27,16 @@ What makes an *Intermediate `R` user*? This course is most relevant and targeted
 
 ## What will you learn?
 
-In this course, we will move more quickly, assume familiarity with basic `R` skills, and also assume that the participant has experience with more complex workflows, operations, and code-bases. Each module in this course functions as a "stand-alone" lesson, and can be read linearly, or out of order according to your needs and interests. Each module doesn't necessarily require familiarity with the previous module.
+In this course, we will move more quickly, assume familiarity with basic `R` skills, and also assume that the participant has working experience with more complex workflows, operations, and code-bases. Each module in this course functions as a "stand-alone" lesson, and can be read linearly, or out of order according to your needs and interests. Each module doesn't necessarily require familiarity with the previous module.
 
 **This course emphasizes:**
 
- - Intermediate scripting skills like iteration, functional programming, writing functions, and controlling project workflows for better reproducibility and efficiency.
- - Approaches to working with more complex data structures like lists and timeseries data.
- - The fundamentals of building Shiny Apps.
- - Pulling water resources data from APIs.
- - Intermediate mapmaking and spatial data processing.
- - Integrating version control in projects with git.
+ - Intermediate scripting skills like iteration, functional programming, writing functions, and controlling project workflows for better reproducibility and efficiency
+ - Approaches to working with more complex data structures like lists and timeseries data
+ - The fundamentals of building Shiny Apps
+ - Pulling water resources data from APIs
+ - Intermediate mapmaking and spatial data processing
+ - Integrating version control in projects with git
 
 
 (ref:AHRemoteR) *Artwork by @allison_horst*
@@ -50,8 +50,6 @@ knitr::include_graphics(path = "https://raw.githubusercontent.com/allisonhorst/s
 :::obj
 
 **Course Modules**
-
-In this course, we will:
 
 1. [Check/Update R/RStudio and Packages](m_updating_r.html)  
 3. [Version Control with git](m_version_control.html) 
@@ -69,7 +67,7 @@ In this course, we will:
 
 ## Why `R`?
 
-[`R`](https://www.r-project.org/) is an open-source language for statistical computing and a general purpose programming language. It is one of the primary languages used for data science, modeling, and visualization. 
+[`R`](https://www.r-project.org/) is an open-source language for statistical computing and a general purpose programming language. It is one of the primary languages used for data science, modeling, and visualization.  
 
 <br>
 
@@ -82,13 +80,22 @@ We will follow the [SFS Code of Conduct](https://freshwater-science.org/about/so
 
 ## Source content
 
-All source materials for this website can be accessed at **[final GH location, perhaps CAOpenWater/wrds]**.
+All source materials for this website can be accessed at the [`r4wrds` Github repository](https://github.com/ryanpeek/r4wrds).  
+
+<br>
+
+## Data
+
+All data used in this course is expected to live in a `/data` subfolder in the project directory. It can be downloaded in 1 of 2 ways:
+
+1. [Downloaded and unzipped from OSF](link-needed)  
+2. [Cloned from the `wrds-data` Github repository](https://github.com/richpauloo/r4wrds-data)  
 
 <br>
 
 ## Attribution
 
-Content in these lessons has been modified and/or adapted from [Data Carpentry: R for data analysis and visualization of Ecological Data](https://datacarpentry.org/R-ecology-lesson/index.html), the USGS-R training curriculum [here](https://github.com/USGS-R/training-curriculum), the NCEAS Open Science for Synthesis workshop [here](https://nceas.github.io/oss-2017/index.html), [Mapping in R](https://ryanpeek.org/mapping-in-R-workshop/), and the wonderful text [R for data science](https://github.com/hadley/r4ds).
+Content in these lessons has been modified and/or adapted from [Data Carpentry: `R` for data analysis and visualization of Ecological Data](https://datacarpentry.org/R-ecology-lesson/index.html), the USGS-R training curriculum [here](https://github.com/USGS-R/training-curriculum), the NCEAS Open Science for Synthesis workshop [here](https://nceas.github.io/oss-2017/index.html), [Mapping in `R`](https://ryanpeek.org/mapping-in-R-workshop/), and the wonderful text [`R` for data science](https://github.com/hadley/r4ds).
 
 <br>
 

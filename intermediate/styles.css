@@ -238,3 +238,26 @@ css below is adapted from that page */
   background-color:#f4f4f4;
   border-radius: 4px;
 }
+
+
+/*make the link in the appendix more readable against the grey text*/
+d-appendix a:link {
+  color: blue;
+  background-color: transparent;
+  text-decoration: none;
+}
+d-appendix a:visited {
+  color: lightblue;
+  background-color: transparent;
+  text-decoration: none;
+}
+d-appendix a:hover {
+  color: lightblue;
+  background-color: transparent;
+  text-decoration: underline;
+}
+d-appendix a:active {
+  color: blue;
+  background-color: transparent;
+  text-decoration: underline;
+}

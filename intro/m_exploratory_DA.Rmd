@@ -1,5 +1,5 @@
 ---
-title: "Exploratory Data Analysis"
+title: "12. Exploratory Data Analysis"
 description: | 
   Learn to enjoy EDA adventures
 output: 
@@ -711,5 +711,5 @@ An EDA may generate tables, visualizations, text, and code that all encapsulate 
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-<a href="m_intro_mapmaking.html" class="btn btn-secondary" style="float: left">Previous module:<br> Spatial Data</a>
-<a href="m_intro_Rmarkdown.html" class="btn btn-secondary" style="float: right;">Next module:<br> RMarkdown</a>  
+<a href="m_intro_mapmaking.html" class="btn btn-secondary" style="float: left">Previous module:<br> 11. Spatial Data</a>
+<a href="m_intro_Rmarkdown.html" class="btn btn-secondary" style="float: right;">Next module:<br> 13. RMarkdown</a>  

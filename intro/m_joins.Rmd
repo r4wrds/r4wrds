@@ -1,5 +1,5 @@
 ---
-title: "Joining Data"
+title: "10. Joining Data"
 description: | 
   How to merge your data!
 output: 
@@ -433,5 +433,5 @@ write_rds(sac_gw_all, file = "data/sacramento_gw_data_w_calenviro.rds")
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-<a href="m_functions.html" class="btn btn-secondary" style="float: left">Previous module:<br> Functions</a>
-<a href="m_intro_mapmaking.html" class="btn btn-secondary" style="float: right;">Next module:<br> Spatial Data</a>  
+<a href="m_functions.html" class="btn btn-secondary" style="float: left">Previous module:<br> 9. Functions</a>
+<a href="m_intro_mapmaking.html" class="btn btn-secondary" style="float: right;">Next module:<br> 11. Spatial Data</a>  

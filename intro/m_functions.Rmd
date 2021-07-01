@@ -1,5 +1,5 @@
 ---
-title: "Function Junction"
+title: "9. Function Junction"
 description: | 
   Use, re-use, and write code to do stuff!
 output: 
@@ -374,5 +374,5 @@ There are many packages that work with water or water data. Here's a list of jus
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-<a href="m_pivots.html" class="btn btn-secondary" style="float: left">Previous module:<br> Spreadsheets & Pivots</a>
-<a href="m_joins.html" class="btn btn-secondary" style="float: right;">Next module:<br> Joins and Binds</a>  
+<a href="m_pivots.html" class="btn btn-secondary" style="float: left">Previous module:<br> 8. Spreadsheets & Pivots</a>
+<a href="m_joins.html" class="btn btn-secondary" style="float: right;">Next module:<br> 10. Joins and Binds</a>  

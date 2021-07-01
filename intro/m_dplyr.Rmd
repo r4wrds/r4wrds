@@ -1,5 +1,5 @@
 ---
-title: "Wrangling Data with dplyr"
+title: "7. Wrangling Data with dplyr"
 description: | 
   Making data tidying and transformation fun!
 output: 
@@ -511,5 +511,5 @@ Congratulations! You've made it through `{dplyr}`. There are many more great opt
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-<a href="m_data_structures.html" class="btn btn-secondary" style="float: left">Previous module:<br> Data Structures</a>
-<a href="m_pivots.html" class="btn btn-secondary" style="float: right;">Next module:<br> Spreadsheets & Pivots</a>  
+<a href="m_data_structures.html" class="btn btn-secondary" style="float: left">Previous module:<br> 6. Data Structures</a>
+<a href="m_pivots.html" class="btn btn-secondary" style="float: right;">Next module:<br> 8. Spreadsheets & Pivots</a>  
