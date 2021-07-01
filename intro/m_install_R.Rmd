@@ -1,5 +1,5 @@
 ---
-title: "Software Installation & Setup"
+title: "1. Software Installation & Setup"
 description: |
   Getting your computer <font color="#009E73">*ready*</font> so you can <font color="#0072B2">**learn**</font>!
 output: 
@@ -207,4 +207,4 @@ If you have successfully installed packages, you should see a list of "`TRUE`" r
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
 <a href="index.html" class="btn btn-secondary" style="float: left">Previous module:<br> Introduction</a>
-<a href="m_getting_started.html" class="btn btn-secondary" style="float: right;">Next module:<br> Getting started</a>  
+<a href="m_getting_started.html" class="btn btn-secondary" style="float: right;">Next module:<br> 2. Getting started</a>  

@@ -1,5 +1,5 @@
 ---
-title: "{sf} and map making in R"
+title: "11. {sf} and map making in R"
 description: | 
   Spatial data and Mapmaking 101
 output: 
@@ -515,5 +515,5 @@ The online books/guides [*Geocomputation with R*](https://geocompr.robinlovelace
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-<a href="m_joins.html" class="btn btn-secondary" style="float: left">Previous module:<br> Joins and Binds</a>
-<a href="m_exploratory_DA.html" class="btn btn-secondary" style="float: right;">Next module:<br> EDA</a>  
+<a href="m_joins.html" class="btn btn-secondary" style="float: left">Previous module:<br> 10. Joins and Binds</a>
+<a href="m_exploratory_DA.html" class="btn btn-secondary" style="float: right;">Next module:<br> 12. EDA</a>  
