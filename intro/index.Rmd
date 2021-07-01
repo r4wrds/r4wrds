@@ -17,7 +17,26 @@ knitr::opts_chunk$set(echo = TRUE)
 <br>
 
 
-# Welcome to the R4WRDS Introductory Course!
+## Who is this course for?
+
+This course is most relevant and targeted at folks who work with data, from analysts and program staff to engineers and scientists. This course is designed as an introduction to the power and possibility that a reproducible programming language (R) provides by demonstrating how to import, explore, visualize, and communicate different types of data. Using water resources based examples, this course will guide participants through basic data science skills and strategies for continued learning and use of R
+
+## What will you learn?
+
+In this course, we will start from the ground up, and while each module in this course functions as a "stand-alone" lesson, following modules in progression is recommended.
+
+**In this course you will gain practice in: **
+
+ - Data and file management: understanding RProjects and file paths
+ - Understand and identifying different data formats (i.e., wide, long, tidy)
+ - Working with different data structures (i.e., vectors, dataframes, lists) 
+ - Import and export various water resources data
+ - Strategies for Exploratory Data Analysis (EDA)
+ - Strategies for troubleshooting (reading documentation, intro to reprex)
+ - Transforming data with `{dplyr}`
+ - Data visualization with `{ggplot2}`
+ - Data presentation and communication with RMarkdown
+
 
 (ref:AHRemoteR) *Artwork by @allison_horst*
 

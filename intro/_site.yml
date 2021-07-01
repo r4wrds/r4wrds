@@ -3,7 +3,7 @@ title: "R for Water Resources Data Science"
 description: |
   R for Water Resources Data Science
 output_dir: "."
-# repository_url: https://github.com/ryanpeek/WRDS_intro/ # works with source_url
+repository_url: https://github.com/ryanpeek/r4wrds # works with source_url
 include: [".nojekyll"]
 navbar:
   title: "R4WRDS Introductory Course"

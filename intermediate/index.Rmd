@@ -1,5 +1,5 @@
 ---
-title: "Welcome!"
+title: "R4WRDS Intermediate Course"
 description: |
   Increasing your efficiency with reproducible workflows in R
 site: distill::distill_website
