@@ -742,8 +742,8 @@ base_osm <- read_osm(ca_co_isd_poly, type = "esri-topo", raster = TRUE)
 ```
 
 ```{r, include=FALSE}
-# save(base_osm, file = glue("data", "m_advanced_spatial_base_osm.rda"))
-load(glue("data", "m_advanced_spatial_base_osm.rda"))
+# save(base_osm, file = here("data", "m_advanced_spatial_base_osm.rda"))
+load(here("data", "m_advanced_spatial_base_osm.rda"))
 ```
 
 
