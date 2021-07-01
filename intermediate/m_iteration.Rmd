@@ -1,5 +1,5 @@
 ---
-title: "From loops to functions"
+title: "6. From loops to functions"
 description: | 
    Multiple ways to iterate in `R`
 output: 
@@ -331,4 +331,4 @@ We recommend the following places to start to learn more about functional progra
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-<a href="m_simple_shiny.html" class="btn btn-secondary" style="float: left">Previous module:<br>Simple Shiny</a> <a href="m_reproducible_workflows.html" class="btn btn-secondary" style="float: right;">Next module:<br>Reproducible Workflows</a>
+<a href="m_simple_shiny.html" class="btn btn-secondary" style="float: left">Previous module:<br>5. Simple Shiny</a> <a href="m_parameterized_reports.html" class="btn btn-secondary" style="float: right;">Next module:<br>7. Paramaterized Reports</a>

@@ -1,5 +1,5 @@
 ---
-title: "Updating R and R packages"
+title: "1. Updating R and R packages"
 description: | 
    How to check versions and update your installation
 output: 
@@ -18,9 +18,9 @@ library(here)
 ::: {.obj}
 **Learning objectives**
 
-- Understand R versions and how to check what you have
-- Learn how to update your R/RStudio installation
-- Learn how to update R packages
+- Understand `R` versions and how to check what you have
+- Learn how to update your `R`/RStudio installation
+- Learn how to update `R` packages
 :::
 
 
@@ -113,7 +113,7 @@ Updating packages can be irksome, but it's typically for the best. We advise upd
 
 <aside>
 
-Read more about `{renv}` in the [project management module](m_project_management.html#).
+Read more about `{renv}` in the [project management module](m_project_management.html#renv).
 
 </aside>
 
@@ -126,3 +126,8 @@ knitr::include_graphics(here::here("images","tidydata_6.jpeg"))
 
 ```
 
+<br> 
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<a href="index.html" class="btn btn-secondary" style="float: left">Previous module:<br> Introduction</a> <a href="m_git.html" class="btn btn-secondary" style="float: right;">Next module:<br> 2. Git</a>
