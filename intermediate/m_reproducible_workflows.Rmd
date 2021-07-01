@@ -26,7 +26,7 @@ library(here)
 
 <br>
 
-## Reproducible workflows and automation
+# Reproducible workflows and automation
 
 In this module, we extend lessons in functional programming from the previous [module on iteration](m_iteration.html), as well as best practices discussed in the [project management module](m_project_management.html) to approach a case study. Special attention is paid to automation.
 
@@ -58,7 +58,7 @@ To demonstrate varying degrees of automation in a real-life example and extend o
 
 <br>
 
-## Case Study: groundwater level trend analysis
+# Case Study: groundwater level trend analysis
 
 The California Department of Water Resources publishes a routine report on groundwater level conditions that shows groundwater level trends on a point-by-point basis. Short-term (i.e., 1, 3, and 5 year) and long-term trends (i.e., 10 and 20 years) are displayed in the report.
 
@@ -68,7 +68,7 @@ The California Department of Water Resources publishes a routine report on groun
 knitr::include_graphics(here("images", "dwr_gwl.png"))
 ```
 
-### Our Task
+## Our Task
 
 Let's imagine our task is ***to assess change in groundwater level across all stations and plot it on a map***, just as we see in the report. In the sections that follow we will calculate groundwater level change trends at representative monitoring points in the [Periodic groundwater level database](https://data.cnra.ca.gov/dataset/periodic-groundwater-level-measurements) we have been using in this course, and demonstrate best practices in creating a reproducible, automatable pipeline. 
 
@@ -333,7 +333,7 @@ ggplot() +
 The map above suggest there are only 3 locations in the basin that show an absolute change of more than 2.5 $ft/yr$. Most of the longer term monitoring locations have an annual absolute rate of change within 0-2.5 $ft/yr$. A quick comparison with Figure \@ref(fig:ca-dwr) suggests that our calculated groundwater level trends are similar in magnitude.
 
 
-### How to write helpful functions
+## How to write helpful functions
 
 Everything we've done until this point is valuable, but is it reproducible? In the sense that we can re-run these scripts on new data, yes, but we can apply project management best practices and refactor our code into functions and programs (scripts) that are easy to re-run (Figure \@ref(fig:automate-fig), left-most situation). We can go one step further and wrap everything into a control script (Figure \@ref(fig:automate-fig), center situation), and in the next section, we'll discuss how to fully automate (Figure \@ref(fig:automate-fig), right-most situation).  
 
@@ -342,6 +342,8 @@ In the spirit of "don't repeat yourself" (DRY), it's often said:
 > If you copy paste a workflow more than 3 times, write a function.  
 
 Recall that in this case study, we want to reevaluate groundwater level trends twice per year, once in spring and once in fall. We decide to save time in the future by abstracting these tasks into a set of functions and a central control script. We also know that others will need to use this same workflow, so we strive to turn our analysis into a reproducible tool for others and include helpful messaging, errors, and conditional execution (i.e., `if` statements) in the code.  
+
+### 1. Download
 
 Let's begin with the download step. Save this as `functions/f_wcr_download.R`. Notice that we add a `dir_out` argument that allows a user to specify a directory to save files to. If this path doesn't exist, we create it. Also, we allow users to specify the urls, so if case they change in the future, this function need not change.  
 
@@ -364,6 +366,8 @@ f_wcr_download <- function(dir_out, urls){
 }
 
 ```
+
+### 2. Read
 
 Next, the import function should be saved as `functions/f_wcr_import.R`. Let's design it so that the user provides a county and a vector of input files. The function returns a helpful message in case they don't provide a valid county. Along the way, we also provide helpful messages with `cat()` statements that print messages to the terminal as the function moves along. Messages like this are can be considered rudimentary form of logging which provides a user information on the status of a function, and may help diagnose and fix errors that may arise by showing the last place where a successful `cat()` message printed. 
 
@@ -445,11 +449,72 @@ Shasta, Sierra, Siskiyou, Solano, Sonoma, Stanislaus, Sutter, Tehama, Tulare,
 Tuolumne, Ventura, Yolo, Yuba, ALL
 ```
 
-Next, we need to clean our data. You can imagine a much more extensive cleaning process for another dataset, but in our simple example, all we want to do is provide the user with the option to set a start and end time to filter the data by. Importantly, we want to ensure that the date arguments passed to the function are valid "Date", "POSIXct", or "POSIXt" object classes so a proper filter occurs. 
+
+### 3. Clean
+
+Next, we need to clean our data. You can imagine a much more extensive cleaning process for another dataset, but in our simple example, all we want to do is provide the user with the option to set a start and end time to filter the data by. If a start or end date is not provided, we have the function calculate the min and max date and use those.  
 
 Save the following code as `functions/f_wcr_clean.R`: 
 
 ```{r f-wcr-clean}
+# clean wcr data
+f_wcr_clean <- function(df, start_date = NULL, end_date = NULL){
+
+  cat("Cleaning data", "\n")
+
+  # if start and end date are NULL, use the min and max date
+  if(is.null(start_date)){
+    start_date <- min(df$MSMT_DATE, na.rm = TRUE)
+    cat("Start date NULL, using min date:", as.character(start_date), "\n")
+  }
+  if(is.null(end_date)){
+    end_date <- max(df$MSMT_DATE, na.rm = TRUE)
+    cat("End date NULL, using max date:", as.character(end_date), "\n")
+  }
+
+  # filter to date range and clean
+  df <- filter(df, MSMT_DATE >= start_date & MSMT_DATE <= end_date)
+
+  cat(
+    "Data filtered between",
+    as.character(start_date), "and",
+    as.character(end_date),   "\n "
+  )
+
+  return(df)
+}
+
+```
+
+Notice that about half of this function is focused not on the transformation, but rather, setting the min and max dates if they're not provided. 
+
+checking that the correct object classes are passed into the function, and sensibly imputing argument values if they're not provided by the user (i.e., if not provided as arguments, start and end dates are assigned as the min and max dates). 
+
+The actual `filter()` statement only takes 1 line of code. The amount of time you should spend fine-tuning functions like so depends on how much you anticipate others using them, and how much you want to constrain their use and messaging. Not every project requires this level of detail. 
+
+:::challenge
+
+<font color="#009E73">**Extra practice: using `stop()`**</font> 
+
+<p style="line-height: 1.5em;">
+A useful function when writing functions is `stop()`, which stops a function from running, and prints an error message. When paired with `if()`, you can build functions that test for conditions where you want the function to error. 
+
+For example, in the function above `f_wcr_clean()`, you may notice that the function depends on a valid date object passed in as the second and third arguments, `start_date` and `end_date`. 
+
+How would you use `if()` and `stop()` to verify if the supplied `start_date` and `end_date` were indeed valid date objects? 
+
+</p>
+
+
+<br>
+
+<details>
+  <summary class="challenge-ans-title"><font color="#0072B2">**Click for the Answer!**</font></summary>
+  <div class="challenge-ans-body">
+  
+The answer is to check the class of the supplied arguments. If they are not within an expected class of `c("Date", "POSIXct", "POSIXt")`, then we can throw an error. Look up the `stop()` documentation (`?stop`) to see what the `.call` argument does.  
+
+```{r, eval = FALSE}
 # clean wcr data
 f_wcr_clean <- function(df, start_date = NULL, end_date = NULL){
 
@@ -500,7 +565,15 @@ f_wcr_clean <- function(df, start_date = NULL, end_date = NULL){
 
 ```
 
-Notice that the vast majority of this function is focused not on the transformation, but rather, checking that the correct object classes are passed into the function, and sensibly imputing argument values if they're not provided by the user (i.e., if not provided as arguments, start and end dates are assigned as the min and max dates). The actual `filter()` statement only takes 1 line of code, but by the time we arrive at this point, we're confident that the function will work as expected. The amount of time you should spend fine-tuning functions like so depends on how much you anticipate others using them, and how much you want to constrain their use and messaging. Not every project requires this level of detail. 
+  </div>
+</details>
+
+:::
+
+<br> 
+
+
+### 4. Model
 
 Moving on, after cleaning, it's time to model. Save another function `functions/f_wcr_model.R` that calculates the linear model at each `SITE_CODE`:
 
@@ -534,6 +607,9 @@ f_wcr_model <- function(df){
   return(result)
 }
 ```
+
+
+### 5. Visualize
 
 Next, we need to visualize and save these data. Add another function `functions/f_wcr_visualize_map.R` which creates the reproduced DWR map above. 
 
@@ -625,6 +701,7 @@ f_wcr_visualize_timeseries <- function(df, dir_out){
 
 ```
 
+### 6. Write
 
 And finally, we want to save these data. We can write another function for that, but we can also achieve that pretty simply within the control script using functional programming, so we'll do that.
 
@@ -808,7 +885,7 @@ Going one step further, if we had a dataset of groundwater levels across the ent
 <br>
 
 
-### Task scheduling
+# Task scheduling
 
 Let's imagine that these groundwater levels were not the DWR periodic groundwater level database, but rather a set of continuous monitoring sensors on telemetry that updated daily, and you needed to kick this pipeline off every day at 10am. Surely you wouldn't manually run `00_control.R` every morning. You'd use a task scheduler.
 
@@ -822,7 +899,7 @@ Also check out the [`{taskscheduleR}`](https://github.com/bnosac/taskscheduleR) 
 </aside>
 
 
-### Logging
+# Logging
 
 Whenever code is running without your supervision on a task scheduler, things may break so it's a good idea to print information whenever the job kicks off so you can review this information in case something doesn't go as planned. We've been decorating our code with `cat()` statements that print updates to the console, and this is helpful, but we can be much more sophisticated and start **logging**. Logging is cornerstone in software engineering, but less so in data science. Logging is important for larger jobs that run often (e.g., anything on a task scheduler) with potential to break, or that may be subject to inputs that sufficiently change and that may breaks code.
 
@@ -834,7 +911,7 @@ A full discussion of logging is out of scope for this lesson, but you can learn 
 
 <br>
 
-## When to not automate
+# When to not automate
 
 As a data scientist, you'll often perform once-over ad-hoc analyses. You may or may not need to return to these analyses, or components of the analyses. Automation takes time, and just because we have the tools to automate doesn't mean that you always should. Whether or not you should automate depends on how often you anticipate the workflow needs to be re-evaluated. The more the workflow needs to be run, the more time we can justify spending on firming up the reproducibility and automation potential of program. When it's not immediately apparent that automation is necessary (e.g., "a daily report of streamflow automatically scraped from 1,000 sensors that we set up on a task scheduler") a general rule of thumb for whether or not to automate may boil down to the following consideration:
 
@@ -856,7 +933,7 @@ knitr::include_graphics(here("images", "automation_xkcd.png"))
 
 <br>
 
-## Code as instructions
+# Code as instructions
 
 We've all done a point-and-click analysis before that becomes unwieldy, large, and "too big to fail." In other words, we cross our fingers and hope we'll never have to repeat the analysis because either:
 
@@ -874,7 +951,7 @@ As you grow in your capability with `R`, you will naturally find yourself able t
 
 <br>
 
-## Additional resources
+# Additional resources
 
 **Convert your `R` code into command line tools**: RStudio is a great interactive development environment (IDE) for writing `R` code, but it's important to remember that R is essentially a program on your computer that you can access and interact with via the command line using the utility `Rscript`. If you need to scale your work to a cluster, or your work expands to involve other programmers who may be less familiar with `R`, you may need to package your `R` code as a command line tool, which is a familiar format for data engineers, data scientists, and developers coming from other backgrounds. A command line tool is essentially a program that can be called from the command line, and passed arguments like so:  
 
