@@ -616,4 +616,93 @@ Now we have the data, let's plot!
 ```
 
 
+# Make a Map with {tmap}
+
+One final component that we haven't covered much is how to create a publication ready-map. We can do this using the `{ggplot2}` package in conjunction with `geom_sf()`, or we can use some alternate packages which are built specifically to work with spatial data and use a similar code structure to `{ggplot2}.
+
+The `{tmap}` and `{tmaptools}` are excellent options to create a nice map that can be used in any report or publication. First, let's load the packages we'll use.
+
+```{r}
+
+library(tmap)
+library(tmaptools)
+
+```
+
+Next we can download a basemap layer to use in our map. For this we need to specify an area we can use. We can use the rivers layer we pulled previously using the `{dataRetrieval}` package. For this, we can use the `st_box()` to get an extent.
+
+```{r}
+
+# create a boundary box
+st_bbox(ca_co_isd_poly)
+
+# get baselayer
+base_osm <- read_osm(ca_co_isd_poly, type = "esri-topo", raster=TRUE)
+
+```
+
+Once we have a base layer, we can make our plot!
+
+<aside>
+
+When plotting rasters, we can specify the resolution that gets plotted using `tmap_options(max.raster = c(plot=1e6, view=1e6))`. This helps speed up plotting when necessary.
+
+</aside>
+
+```{r}
+
+final_tmap <-
+  # basemap
+  tm_shape(base_osm) + tm_rgb() +
+  
+  # counties
+  tm_shape(ca_co_isd_poly) +
+  tm_polygons(border.col="gray50", col="gray50", 
+              alpha = 0.1, border.alpha = 0.9, lwd=0.5, lty=1) +
+  # basins
+  tm_shape(nldi_SACRA$basin) +
+  tm_polygons(border.col="cyan4", col="cyan4", 
+              alpha = 0.8, border.alpha = 0.9, lwd=0.3, lty=2) +
+  tm_shape(nldi_STOCK$basin) +
+  tm_polygons(border.col="cyan4", col="cyan4", 
+              alpha = 0.8, border.alpha = 0.9, lwd=0.3, lty=2) +
+  # rivers
+  tm_shape(nldi_SACRA$DM_flowlines) +
+  tm_lines(col="steelblue", lwd=2) +
+  tm_shape(nldi_STOCK$DM_flowlines) +
+  tm_lines(col="steelblue", lwd=2) +
+  # points: ISD stations
+  tm_shape(isd_stations_keep) +
+    tm_symbols(col="orange3", border.col="gray20", 
+               shape = 21, size = 2.5, alpha=1) +
+  # points usgs
+  tm_shape(usgs_stations) +
+    tm_symbols(col="gray50", border.col="gray20", 
+               shape = 21, size = 0.5, alpha=0.9) +
+  # points usgs
+  tm_shape(usgs_stations_final) +
+    tm_symbols(col="yellow", border.col="gray20", 
+               shape = 21, size = 1.8) +
+  # layout
+    tm_layout(
+              frame = FALSE,
+              legend.outside = FALSE, attr.outside = FALSE,
+              inner.margins = 0.01, outer.margins = (0.01),
+              #legend.position = c(0.6,0.85),
+              title.position = c(0.7, 0.95)) +
+    tm_compass(type = "4star", position = c("right","bottom")) +
+    tm_scale_bar(position = c("right","bottom"))
+
+final_tmap
+
+```
+
+To save this map, we use a similar function as the `ggsave()`, but in this case, it's `tmap::tmap_save()`.
+
+```{r}
+
+tmap::tmap_save(final_tmap, 
+                filename = here("images","map_of_sites.jpg"),
+                height = 11, width = 8, units = "in", dpi = 300)
+```
 
