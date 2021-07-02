@@ -31,7 +31,7 @@ library(knitr)
 
 Any time you are working on your computer, you are navigating amidst a forest of files and folders. One of the best habits you can form (whether you are using R or not!), is **intentionally keeping a clear structure**, no matter what project or task you face.
 
-This becomes especially important when using computer programming like `r icon::fa("r-project", color="steelblue")` in your work. You will need to tell R, very specifically, where you are and where your files are in the forest of your computer. Where you are is typically referred to as the **working directory**. In `r icon::fa("r-project", color="steelblue")`, think of this as your homebase, and everything is *relative* to this folder/location on your computer.
+This becomes especially important when using computer programming like `r icons::icon_style(icons::fontawesome("r-project"), color="steelblue")` in your work. You will need to tell R, very specifically, where you are and where your files are in the forest of your computer. Where you are is typically referred to as the **working directory**. In `r icons::icon_style(icons::fontawesome("r-project"), color="steelblue")`, think of this as your homebase, and everything is *relative* to this folder/location on your computer.
 
 ### The Working Directory
 
@@ -142,7 +142,7 @@ At a minimum, it’s useful to have separate directories for each of the followi
 
  - **`data`**: Ideally keep data in a `.csv` format, because these simple and universal data. You may have other specialized formats as well. This is generally where original, raw data lives.
  - **`data_output`**: This is where you save any data or analysis outputs. Any time you clean, tidy, summarize, or otherwise manipulate the data and save it out, it should end up somewhere clearly different than the raw data location.
- - **`scripts`**: In the `r icon::fa("r-project", color="darkblue")` world, this is generally `.R` files. However, maybe you have `.do` files if Stata is your thing, `.py` files for Python, etc. Using a sequential numbering file naming scheme can be useful. Remember to pad with a zero to make file sorting/ordering easy.
+ - **`scripts`**: In the `r icons::icon_style(icons::fontawesome("r-project"), color="darkblue")` world, this is generally `.R` files. However, maybe you have `.do` files if Stata is your thing, `.py` files for Python, etc. Using a sequential numbering file naming scheme can be useful. Remember to pad with a zero to make file sorting/ordering easy.
  - **`results`**: This could be for model results, data analysis, slides, whatever. Some folks may like to keep figures in this folder, others may like to make a specific `figures` folder.
  - **`documents`**: This is a place you can keep documents, papers, pdfs, etc. Typically where files with `.docx`, `.Rmd` (for RMarkdown), and `.pdf` or even `.html` may live.
  

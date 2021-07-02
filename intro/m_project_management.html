@@ -46,51 +46,57 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
+    background-color: #ffffff;
+    color: #a0a0a0;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #a0a0a0;  padding-left: 4px; }
 div.sourceCode
-  {   }
+  { color: #1f1c1b; background-color: #ffffff; }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; } /* Alert */
-code span.an { color: #008000; } /* Annotation */
-code span.at { } /* Attribute */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #0000ff; } /* ControlFlow */
-code span.ch { color: #008080; } /* Char */
-code span.cn { color: #585cf6; } /* Constant */
-code span.co { color: #4c886b; } /* Comment */
-code span.cv { color: #008000; } /* CommentVar */
-code span.do { color: #008000; } /* Documentation */
-code span.dv { color: #0000cd; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #0000cd; } /* Float */
-code span.im { } /* Import */
-code span.in { color: #008000; } /* Information */
-code span.kw { color: #0000ff; } /* Keyword */
-code span.op { color: #687687; } /* Operator */
-code span.ot { color: #ff4000; } /* Other */
-code span.pp { color: #ff4000; } /* Preprocessor */
-code span.sc { color: #008080; } /* SpecialChar */
-code span.ss { color: #008080; } /* SpecialString */
-code span.st { color: #036a07; } /* String */
-code span.va { } /* Variable */
-code span.vs { color: #008080; } /* VerbatimString */
-code span.wa { color: #008000; font-weight: bold; } /* Warning */
+code span { color: #1f1c1b; } /* Normal */
+code span.al { color: #bf0303; background-color: #f7e6e6; font-weight: bold; } /* Alert */
+code span.an { color: #ca60ca; } /* Annotation */
+code span.at { color: #0057ae; } /* Attribute */
+code span.bn { color: #b08000; } /* BaseN */
+code span.bu { color: #644a9b; font-weight: bold; } /* BuiltIn */
+code span.cf { color: #1f1c1b; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #924c9d; } /* Char */
+code span.cn { color: #aa5500; } /* Constant */
+code span.co { color: #898887; } /* Comment */
+code span.cv { color: #0095ff; } /* CommentVar */
+code span.do { color: #607880; } /* Documentation */
+code span.dt { color: #0057ae; } /* DataType */
+code span.dv { color: #b08000; } /* DecVal */
+code span.er { color: #bf0303; text-decoration: underline; } /* Error */
+code span.ex { color: #0095ff; font-weight: bold; } /* Extension */
+code span.fl { color: #b08000; } /* Float */
+code span.fu { color: #644a9b; } /* Function */
+code span.im { color: #ff5500; } /* Import */
+code span.in { color: #b08000; } /* Information */
+code span.kw { color: #1f1c1b; font-weight: bold; } /* Keyword */
+code span.op { color: #1f1c1b; } /* Operator */
+code span.ot { color: #006e28; } /* Other */
+code span.pp { color: #006e28; } /* Preprocessor */
+code span.re { color: #0057ae; background-color: #e0e9f8; } /* RegionMarker */
+code span.sc { color: #3daee9; } /* SpecialChar */
+code span.ss { color: #ff5500; } /* SpecialString */
+code span.st { color: #bf0303; } /* String */
+code span.va { color: #0057ae; } /* Variable */
+code span.vs { color: #bf0303; } /* VerbatimString */
+code span.wa { color: #bf0303; } /* Warning */
 </style>
 
   <!--radix_placeholder_meta_tags-->
-  <title>R for Water Resources Data Science: Project Management: Let's Get Organized</title>
+  <title>R for Water Resources Data Science: 3. Project Management: Let's Get Organized</title>
 
   <meta property="description" itemprop="description" content="Know where you are..."/>
 
 
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-  <meta property="og:title" content="R for Water Resources Data Science: Project Management: Let&#39;s Get Organized"/>
+  <meta property="og:title" content="R for Water Resources Data Science: 3. Project Management: Let&#39;s Get Organized"/>
   <meta property="og:type" content="article"/>
   <meta property="og:description" content="Know where you are..."/>
   <meta property="og:locale" content="en_US"/>
@@ -98,14 +104,14 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
-  <meta property="twitter:title" content="R for Water Resources Data Science: Project Management: Let&#39;s Get Organized"/>
+  <meta property="twitter:title" content="R for Water Resources Data Science: 3. Project Management: Let&#39;s Get Organized"/>
   <meta property="twitter:description" content="Know where you are..."/>
 
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","output"]}},"value":[{"type":"character","attributes":{},"value":["Project Management: Let's Get Organized"]},{"type":"character","attributes":{},"value":["Know where you are...\n"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","output"]}},"value":[{"type":"character","attributes":{},"value":["3. Project Management: Let's Get Organized"]},{"type":"character","attributes":{},"value":["Know where you are...\n"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2030,8 +2036,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
-  <link href="site_libs/font-awesome-5.3.1/css/fontawesome-all.min.css" rel="stylesheet" />
+  <script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2265,6 +2270,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
     background-color: rgba(0,0,0,.1);
   }
 
+
   /*grey code block*/
 
   .sourceCode {
@@ -2272,6 +2278,28 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
     border-radius: 4px;
   }
 
+
+  /*make the link in the appendix more readable against the grey text*/
+  d-appendix a:link {
+    color: blue;
+    background-color: transparent;
+    text-decoration: none;
+  }
+  d-appendix a:visited {
+    color: lightblue;
+    background-color: transparent;
+    text-decoration: none;
+  }
+  d-appendix a:hover {
+    color: lightblue;
+    background-color: transparent;
+    text-decoration: underline;
+  }
+  d-appendix a:active {
+    color: blue;
+    background-color: transparent;
+    text-decoration: underline;
+  }
 
   </style>
   <!--/radix_placeholder_site_in_header-->
@@ -2285,7 +2313,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Project Management: Let's Get Organized","description":"Know where you are...","authors":[]}
+{"title":"3. Project Management: Let's Get Organized","description":"Know where you are...","authors":[]}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2334,7 +2362,7 @@ Modules
 <!--/radix_placeholder_site_before_body-->
 
 <div class="d-title">
-<h1>Project Management: Let’s Get Organized</h1>
+<h1>3. Project Management: Let’s Get Organized</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
 <p><p>Know where you are…</p></p>
@@ -2381,7 +2409,7 @@ Modules
 <h2 id="where-am-i">Where Am I?</h2>
 <p><img src="https://upload.wikimedia.org/wikipedia/commons/3/39/Messy_storage_room_with_boxes.jpg" /></p>
 <p>Any time you are working on your computer, you are navigating amidst a forest of files and folders. One of the best habits you can form (whether you are using R or not!), is <strong>intentionally keeping a clear structure</strong>, no matter what project or task you face.</p>
-<p>This becomes especially important when using computer programming like <i class="fab  fa-r-project " style="color:steelblue;"></i> in your work. You will need to tell R, very specifically, where you are and where your files are in the forest of your computer. Where you are is typically referred to as the <strong>working directory</strong>. In <i class="fab  fa-r-project " style="color:steelblue;"></i>, think of this as your homebase, and everything is <em>relative</em> to this folder/location on your computer.</p>
+<p>This becomes especially important when using computer programming like <svg viewBox="0 0 581 512" style="height:1em;position:relative;display:inline-block;top:.1em;color:steelblue;" xmlns="http://www.w3.org/2000/svg"> <path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"></path></svg> in your work. You will need to tell R, very specifically, where you are and where your files are in the forest of your computer. Where you are is typically referred to as the <strong>working directory</strong>. In <svg viewBox="0 0 581 512" style="height:1em;position:relative;display:inline-block;top:.1em;color:steelblue;" xmlns="http://www.w3.org/2000/svg"> <path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"></path></svg>, think of this as your homebase, and everything is <em>relative</em> to this folder/location on your computer.</p>
 <h3 id="the-working-directory">The Working Directory</h3>
 <p>The working directory could be something like “<code>Myname/Documents</code>”, or it could be something more specific like “<code>MyName/Documents/Projects/2021</code>”. You can always check with <code>getwd()</code>! Importantly, everything you do should be relative to that working directory.</p>
 <p>That means we really <strong>don’t</strong> want to use things like <code>setwd()</code> (set working directory) to locate a file or folder on our computer, or use a hard path (i.e., a full path like <code>C:/MyUserName/My_Documents/A_Folder_You_May_Have/But_This_One_You_Definitely_Dont/</code>). That’s because this will pretty much <strong>never</strong> work on anyone’s computer other than your own, and sometimes it may not even work on your computer if you change a file name or folder! We really want to set a good habit, to make things reproducible for others, and for our future self.</p>
@@ -2395,14 +2423,14 @@ Modules
 <p>Good news! There’s a package that can make this easier. The <strong>{here}</strong> package makes it easy to create a path <em>relative</em> to the top-level directory (the place where your current project is or any time you call <code>here()</code>). In addition, we can use <code>here()</code> to build a relative path to a file for saving or loading. Let’s say we’re working in our <code>MyName/Documents/Projects/2020</code> folder.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/krlmlr/here'>here</a></span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://here.r-lib.org/'>here</a></span><span class='op'>)</span>
 
 <span class='co'># identify your working directory.</span>
-<span class='fu'><a href='https://rdrr.io/pkg/here/man/here.html'>here</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='co'>#&gt; [1] /Users/MyName/Documents/Projects/2020</span>
 
 <span class='co'># load a file from `MyName/Documents/Projects/2020/data/superdata.csv`</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/here/man/here.html'>here</a></span><span class='op'>(</span><span class='st'>"data"</span>, <span class='st'>"superdata.csv"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"data"</span>, <span class='st'>"superdata.csv"</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
@@ -2469,7 +2497,7 @@ Figure 2: <em>Change defaults to never save your workspace to <code>.RData</code
 <ul>
 <li><strong><code>data</code></strong>: Ideally keep data in a <code>.csv</code> format, because these simple and universal data. You may have other specialized formats as well. This is generally where original, raw data lives.</li>
 <li><strong><code>data_output</code></strong>: This is where you save any data or analysis outputs. Any time you clean, tidy, summarize, or otherwise manipulate the data and save it out, it should end up somewhere clearly different than the raw data location.</li>
-<li><strong><code>scripts</code></strong>: In the <i class="fab  fa-r-project " style="color:darkblue;"></i> world, this is generally <code>.R</code> files. However, maybe you have <code>.do</code> files if Stata is your thing, <code>.py</code> files for Python, etc. Using a sequential numbering file naming scheme can be useful. Remember to pad with a zero to make file sorting/ordering easy.</li>
+<li><strong><code>scripts</code></strong>: In the <svg viewBox="0 0 581 512" style="height:1em;position:relative;display:inline-block;top:.1em;color:darkblue;" xmlns="http://www.w3.org/2000/svg"> <path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"></path></svg> world, this is generally <code>.R</code> files. However, maybe you have <code>.do</code> files if Stata is your thing, <code>.py</code> files for Python, etc. Using a sequential numbering file naming scheme can be useful. Remember to pad with a zero to make file sorting/ordering easy.</li>
 <li><strong><code>results</code></strong>: This could be for model results, data analysis, slides, whatever. Some folks may like to keep figures in this folder, others may like to make a specific <code>figures</code> folder.</li>
 <li><strong><code>documents</code></strong>: This is a place you can keep documents, papers, pdfs, etc. Typically where files with <code>.docx</code>, <code>.Rmd</code> (for RMarkdown), and <code>.pdf</code> or even <code>.html</code> may live.</li>
 </ul>
@@ -2484,7 +2512,7 @@ Figure 3: <em>An example project folder structure</em>
 <p><em>Lesson adapted from <a href="https://gge-ucd.github.io/R-DAVIS/index.html">R-DAVIS</a>, Jenny Bryan and Jim Hester’s <a href="rstats.wtf">What they forgot to teach you about R</a>, and the <a href="https://datacarpentry.org/R-ecology-lesson/index.html">Data Carpentry: R for data analysis and visualization of Ecological Data</a> lessons</em>.</p>
 <p><br></p>
 <p><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"></p>
-<p><a href="m_getting_started.html" class="btn btn-secondary" style="float: left">Previous module:<br> Getting started</a> <a href="m_importing_and_exporting_data.html" class="btn btn-secondary" style="float: right;">Next module:<br> Import/export data</a></p>
+<p><a href="m_getting_started.html" class="btn btn-secondary" style="float: left">Previous module:<br> 2. Getting started</a> <a href="m_importing_and_exporting_data.html" class="btn btn-secondary" style="float: right;">Next module:<br> 4. Import/export data</a></p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
@@ -2497,7 +2525,10 @@ Figure 3: <em>An example project folder structure</em>
 <!--radix_placeholder_site_after_body-->
 <!--/radix_placeholder_site_after_body-->
 <!--radix_placeholder_appendices-->
-<div class="appendix-bottom"></div>
+<div class="appendix-bottom">
+<h3 id="updates-and-corrections">Corrections</h3>
+<p>If you see mistakes or want to suggest changes, please <a href="https://github.com/ryanpeek/r4wrds/issues/new">create an issue</a> on the source repository.</p>
+</div>
 <!--/radix_placeholder_appendices-->
 <!--radix_placeholder_navigation_after_body-->
 <div class="distill-site-nav distill-site-footer">

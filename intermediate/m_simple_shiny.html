@@ -2341,16 +2341,14 @@ Modules
 <span class="down-arrow">&#x25BE;</span>
 </button>
 <div class="nav-dropdown-content">
-<a href="m_install_R.html">Module 1: </a>
-<a href="m_getting_started.html">Module 2: </a>
-<a href="m_project_management.html">Module 3:</a>
-<a href="m_importing_and_exporting_data.html">Module 4:</a>
-<a href="m_ggplot.html">Module 5:</a>
-<a href="m_data_structures.html">Module 6: </a>
-<a href="m_dplyr.html">Module 7: </a>
-<a href="m_pivots.html">Module 8: </a>
-<a href="m_functions.html">Module 9: </a>
-<a href="m_joins.html">Module 10: s</a>
+<a href="m_updating_r.html">Module 1: Check/Update R/RStudio and Packages</a>
+<a href="m_version_control.html">Module 2: Version Control with git</a>
+<a href="m_project_management.html">Module 3: Project Management and workflows</a>
+<a href="m_interactive_viz.html">Module 4: Interactive visualization</a>
+<a href="m_simple_shiny.html">Module 5: Shiny</a>
+<a href="m_iteration.html">Module 6: Iteration and functional programming</a>
+<a href="m_parameterized_reports.html">Module 7: Parameterized reports</a>
+<a href="m_advanced_spatial.html">Module 8: Advanced spatial R and mapmaking</a>
 </div>
 </div>
 <a href="../index.html">
@@ -2665,7 +2663,7 @@ Modules
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://shiny.rstudio.com/'>shiny</a></span><span class='op'>)</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>shinythemes</span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://rstudio.github.io/shinythemes/'>shinythemes</a></span><span class='op'>)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
 
 <span class='co'># load sac county groundwater data and sac county polygon</span>
@@ -2676,7 +2674,7 @@ Modules
 <span class='va'>ui</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/fluidPage.html'>fluidPage</a></span><span class='op'>(</span>
 
     <span class='co'># change default theme to "united"</span>
-    theme <span class='op'>=</span> <span class='fu'>shinytheme</span><span class='op'>(</span><span class='st'>"united"</span><span class='op'>)</span>,
+    theme <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/shinythemes/man/shinytheme.html'>shinytheme</a></span><span class='op'>(</span><span class='st'>"united"</span><span class='op'>)</span>,
   
     <span class='co'># application title</span>
     <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/titlePanel.html'>titlePanel</a></span><span class='op'>(</span><span class='st'>"Sacramento County Groundwater Level Data"</span><span class='op'>)</span>,
@@ -2746,12 +2744,17 @@ Modules
 <p>Shiny App design and customization options are vast. We demonstrated the “united” theme here, which is one of many <a href="https://shiny.rstudio.com/gallery/shiny-theme-selector.html"><code>{shinythemes}</code></a>. You can also add <a href="https://shiny.rstudio.com/articles/css.html">custom CSS</a> in-line, or in a <code>styles.css</code> script in the Shiny App directory.</p>
 <p>Finally, although we demonstrate a simple Shiny App, more functional and complex Apps may benefit from modularizing particular App components. <a href="https://shiny.rstudio.com/articles/modules.html">Learn more about building Shiny modules here</a>.</p>
 </aside>
-<p>Let’s break down what we just did.</p>
+<p><br></p>
+<p><strong>Let’s break down what we just did.</strong></p>
 <ol type="1">
 <li><p>Before anything else, we loaded the packages we needed<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> and our groundwater level data <code>gwl</code>.</p></li>
 <li><p>Next, in the <code>ui</code>, we added a custom theme from the <code>{shinythemes}</code> package to change the default appearance of our App. We used a <code>selectInput()</code> control widget with a ID <code>"site_code"</code> and choices equal to the unique values of <code>SITE_CODE</code>s in the <code>gwl</code> dataframe. Then, in the <code>mainPanel()</code> we added a <code>tabsetPanel()</code> with two <code>tabPanel()</code> tabs: one with a <code>plotly::plotlyOutput()</code> plot, and another with a <code>DT::dataTableOutput()</code> output.</p></li>
 <li><p>Finally, in the <code>server</code>, we rendered plotly and dataTable objects and saved them to the <code>output</code> object under the output IDs <code>"gwl_plot"</code> and <code>"gwl_data"</code>. These objects are displayed in the <code>ui</code>.</p></li>
 </ol>
+<p>And the resulting Shiny App is:</p>
+<div class="layout-chunk" data-layout="l-page">
+<p><img src="images/gwl_shiny.png" width="897" /></p>
+</div>
 <p><br></p>
 <h2 id="share-and-deploy-a-shiny-app">Share and deploy a Shiny App</h2>
 <p>Up until now, we’ve been using our own computer to run our Shiny App example. How do we share a Shiny App with others?</p>

@@ -442,7 +442,9 @@ Finally, although we demonstrate a simple Shiny App, more functional and complex
 
 </aside>
 
-Let's break down what we just did.  
+<br>
+
+**Let's break down what we just did.**  
 
 1.  Before anything else, we loaded the packages we needed[^5] and our groundwater level data `gwl`.
 
@@ -451,6 +453,13 @@ Let's break down what we just did.
 3.  Finally, in the `server`, we rendered plotly and dataTable objects and saved them to the `output` object under the output IDs `"gwl_plot"` and `"gwl_data"`. These objects are displayed in the `ui`.
 
 [^5]: Although we don't cover it in this module, you can also split your App into 3 files: `ui.R` (for the `ui`), `server.R` (for the `server`), and `global.R` (loads all App dependencies). When an App becomes big and complex, splitting it up into smaller parts can make it easier to develop. 
+
+And the resulting Shiny App is:
+
+```{r shiny-screenshot, eval=T, echo=F, layout="l-page"}
+include_graphics(here::here("images", "gwl_shiny.png"))
+```
+
 
 <br>  
 

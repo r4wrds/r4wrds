@@ -132,7 +132,7 @@ Content in these lessons has been modified and/or adapted from [Data Carpentry: 
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-<a href="m_project_management.html" class="btn btn-secondary" style="float: right;">Next module:<br> Install R/RStudio</a>  
+<a href="m_install_r.html" class="btn btn-secondary" style="float: right;">Next module:<br>1. Install R/RStudio</a>  
 ---
 
 *site last updated: ```r format(Sys.time(), "%Y-%m-%d %H:%M")```*
