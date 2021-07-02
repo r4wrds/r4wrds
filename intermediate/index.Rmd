@@ -25,6 +25,14 @@ What makes an *Intermediate `R` user*? This course is most relevant and targeted
  - Have a general understanding and proficiency in using `{dplyr}`, `{ggplot2}`, `{sf}`, and `{rmarkdown}`
  - Understand (and use) general best practices for data science in `R`
 
+<br>
+
+## Why `R`?
+
+[`R`](https://www.r-project.org/) is an open-source language for statistical computing and a general purpose programming language. It is one of the primary languages used for data science, modeling, and visualization.  
+
+<br>
+
 ## What will you learn?
 
 In this course, we will move more quickly, assume familiarity with basic `R` skills, and also assume that the participant has working experience with more complex workflows, operations, and code-bases. Each module in this course functions as a "stand-alone" lesson, and can be read linearly, or out of order according to your needs and interests. Each module doesn't necessarily require familiarity with the previous module.
@@ -62,13 +70,38 @@ knitr::include_graphics(path = "https://raw.githubusercontent.com/allisonhorst/s
 
 :::
 
-<br>
-
-## Why `R`?
-
-[`R`](https://www.r-project.org/) is an open-source language for statistical computing and a general purpose programming language. It is one of the primary languages used for data science, modeling, and visualization.  
 
 <br>
+
+## Data
+
+All data used in this course is expected to live in a `/data` subfolder in the project directory. It can be downloaded in 1 of 2 ways:
+
+1. [Downloaded and unzipped from OSF](https://osf.io/qweju/download)  
+2. [Cloned from the `wrds-data` Github repository](https://github.com/richpauloo/r4wrds-data)  
+
+Your project directory structure should look like this (note the position of the `/data` subfolder):
+
+```
+.
+├── code
+│   ├── module_01.R
+│   └── module_02.R
+│   └── ...
+├── data
+│   ├── gwl.csv
+│   └── polygon.shp
+│   └── ...
+└── intermediate.Rproj
+```
+
+To complete code exercises and follow along in the course, you will create a `/code` subfolder to store `.R` scripts, which we recommend naming by module. 
+
+You will also need to create an `intro.Rproj` file, covered in the [introductory project management module](../intro/m_project_management.html#use-project-workflows). Alternatively, on the command line, use `touch intro.Rproj` (MacOS/Linux) or `echo > intro.Rproj` (Windows) in the root project directory.
+
+
+<br>
+
 
 ## Workshop Overview
 
@@ -80,15 +113,6 @@ We will follow the [SFS Code of Conduct](https://freshwater-science.org/about/so
 ## Source content
 
 All source materials for this website can be accessed at the [`r4wrds` Github repository](https://github.com/ryanpeek/r4wrds).  
-
-<br>
-
-## Data
-
-All data used in this course is expected to live in a `/data` subfolder in the project directory. It can be downloaded in 1 of 2 ways:
-
-1. [Downloaded and unzipped from OSF](link-needed)  
-2. [Cloned from the `wrds-data` Github repository](https://github.com/richpauloo/r4wrds-data)  
 
 <br>
 

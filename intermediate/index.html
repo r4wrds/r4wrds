@@ -2390,6 +2390,10 @@ Modules
 <li>Have a general understanding and proficiency in using <code>{dplyr}</code>, <code>{ggplot2}</code>, <code>{sf}</code>, and <code>{rmarkdown}</code></li>
 <li>Understand (and use) general best practices for data science in <code>R</code></li>
 </ul>
+<p><br></p>
+<h2 id="why-r">Why <code>R</code>?</h2>
+<p><a href="https://www.r-project.org/"><code>R</code></a> is an open-source language for statistical computing and a general purpose programming language. It is one of the primary languages used for data science, modeling, and visualization.</p>
+<p><br></p>
 <h2 id="what-will-you-learn">What will you learn?</h2>
 <p>In this course, we will move more quickly, assume familiarity with basic <code>R</code> skills, and also assume that the participant has working experience with more complex workflows, operations, and code-bases. Each module in this course functions as a “stand-alone” lesson, and can be read linearly, or out of order according to your needs and interests. Each module doesn’t necessarily require familiarity with the previous module.</p>
 <p><strong>This course emphasizes:</strong></p>
@@ -2429,8 +2433,26 @@ Figure 1: <em>Artwork by <span class="citation" data-cites="allison_horst">@alli
 </ol>
 </div>
 <p><br></p>
-<h2 id="why-r">Why <code>R</code>?</h2>
-<p><a href="https://www.r-project.org/"><code>R</code></a> is an open-source language for statistical computing and a general purpose programming language. It is one of the primary languages used for data science, modeling, and visualization.</p>
+<h2 id="data">Data</h2>
+<p>All data used in this course is expected to live in a <code>/data</code> subfolder in the project directory. It can be downloaded in 1 of 2 ways:</p>
+<ol type="1">
+<li><a href="https://osf.io/qweju/download">Downloaded and unzipped from OSF</a><br />
+</li>
+<li><a href="https://github.com/richpauloo/r4wrds-data">Cloned from the <code>wrds-data</code> Github repository</a></li>
+</ol>
+<p>Your project directory structure should look like this (note the position of the <code>/data</code> subfolder):</p>
+<pre><code>.
+├── code
+│   ├── module_01.R
+│   └── module_02.R
+│   └── ...
+├── data
+│   ├── gwl.csv
+│   └── polygon.shp
+│   └── ...
+└── intermediate.Rproj</code></pre>
+<p>To complete code exercises and follow along in the course, you will create a <code>/code</code> subfolder to store <code>.R</code> scripts, which we recommend naming by module.</p>
+<p>You will also need to create an <code>intro.Rproj</code> file, covered in the <a href="../intro/m_project_management.html#use-project-workflows">introductory project management module</a>. Alternatively, on the command line, use <code>touch intro.Rproj</code> (MacOS/Linux) or <code>echo &gt; intro.Rproj</code> (Windows) in the root project directory.</p>
 <p><br></p>
 <h2 id="workshop-overview">Workshop Overview</h2>
 <p>We will follow the <a href="https://freshwater-science.org/about/society-governance/code-of-conduct">SFS Code of Conduct</a> throughout our workshop.</p>
@@ -2438,22 +2460,14 @@ Figure 1: <em>Artwork by <span class="citation" data-cites="allison_horst">@alli
 <h2 id="source-content">Source content</h2>
 <p>All source materials for this website can be accessed at the <a href="https://github.com/ryanpeek/r4wrds"><code>r4wrds</code> Github repository</a>.</p>
 <p><br></p>
-<h2 id="data">Data</h2>
-<p>All data used in this course is expected to live in a <code>/data</code> subfolder in the project directory. It can be downloaded in 1 of 2 ways:</p>
-<ol type="1">
-<li><a href="link-needed">Downloaded and unzipped from OSF</a><br />
-</li>
-<li><a href="https://github.com/richpauloo/r4wrds-data">Cloned from the <code>wrds-data</code> Github repository</a></li>
-</ol>
-<p><br></p>
 <h2 id="attribution">Attribution</h2>
 <p>Content in these lessons has been modified and/or adapted from <a href="https://datacarpentry.org/R-ecology-lesson/index.html">Data Carpentry: <code>R</code> for data analysis and visualization of Ecological Data</a>, the USGS-R training curriculum <a href="https://github.com/USGS-R/training-curriculum">here</a>, the NCEAS Open Science for Synthesis workshop <a href="https://nceas.github.io/oss-2017/index.html">here</a>, <a href="https://ryanpeek.org/mapping-in-R-workshop/">Mapping in <code>R</code></a>, and the wonderful text <a href="https://github.com/hadley/r4ds"><code>R</code> for data science</a>.</p>
 <p><br></p>
 <p><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"></p>
 <p><a href="m_updating_r.html" class="btn btn-secondary" style="float: right;">Next module:<br> Updating <code>R</code></a></p>
 <hr />
-<p><em>site last updated: <code>2021-07-01 14:57</code></em></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<p><em>site last updated: <code>2021-07-02 09:25</code></em></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
