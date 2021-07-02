@@ -8,7 +8,6 @@ output:
 editor_options: 
   chunk_output_type: console
 creative_commons: CC BY
-preview: https://r4wrds.com/img/cover.png
 ---
 
 
@@ -156,7 +155,7 @@ A powerful visualization tool is the [D3.js](https://d3js.org) (javascript) libr
 
 Here's an example of a calendar visualization, based on the stock market open and close between 2006 and 2010.
 
-```{r, eval=TRUE, echo=FALSE}
+```{r, eval=TRUE, echo=FALSE, preview = TRUE}
 library(r2d3)
 
 r2d3(data = read_csv("https://raw.githubusercontent.com/rstudio/r2d3/master/vignettes/gallery/calendar/dji-latest.csv"), d3_version = 4, container = "div", options = list(start = 2006, end = 2011), script = here("functions","calendar.js"))

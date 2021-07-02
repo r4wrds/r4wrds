@@ -6,7 +6,6 @@ output:
   distill::distill_article:
     toc: true
 creative_commons: CC BY
-preview: https://r4wrds.com/img/cover.png
 ---
 
 ```{r setup, include=FALSE, purl=FALSE, message=FALSE}
@@ -60,7 +59,7 @@ str(stations)
 
 ```
 
-```{r, out.width='80%', echo=FALSE}
+```{r, out.width='80%', echo=FALSE, preview = TRUE}
 
 knitr::include_graphics("images/rstudio_env_stations_expand.png")
 

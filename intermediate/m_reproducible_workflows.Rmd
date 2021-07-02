@@ -6,7 +6,6 @@ output:
   distill::distill_article:
     toc: true
 creative_commons: CC BY
-preview: https://r4wrds.com/img/cover.png
 ---
 
 
@@ -47,7 +46,7 @@ Any time we have a fully automated program that runs on its own, **logging** sho
 
 (ref:automate-fig) *Automation is like watering a row of plants. Each program is like a bucket that waters one plant at a time. Wrapping the programs into a single "master switch" control script is like installing drip irrigation so that all plants are watered at once. In order to fully automate, we can set a task scheduler, which is like adding a timer onto our drip irrigation system.*
 
-```{r automate-fig, eval=TRUE, echo=FALSE, out.width='100%', fig.cap='(ref:automate-fig)'}
+```{r automate-fig, eval=TRUE, echo=FALSE, out.width='100%', fig.cap='(ref:automate-fig)', preview = TRUE}
 knitr::include_graphics(here("images", "automation.png"))
 ```
 

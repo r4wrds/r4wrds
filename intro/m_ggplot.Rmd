@@ -6,7 +6,6 @@ output:
   distill::distill_article:
     toc: true
 creative_commons: CC BY
-preview: https://r4wrds.com/img/cover.png
 ---
 
 ```{r setup, include=FALSE, purl=FALSE, message=FALSE}
@@ -453,7 +452,7 @@ ggsave(here("results","my_plot_ggsave.png"), my_plot)
 
 [Global estimates](https://www.colourblindawareness.org/colour-blindness/) suggest that 8% of men and 0.5% of women experience some form of colorblindness. When creating data visualizations, default palettes may not be colorblind-safe. Fortunately, **`{ggplot2}`** includes options for colorblind-safe scales. These can be used with both `color` and `fill` aesthetics by adding the `scale_<color or fill>_viridis_<c or d>` functions to our ggplots. 
 
-```{r vir}
+```{r vir, preview = TRUE}
 ggplot(data = gwl_10) +
   geom_line(aes(MSMT_DATE, GSE_WSE, color = SITE_CODE)) +
   scale_color_viridis_d() # a "discrete" viridis color palette.

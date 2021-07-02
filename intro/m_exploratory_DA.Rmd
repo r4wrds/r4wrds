@@ -6,7 +6,6 @@ output:
   distill::distill_article:
     toc: true
 creative_commons: CC BY
-preview: https://r4wrds.com/img/cover.png
 ---
 
 ```{r setup, include=FALSE, purl=FALSE, message=FALSE}
@@ -211,7 +210,7 @@ p2
 
 The {patchwork} R package is great for combining plots. We can combine the previous 2 plots with a simple "`+`" once patchwork is loaded.
 
-```{r patchwork, out.width="100%"}
+```{r patchwork, out.width="100%", preview = TRUE}
 library(patchwork)
 
 p1 + p2

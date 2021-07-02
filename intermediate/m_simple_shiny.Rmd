@@ -6,7 +6,6 @@ output:
   distill::distill_article:
     toc: true
 creative_commons: CC BY
-preview: https://r4wrds.com/img/cover.png
 ---
 
 
@@ -459,7 +458,9 @@ Finally, although we demonstrate a simple Shiny App, more functional and complex
 
 And the resulting Shiny App is:
 
-```{r shiny-screenshot, eval=T, echo=F, layout="l-page"}
+<br>
+
+```{r shiny-screenshot, eval=T, echo=F, layout="l-page", preview = TRUE}
 include_graphics(here::here("images", "gwl_shiny.png"))
 ```
 

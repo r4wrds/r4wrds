@@ -6,7 +6,6 @@ output:
   distill::distill_article:
     toc: true
 creative_commons: CC BY
-preview: https://r4wrds.com/img/cover.png
 ---
 
 ```{r setup, include=FALSE, purl=FALSE, message=FALSE}
@@ -63,7 +62,7 @@ In the old days, the only way to use R was directly from the Console - this is a
 
 Let's get familiar with RStudio. If you haven't done so already, download and install RStudio from the link above (version 1.4.1103). After it's installed, find the RStudio shortcut and fire it up. You should see something like this:
 
-```{r out.width = "100%", echo=F, fig.cap = '*The RStudio window.*'}
+```{r out.width = "100%", echo=F, fig.cap = '*The RStudio window.*', preview = TRUE}
 knitr::include_graphics(here::here("images", "rstudio_edit.png"))
 ```
 

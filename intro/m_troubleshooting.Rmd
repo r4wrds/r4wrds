@@ -6,7 +6,6 @@ output:
   distill::distill_article:
     toc: true
 creative_commons: CC BY
-preview: https://r4wrds.com/img/cover.png
 ---
 
 ```{r setup, include=FALSE, purl=FALSE, message=FALSE}
@@ -192,7 +191,7 @@ Say you encountered this error:
 knitr::include_graphics("images/error_filter.png")
 ```
 
-```{r r-error, out.width='80%', echo=FALSE, fig.cap="Embrace the error message! It may even tell you something useful. Artwork by @allison_horst"}
+```{r r-error, out.width='80%', echo=FALSE, fig.cap="Embrace the error message! It may even tell you something useful. Artwork by @allison_horst", preview = TRUE}
 knitr::include_graphics("images/r_error.jpeg")
 ```
 

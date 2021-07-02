@@ -8,7 +8,6 @@ output:
 editor_options: 
   chunk_output_type: console
 creative_commons: CC BY
-preview: https://r4wrds.com/img/cover.png
 ---
 
 
@@ -753,7 +752,7 @@ load(here("data", "m_advanced_spatial_base_osm.rda"))
 Once we have a base layer, we can make our plot!
 
 
-```{r tmap, layout="l-page"}
+```{r tmap, layout="l-page", preview = TRUE}
 final_tmap <-
   # basemap
   tm_shape(base_osm) + 
@@ -801,7 +800,6 @@ final_tmap
 
 <aside>
 
-<br>
 When plotting rasters, we can specify the resolution that gets plotted using `tmap_options(max.raster = c(plot = 1e6))`. We can also specify a value for the `view()`. This helps speed up plotting when necessary.
 
 </aside>
@@ -817,7 +815,7 @@ tmap::tmap_save(final_tmap,
 
 # Additional Resources
 
-We've covered a handful of packages and functions in this module, but many more exist that solve just about every spatial workflow task. All spatial and mapmaking operations are typically a websearch away, but we also recommend [the following resources](m_intro_mapmaking.html#additional-resources) to dig deeper into the R spatial universe.
+We've covered a handful of packages and functions in this module, but many more exist that solve just about every spatial workflow task. All spatial and mapmaking operations are typically a websearch away, but we also recommend [the following resources](m_intro_mapmaking.html#additional-resources) to dig deeper into the `R` spatial universe.
 
 <br>  
 

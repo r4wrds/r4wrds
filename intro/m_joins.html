@@ -93,6 +93,7 @@ code span.wa { color: #bf0303; } /* Warning */
 
   <meta property="description" itemprop="description" content="How to merge your data!"/>
 
+  <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
 
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
@@ -111,7 +112,7 @@ code span.wa { color: #bf0303; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","output"]}},"value":[{"type":"character","attributes":{},"value":["10. Joining Data"]},{"type":"character","attributes":{},"value":["How to merge your data!\n"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","output","creative_commons"]}},"value":[{"type":"character","attributes":{},"value":["10. Joining Data"]},{"type":"character","attributes":{},"value":["How to merge your data!\n"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"character","attributes":{},"value":["CC BY"]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2411,7 +2412,7 @@ Modules
 <center>
 <div class="layout-chunk" data-layout="l-body">
 <div class="figure"><span id="fig:gridlock"></span>
-<img src="images/New_York_City_Gridlock.jpeg" alt="Merging Data? (source Wikipedia Commons)" width="384" height="50%" />
+<img src="images/New_York_City_Gridlock.jpeg" alt="Merging Data? (source Wikipedia Commons)" width="384" height="50%" data-distill-preview=1 />
 <p class="caption">
 Figure 1: Merging Data? <em>(source Wikipedia Commons)</em>
 </p>
@@ -2427,16 +2428,16 @@ Figure 1: Merging Data? <em>(source Wikipedia Commons)</em>
 <pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
 
 <span class='co'># GW stations data</span>
-<span class='va'>gw_stations</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"data/gwl/stations.csv"</span><span class='op'>)</span>
+<span class='va'>gw_stations</span> <span class='op'>&lt;-</span> <span class='fu'>read_csv</span><span class='op'>(</span><span class='st'>"data/gwl/stations.csv"</span><span class='op'>)</span>
 
 <span class='co'># GW measurements data for Sac, El Dorado, Placer Counties</span>
-<span class='va'>gw_measurements</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"data/gwl/measurements_sep.csv"</span><span class='op'>)</span>
+<span class='va'>gw_measurements</span> <span class='op'>&lt;-</span> <span class='fu'>read_csv</span><span class='op'>(</span><span class='st'>"data/gwl/measurements_sep.csv"</span><span class='op'>)</span>
 
 <span class='co'># GW depths</span>
-<span class='va'>gw_perf</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"data/gwl/perforations.csv"</span><span class='op'>)</span>
+<span class='va'>gw_perf</span> <span class='op'>&lt;-</span> <span class='fu'>read_csv</span><span class='op'>(</span><span class='st'>"data/gwl/perforations.csv"</span><span class='op'>)</span>
 
 <span class='co'># CalEnviroscreen Data</span>
-<span class='va'>calenviro</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"data/calenviroscreen/ces3results_data.csv"</span><span class='op'>)</span>
+<span class='va'>calenviro</span> <span class='op'>&lt;-</span> <span class='fu'>read_csv</span><span class='op'>(</span><span class='st'>"data/calenviroscreen/ces3results_data.csv"</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
@@ -2581,7 +2582,7 @@ The left join is perhaps the most commonly used join, and if you only know one j
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>sac_stations</span> <span class='op'>&lt;-</span> <span class='va'>gw_stations</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>COUNTY_NAME</span> <span class='op'>==</span> <span class='st'>"Sacramento"</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>COUNTY_NAME</span> <span class='op'>==</span> <span class='st'>"Sacramento"</span><span class='op'>)</span>
 
 <span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='va'>sac_stations</span><span class='op'>)</span> <span class='co'># get number of ROWS , COLUMNS</span>
 </code></pre>
@@ -2595,7 +2596,7 @@ The left join is perhaps the most commonly used join, and if you only know one j
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># default join, only give x, y</span>
-<span class='va'>sac_stations_measurements</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>left_join</a></span><span class='op'>(</span><span class='va'>sac_stations</span>, <span class='va'>gw_measurements</span><span class='op'>)</span>
+<span class='va'>sac_stations_measurements</span> <span class='op'>&lt;-</span> <span class='fu'>left_join</span><span class='op'>(</span><span class='va'>sac_stations</span>, <span class='va'>gw_measurements</span><span class='op'>)</span>
 
 <span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='va'>sac_stations_measurements</span><span class='op'>)</span>
 </code></pre>
@@ -2619,22 +2620,22 @@ The left join is perhaps the most commonly used join, and if you only know one j
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># look at how many unique SITE_CODE are in orig sac only dataset</span>
-<span class='fu'><a href='https://dplyr.tidyverse.org/reference/distinct.html'>distinct</a></span><span class='op'>(</span><span class='va'>sac_stations</span>, <span class='va'>SITE_CODE</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='fu'>distinct</span><span class='op'>(</span><span class='va'>sac_stations</span>, <span class='va'>SITE_CODE</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>[1] 494</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># look at how many unique are in joined dataset</span>
-<span class='fu'><a href='https://dplyr.tidyverse.org/reference/distinct.html'>distinct</a></span><span class='op'>(</span><span class='va'>sac_stations_measurements</span>, <span class='va'>SITE_CODE</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='fu'>distinct</span><span class='op'>(</span><span class='va'>sac_stations_measurements</span>, <span class='va'>SITE_CODE</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>[1] 494</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># look at top 10 stations with the most measurements:</span>
 <span class='va'>sac_stations_measurements</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>SITE_CODE</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='co'># group by SITE_CODE</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>tally</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='co'># count how many measurements by STATION</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/desc.html'>desc</a></span><span class='op'>(</span><span class='va'>n</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='co'># arrange by count (n), descending</span>
+  <span class='fu'>group_by</span><span class='op'>(</span><span class='va'>SITE_CODE</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='co'># group by SITE_CODE</span>
+  <span class='fu'>tally</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='co'># count how many measurements by STATION</span>
+  <span class='fu'>arrange</span><span class='op'>(</span><span class='fu'>desc</span><span class='op'>(</span><span class='va'>n</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='co'># arrange by count (n), descending</span>
   <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span> <span class='co'># top 10 records only</span>
 </code></pre>
 </div>
@@ -2658,10 +2659,10 @@ The left join is perhaps the most commonly used join, and if you only know one j
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># default join, only give x, y</span>
-<span class='va'>sac_stations_inner</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>inner_join</a></span><span class='op'>(</span><span class='va'>sac_stations</span>, <span class='va'>gw_measurements</span><span class='op'>)</span>
+<span class='va'>sac_stations_inner</span> <span class='op'>&lt;-</span> <span class='fu'>inner_join</span><span class='op'>(</span><span class='va'>sac_stations</span>, <span class='va'>gw_measurements</span><span class='op'>)</span>
 
 <span class='co'># check station number</span>
-<span class='fu'><a href='https://dplyr.tidyverse.org/reference/distinct.html'>distinct</a></span><span class='op'>(</span><span class='va'>sac_stations_inner</span>, <span class='va'>SITE_CODE</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='fu'>distinct</span><span class='op'>(</span><span class='va'>sac_stations_inner</span>, <span class='va'>SITE_CODE</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>[1] 420</code></pre>
@@ -2674,11 +2675,11 @@ The left join is perhaps the most commonly used join, and if you only know one j
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># note, we aren't specifying the columns we want to join on (keep defaults)</span>
 <span class='va'>sac_gw_data_joined</span> <span class='op'>&lt;-</span> <span class='va'>sac_stations</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>left_join</a></span><span class='op'>(</span><span class='va'>.</span>, <span class='va'>gw_measurements</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='co'># passing this result to the next join</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>left_join</a></span><span class='op'>(</span><span class='va'>.</span>, <span class='va'>gw_perf</span><span class='op'>)</span>
+  <span class='fu'>left_join</span><span class='op'>(</span><span class='va'>.</span>, <span class='va'>gw_measurements</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='co'># passing this result to the next join</span>
+  <span class='fu'>left_join</span><span class='op'>(</span><span class='va'>.</span>, <span class='va'>gw_perf</span><span class='op'>)</span>
 
 <span class='co'># quick check of stations, should be n=494, because left_join!</span>
-<span class='fu'><a href='https://dplyr.tidyverse.org/reference/distinct.html'>distinct</a></span><span class='op'>(</span><span class='va'>sac_gw_data_joined</span>, <span class='va'>SITE_CODE</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='fu'>distinct</span><span class='op'>(</span><span class='va'>sac_gw_data_joined</span>, <span class='va'>SITE_CODE</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>[1] 494</code></pre>
@@ -2687,7 +2688,7 @@ The left join is perhaps the most commonly used join, and if you only know one j
 <p>What about joining dataframes with different variable names? This is much more common when trying to merge different datasets. Let’s try to join the CalEnviroscreen data with the Sacramento County groundwater <code>stations</code> data.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>calenviro_stations</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>left_join</a></span><span class='op'>(</span><span class='va'>calenviro</span>, <span class='va'>sac_stations</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>calenviro_stations</span> <span class='op'>&lt;-</span> <span class='fu'>left_join</span><span class='op'>(</span><span class='va'>calenviro</span>, <span class='va'>sac_stations</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
@@ -2706,7 +2707,7 @@ Figure 3: <em>Artwork by <span class="citation" data-cites="allison_horst">@alli
 <p>Uh-oh, an error message! But if we look more closely, this error message is pretty descriptive. It tells us the two pieces we are working with (x = <code>calenviro</code> and y = <code>sac_stations</code>) don’t have a common variable name. Then it gives us a suggestion, <code>use by = character()</code>. Let’s try specifying the column names we want to join using the <strong><code>by</code></strong> argument. Note, we need to quote the variable names here (a <code>character()</code> vector), and they need to match the same order the dataframes were provided (<code>x</code> and <code>y</code>).</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>calenviro_stations</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>inner_join</a></span><span class='op'>(</span><span class='va'>sac_stations</span>, <span class='va'>calenviro</span>,
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>calenviro_stations</span> <span class='op'>&lt;-</span> <span class='fu'>inner_join</span><span class='op'>(</span><span class='va'>sac_stations</span>, <span class='va'>calenviro</span>,
                                 by <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"COUNTY_NAME"</span> <span class='op'>=</span> <span class='st'>"California County"</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='va'>calenviro_stations</span><span class='op'>)</span>
@@ -2718,7 +2719,7 @@ Figure 3: <em>Artwork by <span class="citation" data-cites="allison_horst">@alli
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># how many stations per census tract?</span>
-<span class='va'>calenviro_stations</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>count</a></span><span class='op'>(</span><span class='va'>`Census Tract`</span><span class='op'>)</span>
+<span class='va'>calenviro_stations</span> <span class='op'>%&gt;%</span> <span class='fu'>count</span><span class='op'>(</span><span class='va'>`Census Tract`</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code># A tibble: 317 x 2
@@ -2737,7 +2738,7 @@ Figure 3: <em>Artwork by <span class="citation" data-cites="allison_horst">@alli
 # … with 307 more rows</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># how many census tracts in Sacramento County</span>
-<span class='va'>calenviro_stations</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>count</a></span><span class='op'>(</span><span class='va'>`Census Tract`</span><span class='op'>)</span>
+<span class='va'>calenviro_stations</span> <span class='op'>%&gt;%</span> <span class='fu'>count</span><span class='op'>(</span><span class='va'>`Census Tract`</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code># A tibble: 317 x 2
@@ -2763,15 +2764,15 @@ Figure 3: <em>Artwork by <span class="citation" data-cites="allison_horst">@alli
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># can use URL here too: </span>
-<span class='va'>xwalk</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"data/calenviroscreen/sac_county_crosswalk_to_gw_stations.csv"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+<span class='va'>xwalk</span> <span class='op'>&lt;-</span> <span class='fu'>read_csv</span><span class='op'>(</span><span class='st'>"data/calenviroscreen/sac_county_crosswalk_to_gw_stations.csv"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='co'># filter to just columns we need</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>SITE_CODE</span>, <span class='va'>tract</span><span class='op'>)</span>
+  <span class='fu'>select</span><span class='op'>(</span><span class='va'>SITE_CODE</span>, <span class='va'>tract</span><span class='op'>)</span>
 
 <span class='co'># join with station data...adding "tract" to dataframe</span>
-<span class='va'>sac_stations_w_tracts</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>left_join</a></span><span class='op'>(</span><span class='va'>sac_stations</span>, <span class='va'>xwalk</span><span class='op'>)</span>
+<span class='va'>sac_stations_w_tracts</span> <span class='op'>&lt;-</span> <span class='fu'>left_join</span><span class='op'>(</span><span class='va'>sac_stations</span>, <span class='va'>xwalk</span><span class='op'>)</span>
 
 <span class='co'># now join to CalEnviroScreen data</span>
-<span class='va'>sac_station_calenviro_by_tracts</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>left_join</a></span><span class='op'>(</span><span class='va'>sac_stations_w_tracts</span>, <span class='va'>calenviro</span>,
+<span class='va'>sac_station_calenviro_by_tracts</span> <span class='op'>&lt;-</span> <span class='fu'>left_join</span><span class='op'>(</span><span class='va'>sac_stations_w_tracts</span>, <span class='va'>calenviro</span>,
                                              by <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"tract"</span> <span class='op'>=</span> <span class='st'>"Census Tract"</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># check dim</span>
@@ -2785,12 +2786,12 @@ Figure 3: <em>Artwork by <span class="citation" data-cites="allison_horst">@alli
 <!-- can add section on pivot_longer/wider here later -->
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>sac_gw_all</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>left_join</a></span><span class='op'>(</span><span class='va'>sac_station_calenviro_by_tracts</span>, <span class='va'>gw_perf</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>left_join</a></span><span class='op'>(</span><span class='va'>.</span>, <span class='va'>gw_measurements</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>sac_gw_all</span> <span class='op'>&lt;-</span> <span class='fu'>left_join</span><span class='op'>(</span><span class='va'>sac_station_calenviro_by_tracts</span>, <span class='va'>gw_perf</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>left_join</span><span class='op'>(</span><span class='va'>.</span>, <span class='va'>gw_measurements</span><span class='op'>)</span>
 
 <span class='co'># lets move the CalEnviroScreen variables to the end</span>
 <span class='va'>sac_gw_all</span> <span class='op'>&lt;-</span> <span class='va'>sac_gw_all</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>STN_ID</span><span class='op'>:</span><span class='va'>WCR_NO</span>, <span class='va'>TOP_PRF</span><span class='op'>:</span><span class='va'>COOP_ORG_NAME</span>, <span class='va'>tract</span><span class='op'>:</span><span class='va'>`Pop. Char. Pctl`</span><span class='op'>)</span>
+  <span class='fu'>select</span><span class='op'>(</span><span class='va'>STN_ID</span><span class='op'>:</span><span class='va'>WCR_NO</span>, <span class='va'>TOP_PRF</span><span class='op'>:</span><span class='va'>COOP_ORG_NAME</span>, <span class='va'>tract</span><span class='op'>:</span><span class='va'>`Pop. Char. Pctl`</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
@@ -2799,7 +2800,7 @@ Figure 3: <em>Artwork by <span class="citation" data-cites="allison_horst">@alli
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># remember to use a relative path!</span>
-<span class='fu'><a href='https://readr.tidyverse.org/reference/read_rds.html'>write_rds</a></span><span class='op'>(</span><span class='va'>sac_gw_all</span>, file <span class='op'>=</span> <span class='st'>"data/sacramento_gw_data_w_calenviro.rds"</span><span class='op'>)</span>
+<span class='fu'>write_rds</span><span class='op'>(</span><span class='va'>sac_gw_all</span>, file <span class='op'>=</span> <span class='st'>"data/sacramento_gw_data_w_calenviro.rds"</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
@@ -2821,12 +2822,13 @@ Figure 3: <em>Artwork by <span class="citation" data-cites="allison_horst">@alli
 <div class="appendix-bottom">
 <h3 id="updates-and-corrections">Corrections</h3>
 <p>If you see mistakes or want to suggest changes, please <a href="https://github.com/ryanpeek/r4wrds/issues/new">create an issue</a> on the source repository.</p>
+<h3 id="reuse">Reuse</h3>
+<p>Text and figures are licensed under Creative Commons Attribution <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Source code is available at <a href="https://github.com/ryanpeek/r4wrds">https://github.com/ryanpeek/r4wrds</a>, unless otherwise noted. The figures that have been reused from other sources don't fall under this license and can be recognized by a note in their caption: "Figure from ...".</p>
 </div>
 <!--/radix_placeholder_appendices-->
 <!--radix_placeholder_navigation_after_body-->
 <div class="distill-site-nav distill-site-footer">
 <p>© Copyright 2021 <a href="http://ryanpeek.org/" target = "_blank">Ryan Peek</a> and <a href="https://www.richpauloo.com/" target = "_blank">Rich Pauloo</a>.</p>
-<p>Software licensed under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, v2.0</a>.</p>
 </div>
 <!--/radix_placeholder_navigation_after_body-->
 
