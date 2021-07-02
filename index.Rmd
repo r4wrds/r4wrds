@@ -1,6 +1,7 @@
 ---
 title: "R for Water Resources Data Science"
 site: distill::distill_website
+preview: https://r4wrds.com/img/cover.png
 ---
 
 ```{r setup, include=FALSE}

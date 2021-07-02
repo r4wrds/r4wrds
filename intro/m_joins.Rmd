@@ -5,7 +5,9 @@ description: |
 output: 
   distill::distill_article:
     toc: true
+creative_commons: CC BY
 ---
+
 
 ```{r setup, include=FALSE, purl=FALSE, message=FALSE}
 
@@ -33,7 +35,7 @@ We often need to take several datasets and merge them into a single dataset that
 (ref:gridlockWiki) Merging Data? *(source Wikipedia Commons)*
 
 <center>
-```{r gridlock, echo=FALSE, fig.cap="(ref:gridlockWiki)", out.height="50%"}
+```{r gridlock, echo=FALSE, fig.cap="(ref:gridlockWiki)", out.height="50%", preview = TRUE}
 
 # "https://upload.wikimedia.org/wikipedia/commons/8/82/New_York_City_Gridlock.jpg"
 

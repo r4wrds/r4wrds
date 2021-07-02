@@ -5,7 +5,9 @@ description: |
 output: 
   distill::distill_article:
     toc: true
+creative_commons: CC BY
 ---
+
 
 ```{r setup, include=FALSE, purl=FALSE, message=FALSE}
 
@@ -527,7 +529,7 @@ For example, if <font color="#5f3dc4">**Jo**</font> needed to make a quick fix t
 
 </aside>
 
-```{r gitbranch5, eval=TRUE, echo=FALSE}
+```{r gitbranch5, eval=TRUE, echo=FALSE, preview = TRUE}
 
 include_graphics(glue("images/gather_clean_data_together_6.png"))
 

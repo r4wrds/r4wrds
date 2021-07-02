@@ -5,6 +5,7 @@ description: |
 output: 
   distill::distill_article:
     toc: true
+creative_commons: CC BY
 ---
 
 ```{r setup, include=FALSE, purl=FALSE, message=FALSE}
@@ -50,7 +51,7 @@ There are a variety of spatial mapping/plotting packages in R. However, the best
 knitr::include_graphics(here("images","sf.png"))
 ```
 
-```{r, include = FALSE}
+```{r, include = FALSE, eval = FALSE}
 library(sf)
 
 # subset stations down to sac county and save
@@ -452,7 +453,7 @@ p +
 
 We might notice that a few extremely deep wells dominate the color scale and cause it to extend to large values that prevent us from seeing variation in shallower well depths. We can improve this visualization by drawing on some skills from the [dplyr module](m_dplyr.html#mutate-existing-data). Let's overwrite large well depth values with `dplyr::mutate()` and improve our labeling on the map.
 
-```{r geomsf5, out.width="100%", message = FALSE}
+```{r geomsf5, out.width="100%", message = FALSE, preview = TRUE}
 # only 4.7% of wells have a well depth that exceeds 700 feet
 # but the color bar goes all the way to 1600 feet!
 sum(stations$WELL_DEPTH >= 700, na.rm = TRUE) / nrow(stations)

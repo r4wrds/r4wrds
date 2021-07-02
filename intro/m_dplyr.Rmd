@@ -5,6 +5,7 @@ description: |
 output: 
   distill::distill_article:
     toc: true
+creative_commons: CC BY
 ---
 
 ```{r setup, include=FALSE, purl=FALSE, message=FALSE}
@@ -297,7 +298,7 @@ stations_mutate1 <- stations %>%
 
 Let's use `ggplot2` to check and see if this worked. We can use the `%>%` here too!
 
-```{r mut1ggplot1, eval=TRUE, echo=TRUE, warning=FALSE}
+```{r mut1ggplot1, eval=TRUE, echo=TRUE, warning=FALSE, preview = TRUE}
 
 stations_mutate1 %>% 
   # pass stations_mutate1 into the ggplot function

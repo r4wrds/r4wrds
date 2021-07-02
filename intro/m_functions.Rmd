@@ -5,6 +5,7 @@ description: |
 output: 
   distill::distill_article:
     toc: true
+creative_commons: CC BY
 ---
 
 ```{r setup, include=FALSE, purl=FALSE, message=FALSE}
@@ -341,7 +342,7 @@ tmap_save(filename = "images/map_of_nwis_sites.png", height = 6, width = 8, unit
 
 ```
 
-```{r, eval=TRUE, echo=FALSE, out.width='90%'}
+```{r, eval=TRUE, echo=FALSE, out.width='90%', preview = TRUE}
 
 include_graphics("images/map_of_nwis_sites.png")
 

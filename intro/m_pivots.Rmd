@@ -6,7 +6,9 @@ output:
   distill::distill_article:
     toc: true
     highlight: kate
+creative_commons: CC BY
 ---
+
 
 ```{r setup, include=FALSE, purl=FALSE, message=FALSE}
 
@@ -73,7 +75,7 @@ Let's take a look at this [**messy** spreadsheet data](https://github.com/richpa
 
 <br>
 
-```{r messytab, echo=FALSE, out.width='100%'}
+```{r messytab, echo=FALSE, out.width='100%', preview = TRUE}
 
 include_graphics(here::here("images", "messy_spreadsheet_1.png"))
 

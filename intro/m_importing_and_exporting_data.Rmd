@@ -5,6 +5,8 @@ description: |
 output: 
   distill::distill_article:
     toc: true
+creative_commons: CC BY
+preview: https://r4wrds.com/img/cover.png
 ---
 
 
@@ -81,9 +83,9 @@ head(stations)
 
 You can also pass a URL to `read_csv()`.
 
-```{r}
+```{r read-github}
 # read the "stations" csv from the Github URL
-stations <- read_csv("https://raw.githubusercontent.com/richpauloo/wrds/main/data/gwl/stations.csv")
+stations <- read_csv("https://raw.githubusercontent.com/richpauloo/r4wrds-data/main/intro/data/gwl/stations.csv")
 ```
 
 
