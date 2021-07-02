@@ -59,14 +59,14 @@ knitr::include_graphics(path = "https://raw.githubusercontent.com/allisonhorst/s
 
 **Course Modules**
 
-1. [Check/Update `R`/RStudio and Packages](m_updating_r.html)  
+1. [Check/Update R/RStudio and Packages](m_updating_r.html)  
 2. [Version Control with git](m_version_control.html) 
 3. [Project Management and workflows](m_project_management.html)   
 4. [Interactive visualization](m_interactive_viz.html)   
 5. [Simple shiny](m_simple_shiny.html)    
 6. [Iteration and functional programming](m_iteration.html)    
 7. [Parameterized reports](m_parameterized_reports.html)
-8. [Advanced spatial `R` and mapmaking](m_advanced_spatial.html)
+8. [Advanced spatial R and mapmaking](m_advanced_spatial.html)
 
 :::
 

@@ -12,26 +12,22 @@ navbar:
   right:
     - text: "Modules"
       menu:
-        - text: "Module 1: "
-          href: m_install_R.html
-        - text: "Module 2: "
-          href: m_getting_started.html
-        - text: "Module 3:"
+        - text: "Module 1: Check/Update R/RStudio and Packages"
+          href: m_updating_r.html
+        - text: "Module 2: Version Control with git"
+          href: m_version_control.html
+        - text: "Module 3: Project Management and workflows"
           href: m_project_management.html
-        - text: "Module 4:"
-          href: m_importing_and_exporting_data.html
-        - text: "Module 5:"
-          href: m_ggplot.html
-        - text: "Module 6: "
-          href: m_data_structures.html
-        - text: "Module 7: "
-          href: m_dplyr.html
-        - text: "Module 8: "
-          href: m_pivots.html
-        - text: "Module 9: "
-          href: m_functions.html
-        - text: "Module 10: s"
-          href: m_joins.html
+        - text: "Module 4: Interactive visualization"
+          href: m_interactive_viz.html
+        - text: "Module 5: Shiny"
+          href: m_simple_shiny.html
+        - text: "Module 6: Iteration and functional programming"
+          href: m_iteration.html
+        - text: "Module 7: Parameterized reports"
+          href: m_parameterized_reports.html
+        - text: "Module 8: Advanced spatial R and mapmaking"
+          href: m_advanced_spatial.html
     # - text: "Resources"
     #   href: resources.html
     - icon: fa-home fa-lg
