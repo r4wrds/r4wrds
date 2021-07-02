@@ -1,0 +1,133 @@
+---
+title: "1. Updating R and R packages"
+description: | 
+   How to check versions and update your installation
+output: 
+  distill::distill_article:
+    toc: true
+---
+
+```{r setup, include=FALSE, purl=FALSE, message=FALSE}
+
+library(knitr)
+library(glue)
+library(here)
+
+```
+
+::: {.obj}
+**Learning objectives**
+
+- Understand `R` versions and how to check what you have
+- Learn how to update your `R`/RStudio installation
+- Learn how to update `R` packages
+:::
+
+
+## Checking Versions and Updating
+
+As packages and R continue to improve, new **versions** of **`R`** are released^[See a list of previous versions [here](https://cran.r-project.org/bin/windows/base/old/).]. In **`R`**, major versions are released infrequently (i.e., **`3.0.0`** was released in April 2013 and **`4.0.0`** was released in April 2020), but *minor* versions are released more regularly (**`4.0.4`** was released in February 2021 and **`4.0.5`** was released in March 2021). 
+
+At minimum it's advisable to maintain and update to the most recent *major* version of R, as these often contain important security/programming changes. Depending on your workflow and package needs, it's good practice to keep the most recent minor version as well, though it's not uncommon to maintain multiple minor versions of `R` if your analyses or workflows depend on specific versions of a package.
+
+### Check your &nbsp;<img src="https://cran.r-project.org/Rlogo.svg" alt="R" width="5%">&nbsp; Version
+
+An easy and quick way to check what version of `R` you have and the most recent available version is first to open `R`, type `R.version`, hit enter, and see what you get:
+
+```{r version}
+
+R.version
+
+```
+
+This command will return information about the `R` version your system is using, as well as some information specific to your operating system (os). 
+
+Next, visit the [`R` CRAN website](https://cran.r-project.org/) to see what the most recent version is. If you haven't updated recently, go ahead and grab the most recent `R` version for your system and [install it](https://r4wrds.com/intro/m_install_R.html#step-1.-install).
+
+<aside>
+
+When you update a **major** version of R, your personal library of packages will no longer work, and you will need to reinstall all of your packages. There are a few tools you can use to do this like **[{installr}](https://cran.r-project.org/web/packages/installr/)** for Windows machines, and **[{updateR}](https://github.com/AndreaCirilloAC/updateR)**. This work to stay up-to-date happens fairly infrequently.
+
+</aside>
+
+### Check/Update &nbsp;<img src="https://d33wubrfki0l68.cloudfront.net/62bcc8535a06077094ca3c29c383e37ad7334311/a263f/assets/img/logo.svg" alt="RStudio" width="10%">
+
+We can check our version of RStudio by going to the toolbar at the top of your RStudio window and clicking **`Help` > `Check for Updates`**. If you have the most recent version, there will be a message box letting you know as much. If not, RStudio will direct you to their webpage to download the most recent version.
+
+<aside>
+
+While it isn't always necessary to update to the most recent version of **`R`**, there's no reason not to always use the most recent stable version of RStudio. It will generally include the best features and up-to-date fixes.
+
+</aside>
+
+## Updating `R` Packages
+
+As we use `R` more regularly for different tasks, it's common to accumulate many `R` packages in our `R` library. Every package is maintained and updated on a different schedule than **`R`** and **RStudio**, and so as new functions and features are written, or bugs are fixed, packages will be updated intermittently. Some package maintainers do this regularly, others may do it sporadically. Either way, we will typically need to update packages semi-regularly. 
+
+<aside>
+
+Files associated with installed `R` packages are located at `.libPaths()`. View installed packages with `list.files(.libPaths())`.  
+
+</aside>
+
+There are several methods of updating your R packages. If updating via RStudio, go to the toolbar at the top and select **`Tools` > `Check for Package Updates...`**. Depending on how many packages you've installed, and how recently you updated things, a window will appear saying either *All packages up-to-date!* or something that looks more like this:
+
+<aside>
+
+As a rule of thumb, whenever updating your R version, it's best to update/install your R packages too! 
+
+</aside>
+
+```{r updatepkg, fig.cap="Package update window", eval=T, echo=F, out.height="%50"}
+
+include_graphics(here("images", "package_update.png"))
+
+```
+
+We can choose to *Select All* and update everything at once, or selectively update things. 
+
+After we click **Install Updates** we may typically also see a message like this:
+
+```{r restartR, fig.cap="Restart R", eval=T, echo=F, out.width="%45"}
+
+include_graphics(here("images", "restart_r_to_update.png"))
+
+```
+
+You can choose to cancel, but it's fine to click **Yes** and proceed. Sometimes we will also get something in the **`Console`** that will ask the following:
+
+> **Do you want to install from sources the packages which need compilation? (Yes/no/cancel)**
+
+Some packages require this, so generally it's okay to type `Yes` and hit enter to proceed. At this point we can wait and let `R`/RStudio update things for us. Depending on how many packages are involved, this can take a few minutes. Importantly, when it's all said and done, make sure there weren't errors or issues with packages that didn't get installed. We can use **`Tools` > `Check for Package Updates...`** again and see what packages remain, or if we get a message saying all packages are up-to-date.
+
+## Best Practices for Updating
+
+We recommend the following approach to updating `R` packages (check out the great [rstats.wtf chapter on this topic and more](https://rstats.wtf/maintaining-r.html)):
+
+ - ***Update packages frequently (weekly)***
+ - ***Update R quarterly (or at least check)***
+ - ***For complete reproducibility for a project check out the [`{renv}` package](https://rstudio.github.io/renv/articles/renv.html)***
+ - ***Don't copy packages over between R versions--start clean and fresh***
+
+Updating packages can be irksome, but it's typically for the best. We advise updating your packages frequently if you regularly use `R` (e.g;, a weekly checks and updates to packages). If you want to be sure you have the exact package version for future use and reproducibility, the `{renv}` may be a great solution for an analysis or report, but may not be necessary if your aren't using or working on a specific project/analysis. `{renv}` keeps a record of your R packages within an RProject down to the exact version number when you originally loaded these packages, and allows you to update this record as your project evolves over time. 
+
+<aside>
+
+Read more about `{renv}` in the [project management module](m_project_management.html#renv).
+
+</aside>
+
+Overall, treat `R` and `R` packages as something that will be highly functional with minimal but regular maintenance, like a vehicle that needs new tires or an oil change once in a while. This will keep things running smoothly over the long-term.
+
+
+```{r thingswork, echo=FALSE, out.width="%80", fig.cap="Success over time! (Artwork by @allison_horst)"}
+
+knitr::include_graphics(here::here("images","tidydata_6.jpeg"))
+
+```
+
+<br> 
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<a href="index.html" class="btn btn-secondary" style="float: left">Previous module:<br> Introduction</a> <a href="m_version_control.html" class="btn btn-secondary" style="float: right;">Next module:<br> 2. Git</a>

@@ -1,0 +1,185 @@
+STN_ID,SITE_CODE,SWN,WELL_NAME,LATITUDE,LONGITUDE,WLM_METHOD,WLM_ACC,BASIN_CODE,BASIN_NAME,COUNTY_NAME,WELL_DEPTH,WELL_USE,WELL_TYPE
+48577,381626N1213651W001,NA,SVMW East-2B,38.7626,-121.365,Surveyed to a benchmark,0.1 ft.,5-021.64,North American,Placer,525,Observation,Part of a nested/multi-completion well
+55217,387005N1216141W002,NA,Elkhorn MW-1,38.7005,-121.614,Unknown,Unknown,5-021.64,North American,Placer,515,Observation,Part of a nested/multi-completion well
+55218,387005N1216141W004,NA,Elkhorn MW-2,38.7005,-121.614,Unknown,Unknown,5-021.64,North American,Placer,515,Observation,Part of a nested/multi-completion well
+33091,387216N1212470W001,10N07E18J001M,10N07E18J001M,38.7216,-121.247,Unknown,Unknown,5-021.64,North American,Placer,164,Residential,Single Well
+52475,387222N1212920W001,NA,Whyte A,38.7222,-121.292,GPS,0.1 ft.,5-021.64,North American,Placer,226,Observation,Single Well
+52476,387222N1212920W002,NA,Whyte B,38.7222,-121.292,GPS,0.1 ft.,5-021.64,North American,Placer,306,Observation,Single Well
+13664,387269N1212760W001,10N06E13C001M,NA,38.7269,-121.276,Unknown,Unknown,5-021.64,North American,Placer,218,Irrigation,Unknown
+13665,387285N1213396W001,10N06E17A001M,NA,38.7285,-121.34,Unknown,Unknown,5-021.64,North American,Placer,340,Residential,Unknown
+13670,387290N1212518W001,10N07E18B001M,NA,38.729,-121.252,Unknown,Unknown,5-021.64,North American,Placer,270,Irrigation,Unknown
+51280,387331N1213610W001,NA,WPMW-5A,38.7331,-121.361,Surveyed to a benchmark,0.1 ft.,5-021.64,North American,Placer,100,Observation,Part of a nested/multi-completion well
+51281,387331N1213610W002,NA,WPMW-5B,38.7331,-121.361,Surveyed to a benchmark,0.1 ft.,5-021.64,North American,Placer,650,Observation,Part of a nested/multi-completion well
+13661,387333N1213658W001,10N06E07L001M,NA,38.7333,-121.366,Unknown,Unknown,5-021.64,North American,Placer,180,Irrigation,Unknown
+15696,387341N1214620W001,10N05E08L002M,10N05E08L002M,38.7341,-121.462,Unknown,Unknown,5-021.64,North American,Placer,190,Irrigation,Single Well
+32586,387344N1214154W001,10N05E10J003M,NA,38.7344,-121.415,Unknown,Unknown,5-021.64,North American,Placer,NA,Irrigation,Unknown
+33090,387374N1212622W001,10N07E07E002M,NA,38.7374,-121.262,Unknown,Unknown,5-021.64,North American,Placer,300,Unknown,Unknown
+13651,387412N1213888W001,10N05E12D001M,NA,38.7412,-121.389,Unknown,Unknown,5-021.64,North American,Placer,410,Irrigation,Unknown
+39757,387421N1212777W001,10N06E12D001M,NA,38.7421,-121.278,Unknown,Unknown,5-021.64,North American,Placer,62,Unknown,Unknown
+13662,387429N1213328W001,10N06E09D001M,NA,38.7429,-121.333,Unknown,Unknown,5-021.64,North American,Placer,350,Irrigation,Unknown
+13663,387430N1213121W001,10N06E10C001M,NA,38.743,-121.312,Unknown,Unknown,5-021.64,North American,Placer,400,Unknown,Unknown
+32585,387447N1214384W001,10N05E04Q001M,NA,38.7447,-121.438,Unknown,Unknown,5-021.64,North American,Placer,550,Irrigation,Unknown
+13660,387488N1213489W001,10N06E05L001M,NA,38.7488,-121.349,Unknown,Unknown,5-021.64,North American,Placer,400,Irrigation,Unknown
+13658,387505N1213191W001,10N06E03M001M,NA,38.7505,-121.319,Unknown,Unknown,5-021.64,North American,Placer,270,Irrigation,Unknown
+51284,387510N1212390W001,NA,WPMW-8A,38.751,-121.239,Surveyed to a benchmark,0.1 ft.,5-021.64,North American,Placer,50,Observation,Part of a nested/multi-completion well
+51285,387510N1212390W002,NA,WPMW-8B,38.751,-121.239,Surveyed to a benchmark,0.1 ft.,5-021.64,North American,Placer,115,Observation,Part of a nested/multi-completion well
+15695,387510N1214647W001,10N05E05E001M,10N05E05E001M,38.751,-121.465,Unknown,Unknown,5-021.64,North American,Placer,210,Irrigation,Single Well
+13659,387511N1213389W001,10N06E05H001M,NA,38.7511,-121.339,Unknown,Unknown,5-021.64,North American,Placer,256,Residential,Unknown
+51283,387512N1212390W001,NA,WPMW-7A,38.7512,-121.239,Surveyed to a benchmark,0.1 ft.,5-021.64,North American,Placer,45,Observation,Single Well
+51287,387515N1212725W001,NA,WPMW-10A,38.7515,-121.273,Surveyed to a benchmark,0.1 ft.,5-021.64,North American,Placer,36,Observation,Part of a nested/multi-completion well
+51288,387515N1212725W002,NA,WPMW-10B,38.7515,-121.273,Surveyed to a benchmark,0.1 ft.,5-021.64,North American,Placer,100,Observation,Part of a nested/multi-completion well
+51289,387515N1212725W003,NA,WPMW-10C,38.7515,-121.273,Surveyed to a benchmark,0.1 ft.,5-021.64,North American,Placer,260,Observation,Part of a nested/multi-completion well
+51286,387517N1212727W001,NA,WPMW-9A,38.7517,-121.273,Surveyed to a benchmark,0.1 ft.,5-021.64,North American,Placer,36,Observation,Single Well
+11361,387530N1214331W001,11N05E32R001M,NA,38.753,-121.433,Unknown,Unknown,5-021.64,North American,Placer,397,Residential,Unknown
+11362,387539N1213994W001,11N05E34R003M,NA,38.7539,-121.399,Unknown,Unknown,5-021.64,North American,Placer,NA,Irrigation,Unknown
+31772,387597N1213328W001,11N06E32F003M,NA,38.7597,-121.333,Unknown,Unknown,5-021.64,North American,Placer,290,Stockwatering,Unknown
+11924,387603N1212864W001,11N06E34H001M,NA,38.7603,-121.286,Unknown,Unknown,5-021.64,North American,Placer,280,Irrigation,Unknown
+48573,387623N1213915W001,NA,SVMW West - 1A,38.7623,-121.392,Surveyed to a benchmark,0.1 ft.,5-021.64,North American,Placer,145,Observation,Part of a nested/multi-completion well
+48574,387623N1213915W002,NA,SVMW West - 1B,38.7623,-121.392,Surveyed to a benchmark,0.1 ft.,5-021.64,North American,Placer,560,Observation,Part of a nested/multi-completion well
+48575,387623N1213915W003,NA,SVMW West - 1C,38.7623,-121.392,Surveyed to a benchmark,0.1 ft.,5-021.64,North American,Placer,750,Observation,Part of a nested/multi-completion well
+48576,387626N1213651W001,NA,SVMW East-2A,38.7626,-121.365,Surveyed to a benchmark,0.1 ft.,5-021.64,North American,Placer,140,Observation,Single Well
+48578,387626N1213651W002,NA,SVMW East-2C,38.7626,-121.365,Surveyed to a benchmark,0.1 ft.,5-021.64,North American,Placer,670,Observation,Part of a nested/multi-completion well
+11360,387630N1214664W001,11N05E31D003M,NA,38.763,-121.466,Unknown,Unknown,5-021.64,North American,Placer,NA,Unknown,Unknown
+11923,387652N1213019W001,11N06E34D001M,NA,38.7652,-121.302,Unknown,Unknown,5-021.64,North American,Placer,320,Unknown,Unknown
+31771,387694N1213195W001,11N06E28N001M,NA,38.7694,-121.32,Unknown,Unknown,5-021.64,North American,Placer,200,Unknown,Unknown
+51282,387739N1212382W001,NA,WPMW-6A,38.7739,-121.238,Surveyed to a benchmark,0.1 ft.,NA,NA,Placer,65,Observation,Single Well
+11359,387739N1214417W001,11N05E29G002M,NA,38.7739,-121.442,Unknown,Unknown,5-021.64,North American,Placer,388,Irrigation,Unknown
+11922,387743N1213514W001,11N06E30F002M,NA,38.7743,-121.351,Unknown,Unknown,5-021.64,North American,Placer,195,Residential,Unknown
+48567,387755N1212753W001,NA,WPMW-4A,38.7755,-121.275,Surveyed to a benchmark,0.1 ft.,5-021.64,North American,Placer,145,Observation,Part of a nested/multi-completion well
+48568,387755N1212753W002,NA,WPMW-4B,38.7755,-121.275,Surveyed to a benchmark,0.1 ft.,5-021.64,North American,Placer,300,Observation,Part of a nested/multi-completion well
+48560,387786N1213737W001,NA,WPMW-1A,38.7786,-121.374,Surveyed to a benchmark,0.1 ft.,5-021.64,North American,Placer,120,Observation,Part of a nested/multi-completion well
+48561,387786N1213737W002,NA,WPMW-1B,38.7786,-121.374,Surveyed to a benchmark,0.1 ft.,5-021.64,North American,Placer,480,Observation,Part of a nested/multi-completion well
+48562,387786N1213737W003,NA,WPMW-1C,38.7786,-121.374,Surveyed to a benchmark,0.1 ft.,5-021.64,North American,Placer,545,Observation,Part of a nested/multi-completion well
+11358,387789N1214243W001,11N05E28C001M,NA,38.7789,-121.424,Unknown,Unknown,5-021.64,North American,Placer,NA,Irrigation,Unknown
+51294,387816N1213870W001,NA,W-77MW-A,38.7816,-121.387,Digital Elevation Model,5 ft.,5-021.64,North American,Placer,516,Observation,Single Well
+51295,387816N1213870W002,NA,W-77MW-B,38.7816,-121.387,Digital Elevation Model,5 ft.,5-021.64,North American,Placer,604,Observation,Single Well
+11224,387854N1213613W001,11N05E24J001M,NA,38.7854,-121.361,Unknown,Unknown,5-021.64,North American,Placer,170,Residential,Unknown
+11223,387943N1213856W001,11N05E23B001M,O'Brien well,38.7943,-121.386,Unknown,Unknown,5-021.64,North American,Placer,195,Residential,Single Well
+11222,387945N1214427W001,11N05E20C001M,NA,38.7945,-121.443,Unknown,Unknown,5-021.64,North American,Placer,286,Irrigation,Unknown
+54795,387946N1213425W002,NA,BOMW-A,38.7946,-121.343,Surveyed to a benchmark,0.1 ft.,5-021.64,North American,Placer,305,Observation,Part of a nested/multi-completion well
+54796,387946N1213425W004,NA,BOMW-B,38.7946,-121.343,Surveyed to a benchmark,0.1 ft.,5-021.64,North American,Placer,480,Observation,Part of a nested/multi-completion well
+54797,387946N1213425W006,NA,BOMW-C,38.7946,-121.343,Surveyed to a benchmark,0.1 ft.,5-021.64,North American,Placer,518,Observation,Part of a nested/multi-completion well
+48569,387957N1213813W001,NA,CVMW-1A,38.7957,-121.381,Surveyed to a benchmark,0.1 ft.,5-021.64,North American,Placer,285,Observation,Part of a nested/multi-completion well
+48571,387957N1213813W002,NA,CVMW-1B,38.7957,-121.381,Surveyed to a benchmark,0.1 ft.,5-021.64,North American,Placer,495,Observation,Part of a nested/multi-completion well
+48572,387957N1213813W003,NA,CVMW-1C,38.7957,-121.381,Surveyed to a benchmark,0.1 ft.,5-021.64,North American,Placer,590,Observation,Part of a nested/multi-completion well
+54798,387964N1213583W002,NA,Well 14 MW-A,38.7964,-121.358,Digital Elevation Model,5 ft.,5-021.64,North American,Placer,279,Observation,Part of a nested/multi-completion well
+54799,387964N1213583W004,NA,Well 14 MW-B,38.7964,-121.358,Digital Elevation Model,5 ft.,5-021.64,North American,Placer,387,Observation,Part of a nested/multi-completion well
+54800,387964N1213583W006,NA,Well 14 MW-C,38.7964,-121.358,Digital Elevation Model,5 ft.,5-021.64,North American,Placer,445,Observation,Part of a nested/multi-completion well
+54801,387964N1213583W008,NA,Well 14 MW-D,38.7964,-121.358,Digital Elevation Model,5 ft.,5-021.64,North American,Placer,508,Observation,Part of a nested/multi-completion well
+11920,387975N1213541W001,11N06E18P005M,NA,38.7975,-121.354,Unknown,Unknown,5-021.64,North American,Placer,NA,Unknown,Unknown
+11221,387977N1214521W001,11N05E18R001M,South Sutter WD,38.7977,-121.452,Unknown,Unknown,5-021.64,North American,Placer,NA,Irrigation,Single Well
+11919,387998N1213186W001,11N06E16M002M,NA,38.7998,-121.319,Unknown,Unknown,5-021.64,North American,Placer,160,Unknown,Unknown
+54855,388000N1214000W002,NA,GEI Test 1,38.8,-121.4,USGS quad,20 ft.,5-021.64,North American,Placer,NA,Observation,Single Well
+31770,388008N1213219W001,11N06E17J002M,NA,38.8008,-121.322,Unknown,Unknown,5-021.64,North American,Placer,113,Unknown,Unknown
+54777,388026N1214432W002,NA,WPMW-12A,38.8026,-121.443,Surveyed to a benchmark,0.1 ft.,5-021.64,North American,Placer,300,Observation,Part of a nested/multi-completion well
+54778,388026N1214432W004,NA,WPMW-12B,38.8026,-121.443,Surveyed to a benchmark,0.1 ft.,5-021.64,North American,Placer,550,Observation,Part of a nested/multi-completion well
+51293,388027N1213384W001,NA,DCMW-3,38.8027,-121.338,Surveyed to a benchmark,0.1 ft.,5-021.64,North American,Placer,520,Observation,Single Well
+11219,388029N1214145W001,11N05E16H001M,NA,38.8029,-121.415,Unknown,Unknown,5-021.64,North American,Placer,460,Irrigation,Unknown
+30281,388037N1214031W001,11N05E15G001M,NA,38.8037,-121.403,Unknown,Unknown,5-021.64,North American,Placer,134,Irrigation,Unknown
+51291,388058N1213355W001,NA,DCMW-1,38.8058,-121.336,Surveyed to a benchmark,0.1 ft.,5-021.64,North American,Placer,455,Observation,Single Well
+51292,388063N1213354W001,NA,DCMW-2,38.8063,-121.335,Surveyed to a benchmark,0.1 ft.,5-021.64,North American,Placer,437,Observation,Single Well
+11220,388069N1214338W001,11N05E17A004M,NA,38.8069,-121.434,Unknown,Unknown,5-021.64,North American,Placer,210,Residential,Unknown
+31769,388074N1212947W001,11N06E15C004M,NA,38.8074,-121.295,Unknown,Unknown,5-021.64,North American,Placer,98,Unknown,Unknown
+51290,388116N1213054W001,NA,Tinker MW,38.8116,-121.305,Digital Elevation Model,5 ft.,5-021.64,North American,Placer,177,Observation,Single Well
+11918,388133N1212663W001,11N06E11R001M,NA,38.8133,-121.266,Unknown,Unknown,5-021.64,North American,Placer,NA,Stockwatering,Unknown
+11917,388134N1212990W001,11N06E10P001M,NA,38.8134,-121.299,Unknown,Unknown,5-021.64,North American,Placer,410,Stockwatering,Unknown
+48563,388145N1213491W001,NA,WPMW-2A,38.8145,-121.349,Surveyed to a benchmark,0.1 ft.,5-021.64,North American,Placer,230,Observation,Single Well
+48564,388145N1213491W002,NA,WPMW-2B,38.8145,-121.349,Surveyed to a benchmark,0.1 ft.,5-021.64,North American,Placer,425,Observation,Part of a nested/multi-completion well
+11218,388175N1214520W001,11N05E07H001M,NA,38.8175,-121.452,Unknown,Unknown,5-021.64,North American,Placer,NA,Irrigation,Unknown
+11216,388253N1213735W001,11N05E01N001M,NA,38.8253,-121.374,Unknown,Unknown,5-021.64,North American,Placer,NA,Unknown,Unknown
+30280,388297N1214134W001,11N05E03M003M,NA,38.8297,-121.413,Unknown,Unknown,5-021.64,North American,Placer,600,Unknown,Unknown
+11217,388352N1214515W001,11N05E06H001M,NA,38.8352,-121.452,Unknown,Unknown,5-021.64,North American,Placer,250,Irrigation,Unknown
+31768,388366N1213470W001,11N06E06B001M,NA,38.8366,-121.347,Unknown,Unknown,5-021.64,North American,Placer,180,Residential,Unknown
+11916,388378N1213431W001,11N06E06A001M,NA,38.8378,-121.343,Unknown,Unknown,5-021.64,North American,Placer,265,Residential,Unknown
+13169,388448N1213257W001,12N06E32K001M,NA,38.8448,-121.326,Unknown,Unknown,5-021.64,North American,Placer,NA,Irrigation,Unknown
+48565,388476N1212872W001,NA,WPMW-3A,38.8476,-121.287,Surveyed to a benchmark,0.1 ft.,5-021.64,North American,Placer,53,Observation,Part of a nested/multi-completion well
+48566,388476N1212872W002,NA,WPMW-3B,38.8476,-121.287,Surveyed to a benchmark,0.1 ft.,5-021.64,North American,Placer,140,Observation,Part of a nested/multi-completion well
+13161,388480N1213913W001,12N05E35E002M,NA,38.848,-121.391,Unknown,Unknown,5-021.64,North American,Placer,352,Irrigation,Unknown
+13160,388501N1214521W001,12N05E31A001M,NA,38.8501,-121.452,Unknown,Unknown,5-021.64,North American,Placer,NA,Irrigation,Unknown
+32067,388531N1214244W001,12N05E33C001M,NA,38.8531,-121.424,Unknown,Unknown,5-021.64,North American,Placer,610,Irrigation,Unknown
+32072,388603N1213502W001,12N06E30L001M,NA,38.8603,-121.35,Unknown,Unknown,5-021.64,North American,Placer,NA,Irrigation,Unknown
+49927,388604N1213544W001,NA,MW 1-1,38.8604,-121.354,Digital Elevation Model,2.5 ft,5-021.64,North American,Placer,398,Observation,Part of a nested/multi-completion well
+49928,388604N1213544W002,NA,MW 1-2,38.8604,-121.354,Digital Elevation Model,2.5 ft,5-021.64,North American,Placer,318,Observation,Part of a nested/multi-completion well
+49929,388604N1213544W003,NA,MW 1-3,38.8604,-121.354,Digital Elevation Model,2.5 ft,5-021.64,North American,Placer,204,Observation,Part of a nested/multi-completion well
+49930,388604N1213544W004,NA,MW 1-4,38.8604,-121.354,Digital Elevation Model,2.5 ft,5-021.64,North American,Placer,92,Observation,Part of a nested/multi-completion well
+13168,388607N1213177W001,12N06E28M001M,NA,38.8607,-121.318,Unknown,Unknown,5-021.64,North American,Placer,NA,Irrigation,Unknown
+13158,388625N1213791W001,12N05E26H002M,NA,38.8625,-121.379,Unknown,Unknown,5-021.64,North American,Placer,NA,Residential,Unknown
+49940,388637N1213222W001,NA,SLC-2,38.8637,-121.322,Digital Elevation Model,2.5 ft,5-021.64,North American,Placer,293,Observation,Single Well
+13167,388658N1213020W001,12N06E27D001M,NA,38.8658,-121.302,Unknown,Unknown,5-021.64,North American,Placer,126,Unknown,Unknown
+32066,388667N1214513W001,12N05E29D001M,NA,38.8667,-121.451,Unknown,Unknown,5-021.64,North American,Placer,NA,Unknown,Unknown
+32071,388672N1213019W001,12N06E27D002M,NA,38.8672,-121.302,Unknown,Unknown,5-021.64,North American,Placer,231,Unknown,Unknown
+13159,388674N1214243W001,12N05E28C001M,NA,38.8674,-121.424,Unknown,Unknown,5-021.64,North American,Placer,160,Irrigation,Unknown
+17047,388676N1213939W001,12N05E26D001M,NA,38.8676,-121.394,Unknown,Unknown,5-021.64,North American,Placer,NA,Irrigation,Unknown
+49941,388677N1213397W001,NA,SLC-3,38.8677,-121.34,Digital Elevation Model,2.5 ft,5-021.64,North American,Placer,311,Observation,Single Well
+32070,388693N1213503W001,12N06E19P001M,NA,38.8693,-121.35,Unknown,Unknown,5-021.64,North American,Placer,300,Unknown,Unknown
+13166,388696N1213321W001,12N06E20P003M,NA,38.8696,-121.332,Unknown,Unknown,5-021.64,North American,Placer,NA,Irrigation,Unknown
+49939,388755N1213144W001,NA,SLC-1,38.8755,-121.314,Digital Elevation Model,2.5 ft,5-021.64,North American,Placer,249,Observation,Single Well
+49937,388826N1213078W001,NA,MW 5-1,38.8826,-121.308,Digital Elevation Model,2.5 ft,5-021.64,North American,Placer,100,Observation,Part of a nested/multi-completion well
+49938,388826N1213078W002,NA,MW 5-2,38.8826,-121.308,Digital Elevation Model,2.5 ft,5-021.64,North American,Placer,62,Observation,Part of a nested/multi-completion well
+32904,388837N1214520W001,12N05E18R001M,NA,38.8837,-121.452,Unknown,Unknown,5-021.64,North American,Placer,NA,Irrigation,Unknown
+17045,388843N1213773W001,12N05E14R001M,NA,38.8843,-121.377,Unknown,Unknown,5-021.64,North American,Placer,653,Irrigation,Unknown
+13165,388875N1213497W001,12N06E18L001M,NA,38.8875,-121.35,Unknown,Unknown,5-021.64,North American,Placer,300,Irrigation,Unknown
+54779,388882N1214005W002,NA,WPMW-11A,38.8882,-121.4,Surveyed to a benchmark,0.1 ft.,5-021.64,North American,Placer,162,Observation,Part of a nested/multi-completion well
+54780,388882N1214005W004,NA,WPMW-11B,38.8882,-121.4,Surveyed to a benchmark,0.1 ft.,5-021.64,North American,Placer,309,Observation,Part of a nested/multi-completion well
+49936,388893N1212847W001,NA,MW 4,38.8893,-121.285,Digital Elevation Model,2.5 ft,5-021.64,North American,Placer,25,Observation,Single Well
+32902,388915N1213781W001,12N05E14H001M,NA,38.8915,-121.378,Unknown,Unknown,5-021.64,North American,Placer,300,Unknown,Unknown
+13164,388931N1212757W001,12N06E14F001M,NA,38.8931,-121.276,Unknown,Unknown,5-021.64,North American,Placer,NA,Unknown,Unknown
+32903,388943N1214335W001,12N05E17A002M,NA,38.8943,-121.434,Unknown,Unknown,5-021.64,North American,Placer,380,Irrigation,Unknown
+32069,388963N1213206W001,12N06E16D001M,NA,38.8963,-121.321,Unknown,Unknown,5-021.64,North American,Placer,106,Unknown,Unknown
+39126,388965N1214009W001,12N05E15A001M,NA,38.8965,-121.401,Unknown,Unknown,5-021.64,North American,Placer,100,Unknown,Unknown
+17046,388966N1214480W001,12N05E17D001M,NA,38.8966,-121.448,Unknown,Unknown,5-021.64,North American,Placer,185,Irrigation,Unknown
+49934,388971N1213301W001,NA,MW 3-1,38.8971,-121.33,Digital Elevation Model,2.5 ft,5-021.64,North American,Placer,133,Observation,Part of a nested/multi-completion well
+49935,388971N1213301W002,NA,MW 3-2,38.8971,-121.33,Digital Elevation Model,2.5 ft,5-021.64,North American,Placer,75,Observation,Part of a nested/multi-completion well
+17044,388974N1213665W001,12N05E12Q001M,NA,38.8974,-121.367,Unknown,Unknown,5-021.64,North American,Placer,300,Residential,Unknown
+49942,389011N1213514W001,NA,Airport Well 4 MW,38.9011,-121.351,Digital Elevation Model,2.5 ft,5-021.64,North American,Placer,414,Observation,Single Well
+32068,389031N1213576W001,12N06E07M001M,12N06E07M001M,38.9031,-121.358,Unknown,Unknown,5-021.64,North American,Placer,175,Residential,Single Well
+13163,389062N1212808W001,12N06E11E001M,NA,38.9062,-121.281,Unknown,Unknown,5-021.64,North American,Placer,145,Residential,Unknown
+32901,389078N1214522W001,12N05E07H001M,NA,38.9078,-121.452,Unknown,Unknown,5-021.64,North American,Placer,415,Irrigation,Unknown
+17043,389128N1214522W001,12N05E06R001M,NA,38.9128,-121.452,Unknown,Unknown,5-021.64,North American,Placer,NA,Irrigation,Unknown
+17041,389142N1213590W001,12N05E01R001M,NA,38.9142,-121.359,Unknown,Unknown,5-021.64,North American,Placer,370,Irrigation,Unknown
+17042,389168N1214567W001,12N05E06J003M,NA,38.9168,-121.457,Unknown,Unknown,5-021.64,North American,Placer,NA,Irrigation,Unknown
+51329,389185N1213268W001,NA,Swainson,38.9185,-121.327,Digital aerial photo,5 ft.,5-021.64,North American,Placer,92,Irrigation,Single Well
+32900,389193N1214277W001,12N05E04F001M,NA,38.9193,-121.428,Unknown,Unknown,5-021.64,North American,Placer,NA,Irrigation,Unknown
+32899,389254N1213763W001,12N05E01D002M,NA,38.9254,-121.376,Unknown,Unknown,5-021.64,North American,Placer,140,Residential,Unknown
+49931,389255N1213566W001,NA,MW 2-1,38.9255,-121.357,Digital Elevation Model,2.5 ft,5-021.64,North American,Placer,310,Observation,Part of a nested/multi-completion well
+49932,389255N1213566W002,NA,MW 2-2,38.9255,-121.357,Digital Elevation Model,2.5 ft,5-021.64,North American,Placer,170,Observation,Part of a nested/multi-completion well
+49933,389255N1213566W003,NA,MW 2-3,38.9255,-121.357,Digital Elevation Model,2.5 ft,5-021.64,North American,Placer,85,Observation,Part of a nested/multi-completion well
+13162,389261N1213426W001,12N06E06A001M,12N06E06A001M,38.9261,-121.343,Unknown,Unknown,5-021.64,North American,Placer,180,Irrigation,Single Well
+14537,389267N1212976W001,13N06E34P002M,NA,38.9267,-121.298,Unknown,Unknown,5-021.64,North American,Placer,NA,Residential,Unknown
+17213,389278N1213964W001,13N05E34R003M,NA,38.9278,-121.396,Unknown,Unknown,5-021.64,North American,Placer,70,Unknown,Unknown
+17214,389278N1213964W002,13N05E34R004M,NA,38.9278,-121.396,Unknown,Unknown,5-021.64,North American,Placer,100,Residential,Unknown
+35633,389292N1214056W001,13N05E34P001M,NA,38.9292,-121.406,Unknown,Unknown,5-021.64,North American,Placer,NA,Irrigation,Unknown
+35636,389323N1213173W001,13N06E33M001M,NA,38.9323,-121.317,Unknown,Unknown,5-021.64,North American,Placer,NA,Irrigation,Unknown
+32528,389328N1213211W001,13N06E33M002M,NA,38.9328,-121.321,Unknown,Unknown,5-021.64,North American,Placer,85,Irrigation,Unknown
+17217,389405N1213162W001,13N06E33C001M,NA,38.9405,-121.316,Unknown,Unknown,5-021.64,North American,Placer,391,Irrigation,Unknown
+17216,389448N1213561W001,13N06E30M001M,NA,38.9448,-121.356,Unknown,Unknown,5-021.64,North American,Placer,270,Irrigation,Unknown
+51333,389463N1213493W001,NA,MW-16,38.9463,-121.349,Surveyed to a benchmark,0.1 ft.,5-021.64,North American,Placer,46,Observation,Single Well
+17211,389631N1213611W001,13N05E24J001M,NA,38.9631,-121.361,Unknown,Unknown,5-021.64,North American,Placer,NA,Residential,Unknown
+35631,389652N1213744W001,13N05E24E002M,NA,38.9652,-121.374,Unknown,Unknown,5-021.64,North American,Placer,140,Irrigation,Unknown
+35635,389671N1213479W001,13N06E19B001M,NA,38.9671,-121.348,Unknown,Unknown,5-021.64,North American,Placer,330,Unknown,Unknown
+17210,389674N1214063W001,13N05E22C003M,NA,38.9674,-121.406,Unknown,Unknown,5-021.64,North American,Placer,400,Irrigation,Unknown
+51328,389740N1213606W001,NA,Cemetery,38.974,-121.361,Unknown,5 ft.,5-021.64,North American,Placer,111,Irrigation,Single Well
+51331,389764N1213710W001,NA,MW-2,38.9764,-121.371,Surveyed to a benchmark,0.1 ft.,5-021.64,North American,Placer,45,Observation,Single Well
+51332,389774N1213728W001,NA,MW-3,38.9774,-121.373,Surveyed to a benchmark,0.1 ft.,5-021.64,North American,Placer,35,Observation,Single Well
+51330,389785N1213713W001,NA,MW-1,38.9785,-121.371,Surveyed to a benchmark,0.1 ft.,5-021.64,North American,Placer,40,Observation,Single Well
+51327,389791N1213727W001,13N05E13D003M,Old Well #2,38.9791,-121.373,Digital Elevation Model,5 ft.,5-021.64,North American,Placer,209,Industrial,Single Well
+17215,389864N1213187W001,13N06E09N002M,NA,38.9864,-121.319,Unknown,Unknown,5-021.64,North American,Placer,52,Unknown,Unknown
+52555,389867N1213654W002,NA,Spencer,38.9867,-121.365,Unknown,Unknown,5-021.64,North American,Placer,107,Residential,Single Well
+54782,389919N1214141W002,NA,RDMW-104,38.9919,-121.414,Surveyed to a benchmark,0.1 ft.,5-021.64,North American,Placer,50,Observation,Single Well
+54781,389950N1214148W002,NA,RDMW-103,38.995,-121.415,Surveyed to a benchmark,0.1 ft.,5-021.64,North American,Placer,52,Observation,Single Well
+35628,389964N1214008W001,13N05E10B001M,NA,38.9964,-121.401,Unknown,Unknown,5-021.64,North American,Placer,100,Unknown,Unknown
+17207,389985N1214047W001,13N05E10B002M,NA,38.9985,-121.405,Unknown,Unknown,5-021.64,North American,Placer,NA,Irrigation,Unknown
+35625,390049N1213984W001,13N05E03J001M,NA,39.0049,-121.398,Unknown,Unknown,5-021.64,North American,Placer,300,Irrigation,Unknown
+17201,390061N1213646W001,13N05E01K001M,NA,39.006100000000004,-121.365,Unknown,Unknown,5-021.64,North American,Placer,100,Residential,Unknown
+35634,390119N1213407W001,13N06E06A001M,NA,39.0119,-121.341,Unknown,Unknown,5-021.64,North American,Placer,300,Residential,Unknown
+52835,390377N1213899W002,NA,GEITest1,39.0377,-121.39,Unknown,Unknown,5-021.61,South Yuba,Placer,89,Observation,Single Well
+46979,391974N1202373W001,NA,PlumpJack Deep,39.1974,-120.237,Surveyed to a benchmark,0.1 ft.,6-108,Olympic Valley,Placer,132,Observation,Single Well
+46978,391975N1202374W001,NA,PlumpJack Shallow,39.1975,-120.237,Surveyed to a benchmark,0.1 ft.,6-108,Olympic Valley,Placer,34,Observation,Single Well
+46984,391977N1202286W001,NA,Poulsen Deep,39.1977,-120.229,Surveyed to a benchmark,0.1 ft.,6-108,Olympic Valley,Placer,105,Observation,Single Well
+46983,391978N1202286W001,NA,Poulsen Shallow,39.1978,-120.229,Surveyed to a benchmark,0.1 ft.,6-108,Olympic Valley,Placer,29,Observation,Single Well
+46980,391978N1202320W001,NA,SVPSD-4R,39.1978,-120.232,Surveyed to a benchmark,0.1 ft.,6-108,Olympic Valley,Placer,74,Observation,Single Well
+46982,391980N1202300W001,NA,MW-5D,39.198,-120.23,Surveyed to a benchmark,0.1 ft.,6-108,Olympic Valley,Placer,90,Observation,Single Well
+46981,391980N1202301W001,NA,MW-5S,39.198,-120.23,Surveyed to a benchmark,0.1 ft.,6-108,Olympic Valley,Placer,25,Observation,Single Well
+34407,393006N1201122W001,17N17E29B001M,17N17E29B001M,39.3006,-120.112,Unknown,Unknown,6-067,Martis Valley,Placer,100,Observation,Single Well
+17644,393072N1201315W001,17N17E19K001M,17N17E19K001M,39.3072,-120.132,Unknown,Unknown,6-067,Martis Valley,Placer,201,Observation,Single Well
+17640,393079N1202452W001,17N16E19G001M,NA,39.3079,-120.245,Unknown,Unknown,NA,NA,Placer,98,Residential,Unknown

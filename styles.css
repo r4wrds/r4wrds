@@ -220,3 +220,8 @@ css below is adapted from that page */
   left: 0;
   background-color: rgba(0,0,0,.1);
 }
+
+.sourceCode {
+  background-color:#f4f4f4;
+  border-radius: 4px;
+}

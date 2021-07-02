@@ -1,0 +1,2931 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+  <meta name="generator" content="distill" />
+
+  <style type="text/css">
+  /* Hide doc at startup (prevent jankiness while JS renders/transforms) */
+  body {
+    visibility: hidden;
+  }
+  </style>
+
+ <!--radix_placeholder_import_source-->
+ <!--/radix_placeholder_import_source-->
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    background-color: #ffffff;
+    color: #a0a0a0;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #a0a0a0;  padding-left: 4px; }
+div.sourceCode
+  { color: #1f1c1b; background-color: #ffffff; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span { color: #1f1c1b; } /* Normal */
+code span.al { color: #bf0303; background-color: #f7e6e6; font-weight: bold; } /* Alert */
+code span.an { color: #ca60ca; } /* Annotation */
+code span.at { color: #0057ae; } /* Attribute */
+code span.bn { color: #b08000; } /* BaseN */
+code span.bu { color: #644a9b; font-weight: bold; } /* BuiltIn */
+code span.cf { color: #1f1c1b; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #924c9d; } /* Char */
+code span.cn { color: #aa5500; } /* Constant */
+code span.co { color: #898887; } /* Comment */
+code span.cv { color: #0095ff; } /* CommentVar */
+code span.do { color: #607880; } /* Documentation */
+code span.dt { color: #0057ae; } /* DataType */
+code span.dv { color: #b08000; } /* DecVal */
+code span.er { color: #bf0303; text-decoration: underline; } /* Error */
+code span.ex { color: #0095ff; font-weight: bold; } /* Extension */
+code span.fl { color: #b08000; } /* Float */
+code span.fu { color: #644a9b; } /* Function */
+code span.im { color: #ff5500; } /* Import */
+code span.in { color: #b08000; } /* Information */
+code span.kw { color: #1f1c1b; font-weight: bold; } /* Keyword */
+code span.op { color: #1f1c1b; } /* Operator */
+code span.ot { color: #006e28; } /* Other */
+code span.pp { color: #006e28; } /* Preprocessor */
+code span.re { color: #0057ae; background-color: #e0e9f8; } /* RegionMarker */
+code span.sc { color: #3daee9; } /* SpecialChar */
+code span.ss { color: #ff5500; } /* SpecialString */
+code span.st { color: #bf0303; } /* String */
+code span.va { color: #0057ae; } /* Variable */
+code span.vs { color: #bf0303; } /* VerbatimString */
+code span.wa { color: #bf0303; } /* Warning */
+</style>
+
+  <!--radix_placeholder_meta_tags-->
+  <title>R for Water Resources Data Science: 7. Wrangling Data with dplyr</title>
+
+  <meta property="description" itemprop="description" content="Making data tidying and transformation fun!"/>
+
+
+
+  <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
+  <meta property="og:title" content="R for Water Resources Data Science: 7. Wrangling Data with dplyr"/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:description" content="Making data tidying and transformation fun!"/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:site_name" content="R for Water Resources Data Science"/>
+
+  <!--  https://dev.twitter.com/cards/types/summary -->
+  <meta property="twitter:card" content="summary"/>
+  <meta property="twitter:title" content="R for Water Resources Data Science: 7. Wrangling Data with dplyr"/>
+  <meta property="twitter:description" content="Making data tidying and transformation fun!"/>
+
+  <!--/radix_placeholder_meta_tags-->
+  <!--radix_placeholder_rmarkdown_metadata-->
+
+  <script type="text/json" id="radix-rmarkdown-metadata">
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","output"]}},"value":[{"type":"character","attributes":{},"value":["7. Wrangling Data with dplyr"]},{"type":"character","attributes":{},"value":["Making data tidying and transformation fun!\n"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]}]}
+  </script>
+  <!--/radix_placeholder_rmarkdown_metadata-->
+  <!--radix_placeholder_navigation_in_header-->
+  <meta name="distill:offset" content=""/>
+
+  <script type="application/javascript">
+
+    window.headroom_prevent_pin = false;
+
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+
+      // initialize headroom for banner
+      var header = $('header').get(0);
+      var headerHeight = header.offsetHeight;
+      var headroom = new Headroom(header, {
+        tolerance: 5,
+        onPin : function() {
+          if (window.headroom_prevent_pin) {
+            window.headroom_prevent_pin = false;
+            headroom.unpin();
+          }
+        }
+      });
+      headroom.init();
+      if(window.location.hash)
+        headroom.unpin();
+      $(header).addClass('headroom--transition');
+
+      // offset scroll location for banner on hash change
+      // (see: https://github.com/WickyNilliams/headroom.js/issues/38)
+      window.addEventListener("hashchange", function(event) {
+        window.scrollTo(0, window.pageYOffset - (headerHeight + 25));
+      });
+
+      // responsive menu
+      $('.distill-site-header').each(function(i, val) {
+        var topnav = $(this);
+        var toggle = topnav.find('.nav-toggle');
+        toggle.on('click', function() {
+          topnav.toggleClass('responsive');
+        });
+      });
+
+      // nav dropdowns
+      $('.nav-dropbtn').click(function(e) {
+        $(this).next('.nav-dropdown-content').toggleClass('nav-dropdown-active');
+        $(this).parent().siblings('.nav-dropdown')
+           .children('.nav-dropdown-content').removeClass('nav-dropdown-active');
+      });
+      $("body").click(function(e){
+        $('.nav-dropdown-content').removeClass('nav-dropdown-active');
+      });
+      $(".nav-dropdown").click(function(e){
+        e.stopPropagation();
+      });
+    });
+  </script>
+
+  <style type="text/css">
+
+  /* Theme (user-documented overrideables for nav appearance) */
+
+  .distill-site-nav {
+    color: rgba(255, 255, 255, 0.8);
+    background-color: #0F2E3D;
+    font-size: 15px;
+    font-weight: 300;
+  }
+
+  .distill-site-nav a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .distill-site-nav a:hover {
+    color: white;
+  }
+
+  @media print {
+    .distill-site-nav {
+      display: none;
+    }
+  }
+
+  .distill-site-header {
+
+  }
+
+  .distill-site-footer {
+
+  }
+
+
+  /* Site Header */
+
+  .distill-site-header {
+    width: 100%;
+    box-sizing: border-box;
+    z-index: 3;
+  }
+
+  .distill-site-header .nav-left {
+    display: inline-block;
+    margin-left: 8px;
+  }
+
+  @media screen and (max-width: 768px) {
+    .distill-site-header .nav-left {
+      margin-left: 0;
+    }
+  }
+
+
+  .distill-site-header .nav-right {
+    float: right;
+    margin-right: 8px;
+  }
+
+  .distill-site-header a,
+  .distill-site-header .title {
+    display: inline-block;
+    text-align: center;
+    padding: 14px 10px 14px 10px;
+  }
+
+  .distill-site-header .title {
+    font-size: 18px;
+    min-width: 150px;
+  }
+
+  .distill-site-header .logo {
+    padding: 0;
+  }
+
+  .distill-site-header .logo img {
+    display: none;
+    max-height: 20px;
+    width: auto;
+    margin-bottom: -4px;
+  }
+
+  .distill-site-header .nav-image img {
+    max-height: 18px;
+    width: auto;
+    display: inline-block;
+    margin-bottom: -3px;
+  }
+
+
+
+  @media screen and (min-width: 1000px) {
+    .distill-site-header .logo img {
+      display: inline-block;
+    }
+    .distill-site-header .nav-left {
+      margin-left: 20px;
+    }
+    .distill-site-header .nav-right {
+      margin-right: 20px;
+    }
+    .distill-site-header .title {
+      padding-left: 12px;
+    }
+  }
+
+
+  .distill-site-header .nav-toggle {
+    display: none;
+  }
+
+  .nav-dropdown {
+    display: inline-block;
+    position: relative;
+  }
+
+  .nav-dropdown .nav-dropbtn {
+    border: none;
+    outline: none;
+    color: rgba(255, 255, 255, 0.8);
+    padding: 16px 10px;
+    background-color: transparent;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    margin: 0;
+    margin-top: 1px;
+    z-index: 2;
+  }
+
+  .nav-dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 200px;
+    border: 1px solid rgba(0,0,0,0.15);
+    border-radius: 4px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+    z-index: 1;
+    margin-top: 2px;
+    white-space: nowrap;
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
+
+  .nav-dropdown-content hr {
+    margin-top: 4px;
+    margin-bottom: 4px;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .nav-dropdown-active {
+    display: block;
+  }
+
+  .nav-dropdown-content a, .nav-dropdown-content .nav-dropdown-header {
+    color: black;
+    padding: 6px 24px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+  }
+
+  .nav-dropdown-content .nav-dropdown-header {
+    display: block;
+    padding: 5px 24px;
+    padding-bottom: 0;
+    text-transform: uppercase;
+    font-size: 14px;
+    color: #999999;
+    white-space: nowrap;
+  }
+
+  .nav-dropdown:hover .nav-dropbtn {
+    color: white;
+  }
+
+  .nav-dropdown-content a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+
+  .nav-right .nav-dropdown-content {
+    margin-left: -45%;
+    right: 0;
+  }
+
+  @media screen and (max-width: 768px) {
+    .distill-site-header a, .distill-site-header .nav-dropdown  {display: none;}
+    .distill-site-header a.nav-toggle {
+      float: right;
+      display: block;
+    }
+    .distill-site-header .title {
+      margin-left: 0;
+    }
+    .distill-site-header .nav-right {
+      margin-right: 0;
+    }
+    .distill-site-header {
+      overflow: hidden;
+    }
+    .nav-right .nav-dropdown-content {
+      margin-left: 0;
+    }
+  }
+
+
+  @media screen and (max-width: 768px) {
+    .distill-site-header.responsive {position: relative; min-height: 500px; }
+    .distill-site-header.responsive a.nav-toggle {
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+    .distill-site-header.responsive a,
+    .distill-site-header.responsive .nav-dropdown {
+      display: block;
+      text-align: left;
+    }
+    .distill-site-header.responsive .nav-left,
+    .distill-site-header.responsive .nav-right {
+      width: 100%;
+    }
+    .distill-site-header.responsive .nav-dropdown {float: none;}
+    .distill-site-header.responsive .nav-dropdown-content {position: relative;}
+    .distill-site-header.responsive .nav-dropdown .nav-dropbtn {
+      display: block;
+      width: 100%;
+      text-align: left;
+    }
+  }
+
+  /* Site Footer */
+
+  .distill-site-footer {
+    width: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+    z-index: 3;
+    margin-top: 30px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    text-align: center;
+  }
+
+  /* Headroom */
+
+  d-title {
+    padding-top: 6rem;
+  }
+
+  @media print {
+    d-title {
+      padding-top: 4rem;
+    }
+  }
+
+  .headroom {
+    z-index: 1000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .headroom--transition {
+    transition: all .4s ease-in-out;
+  }
+
+  .headroom--unpinned {
+    top: -100px;
+  }
+
+  .headroom--pinned {
+    top: 0;
+  }
+
+  /* adjust viewport for navbar height */
+  /* helps vertically center bootstrap (non-distill) content */
+  .min-vh-100 {
+    min-height: calc(100vh - 100px) !important;
+  }
+
+  </style>
+
+  <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+  <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
+  <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
+  <script src="site_libs/headroom-0.9.4/headroom.min.js"></script>
+  <script src="site_libs/autocomplete-0.37.1/autocomplete.min.js"></script>
+  <script src="site_libs/fuse-6.4.1/fuse.min.js"></script>
+
+  <script type="application/javascript">
+
+  function getMeta(metaName) {
+    var metas = document.getElementsByTagName('meta');
+    for (let i = 0; i < metas.length; i++) {
+      if (metas[i].getAttribute('name') === metaName) {
+        return metas[i].getAttribute('content');
+      }
+    }
+    return '';
+  }
+
+  function offsetURL(url) {
+    var offset = getMeta('distill:offset');
+    return offset ? offset + '/' + url : url;
+  }
+
+  function createFuseIndex() {
+
+    // create fuse index
+    var options = {
+      keys: [
+        { name: 'title', weight: 20 },
+        { name: 'categories', weight: 15 },
+        { name: 'description', weight: 10 },
+        { name: 'contents', weight: 5 },
+      ],
+      ignoreLocation: true,
+      threshold: 0
+    };
+    var fuse = new window.Fuse([], options);
+
+    // fetch the main search.json
+    return fetch(offsetURL('search.json'))
+      .then(function(response) {
+        if (response.status == 200) {
+          return response.json().then(function(json) {
+            // index main articles
+            json.articles.forEach(function(article) {
+              fuse.add(article);
+            });
+            // download collections and index their articles
+            return Promise.all(json.collections.map(function(collection) {
+              return fetch(offsetURL(collection)).then(function(response) {
+                if (response.status === 200) {
+                  return response.json().then(function(articles) {
+                    articles.forEach(function(article) {
+                      fuse.add(article);
+                    });
+                  })
+                } else {
+                  return Promise.reject(
+                    new Error('Unexpected status from search index request: ' +
+                              response.status)
+                  );
+                }
+              });
+            })).then(function() {
+              return fuse;
+            });
+          });
+
+        } else {
+          return Promise.reject(
+            new Error('Unexpected status from search index request: ' +
+                        response.status)
+          );
+        }
+      });
+  }
+
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+
+    // get search element (bail if we don't have one)
+    var searchEl = window.document.getElementById('distill-search');
+    if (!searchEl)
+      return;
+
+    createFuseIndex()
+      .then(function(fuse) {
+
+        // make search box visible
+        searchEl.classList.remove('hidden');
+
+        // initialize autocomplete
+        var options = {
+          autoselect: true,
+          hint: false,
+          minLength: 2,
+        };
+        window.autocomplete(searchEl, options, [{
+          source: function(query, callback) {
+            const searchOptions = {
+              isCaseSensitive: false,
+              shouldSort: true,
+              minMatchCharLength: 2,
+              limit: 10,
+            };
+            var results = fuse.search(query, searchOptions);
+            callback(results
+              .map(function(result) { return result.item; })
+            );
+          },
+          templates: {
+            suggestion: function(suggestion) {
+              var img = suggestion.preview && Object.keys(suggestion.preview).length > 0
+                ? `<img src="${offsetURL(suggestion.preview)}"</img>`
+                : '';
+              var html = `
+                <div class="search-item">
+                  <h3>${suggestion.title}</h3>
+                  <div class="search-item-description">
+                    ${suggestion.description || ''}
+                  </div>
+                  <div class="search-item-preview">
+                    ${img}
+                  </div>
+                </div>
+              `;
+              return html;
+            }
+          }
+        }]).on('autocomplete:selected', function(event, suggestion) {
+          window.location.href = offsetURL(suggestion.path);
+        });
+        // remove inline display style on autocompleter (we want to
+        // manage responsive display via css)
+        $('.algolia-autocomplete').css("display", "");
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+
+  });
+
+  </script>
+
+  <style type="text/css">
+
+  .nav-search {
+    font-size: x-small;
+  }
+
+  /* Algolioa Autocomplete */
+
+  .algolia-autocomplete {
+    display: inline-block;
+    margin-left: 10px;
+    vertical-align: sub;
+    background-color: white;
+    color: black;
+    padding: 6px;
+    padding-top: 8px;
+    padding-bottom: 0;
+    border-radius: 6px;
+    border: 1px #0F2E3D solid;
+    width: 180px;
+  }
+
+
+  @media screen and (max-width: 768px) {
+    .distill-site-nav .algolia-autocomplete {
+      display: none;
+      visibility: hidden;
+    }
+    .distill-site-nav.responsive .algolia-autocomplete {
+      display: inline-block;
+      visibility: visible;
+    }
+    .distill-site-nav.responsive .algolia-autocomplete .aa-dropdown-menu {
+      margin-left: 0;
+      width: 400px;
+      max-height: 400px;
+    }
+  }
+
+  .algolia-autocomplete .aa-input, .algolia-autocomplete .aa-hint {
+    width: 90%;
+    outline: none;
+    border: none;
+  }
+
+  .algolia-autocomplete .aa-hint {
+    color: #999;
+  }
+  .algolia-autocomplete .aa-dropdown-menu {
+    width: 550px;
+    max-height: 70vh;
+    overflow-x: visible;
+    overflow-y: scroll;
+    padding: 5px;
+    margin-top: 3px;
+    margin-left: -150px;
+    background-color: #fff;
+    border-radius: 5px;
+    border: 1px solid #999;
+    border-top: none;
+  }
+
+  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion {
+    cursor: pointer;
+    padding: 5px 4px;
+    border-bottom: 1px solid #eee;
+  }
+
+  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion:last-of-type {
+    border-bottom: none;
+    margin-bottom: 2px;
+  }
+
+  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item {
+    overflow: hidden;
+    font-size: 0.8em;
+    line-height: 1.4em;
+  }
+
+  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item h3 {
+    font-size: 1rem;
+    margin-block-start: 0;
+    margin-block-end: 5px;
+  }
+
+  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-description {
+    display: inline-block;
+    overflow: hidden;
+    height: 2.8em;
+    width: 80%;
+    margin-right: 4%;
+  }
+
+  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-preview {
+    display: inline-block;
+    width: 15%;
+  }
+
+  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-preview img {
+    height: 3em;
+    width: auto;
+    display: none;
+  }
+
+  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-preview img[src] {
+    display: initial;
+  }
+
+  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion.aa-cursor {
+    background-color: #eee;
+  }
+  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion em {
+    font-weight: bold;
+    font-style: normal;
+  }
+
+  </style>
+
+
+  <!--/radix_placeholder_navigation_in_header-->
+  <!--radix_placeholder_distill-->
+
+  <style type="text/css">
+
+  body {
+    background-color: white;
+  }
+
+  .pandoc-table {
+    width: 100%;
+  }
+
+  .pandoc-table>caption {
+    margin-bottom: 10px;
+  }
+
+  .pandoc-table th:not([align]) {
+    text-align: left;
+  }
+
+  .pagedtable-footer {
+    font-size: 15px;
+  }
+
+  d-byline .byline {
+    grid-template-columns: 2fr 2fr;
+  }
+
+  d-byline .byline h3 {
+    margin-block-start: 1.5em;
+  }
+
+  d-byline .byline .authors-affiliations h3 {
+    margin-block-start: 0.5em;
+  }
+
+  .authors-affiliations .orcid-id {
+    width: 16px;
+    height:16px;
+    margin-left: 4px;
+    margin-right: 4px;
+    vertical-align: middle;
+    padding-bottom: 2px;
+  }
+
+  d-title .dt-tags {
+    margin-top: 1em;
+    grid-column: text;
+  }
+
+  .dt-tags .dt-tag {
+    text-decoration: none;
+    display: inline-block;
+    color: rgba(0,0,0,0.6);
+    padding: 0em 0.4em;
+    margin-right: 0.5em;
+    margin-bottom: 0.4em;
+    font-size: 70%;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  d-article table.gt_table td,
+  d-article table.gt_table th {
+    border-bottom: none;
+  }
+
+  .html-widget {
+    margin-bottom: 2.0em;
+  }
+
+  .l-screen-inset {
+    padding-right: 16px;
+  }
+
+  .l-screen .caption {
+    margin-left: 10px;
+  }
+
+  .shaded {
+    background: rgb(247, 247, 247);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .shaded .html-widget {
+    margin-bottom: 0;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .shaded .shaded-content {
+    background: white;
+  }
+
+  .text-output {
+    margin-top: 0;
+    line-height: 1.5em;
+  }
+
+  .hidden {
+    display: none !important;
+  }
+
+  d-article {
+    padding-top: 2.5rem;
+    padding-bottom: 30px;
+  }
+
+  d-appendix {
+    padding-top: 30px;
+  }
+
+  d-article>p>img {
+    width: 100%;
+  }
+
+  d-article h2 {
+    margin: 1rem 0 1.5rem 0;
+  }
+
+  d-article h3 {
+    margin-top: 1.5rem;
+  }
+
+  d-article iframe {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 2.0em;
+    width: 100%;
+  }
+
+  /* Tweak code blocks */
+
+  d-article div.sourceCode code,
+  d-article pre code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  d-article pre,
+  d-article div.sourceCode,
+  d-article div.sourceCode pre {
+    overflow: auto;
+  }
+
+  d-article div.sourceCode {
+    background-color: white;
+  }
+
+  d-article div.sourceCode pre {
+    padding-left: 10px;
+    font-size: 12px;
+    border-left: 2px solid rgba(0,0,0,0.1);
+  }
+
+  d-article pre {
+    font-size: 12px;
+    color: black;
+    background: none;
+    margin-top: 0;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+
+  d-article pre a {
+    border-bottom: none;
+  }
+
+  d-article pre a:hover {
+    border-bottom: none;
+    text-decoration: underline;
+  }
+
+  d-article details {
+    grid-column: text;
+    margin-bottom: 0.8em;
+  }
+
+  @media(min-width: 768px) {
+
+  d-article pre,
+  d-article div.sourceCode,
+  d-article div.sourceCode pre {
+    overflow: visible !important;
+  }
+
+  d-article div.sourceCode pre {
+    padding-left: 18px;
+    font-size: 14px;
+  }
+
+  d-article pre {
+    font-size: 14px;
+  }
+
+  }
+
+  figure img.external {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    box-sizing: border-box;
+  }
+
+  /* CSS for d-contents */
+
+  .d-contents {
+    grid-column: text;
+    color: rgba(0,0,0,0.8);
+    font-size: 0.9em;
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+    padding-bottom: 0.5em;
+    margin-bottom: 1em;
+    padding-left: 0.25em;
+    justify-self: start;
+  }
+
+  @media(min-width: 1000px) {
+    .d-contents.d-contents-float {
+      height: 0;
+      grid-column-start: 1;
+      grid-column-end: 4;
+      justify-self: center;
+      padding-right: 3em;
+      padding-left: 2em;
+    }
+  }
+
+  .d-contents nav h3 {
+    font-size: 18px;
+    margin-top: 0;
+    margin-bottom: 1em;
+  }
+
+  .d-contents li {
+    list-style-type: none
+  }
+
+  .d-contents nav > ul {
+    padding-left: 0;
+  }
+
+  .d-contents ul {
+    padding-left: 1em
+  }
+
+  .d-contents nav ul li {
+    margin-top: 0.6em;
+    margin-bottom: 0.2em;
+  }
+
+  .d-contents nav a {
+    font-size: 13px;
+    border-bottom: none;
+    text-decoration: none
+    color: rgba(0, 0, 0, 0.8);
+  }
+
+  .d-contents nav a:hover {
+    text-decoration: underline solid rgba(0, 0, 0, 0.6)
+  }
+
+  .d-contents nav > ul > li > a {
+    font-weight: 600;
+  }
+
+  .d-contents nav > ul > li > ul {
+    font-weight: inherit;
+  }
+
+  .d-contents nav > ul > li > ul > li {
+    margin-top: 0.2em;
+  }
+
+
+  .d-contents nav ul {
+    margin-top: 0;
+    margin-bottom: 0.25em;
+  }
+
+  .d-article-with-toc h2:nth-child(2) {
+    margin-top: 0;
+  }
+
+
+  /* Figure */
+
+  .figure {
+    position: relative;
+    margin-bottom: 2.5em;
+    margin-top: 1.5em;
+  }
+
+  .figure img {
+    width: 100%;
+  }
+
+  .figure .caption {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 12px;
+    line-height: 1.5em;
+  }
+
+  .figure img.external {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    box-sizing: border-box;
+  }
+
+  .figure .caption a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  .figure .caption b,
+  .figure .caption strong, {
+    font-weight: 600;
+    color: rgba(0, 0, 0, 1.0);
+  }
+
+  /* Citations */
+
+  d-article .citation {
+    color: inherit;
+    cursor: inherit;
+  }
+
+  div.hanging-indent{
+    margin-left: 1em; text-indent: -1em;
+  }
+
+  /* Citation hover box */
+
+  .tippy-box[data-theme~=light-border] {
+    background-color: rgba(250, 250, 250, 0.95);
+  }
+
+  .tippy-content > p {
+    margin-bottom: 0;
+    padding: 2px;
+  }
+
+
+  /* Tweak 1000px media break to show more text */
+
+  @media(min-width: 1000px) {
+    .base-grid,
+    distill-header,
+    d-title,
+    d-abstract,
+    d-article,
+    d-appendix,
+    distill-appendix,
+    d-byline,
+    d-footnote-list,
+    d-citation-list,
+    distill-footer {
+      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 80px [middle-start] 50px [text-start kicker-end] 65px 65px 65px 65px 65px 65px 65px 65px [text-end gutter-start] 65px [middle-end] 65px [page-end gutter-end] 1fr [screen-end];
+      grid-column-gap: 16px;
+    }
+
+    .grid {
+      grid-column-gap: 16px;
+    }
+
+    d-article {
+      font-size: 1.06rem;
+      line-height: 1.7em;
+    }
+    figure .caption, .figure .caption, figure figcaption {
+      font-size: 13px;
+    }
+  }
+
+  @media(min-width: 1180px) {
+    .base-grid,
+    distill-header,
+    d-title,
+    d-abstract,
+    d-article,
+    d-appendix,
+    distill-appendix,
+    d-byline,
+    d-footnote-list,
+    d-citation-list,
+    distill-footer {
+      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 60px [middle-start] 60px [text-start kicker-end] 60px 60px 60px 60px 60px 60px 60px 60px [text-end gutter-start] 60px [middle-end] 60px [page-end gutter-end] 1fr [screen-end];
+      grid-column-gap: 32px;
+    }
+
+    .grid {
+      grid-column-gap: 32px;
+    }
+  }
+
+
+  /* Get the citation styles for the appendix (not auto-injected on render since
+     we do our own rendering of the citation appendix) */
+
+  d-appendix .citation-appendix,
+  .d-appendix .citation-appendix {
+    font-size: 11px;
+    line-height: 15px;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    padding-left: 18px;
+    border: 1px solid rgba(0,0,0,0.1);
+    background: rgba(0, 0, 0, 0.02);
+    padding: 10px 18px;
+    border-radius: 3px;
+    color: rgba(150, 150, 150, 1);
+    overflow: hidden;
+    margin-top: -12px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  /* Include appendix styles here so they can be overridden */
+
+  d-appendix {
+    contain: layout style;
+    font-size: 0.8em;
+    line-height: 1.7em;
+    margin-top: 60px;
+    margin-bottom: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    color: rgba(0,0,0,0.5);
+    padding-top: 60px;
+    padding-bottom: 48px;
+  }
+
+  d-appendix h3 {
+    grid-column: page-start / text-start;
+    font-size: 15px;
+    font-weight: 500;
+    margin-top: 1em;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.65);
+  }
+
+  d-appendix h3 + * {
+    margin-top: 1em;
+  }
+
+  d-appendix ol {
+    padding: 0 0 0 15px;
+  }
+
+  @media (min-width: 768px) {
+    d-appendix ol {
+      padding: 0 0 0 30px;
+      margin-left: -30px;
+    }
+  }
+
+  d-appendix li {
+    margin-bottom: 1em;
+  }
+
+  d-appendix a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  d-appendix > * {
+    grid-column: text;
+  }
+
+  d-appendix > d-footnote-list,
+  d-appendix > d-citation-list,
+  d-appendix > distill-appendix {
+    grid-column: screen;
+  }
+
+  /* Include footnote styles here so they can be overridden */
+
+  d-footnote-list {
+    contain: layout style;
+  }
+
+  d-footnote-list > * {
+    grid-column: text;
+  }
+
+  d-footnote-list a.footnote-backlink {
+    color: rgba(0,0,0,0.3);
+    padding-left: 0.5em;
+  }
+
+
+
+  /* Anchor.js */
+
+  .anchorjs-link {
+    /*transition: all .25s linear; */
+    text-decoration: none;
+    border-bottom: none;
+  }
+  *:hover > .anchorjs-link {
+    margin-left: -1.125em !important;
+    text-decoration: none;
+    border-bottom: none;
+  }
+
+  /* Social footer */
+
+  .social_footer {
+    margin-top: 30px;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.67);
+  }
+
+  .disqus-comments {
+    margin-right: 30px;
+  }
+
+  .disqus-comment-count {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+  }
+
+  #disqus_thread {
+    margin-top: 30px;
+  }
+
+  .article-sharing a {
+    border-bottom: none;
+    margin-right: 8px;
+  }
+
+  .article-sharing a:hover {
+    border-bottom: none;
+  }
+
+  .sidebar-section.subscribe {
+    font-size: 12px;
+    line-height: 1.6em;
+  }
+
+  .subscribe p {
+    margin-bottom: 0.5em;
+  }
+
+
+  .article-footer .subscribe {
+    font-size: 15px;
+    margin-top: 45px;
+  }
+
+
+  .sidebar-section.custom {
+    font-size: 12px;
+    line-height: 1.6em;
+  }
+
+  .custom p {
+    margin-bottom: 0.5em;
+  }
+
+  /* Styles for listing layout (hide title) */
+  .layout-listing d-title, .layout-listing .d-title {
+    display: none;
+  }
+
+  /* Styles for posts lists (not auto-injected) */
+
+
+  .posts-with-sidebar {
+    padding-left: 45px;
+    padding-right: 45px;
+  }
+
+  .posts-list .description h2,
+  .posts-list .description p {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+  }
+
+  .posts-list .description h2 {
+    font-weight: 700;
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .posts-list h2.post-tag {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    padding-bottom: 12px;
+  }
+  .posts-list {
+    margin-top: 60px;
+    margin-bottom: 24px;
+  }
+
+  .posts-list .post-preview {
+    text-decoration: none;
+    overflow: hidden;
+    display: block;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 24px 0;
+  }
+
+  .post-preview-last {
+    border-bottom: none !important;
+  }
+
+  .posts-list .posts-list-caption {
+    grid-column: screen;
+    font-weight: 400;
+  }
+
+  .posts-list .post-preview h2 {
+    margin: 0 0 6px 0;
+    line-height: 1.2em;
+    font-style: normal;
+    font-size: 24px;
+  }
+
+  .posts-list .post-preview p {
+    margin: 0 0 12px 0;
+    line-height: 1.4em;
+    font-size: 16px;
+  }
+
+  .posts-list .post-preview .thumbnail {
+    box-sizing: border-box;
+    margin-bottom: 24px;
+    position: relative;
+    max-width: 500px;
+  }
+  .posts-list .post-preview img {
+    width: 100%;
+    display: block;
+  }
+
+  .posts-list .metadata {
+    font-size: 12px;
+    line-height: 1.4em;
+    margin-bottom: 18px;
+  }
+
+  .posts-list .metadata > * {
+    display: inline-block;
+  }
+
+  .posts-list .metadata .publishedDate {
+    margin-right: 2em;
+  }
+
+  .posts-list .metadata .dt-authors {
+    display: block;
+    margin-top: 0.3em;
+    margin-right: 2em;
+  }
+
+  .posts-list .dt-tags {
+    display: block;
+    line-height: 1em;
+  }
+
+  .posts-list .dt-tags .dt-tag {
+    display: inline-block;
+    color: rgba(0,0,0,0.6);
+    padding: 0.3em 0.4em;
+    margin-right: 0.2em;
+    margin-bottom: 0.4em;
+    font-size: 60%;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .posts-list img {
+    opacity: 1;
+  }
+
+  .posts-list img[data-src] {
+    opacity: 0;
+  }
+
+  .posts-more {
+    clear: both;
+  }
+
+
+  .posts-sidebar {
+    font-size: 16px;
+  }
+
+  .posts-sidebar h3 {
+    font-size: 16px;
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    font-weight: 400;
+    text-transform: uppercase;
+  }
+
+  .sidebar-section {
+    margin-bottom: 30px;
+  }
+
+  .categories ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .categories li {
+    color: rgba(0, 0, 0, 0.8);
+    margin-bottom: 0;
+  }
+
+  .categories li>a {
+    border-bottom: none;
+  }
+
+  .categories li>a:hover {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  }
+
+  .categories .active {
+    font-weight: 600;
+  }
+
+  .categories .category-count {
+    color: rgba(0, 0, 0, 0.4);
+  }
+
+
+  @media(min-width: 768px) {
+    .posts-list .post-preview h2 {
+      font-size: 26px;
+    }
+    .posts-list .post-preview .thumbnail {
+      float: right;
+      width: 30%;
+      margin-bottom: 0;
+    }
+    .posts-list .post-preview .description {
+      float: left;
+      width: 45%;
+    }
+    .posts-list .post-preview .metadata {
+      float: left;
+      width: 20%;
+      margin-top: 8px;
+    }
+    .posts-list .post-preview p {
+      margin: 0 0 12px 0;
+      line-height: 1.5em;
+      font-size: 16px;
+    }
+    .posts-with-sidebar .posts-list {
+      float: left;
+      width: 75%;
+    }
+    .posts-with-sidebar .posts-sidebar {
+      float: right;
+      width: 20%;
+      margin-top: 60px;
+      padding-top: 24px;
+      padding-bottom: 24px;
+    }
+  }
+
+
+  /* Improve display for browsers without grid (IE/Edge <= 15) */
+
+  .downlevel {
+    line-height: 1.6em;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+    margin: 0;
+  }
+
+  .downlevel .d-title {
+    padding-top: 6rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .downlevel .d-title h1 {
+    font-size: 50px;
+    font-weight: 700;
+    line-height: 1.1em;
+    margin: 0 0 0.5rem;
+  }
+
+  .downlevel .d-title p {
+    font-weight: 300;
+    font-size: 1.2rem;
+    line-height: 1.55em;
+    margin-top: 0;
+  }
+
+  .downlevel .d-byline {
+    padding-top: 0.8em;
+    padding-bottom: 0.8em;
+    font-size: 0.8rem;
+    line-height: 1.8em;
+  }
+
+  .downlevel .section-separator {
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .downlevel .d-article {
+    font-size: 1.06rem;
+    line-height: 1.7em;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+  }
+
+
+  .downlevel .d-appendix {
+    padding-left: 0;
+    padding-right: 0;
+    max-width: none;
+    font-size: 0.8em;
+    line-height: 1.7em;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.5);
+    padding-top: 40px;
+    padding-bottom: 48px;
+  }
+
+  .downlevel .footnotes ol {
+    padding-left: 13px;
+  }
+
+  .downlevel .base-grid,
+  .downlevel .distill-header,
+  .downlevel .d-title,
+  .downlevel .d-abstract,
+  .downlevel .d-article,
+  .downlevel .d-appendix,
+  .downlevel .distill-appendix,
+  .downlevel .d-byline,
+  .downlevel .d-footnote-list,
+  .downlevel .d-citation-list,
+  .downlevel .distill-footer,
+  .downlevel .appendix-bottom,
+  .downlevel .posts-container {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  @media(min-width: 768px) {
+    .downlevel .base-grid,
+    .downlevel .distill-header,
+    .downlevel .d-title,
+    .downlevel .d-abstract,
+    .downlevel .d-article,
+    .downlevel .d-appendix,
+    .downlevel .distill-appendix,
+    .downlevel .d-byline,
+    .downlevel .d-footnote-list,
+    .downlevel .d-citation-list,
+    .downlevel .distill-footer,
+    .downlevel .appendix-bottom,
+    .downlevel .posts-container {
+    padding-left: 150px;
+    padding-right: 150px;
+    max-width: 900px;
+  }
+  }
+
+  .downlevel pre code {
+    display: block;
+    border-left: 2px solid rgba(0, 0, 0, .1);
+    padding: 0 0 0 20px;
+    font-size: 14px;
+  }
+
+  .downlevel code, .downlevel pre {
+    color: black;
+    background: none;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+
+  .downlevel .posts-list .post-preview {
+    color: inherit;
+  }
+
+
+
+  </style>
+
+  <script type="application/javascript">
+
+  function is_downlevel_browser() {
+    if (bowser.isUnsupportedBrowser({ msie: "12", msedge: "16"},
+                                   window.navigator.userAgent)) {
+      return true;
+    } else {
+      return window.load_distill_framework === undefined;
+    }
+  }
+
+  // show body when load is complete
+  function on_load_complete() {
+
+    // add anchors
+    if (window.anchors) {
+      window.anchors.options.placement = 'left';
+      window.anchors.add('d-article > h2, d-article > h3, d-article > h4, d-article > h5');
+    }
+
+
+    // set body to visible
+    document.body.style.visibility = 'visible';
+
+    // force redraw for leaflet widgets
+    if (window.HTMLWidgets) {
+      var maps = window.HTMLWidgets.findAll(".leaflet");
+      $.each(maps, function(i, el) {
+        var map = this.getMap();
+        map.invalidateSize();
+        map.eachLayer(function(layer) {
+          if (layer instanceof L.TileLayer)
+            layer.redraw();
+        });
+      });
+    }
+
+    // trigger 'shown' so htmlwidgets resize
+    $('d-article').trigger('shown');
+  }
+
+  function init_distill() {
+
+    init_common();
+
+    // create front matter
+    var front_matter = $('<d-front-matter></d-front-matter>');
+    $('#distill-front-matter').wrap(front_matter);
+
+    // create d-title
+    $('.d-title').changeElementType('d-title');
+
+    // create d-byline
+    var byline = $('<d-byline></d-byline>');
+    $('.d-byline').replaceWith(byline);
+
+    // create d-article
+    var article = $('<d-article></d-article>');
+    $('.d-article').wrap(article).children().unwrap();
+
+    // move posts container into article
+    $('.posts-container').appendTo($('d-article'));
+
+    // create d-appendix
+    $('.d-appendix').changeElementType('d-appendix');
+
+    // flag indicating that we have appendix items
+    var appendix = $('.appendix-bottom').children('h3').length > 0;
+
+    // replace footnotes with <d-footnote>
+    $('.footnote-ref').each(function(i, val) {
+      appendix = true;
+      var href = $(this).attr('href');
+      var id = href.replace('#', '');
+      var fn = $('#' + id);
+      var fn_p = $('#' + id + '>p');
+      fn_p.find('.footnote-back').remove();
+      var text = fn_p.html();
+      var dtfn = $('<d-footnote></d-footnote>');
+      dtfn.html(text);
+      $(this).replaceWith(dtfn);
+    });
+    // remove footnotes
+    $('.footnotes').remove();
+
+    // move refs into #references-listing
+    $('#references-listing').replaceWith($('#refs'));
+
+    $('h1.appendix, h2.appendix').each(function(i, val) {
+      $(this).changeElementType('h3');
+    });
+    $('h3.appendix').each(function(i, val) {
+      var id = $(this).attr('id');
+      $('.d-contents a[href="#' + id + '"]').parent().remove();
+      appendix = true;
+      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('d-appendix'));
+    });
+
+    // show d-appendix if we have appendix content
+    $("d-appendix").css('display', appendix ? 'grid' : 'none');
+
+    // localize layout chunks to just output
+    $('.layout-chunk').each(function(i, val) {
+
+      // capture layout
+      var layout = $(this).attr('data-layout');
+
+      // apply layout to markdown level block elements
+      var elements = $(this).children().not('details, div.sourceCode, pre, script');
+      elements.each(function(i, el) {
+        var layout_div = $('<div class="' + layout + '"></div>');
+        if (layout_div.hasClass('shaded')) {
+          var shaded_content = $('<div class="shaded-content"></div>');
+          $(this).wrap(shaded_content);
+          $(this).parent().wrap(layout_div);
+        } else {
+          $(this).wrap(layout_div);
+        }
+      });
+
+
+      // unwrap the layout-chunk div
+      $(this).children().unwrap();
+    });
+
+    // remove code block used to force  highlighting css
+    $('.distill-force-highlighting-css').parent().remove();
+
+    // remove empty line numbers inserted by pandoc when using a
+    // custom syntax highlighting theme
+    $('code.sourceCode a:empty').remove();
+
+    // load distill framework
+    load_distill_framework();
+
+    // wait for window.distillRunlevel == 4 to do post processing
+    function distill_post_process() {
+
+      if (!window.distillRunlevel || window.distillRunlevel < 4)
+        return;
+
+      // hide author/affiliations entirely if we have no authors
+      var front_matter = JSON.parse($("#distill-front-matter").html());
+      var have_authors = front_matter.authors && front_matter.authors.length > 0;
+      if (!have_authors)
+        $('d-byline').addClass('hidden');
+
+      // article with toc class
+      $('.d-contents').parent().addClass('d-article-with-toc');
+
+      // strip links that point to #
+      $('.authors-affiliations').find('a[href="#"]').removeAttr('href');
+
+      // add orcid ids
+      $('.authors-affiliations').find('.author').each(function(i, el) {
+        var orcid_id = front_matter.authors[i].orcidID;
+        if (orcid_id) {
+          var a = $('<a></a>');
+          a.attr('href', 'https://orcid.org/' + orcid_id);
+          var img = $('<img></img>');
+          img.addClass('orcid-id');
+          img.attr('alt', 'ORCID ID');
+          img.attr('src','data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg==');
+          a.append(img);
+          $(this).append(a);
+        }
+      });
+
+      // hide elements of author/affiliations grid that have no value
+      function hide_byline_column(caption) {
+        $('d-byline').find('h3:contains("' + caption + '")').parent().css('visibility', 'hidden');
+      }
+
+      // affiliations
+      var have_affiliations = false;
+      for (var i = 0; i<front_matter.authors.length; ++i) {
+        var author = front_matter.authors[i];
+        if (author.affiliation !== "&nbsp;") {
+          have_affiliations = true;
+          break;
+        }
+      }
+      if (!have_affiliations)
+        $('d-byline').find('h3:contains("Affiliations")').css('visibility', 'hidden');
+
+      // published date
+      if (!front_matter.publishedDate)
+        hide_byline_column("Published");
+
+      // document object identifier
+      var doi = $('d-byline').find('h3:contains("DOI")');
+      var doi_p = doi.next().empty();
+      if (!front_matter.doi) {
+        // if we have a citation and valid citationText then link to that
+        if ($('#citation').length > 0 && front_matter.citationText) {
+          doi.html('Citation');
+          $('<a href="#citation"></a>')
+            .text(front_matter.citationText)
+            .appendTo(doi_p);
+        } else {
+          hide_byline_column("DOI");
+        }
+      } else {
+        $('<a></a>')
+           .attr('href', "https://doi.org/" + front_matter.doi)
+           .html(front_matter.doi)
+           .appendTo(doi_p);
+      }
+
+       // change plural form of authors/affiliations
+      if (front_matter.authors.length === 1) {
+        var grid = $('.authors-affiliations');
+        grid.children('h3:contains("Authors")').text('Author');
+        grid.children('h3:contains("Affiliations")').text('Affiliation');
+      }
+
+      // remove d-appendix and d-footnote-list local styles
+      $('d-appendix > style:first-child').remove();
+      $('d-footnote-list > style:first-child').remove();
+
+      // move appendix-bottom entries to the bottom
+      $('.appendix-bottom').appendTo('d-appendix').children().unwrap();
+      $('.appendix-bottom').remove();
+
+      // hoverable references
+      $('span.citation[data-cites]').each(function() {
+        var refHtml = $('#ref-' + $(this).attr('data-cites')).html();
+        window.tippy(this, {
+          allowHTML: true,
+          content: refHtml,
+          maxWidth: 500,
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start'
+        });
+      });
+
+      // clear polling timer
+      clearInterval(tid);
+
+      // show body now that everything is ready
+      on_load_complete();
+    }
+
+    var tid = setInterval(distill_post_process, 50);
+    distill_post_process();
+
+  }
+
+  function init_downlevel() {
+
+    init_common();
+
+     // insert hr after d-title
+    $('.d-title').after($('<hr class="section-separator"/>'));
+
+    // check if we have authors
+    var front_matter = JSON.parse($("#distill-front-matter").html());
+    var have_authors = front_matter.authors && front_matter.authors.length > 0;
+
+    // manage byline/border
+    if (!have_authors)
+      $('.d-byline').remove();
+    $('.d-byline').after($('<hr class="section-separator"/>'));
+    $('.d-byline a').remove();
+
+    // remove toc
+    $('.d-contents').remove();
+
+    // move appendix elements
+    $('h1.appendix, h2.appendix').each(function(i, val) {
+      $(this).changeElementType('h3');
+    });
+    $('h3.appendix').each(function(i, val) {
+      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('.d-appendix'));
+    });
+
+
+    // inject headers into references and footnotes
+    var refs_header = $('<h3></h3>');
+    refs_header.text('References');
+    $('#refs').prepend(refs_header);
+
+    var footnotes_header = $('<h3></h3');
+    footnotes_header.text('Footnotes');
+    $('.footnotes').children('hr').first().replaceWith(footnotes_header);
+
+    // move appendix-bottom entries to the bottom
+    $('.appendix-bottom').appendTo('.d-appendix').children().unwrap();
+    $('.appendix-bottom').remove();
+
+    // remove appendix if it's empty
+    if ($('.d-appendix').children().length === 0)
+      $('.d-appendix').remove();
+
+    // prepend separator above appendix
+    $('.d-appendix').before($('<hr class="section-separator" style="clear: both"/>'));
+
+    // trim code
+    $('pre>code').each(function(i, val) {
+      $(this).html($.trim($(this).html()));
+    });
+
+    // move posts-container right before article
+    $('.posts-container').insertBefore($('.d-article'));
+
+    $('body').addClass('downlevel');
+
+    on_load_complete();
+  }
+
+
+  function init_common() {
+
+    // jquery plugin to change element types
+    (function($) {
+      $.fn.changeElementType = function(newType) {
+        var attrs = {};
+
+        $.each(this[0].attributes, function(idx, attr) {
+          attrs[attr.nodeName] = attr.nodeValue;
+        });
+
+        this.replaceWith(function() {
+          return $("<" + newType + "/>", attrs).append($(this).contents());
+        });
+      };
+    })(jQuery);
+
+    // prevent underline for linked images
+    $('a > img').parent().css({'border-bottom' : 'none'});
+
+    // mark non-body figures created by knitr chunks as 100% width
+    $('.layout-chunk').each(function(i, val) {
+      var figures = $(this).find('img, .html-widget');
+      if ($(this).attr('data-layout') !== "l-body") {
+        figures.css('width', '100%');
+      } else {
+        figures.css('max-width', '100%');
+        figures.filter("[width]").each(function(i, val) {
+          var fig = $(this);
+          fig.css('width', fig.attr('width') + 'px');
+        });
+
+      }
+    });
+
+    // auto-append index.html to post-preview links in file: protocol
+    // and in rstudio ide preview
+    $('.post-preview').each(function(i, val) {
+      if (window.location.protocol === "file:")
+        $(this).attr('href', $(this).attr('href') + "index.html");
+    });
+
+    // get rid of index.html references in header
+    if (window.location.protocol !== "file:") {
+      $('.distill-site-header a[href]').each(function(i,val) {
+        $(this).attr('href', $(this).attr('href').replace("index.html", "./"));
+      });
+    }
+
+    // add class to pandoc style tables
+    $('tr.header').parent('thead').parent('table').addClass('pandoc-table');
+    $('.kable-table').children('table').addClass('pandoc-table');
+
+    // add figcaption style to table captions
+    $('caption').parent('table').addClass("figcaption");
+
+    // initialize posts list
+    if (window.init_posts_list)
+      window.init_posts_list();
+
+    // implmement disqus comment link
+    $('.disqus-comment-count').click(function() {
+      window.headroom_prevent_pin = true;
+      $('#disqus_thread').toggleClass('hidden');
+      if (!$('#disqus_thread').hasClass('hidden')) {
+        var offset = $(this).offset();
+        $(window).resize();
+        $('html, body').animate({
+          scrollTop: offset.top - 35
+        });
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    if (is_downlevel_browser())
+      init_downlevel();
+    else
+      window.addEventListener('WebComponentsReady', init_distill);
+  });
+
+  </script>
+
+  <!--/radix_placeholder_distill-->
+  <script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
+  <script src="site_libs/popper-2.6.0/popper.min.js"></script>
+  <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
+  <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
+  <script src="site_libs/tippy-6.2.7/tippy.umd.min.js"></script>
+  <script src="site_libs/anchor-4.2.2/anchor.min.js"></script>
+  <script src="site_libs/bowser-1.9.3/bowser.min.js"></script>
+  <script src="site_libs/webcomponents-2.0.0/webcomponents.js"></script>
+  <script src="site_libs/distill-2.2.21/template.v2.js"></script>
+  <!--radix_placeholder_site_in_header-->
+  <style type="text/css">
+  @import url('https://fonts.googleapis.com/css?family=Lora:400,400i&display=swap');
+  @import url('https://fonts.googleapis.com/css?family=Roboto:400,400i&display=swap');
+
+  body {font-size: 15px; line-height: 1.6;}
+  h1 {font-size: 40px;}
+  h2 {font-size: 30px;}
+  h3 {font-size: 23px;}
+
+
+  .navbar-inverse {
+   background-color:#002855;
+   border-color:#004088
+  }
+
+  .navbar-inverse .navbar-text {
+   color:#ffffff
+  }
+
+  body {
+      font-size: 15px;
+  }
+
+  p {
+      font-size: 1.1em;
+  }
+
+  pre {
+      font-size: 15px;
+  }
+
+  /*blue comment box */
+  .blue {
+      background-color:#e6f0ff;
+      border-radius: 4px;
+      padding: 12px;
+  }
+
+  /* add a summary click box option */
+
+  /* turn off arrow completely in summary box */
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  /* make marker something before click */
+  summary::before {
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
+      content: "\f13a";
+      color: #228B22;
+  }
+
+  /* and after click */
+  details[open] summary:before {
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
+      content: "\f139";
+      color: gray;
+  }
+
+  .challenge-ans-title {
+    font-size: 18px;
+    line-height: 1.5em;
+    font-family: "Roboto";
+    background-color:#e6f0ff;
+    text-transform: uppercase;
+    font-style: bold;
+    letter-spacing: 0.1em;
+  }
+
+  .challenge-ans-body {
+    padding: 1em;
+    background-color:#e6f0ff;
+    font-family: 'Lora';
+        font-size: 16px;
+        font-weight: normal;
+  }
+
+  .extra-practice-title {
+    font-size: 16px;
+    line-height: 1.5em;
+    font-family: "Roboto";
+    background-color: #D9E8E1;
+    letter-spacing: 0.1em;
+  }
+
+  .extra-practice-body {
+    padding: 1em;
+    background-color: #D9E8E1;
+    font-family: 'Lora';
+        font-size: 16px;
+        font-weight: normal;
+  }
+
+  /* see giraffe teacup site for great css tips: https://github.com/tinystats/teacups-giraffes-and-statistics/blob/master/assets/style.css
+  css below is adapted from that page */
+
+  .obj {
+    border: 4px #002855;
+    border-style: solid;
+    padding: 1em;
+    margin: 1em 0;
+    min-height: 120px;
+    /*color: #638f9d;*/
+    color: #002855;
+    background-color: #ffffff;
+    font-size: 16px;
+    line-height: 1.5em;
+    font-family: "Roboto";
+    /*background-image: url("../images/arrow.png");*/
+  }
+
+  .obj>p:first-child {
+    padding-top: 0;
+    margin-top: 0 !important;
+    font-family: "Lora";
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .challenge {
+    color: #002855;
+    background-color:#e6f0ff;
+    border-radius: 4px;
+    padding: 12px;
+    font-size: 16px;
+    line-height: 1.3em;
+    font-family: "Roboto";
+    /*background-image: url("../images/arrow.png");*/
+  }
+
+  .challenge>p:first-child {
+    padding-top: 0;
+    margin-top: 0 !important;
+    font-family: "Lora";
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+
+  /* LARGE IMAGE AT TOP OF EACH MODULE PAGE*/
+  .image-descript {
+      position: relative;
+  }
+
+  /*.big_image is for module pages*/
+
+  .big_image {
+    margin-top: -50px;
+    margin-bottom: 2em;
+    width: 100%;
+  }
+
+  .image-text{
+      position: absolute;
+      top:30%; /*# was 30% */
+      left:0;
+      right:0;
+      bottom:0;
+    }
+
+  .lil-image-text {
+      margin-right: auto;
+      margin-bottom: 20px;
+      margin-left: auto;
+      text-align: center;
+      display:block;
+      font-family: 'Lora', serif;
+        font-size: 24px;
+        line-height: 1.5em;
+        letter-spacing: 1px;
+        font-style: italic;
+        font-weight: normal;
+        color: #fff;
+    }
+
+  .big-image-text {
+    letter-spacing: 0.065em;
+    line-height: 1em;
+    font-size: 68px;
+    text-transform: uppercase;
+    text-align: center;
+    display:block;
+    color: #fff;
+    margin-bottom: 3rem;
+  }
+
+  .lil-image-text-dark {
+      margin-right: auto;
+      margin-bottom: 24px;
+      margin-left: auto;
+      text-align: center;
+      display:block;
+      font-family: 'Lora', serif;
+        font-size: 40px;
+        font-weight: normal;
+        line-height: 1.5em;
+        letter-spacing: 1px;
+        font-style: italic;
+        color: #191919;
+    }
+
+  .big-image-text-dark {
+    letter-spacing: 0.065em;
+    line-height: 1em;
+    font-size: 68px;
+    text-transform: uppercase;
+    text-align: center;
+    display:block;
+    color: #191919;
+    margin-bottom: 3rem;
+  }
+
+
+  .color-overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0,0,0,.1);
+  }
+
+
+  /*grey code block*/
+
+  .sourceCode {
+    background-color:#f4f4f4;
+    border-radius: 4px;
+  }
+
+
+  /*make the link in the appendix more readable against the grey text*/
+  d-appendix a:link {
+    color: blue;
+    background-color: transparent;
+    text-decoration: none;
+  }
+  d-appendix a:visited {
+    color: lightblue;
+    background-color: transparent;
+    text-decoration: none;
+  }
+  d-appendix a:hover {
+    color: lightblue;
+    background-color: transparent;
+    text-decoration: underline;
+  }
+  d-appendix a:active {
+    color: blue;
+    background-color: transparent;
+    text-decoration: underline;
+  }
+
+  </style>
+  <!--/radix_placeholder_site_in_header-->
+
+  <link rel="stylesheet" href="styles.css" type="text/css"/>
+
+</head>
+
+<body>
+
+<!--radix_placeholder_front_matter-->
+
+<script id="distill-front-matter" type="text/json">
+{"title":"7. Wrangling Data with dplyr","description":"Making data tidying and transformation fun!","authors":[]}
+</script>
+
+<!--/radix_placeholder_front_matter-->
+<!--radix_placeholder_navigation_before_body-->
+<header class="header header--fixed" role="banner">
+<nav class="distill-site-nav distill-site-header">
+<div class="nav-left">
+<a href="index.html" class="title">R4WRDS Introductory Course</a>
+</div>
+<div class="nav-right">
+<div class="nav-dropdown">
+<button class="nav-dropbtn">
+Modules
+ 
+<span class="down-arrow">&#x25BE;</span>
+</button>
+<div class="nav-dropdown-content">
+<a href="m_install_R.html">Module 1: Install R and RStudio</a>
+<a href="m_getting_started.html">Module 2: Get oriented in RStudio</a>
+<a href="m_project_management.html">Module 3: Project management</a>
+<a href="m_importing_and_exporting_data.html">Module 4: Import and export data</a>
+<a href="m_ggplot.html">Module 5: Data visualization</a>
+<a href="m_data_structures.html">Module 6: Data structures</a>
+<a href="m_dplyr.html">Module 7: Data wrangling</a>
+<a href="m_pivots.html">Module 8: Spreadsheets &amp; Pivots</a>
+<a href="m_functions.html">Module 9: Functions</a>
+<a href="m_joins.html">Module 10: Joins &amp; binds</a>
+<a href="m_intro_mapmaking.html">Module 11: Spatial data</a>
+<a href="m_exploratory_DA.html">Module 12: EDA</a>
+<a href="m_intro_Rmarkdown.html">Module 13: RMarkdown</a>
+<a href="m_troubleshooting.html">Module 14: Troubleshooting</a>
+</div>
+</div>
+<a href="../index.html">
+<i class="fa fa-home fa-lg" aria-hidden="true"></i>
+</a>
+<a href="https://github.com/ryanpeek/r4wrds/">
+<i class="fa fa-github fa-lg" aria-hidden="true"></i>
+</a>
+<a href="javascript:void(0);" class="nav-toggle">&#9776;</a>
+</div>
+</nav>
+</header>
+<!--/radix_placeholder_navigation_before_body-->
+<!--radix_placeholder_site_before_body-->
+<!--/radix_placeholder_site_before_body-->
+
+<div class="d-title">
+<h1>7. Wrangling Data with dplyr</h1>
+<!--radix_placeholder_categories-->
+<!--/radix_placeholder_categories-->
+<p><p>Making data tidying and transformation fun!</p></p>
+</div>
+
+
+<div class="d-article">
+<div class="d-contents d-contents-float">
+<nav class="l-text toc figcaption" id="TOC">
+<h3>Contents</h3>
+<ul>
+<li><a href="#data-wrangling-with-dplyr">Data wrangling with <strong>{dplyr}</strong></a>
+<ul>
+<li><a href="#have-an-objective">Have an Objective</a></li>
+<li><a href="#learn-some-core-tools-for-common-operations">Learn some Core Tools for Common Operations</a></li>
+<li><a href="#start-from-scratch">Start from Scratch</a></li>
+<li><a href="#import-libraries-and-data">Import Libraries and Data</a></li>
+</ul></li>
+<li><a href="#filter-rows"><code>filter</code> rows</a>
+<ul>
+<li><a href="#exclude-rows">Exclude rows</a></li>
+</ul></li>
+<li><a href="#select-columns"><code>select</code> columns</a></li>
+<li><a href="#the-pipe">The Pipe ( <code>%&gt;%</code> )</a></li>
+<li><a href="#mutate-existing-data"><code>mutate</code> existing data</a></li>
+<li><a href="#group_by-summarize"><code>group_by</code> &amp; <code>summarize</code></a>
+<ul>
+<li><a href="#summarizing-data">Summarizing Data</a></li>
+<li><a href="#remember-to-ungroup">Remember to <code>ungroup</code></a></li>
+</ul></li>
+</ul>
+</nav>
+</div>
+<div class="obj">
+<p><strong>Learning objectives</strong></p>
+<ul>
+<li>Learn how to approach tidying and transforming datasets</li>
+<li>Understand how to use the pipe (<code>%&gt;%</code>) to chain operations together</li>
+<li>Learn the core <strong><code>{dplyr}</code></strong> tools including functions (<code>select</code>, <code>filter</code>, <code>group_by</code>, <code>summarize</code>)</li>
+</ul>
+</div>
+<h2 id="data-wrangling-with-dplyr">Data wrangling with <strong>{dplyr}</strong></h2>
+<p>Data wrangling is usually the part of any data analysis project that takes the most time. Although it may not necessarily be fun, it is foundational to all the work that follows. Often, data wrangling also takes significantly longer than actually performing the data analysis or creating a data visualization, so do not panic if, in the future, you find yourself spending a lot of time on this phase. Once you learn some core approaches and tools, you can deal with nearly any dataset you may face!</p>
+
+<div class="layout-chunk" data-layout="l-body">
+<div class="figure"><span id="fig:tidywrangle"></span>
+<img src="images/data_cowboy.png" alt="Illustration by @allison_horst, from Hadley Wickham’s talk “The Joy of Functional Programming (for Data Science)”" width="100%" />
+<p class="caption">
+Figure 1: <em>Illustration by <span class="citation" data-cites="allison_horst">@allison_horst</span>, from Hadley Wickham’s talk “The Joy of Functional Programming (for Data Science)”</em>
+</p>
+</div>
+</div>
+<p>The data wrangling process includes data import, tidying, and transformation. The process directly feeds into the <em>understanding</em> or modeling side of data exploration, but in a iterative way. More generally, data wrangling is the manipulation or combination of datasets for the purpose of analysis, and often you have to rinse and repeat this process as your understanding of the data changes, and as your modeling and visualization needs also changes.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="figure"><span id="fig:unnamed-chunk-1"></span>
+<img src="images/data-science-wrangle.png" alt="*Image from &quot;R for Data Science&quot; by Garrett Grolemund and Hadley Wickham.*" width="100%" />
+<p class="caption">
+Figure 2: <em>Image from “R for Data Science” by Garrett Grolemund and Hadley Wickham.</em>
+</p>
+</div>
+</div>
+<h3 id="have-an-objective">Have an Objective</h3>
+<blockquote>
+<p><strong>All data wrangling is based on a purpose.</strong></p>
+</blockquote>
+<p>No one wrangles for the sake of wrangling (usually), so the process always begins by answering the following two questions:</p>
+<ol type="1">
+<li>What do my <strong>input</strong> data look like?</li>
+<li>What <em>should</em> my <strong>output</strong> data look like given what I want to do?</li>
+</ol>
+<h3 id="learn-some-core-tools-for-common-operations">Learn some Core Tools for Common Operations</h3>
+<p>At the most basic level, going from what your data looks like to what you want it look like will require a few key operations. The more we practice these operations with common tools, the easier this will be no matter the size or complexity of data that we face.</p>
+<aside>
+<em>Tidy data</em> is an important part of being able to re-use these tools! See this great <a href="https://www.openscapes.org/blog/2020/10/12/tidy-data/">blog</a> (by Lowndes &amp; Horst)
+</aside>
+<div class="layout-chunk" data-layout="l-body">
+<div class="figure"><span id="fig:unnamed-chunk-2"></span>
+<img src="images/tidydata_4.jpg" alt="Illustrations from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst." width="80%" />
+<p class="caption">
+Figure 3: Illustrations from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst.
+</p>
+</div>
+</div>
+<p>Common operations that occur during data wrangling:</p>
+<ul>
+<li><strong><code>select</code></strong> specific variables</li>
+<li><strong><code>filter</code></strong> observations by some criteria</li>
+<li>Add or modify (<strong><code>mutate</code></strong>) existing variables</li>
+<li><strong><code>rename</code></strong> variables</li>
+<li><strong><code>arrange</code></strong> rows by a variable</li>
+<li><strong><code>summarize</code></strong> a variable conditional on others</li>
+</ul>
+<p>The <strong><code>{dplyr}</code></strong> package provides easy tools for these common data manipulation tasks and is a core package from the <a href="https://www.tidyverse.org/">{tidyverse}</a> suite of packages. The philosophy of <strong><code>{dplyr}</code></strong> is that <strong>one</strong> function does <strong>one</strong> thing and the name of the function says what it does.</p>
+<h3 id="start-from-scratch">Start from Scratch</h3>
+<p>Any reproducible analysis should be easily repeated. Using code in a script allows us to rebuild every step of the data analysis from scratch – from data import, to data wrangling, to visualization and modeling – sometimes over and over again. For that reason, it’s a good habit to <strong>Restart your R Session</strong> before you begin a new coding adventure. Sometimes this solves issues, sometimes it’s just good to make sure everything runs up to the point you are working. Let’s do that now!</p>
+<ol type="1">
+<li>Go to <strong><code>Session</code></strong> &gt; <strong><code>Restart R</code></strong>!</li>
+<li>Check your <code>Environment</code> tab…it should be empty!</li>
+</ol>
+<h3 id="import-libraries-and-data">Import Libraries and Data</h3>
+<p>First we need to load the libraries that we’ll be using. Let’s use <code>{here}</code> and the <code>{tidyverse}</code> packages (which includes <code>{dplyr}</code> and <code>{ggplot2}</code>).</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://here.r-lib.org/'>here</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>Next we import a <code>.csv</code> of groundwater monitoring stations across California<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
+<aside>
+We can use either <code>read.csv</code> or <code>read_csv</code> functions. What’s the main difference between the two? Hint, check <code>class(stations)</code> for each method.
+</aside>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># read the stations.csv file and assign it to an object "stations"</span>
+<span class='va'>stations</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"data"</span>, <span class='st'>"gwl"</span>, <span class='st'>"stations.csv"</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>Below your code that imports the dataset, let’s make a new section! Go to <strong><code>Code</code></strong> &gt; <strong><code>Insert Section</code></strong>, and type your new section header <code>Wrangling Data</code>. We can also use keyboard shortcuts for this (<code>Ctrl</code> or <code>⌘</code> + <code>Shift</code> + <code>R</code>). You should notice how this now appears in an expandable table of contents on the right hand side of your script pane (look for the tiny button that has little gray horizontal lines on it). This feature can be very helpful in keeping you and your scripts organized.</p>
+<h2 id="filter-rows"><code>filter</code> rows</h2>
+<p>One of the most common steps to slicing data is to <strong>filter rows</strong> of a dataframe. We can filter by a variable (e.g., column name) or by a condition (i.e., only values greater than 100). Remember, <code>{dplyr}</code> is designed so that <em>one</em> function does <em>one</em> thing, and the name of the function says what it does.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="figure"><span id="fig:filterArt"></span>
+<img src="images/filter.jpg" alt="Artwork by @allison_horst" width="80%" />
+<p class="caption">
+Figure 4: Artwork by <span class="citation" data-cites="allison_horst">@allison_horst</span>
+</p>
+</div>
+</div>
+<p>Let’s filter this large dataframe of potential groundwater station locations (n=43807 total!) to just stations from Sacramento County with <code>filter()</code>.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>stations_sac</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>stations</span>, <span class='va'>COUNTY_NAME</span> <span class='op'>==</span> <span class='st'>"Sacramento"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>stations_sac</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] 494</code></pre>
+</div>
+<p>What happened? <code>filter()</code> requires the data, and then any number of filtering options. We provided just one. Here the <code>==</code> means “equal to”, while a single <code>=</code> would mean <code>is</code>.</p>
+<p>We can also combine filter conditions in the same call! Let’s add another condition that we only want <code>Residential</code> wells (a category of the <code>WELL_USE</code> column). We can get a count of how many categories of <code>WELL_USE</code> have observations (or rows) in the <code>stations_sac</code> dataframe using the <code>table()</code> function. Then we can combine multiple conditions in our <code>filter</code> with a <code>,</code> (in <code>filter</code>, commas are another way to say <code>AND</code>).</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># get what the categories of WELL_USE are in Sacramento County:</span>
+<span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>stations_sac</span><span class='op'>$</span><span class='va'>WELL_USE</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>
+                 Industrial    Irrigation   Observation         Other 
+            8             2           144            90           101 
+  Residential Stockwatering       Unknown 
+           76             6            67 </code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># combine conditions with "," which is equivalent to AND</span>
+<span class='va'>stations_sac</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>stations</span>, <span class='va'>COUNTY_NAME</span> <span class='op'>==</span> <span class='st'>"Sacramento"</span>, <span class='va'>WELL_USE</span> <span class='op'>==</span> <span class='st'>"Residential"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>stations_sac</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] 76</code></pre>
+</div>
+<p>We can mix and match <code>filter</code> conditions however we choose. What if we want to select multiple counties? The <code>%in%</code> is a great way to provide a list of things you want <code>filter</code> to use to see if there’s a match within your dataframe. Let’s filter to 3 counties: Sacramento, Placer, and El Dorado.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># filter to multiple counties</span>
+<span class='va'>sep_counties</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Sacramento"</span>, <span class='st'>"Placer"</span>, <span class='st'>"El Dorado"</span><span class='op'>)</span>
+<span class='va'>stations_multcounties</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>stations</span>, <span class='va'>COUNTY_NAME</span> <span class='op'>%in%</span> <span class='va'>sep_counties</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<aside>
+To quote or not to quote? Inside tidyverse functions like <code>filter</code> we typically <strong>don’t</strong> need to quote variable names (columns) but we <strong>do</strong> need to quote specific values.
+</aside>
+<p>What happened? We used a list (using the <code>c()</code> to combine different possible values of <code>COUNTY_NAME</code>) to specify what data we wanted to keep, and we told <code>filter</code> to return all rows in the <code>COUNTY_NAME</code> column with entries in (<code>%in%</code>) that list of county names (<code>sep_counties</code>).</p>
+<h3 id="exclude-rows">Exclude rows</h3>
+<p>We can also <em>exclude</em> rows based on conditions. To exclude, we can negate a condition with the <code>!</code> symbol in front of the condition. Let’s exclude all stations from Yolo County. Here we show 3 ways to to do the same thing.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># include everything except Yolo County...3 different ways</span>
+<span class='va'>stations_trim</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>stations</span>, <span class='op'>!</span><span class='va'>COUNTY_NAME</span> <span class='op'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Yolo"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>stations_trim</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>stations</span>, <span class='op'>!</span><span class='va'>COUNTY_NAME</span> <span class='op'>==</span> <span class='st'>"Yolo"</span><span class='op'>)</span>
+<span class='va'>stations_trim</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>stations</span>, <span class='va'>COUNTY_NAME</span> <span class='op'>!=</span> <span class='st'>"Yolo"</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<h2 id="select-columns"><code>select</code> columns</h2>
+<p>We can also select specific columns or variables of interest with the <code>select()</code> function. Similar to <code>filter</code>, we pass the data, and the conditions we want to use to subset our data. Let’s select only <code>STN_ID</code>, <code>LATITUDE</code>, <code>LONGITUDE</code>, and <code>COUNTY_NAME</code>.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># select specific columns to keep</span>
+<span class='va'>stations_sel1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>stations</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>STN_ID</span>, <span class='va'>LATITUDE</span>, <span class='va'>LONGITUDE</span>, <span class='va'>COUNTY_NAME</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>stations_sel1</span><span class='op'>)</span> <span class='co'># names of columns</span>
+</code></pre>
+</div>
+<pre><code>[1] &quot;STN_ID&quot;      &quot;LATITUDE&quot;    &quot;LONGITUDE&quot;   &quot;COUNTY_NAME&quot;</code></pre>
+</div>
+<p>Remember we don’t have to quote the variable names here! What if we want to just remove a column? We can use the same structure, but put a “<strong><code>-</code></strong>” in front of our list or condition.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># select columns to drop</span>
+<span class='va'>stations_sel2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>stations</span>, <span class='op'>-</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>LATITUDE</span><span class='op'>:</span><span class='va'>BASIN_NAME</span>, <span class='va'>COUNTY_NAME</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span><span class='op'>(</span><span class='va'>stations_sel2</span><span class='op'>)</span> <span class='co'># how many columns?</span>
+</code></pre>
+</div>
+<pre><code>[1] 8</code></pre>
+</div>
+<p>Here we used the <code>:</code> to say columns from <code>LATITUDE</code> <em>through</em> <code>BASIN_NAME</code>, then we included <code>COUNTY_NAME</code> in the list of columns to drop.</p>
+<p>There are some very powerful options that exist within <code>select()</code>, including the ability to rename columns, or select by things that relate to the column names. Let’s select columns that start with “W” or contain “NAME”.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># select columns to drop</span>
+<span class='va'>stations_sel3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>stations</span>, <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>starts_with</a></span><span class='op'>(</span><span class='st'>"W"</span><span class='op'>)</span>, <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>contains</a></span><span class='op'>(</span><span class='st'>"NAME"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>stations_sel3</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] &quot;WELL_NAME&quot;   &quot;WLM_METHOD&quot;  &quot;WLM_ACC&quot;     &quot;WELL_DEPTH&quot; 
+[5] &quot;WELL_USE&quot;    &quot;WELL_TYPE&quot;   &quot;WCR_NO&quot;      &quot;BASIN_NAME&quot; 
+[9] &quot;COUNTY_NAME&quot;</code></pre>
+</div>
+<h2 id="the-pipe">The Pipe ( <code>%&gt;%</code> )</h2>
+<p>We now have two ways to slice and dice our data, filter rows and select by columns. A very useful tool you may have seen is something called a “pipe”. In R, this is represented by the symbol <strong><code>%&gt;%</code></strong> and can be inserted with the keyboard shortcut <code>Ctrl</code> or <code>⌘</code> + <code>Shift</code> + <code>M</code>.</p>
+<p>The pipe is a way to chain multiple commands together, and it passes the result of the first function to the second function This is particularly helpful in R when you don’t need to (or want to) assign temporary steps to your code. For example, compare a filter, select, and rename set of operations with and without the <code>%&gt;%</code>.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># filter</span>
+<span class='va'>stations_multcounty1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>stations</span>, <span class='va'>COUNTY_NAME</span> <span class='op'>%in%</span> 
+                                  <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Sacramento"</span>, <span class='st'>"Placer"</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='co'># select</span>
+<span class='va'>stations_multcounty2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>stations_multcounty1</span>, <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>starts_with</a></span><span class='op'>(</span><span class='st'>"W"</span><span class='op'>)</span>, 
+                               <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>contains</a></span><span class='op'>(</span><span class='st'>"NAME"</span><span class='op'>)</span>, <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>contains</a></span><span class='op'>(</span><span class='st'>"ID"</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='co'># rename the STN_ID to station_id: rename(new_col_name, old_col_name)</span>
+<span class='va'>stations_multcounty3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/rename.html'>rename</a></span><span class='op'>(</span><span class='va'>stations_multcounty2</span>, station_id <span class='op'>=</span> <span class='va'>STN_ID</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>Now let’s rewrite the code above with <code>%&gt;%</code>. Notice we don’t need to explicitly define intermediate variables for each step, because data is “piped” between steps.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># filter, select, and rename</span>
+<span class='va'>stations_multcounty</span> <span class='op'>&lt;-</span> <span class='va'>stations</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>COUNTY_NAME</span> <span class='op'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Sacramento"</span>, <span class='st'>"Placer"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>starts_with</a></span><span class='op'>(</span><span class='st'>"W"</span><span class='op'>)</span>, <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>contains</a></span><span class='op'>(</span><span class='st'>"NAME"</span><span class='op'>)</span>, <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>contains</a></span><span class='op'>(</span><span class='st'>"ID"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/rename.html'>rename</a></span><span class='op'>(</span>station_id <span class='op'>=</span> <span class='va'>STN_ID</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>We piped (<code>%&gt;%</code>) the data to <code>filter()</code>, and the result of the <code>filter()</code> to <code>select()</code>, and then piped the result of that to <code>rename()</code>. Since we assigned all of this at the very beginning to <code>stations_multcounty</code>, that’s our final output.</p>
+<div class="challenge">
+<p><font color="#009E73"><strong>Challenge 1: You Try!</strong></font></p>
+<ol type="1">
+<li>Using the <code>stations</code> dataset, filter to only <strong><code>Residential</code></strong> wells that have a <code>WELL_DEPTH &gt; 1000</code> feet.<br />
+</li>
+<li>Select only <code>STN_ID</code>, <code>WELL_DEPTH</code>, <code>WELL_NAME</code>, <code>BASIN_NAME</code>, and <code>COUNTY_NAME</code> columns in the dataframe.</li>
+<li>How many records are in Los Angeles?</li>
+</ol>
+</div>
+<p><br></p>
+<details>
+<summary class="challenge-ans-title">
+<font color="#0072B2"><strong>Click for Answers!</strong></font>
+</summary>
+<div class="challenge-ans-body">
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># filter and select</span>
+<span class='va'>challenge1</span> <span class='op'>&lt;-</span> <span class='va'>stations</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>WELL_USE</span> <span class='op'>==</span> <span class='st'>"Residential"</span>, <span class='va'>WELL_DEPTH</span> <span class='op'>&gt;</span> <span class='fl'>1000</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>STN_ID</span>, <span class='va'>WELL_DEPTH</span>, <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>ends_with</a></span><span class='op'>(</span><span class='st'>"NAME"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>challenge1</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] &quot;STN_ID&quot;      &quot;WELL_DEPTH&quot;  &quot;WELL_NAME&quot;   &quot;BASIN_NAME&quot; 
+[5] &quot;COUNTY_NAME&quot;</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># count the number of rows for each unique value of COUNTY_NAME</span>
+<span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>challenge1</span><span class='op'>$</span><span class='va'>COUNTY_NAME</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>
+   Los Angeles      Riverside San Bernardino       Siskiyou 
+             5              3             12              2 
+        Tulare        Ventura 
+             1              3 </code></pre>
+</div>
+</div>
+</details>
+<h2 id="mutate-existing-data"><code>mutate</code> existing data</h2>
+<p><code>mutate</code> is a function that modifies existing data, either by adding a new column, or modifying existing columns. When using <code>mutate</code> we expect R to return some modified version of our input dataframe… but it should still be a version of the original dataframe.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="figure"><span id="fig:mutateFig"></span>
+<img src="images/mutate.png" alt="Artwork by @allison_horst" width="70%" />
+<p class="caption">
+Figure 5: Artwork by <span class="citation" data-cites="allison_horst">@allison_horst</span>
+</p>
+</div>
+</div>
+<p><code>mutate</code> allows us to pass other functions or data into our dataframe, and is a powerful way to clean and tidy our data.</p>
+<p>Let’s create a new <code>WELL_DEPTH_m</code> column which converts the existing <code>WELL_DEPTH</code> column from feet to meters. We pass the new column name and then the function or operation we want to preform to create the new column (or modify an existing column).</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>stations_mutate1</span> <span class='op'>&lt;-</span> <span class='va'>stations</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>WELL_DEPTH_m <span class='op'>=</span> <span class='va'>WELL_DEPTH</span> <span class='op'>*</span> <span class='fl'>0.3048</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>Let’s use <code>ggplot2</code> to check and see if this worked. We can use the <code>%&gt;%</code> here too!</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>stations_mutate1</span> <span class='op'>%&gt;%</span> 
+  <span class='co'># pass stations_mutate1 into the ggplot function</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='co'># add a point geom in feet</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>STN_ID</span>, y <span class='op'>=</span> <span class='va'>WELL_DEPTH</span><span class='op'>)</span>, color <span class='op'>=</span> <span class='st'>"cyan4"</span>, alpha <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='co'># add a point geom in meters</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>STN_ID</span>, y <span class='op'>=</span> <span class='va'>WELL_DEPTH_m</span><span class='op'>)</span>, color <span class='op'>=</span> <span class='st'>"maroon"</span>, pch <span class='op'>=</span> <span class='fl'>21</span>, alpha <span class='op'>=</span> <span class='fl'>0.8</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="m_dplyr_files/figure-html5/mut1ggplot1-1.png" width="624" /></p>
+</div>
+<p>As shown above, the reddish circles for observations in units of meters indicate smaller values than the blueish circles for observations in units of feet. This looks about right! It is rarely a bad idea to “visualize” your outcomes whenever possible, these are great ways to double check things are happening as you intend when data wrangling.</p>
+<details>
+<summary class="extra-practice-title">
+Extra Practice
+</summary>
+<div class="extra-practice-body">
+<p>Let’s pause a moment and do this in base R <em>without</em> the tidyverse so we can see both methods. There are many positives about knowing different approaches, and also when troubleshooting, it can be helpful to understand different ways of doing the same thing. Can you spot a few differences?</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># filter and select (subset)</span>
+<span class='va'>stations_basefilter</span> <span class='op'>&lt;-</span> <span class='va'>stations</span><span class='op'>[</span><span class='va'>stations</span><span class='op'>$</span><span class='va'>WELL_USE</span> <span class='op'>==</span> <span class='st'>"Residential"</span> <span class='op'>&amp;</span> 
+                                  <span class='va'>stations</span><span class='op'>$</span><span class='va'>WELL_DEPTH</span> <span class='op'>&gt;</span> <span class='fl'>1000</span>,
+                                <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>4</span>, <span class='fu'><a href='https://rdrr.io/r/base/grep.html'>grep</a></span><span class='op'>(</span><span class='st'>"NAME"</span>, <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span><span class='op'>(</span><span class='va'>stations</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>]</span> 
+
+<span class='co'># mutate</span>
+<span class='va'>stations_base1</span> <span class='op'>&lt;-</span> <span class='va'>stations</span> <span class='co'># make a copy so we don't alter original data</span>
+<span class='va'>stations_base1</span><span class='op'>$</span><span class='va'>WELL_DEPTH_m</span> <span class='op'>&lt;-</span> <span class='va'>stations_base1</span><span class='op'>$</span><span class='va'>WELL_DEPTH</span> <span class='op'>*</span> <span class='fl'>0.3048</span>
+
+<span class='co'># ggplot</span>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>stations_base1</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>STN_ID</span>, y <span class='op'>=</span> <span class='va'>WELL_DEPTH</span><span class='op'>)</span>, 
+             color <span class='op'>=</span> <span class='st'>"cyan4"</span>, alpha <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='co'># this in meters</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>STN_ID</span>, y <span class='op'>=</span> <span class='va'>WELL_DEPTH_m</span><span class='op'>)</span>, 
+             color <span class='op'>=</span> <span class='st'>"maroon"</span>, pch <span class='op'>=</span> <span class='fl'>21</span>, alpha <span class='op'>=</span> <span class='fl'>0.8</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+</div>
+</details>
+<h2 id="group_by-summarize"><code>group_by</code> &amp; <code>summarize</code></h2>
+<p>The final core <code>{dplyr}</code> “verbs” to be aware of are <code>group_by</code> and <code>summarize</code>. These are really useful to transform your data into an entirely <strong>new</strong> dataset, and to do many operations at once based on different columns (variables) within your dataset.</p>
+<p>For example let’s say we want a count of how many records exist for each county. We can use <strong><code>group_by</code></strong> and <strong><code>count</code></strong>.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>n_by_county</span> <span class='op'>&lt;-</span> <span class='va'>stations</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>COUNTY_NAME</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>count</a></span><span class='op'>(</span><span class='op'>)</span>
+
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>n_by_county</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 6 x 2
+# Groups:   COUNTY_NAME [6]
+  COUNTY_NAME     n
+  &lt;chr&gt;       &lt;int&gt;
+1 Alameda       237
+2 Alpine         33
+3 Amador         11
+4 Butte         302
+5 Calaveras      17
+6 Colusa        229</code></pre>
+</div>
+<p>What happened? <code>group_by()</code> groups the data based on the variable(s) included in the function. Once our <code>data.frame</code> is grouped, there are many options and functions we can apply, including things like <code>count()</code>, <code>tally()</code>, and <code>summarize()</code>.</p>
+<p>Let’s look at this a bit more. What if we really only want the 5 counties with the most observations? We can add two additional options here. The <code>arrange()</code> function will sort our data by a variable(s) of our choice, and we can use <code>desc()</code> to specify we want that data in descending order. We then pipe that to <code>head()</code> and ask for just the first 5 rows.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>stations</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>COUNTY_NAME</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>count</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='co'># count by COUNTY_NAME</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/desc.html'>desc</a></span><span class='op'>(</span><span class='va'>n</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='co'># sort by column n in descending order</span>
+  <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span> <span class='co'># return the first 5 rows</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 5 x 2
+# Groups:   COUNTY_NAME [5]
+  COUNTY_NAME        n
+  &lt;chr&gt;          &lt;int&gt;
+1 Fresno          6053
+2 San Bernardino  5837
+3 Kern            5155
+4 Riverside       2636
+5 Merced          2479</code></pre>
+</div>
+<h3 id="summarizing-data">Summarizing Data</h3>
+<p>Similar to <code>mutate</code>, <code>summarize</code> allows us to create new columns. The difference is <code>summarize</code> creates a completely new dataframe based on the <code>group_by</code>. Thus, <code>summarize</code> always follows a <code>group_by</code>. Here we can do a similar analysis to what we did above, but now we can customize our columns and what we want to calculate. Let’s calculate the average depth of wells in all counties, then plot the top 10 counties with the deepest average well depth.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>stations</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>COUNTY_NAME</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarize</a></span><span class='op'>(</span>mean_well_depth <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>WELL_DEPTH</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/desc.html'>desc</a></span><span class='op'>(</span><span class='va'>mean_well_depth</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='co'># return the first 5 rows and pass to ggplot</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_col</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>COUNTY_NAME</span>, y <span class='op'>=</span> <span class='va'>mean_well_depth</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Mean well depth"</span>, 
+       subtitle <span class='op'>=</span> <span class='st'>"Top 10 Counties with deepest wells"</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="m_dplyr_files/figure-html5/grpby3-1.png" width="624" /></p>
+</div>
+<aside>
+This is a plot to consider rotating the axis labels. How do we do that? Practice your web-search skills or visit the <a href="https://ggplot2.tidyverse.org/index.html">ggplot2 help page</a>. <em>Hint: look at <code>theme(axis.text.x = )</code>. Another option is <code>coord_flip()</code>.</em>
+</aside>
+<p>We looked at only the top 10 counties before, but remember that <code>group_by</code> and <code>summarize</code> work on entire dataframes. To illustrate how these operations scale to entire dataframes, if we wanted to visualize the mean well depth for all counties in the data, we could do so with slightly modified code:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>stations</span> <span class='op'>%&gt;%</span> 
+  <span class='co'># group by the county name</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>COUNTY_NAME</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='co'># calculate the mean well depth</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarize</a></span><span class='op'>(</span>mean_well_depth <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>WELL_DEPTH</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='co'># remove two counties that have NA values</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>mean_well_depth</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='co'># pass to ggplot</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_col</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'>fct_reorder</span><span class='op'>(</span><span class='va'>COUNTY_NAME</span>, <span class='va'>mean_well_depth</span><span class='op'>)</span>, 
+               y <span class='op'>=</span> <span class='va'>mean_well_depth</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Mean well depth"</span>, 
+       subtitle <span class='op'>=</span> <span class='st'>"Periodic groundwater level database"</span>, 
+       y <span class='op'>=</span> <span class='st'>"Mean well depth (ft)"</span>,
+       x <span class='op'>=</span> <span class='st'>""</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_flip.html'>coord_flip</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="m_dplyr_files/figure-html5/well-depth-all-counties-1.png" width="624" /></p>
+</div>
+<p>We can add additional groups or columns depending on what we are interested in. Let’s try the following:</p>
+<ul>
+<li>find the mean well depth by each <code>WELL_USE</code> category using <strong><code>summarize</code></strong></li>
+<li><strong><code>filter</code></strong> to only groups that have more than 10 stations and no NA’s (<em>for NA’s, we can use the <code>is.na()</code> function, and the negate or <code>!</code> symbol we used previously</em>)</li>
+<li>pipe to ggplot and make a boxplot to visualize the result</li>
+</ul>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>stations</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>COUNTY_NAME</span>, <span class='va'>WELL_USE</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarize</a></span><span class='op'>(</span>mean_well_depth <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>WELL_DEPTH</span><span class='op'>)</span>,
+            total_records <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/context.html'>n</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>total_records</span> <span class='op'>&gt;</span> <span class='fl'>10</span>, <span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>mean_well_depth</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_boxplot.html'>geom_boxplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>WELL_USE</span>, y <span class='op'>=</span> <span class='va'>mean_well_depth</span><span class='op'>)</span>, 
+               fill <span class='op'>=</span> <span class='st'>"seagreen"</span>, alpha <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Well Depth for Groundwater Stations in CA"</span>,
+       subtitle <span class='op'>=</span> <span class='st'>"For groups with &gt;10 stations"</span>,
+       x <span class='op'>=</span> <span class='st'>"Well Use"</span>, 
+       y <span class='op'>=</span> <span class='st'>"Well Depth (ft)"</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="m_dplyr_files/figure-html5/grpby4-1.png" width="624" /></p>
+</div>
+<p>What happened? We grouped by two different variables, and then applied functions (or transformed the data) to those groups using <code>summarize</code>, then we filtered, and visualized. The order of these steps can influence your analysis and result, so it’s good to consider when you want to filter and when you want to group_by/summarize things. Let’s try a challenge!</p>
+<div class="challenge">
+<p><font color="#009E73"><strong>Challenge 2: You Try!</strong></font></p>
+<ol type="1">
+<li>Using the code we ran above, figure out how to make this boxplot without the “<code>Unknown</code>” and blank (<code>""</code>) <code>WELL_USE</code> categories.</li>
+<li>Try adding points as another layer over your boxplot using <code>geom_jitter</code>.</li>
+<li>For a bonus challenge, try adding a caption with information about this dataset, and plotting these data in meters instead of feet.</li>
+</ol>
+</div>
+<p><br></p>
+<details>
+<summary class="challenge-ans-title">
+<font color="#0072B2"><strong>Click for Answers!</strong></font>
+</summary>
+<div class="challenge-ans-body">
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>stations</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>WELL_USE</span> <span class='op'>!=</span> <span class='st'>""</span>, <span class='va'>WELL_USE</span> <span class='op'>!=</span> <span class='st'>"Unknown"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>COUNTY_NAME</span>, <span class='va'>WELL_USE</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarize</a></span><span class='op'>(</span>mean_well_depth <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>WELL_DEPTH</span><span class='op'>)</span>,
+            mean_well_depth_m <span class='op'>=</span> <span class='va'>mean_well_depth</span> <span class='op'>*</span> <span class='fl'>0.3048</span>,
+            total_records <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/context.html'>n</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>total_records</span> <span class='op'>&gt;</span> <span class='fl'>10</span>, <span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>mean_well_depth_m</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_boxplot.html'>geom_boxplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>WELL_USE</span>, y <span class='op'>=</span> <span class='va'>mean_well_depth_m</span><span class='op'>)</span>, 
+               fill <span class='op'>=</span> <span class='st'>"seagreen"</span>, alpha <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='co'># add jittered points</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_jitter.html'>geom_jitter</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>WELL_USE</span>, y <span class='op'>=</span> <span class='va'>mean_well_depth_m</span><span class='op'>)</span>, 
+              color <span class='op'>=</span> <span class='st'>"forestgreen"</span>, alpha <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='co'># add labels and caption</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Well Depth for Groundwater Stations in CA"</span>,
+       subtitle <span class='op'>=</span> <span class='st'>"For groups with &gt;10 stations"</span>,
+       caption  <span class='op'>=</span> <span class='st'>"Data from the DWR Periodic Groundwater Level Database."</span>,
+       x <span class='op'>=</span> <span class='st'>"Well Use"</span>, 
+       y <span class='op'>=</span> <span class='st'>"Well Depth (ft)"</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="m_dplyr_files/figure-html5/challenge-2-1.png" width="624" /></p>
+</div>
+</div>
+</details>
+<h3 id="remember-to-ungroup">Remember to <code>ungroup</code></h3>
+<p>A common blunder that can impact downstream analyses, or even the current analysis you may want to do is forgetting to ungroup. <code>{dplyr}</code> is smart, and will do exactly as you program it to do, but when you use <code>group_by</code>, your output dataframe <strong>will retain those groups</strong> for future use. This can be helpful in some cases, but it’s important to keep an eye on and be aware of (for when it’s <em>not</em> helpful). We can always use <code>class()</code> to better check this. Let’s try some code from above and check with <code>class()</code>.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>stations_by_cnty_use</span> <span class='op'>&lt;-</span> <span class='va'>stations</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>WELL_USE</span> <span class='op'>!=</span> <span class='st'>""</span>, <span class='va'>WELL_USE</span> <span class='op'>!=</span> <span class='st'>"Unknown"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>COUNTY_NAME</span>, <span class='va'>WELL_USE</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarize</a></span><span class='op'>(</span>mean_well_depth <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>WELL_DEPTH</span><span class='op'>)</span>,
+            total_records <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/context.html'>n</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>total_records</span> <span class='op'>&gt;</span> <span class='fl'>10</span>, <span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>mean_well_depth</span><span class='op'>)</span><span class='op'>)</span> 
+
+<span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span><span class='op'>(</span><span class='va'>stations_by_cnty_use</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] &quot;grouped_df&quot; &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;</code></pre>
+</div>
+<p>Here we can see the <code>grouped_df</code> title, which tells us this is a <strong>grouped</strong> dataset. We can easily <em>ungroup</em> with the concisely named <code>ungroup()</code> function. This isn’t required, but it’s a good habit to get into (or be aware of).</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>stations_by_cnty_use</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a></span><span class='op'>(</span><span class='va'>stations_by_cnty_use</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span><span class='op'>(</span><span class='va'>stations_by_cnty_use</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;</code></pre>
+</div>
+<p>Congratulations! You’ve made it through <code>{dplyr}</code>. There are many more great options and tricks within <code>{dplyr}</code>, but hopefully this will get you going.</p>
+<p><br></p>
+<p><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"></p>
+<p><a href="m_data_structures.html" class="btn btn-secondary" style="float: left">Previous module:<br> 6. Data Structures</a> <a href="m_pivots.html" class="btn btn-secondary" style="float: right;">Next module:<br> 8. Spreadsheets &amp; Pivots</a></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<section class="footnotes" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1" role="doc-endnote"><p>see <a href="https://data.cnra.ca.gov/dataset/periodic-groundwater-level-measurements">here for more about this data</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<!--radix_placeholder_article_footer-->
+<!--/radix_placeholder_article_footer-->
+</div>
+
+<div class="d-appendix">
+</div>
+
+
+<!--radix_placeholder_site_after_body-->
+<!--/radix_placeholder_site_after_body-->
+<!--radix_placeholder_appendices-->
+<div class="appendix-bottom">
+<h3 id="updates-and-corrections">Corrections</h3>
+<p>If you see mistakes or want to suggest changes, please <a href="https://github.com/ryanpeek/r4wrds/issues/new">create an issue</a> on the source repository.</p>
+</div>
+<!--/radix_placeholder_appendices-->
+<!--radix_placeholder_navigation_after_body-->
+<div class="distill-site-nav distill-site-footer">
+<p>© Copyright 2021 <a href="http://ryanpeek.org/" target = "_blank">Ryan Peek</a> and <a href="https://www.richpauloo.com/" target = "_blank">Rich Pauloo</a>.</p>
+<p>Software licensed under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, v2.0</a>.</p>
+</div>
+<!--/radix_placeholder_navigation_after_body-->
+
+
+</body>
+
+</html>

@@ -1,0 +1,208 @@
+---
+title: "7. Parameterized reports"
+description: | 
+   How to automate routine reporting
+output: 
+  distill::distill_article:
+    toc: true
+---
+
+```{r setup, include=FALSE, purl=FALSE, message=FALSE}
+
+library(knitr)
+library(glue)
+library(here)
+
+```
+
+::: {.obj}
+**Learning objectives**
+
+-   Extend functional programming skills to automate `.Rmd` reports  
+-   Understand the available types of reports provided by `{rmarkdown}`  
+:::
+
+<br>
+
+> "Your success in life will be determined largely by your ability to speak, your ability to write, and the quality of your ideas, in that order." — [Patrick Winston (1943-2019)](https://www.youtube.com/watch?v=Unzc731iCUY&t=37s)
+
+Data science is the art of combining domain knowledge, statistics, math, programming, and visualization to find order and meaning in disorganized information. Communicating the results of your analyses, or ability to make data "speak", is of utmost importance. The modern day open source package ecosystem is full of powerful ways to give voice to our analyses.
+
+Analyses typically lead to figures, tables, and interpretation of these information. The [`{rmarkdown}`](https://rmarkdown.rstudio.com/) package provides `R` users with a standardized approach for turning `R` analyses into reports, documents, presentations, dashboards, and websites. In this module, we assume familiarity with `{rmarkdown}`, and extend the previous modules on iteration, functional programming, and reproducible workflows to demonstrate how to iterate over reports.
+
+<aside>
+Review the [introduction to `{rmarkdown}`](../intro/m_intro_Rmarkdown.html) if needed.
+</aside>
+
+According to [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/params-declare.html), some example use cases for creating a parameterized report include:  
+
+- Showing results for a specific geographic location.  
+- Running a report that covers a specific time period.  
+- Running a single analysis multiple times for different assumptions.  
+- Controlling the behavior of knitr (e.g., specify if you want the code to be displayed or not).  
+
+In this module, we will focus on the first case, and build parameterized reports for a set of geographic locations. Throughout this course, we've been working with groundwater elevation data across California counties. Let's imagine that we want to generate a report on groundwater level trends for a set of counties.
+
+Although the RStudio Interactive Development Environment (IDE) encourages knitting RMarkdown documents by clicking a button, we can also knit documents via: `rmarkdown::render()`. Iterating over `render()` is the key to scaling parameterized reports. To iterate over R Markdown reports, we must first understand how to use `params`.  
+
+
+```{r create-data, echo = FALSE, eval = FALSE}
+# create a file to work with that includes only Sac, Yolo, and SJ counties
+data_path <- here("data", "pgwl")
+counties  <- c("Sacramento", "Yolo", "San Joaquin")
+sep <- map_df(
+  counties,
+  ~f_wcr_import(
+    county   = .x,
+    files_in = list.files(data_path, full.names = TRUE)
+  )
+)
+sep %>% write_rds(here("data", "sac_yolo_sj.rds"))
+```
+
+
+<br>
+
+## `params`
+
+A parameterized .Rmd file takes a set of `params` (short for "parameters") in the YAML header, which are bound into a named list called `params` and accessed with code from within the .Rmd file with `params$<paramater-name>`. For example, consider the example YAML:
+
+```
+title: "My awesome paramaterized report"
+output: html_document
+params:
+  start_date: 2021-01-01
+  watershed: Yuba
+  data: gwl_yuba.csv
+```
+
+In the code, we could then access the value `"2021-01-01"` with `params$start_date`. Similarly, `params$watershed` will equal `"Yuba"` and `params$data` will equal `"gwl_yuba.csv"`.
+
+
+<br>
+
+## Set up a report with `params`
+
+Let's apply `params` to our task and generate an `html_document` for a set of counties. To illustrate, we will use a simplified, pre-processed dataset of 3 counties (Sacramento, Yolo, and San Joaquin counties). If you're motivated to do so, you can use the entire groundwater level dataset of > 2 million records to scale the process to all counties. Read in the data and take a look at the fields.
+
+```{r read-counties}
+library(tidyverse)
+library(here)
+library(sf)
+
+# groundwater level data for Sacramento, Yolo, San Joaquin counties
+gwl <- read_rds(here("data", "sac_yolo_sj.rds"))
+
+gwl %>% 
+  group_by(SITE_CODE) %>% 
+  slice(1) %>% 
+  plot()
+```
+
+We will iterate over the `COUNTY_NAME` to create three reports, one for each county. Copy and paste the following code into a new file `reports/gwl_report.Rmd`
+
+```{r rmd-file, echo = FALSE}
+cat(htmltools::includeText(here("reports", "gwl_report.Rmd")))
+```
+
+
+::: {.challenge}
+**Pause and think**
+
+Take a moment to read the `.Rmd` file above and see what it does. Notice where `params$county` is located in the document. Particularly, in the first code chunk it's used to filter the groundwater level data (assumed to be in memory so we only load it once rather than every time we run this script) down to the county parameter.
+
+```
+d <- filter(gwl, COUNTY_NAME == params$county)
+```
+
+Next, how might you write an `.Rmd` file like the one above and test that everything looks the way you want it to before calling it done? In other words, would you start by writing `params$county` in all places it needs to be or start with one county, make sure everything works, and then substitute in `params$county`?  
+
+:::
+
+
+
+<br>
+
+## Iterate over a report
+
+Finally, we create a vector of counties we want to write reports for and iterate over them. We also need to specify the output location of each file. Since we are writing `html_documents`, the file extension is `.html`. Using `walk2()` from our functional programming toolkit, we can pass in the counties vector and the output file paths into `rmarkdown::render()` and silently write the files. 
+
+```{r, eval=FALSE}
+# unique counties to write reports for
+counties  <- unique(gwl$COUNTY_NAME)
+
+# output file names
+files_out <- tolower(counties) %>% 
+  str_replace_all(" ", "_") %>% 
+  paste0(., ".html")
+
+# silently (walk) over the county names and file names, 
+# creating a report for each combination
+walk2(
+  counties, 
+  files_out,
+  ~rmarkdown::render(
+    input       = here("reports", "gwl_report.Rmd"), 
+    output_file = here("reports", .y),
+    params      = list(county = .x)
+  )
+)
+```
+
+Open and explore each of the files that were written. 
+
+
+<br>
+
+::: {.challenge}
+**Pause and think**
+
+If we wanted to automate reports like this and have them published online or emailed to our team every morning at 7AM, what tools would we need? 
+
+Hint: see the [automation module section on task schedulers](m_reproducible_workflows.html#task-scheduling).
+
+:::
+
+
+
+
+<br>
+
+## In-line `R`
+
+Within an `.Rmd` we can insert `R` code in-line using the following syntax:
+
+```{r, eval=FALSE, include=TRUE}
+`r <function>`
+```
+  
+So for instance we can write a string like: 
+
+```{md, eval=FALSE, include=TRUE}
+The mean of 1 and 3 is `r mean(c(1,3))`.
+```
+
+And when the document knits, we get: The mean of 1 and 3 is `r mean(c(1,3))`.
+
+Consider this as an approach to add specific output about each site in the text narrative.
+
+
+<br>
+
+## Additional Resources
+
+Although we only demonstrated one type of output report in this module, the `html_document`, there are many other output formats that you can parameterize and iterate over, including [Word documents](https://bookdown.org/yihui/rmarkdown/word-document.html), [PDFs](https://bookdown.org/yihui/rmarkdown/pdf-document.html), [flexdashboards](https://pkgs.rstudio.com/flexdashboard/index.html), and presentations. 
+
+<aside>
+View some of the available [R Markdown output formats here](https://rmarkdown.rstudio.com/formats.html).
+</aside>
+
+To dig deeper, see the official [RMarkdown guide for paramaterized reports](https://bookdown.org/yihui/rmarkdown/parameterized-reports.html).   
+
+
+<br>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<a href="m_iteration.html" class="btn btn-secondary" style="float: left">Previous module:<br>6. Iteration</a> <a href="m_advanced_spatial.html" class="btn btn-secondary" style="float: right;">Next module:<br>8. Advanced spatial</a>
+
