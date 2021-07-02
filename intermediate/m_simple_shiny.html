@@ -89,14 +89,14 @@ code span.wa { color: #bf0303; } /* Warning */
 </style>
 
   <!--radix_placeholder_meta_tags-->
-  <title>R for Water Resources Data Science: Simple Shiny</title>
+  <title>R for Water Resources Data Science: 5. Simple Shiny</title>
 
   <meta property="description" itemprop="description" content="How to create interactive dashboards with R"/>
 
 
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-  <meta property="og:title" content="R for Water Resources Data Science: Simple Shiny"/>
+  <meta property="og:title" content="R for Water Resources Data Science: 5. Simple Shiny"/>
   <meta property="og:type" content="article"/>
   <meta property="og:description" content="How to create interactive dashboards with R"/>
   <meta property="og:locale" content="en_US"/>
@@ -104,14 +104,14 @@ code span.wa { color: #bf0303; } /* Warning */
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
-  <meta property="twitter:title" content="R for Water Resources Data Science: Simple Shiny"/>
+  <meta property="twitter:title" content="R for Water Resources Data Science: 5. Simple Shiny"/>
   <meta property="twitter:description" content="How to create interactive dashboards with R"/>
 
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","output"]}},"value":[{"type":"character","attributes":{},"value":["Simple Shiny"]},{"type":"character","attributes":{},"value":["How to create interactive dashboards with R\n"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","output"]}},"value":[{"type":"character","attributes":{},"value":["5. Simple Shiny"]},{"type":"character","attributes":{},"value":["How to create interactive dashboards with R\n"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2036,7 +2036,7 @@ code span.wa { color: #bf0303; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2288,6 +2288,29 @@ code span.wa { color: #bf0303; } /* Warning */
     border-radius: 4px;
   }
 
+
+  /*make the link in the appendix more readable against the grey text*/
+  d-appendix a:link {
+    color: blue;
+    background-color: transparent;
+    text-decoration: none;
+  }
+  d-appendix a:visited {
+    color: lightblue;
+    background-color: transparent;
+    text-decoration: none;
+  }
+  d-appendix a:hover {
+    color: lightblue;
+    background-color: transparent;
+    text-decoration: underline;
+  }
+  d-appendix a:active {
+    color: blue;
+    background-color: transparent;
+    text-decoration: underline;
+  }
+
   </style>
   <!--/radix_placeholder_site_in_header-->
 
@@ -2300,7 +2323,7 @@ code span.wa { color: #bf0303; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Simple Shiny","description":"How to create interactive dashboards with R","authors":[]}
+{"title":"5. Simple Shiny","description":"How to create interactive dashboards with R","authors":[]}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2345,7 +2368,7 @@ Modules
 <!--/radix_placeholder_site_before_body-->
 
 <div class="d-title">
-<h1>Simple Shiny</h1>
+<h1>5. Simple Shiny</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
 <p><p>How to create interactive dashboards with R</p></p>
@@ -2409,22 +2432,22 @@ Modules
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/krlmlr/here'>here</a></span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://here.r-lib.org/'>here</a></span><span class='op'>)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://r-spatial.github.io/sf/'>sf</a></span><span class='op'>)</span>
 
 <span class='co'># read groundwater level data pre-filtered to Sacramento county</span>
-<span class='va'>gwl</span> <span class='op'>&lt;-</span> <span class='fu'>read_csv</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/here/man/here.html'>here</a></span><span class='op'>(</span><span class='st'>"data"</span>, <span class='st'>"gwl"</span>, <span class='st'>"gwl_sac.csv"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+<span class='va'>gwl</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"data"</span>, <span class='st'>"gwl"</span>, <span class='st'>"gwl_sac.csv"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'><a href='https://r-spatial.github.io/sf/reference/st_as_sf.html'>st_as_sf</a></span><span class='op'>(</span>coords <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"LONGITUDE"</span>,<span class='st'>"LATITUDE"</span><span class='op'>)</span>, crs <span class='op'>=</span> <span class='fl'>4269</span><span class='op'>)</span>
 
 <span class='co'># read sacramento county shapefile and reproject</span>
-<span class='va'>sac</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://r-spatial.github.io/sf/reference/st_read.html'>st_read</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/here/man/here.html'>here</a></span><span class='op'>(</span><span class='st'>"data"</span>, <span class='st'>"shp"</span>, <span class='st'>"sac"</span>, <span class='st'>"sac_county.shp"</span><span class='op'>)</span>, quiet<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+<span class='va'>sac</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://r-spatial.github.io/sf/reference/st_read.html'>st_read</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"data"</span>, <span class='st'>"shp"</span>, <span class='st'>"sac"</span>, <span class='st'>"sac_county.shp"</span><span class='op'>)</span>, quiet<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'><a href='https://r-spatial.github.io/sf/reference/st_transform.html'>st_transform</a></span><span class='op'>(</span><span class='fl'>4269</span><span class='op'>)</span>
 
 <span class='co'># plot the groundwater levels at each monitoring site </span>
 <span class='va'>gwl</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>ggplot</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_line</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span><span class='va'>MSMT_DATE</span>, <span class='va'>WSE</span>, group <span class='op'>=</span> <span class='va'>SITE_CODE</span><span class='op'>)</span>, alpha <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>MSMT_DATE</span>, <span class='va'>WSE</span>, group <span class='op'>=</span> <span class='va'>SITE_CODE</span><span class='op'>)</span>, alpha <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span>
 </code></pre>
 </div>
 <img src="m_simple_shiny_files/figure-html5/gwl-eda-1.png" width="624" />
@@ -2432,15 +2455,15 @@ Modules
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># slice the first station per group of groundwater level observations</span>
 <span class='co'># (see comment aside)</span>
 <span class='va'>gwl_min</span> <span class='op'>&lt;-</span> <span class='va'>gwl</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>group_by</span><span class='op'>(</span><span class='va'>SITE_CODE</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>slice</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>ungroup</span><span class='op'>(</span><span class='op'>)</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>SITE_CODE</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a></span><span class='op'>(</span><span class='op'>)</span> 
 
 <span class='co'># visualize sites on a map</span>
-<span class='fu'>ggplot</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_sf</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>sac</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_sf</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl_min</span>, alpha <span class='op'>=</span> <span class='fl'>0.5</span>, color <span class='op'>=</span> <span class='st'>"blue"</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>theme_void</span><span class='op'>(</span><span class='op'>)</span>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggsf.html'>geom_sf</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>sac</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggsf.html'>geom_sf</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl_min</span>, alpha <span class='op'>=</span> <span class='fl'>0.5</span>, color <span class='op'>=</span> <span class='st'>"blue"</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_void</a></span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
 <p><img src="m_simple_shiny_files/figure-html5/gwl-eda-2.png" width="624" /></p>
@@ -2454,11 +2477,11 @@ Modules
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># function that takes a site code and generates a plot</span>
 <span class='va'>f_make_hydrograph</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>site_code</span><span class='op'>)</span><span class='op'>{</span>
   <span class='va'>p</span> <span class='op'>&lt;-</span> <span class='va'>data</span> <span class='op'>%&gt;%</span> 
-    <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>SITE_CODE</span> <span class='op'>==</span> <span class='va'>site_code</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-    <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span><span class='va'>MSMT_DATE</span>, <span class='va'>WSE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-    <span class='fu'>geom_line</span><span class='op'>(</span>alpha <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span> <span class='op'>+</span>
-    <span class='fu'>geom_smooth</span><span class='op'>(</span>method <span class='op'>=</span> <span class='st'>"lm"</span>, se <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>+</span>
-    <span class='fu'>labs</span><span class='op'>(</span>title <span class='op'>=</span> <span class='fu'>glue</span><span class='fu'>::</span><span class='fu'><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></span><span class='op'>(</span><span class='st'>"Groundwater level (ft AMSL) at: {site_code}"</span><span class='op'>)</span><span class='op'>)</span>
+    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>SITE_CODE</span> <span class='op'>==</span> <span class='va'>site_code</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>MSMT_DATE</span>, <span class='va'>WSE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span>alpha <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span> <span class='op'>+</span>
+    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span>method <span class='op'>=</span> <span class='st'>"lm"</span>, se <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>+</span>
+    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='fu'>glue</span><span class='fu'>::</span><span class='fu'><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></span><span class='op'>(</span><span class='st'>"Groundwater level (ft AMSL) at: {site_code}"</span><span class='op'>)</span><span class='op'>)</span>
   <span class='kw'><a href='https://rdrr.io/r/base/function.html'>return</a></span><span class='op'>(</span><span class='va'>p</span><span class='op'>)</span>
 <span class='op'>}</span>
 
@@ -2510,43 +2533,43 @@ Modules
 <p>Consider the following example App, which demonstrates a few of the <em>control widget</em><a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> inputs available for Shiny Apps.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://shiny.rstudio.com'>shiny</a></span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://shiny.rstudio.com/'>shiny</a></span><span class='op'>)</span>
 
-<span class='va'>ui</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/fluidPage.html'>fluidPage</a></span><span class='op'>(</span>
+<span class='va'>ui</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/fluidPage.html'>fluidPage</a></span><span class='op'>(</span>
     <span class='co'># sidebar with generic example inputs</span>
-    <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/sidebarLayout.html'>sidebarLayout</a></span><span class='op'>(</span>
-        <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/sidebarLayout.html'>sidebarPanel</a></span><span class='op'>(</span>
-            <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/sliderInput.html'>sliderInput</a></span><span class='op'>(</span>
+    <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/sidebarLayout.html'>sidebarLayout</a></span><span class='op'>(</span>
+        <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/sidebarLayout.html'>sidebarPanel</a></span><span class='op'>(</span>
+            <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/sliderInput.html'>sliderInput</a></span><span class='op'>(</span>
               <span class='st'>"i_slider"</span>,     <span class='co'># control widget ID     </span>
               <span class='st'>"Slider Input"</span>, <span class='co'># label above the widget</span>
               min <span class='op'>=</span> <span class='fl'>1</span>,
               max <span class='op'>=</span> <span class='fl'>50</span>,
               value <span class='op'>=</span> <span class='fl'>30</span>
             <span class='op'>)</span>,
-            <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/fileInput.html'>fileInput</a></span><span class='op'>(</span>
+            <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/fileInput.html'>fileInput</a></span><span class='op'>(</span>
               <span class='st'>"i_file"</span>,       <span class='co'># control widget ID     </span>
               <span class='st'>"File Input"</span>    <span class='co'># label above the widget</span>
             <span class='op'>)</span>,
-            <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/dateInput.html'>dateInput</a></span><span class='op'>(</span>
+            <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/dateInput.html'>dateInput</a></span><span class='op'>(</span>
               <span class='st'>"i_date"</span>,       <span class='co'># control widget ID     </span>
               <span class='st'>"Date Input"</span>    <span class='co'># label above the widget</span>
             <span class='op'>)</span>,
-            <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/textInput.html'>textInput</a></span><span class='op'>(</span>
+            <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/textInput.html'>textInput</a></span><span class='op'>(</span>
               <span class='st'>"i_text"</span>,       <span class='co'># control widget ID     </span>
               <span class='st'>"Text Input"</span>    <span class='co'># label above the widget</span>
             <span class='op'>)</span>,
-            <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/selectInput.html'>selectInput</a></span><span class='op'>(</span>
+            <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/selectInput.html'>selectInput</a></span><span class='op'>(</span>
               <span class='st'>"i_select"</span>,     <span class='co'># control widget ID     </span>
               <span class='st'>"Select Input"</span>, <span class='co'># label above the widget</span>
               choices <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"A"</span>,<span class='st'>"B"</span>,<span class='st'>"C"</span><span class='op'>)</span>
             <span class='op'>)</span>,
-            <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/radioButtons.html'>radioButtons</a></span><span class='op'>(</span> 
+            <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/radioButtons.html'>radioButtons</a></span><span class='op'>(</span> 
               <span class='st'>"i_radio"</span>,      <span class='co'># control widget ID  </span>
               <span class='st'>"Radio Buttons"</span>,<span class='co'># label above the widget</span>
               choices <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"A"</span>,<span class='st'>"B"</span><span class='op'>)</span>
             <span class='op'>)</span>
         <span class='op'>)</span>,
-        <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/sidebarLayout.html'>mainPanel</a></span><span class='op'>(</span><span class='st'>"Look at all those inputs!"</span><span class='op'>)</span>
+        <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/sidebarLayout.html'>mainPanel</a></span><span class='op'>(</span><span class='st'>"Look at all those inputs!"</span><span class='op'>)</span>
     <span class='op'>)</span>
 <span class='op'>)</span>
 
@@ -2555,7 +2578,7 @@ Modules
 <span class='va'>server</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>input</span>, <span class='va'>output</span><span class='op'>)</span> <span class='op'>{</span><span class='op'>}</span>
 
 <span class='co'># run the Shiny app</span>
-<span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/shinyApp.html'>shinyApp</a></span><span class='op'>(</span>ui <span class='op'>=</span> <span class='va'>ui</span>, server <span class='op'>=</span> <span class='va'>server</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/pkg/shiny/man/shinyApp.html'>shinyApp</a></span><span class='op'>(</span>ui <span class='op'>=</span> <span class='va'>ui</span>, server <span class='op'>=</span> <span class='va'>server</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
@@ -2583,18 +2606,18 @@ Modules
 </p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://shiny.rstudio.com'>shiny</a></span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://shiny.rstudio.com/'>shiny</a></span><span class='op'>)</span>
 
 <span class='co'># user interface</span>
-<span class='va'>ui</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/fluidPage.html'>fluidPage</a></span><span class='op'>(</span> <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/plotOutput.html'>plotOutput</a></span><span class='op'>(</span><span class='st'>"plot"</span><span class='op'>)</span> <span class='op'>)</span>
+<span class='va'>ui</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/fluidPage.html'>fluidPage</a></span><span class='op'>(</span> <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/plotOutput.html'>plotOutput</a></span><span class='op'>(</span><span class='st'>"plot"</span><span class='op'>)</span> <span class='op'>)</span>
 
 <span class='co'># server logic that draws a plot</span>
 <span class='va'>server</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>input</span>, <span class='va'>output</span><span class='op'>)</span> <span class='op'>{</span>
-  <span class='va'>output</span><span class='op'>$</span><span class='va'>my_plot</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/renderPlot.html'>renderPlot</a></span><span class='op'>(</span><span class='op'>{</span> <span class='fu'><a href='https://r-spatial.github.io/sf/reference/plot.html'>plot</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span> <span class='op'>}</span><span class='op'>)</span>
+  <span class='va'>output</span><span class='op'>$</span><span class='va'>my_plot</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/renderPlot.html'>renderPlot</a></span><span class='op'>(</span><span class='op'>{</span> <span class='fu'><a href='https://r-spatial.github.io/sf/reference/plot.html'>plot</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span> <span class='op'>}</span><span class='op'>)</span>
 <span class='op'>}</span>
 
 <span class='co'># Run the application</span>
-<span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/shinyApp.html'>shinyApp</a></span><span class='op'>(</span>ui <span class='op'>=</span> <span class='va'>ui</span>, server <span class='op'>=</span> <span class='va'>server</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/pkg/shiny/man/shinyApp.html'>shinyApp</a></span><span class='op'>(</span>ui <span class='op'>=</span> <span class='va'>ui</span>, server <span class='op'>=</span> <span class='va'>server</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
@@ -2608,18 +2631,18 @@ Modules
 <p>The answer, therefore, is frustratingly simple: <code>plotOutput("plot")</code> should be <code>plotOutput("my_plot")</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://shiny.rstudio.com'>shiny</a></span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://shiny.rstudio.com/'>shiny</a></span><span class='op'>)</span>
 
 <span class='co'># user interface</span>
-<span class='va'>ui</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/fluidPage.html'>fluidPage</a></span><span class='op'>(</span> <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/plotOutput.html'>plotOutput</a></span><span class='op'>(</span><span class='st'>"my_plot"</span><span class='op'>)</span> <span class='op'>)</span>
+<span class='va'>ui</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/fluidPage.html'>fluidPage</a></span><span class='op'>(</span> <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/plotOutput.html'>plotOutput</a></span><span class='op'>(</span><span class='st'>"my_plot"</span><span class='op'>)</span> <span class='op'>)</span>
 
 <span class='co'># server logic that draws a plot</span>
 <span class='va'>server</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>input</span>, <span class='va'>output</span><span class='op'>)</span> <span class='op'>{</span>
-  <span class='va'>output</span><span class='op'>$</span><span class='va'>my_plot</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/renderPlot.html'>renderPlot</a></span><span class='op'>(</span><span class='op'>{</span> <span class='fu'><a href='https://r-spatial.github.io/sf/reference/plot.html'>plot</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span> <span class='op'>}</span><span class='op'>)</span>
+  <span class='va'>output</span><span class='op'>$</span><span class='va'>my_plot</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/renderPlot.html'>renderPlot</a></span><span class='op'>(</span><span class='op'>{</span> <span class='fu'><a href='https://r-spatial.github.io/sf/reference/plot.html'>plot</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span> <span class='op'>}</span><span class='op'>)</span>
 <span class='op'>}</span>
 
 <span class='co'># Run the application</span>
-<span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/shinyApp.html'>shinyApp</a></span><span class='op'>(</span>ui <span class='op'>=</span> <span class='va'>ui</span>, server <span class='op'>=</span> <span class='va'>server</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/pkg/shiny/man/shinyApp.html'>shinyApp</a></span><span class='op'>(</span>ui <span class='op'>=</span> <span class='va'>ui</span>, server <span class='op'>=</span> <span class='va'>server</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
@@ -2641,36 +2664,36 @@ Modules
 <p>Let’s take what we’ve covered and put it all together to address the <a href="#case-study-sacramento-county-groundwater-elevation">Case Study</a> introduced above. We will build a simple Shiny App with a <code>plotOutput()</code> and <code>DT::dataTableOutput()</code> that shows the hydrograph and data for a user-specified monitoring point. We’ll also include data download buttons within the data table and demonstrate how to make the plot interactive with <a href="https://plotly.com/r/"><code>{plotly}</code></a>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://shiny.rstudio.com'>shiny</a></span><span class='op'>)</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://rstudio.github.io/shinythemes/'>shinythemes</a></span><span class='op'>)</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://shiny.rstudio.com/'>shiny</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>shinythemes</span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
 
 <span class='co'># load sac county groundwater data and sac county polygon</span>
-<span class='va'>gwl</span> <span class='op'>&lt;-</span> <span class='fu'>read_csv</span><span class='op'>(</span><span class='fu'>here</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/here/man/here.html'>here</a></span><span class='op'>(</span><span class='st'>"data"</span>, <span class='st'>"gwl"</span>, <span class='st'>"gwl_sac_shiny.csv"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>gwl</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='fu'>here</span><span class='fu'>::</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"data"</span>, <span class='st'>"gwl"</span>, <span class='st'>"gwl_sac_shiny.csv"</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># ------------------------------------------------------------------------</span>
 <span class='co'># user interface</span>
-<span class='va'>ui</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/fluidPage.html'>fluidPage</a></span><span class='op'>(</span>
+<span class='va'>ui</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/fluidPage.html'>fluidPage</a></span><span class='op'>(</span>
 
     <span class='co'># change default theme to "united"</span>
-    theme <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/shinythemes/man/shinytheme.html'>shinytheme</a></span><span class='op'>(</span><span class='st'>"united"</span><span class='op'>)</span>,
+    theme <span class='op'>=</span> <span class='fu'>shinytheme</span><span class='op'>(</span><span class='st'>"united"</span><span class='op'>)</span>,
   
     <span class='co'># application title</span>
-    <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/titlePanel.html'>titlePanel</a></span><span class='op'>(</span><span class='st'>"Sacramento County Groundwater Level Data"</span><span class='op'>)</span>,
+    <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/titlePanel.html'>titlePanel</a></span><span class='op'>(</span><span class='st'>"Sacramento County Groundwater Level Data"</span><span class='op'>)</span>,
 
     <span class='co'># sidebar with a dropdown input for site_code</span>
-    <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/sidebarLayout.html'>sidebarLayout</a></span><span class='op'>(</span>
-        <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/sidebarLayout.html'>sidebarPanel</a></span><span class='op'>(</span>
-            <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/selectInput.html'>selectInput</a></span><span class='op'>(</span><span class='st'>"site_code"</span>,
+    <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/sidebarLayout.html'>sidebarLayout</a></span><span class='op'>(</span>
+        <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/sidebarLayout.html'>sidebarPanel</a></span><span class='op'>(</span>
+            <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/selectInput.html'>selectInput</a></span><span class='op'>(</span><span class='st'>"site_code"</span>,
                         <span class='st'>"Select a site code:"</span>,
                         choices <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>gwl</span><span class='op'>$</span><span class='va'>SITE_CODE</span><span class='op'>)</span><span class='op'>)</span>
         <span class='op'>)</span>,
 
         <span class='co'># tabs with hydrograph and data table</span>
-        <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/sidebarLayout.html'>mainPanel</a></span><span class='op'>(</span>
-            <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/tabsetPanel.html'>tabsetPanel</a></span><span class='op'>(</span>
-                <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/tabPanel.html'>tabPanel</a></span><span class='op'>(</span><span class='st'>"Hydrograph"</span>, <span class='fu'>plotly</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/plotly/reference/plotly-shiny.html'>plotlyOutput</a></span><span class='op'>(</span><span class='st'>"gwl_plot"</span><span class='op'>)</span><span class='op'>)</span>,
-                <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/tabPanel.html'>tabPanel</a></span><span class='op'>(</span><span class='st'>"Data"</span>, <span class='fu'>DT</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/DT/man/dataTableOutput.html'>dataTableOutput</a></span><span class='op'>(</span><span class='st'>"gwl_data"</span><span class='op'>)</span><span class='op'>)</span>
+        <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/sidebarLayout.html'>mainPanel</a></span><span class='op'>(</span>
+            <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/tabsetPanel.html'>tabsetPanel</a></span><span class='op'>(</span>
+                <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/tabPanel.html'>tabPanel</a></span><span class='op'>(</span><span class='st'>"Hydrograph"</span>, <span class='fu'>plotly</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/plotly/reference/plotly-shiny.html'>plotlyOutput</a></span><span class='op'>(</span><span class='st'>"gwl_plot"</span><span class='op'>)</span><span class='op'>)</span>,
+                <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/tabPanel.html'>tabPanel</a></span><span class='op'>(</span><span class='st'>"Data"</span>, <span class='fu'>DT</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/DT/man/dataTableOutput.html'>dataTableOutput</a></span><span class='op'>(</span><span class='st'>"gwl_data"</span><span class='op'>)</span><span class='op'>)</span>
             <span class='op'>)</span>
         <span class='op'>)</span>
     <span class='op'>)</span>
@@ -2685,11 +2708,11 @@ Modules
     <span class='va'>output</span><span class='op'>$</span><span class='va'>gwl_plot</span> <span class='op'>&lt;-</span> <span class='fu'>plotly</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/plotly/reference/plotly-shiny.html'>renderPlotly</a></span><span class='op'>(</span><span class='op'>{</span>
 
         <span class='co'># draw the ggplot based on the "site_code" user input</span>
-        <span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>gwl</span>, <span class='va'>SITE_CODE</span> <span class='op'>==</span> <span class='va'>input</span><span class='op'>$</span><span class='va'>site_code</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-            <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span><span class='va'>MSMT_DATE</span>, <span class='va'>WSE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-            <span class='fu'>geom_line</span><span class='op'>(</span>alpha <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span> <span class='op'>+</span>
-            <span class='fu'>geom_smooth</span><span class='op'>(</span>method <span class='op'>=</span> <span class='st'>"lm"</span>, se <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>+</span>
-            <span class='fu'>labs</span><span class='op'>(</span>title <span class='op'>=</span> <span class='va'>input</span><span class='op'>$</span><span class='va'>site_code</span>,
+        <span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>gwl</span>, <span class='va'>SITE_CODE</span> <span class='op'>==</span> <span class='va'>input</span><span class='op'>$</span><span class='va'>site_code</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+            <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>MSMT_DATE</span>, <span class='va'>WSE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+            <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span>alpha <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span> <span class='op'>+</span>
+            <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span>method <span class='op'>=</span> <span class='st'>"lm"</span>, se <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>+</span>
+            <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='va'>input</span><span class='op'>$</span><span class='va'>site_code</span>,
                  x <span class='op'>=</span> <span class='st'>""</span>, y <span class='op'>=</span> <span class='st'>"Groundwater level (ft AMSL)"</span><span class='op'>)</span>
 
         <span class='co'># render the plotly object</span>
@@ -2702,7 +2725,7 @@ Modules
 
         <span class='co'># draw the plot based on the "site_code" user input</span>
         <span class='fu'>DT</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/DT/man/datatable.html'>datatable</a></span><span class='op'>(</span>
-            <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>gwl</span>, <span class='va'>SITE_CODE</span> <span class='op'>==</span> <span class='va'>input</span><span class='op'>$</span><span class='va'>site_code</span><span class='op'>)</span>,
+            <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>gwl</span>, <span class='va'>SITE_CODE</span> <span class='op'>==</span> <span class='va'>input</span><span class='op'>$</span><span class='va'>site_code</span><span class='op'>)</span>,
             extensions <span class='op'>=</span> <span class='st'>'Buttons'</span>,
             options <span class='op'>=</span>
                 <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>dom <span class='op'>=</span> <span class='st'>'Bfrtip'</span>,
@@ -2713,7 +2736,7 @@ Modules
 
 <span class='co'># ------------------------------------------------------------------------</span>
 <span class='co'># Run the application</span>
-<span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/shinyApp.html'>shinyApp</a></span><span class='op'>(</span>ui <span class='op'>=</span> <span class='va'>ui</span>, server <span class='op'>=</span> <span class='va'>server</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/pkg/shiny/man/shinyApp.html'>shinyApp</a></span><span class='op'>(</span>ui <span class='op'>=</span> <span class='va'>ui</span>, server <span class='op'>=</span> <span class='va'>server</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
@@ -2757,7 +2780,7 @@ Modules
 </ul>
 <p><br></p>
 <p><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"></p>
-<p><a href="m_interactive_viz.html" class="btn btn-secondary" style="float: left">Previous module:<br>Interactive Visualization</a> <a href="m_iteration.html" class="btn btn-secondary" style="float: right;">Next module:<br>Iteration</a></p>
+<p><a href="m_interactive_viz.html" class="btn btn-secondary" style="float: left">Previous module:<br>4. Interactive Visualization</a> <a href="m_iteration.html" class="btn btn-secondary" style="float: right;">Next module:<br>6. Iteration</a></p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <section class="footnotes" role="doc-endnotes">
 <hr />
@@ -2781,7 +2804,10 @@ Modules
 <!--radix_placeholder_site_after_body-->
 <!--/radix_placeholder_site_after_body-->
 <!--radix_placeholder_appendices-->
-<div class="appendix-bottom"></div>
+<div class="appendix-bottom">
+<h3 id="updates-and-corrections">Corrections</h3>
+<p>If you see mistakes or want to suggest changes, please <a href="https://github.com/ryanpeek/r4wrds/issues/new">create an issue</a> on the source repository.</p>
+</div>
 <!--/radix_placeholder_appendices-->
 <!--radix_placeholder_navigation_after_body-->
 <div class="distill-site-nav distill-site-footer">

@@ -89,14 +89,14 @@ code span.wa { color: #bf0303; } /* Warning */
 </style>
 
   <!--radix_placeholder_meta_tags-->
-  <title>R for Water Resources Data Science: Welcome!</title>
+  <title>R for Water Resources Data Science: R4WRDS Intermediate Course</title>
 
   <meta property="description" itemprop="description" content="Increasing your efficiency with reproducible workflows in R"/>
 
 
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-  <meta property="og:title" content="R for Water Resources Data Science: Welcome!"/>
+  <meta property="og:title" content="R for Water Resources Data Science: R4WRDS Intermediate Course"/>
   <meta property="og:type" content="article"/>
   <meta property="og:description" content="Increasing your efficiency with reproducible workflows in R"/>
   <meta property="og:locale" content="en_US"/>
@@ -104,14 +104,14 @@ code span.wa { color: #bf0303; } /* Warning */
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
-  <meta property="twitter:title" content="R for Water Resources Data Science: Welcome!"/>
+  <meta property="twitter:title" content="R for Water Resources Data Science: R4WRDS Intermediate Course"/>
   <meta property="twitter:description" content="Increasing your efficiency with reproducible workflows in R"/>
 
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","site"]}},"value":[{"type":"character","attributes":{},"value":["Welcome!"]},{"type":"character","attributes":{},"value":["Increasing your efficiency with reproducible workflows in R\n"]},{"type":"character","attributes":{},"value":["distill::distill_website"]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","site"]}},"value":[{"type":"character","attributes":{},"value":["R4WRDS Intermediate Course"]},{"type":"character","attributes":{},"value":["Increasing your efficiency with reproducible workflows in R\n"]},{"type":"character","attributes":{},"value":["distill::distill_website"]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2036,7 +2036,7 @@ code span.wa { color: #bf0303; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2288,6 +2288,29 @@ code span.wa { color: #bf0303; } /* Warning */
     border-radius: 4px;
   }
 
+
+  /*make the link in the appendix more readable against the grey text*/
+  d-appendix a:link {
+    color: blue;
+    background-color: transparent;
+    text-decoration: none;
+  }
+  d-appendix a:visited {
+    color: lightblue;
+    background-color: transparent;
+    text-decoration: none;
+  }
+  d-appendix a:hover {
+    color: lightblue;
+    background-color: transparent;
+    text-decoration: underline;
+  }
+  d-appendix a:active {
+    color: blue;
+    background-color: transparent;
+    text-decoration: underline;
+  }
+
   </style>
   <!--/radix_placeholder_site_in_header-->
 
@@ -2300,7 +2323,7 @@ code span.wa { color: #bf0303; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Welcome!","description":"Increasing your efficiency with reproducible workflows in R","authors":[]}
+{"title":"R4WRDS Intermediate Course","description":"Increasing your efficiency with reproducible workflows in R","authors":[]}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2345,7 +2368,7 @@ Modules
 <!--/radix_placeholder_site_before_body-->
 
 <div class="d-title">
-<h1>Welcome!</h1>
+<h1>R4WRDS Intermediate Course</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
 <p><p>Increasing your efficiency with reproducible workflows in R</p></p>
@@ -2367,16 +2390,20 @@ Modules
 <li>Have a general understanding and proficiency in using <code>{dplyr}</code>, <code>{ggplot2}</code>, <code>{sf}</code>, and <code>{rmarkdown}</code></li>
 <li>Understand (and use) general best practices for data science in <code>R</code></li>
 </ul>
+<p><br></p>
+<h2 id="why-r">Why <code>R</code>?</h2>
+<p><a href="https://www.r-project.org/"><code>R</code></a> is an open-source language for statistical computing and a general purpose programming language. It is one of the primary languages used for data science, modeling, and visualization.</p>
+<p><br></p>
 <h2 id="what-will-you-learn">What will you learn?</h2>
-<p>In this course, we will move more quickly, assume familiarity with basic <code>R</code> skills, and also assume that the participant has experience with more complex workflows, operations, and code-bases. Each module in this course functions as a “stand-alone” lesson, and can be read linearly, or out of order according to your needs and interests. Each module doesn’t necessarily require familiarity with the previous module.</p>
+<p>In this course, we will move more quickly, assume familiarity with basic <code>R</code> skills, and also assume that the participant has working experience with more complex workflows, operations, and code-bases. Each module in this course functions as a “stand-alone” lesson, and can be read linearly, or out of order according to your needs and interests. Each module doesn’t necessarily require familiarity with the previous module.</p>
 <p><strong>This course emphasizes:</strong></p>
 <ul>
-<li>Intermediate scripting skills like iteration, functional programming, writing functions, and controlling project workflows for better reproducibility and efficiency.</li>
-<li>Approaches to working with more complex data structures like lists and timeseries data.</li>
-<li>The fundamentals of building Shiny Apps.</li>
-<li>Pulling water resources data from APIs.</li>
-<li>Intermediate mapmaking and spatial data processing.</li>
-<li>Integrating version control in projects with git.</li>
+<li>Intermediate scripting skills like iteration, functional programming, writing functions, and controlling project workflows for better reproducibility and efficiency</li>
+<li>Approaches to working with more complex data structures like lists and timeseries data</li>
+<li>The fundamentals of building Shiny Apps</li>
+<li>Pulling water resources data from APIs</li>
+<li>Intermediate mapmaking and spatial data processing</li>
+<li>Integrating version control in projects with git</li>
 </ul>
 
 <div class="layout-chunk" data-layout="l-body">
@@ -2389,9 +2416,8 @@ Figure 1: <em>Artwork by <span class="citation" data-cites="allison_horst">@alli
 </div>
 <div class="obj">
 <p><strong>Course Modules</strong></p>
-<p>In this course, we will:</p>
 <ol type="1">
-<li><a href="m_updating_r.html">Check/Update R/RStudio and Packages</a><br />
+<li><a href="m_updating_r.html">Check/Update <code>R</code>/RStudio and Packages</a><br />
 </li>
 <li><a href="m_version_control.html">Version Control with git</a></li>
 <li><a href="m_project_management.html">Project Management and workflows</a><br />
@@ -2400,31 +2426,48 @@ Figure 1: <em>Artwork by <span class="citation" data-cites="allison_horst">@alli
 </li>
 <li><a href="m_simple_shiny.html">Simple shiny</a><br />
 </li>
-<li><a href="m_iteration_complex.html">Iteration with complex data</a><br />
+<li><a href="m_iteration.html">Iteration and functional programming</a><br />
 </li>
 <li><a href="m_parameterized_reports.html">Parameterized reports</a></li>
-<li><a href="m_advanced_spatial.html">Advanced spatial R and mapmaking</a></li>
-<li><a href="m_getting_data_api.html">Pulling data from APIs</a></li>
+<li><a href="m_advanced_spatial.html">Advanced spatial <code>R</code> and mapmaking</a></li>
 </ol>
 </div>
 <p><br></p>
-<h2 id="why-r">Why <code>R</code>?</h2>
-<p><a href="https://www.r-project.org/"><code>R</code></a> is an open-source language for statistical computing and a general purpose programming language. It is one of the primary languages used for data science, modeling, and visualization.</p>
+<h2 id="data">Data</h2>
+<p>All data used in this course is expected to live in a <code>/data</code> subfolder in the project directory. It can be downloaded in 1 of 2 ways:</p>
+<ol type="1">
+<li><a href="https://osf.io/qweju/download">Downloaded and unzipped from OSF</a><br />
+</li>
+<li><a href="https://github.com/richpauloo/r4wrds-data">Cloned from the <code>wrds-data</code> Github repository</a></li>
+</ol>
+<p>Your project directory structure should look like this (note the position of the <code>/data</code> subfolder):</p>
+<pre><code>.
+├── code
+│   ├── module_01.R
+│   └── module_02.R
+│   └── ...
+├── data
+│   ├── gwl.csv
+│   └── polygon.shp
+│   └── ...
+└── intermediate.Rproj</code></pre>
+<p>To complete code exercises and follow along in the course, you will create a <code>/code</code> subfolder to store <code>.R</code> scripts, which we recommend naming by module.</p>
+<p>You will also need to create an <code>intro.Rproj</code> file, covered in the <a href="../intro/m_project_management.html#use-project-workflows">introductory project management module</a>. Alternatively, on the command line, use <code>touch intro.Rproj</code> (MacOS/Linux) or <code>echo &gt; intro.Rproj</code> (Windows) in the root project directory.</p>
 <p><br></p>
 <h2 id="workshop-overview">Workshop Overview</h2>
 <p>We will follow the <a href="https://freshwater-science.org/about/society-governance/code-of-conduct">SFS Code of Conduct</a> throughout our workshop.</p>
 <p><br></p>
 <h2 id="source-content">Source content</h2>
-<p>All source materials for this website can be accessed at <strong>[final GH location, perhaps CAOpenWater/wrds]</strong>.</p>
+<p>All source materials for this website can be accessed at the <a href="https://github.com/ryanpeek/r4wrds"><code>r4wrds</code> Github repository</a>.</p>
 <p><br></p>
 <h2 id="attribution">Attribution</h2>
-<p>Content in these lessons has been modified and/or adapted from <a href="https://datacarpentry.org/R-ecology-lesson/index.html">Data Carpentry: R for data analysis and visualization of Ecological Data</a>, the USGS-R training curriculum <a href="https://github.com/USGS-R/training-curriculum">here</a>, the NCEAS Open Science for Synthesis workshop <a href="https://nceas.github.io/oss-2017/index.html">here</a>, <a href="https://ryanpeek.org/mapping-in-R-workshop/">Mapping in R</a>, and the wonderful text <a href="https://github.com/hadley/r4ds">R for data science</a>.</p>
+<p>Content in these lessons has been modified and/or adapted from <a href="https://datacarpentry.org/R-ecology-lesson/index.html">Data Carpentry: <code>R</code> for data analysis and visualization of Ecological Data</a>, the USGS-R training curriculum <a href="https://github.com/USGS-R/training-curriculum">here</a>, the NCEAS Open Science for Synthesis workshop <a href="https://nceas.github.io/oss-2017/index.html">here</a>, <a href="https://ryanpeek.org/mapping-in-R-workshop/">Mapping in <code>R</code></a>, and the wonderful text <a href="https://github.com/hadley/r4ds"><code>R</code> for data science</a>.</p>
 <p><br></p>
 <p><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"></p>
-<p><a href="m_project_management.html" class="btn btn-secondary" style="float: right;">Next module:<br> Project Management</a></p>
+<p><a href="m_updating_r.html" class="btn btn-secondary" style="float: right;">Next module:<br> Updating <code>R</code></a></p>
 <hr />
-<p><em>site last updated: <code>2021-04-29 12:34</code></em></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<p><em>site last updated: <code>2021-07-02 09:25</code></em></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
@@ -2436,7 +2479,10 @@ Figure 1: <em>Artwork by <span class="citation" data-cites="allison_horst">@alli
 <!--radix_placeholder_site_after_body-->
 <!--/radix_placeholder_site_after_body-->
 <!--radix_placeholder_appendices-->
-<div class="appendix-bottom"></div>
+<div class="appendix-bottom">
+<h3 id="updates-and-corrections">Corrections</h3>
+<p>If you see mistakes or want to suggest changes, please <a href="https://github.com/ryanpeek/r4wrds/issues/new">create an issue</a> on the source repository.</p>
+</div>
 <!--/radix_placeholder_appendices-->
 <!--radix_placeholder_navigation_after_body-->
 <div class="distill-site-nav distill-site-footer">

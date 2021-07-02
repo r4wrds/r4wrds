@@ -89,14 +89,14 @@ code span.wa { color: #bf0303; } /* Warning */
 </style>
 
   <!--radix_placeholder_meta_tags-->
-  <title>R for Water Resources Data Science: Project Management &amp; Data Organization</title>
+  <title>R for Water Resources Data Science: 3. Project Management &amp; Data Organization</title>
 
   <meta property="description" itemprop="description" content="Approaches towards organization and efficiency."/>
 
 
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-  <meta property="og:title" content="R for Water Resources Data Science: Project Management &amp; Data Organization"/>
+  <meta property="og:title" content="R for Water Resources Data Science: 3. Project Management &amp; Data Organization"/>
   <meta property="og:type" content="article"/>
   <meta property="og:description" content="Approaches towards organization and efficiency."/>
   <meta property="og:locale" content="en_US"/>
@@ -104,14 +104,14 @@ code span.wa { color: #bf0303; } /* Warning */
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
-  <meta property="twitter:title" content="R for Water Resources Data Science: Project Management &amp; Data Organization"/>
+  <meta property="twitter:title" content="R for Water Resources Data Science: 3. Project Management &amp; Data Organization"/>
   <meta property="twitter:description" content="Approaches towards organization and efficiency."/>
 
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","output"]}},"value":[{"type":"character","attributes":{},"value":["Project Management & Data Organization"]},{"type":"character","attributes":{},"value":["Approaches towards organization and efficiency.\n"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","output"]}},"value":[{"type":"character","attributes":{},"value":["3. Project Management & Data Organization"]},{"type":"character","attributes":{},"value":["Approaches towards organization and efficiency.\n"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2036,7 +2036,7 @@ code span.wa { color: #bf0303; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2288,6 +2288,29 @@ code span.wa { color: #bf0303; } /* Warning */
     border-radius: 4px;
   }
 
+
+  /*make the link in the appendix more readable against the grey text*/
+  d-appendix a:link {
+    color: blue;
+    background-color: transparent;
+    text-decoration: none;
+  }
+  d-appendix a:visited {
+    color: lightblue;
+    background-color: transparent;
+    text-decoration: none;
+  }
+  d-appendix a:hover {
+    color: lightblue;
+    background-color: transparent;
+    text-decoration: underline;
+  }
+  d-appendix a:active {
+    color: blue;
+    background-color: transparent;
+    text-decoration: underline;
+  }
+
   </style>
   <!--/radix_placeholder_site_in_header-->
 
@@ -2300,7 +2323,7 @@ code span.wa { color: #bf0303; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Project Management & Data Organization","description":"Approaches towards organization and efficiency.","authors":[]}
+{"title":"3. Project Management & Data Organization","description":"Approaches towards organization and efficiency.","authors":[]}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2345,7 +2368,7 @@ Modules
 <!--/radix_placeholder_site_before_body-->
 
 <div class="d-title">
-<h1>Project Management &amp; Data Organization</h1>
+<h1>3. Project Management &amp; Data Organization</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
 <p><p>Approaches towards organization and efficiency.</p></p>
@@ -2404,7 +2427,7 @@ Figure 1: What to avoid building (Source: <a href="https://xkcd.com/2054/" class
 <div class="challenge">
 <p><font color="#009E73"><strong>REVIEW</strong></font></p>
 <p style="line-height: 1.5em;">
-<strong>Although this is an intermediate level course, we will revisit <a href="../intro/m_project_management.html"><span style="color: #009e73">introductory material on “Project Management”</span></a> because no matter your skill level in R, strategic project management remains fundamental.</strong> Subsequent modules in this course assume familiarity with <code>{here}</code>, <code>.Rproject</code>s, naming conventions, and general best practices.
+<p><strong>Although this is an intermediate level course, we will revisit <a href="../intro/m_project_management.html"><span style="color: #009e73">introductory material on “Project Management”</span></a> because no matter your skill level in R, strategic project management remains fundamental.</strong> Subsequent modules in this course assume familiarity with <code>{here}</code>, <code>.Rproject</code>s, naming conventions, and general best practices.</p>
 </p>
 </div>
 <p><br></p>
@@ -2480,27 +2503,35 @@ hello world!
 </code></pre>
 </div>
 <pre><code>
- ------------- 
-You can do it if you believe you can! - Napoleon Hill 
- -------------- 
-              \   
-               \  
-                \
-_____________________                              _____________________
-`-._                 \           |\__/|           /                 _.-&#39;
-    \                 \          |    |          /                 /
-     \                 `-_______/      \_______-&#39;                 /
-      |                                                          |
-      |                                                          |
-      |                                                          |
-      /                                                          \
-     /_____________                                  _____________\
-                   `----._                    _.----&#39;
-                          `--.            .--&#39;
-                              `-.      .-&#39;
-                                 \    / :F_P:
-                                  \  /
-                                   \/</code></pre>
+ ----- 
+The winds and waves are always on the side of the ablest navigators. - Edward Gibbon 
+ ------ 
+    \   
+     \
+    .ﾊ,,ﾊ
+    ( ﾟωﾟ)
+    |つ  つ
+    |    |
+    |    |
+    |    |
+    |    |
+    |    |
+    |    |
+    |    |
+    |    |
+    |    |
+    |    |
+    |    |
+    |    |
+    |    |
+    |    |
+    |    |
+    |    |
+    |    |
+    |    |
+    U &quot;  U
+        [BoingBoing]
+    </code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/rm.html'>rm</a></span><span class='op'>(</span><span class='va'>animals</span>, <span class='va'>quotes</span><span class='op'>)</span> <span class='co'># remove the objects we just created</span>
 </code></pre>
@@ -2515,7 +2546,7 @@ _____________________                              _____________________
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span><span class='op'>(</span><span class='st'>"USER"</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>[1] &quot;richpauloo&quot;</code></pre>
+<pre><code>[1] &quot;rich&quot;</code></pre>
 </div>
 <p>You can set your own environmental variables which are stored in another hidden file called <code>.Renviron</code> (this is the Python analog of <code>.env</code>). Keep in mind, <code>.Renviron</code> files typically contain lists of environmental variables that look similar to R code but it is actually not running R code…so don’t put R code in your <code>.Renviron</code> file! If we need to run R code when starting up R, we use <code>.RProfile</code>.</p>
 <p>To illustrate the use of <code>.Renviron</code>, we run <code>usethis::edit_r_environ()</code>, add the environmental variable <code>ANIMAL = "cat"</code>, save, and restart <code>R</code>.</p>
@@ -2568,12 +2599,12 @@ _____________________                              _____________________
 <div class="challenge">
 <p><font color="#009E73"><strong>Pause and think</strong></font></p>
 <p style="line-height: 1.5em;">
-In the example function above, we might notice that reading in a url from a csv every time we run <code>inspire_me()</code> is a lot of unnecessary overhead. Where else might we be able to read that csv in automatically when R starts up, so that it’s available for our <code>inspire_me()</code> function, and that we only need to read it once?
+<p>In the example function above, we might notice that reading in a url from a csv every time we run <code>inspire_me()</code> is a lot of unnecessary overhead. Where else might we be able to read that csv in automatically when R starts up, so that it’s available for our <code>inspire_me()</code> function, and that we only need to read it once?</p>
 </p>
 <p><br></p>
 <details>
 <summary class="challenge-ans-title">
-<font color="#0072B2"><strong>Click for Answers!</strong></font>
+<p><font color="#0072B2"><strong>Click for Answers!</strong></font></p>
 </summary>
 <div class="challenge-ans-body">
 <p>We can move read step of the csv into a project-level RProfile, so it’s available to the project where we need this csv, but not to any general R session we may open outside of the project.</p>
@@ -2638,7 +2669,7 @@ In the example function above, we might notice that reading in a url from a csv 
 <p>These approaches work well when scripts are relatively simple, but as a project grows large and complex, it’s best practice to move functions into another script or set of scripts, and break up your workflow into discrete steps.</p>
 <p>For instance, although the <code>inspire_me()</code> function above is relatively simple, we can pretend that the <code>read</code>, <code>transform</code>, and <code>print</code> steps carried out in the function were themselves long functions in part of a much more complex, real-world workflow. Imagine we created a script called <code>functions.R</code> that contained the following code. Don’t worry if you haven’t seen <code>purrr::walk()</code> before. We’ll cover this in a later module on <a href="m_iteration.html">iteration</a>, and all you need to know about it now is that it “walks” over each input and applies a function. In this case, we apply the <code>require()</code> function to a vector of package names to load them.</p>
 <aside>
-Notice that all functions start with <code>f_</code>. This prefix makes it easy to read in a script and takes advantage of auto-complete.
+<p>Notice that all functions start with <code>f_</code>. This prefix makes it easy to read in a script and takes advantage of auto-complete.</p>
 </aside>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -2678,7 +2709,7 @@ Notice that all functions start with <code>f_</code>. This prefix makes it easy 
 <h3 id="abstracting-functions-from-code">Abstracting Functions from Code</h3>
 <p>However, this is hardly a satisfying solution because in a real project, our pretend functions above may grow quite large, and we will likely add more and more functions. Eventually, a single script may hold them all, and something like <code>functions.R</code> may become many hundreds of lines long, making it difficult to sift through, debug, or add new lines of code. A better organizational approach which makes things easier to maintain over time is to move all our functions to a directory <code>/functions</code>, and store them all as separate files named after their function name:</p>
 <aside>
-A good rule of thumb to follow is to try and keep scripts less than 150 lines in length. When scripts approach this length, they become difficult to keep track of, and there were likely missed opportunities to refactor the script into separate functions and modules.
+<p>A good rule of thumb to follow is to try and keep scripts less than 150 lines in length. When scripts approach this length, they become difficult to keep track of, and there were likely missed opportunities to refactor the script into separate functions and modules.</p>
 </aside>
 <p>Save as <strong><code>/functions/f_read_data.R</code></strong></p>
 <div class="layout-chunk" data-layout="l-body">
@@ -2791,15 +2822,15 @@ learn to surf. -Jon Kabat-Zinn
 </div>
 <p><code>source()</code> is the key to chaining together many scripts. In the example above, we were able to abstract functions into a separate folder which makes keeping track of them much easier than if they cluttered our control script.</p>
 <aside>
-It’s also a good rule of thumb to keep each line of code less than 75 characters long to ease readability.
+<p>It’s also a good rule of thumb to keep each line of code less than 75 characters long to ease readability.</p>
 </aside>
 <div class="challenge">
 <p><font color="#009E73"><strong>Learn more</strong></font></p>
 <p style="line-height: 1.5em;">
-Separating all functions into standalone scripts is not a revolutionary idea – in fact, this is precisely how R packages are written! For example, see the <a href="https://github.com/tidyverse/dplyr/tree/master/R"><code>{dplyr}</code> github repo’s /R folder</a> which contains all dplyr functions in one directory. When you call <code>library(dplyr)</code> you’re essentially sourcing all of these functions into your environment.
+<p>Separating all functions into standalone scripts is not a revolutionary idea – in fact, this is precisely how R packages are written! For example, see the <a href="https://github.com/tidyverse/dplyr/tree/master/R"><code>{dplyr}</code> github repo’s /R folder</a> which contains all dplyr functions in one directory. When you call <code>library(dplyr)</code> you’re essentially sourcing all of these functions into your environment.</p>
 </p>
 <p style="line-height: 1.5em;">
-If project management and reproducible data pipelines are interesting to you, check out the <a href="https://docs.ropensci.org/targets/index.html"><code>{targets}</code> R package</a>. A similar framework for Shiny Apps exists called <a href="https://thinkr-open.github.io/golem/"><code>{golem}</code></a>, which also includes <code>{usethis}</code>-like commands that streamline common chores in Shiny App development.
+<p>If project management and reproducible data pipelines are interesting to you, check out the <a href="https://docs.ropensci.org/targets/index.html"><code>{targets}</code> R package</a>. A similar framework for Shiny Apps exists called <a href="https://thinkr-open.github.io/golem/"><code>{golem}</code></a>, which also includes <code>{usethis}</code>-like commands that streamline common chores in Shiny App development.</p>
 </p>
 </div>
 <p><br></p>
@@ -2811,13 +2842,13 @@ If project management and reproducible data pipelines are interesting to you, ch
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/sessionInfo.html'>sessionInfo</a></span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>R version 4.0.2 (2020-06-22)
+<pre><code>R version 4.1.0 (2021-05-18)
 Platform: x86_64-apple-darwin17.0 (64-bit)
-Running under: macOS Catalina 10.15.6
+Running under: macOS Catalina 10.15.7
 
 Matrix products: default
-BLAS:   /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRblas.dylib
-LAPACK: /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRlapack.dylib
+BLAS:   /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRblas.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRlapack.dylib
 
 locale:
 [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
@@ -2827,45 +2858,39 @@ attached base packages:
 [7] base     
 
 other attached packages:
-[1] glue_1.4.2    cowsay_0.8.0  purrr_0.3.4   knitr_1.30   
-[5] ggplot2_3.3.3
+[1] glue_1.4.2   cowsay_0.8.0 purrr_0.3.4  knitr_1.33  
 
 loaded via a namespace (and not attached):
- [1] tidyselect_1.1.0  xfun_0.22         bslib_0.2.4      
- [4] colorspace_2.0-0  vctrs_0.3.7       generics_0.1.0   
- [7] usethis_2.0.0     htmltools_0.5.1.1 yaml_2.2.1       
-[10] utf8_1.2.1        rlang_0.4.10      gridtext_0.1.4   
-[13] pillar_1.5.1      jquerylib_0.1.4   withr_2.4.1      
-[16] DBI_1.1.1         fortunes_1.5-4    lifecycle_1.0.0  
-[19] stringr_1.4.0     munsell_0.5.0     gtable_0.3.0     
-[22] evaluate_0.14     curl_4.3          fansi_0.4.2      
-[25] highr_0.8         Rcpp_1.0.6        readr_1.4.0      
-[28] scales_1.1.1      backports_1.1.10  jsonlite_1.7.2   
-[31] fs_1.5.0          rmsfact_0.0.3     distill_1.2      
-[34] hms_1.0.0         png_0.1-7         digest_0.6.27    
-[37] stringi_1.5.3     dplyr_1.0.4       grid_4.0.2       
-[40] rprojroot_1.3-2   here_0.1          cli_2.4.0        
-[43] tools_4.0.2       magrittr_2.0.1    sass_0.3.1.9000  
-[46] tibble_3.1.0      crayon_1.4.1      pkgconfig_2.0.3  
-[49] downlit_0.2.1     ellipsis_0.3.1    xml2_1.3.2       
-[52] assertthat_0.2.1  rmarkdown_2.7     rstudioapi_0.11  
-[55] R6_2.5.0          ggtext_0.1.1      compiler_4.0.2   </code></pre>
+ [1] bslib_0.2.5.1     compiler_4.1.0    pillar_1.6.1     
+ [4] jquerylib_0.1.4   highr_0.9         tools_4.1.0      
+ [7] rmsfact_0.0.3     digest_0.6.27     downlit_0.2.1    
+[10] jsonlite_1.7.2    evaluate_0.14     lifecycle_1.0.0  
+[13] tibble_3.1.2      pkgconfig_2.0.3   png_0.1-7        
+[16] rlang_0.4.11      rstudioapi_0.13   cli_3.0.0        
+[19] curl_4.3.2        distill_1.2       yaml_2.2.1       
+[22] xfun_0.24         stringr_1.4.0     fs_1.5.0         
+[25] vctrs_0.3.8       sass_0.4.0        hms_1.1.0        
+[28] rprojroot_2.0.2   here_1.0.1        R6_2.5.0         
+[31] fansi_0.5.0       rmarkdown_2.9     readr_1.4.0      
+[34] magrittr_2.0.1    usethis_2.0.1     fortunes_1.5-4   
+[37] htmltools_0.5.1.1 ellipsis_0.3.2    utf8_1.2.1       
+[40] stringi_1.6.2     crayon_1.4.1     </code></pre>
 </div>
 <p>The version number is the string of numbers listed after a package name and underscore.</p>
 <p>Similarly, you can use <code>installed.packages()</code> to view information on all of your installed packages.</p>
 <p>When packages change between versions, changes are typically designed to fix bugs or improve performance, but sometimes, they can break code. Thus, collaborative work on a project may be challenged by people working on the same code but with different versions of packages.</p>
 <aside>
-Even the version of R itself changes, although base R changes very slowly and the R Core Team tries to make new versions of R backwards-compatible to not break scripts written before potentially breaking changes.
+<p>Even the version of R itself changes, although base R changes very slowly and the R Core Team tries to make new versions of R backwards-compatible to not break scripts written before potentially breaking changes.</p>
 </aside>
 <p>The solution to this problem is for everyone to use the same versions of packages (and <code>R</code>), which is to say that collaborators should use the same <strong><em>development environment</em></strong>. This is a common concept across programming languages.</p>
 <p><a href="https://rstudio.github.io/renv/articles/renv.html"><code>{renv}</code></a> manages your package environment and makes it easy to share it with others by creating and curating a “lock” file (<code>renv.lock</code>) in the root project directory. When starting a project, create the file with <code>renv::init()</code>, install packages as you go along, and update the lockfile with <code>renv::snapshot()</code>. When a collaborator opens your project (for example, after cloning it from Github), all they need to do is open the <code>.RProj</code> file and <code>{renv}</code> will automatically set up the development environment captured in the lock file.</p>
 <aside>
-The <code>renv.lock</code> file is a JSON file with information on the version of R and the versions of all packages used by the project.
+<p>The <code>renv.lock</code> file is a JSON file with information on the version of R and the versions of all packages used by the project.</p>
 </aside>
 <p>If you find yourself needing to share important analyses, perhaps that run on a production server, you should look into <code>{renv}</code>. For most day-to-day data science that you don’t plan on sharing or working collaboratively on, it may be unnecessary.</p>
 <p><br></p>
 <p><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"></p>
-<p><a href="index.html" class="btn btn-secondary" style="float: left">Previous module:<br> Introduction</a> <a href="m_git.html" class="btn btn-secondary" style="float: right;">Next module:<br> Git</a></p>
+<p><a href="m_version_control.html" class="btn btn-secondary" style="float: left">Previous module:<br> 2. Git</a> <a href="m_interactive_viz.html" class="btn btn-secondary" style="float: right;">Next module:<br> 4. Interactive Visualization</a></p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
@@ -2878,7 +2903,10 @@ The <code>renv.lock</code> file is a JSON file with information on the version o
 <!--radix_placeholder_site_after_body-->
 <!--/radix_placeholder_site_after_body-->
 <!--radix_placeholder_appendices-->
-<div class="appendix-bottom"></div>
+<div class="appendix-bottom">
+<h3 id="updates-and-corrections">Corrections</h3>
+<p>If you see mistakes or want to suggest changes, please <a href="https://github.com/ryanpeek/r4wrds/issues/new">create an issue</a> on the source repository.</p>
+</div>
 <!--/radix_placeholder_appendices-->
 <!--radix_placeholder_navigation_after_body-->
 <div class="distill-site-nav distill-site-footer">

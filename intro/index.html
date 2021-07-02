@@ -46,40 +46,46 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
+    background-color: #ffffff;
+    color: #a0a0a0;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #a0a0a0;  padding-left: 4px; }
 div.sourceCode
-  {   }
+  { color: #1f1c1b; background-color: #ffffff; }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; } /* Alert */
-code span.an { color: #008000; } /* Annotation */
-code span.at { } /* Attribute */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #0000ff; } /* ControlFlow */
-code span.ch { color: #008080; } /* Char */
-code span.cn { color: #585cf6; } /* Constant */
-code span.co { color: #4c886b; } /* Comment */
-code span.cv { color: #008000; } /* CommentVar */
-code span.do { color: #008000; } /* Documentation */
-code span.dv { color: #0000cd; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #0000cd; } /* Float */
-code span.im { } /* Import */
-code span.in { color: #008000; } /* Information */
-code span.kw { color: #0000ff; } /* Keyword */
-code span.op { color: #687687; } /* Operator */
-code span.ot { color: #ff4000; } /* Other */
-code span.pp { color: #ff4000; } /* Preprocessor */
-code span.sc { color: #008080; } /* SpecialChar */
-code span.ss { color: #008080; } /* SpecialString */
-code span.st { color: #036a07; } /* String */
-code span.va { } /* Variable */
-code span.vs { color: #008080; } /* VerbatimString */
-code span.wa { color: #008000; font-weight: bold; } /* Warning */
+code span { color: #1f1c1b; } /* Normal */
+code span.al { color: #bf0303; background-color: #f7e6e6; font-weight: bold; } /* Alert */
+code span.an { color: #ca60ca; } /* Annotation */
+code span.at { color: #0057ae; } /* Attribute */
+code span.bn { color: #b08000; } /* BaseN */
+code span.bu { color: #644a9b; font-weight: bold; } /* BuiltIn */
+code span.cf { color: #1f1c1b; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #924c9d; } /* Char */
+code span.cn { color: #aa5500; } /* Constant */
+code span.co { color: #898887; } /* Comment */
+code span.cv { color: #0095ff; } /* CommentVar */
+code span.do { color: #607880; } /* Documentation */
+code span.dt { color: #0057ae; } /* DataType */
+code span.dv { color: #b08000; } /* DecVal */
+code span.er { color: #bf0303; text-decoration: underline; } /* Error */
+code span.ex { color: #0095ff; font-weight: bold; } /* Extension */
+code span.fl { color: #b08000; } /* Float */
+code span.fu { color: #644a9b; } /* Function */
+code span.im { color: #ff5500; } /* Import */
+code span.in { color: #b08000; } /* Information */
+code span.kw { color: #1f1c1b; font-weight: bold; } /* Keyword */
+code span.op { color: #1f1c1b; } /* Operator */
+code span.ot { color: #006e28; } /* Other */
+code span.pp { color: #006e28; } /* Preprocessor */
+code span.re { color: #0057ae; background-color: #e0e9f8; } /* RegionMarker */
+code span.sc { color: #3daee9; } /* SpecialChar */
+code span.ss { color: #ff5500; } /* SpecialString */
+code span.st { color: #bf0303; } /* String */
+code span.va { color: #0057ae; } /* Variable */
+code span.vs { color: #bf0303; } /* VerbatimString */
+code span.wa { color: #bf0303; } /* Warning */
 </style>
 
   <!--radix_placeholder_meta_tags-->
@@ -2030,7 +2036,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2264,6 +2270,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
     background-color: rgba(0,0,0,.1);
   }
 
+
   /*grey code block*/
 
   .sourceCode {
@@ -2271,6 +2278,28 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
     border-radius: 4px;
   }
 
+
+  /*make the link in the appendix more readable against the grey text*/
+  d-appendix a:link {
+    color: blue;
+    background-color: transparent;
+    text-decoration: none;
+  }
+  d-appendix a:visited {
+    color: lightblue;
+    background-color: transparent;
+    text-decoration: none;
+  }
+  d-appendix a:hover {
+    color: lightblue;
+    background-color: transparent;
+    text-decoration: underline;
+  }
+  d-appendix a:active {
+    color: blue;
+    background-color: transparent;
+    text-decoration: underline;
+  }
 
   </style>
   <!--/radix_placeholder_site_in_header-->
@@ -2347,7 +2376,27 @@ Modules
   }
 </style>
 <p><br></p>
-<h1 id="welcome-to-the-r4wrds-introductory-course">Welcome to the R4WRDS Introductory Course!</h1>
+<h2 id="who-is-this-course-for">Who is this course for?</h2>
+<p>This course is most relevant and targeted at folks who work with data, from analysts and program staff to engineers and scientists. This course provides an introduction to the power and possibility of a reproducible programming language (<code>R</code>) by demonstrating how to import, explore, visualize, analyze, and communicate different types of data. Using water resources based examples, this course guides participants through basic data science skills and strategies for continued learning and use of <code>R</code>.</p>
+<p><br></p>
+<h2 id="why-r">Why <code>R</code>?</h2>
+<p><a href="https://www.r-project.org/"><code>R</code></a> is a language for statistical computing and a general purpose programming language. It is one of the primary languages used for data science, modeling, and visualization.</p>
+<p>This workshop will provide attendees with a starting point for continued learning and use of <code>R</code>. We will cover a variety of commonly used file types (i.e., <code>.csv</code>, <code>.xlsx</code>, <code>.shp</code>) used in analysis, and provide resources for additional learning.</p>
+<p><br></p>
+<h2 id="what-will-you-learn">What will you learn?</h2>
+<p>In this course, we start from first principles and assume no prior experience with <code>R</code>. Although each module in this course can serve as a “stand-alone” lesson, we recommend completing modules in order from start to finish.</p>
+<p><strong>In this course you will gain practice in: </strong></p>
+<ul>
+<li>Data and file management: understanding RProjects and file paths</li>
+<li>Understand and identifying different data formats (i.e., wide, long, tidy)</li>
+<li>Working with different data structures (i.e., vectors, dataframes, lists)</li>
+<li>Importing and exporting various water resources data</li>
+<li>Strategies for Exploratory Data Analysis (EDA)</li>
+<li>Strategies for troubleshooting (reading documentation, intro to reprex)</li>
+<li>Transforming data with <code>{dplyr}</code></li>
+<li>Data visualization with <code>{ggplot2}</code></li>
+<li>Data presentation and communication with RMarkdown</li>
+</ul>
 
 <div class="layout-chunk" data-layout="l-body">
 <div class="figure"><span id="fig:remoteLearning"></span>
@@ -2359,7 +2408,6 @@ Figure 1: <em>Artwork by <span class="citation" data-cites="allison_horst">@alli
 </div>
 <div class="obj">
 <p><strong>Course Modules</strong></p>
-<p>In this course, we will:</p>
 <ol type="1">
 <li><a href="m_install_R.html">Install R and RStudio</a><br />
 </li>
@@ -2374,7 +2422,7 @@ Figure 1: <em>Artwork by <span class="citation" data-cites="allison_horst">@alli
 </li>
 <li><a href="m_dplyr.html">Transform data with {<code>dplyr</code>}</a><br />
 </li>
-<li><a href="m_pivots.html">Spreadsheets and pivots</a><br />
+<li><a href="m_pivots.html">Discuss spreadsheets and pivots</a><br />
 </li>
 <li><a href="m_functions.html">Learn how to write custom functions</a><br />
 </li>
@@ -2390,21 +2438,40 @@ Figure 1: <em>Artwork by <span class="citation" data-cites="allison_horst">@alli
 </ol>
 </div>
 <p><br></p>
-<p><a href="https://www.r-project.org/">R</a> is a language for statistical computing as well as a general purpose programming language. Increasingly, it has become one of the primary languages used in data science for data analysis, modeling, and visualization. This workshop will provide attendees with a starting point for continued learning and use of R. We will cover a variety of commonly used file types (i.e., <code>.csv</code>, <code>.xlsx</code>, <code>.shp</code>) used in analysis, and provide resources for additional learning.</p>
+<h2 id="data">Data</h2>
+<p>All data used in this course is expected to live in a <code>/data</code> subfolder in the project directory. It can be downloaded in 1 of 2 ways:</p>
+<ol type="1">
+<li><a href="https://osf.io/d7qse/download">Downloaded and unzipped from OSF</a><br />
+</li>
+<li><a href="https://github.com/richpauloo/r4wrds-data">Cloned from the <code>wrds-data</code> Github repository</a></li>
+</ol>
+<p>Your project directory structure should look like this (note the position of the <code>/data</code> subfolder):</p>
+<pre><code>.
+├── code
+│   ├── module_01.R
+│   └── module_02.R
+│   └── ...
+├── data
+│   ├── gwl.csv
+│   └── polygon.shp
+│   └── ...
+└── intro.Rproj</code></pre>
+<p>To complete code exercises and follow along in the course, you will create a <code>/code</code> subfolder to store <code>.R</code> scripts, which we recommend naming by module.</p>
+<p>You will also need to create an <code>intro.Rproj</code> file, covered in the <a href="m_project_management.html#use-project-workflows">introductory project management module</a>. Alternatively, on the command line, use <code>touch intro.Rproj</code> (MacOS/Linux) or <code>echo &gt; intro.Rproj</code> (Windows) in the root project directory.</p>
 <p><br></p>
 <h2 id="workshop-overview">Workshop Overview</h2>
 <p>We will follow the <a href="https://freshwater-science.org/about/society-governance/code-of-conduct">SFS Code of Conduct</a> throughout our workshop.</p>
 <p><br></p>
 <h2 id="source-content">Source content</h2>
-<p>All source materials for this website can be accessed at <strong>[final GH location, perhaps CAOpenWater/wrds]</strong>.</p>
+<p>All source materials for this website can be accessed at the <a href="https://github.com/ryanpeek/r4wrds"><code>r4wrds</code> Github repository</a>.</p>
 <p><br></p>
 <h2 id="attribution">Attribution</h2>
-<p>Content in these lessons has been modified and/or adapted from <a href="https://datacarpentry.org/R-ecology-lesson/index.html">Data Carpentry: R for data analysis and visualization of Ecological Data</a>, the USGS-R training curriculum <a href="https://github.com/USGS-R/training-curriculum">here</a>, the NCEAS Open Science for Synthesis workshop <a href="https://nceas.github.io/oss-2017/index.html">here</a>, <a href="https://ryanpeek.org/mapping-in-R-workshop/">Mapping in R</a>, and the wonderful text <a href="https://github.com/hadley/r4ds">R for data science</a>.</p>
-<p><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"></p>
+<p>Content in these lessons has been modified and/or adapted from <a href="https://datacarpentry.org/R-ecology-lesson/index.html">Data Carpentry: <code>R</code> for data analysis and visualization of Ecological Data</a>, the USGS-R training curriculum <a href="https://github.com/USGS-R/training-curriculum">here</a>, the NCEAS Open Science for Synthesis workshop <a href="https://nceas.github.io/oss-2017/index.html">here</a>, <a href="https://ryanpeek.org/mapping-in-R-workshop/">Mapping in <code>R</code></a>, and the wonderful text <a href="https://github.com/hadley/r4ds"><code>R</code> for data science</a>.</p>
 <p><br></p>
+<p><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"></p>
 <h2 id="next-module-install-rrstudio"><a href="m_project_management.html" class="btn btn-secondary" style="float: right;">Next module:<br> Install R/RStudio</a></h2>
-<p><em>site last updated: <code>2021-04-29 10:59</code></em></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<p><em>site last updated: <code>2021-07-02 09:25</code></em></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
@@ -2416,7 +2483,10 @@ Figure 1: <em>Artwork by <span class="citation" data-cites="allison_horst">@alli
 <!--radix_placeholder_site_after_body-->
 <!--/radix_placeholder_site_after_body-->
 <!--radix_placeholder_appendices-->
-<div class="appendix-bottom"></div>
+<div class="appendix-bottom">
+<h3 id="updates-and-corrections">Corrections</h3>
+<p>If you see mistakes or want to suggest changes, please <a href="https://github.com/ryanpeek/r4wrds/issues/new">create an issue</a> on the source repository.</p>
+</div>
 <!--/radix_placeholder_appendices-->
 <!--radix_placeholder_navigation_after_body-->
 <div class="distill-site-nav distill-site-footer">

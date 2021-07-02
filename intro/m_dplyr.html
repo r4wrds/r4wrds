@@ -46,51 +46,57 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
+    background-color: #ffffff;
+    color: #a0a0a0;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #a0a0a0;  padding-left: 4px; }
 div.sourceCode
-  {   }
+  { color: #1f1c1b; background-color: #ffffff; }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; } /* Alert */
-code span.an { color: #008000; } /* Annotation */
-code span.at { } /* Attribute */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #0000ff; } /* ControlFlow */
-code span.ch { color: #008080; } /* Char */
-code span.cn { color: #585cf6; } /* Constant */
-code span.co { color: #4c886b; } /* Comment */
-code span.cv { color: #008000; } /* CommentVar */
-code span.do { color: #008000; } /* Documentation */
-code span.dv { color: #0000cd; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #0000cd; } /* Float */
-code span.im { } /* Import */
-code span.in { color: #008000; } /* Information */
-code span.kw { color: #0000ff; } /* Keyword */
-code span.op { color: #687687; } /* Operator */
-code span.ot { color: #ff4000; } /* Other */
-code span.pp { color: #ff4000; } /* Preprocessor */
-code span.sc { color: #008080; } /* SpecialChar */
-code span.ss { color: #008080; } /* SpecialString */
-code span.st { color: #036a07; } /* String */
-code span.va { } /* Variable */
-code span.vs { color: #008080; } /* VerbatimString */
-code span.wa { color: #008000; font-weight: bold; } /* Warning */
+code span { color: #1f1c1b; } /* Normal */
+code span.al { color: #bf0303; background-color: #f7e6e6; font-weight: bold; } /* Alert */
+code span.an { color: #ca60ca; } /* Annotation */
+code span.at { color: #0057ae; } /* Attribute */
+code span.bn { color: #b08000; } /* BaseN */
+code span.bu { color: #644a9b; font-weight: bold; } /* BuiltIn */
+code span.cf { color: #1f1c1b; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #924c9d; } /* Char */
+code span.cn { color: #aa5500; } /* Constant */
+code span.co { color: #898887; } /* Comment */
+code span.cv { color: #0095ff; } /* CommentVar */
+code span.do { color: #607880; } /* Documentation */
+code span.dt { color: #0057ae; } /* DataType */
+code span.dv { color: #b08000; } /* DecVal */
+code span.er { color: #bf0303; text-decoration: underline; } /* Error */
+code span.ex { color: #0095ff; font-weight: bold; } /* Extension */
+code span.fl { color: #b08000; } /* Float */
+code span.fu { color: #644a9b; } /* Function */
+code span.im { color: #ff5500; } /* Import */
+code span.in { color: #b08000; } /* Information */
+code span.kw { color: #1f1c1b; font-weight: bold; } /* Keyword */
+code span.op { color: #1f1c1b; } /* Operator */
+code span.ot { color: #006e28; } /* Other */
+code span.pp { color: #006e28; } /* Preprocessor */
+code span.re { color: #0057ae; background-color: #e0e9f8; } /* RegionMarker */
+code span.sc { color: #3daee9; } /* SpecialChar */
+code span.ss { color: #ff5500; } /* SpecialString */
+code span.st { color: #bf0303; } /* String */
+code span.va { color: #0057ae; } /* Variable */
+code span.vs { color: #bf0303; } /* VerbatimString */
+code span.wa { color: #bf0303; } /* Warning */
 </style>
 
   <!--radix_placeholder_meta_tags-->
-  <title>R for Water Resources Data Science: Wrangling Data with dplyr</title>
+  <title>R for Water Resources Data Science: 7. Wrangling Data with dplyr</title>
 
   <meta property="description" itemprop="description" content="Making data tidying and transformation fun!"/>
 
 
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-  <meta property="og:title" content="R for Water Resources Data Science: Wrangling Data with dplyr"/>
+  <meta property="og:title" content="R for Water Resources Data Science: 7. Wrangling Data with dplyr"/>
   <meta property="og:type" content="article"/>
   <meta property="og:description" content="Making data tidying and transformation fun!"/>
   <meta property="og:locale" content="en_US"/>
@@ -98,14 +104,14 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
-  <meta property="twitter:title" content="R for Water Resources Data Science: Wrangling Data with dplyr"/>
+  <meta property="twitter:title" content="R for Water Resources Data Science: 7. Wrangling Data with dplyr"/>
   <meta property="twitter:description" content="Making data tidying and transformation fun!"/>
 
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","output"]}},"value":[{"type":"character","attributes":{},"value":["Wrangling Data with dplyr"]},{"type":"character","attributes":{},"value":["Making data tidying and transformation fun!\n"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","output"]}},"value":[{"type":"character","attributes":{},"value":["7. Wrangling Data with dplyr"]},{"type":"character","attributes":{},"value":["Making data tidying and transformation fun!\n"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2030,7 +2036,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2264,6 +2270,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
     background-color: rgba(0,0,0,.1);
   }
 
+
   /*grey code block*/
 
   .sourceCode {
@@ -2271,6 +2278,28 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
     border-radius: 4px;
   }
 
+
+  /*make the link in the appendix more readable against the grey text*/
+  d-appendix a:link {
+    color: blue;
+    background-color: transparent;
+    text-decoration: none;
+  }
+  d-appendix a:visited {
+    color: lightblue;
+    background-color: transparent;
+    text-decoration: none;
+  }
+  d-appendix a:hover {
+    color: lightblue;
+    background-color: transparent;
+    text-decoration: underline;
+  }
+  d-appendix a:active {
+    color: blue;
+    background-color: transparent;
+    text-decoration: underline;
+  }
 
   </style>
   <!--/radix_placeholder_site_in_header-->
@@ -2284,7 +2313,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Wrangling Data with dplyr","description":"Making data tidying and transformation fun!","authors":[]}
+{"title":"7. Wrangling Data with dplyr","description":"Making data tidying and transformation fun!","authors":[]}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2333,7 +2362,7 @@ Modules
 <!--/radix_placeholder_site_before_body-->
 
 <div class="d-title">
-<h1>Wrangling Data with dplyr</h1>
+<h1>7. Wrangling Data with dplyr</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
 <p><p>Making data tidying and transformation fun!</p></p>
@@ -2437,8 +2466,8 @@ Figure 3: Illustrations from the Openscapes blog Tidy Data for reproducibility, 
 <p>First we need to load the libraries that we’ll be using. Let’s use <code>{here}</code> and the <code>{tidyverse}</code> packages (which includes <code>{dplyr}</code> and <code>{ggplot2}</code>).</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/krlmlr/here'>here</a></span><span class='op'>)</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://here.r-lib.org/'>here</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
@@ -2449,7 +2478,7 @@ We can use either <code>read.csv</code> or <code>read_csv</code> functions. What
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># read the stations.csv file and assign it to an object "stations"</span>
-<span class='va'>stations</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/here/man/here.html'>here</a></span><span class='op'>(</span><span class='st'>"data"</span>, <span class='st'>"gwl"</span>, <span class='st'>"stations.csv"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>stations</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"data"</span>, <span class='st'>"gwl"</span>, <span class='st'>"stations.csv"</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
@@ -2467,7 +2496,7 @@ Figure 4: Artwork by <span class="citation" data-cites="allison_horst">@allison_
 <p>Let’s filter this large dataframe of potential groundwater station locations (n=43807 total!) to just stations from Sacramento County with <code>filter()</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>stations_sac</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>stations</span>, <span class='va'>COUNTY_NAME</span> <span class='op'>==</span> <span class='st'>"Sacramento"</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>stations_sac</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>stations</span>, <span class='va'>COUNTY_NAME</span> <span class='op'>==</span> <span class='st'>"Sacramento"</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>stations_sac</span><span class='op'>)</span>
 </code></pre>
 </div>
@@ -2488,7 +2517,7 @@ Figure 4: Artwork by <span class="citation" data-cites="allison_horst">@allison_
            76             6            67 </code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># combine conditions with "," which is equivalent to AND</span>
-<span class='va'>stations_sac</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>stations</span>, <span class='va'>COUNTY_NAME</span> <span class='op'>==</span> <span class='st'>"Sacramento"</span>, <span class='va'>WELL_USE</span> <span class='op'>==</span> <span class='st'>"Residential"</span><span class='op'>)</span>
+<span class='va'>stations_sac</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>stations</span>, <span class='va'>COUNTY_NAME</span> <span class='op'>==</span> <span class='st'>"Sacramento"</span>, <span class='va'>WELL_USE</span> <span class='op'>==</span> <span class='st'>"Residential"</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>stations_sac</span><span class='op'>)</span>
 </code></pre>
 </div>
@@ -2499,7 +2528,7 @@ Figure 4: Artwork by <span class="citation" data-cites="allison_horst">@allison_
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># filter to multiple counties</span>
 <span class='va'>sep_counties</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Sacramento"</span>, <span class='st'>"Placer"</span>, <span class='st'>"El Dorado"</span><span class='op'>)</span>
-<span class='va'>stations_multcounties</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>stations</span>, <span class='va'>COUNTY_NAME</span> <span class='op'>%in%</span> <span class='va'>sep_counties</span><span class='op'>)</span>
+<span class='va'>stations_multcounties</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>stations</span>, <span class='va'>COUNTY_NAME</span> <span class='op'>%in%</span> <span class='va'>sep_counties</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
@@ -2512,9 +2541,9 @@ To quote or not to quote? Inside tidyverse functions like <code>filter</code> we
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># include everything except Yolo County...3 different ways</span>
-<span class='va'>stations_trim</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>stations</span>, <span class='op'>!</span><span class='va'>COUNTY_NAME</span> <span class='op'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Yolo"</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>stations_trim</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>stations</span>, <span class='op'>!</span><span class='va'>COUNTY_NAME</span> <span class='op'>==</span> <span class='st'>"Yolo"</span><span class='op'>)</span>
-<span class='va'>stations_trim</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>stations</span>, <span class='va'>COUNTY_NAME</span> <span class='op'>!=</span> <span class='st'>"Yolo"</span><span class='op'>)</span>
+<span class='va'>stations_trim</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>stations</span>, <span class='op'>!</span><span class='va'>COUNTY_NAME</span> <span class='op'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Yolo"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>stations_trim</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>stations</span>, <span class='op'>!</span><span class='va'>COUNTY_NAME</span> <span class='op'>==</span> <span class='st'>"Yolo"</span><span class='op'>)</span>
+<span class='va'>stations_trim</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>stations</span>, <span class='va'>COUNTY_NAME</span> <span class='op'>!=</span> <span class='st'>"Yolo"</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
@@ -2523,7 +2552,7 @@ To quote or not to quote? Inside tidyverse functions like <code>filter</code> we
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># select specific columns to keep</span>
-<span class='va'>stations_sel1</span> <span class='op'>&lt;-</span> <span class='fu'>select</span><span class='op'>(</span><span class='va'>stations</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>STN_ID</span>, <span class='va'>LATITUDE</span>, <span class='va'>LONGITUDE</span>, <span class='va'>COUNTY_NAME</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>stations_sel1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>stations</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>STN_ID</span>, <span class='va'>LATITUDE</span>, <span class='va'>LONGITUDE</span>, <span class='va'>COUNTY_NAME</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>stations_sel1</span><span class='op'>)</span> <span class='co'># names of columns</span>
 </code></pre>
 </div>
@@ -2533,7 +2562,7 @@ To quote or not to quote? Inside tidyverse functions like <code>filter</code> we
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># select columns to drop</span>
-<span class='va'>stations_sel2</span> <span class='op'>&lt;-</span> <span class='fu'>select</span><span class='op'>(</span><span class='va'>stations</span>, <span class='op'>-</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>LATITUDE</span><span class='op'>:</span><span class='va'>BASIN_NAME</span>, <span class='va'>COUNTY_NAME</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>stations_sel2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>stations</span>, <span class='op'>-</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>LATITUDE</span><span class='op'>:</span><span class='va'>BASIN_NAME</span>, <span class='va'>COUNTY_NAME</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span><span class='op'>(</span><span class='va'>stations_sel2</span><span class='op'>)</span> <span class='co'># how many columns?</span>
 </code></pre>
 </div>
@@ -2544,7 +2573,7 @@ To quote or not to quote? Inside tidyverse functions like <code>filter</code> we
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># select columns to drop</span>
-<span class='va'>stations_sel3</span> <span class='op'>&lt;-</span> <span class='fu'>select</span><span class='op'>(</span><span class='va'>stations</span>, <span class='fu'>starts_with</span><span class='op'>(</span><span class='st'>"W"</span><span class='op'>)</span>, <span class='fu'>contains</span><span class='op'>(</span><span class='st'>"NAME"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>stations_sel3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>stations</span>, <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>starts_with</a></span><span class='op'>(</span><span class='st'>"W"</span><span class='op'>)</span>, <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>contains</a></span><span class='op'>(</span><span class='st'>"NAME"</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>stations_sel3</span><span class='op'>)</span>
 </code></pre>
 </div>
@@ -2558,15 +2587,15 @@ To quote or not to quote? Inside tidyverse functions like <code>filter</code> we
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># filter</span>
-<span class='va'>stations_multcounty1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>stations</span>, <span class='va'>COUNTY_NAME</span> <span class='op'>%in%</span> 
+<span class='va'>stations_multcounty1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>stations</span>, <span class='va'>COUNTY_NAME</span> <span class='op'>%in%</span> 
                                   <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Sacramento"</span>, <span class='st'>"Placer"</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># select</span>
-<span class='va'>stations_multcounty2</span> <span class='op'>&lt;-</span> <span class='fu'>select</span><span class='op'>(</span><span class='va'>stations_multcounty1</span>, <span class='fu'>starts_with</span><span class='op'>(</span><span class='st'>"W"</span><span class='op'>)</span>, 
-                               <span class='fu'>contains</span><span class='op'>(</span><span class='st'>"NAME"</span><span class='op'>)</span>, <span class='fu'>contains</span><span class='op'>(</span><span class='st'>"ID"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>stations_multcounty2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>stations_multcounty1</span>, <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>starts_with</a></span><span class='op'>(</span><span class='st'>"W"</span><span class='op'>)</span>, 
+                               <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>contains</a></span><span class='op'>(</span><span class='st'>"NAME"</span><span class='op'>)</span>, <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>contains</a></span><span class='op'>(</span><span class='st'>"ID"</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># rename the STN_ID to station_id: rename(new_col_name, old_col_name)</span>
-<span class='va'>stations_multcounty3</span> <span class='op'>&lt;-</span> <span class='fu'>rename</span><span class='op'>(</span><span class='va'>stations_multcounty2</span>, station_id <span class='op'>=</span> <span class='va'>STN_ID</span><span class='op'>)</span>
+<span class='va'>stations_multcounty3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/rename.html'>rename</a></span><span class='op'>(</span><span class='va'>stations_multcounty2</span>, station_id <span class='op'>=</span> <span class='va'>STN_ID</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
@@ -2575,9 +2604,9 @@ To quote or not to quote? Inside tidyverse functions like <code>filter</code> we
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># filter, select, and rename</span>
 <span class='va'>stations_multcounty</span> <span class='op'>&lt;-</span> <span class='va'>stations</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>COUNTY_NAME</span> <span class='op'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Sacramento"</span>, <span class='st'>"Placer"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>select</span><span class='op'>(</span><span class='fu'>starts_with</span><span class='op'>(</span><span class='st'>"W"</span><span class='op'>)</span>, <span class='fu'>contains</span><span class='op'>(</span><span class='st'>"NAME"</span><span class='op'>)</span>, <span class='fu'>contains</span><span class='op'>(</span><span class='st'>"ID"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'>rename</span><span class='op'>(</span>station_id <span class='op'>=</span> <span class='va'>STN_ID</span><span class='op'>)</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>COUNTY_NAME</span> <span class='op'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Sacramento"</span>, <span class='st'>"Placer"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>starts_with</a></span><span class='op'>(</span><span class='st'>"W"</span><span class='op'>)</span>, <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>contains</a></span><span class='op'>(</span><span class='st'>"NAME"</span><span class='op'>)</span>, <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>contains</a></span><span class='op'>(</span><span class='st'>"ID"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/rename.html'>rename</a></span><span class='op'>(</span>station_id <span class='op'>=</span> <span class='va'>STN_ID</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
@@ -2601,8 +2630,8 @@ To quote or not to quote? Inside tidyverse functions like <code>filter</code> we
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># filter and select</span>
 <span class='va'>challenge1</span> <span class='op'>&lt;-</span> <span class='va'>stations</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>WELL_USE</span> <span class='op'>==</span> <span class='st'>"Residential"</span>, <span class='va'>WELL_DEPTH</span> <span class='op'>&gt;</span> <span class='fl'>1000</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>select</span><span class='op'>(</span><span class='va'>STN_ID</span>, <span class='va'>WELL_DEPTH</span>, <span class='fu'>ends_with</span><span class='op'>(</span><span class='st'>"NAME"</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>WELL_USE</span> <span class='op'>==</span> <span class='st'>"Residential"</span>, <span class='va'>WELL_DEPTH</span> <span class='op'>&gt;</span> <span class='fl'>1000</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>STN_ID</span>, <span class='va'>WELL_DEPTH</span>, <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>ends_with</a></span><span class='op'>(</span><span class='st'>"NAME"</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>challenge1</span><span class='op'>)</span>
 </code></pre>
 </div>
@@ -2636,7 +2665,7 @@ Figure 5: Artwork by <span class="citation" data-cites="allison_horst">@allison_
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>stations_mutate1</span> <span class='op'>&lt;-</span> <span class='va'>stations</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>mutate</span><span class='op'>(</span>WELL_DEPTH_m <span class='op'>=</span> <span class='va'>WELL_DEPTH</span> <span class='op'>*</span> <span class='fl'>0.3048</span><span class='op'>)</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>WELL_DEPTH_m <span class='op'>=</span> <span class='va'>WELL_DEPTH</span> <span class='op'>*</span> <span class='fl'>0.3048</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
@@ -2645,11 +2674,11 @@ Figure 5: Artwork by <span class="citation" data-cites="allison_horst">@allison_
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>stations_mutate1</span> <span class='op'>%&gt;%</span> 
   <span class='co'># pass stations_mutate1 into the ggplot function</span>
-  <span class='fu'>ggplot</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> 
   <span class='co'># add a point geom in feet</span>
-  <span class='fu'>geom_point</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>STN_ID</span>, y <span class='op'>=</span> <span class='va'>WELL_DEPTH</span><span class='op'>)</span>, color <span class='op'>=</span> <span class='st'>"cyan4"</span>, alpha <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>STN_ID</span>, y <span class='op'>=</span> <span class='va'>WELL_DEPTH</span><span class='op'>)</span>, color <span class='op'>=</span> <span class='st'>"cyan4"</span>, alpha <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='co'># add a point geom in meters</span>
-  <span class='fu'>geom_point</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>STN_ID</span>, y <span class='op'>=</span> <span class='va'>WELL_DEPTH_m</span><span class='op'>)</span>, color <span class='op'>=</span> <span class='st'>"maroon"</span>, pch <span class='op'>=</span> <span class='fl'>21</span>, alpha <span class='op'>=</span> <span class='fl'>0.8</span><span class='op'>)</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>STN_ID</span>, y <span class='op'>=</span> <span class='va'>WELL_DEPTH_m</span><span class='op'>)</span>, color <span class='op'>=</span> <span class='st'>"maroon"</span>, pch <span class='op'>=</span> <span class='fl'>21</span>, alpha <span class='op'>=</span> <span class='fl'>0.8</span><span class='op'>)</span>
 </code></pre>
 </div>
 <p><img src="m_dplyr_files/figure-html5/mut1ggplot1-1.png" width="624" /></p>
@@ -2673,11 +2702,11 @@ Extra Practice
 <span class='va'>stations_base1</span><span class='op'>$</span><span class='va'>WELL_DEPTH_m</span> <span class='op'>&lt;-</span> <span class='va'>stations_base1</span><span class='op'>$</span><span class='va'>WELL_DEPTH</span> <span class='op'>*</span> <span class='fl'>0.3048</span>
 
 <span class='co'># ggplot</span>
-<span class='fu'>ggplot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>stations_base1</span><span class='op'>)</span> <span class='op'>+</span> 
-  <span class='fu'>geom_point</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>STN_ID</span>, y <span class='op'>=</span> <span class='va'>WELL_DEPTH</span><span class='op'>)</span>, 
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>stations_base1</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>STN_ID</span>, y <span class='op'>=</span> <span class='va'>WELL_DEPTH</span><span class='op'>)</span>, 
              color <span class='op'>=</span> <span class='st'>"cyan4"</span>, alpha <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='co'># this in meters</span>
-  <span class='fu'>geom_point</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>STN_ID</span>, y <span class='op'>=</span> <span class='va'>WELL_DEPTH_m</span><span class='op'>)</span>, 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>STN_ID</span>, y <span class='op'>=</span> <span class='va'>WELL_DEPTH_m</span><span class='op'>)</span>, 
              color <span class='op'>=</span> <span class='st'>"maroon"</span>, pch <span class='op'>=</span> <span class='fl'>21</span>, alpha <span class='op'>=</span> <span class='fl'>0.8</span><span class='op'>)</span>
 </code></pre>
 </div>
@@ -2690,8 +2719,8 @@ Extra Practice
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>n_by_county</span> <span class='op'>&lt;-</span> <span class='va'>stations</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>group_by</span><span class='op'>(</span><span class='va'>COUNTY_NAME</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>count</span><span class='op'>(</span><span class='op'>)</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>COUNTY_NAME</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>count</a></span><span class='op'>(</span><span class='op'>)</span>
 
 <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>n_by_county</span><span class='op'>)</span>
 </code></pre>
@@ -2712,9 +2741,9 @@ Extra Practice
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>stations</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>group_by</span><span class='op'>(</span><span class='va'>COUNTY_NAME</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>count</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='co'># count by COUNTY_NAME</span>
-  <span class='fu'>arrange</span><span class='op'>(</span><span class='fu'>desc</span><span class='op'>(</span><span class='va'>n</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='co'># sort by column n in descending order</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>COUNTY_NAME</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>count</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='co'># count by COUNTY_NAME</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/desc.html'>desc</a></span><span class='op'>(</span><span class='va'>n</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='co'># sort by column n in descending order</span>
   <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span> <span class='co'># return the first 5 rows</span>
 </code></pre>
 </div>
@@ -2733,13 +2762,13 @@ Extra Practice
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>stations</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>group_by</span><span class='op'>(</span><span class='va'>COUNTY_NAME</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>summarize</span><span class='op'>(</span>mean_well_depth <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>WELL_DEPTH</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>arrange</span><span class='op'>(</span><span class='fu'>desc</span><span class='op'>(</span><span class='va'>mean_well_depth</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>COUNTY_NAME</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarize</a></span><span class='op'>(</span>mean_well_depth <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>WELL_DEPTH</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/desc.html'>desc</a></span><span class='op'>(</span><span class='va'>mean_well_depth</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='co'># return the first 5 rows and pass to ggplot</span>
-  <span class='fu'>ggplot</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> 
-  <span class='fu'>geom_col</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>COUNTY_NAME</span>, y <span class='op'>=</span> <span class='va'>mean_well_depth</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>labs</span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Mean well depth"</span>, 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_col</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>COUNTY_NAME</span>, y <span class='op'>=</span> <span class='va'>mean_well_depth</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Mean well depth"</span>, 
        subtitle <span class='op'>=</span> <span class='st'>"Top 10 Counties with deepest wells"</span><span class='op'>)</span>
 </code></pre>
 </div>
@@ -2753,20 +2782,20 @@ This is a plot to consider rotating the axis labels. How do we do that? Practice
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>stations</span> <span class='op'>%&gt;%</span> 
   <span class='co'># group by the county name</span>
-  <span class='fu'>group_by</span><span class='op'>(</span><span class='va'>COUNTY_NAME</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>COUNTY_NAME</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='co'># calculate the mean well depth</span>
-  <span class='fu'>summarize</span><span class='op'>(</span>mean_well_depth <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>WELL_DEPTH</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarize</a></span><span class='op'>(</span>mean_well_depth <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>WELL_DEPTH</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='co'># remove two counties that have NA values</span>
-  <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>mean_well_depth</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>mean_well_depth</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='co'># pass to ggplot</span>
-  <span class='fu'>ggplot</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> 
-  <span class='fu'>geom_col</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'>fct_reorder</span><span class='op'>(</span><span class='va'>COUNTY_NAME</span>, <span class='va'>mean_well_depth</span><span class='op'>)</span>, 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_col</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'>fct_reorder</span><span class='op'>(</span><span class='va'>COUNTY_NAME</span>, <span class='va'>mean_well_depth</span><span class='op'>)</span>, 
                y <span class='op'>=</span> <span class='va'>mean_well_depth</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>labs</span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Mean well depth"</span>, 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Mean well depth"</span>, 
        subtitle <span class='op'>=</span> <span class='st'>"Periodic groundwater level database"</span>, 
        y <span class='op'>=</span> <span class='st'>"Mean well depth (ft)"</span>,
        x <span class='op'>=</span> <span class='st'>""</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>coord_flip</span><span class='op'>(</span><span class='op'>)</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_flip.html'>coord_flip</a></span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
 <p><img src="m_dplyr_files/figure-html5/well-depth-all-counties-1.png" width="624" /></p>
@@ -2780,14 +2809,14 @@ This is a plot to consider rotating the axis labels. How do we do that? Practice
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>stations</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>group_by</span><span class='op'>(</span><span class='va'>COUNTY_NAME</span>, <span class='va'>WELL_USE</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>summarize</span><span class='op'>(</span>mean_well_depth <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>WELL_DEPTH</span><span class='op'>)</span>,
-            total_records <span class='op'>=</span> <span class='fu'>n</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>total_records</span> <span class='op'>&gt;</span> <span class='fl'>10</span>, <span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>mean_well_depth</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>ggplot</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> 
-  <span class='fu'>geom_boxplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>WELL_USE</span>, y <span class='op'>=</span> <span class='va'>mean_well_depth</span><span class='op'>)</span>, 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>COUNTY_NAME</span>, <span class='va'>WELL_USE</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarize</a></span><span class='op'>(</span>mean_well_depth <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>WELL_DEPTH</span><span class='op'>)</span>,
+            total_records <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/context.html'>n</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>total_records</span> <span class='op'>&gt;</span> <span class='fl'>10</span>, <span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>mean_well_depth</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_boxplot.html'>geom_boxplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>WELL_USE</span>, y <span class='op'>=</span> <span class='va'>mean_well_depth</span><span class='op'>)</span>, 
                fill <span class='op'>=</span> <span class='st'>"seagreen"</span>, alpha <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>labs</span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Well Depth for Groundwater Stations in CA"</span>,
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Well Depth for Groundwater Stations in CA"</span>,
        subtitle <span class='op'>=</span> <span class='st'>"For groups with &gt;10 stations"</span>,
        x <span class='op'>=</span> <span class='st'>"Well Use"</span>, 
        y <span class='op'>=</span> <span class='st'>"Well Depth (ft)"</span><span class='op'>)</span>
@@ -2813,20 +2842,20 @@ This is a plot to consider rotating the axis labels. How do we do that? Practice
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>stations</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>WELL_USE</span> <span class='op'>!=</span> <span class='st'>""</span>, <span class='va'>WELL_USE</span> <span class='op'>!=</span> <span class='st'>"Unknown"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>group_by</span><span class='op'>(</span><span class='va'>COUNTY_NAME</span>, <span class='va'>WELL_USE</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>summarize</span><span class='op'>(</span>mean_well_depth <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>WELL_DEPTH</span><span class='op'>)</span>,
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>WELL_USE</span> <span class='op'>!=</span> <span class='st'>""</span>, <span class='va'>WELL_USE</span> <span class='op'>!=</span> <span class='st'>"Unknown"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>COUNTY_NAME</span>, <span class='va'>WELL_USE</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarize</a></span><span class='op'>(</span>mean_well_depth <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>WELL_DEPTH</span><span class='op'>)</span>,
             mean_well_depth_m <span class='op'>=</span> <span class='va'>mean_well_depth</span> <span class='op'>*</span> <span class='fl'>0.3048</span>,
-            total_records <span class='op'>=</span> <span class='fu'>n</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>total_records</span> <span class='op'>&gt;</span> <span class='fl'>10</span>, <span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>mean_well_depth_m</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'>ggplot</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> 
-  <span class='fu'>geom_boxplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>WELL_USE</span>, y <span class='op'>=</span> <span class='va'>mean_well_depth_m</span><span class='op'>)</span>, 
+            total_records <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/context.html'>n</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>total_records</span> <span class='op'>&gt;</span> <span class='fl'>10</span>, <span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>mean_well_depth_m</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_boxplot.html'>geom_boxplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>WELL_USE</span>, y <span class='op'>=</span> <span class='va'>mean_well_depth_m</span><span class='op'>)</span>, 
                fill <span class='op'>=</span> <span class='st'>"seagreen"</span>, alpha <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='co'># add jittered points</span>
-  <span class='fu'>geom_jitter</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>WELL_USE</span>, y <span class='op'>=</span> <span class='va'>mean_well_depth_m</span><span class='op'>)</span>, 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_jitter.html'>geom_jitter</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>WELL_USE</span>, y <span class='op'>=</span> <span class='va'>mean_well_depth_m</span><span class='op'>)</span>, 
               color <span class='op'>=</span> <span class='st'>"forestgreen"</span>, alpha <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='co'># add labels and caption</span>
-  <span class='fu'>labs</span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Well Depth for Groundwater Stations in CA"</span>,
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Well Depth for Groundwater Stations in CA"</span>,
        subtitle <span class='op'>=</span> <span class='st'>"For groups with &gt;10 stations"</span>,
        caption  <span class='op'>=</span> <span class='st'>"Data from the DWR Periodic Groundwater Level Database."</span>,
        x <span class='op'>=</span> <span class='st'>"Well Use"</span>, 
@@ -2842,11 +2871,11 @@ This is a plot to consider rotating the axis labels. How do we do that? Practice
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>stations_by_cnty_use</span> <span class='op'>&lt;-</span> <span class='va'>stations</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>WELL_USE</span> <span class='op'>!=</span> <span class='st'>""</span>, <span class='va'>WELL_USE</span> <span class='op'>!=</span> <span class='st'>"Unknown"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>group_by</span><span class='op'>(</span><span class='va'>COUNTY_NAME</span>, <span class='va'>WELL_USE</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>summarize</span><span class='op'>(</span>mean_well_depth <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>WELL_DEPTH</span><span class='op'>)</span>,
-            total_records <span class='op'>=</span> <span class='fu'>n</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>total_records</span> <span class='op'>&gt;</span> <span class='fl'>10</span>, <span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>mean_well_depth</span><span class='op'>)</span><span class='op'>)</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>WELL_USE</span> <span class='op'>!=</span> <span class='st'>""</span>, <span class='va'>WELL_USE</span> <span class='op'>!=</span> <span class='st'>"Unknown"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>COUNTY_NAME</span>, <span class='va'>WELL_USE</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarize</a></span><span class='op'>(</span>mean_well_depth <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>WELL_DEPTH</span><span class='op'>)</span>,
+            total_records <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/context.html'>n</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>total_records</span> <span class='op'>&gt;</span> <span class='fl'>10</span>, <span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>mean_well_depth</span><span class='op'>)</span><span class='op'>)</span> 
 
 <span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span><span class='op'>(</span><span class='va'>stations_by_cnty_use</span><span class='op'>)</span>
 </code></pre>
@@ -2856,7 +2885,7 @@ This is a plot to consider rotating the axis labels. How do we do that? Practice
 <p>Here we can see the <code>grouped_df</code> title, which tells us this is a <strong>grouped</strong> dataset. We can easily <em>ungroup</em> with the concisely named <code>ungroup()</code> function. This isn’t required, but it’s a good habit to get into (or be aware of).</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>stations_by_cnty_use</span> <span class='op'>&lt;-</span> <span class='fu'>ungroup</span><span class='op'>(</span><span class='va'>stations_by_cnty_use</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>stations_by_cnty_use</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a></span><span class='op'>(</span><span class='va'>stations_by_cnty_use</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span><span class='op'>(</span><span class='va'>stations_by_cnty_use</span><span class='op'>)</span>
 </code></pre>
 </div>
@@ -2865,7 +2894,7 @@ This is a plot to consider rotating the axis labels. How do we do that? Practice
 <p>Congratulations! You’ve made it through <code>{dplyr}</code>. There are many more great options and tricks within <code>{dplyr}</code>, but hopefully this will get you going.</p>
 <p><br></p>
 <p><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"></p>
-<p><a href="m_data_structures.html" class="btn btn-secondary" style="float: left">Previous module:<br> Data Structures</a> <a href="m_pivots.html" class="btn btn-secondary" style="float: right;">Next module:<br> Spreadsheets &amp; Pivots</a></p>
+<p><a href="m_data_structures.html" class="btn btn-secondary" style="float: left">Previous module:<br> 6. Data Structures</a> <a href="m_pivots.html" class="btn btn-secondary" style="float: right;">Next module:<br> 8. Spreadsheets &amp; Pivots</a></p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <section class="footnotes" role="doc-endnotes">
 <hr />
@@ -2884,7 +2913,10 @@ This is a plot to consider rotating the axis labels. How do we do that? Practice
 <!--radix_placeholder_site_after_body-->
 <!--/radix_placeholder_site_after_body-->
 <!--radix_placeholder_appendices-->
-<div class="appendix-bottom"></div>
+<div class="appendix-bottom">
+<h3 id="updates-and-corrections">Corrections</h3>
+<p>If you see mistakes or want to suggest changes, please <a href="https://github.com/ryanpeek/r4wrds/issues/new">create an issue</a> on the source repository.</p>
+</div>
 <!--/radix_placeholder_appendices-->
 <!--radix_placeholder_navigation_after_body-->
 <div class="distill-site-nav distill-site-footer">

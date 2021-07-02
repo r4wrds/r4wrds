@@ -130,4 +130,4 @@ knitr::include_graphics(here::here("images","tidydata_6.jpeg"))
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-<a href="index.html" class="btn btn-secondary" style="float: left">Previous module:<br> Introduction</a> <a href="m_git.html" class="btn btn-secondary" style="float: right;">Next module:<br> 2. Git</a>
+<a href="index.html" class="btn btn-secondary" style="float: left">Previous module:<br> Introduction</a> <a href="m_version_control.html" class="btn btn-secondary" style="float: right;">Next module:<br> 2. Git</a>
