@@ -7,7 +7,10 @@ output:
     toc: true
 editor_options: 
   chunk_output_type: console
+creative_commons: CC BY
+preview: https://r4wrds.com/img/cover.png
 ---
+
 
 ```{r setup, include=FALSE, purl=FALSE, message=FALSE}
 

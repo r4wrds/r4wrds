@@ -5,7 +5,10 @@ description: |
 output: 
   distill::distill_article:
     toc: true
+creative_commons: CC BY
+preview: https://r4wrds.com/img/cover.png
 ---
+
 
 ```{r setup, include=FALSE, purl=FALSE, message=FALSE}
 

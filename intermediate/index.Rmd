@@ -3,7 +3,10 @@ title: "R4WRDS Intermediate Course"
 description: |
   Increasing your efficiency with reproducible workflows in R
 site: distill::distill_website
+creative_commons: CC BY
+preview: https://r4wrds.com/img/cover.png
 ---
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
