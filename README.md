@@ -1,6 +1,6 @@
 # r4wrds
 
-[r4wrds.com](r4wrds.com) stands for "R for Water Resources Data Science". This repository builds the [distill](https://rstudio.github.io/distill/) website.  
+[r4wrds.com](https://r4wrds.com) stands for "R for Water Resources Data Science". This repository builds the [distill](https://rstudio.github.io/distill/) website.  
 
 
 # Developer guide
