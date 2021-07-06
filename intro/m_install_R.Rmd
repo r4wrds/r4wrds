@@ -181,7 +181,7 @@ Additional geospatial installation instructions can be found [here](https://data
 
 ## Step 5. Download Workshop Datasets
 
-We'll be working with a few different datasets for this workshop (see [here](https://github.com/richpauloo/wrds/tree/main/data)). We've zipped all these files into a single folder, which can be downloaded [here](https://osf.io/d7qse/download). Bear in mind this **`.zip`** file is ~122 MB in size, and may take a few minutes to download depending on internet connections.
+We'll be working with a few different datasets for this workshop (see [here](https://github.com/richpauloo/r4wrds-data)). We've zipped all these files into a single folder, which can be downloaded [here](https://osf.io/d7qse/download). Bear in mind this **`.zip`** file is ~122 MB in size, and may take a few minutes to download depending on internet connections.
 
  - [**Download the zipped file of all intro course data**](https://osf.io/d7qse/download).
  - Unzip the content into a folder on your computer that you can access for the workshop. We will help you set up a project and put the data in the correct place.
