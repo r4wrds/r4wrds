@@ -33,7 +33,7 @@ Below, we provide extra details appropriate for Windows and MacOSX operating sys
 R is the underlying statistical computing environment, or the engine we use to do things. 
 
 ### *Windows*: Download and install R
-Go to [CRAN and download](https://cran.rstudio.com/bin/windows/base/) the R installer for Windows. Make sure to choose the latest stable version (v4.0.4 as of Mar 2021). Download the <font color="#0072B2">`.exe`</font> file and double click to install.
+Go to [CRAN and download](https://cran.rstudio.com/bin/windows/base/) the R installer for Windows. Make sure to choose the latest stable version (v4.1.0 as of May 2021). Download the <font color="#0072B2">`.exe`</font> file and double click to install.
 
  - You can click next through the standard dialogs and accept most defaults. But at the destination
 screen, please verify that R is installing `C:\Program Files\R` (*version number may vary*), and **you may need administrative privileges to do this if you're not working on your personal computer.**
@@ -87,7 +87,7 @@ Once installed, RStudio should be accessible from the start menu.  Start up RStu
     version$version.string
     ```
 
- - **Verify your installed R version is `v4.0.4`**: Ideally you should be running the latest stable release (`v4.0.4` as of March 2021). If you have an older version, please install the newest version using the instructions above.
+ - **Verify your installed R version is `v4.1.0`**: Ideally you should be running the latest stable release (`v4.1.0` as of May 2021). If you have an older version, please install the newest version using the instructions above.
 
  - Here is what a current R version looks like.
  
@@ -150,7 +150,7 @@ To install {`sf`} successfully from source, Windows users will need to install [
 
 ### Geospatial MacOS (from source): 
 
-For MacOS users, follow the recommended instructions on the [{`sf`}](https://r-spatial.github.io/sf/) webpage, which if possible, requires successfully installing [Homebrew](https://brew.sh/), then running in the the Terminal:
+For MacOS users, follow the recommended instructions on the [{`sf`}](https://r-spatial.github.io/sf/) webpage, which if possible, requires successfully installing [Homebrew](https://brew.sh/), then running in the Terminal:
 
 ```
 brew install pkg-config
@@ -181,9 +181,9 @@ Additional geospatial installation instructions can be found [here](https://data
 
 ## Step 5. Download Workshop Datasets
 
-We'll be working with a few different datasets for this workshop (see [here](https://github.com/richpauloo/wrds/tree/main/data)). We've zipped all these files into a single folder, which can be downloaded [here](). Bear in mind this **`.zip`** file is ~122 MB in size, and may take a few minutes to download depending on internet connections.
+We'll be working with a few different datasets for this workshop (see [here](https://github.com/richpauloo/wrds/tree/main/data)). We've zipped all these files into a single folder, which can be downloaded [here](https://osf.io/d7qse/download). Bear in mind this **`.zip`** file is ~122 MB in size, and may take a few minutes to download depending on internet connections.
 
- - [**Download the zipped file of all the data**]().
+ - [**Download the zipped file of all intro course data**](https://osf.io/d7qse/download).
  - Unzip the content into a folder on your computer that you can access for the workshop. We will help you set up a project and put the data in the correct place.
 
 ### Quick Test!
