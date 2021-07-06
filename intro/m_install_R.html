@@ -98,9 +98,6 @@ code span.wa { color: #bf0303; } /* Warning */
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
   <meta property="og:title" content="R for Water Resources Data Science: 1. Software Installation &amp; Setup"/>
-  <meta property="og:image" content="https://r4wrds.com/./img/cover.png">
-  <meta property="og:image:width" content="1406">
-  <meta property="og:image:height" content="1146">
   <meta property="og:type" content="article"/>
   <meta property="og:description" content="Getting your computer &lt;font color=&quot;#009E73&quot;&gt;*ready*&lt;/font&gt; so you can &lt;font color=&quot;#0072B2&quot;&gt;**learn**&lt;/font&gt;!"/>
   <meta property="og:locale" content="en_US"/>
@@ -109,9 +106,6 @@ code span.wa { color: #bf0303; } /* Warning */
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
   <meta property="twitter:title" content="R for Water Resources Data Science: 1. Software Installation &amp; Setup"/>
-  <meta property="twitter:image" content="https://r4wrds.com/./img/cover.png">
-  <meta property="twitter:image:width" content="1406">
-  <meta property="twitter:image:height" content="1146">
   <meta property="twitter:description" content="Getting your computer &lt;font color=&quot;#009E73&quot;&gt;*ready*&lt;/font&gt; so you can &lt;font color=&quot;#0072B2&quot;&gt;**learn**&lt;/font&gt;!"/>
 
   <!--/radix_placeholder_meta_tags-->
@@ -2421,7 +2415,7 @@ Our goal is for you to learn how to use these tools so you can get stuff done. Y
 <h2 id="step-1.-install">Step 1. Install  <a href="https://cran.rstudio.com/"><img src="https://cran.r-project.org/Rlogo.svg" alt="R" width="7%"> </a></h2>
 <p>R is the underlying statistical computing environment, or the engine we use to do things.</p>
 <h3 id="windows-download-and-install-r"><em>Windows</em>: Download and install R</h3>
-<p>Go to <a href="https://cran.rstudio.com/bin/windows/base/">CRAN and download</a> the R installer for Windows. Make sure to choose the latest stable version (v4.0.4 as of Mar 2021). Download the <font color="#0072B2"><code>.exe</code></font> file and double click to install.</p>
+<p>Go to <a href="https://cran.rstudio.com/bin/windows/base/">CRAN and download</a> the R installer for Windows. Make sure to choose the latest stable version (v4.1.0 as of May 2021). Download the <font color="#0072B2"><code>.exe</code></font> file and double click to install.</p>
 <ul>
 <li>You can click next through the standard dialogs and accept most defaults. But at the destination screen, please verify that R is installing <code>C:\Program Files\R</code> (<em>version number may vary</em>), and <strong>you may need administrative privileges to do this if you’re not working on your personal computer.</strong></li>
 </ul>
@@ -2461,7 +2455,7 @@ Our goal is for you to learn how to use these tools so you can get stuff done. Y
 <ul>
 <li><p><strong>Copy and paste the following code:</strong> Once in that console window, copy the code below and paste it into the Console window (just to the right of the little <strong><code>&gt;</code></strong>).</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>version<span class="sc">$</span>version.string</span></code></pre></div></li>
-<li><p><strong>Verify your installed R version is <code>v4.0.4</code></strong>: Ideally you should be running the latest stable release (<code>v4.0.4</code> as of March 2021). If you have an older version, please install the newest version using the instructions above.</p></li>
+<li><p><strong>Verify your installed R version is <code>v4.1.0</code></strong>: Ideally you should be running the latest stable release (<code>v4.1.0</code> as of May 2021). If you have an older version, please install the newest version using the instructions above.</p></li>
 <li><p>Here is what a current R version looks like.</p>
 <div class="layout-chunk" data-layout="l-body">
 <pre><code>[1] &quot;R version 4.1.0 (2021-05-18)&quot;</code></pre>
@@ -2502,7 +2496,7 @@ Our goal is for you to learn how to use these tools so you can get stuff done. Y
 <h3 id="geospatial-windows-from-source">Geospatial Windows (from source):</h3>
 <p>To install {<code>sf</code>} successfully from source, Windows users will need to install <a href="https://cran.r-project.org/bin/windows/Rtools/">Rtools</a>. Download the 64-bit compiler, and follow the instructions to add the PATH. This requires administrative privileges.</p>
 <h3 id="geospatial-macos-from-source">Geospatial MacOS (from source):</h3>
-<p>For MacOS users, follow the recommended instructions on the <a href="https://r-spatial.github.io/sf/">{<code>sf</code>}</a> webpage, which if possible, requires successfully installing <a href="https://brew.sh/">Homebrew</a>, then running in the the Terminal:</p>
+<p>For MacOS users, follow the recommended instructions on the <a href="https://r-spatial.github.io/sf/">{<code>sf</code>}</a> webpage, which if possible, requires successfully installing <a href="https://brew.sh/">Homebrew</a>, then running in the Terminal:</p>
 <pre><code>brew install pkg-config
 brew install gdal</code></pre>
 <h3 id="install-spatial-r-packages">Install Spatial R Packages</h3>
@@ -2521,9 +2515,9 @@ brew install gdal</code></pre>
 Additional geospatial installation instructions can be found <a href="https://datacarpentry.org/geospatial-workshop/setup.html">here</a>, but try the listed approach first.
 </aside>
 <h2 id="step-5.-download-workshop-datasets">Step 5. Download Workshop Datasets</h2>
-<p>We’ll be working with a few different datasets for this workshop (see <a href="https://github.com/richpauloo/wrds/tree/main/data">here</a>). We’ve zipped all these files into a single folder, which can be downloaded <a href="">here</a>. Bear in mind this <strong><code>.zip</code></strong> file is ~122 MB in size, and may take a few minutes to download depending on internet connections.</p>
+<p>We’ll be working with a few different datasets for this workshop (see <a href="https://github.com/richpauloo/r4wrds-data">here</a>). We’ve zipped all these files into a single folder, which can be downloaded <a href="https://osf.io/d7qse/download">here</a>. Bear in mind this <strong><code>.zip</code></strong> file is ~122 MB in size, and may take a few minutes to download depending on internet connections.</p>
 <ul>
-<li><a href=""><strong>Download the zipped file of all the data</strong></a>.</li>
+<li><a href="https://osf.io/d7qse/download"><strong>Download the zipped file of all intro course data</strong></a>.</li>
 <li>Unzip the content into a folder on your computer that you can access for the workshop. We will help you set up a project and put the data in the correct place.</li>
 </ul>
 <h3 id="quick-test">Quick Test!</h3>
