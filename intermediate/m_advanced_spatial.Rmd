@@ -493,6 +493,12 @@ Let's use our 2 stations of interest and find the nearest USGS stations. The `fi
 
 Let's look only at downstream mainstem flowlines from our points, and return the nearest [NWIS](https://waterdata.usgs.gov/ca/nwis/) sites as well as the NHD flowlines (streamlines). We'll use the `map()` function to pass a list of stations along (here only 2, but this is flexible, and in practice we can map over a much larger number of stations).
 
+<aside>
+
+If there are issues downloading the `all_nldi` file via `{dataRetrieval}`, data can be downloaded with: `load(url("https://github.com/r4wrds/r4wrds/raw/update_spatial/intermediate/data/dataRetrieval_all_nldi_data.rda"))`.
+
+</aside>
+
 ```{r dataRetrieval-nldi}
 
 library(dataRetrieval)
@@ -518,6 +524,17 @@ mapview(nldi_SACRA, legend = FALSE) +
   mapview(isd_stations_keep, col.regions = "yellow", cex = 5)
 
 ```
+
+```{r, include=FALSE, hide=TRUE, eval=FALSE}
+
+# save out intermediate file for future use (in case dataRetrieval is down)
+# save(all_nldi, file = "data/dataRetrieval_all_nldi_data.rda")
+
+# load
+load(url("https://github.com/r4wrds/r4wrds/raw/update_spatial/intermediate/data/dataRetrieval_all_nldi_data.rda"))
+```
+
+
 
 Next, let's filter to stations that have flow data (generally these have 8-digit identifiers instead of a longer code which can be more water quality parameters), and pull streamflow data for the nearest station.
 
@@ -613,26 +630,43 @@ Now we have our stations of interest, and our climate data, let's download river
 
 ```{r download-nldi}
 
+# strip out the "USGS" from our identifier with "separate"
+usgs_stations_30km <- usgs_stations_30km %>% 
+  tidyr::separate(col = identifier, # the column we want to separate
+                  into = c("usgs", "usgs_id"), # the 2 cols to create
+                  remove = FALSE) %>% # keep the original column
+  select(-usgs) # drop this column
+
 # see what data is available for a station:
-dataRetrieval::whatNWISdata(siteNumber = usgs_stations_30km$identifier, 
+dataRetrieval::whatNWISdata(siteNumber = usgs_stations_30km$usgs_id, 
                             service = "dv", 
                             parameterCd = c("00060", "00010"),
                             statCd = "00003")
 
 
 # Extract Streamflow for identified sites
-Q <- readNWISdv(usgs_stations_30km$identifier, 
+Q <- readNWISdv(usgs_stations_30km$usgs_id, 
                 parameterCd = "00060", 
                 startDate = "1960-10-01") %>% 
   renameNWISColumns()
 
-wTemp <- readNWISdv(usgs_stations_30km$identifier, 
+wTemp <- readNWISdv(usgs_stations_30km$usgs_id, 
                 parameterCd = "00010", 
                 startDate = "1960-10-01") %>% 
   renameNWISColumns()
 
 
 ```
+
+```{r, echo=FALSE, eval=FALSE}
+
+# save out intermediate file for future use (in case dataRetrieval is down)
+#save(Q, wTemp, file = "data/dataRetrieval_downloaded-nldi_data.rda")
+
+# load
+load(url("https://github.com/r4wrds/r4wrds/raw/update_spatial/intermediate/data/dataRetrieval_downloaded-nldi_data.rda"))
+```
+
 
 ### Plot our USGS Data
 
