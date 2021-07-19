@@ -2,7 +2,6 @@ library(here)
 library(tidyverse)
 
 f <- list.files(here::here(), pattern = ".html$", full.names = TRUE, recursive = TRUE)
-f <- f[1:36]
 
 # insert this text for open graph (og)
 insert_og <- c(
