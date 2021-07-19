@@ -524,9 +524,9 @@ Next, let's filter to stations that have flow data (generally these have 8-digit
 ```{r filter-nldi}
 
 # here we can get the identifier code and filter to just 8 digits or less:
-usgs_stations <- map(all_nldi, "DM_nwissite") %>% 
+usgs_stations <- map(all_nldi, "DM_nwissite") %>%
   bind_rows() %>% 
-  filter(stringr::str_count(identifier) < 9) 
+  filter(stringr::str_count(identifier) < 14)
 
 mapview(nldi_SACRA$DM_flowlines, legend = FALSE) +
   mapview(nldi_STOCK$DM_flowlines, legend = FALSE) +
