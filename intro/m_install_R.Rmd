@@ -138,7 +138,6 @@ For some of the mapping and spatial lessons, we need a set of geospatial tools/p
 
 install.packages("sf")
 install.packages("mapview")
-install.packages("USAboundaries")
 
 ```
 
