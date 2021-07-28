@@ -2453,7 +2453,7 @@ Our goal is for you to learn how to use these tools so you can get stuff done. Y
 </ul>
 <p><img src="images/rstudio_console.png#inline-img" title="RStudio console" /></p>
 <ul>
-<li><p><strong>Copy and paste the following code:</strong> Once in that console window, copy the code below and paste it into the Console window (just to the right of the little <strong><code>&gt;</code></strong>).</p>
+<li><p><strong>Copy and paste the following code:</strong> Once in that console window, copy the code below and paste it into the Console window (just to the right of the little <strong><code>&gt;</code></strong>). Then hit <code>ENTER</code>.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>version<span class="sc">$</span>version.string</span></code></pre></div></li>
 <li><p><strong>Verify your installed R version is <code>v4.1.0</code></strong>: Ideally you should be running the latest stable release (<code>v4.1.0</code> as of May 2021). If you have an older version, please install the newest version using the instructions above.</p></li>
 <li><p>Here is what a current R version looks like.</p>
@@ -2462,12 +2462,8 @@ Our goal is for you to learn how to use these tools so you can get stuff done. Y
 </div></li>
 </ul>
 <h2 id="step-3.-install-r-packages">Step 3. Install R Packages</h2>
-<p>Install packages available for all R users from <a href="https://cran.r-project.org/">CRAN</a> by pasting the following code and hitting <code>ENTER</code>. You may see a message</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>There are binary versions available but the source versions are later<span class="sc">:</span></span></code></pre></div>
-<p>followed by a list of the packages you are trying to install. This is usually followed by this message</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>Do you want to install from sources the package which needs compilation? (Yes<span class="sc">/</span>no<span class="sc">/</span>cancel)</span></code></pre></div>
-<p>After that message type “<strong>Yes</strong>” and hit “<strong>Enter</strong>” on the keyboard.</p>
 <p>The core set of packages we will need are as follows. There may be a few more we need to install during the course, but this should be the majority.</p>
+<p>We install packages available for all R users from an online repository called <a href="https://cran.r-project.org/">CRAN</a>, by pasting the following code into the <strong>RStudio Console window</strong> and hitting <code>ENTER</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages</a></span><span class='op'>(</span><span class='st'>"tidyverse"</span><span class='op'>)</span>
@@ -2478,12 +2474,17 @@ Our goal is for you to learn how to use these tools so you can get stuff done. Y
 </code></pre>
 </div>
 </div>
+<p>You may see a message</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>There are binary versions available but the source versions are later<span class="sc">:</span></span></code></pre></div>
+<p>followed by a list of the packages you are trying to install. This is usually followed by this message:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>Do you want to install from sources the package which needs compilation? (Yes<span class="sc">/</span>no<span class="sc">/</span>cancel)</span></code></pre></div>
+<p>Compilation means the code associated with the package needs to be translated into R and built for your operating system. Generally we can use the binary option, so after that message type “<strong>No</strong>” and hit “<strong>Enter</strong>” on the keyboard. In some cases we do need/want to compile the package to get the most recent updates. <em>For this course, try installing from binary (type <strong>No</strong>) first</em>!</p>
 <p>You may see this:</p>
 <p><img src="images/personal_library_dialog.png#inline-img" title="dialog box behind" /></p>
 <p>That’s OK! There’s a dialog box hiding behind RStudio asking if you want to create a personal folder in your Documents folder. Click <em>Yes</em>. It will look something like this when done:</p>
 <p><img src="images/general_pkg_output.png#inline-img" title="console output" /></p>
 <h2 id="step-4.-install-geospatial-packages">Step 4. Install Geospatial Packages</h2>
-<p>For some of the mapping and spatial lessons, we need a set of geospatial tools/packages. For the majority of the content we will cover, this requires installation of the <a href="https://r-spatial.github.io/sf/">{<code>sf</code>}</a> package. If installing from a binary package, this should work:</p>
+<p>For some of the mapping and spatial lessons, we need a set of geospatial tools/packages. For the majority of the content we will cover, this requires installation of the <a href="https://r-spatial.github.io/sf/">{<code>sf</code>}</a> package. If installing from a binary package, this should work (just make sure to type “<strong>No</strong>” when asked about <code>install from sources</code>):</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages</a></span><span class='op'>(</span><span class='st'>"sf"</span><span class='op'>)</span>
@@ -2491,13 +2492,19 @@ Our goal is for you to learn how to use these tools so you can get stuff done. Y
 </code></pre>
 </div>
 </div>
-<p><strong>However, more commonly, we need to install/update from source</strong> (<em>don’t worry if you have no idea what this all means yet!</em>). To do so, we need to follow instructions below for the operating system of your choice.</p>
+<p><strong>However, more commonly, we may need to install/update from source to have the most updated functions and options from a package</strong> (<em>don’t worry if you have no idea what this all means yet!</em>). To do so, we need to follow instructions below for the operating system of your choice.</p>
 <h3 id="geospatial-windows-from-source">Geospatial Windows (from source):</h3>
 <p>To install {<code>sf</code>} successfully from source, Windows users will need to install <a href="https://cran.r-project.org/bin/windows/Rtools/">Rtools</a>. Download the 64-bit compiler, and follow the instructions to add the PATH. This requires administrative privileges.</p>
 <h3 id="geospatial-macos-from-source">Geospatial MacOS (from source):</h3>
-<p>For MacOS users, follow the recommended instructions on the <a href="https://r-spatial.github.io/sf/">{<code>sf</code>}</a> webpage, which if possible, requires successfully installing <a href="https://brew.sh/">Homebrew</a>, then running in the Terminal:</p>
+<p>For MacOS users, follow the recommended instructions on the <a href="https://r-spatial.github.io/sf/">{<code>sf</code>}</a> webpage, which if possible, requires opening a Terminal window and successfully installing <a href="https://brew.sh/">Homebrew with the code at this website</a>. You can test if <code>brew</code> is installed by typing <code>brew config</code> in the Terminal and hitting <strong>Enter</strong>.</p>
+<p>We can then install a few spatial tools (via Terminal still!) with the following code:</p>
 <pre><code>brew install pkg-config
-brew install gdal</code></pre>
+# then hit enter and wait
+
+brew install gdal
+# then hit enter and wait
+</code></pre>
+<p>At this point, you should now be able to install {<code>sf</code>} from binary on a Mac. Proceed to the next section!</p>
 <h3 id="install-spatial-r-packages">Install Spatial R Packages</h3>
 <p>After this has successfully installed, return to the RStudio “Console”, and install the following packages by typing the following into the console and pressing “return” on the keyboard:</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -2507,6 +2514,7 @@ brew install gdal</code></pre>
 </code></pre>
 </div>
 </div>
+<p>For {<code>sf</code>}, try installing from binary first (so type “<strong>No</strong>” in your <code>R Console</code> window and hit <strong>Enter</strong>).</p>
 <p>Success should return something like this (not an error message) when you load the library with <code>library(sf)</code>:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Linking to GEOS 3.8.1, GDAL 3.1.4, PROJ 6.3.1</span></span></code></pre></div>
