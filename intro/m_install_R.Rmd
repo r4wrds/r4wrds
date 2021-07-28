@@ -81,7 +81,7 @@ Once installed, RStudio should be accessible from the start menu.  Start up RStu
 
 ![](images/rstudio_console.png#inline-img "RStudio console")
 
- - **Copy and paste the following code:** Once in that console window, copy the code below and paste it into the Console window (just to the right of the little **`>`**).
+ - **Copy and paste the following code:** Once in that console window, copy the code below and paste it into the Console window (just to the right of the little **`>`**). Then hit `ENTER`.
 
     ```r
     version$version.string
@@ -97,19 +97,9 @@ Once installed, RStudio should be accessible from the start menu.  Start up RStu
 
 ## Step 3. Install R Packages
 
-Install packages available for all R users from [CRAN](https://cran.r-project.org/) by pasting the following code and hitting `ENTER`. You may see a message
-
-```r
-There are binary versions available but the source versions are later:
-```
-followed by a list of the packages you are trying to install. This is usually followed by this message 
-```r
-Do you want to install from sources the package which needs compilation? (Yes/no/cancel)
-``` 
-
-After that message type "**Yes**" and hit "**Enter**" on the keyboard. 
-
 The core set of packages we will need are as follows. There may be a few more we need to install during the course, but this should be the majority.
+
+We install packages available for all R users from an online repository called  [CRAN](https://cran.r-project.org/), by pasting the following code into the **RStudio Console window** and hitting `ENTER`. 
 
 ```{r, eval=FALSE, echo=TRUE}
 
@@ -120,6 +110,19 @@ install.packages("readxl")
 install.packages("lubridate")
 
 ```
+
+You may see a message
+
+```r
+There are binary versions available but the source versions are later:
+```
+followed by a list of the packages you are trying to install. This is usually followed by this message: 
+
+```r
+Do you want to install from sources the package which needs compilation? (Yes/no/cancel)
+``` 
+
+Compilation means the code associated with the package needs to be translated into R and built for your operating system. Generally we can use the binary option, so after that message type "**No**" and hit "**Enter**" on the keyboard. In some cases we do need/want to compile the package to get the most recent updates. *For this course, try installing from binary (type **No**) first*!
 
 You may see this: 
 
@@ -132,7 +135,7 @@ That's OK! There’s a dialog box hiding behind RStudio asking if you want to cr
 
 ## Step 4. Install Geospatial Packages
 
-For some of the mapping and spatial lessons, we need a set of geospatial tools/packages. For the majority of the content we will cover, this requires installation of the [{`sf`}](https://r-spatial.github.io/sf/) package. If installing from a binary package, this should work:
+For some of the mapping and spatial lessons, we need a set of geospatial tools/packages. For the majority of the content we will cover, this requires installation of the [{`sf`}](https://r-spatial.github.io/sf/) package. If installing from a binary package, this should work (just make sure to type "**No**" when asked about `install from sources`):
 
 ```{r, echo=TRUE, eval=FALSE}
 
@@ -141,7 +144,7 @@ install.packages("mapview")
 
 ```
 
-**However, more commonly, we need to install/update from source** (*don't worry if you have no idea what this all means yet!*). To do so, we need to follow instructions below for the operating system of your choice.
+**However, more commonly, we may need to install/update from source to have the most updated functions and options from a package** (*don't worry if you have no idea what this all means yet!*). To do so, we need to follow instructions below for the operating system of your choice.
 
 ### Geospatial Windows (from source):
 
@@ -149,12 +152,20 @@ To install {`sf`} successfully from source, Windows users will need to install [
 
 ### Geospatial MacOS (from source): 
 
-For MacOS users, follow the recommended instructions on the [{`sf`}](https://r-spatial.github.io/sf/) webpage, which if possible, requires successfully installing [Homebrew](https://brew.sh/), then running in the Terminal:
+For MacOS users, follow the recommended instructions on the [{`sf`}](https://r-spatial.github.io/sf/) webpage, which if possible, requires opening a Terminal window and successfully installing [Homebrew with the code at this website](https://brew.sh/). You can test if `brew` is installed by typing `brew config` in the Terminal and hitting **Enter**.
+
+We can then install a few spatial tools (via Terminal still!) with the following code:
 
 ```
 brew install pkg-config
+# then hit enter and wait
+
 brew install gdal
+# then hit enter and wait
+
 ```
+
+At this point, you should now be able to install {`sf`} from binary on a Mac. Proceed to the next section!
 
 ### Install Spatial R Packages
 
@@ -165,6 +176,8 @@ After this has successfully installed, return to the RStudio "Console", and inst
 install.packages("sf")
 install.packages("mapview")
 ```
+
+For {`sf`}, try installing from binary first (so type "**No**" in your `R Console` window and hit **Enter**).
 
 Success should return something like this (not an error message) when you load the library with `library(sf)`:
 
