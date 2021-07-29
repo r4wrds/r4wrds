@@ -85,7 +85,7 @@ You can also pass a URL to `read_csv()`.
 
 ```{r read-github}
 # read the "stations" csv from the Github URL
-stations <- read_csv("https://raw.githubusercontent.com/richpauloo/r4wrds-data/main/intro/data/gwl/stations.csv")
+stations <- read_csv("https://raw.githubusercontent.com/r4wrds/r4wrds-data/main/intro/data/gwl/stations.csv")
 ```
 
 
