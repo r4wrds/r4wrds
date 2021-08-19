@@ -233,6 +233,13 @@ library(sf)
 Additional geospatial installation instructions can be found [here](https://datacarpentry.org/geospatial-workshop/setup.html), but try the listed approach first.
 </aside>
 
+As a final sanity check, copy/paste the following in the console in RStudio and press `Enter`. This will open an interactive map of the built-in dataset `breweries` in the "Viewer" pane, and will look like the map below. Click on points and pan around to celebrate a successful install!
+
+```{r}
+library(mapview)
+mapview(breweries)
+```
+
 
 ## Step 5. Download Workshop Datasets
 
