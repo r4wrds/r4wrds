@@ -2037,7 +2037,6 @@ code span.wa { color: #bf0303; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-
   <script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
@@ -2391,8 +2390,8 @@ Modules
 <li><a href="#step-4.-install-geospatial-packages">Step 4. Install Geospatial Packages</a>
 <ul>
 <li><a href="#installing-from-source-with-compilation">Installing from Source (with Compilation)</a></li>
-<li><a href="#geospatial-windows-from-source">Geospatial Windows (from source):</a></li>
-<li><a href="#geospatial-macos-from-source">Geospatial MacOS (from source):</a></li>
+<li><a href="#windows-geospatial-instructions-from-source"><code>Windows</code> Geospatial Instructions (from source):</a></li>
+<li><a href="#macos-geospatial-instructions-from-source"><code>MacOS</code> Geospatial Instructions (from source):</a></li>
 <li><a href="#install-spatial-r-packages">Install Spatial R Packages</a></li>
 </ul></li>
 <li><a href="#step-5.-download-workshop-datasets">Step 5. Download Workshop Datasets</a>
@@ -2506,7 +2505,7 @@ Do you want to install from sources the packages which need compilation? (Yes/no
 <hr />
 <h3 id="installing-from-source-with-compilation">Installing from Source (with Compilation)</h3>
 <p><strong>However, more commonly, we may need to install/update from source to have the most updated functions and options from a package</strong> (<em>don’t worry if you have no idea what this all means yet!</em>). This generally means the code needs to be translated and built or compiled so your computer can interpret it. To do so, we need to follow instructions below for the operating system of your choice.</p>
-<h3 id="geospatial-windows-from-source">Geospatial Windows (from source):</h3>
+<h3 id="windows-geospatial-instructions-from-source"><code>Windows</code> Geospatial Instructions (from source):</h3>
 <p>To install {<code>sf</code>} successfully from source, Windows users will need to install <a href="https://cran.r-project.org/bin/windows/Rtools/">Rtools</a>. Download the 64-bit compiler.</p>
 <p>After installing <a href="https://cran.r-project.org/bin/windows/Rtools/">RTools</a>, one final step remains…adding RTools to your path. This may require administrative privileges.</p>
 <p><strong><em>Why do we need to do this?</em></strong></p>
@@ -2524,7 +2523,7 @@ Do you want to install from sources the packages which need compilation? (Yes/no
 <p><code># "C:\\rtools40\\usr\\bin\\make.exe"</code></p></li>
 </ol>
 <p>Now you should be able to install or “<em>compile</em>” packages in R in Windows. Proceed with installation instructions for additional packages!</p>
-<h3 id="geospatial-macos-from-source">Geospatial MacOS (from source):</h3>
+<h3 id="macos-geospatial-instructions-from-source"><code>MacOS</code> Geospatial Instructions (from source):</h3>
 <p>For MacOS users, follow the recommended instructions on the <a href="https://r-spatial.github.io/sf/">{<code>sf</code>}</a> webpage, which if possible, requires opening a Terminal window and successfully installing <a href="https://brew.sh/">Homebrew with the code at this website</a>. You can test if <code>brew</code> is installed by typing <code>brew config</code> in the Terminal and hitting <strong>Enter</strong>.</p>
 <p>We can then install a few spatial tools (via Terminal still!) with the following code:</p>
 <pre><code>brew install pkg-config

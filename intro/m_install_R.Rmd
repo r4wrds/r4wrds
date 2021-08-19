@@ -163,7 +163,7 @@ Just make sure to type "**No**" at the end of the line and hit `Enter`!
 
 **However, more commonly, we may need to install/update from source to have the most updated functions and options from a package** (*don't worry if you have no idea what this all means yet!*). This generally means the code needs to be translated and built or compiled so your computer can interpret it. To do so, we need to follow instructions below for the operating system of your choice.
 
-### Geospatial Windows (from source):
+### `Windows` Geospatial Instructions (from source):
 
 To install {`sf`} successfully from source, Windows users will need to install [Rtools](https://cran.r-project.org/bin/windows/Rtools/). Download the 64-bit compiler.
 
@@ -193,7 +193,7 @@ Good news is we can typically do this within R/RStudio without too much trouble.
 
 Now you should be able to install or "*compile*" packages in R in Windows. Proceed with installation instructions for additional packages! 
 
-### Geospatial MacOS (from source): 
+### `MacOS` Geospatial Instructions (from source): 
 
 For MacOS users, follow the recommended instructions on the [{`sf`}](https://r-spatial.github.io/sf/) webpage, which if possible, requires opening a Terminal window and successfully installing [Homebrew with the code at this website](https://brew.sh/). You can test if `brew` is installed by typing `brew config` in the Terminal and hitting **Enter**.
 
