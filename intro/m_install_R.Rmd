@@ -135,7 +135,9 @@ That's OK! There’s a dialog box hiding behind RStudio asking if you want to cr
 
 ## Step 4. Install Geospatial Packages
 
-For some of the mapping and spatial lessons, we need a set of geospatial tools/packages. For the majority of the content we will cover, this requires installation of the [{`sf`}](https://r-spatial.github.io/sf/) package. If installing from a binary package, this should work (just make sure to type "**No**" when asked about `install from sources`):
+For some of the mapping and spatial lessons, we need a set of geospatial tools/packages. For the majority of the content we will cover, this requires installation of the [{`sf`}](https://r-spatial.github.io/sf/) package. When we run the lines below, we may get a question in the Console that is preceded by a list of package names and columns with `binary`, `source`, and `needs_compilation`. That's ok! 
+
+The **First Option** should be to try and install *without* compilation. So, if you run the lines below:
 
 ```{r, echo=TRUE, eval=FALSE}
 
@@ -144,11 +146,52 @@ install.packages("mapview")
 
 ```
 
-**However, more commonly, we may need to install/update from source to have the most updated functions and options from a package** (*don't worry if you have no idea what this all means yet!*). To do so, we need to follow instructions below for the operating system of your choice.
+And you see a message similar to below (yours will probably look different!!):
+```
+ There are binary versions available but the source versions are later:
+          binary source needs_compilation
+sf         1.0-1  1.0-2             FALSE
+mapview   2.10.0 2.10.1              TRUE
+
+Do you want to install from sources the packages which need compilation? (Yes/no/cancel) 
+```
+
+Just make sure to type "**No**" at the end of the line and hit `Enter`!
+
+---
+### Installing from Source (with Compilation)
+
+**However, more commonly, we may need to install/update from source to have the most updated functions and options from a package** (*don't worry if you have no idea what this all means yet!*). This generally means the code needs to be translated and built or compiled so your computer can interpret it. To do so, we need to follow instructions below for the operating system of your choice.
 
 ### Geospatial Windows (from source):
 
-To install {`sf`} successfully from source, Windows users will need to install [Rtools](https://cran.r-project.org/bin/windows/Rtools/). Download the 64-bit compiler, and follow the instructions to add the PATH. This requires administrative privileges.
+To install {`sf`} successfully from source, Windows users will need to install [Rtools](https://cran.r-project.org/bin/windows/Rtools/). Download the 64-bit compiler.
+
+After installing [RTools](https://cran.r-project.org/bin/windows/Rtools/), one final step remains...adding RTools to your path. This may require administrative privileges.
+
+**_Why do we need to do this?_**
+
+What does this mean? Why do we need to do it? RTools is like a translator for your computer, and it helps translate code and build software (R packages). Before your computer can use it, we need to tell R (on your computer) where the RTools you just installed is actually located. Once we add this path (the location of the directory where RTools lives), the computer can use it when it is needed.
+
+**_To Add RTools to your Path_**
+
+Good news is we can typically do this within R/RStudio without too much trouble. Try this:
+
+ 1. Open RStudio
+ 2. Navigate to the **Console** panel
+ 3. Right after the `>` prompt, paste the following line and hit `Enter` or `Return`
+    
+      `writeLines('PATH="${RTOOLS40_HOME}\\usr\\bin;${PATH}"', con = "~/.Renviron")` 
+
+ 4. Test that it worked. Close down RStudio, reopen it, and in the **Console** after the `>` prompt, paste the following: 
+
+      `Sys.which("make")`
+
+ 5. We should see something like this printed out:
+
+      `# "C:\\rtools40\\usr\\bin\\make.exe"`
+
+Now you should be able to install or "*compile*" packages in R in Windows. Proceed with installation instructions for additional packages! 
 
 ### Geospatial MacOS (from source): 
 
