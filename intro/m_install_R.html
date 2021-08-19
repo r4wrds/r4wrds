@@ -2037,7 +2037,7 @@ code span.wa { color: #bf0303; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2389,8 +2389,9 @@ Modules
 <li><a href="#step-3.-install-r-packages">Step 3. Install R Packages</a></li>
 <li><a href="#step-4.-install-geospatial-packages">Step 4. Install Geospatial Packages</a>
 <ul>
-<li><a href="#geospatial-windows-from-source">Geospatial Windows (from source):</a></li>
-<li><a href="#geospatial-macos-from-source">Geospatial MacOS (from source):</a></li>
+<li><a href="#installing-from-source-with-compilation">Installing from Source (with Compilation)</a></li>
+<li><a href="#windows-geospatial-instructions-from-source"><code>Windows</code> Geospatial Instructions (from source):</a></li>
+<li><a href="#macos-geospatial-instructions-from-source"><code>MacOS</code> Geospatial Instructions (from source):</a></li>
 <li><a href="#install-spatial-r-packages">Install Spatial R Packages</a></li>
 </ul></li>
 <li><a href="#step-5.-download-workshop-datasets">Step 5. Download Workshop Datasets</a>
@@ -2484,7 +2485,8 @@ Our goal is for you to learn how to use these tools so you can get stuff done. Y
 <p>That’s OK! There’s a dialog box hiding behind RStudio asking if you want to create a personal folder in your Documents folder. Click <em>Yes</em>. It will look something like this when done:</p>
 <p><img src="images/general_pkg_output.png#inline-img" title="console output" /></p>
 <h2 id="step-4.-install-geospatial-packages">Step 4. Install Geospatial Packages</h2>
-<p>For some of the mapping and spatial lessons, we need a set of geospatial tools/packages. For the majority of the content we will cover, this requires installation of the <a href="https://r-spatial.github.io/sf/">{<code>sf</code>}</a> package. If installing from a binary package, this should work (just make sure to type “<strong>No</strong>” when asked about <code>install from sources</code>):</p>
+<p>For some of the mapping and spatial lessons, we need a set of geospatial tools/packages. For the majority of the content we will cover, this requires installation of the <a href="https://r-spatial.github.io/sf/">{<code>sf</code>}</a> package. When we run the lines below, we may get a question in the Console that is preceded by a list of package names and columns with <code>binary</code>, <code>source</code>, and <code>needs_compilation</code>. That’s ok!</p>
+<p>The <strong>First Option</strong> should be to try and install <em>without</em> compilation. So, if you run the lines below:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages</a></span><span class='op'>(</span><span class='st'>"sf"</span><span class='op'>)</span>
@@ -2492,10 +2494,36 @@ Our goal is for you to learn how to use these tools so you can get stuff done. Y
 </code></pre>
 </div>
 </div>
-<p><strong>However, more commonly, we may need to install/update from source to have the most updated functions and options from a package</strong> (<em>don’t worry if you have no idea what this all means yet!</em>). To do so, we need to follow instructions below for the operating system of your choice.</p>
-<h3 id="geospatial-windows-from-source">Geospatial Windows (from source):</h3>
-<p>To install {<code>sf</code>} successfully from source, Windows users will need to install <a href="https://cran.r-project.org/bin/windows/Rtools/">Rtools</a>. Download the 64-bit compiler, and follow the instructions to add the PATH. This requires administrative privileges.</p>
-<h3 id="geospatial-macos-from-source">Geospatial MacOS (from source):</h3>
+<p>And you see a message similar to below (yours will probably look different!!):</p>
+<pre><code> There are binary versions available but the source versions are later:
+          binary source needs_compilation
+sf         1.0-1  1.0-2             FALSE
+mapview   2.10.0 2.10.1              TRUE
+
+Do you want to install from sources the packages which need compilation? (Yes/no/cancel) </code></pre>
+<p>Just make sure to type “<strong>No</strong>” at the end of the line and hit <code>Enter</code>!</p>
+<hr />
+<h3 id="installing-from-source-with-compilation">Installing from Source (with Compilation)</h3>
+<p><strong>However, more commonly, we may need to install/update from source to have the most updated functions and options from a package</strong> (<em>don’t worry if you have no idea what this all means yet!</em>). This generally means the code needs to be translated and built or compiled so your computer can interpret it. To do so, we need to follow instructions below for the operating system of your choice.</p>
+<h3 id="windows-geospatial-instructions-from-source"><code>Windows</code> Geospatial Instructions (from source):</h3>
+<p>To install {<code>sf</code>} successfully from source, Windows users will need to install <a href="https://cran.r-project.org/bin/windows/Rtools/">Rtools</a>. Download the 64-bit compiler.</p>
+<p>After installing <a href="https://cran.r-project.org/bin/windows/Rtools/">RTools</a>, one final step remains…adding RTools to your path. This may require administrative privileges.</p>
+<p><strong><em>Why do we need to do this?</em></strong></p>
+<p>What does this mean? Why do we need to do it? RTools is like a translator for your computer, and it helps translate code and build software (R packages). Before your computer can use it, we need to tell R (on your computer) where the RTools you just installed is actually located. Once we add this path (the location of the directory where RTools lives), the computer can use it when it is needed.</p>
+<p><strong><em>To Add RTools to your Path</em></strong></p>
+<p>Good news is we can typically do this within R/RStudio without too much trouble. Try this:</p>
+<ol type="1">
+<li><p>Open RStudio</p></li>
+<li><p>Navigate to the <strong>Console</strong> panel</p></li>
+<li><p>Right after the <code>&gt;</code> prompt, paste the following line and hit <code>Enter</code> or <code>Return</code></p>
+<p><code>writeLines('PATH="${RTOOLS40_HOME}\\usr\\bin;${PATH}"', con = "~/.Renviron")</code></p></li>
+<li><p>Test that it worked. Close down RStudio, reopen it, and in the <strong>Console</strong> after the <code>&gt;</code> prompt, paste the following:</p>
+<p><code>Sys.which("make")</code></p></li>
+<li><p>We should see something like this printed out:</p>
+<p><code># "C:\\rtools40\\usr\\bin\\make.exe"</code></p></li>
+</ol>
+<p>Now you should be able to install or “<em>compile</em>” packages in R in Windows. Proceed with installation instructions for additional packages!</p>
+<h3 id="macos-geospatial-instructions-from-source"><code>MacOS</code> Geospatial Instructions (from source):</h3>
 <p>For MacOS users, follow the recommended instructions on the <a href="https://r-spatial.github.io/sf/">{<code>sf</code>}</a> webpage, which if possible, requires opening a Terminal window and successfully installing <a href="https://brew.sh/">Homebrew with the code at this website</a>. You can test if <code>brew</code> is installed by typing <code>brew config</code> in the Terminal and hitting <strong>Enter</strong>.</p>
 <p>We can then install a few spatial tools (via Terminal still!) with the following code:</p>
 <pre><code>brew install pkg-config
@@ -2516,8 +2544,8 @@ brew install gdal
 </div>
 <p>For {<code>sf</code>}, try installing from binary first (so type “<strong>No</strong>” in your <code>R Console</code> window and hit <strong>Enter</strong>).</p>
 <p>Success should return something like this (not an error message) when you load the library with <code>library(sf)</code>:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Linking to GEOS 3.8.1, GDAL 3.1.4, PROJ 6.3.1</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Linking to GEOS 3.8.1, GDAL 3.1.4, PROJ 6.3.1</span></span></code></pre></div>
 <aside>
 Additional geospatial installation instructions can be found <a href="https://datacarpentry.org/geospatial-workshop/setup.html">here</a>, but try the listed approach first.
 </aside>
@@ -2547,7 +2575,7 @@ Additional geospatial installation instructions can be found <a href="https://da
 <p><br></p>
 <p><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"></p>
 <p><a href="index.html" class="btn btn-secondary" style="float: left">Previous module:<br> Introduction</a> <a href="m_getting_started.html" class="btn btn-secondary" style="float: right;">Next module:<br> 2. Getting started</a></p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
