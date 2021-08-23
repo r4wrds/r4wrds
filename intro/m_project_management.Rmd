@@ -6,6 +6,8 @@ output:
   distill::distill_article:
     toc: true
 creative_commons: CC BY
+editor_options: 
+  chunk_output_type: console
 ---
 
 
@@ -13,6 +15,7 @@ creative_commons: CC BY
 
 knitr::opts_chunk$set(echo = FALSE)
 library(knitr)
+library(here)
 
 ```
 
@@ -20,7 +23,7 @@ library(knitr)
 
 **Learning objectives**
  
- - Understand motivation for using scripts and data management
+ - Understand motivation for project based workflows
  - Know how to organize code, data, and results
  - Know the basics of file paths and directory structures
  - Be able to create and use an RStudio project
@@ -29,17 +32,84 @@ library(knitr)
 
 ## Where Am I?
 
-![](https://upload.wikimedia.org/wikipedia/commons/3/39/Messy_storage_room_with_boxes.jpg)
 
-Any time you are working on your computer, you are navigating amidst a forest of files and folders. One of the best habits you can form (whether you are using R or not!), is **intentionally keeping a clear structure**, no matter what project or task you face.
+```{r messyroom, out.width="90%", eval=T, echo=FALSE, fig.cap="*A disorganized system for finding things*"}
 
-This becomes especially important when using computer programming like `r icons::icon_style(icons::fontawesome("r-project"), color="steelblue")` in your work. You will need to tell R, very specifically, where you are and where your files are in the forest of your computer. Where you are is typically referred to as the **working directory**. In `r icons::icon_style(icons::fontawesome("r-project"), color="steelblue")`, think of this as your homebase, and everything is *relative* to this folder/location on your computer.
+knitr::include_graphics(here("images","Messy_storage_room_with_boxes.jpg"))
 
-### The Working Directory
+```
+ 
+Any time you are working on your computer, you must navigate amidst a forest of files and folders. 
 
-The working directory could be something like "`Myname/Documents`", or it could be something more specific like  "`MyName/Documents/Projects/2021`". You can always check with `getwd()`! Importantly, everything you do should be relative to that working directory. 
+  > One of the most common issues we deal with in `R` programming is to **tell your computer where a file or folder is located**. 
 
-That means we really **don't** want to use things like `setwd()` (set working directory) to locate a file or folder on our computer, or use a hard path (i.e., a full path like `C:/MyUserName/My_Documents/A_Folder_You_May_Have/But_This_One_You_Definitely_Dont/`). That's because this will pretty much **never** work on anyone's computer other than your own, and sometimes it may not even work on your computer if you change a file name or folder! We really want to set a good habit, to make things reproducible for others, and for our future self. 
+Thus, one of the most useful habits you can form (whether using `R` or not), is to **intentionally keep a clear structure** and use that same structure across all of your projects. This becomes especially important when using computer programming languages like `r fontawesome::fa("r-project", fill="steelblue", stroke=3)` in your work. You will need to tell `R`, very specifically, where you are and where your files are located in the forest of your computer. 
+
+*Where you are* is typically referred to as the **working directory**. The working directory is a **folder**. In `r fontawesome::fa("r-project", fill="steelblue", stroke=3)`, think of this as your homebase, and everything is *relative* to this folder on your computer.
+
+## Use Project Workflows
+
+One of the great advantages of using tools like RStudio is they make it easy to use an organized "**project**" workflow. What do we mean by "**using projects**"? Projects refer to a general pattern or structure used for each work project or analysis. This approach is not specific to `R`. Any practiced data scientist will use a folder structure and organization scheme, no matter what programming language they use.
+
+The general idea is to always use the same structure and naming schemes across every project. Do this every single time with every single project you make, in order to make it a habit. This will save you time and brainpower! Imagine quickly moving between tasks or projects with minimal time spent "*trying to find where things are and getting oriented*". You'll always know where things should be!
+
+
+### Basic Folders for Every Project
+
+At a minimum, it’s useful to have separate directories (folders) for each of the following:
+
+ - **`data`**: Ideally keep data in a `.csv` format, because these simple and universal data. You may have other specialized formats as well. This is generally where original, raw data lives.
+ - **`data_output`**: This is where you save any data or analysis outputs. Any time you clean, tidy, summarize, or otherwise manipulate the data and save it out, it should end up somewhere clearly different than the raw data location.
+ - **`scripts`**: In the `r fontawesome::fa("r-project", fill="darkblue")` world, "scripts" are generally `.R` files. However, you may have `.do` files if wokring with Stata, `.py` files for Python, and so on. Using a sequential numbering file naming scheme can be useful. Remember to pad with a zero to make file sorting/ordering easy (e.g., `00_script_a.R`, `01_script_b.py`, etc).
+ - **`results`**: These may include model results, data analysis, slides, and so on. Some like to keep figures in this folder and others prefer a specific `figures` folder.
+ - **`documents`**: This is a place you can keep documents, papers, pdfs, etc. These may include files with `.docx`, `.Rmd` (for RMarkdown), `.pdf` or even `.html` extensions. 
+ 
+
+```{r workingStructure, out.width="90%", eval=T, echo=FALSE, fig.cap="*An example project folder structure*"}
+
+knitr::include_graphics("https://gge-ucd.github.io/R-DAVIS/img/working-directory-structure.png")
+
+```
+ 
+### RStudio Projects
+
+Within the R environment, something that makes project management and organization much easier is the use of RStudio Projects (`.Rproj` file). RStudio makes the use of Projects straightforward. One of the nicest parts of using **RStudio Projects** is that they automatically set the working directory to the folder containing a specified `.RProj` file. You can make any existing folder an RProject folder, or make a new one. RStudio projects are a great way to quickly and easily organize your workflows; each project can be a specific task, or a larger set of objectives you need to complete. With **RStudio Projects**, it's easy to switch between projects, or work on different projects simultaneously without much mental overload, *especially if you use the same project folder structure across each project*!
+
+<aside> Avoid using `setwd()`! More reasons and rationale [linked here](https://rstats.wtf/project-oriented-workflow.html#setwd). </aside>
+
+### Setting up an `.Rproj`
+
+Let's create an RStudio Project as part of this course that you can use throughout each module. We highly recommend that no matter what you are working on in `R`, that you try to do it within the structure of an RStudio Project!
+
+ 1. Open RStudio and navigate to the upper right-hand side where it says "**Project: (None)**". If we click on this button, we should see some options. Select **New Project**. 
+ 2. We can use either a New Directory, or setup a project in an Existing Directory. Both give similar options.
+ 3. Select "**New Project**"
+
+```{r rprojsetup1, out.width = "100%", echo=FALSE, fig.cap='*RStudio Project setup*'}
+
+knitr::include_graphics(here("images", "rproj_setup_figure.png"))
+
+```
+
+ 4. Make a new sub-directory folder (if you don't have it) under your Documents folder called: **`Rprojects`**
+ 
+<aside>
+It's a good idea to keep all your R projects in one place. You can decide if this should be in your **`~/Documents`** folder, or somewhere else (associated with a version control or cloud service like Dropbox/Box/etc).
+</aside>
+
+ 5. Finally, we can name our new project (remember no spaces in our folder/file names!): **`intro_r4wrds`**
+
+```{r rprojsetup2, out.width = "85%", echo=FALSE, fig.cap='*Make a new project named **intro_r4wrds***'}
+
+knitr::include_graphics(here("images", "rproj_new_intro-r4wrds.png"))
+
+```
+
+Great! Now we can create a folder structure in our project as discussed in the [Basic Folders for Every Project] section above. More importantly, we can also put all our [course data](https://www.r4wrds.com/intro/m_install_r#step-5.-download-workshop-datasets) into the **`data`** folder in your RStudio project, and you're ready to go!
+
+<aside>
+We can't drag and drop files from an Explorer or Finder window directly into RStudio. We can only go from Explorer to Explorer. In the **`Files`** tab, click on *More* with the little `r fontawesome::fa("cog", fill="steelblue")`, and then select "**Show Folder in New Window**".
+</aside>
 
 ## File Paths
 
@@ -49,10 +119,18 @@ In R, file paths are always wrapped in quotes. There are 2 basic kinds of file p
  
  - **Relative**: Relative paths are relative to your working directory. So if R thinks we’re in that `~/MyName/Documents/Projects/2020` folder, and we want to access a file in a folder inside it called `data`, we can type `data/my_file` instead of `~MyName/Documents/Projects/2020/data`. 
 
+The good news is if you setup an RStudio project as shown above, you can use relative filepaths with ease!
+
+### The Working Directory
+
+Our working directory *should* be the root place where our **project** lives (as shown above). You can always check what `R` thinks is the working directory with `getwd()`, and you should see the folder where your **`.Rproj`** file lives! Importantly, everything you do should be relative to that working directory. 
+
+That means we really **don't** want to use things like `setwd()` (set working directory) to locate a file or folder on our computer, or use a hard path (i.e., a full path like `C:/MyUserName/My_Documents/A_Folder_You_May_Have/But_This_One_You_Definitely_Dont/`). That's because this will pretty much **never** work on anyone's computer other than your own, and sometimes it may not even work on your own computer if you change a file name or folder! How can we make things reproducible for others, and for our future self? We advise using the `{here}` package.
+
 
 ### Using the **[{here}](https://here.r-lib.org/)** package
 
-Good news! There's a package that can make this easier. The **{here}** package makes it easy to create a path *relative* to the top-level directory (the place where your current project is or any time you call `here()`). In addition, we can use `here()` to build a relative path to a file for saving or loading. Let's say we're working in our `MyName/Documents/Projects/2020` folder.
+Good news! There's a package designed to make project-based workflows work so that code is portable between machines (i.e., you can share your project with a collaborator and they don't need to fiddle with working directories and file paths). The **{here}** package makes it easy to create a path *relative* to the top-level directory (the place where your current project is) with a single function: `here()`. In addition, we can use `here()` to build a relative path to a file for saving or loading. Let's say we're working in our `MyName/Documents/Projects/2020` folder.
 
 ```{r, eval=FALSE, echo=TRUE}
 
@@ -75,27 +153,18 @@ knitr::include_graphics("https://raw.githubusercontent.com/allisonhorst/stats-il
 
 ```
 
-## Use Project Workflows
+Using the **{here}** package means we can share our project with other folks and it will work, and if something changes around inside the project, it will remain functional and accessible.
 
-What do we mean by "using projects"? Think of a general pattern or structure that we can use for each work project we have. This approach isn't just specific to R. Any good data scientist will generally have a folder structure and organization scheme they follow, no matter what programming language they use.
+## Best Practices: Project Organization/Workflow Tips
 
-But the general idea is to always keep the same structure, and naming schemes, for every project. Do this every single time with every single project you make, in order to make it a habit. This will save you time and brainpower! Imagine quickly moving between tasks or projects with minimal time spent "*trying to find where things are and get oriented*". You'll always know where things should be!
-
-Here's some sage advice from Jenny Bryan and Jim Hester from [What They Forgot to Teach you About R](https://rstats.wtf/) (worth checking out!):
+Although there is no “best” way to lay out a project, there are some general principles to adhere to that will make project management easier. Here's some sage advice from Jenny Bryan and Jim Hester from [What They Forgot to Teach you About R](https://rstats.wtf/) (worth checking out!):
 
  - File system discipline: put all the files related to a single project in a designated folder.
  - This applies to data, code, figures, notes, etc.
  - Depending on project complexity, you might enforce further organization into subfolders.
  - Use a standard naming convention for files & folders (*no spaces!*).
- - Working directory intentionality: when working on project A, make sure working directory is set to project A’s folder.
  - Don't use absolute paths!
- - File path discipline: all paths are relative and, by default, relative to the project’s folder.
-
-### RStudio Projects
-
-Within the R environment, something that makes project management and organization much easier is the use of RStudio Projects (`.Rproj`). Within RStudio, this is baked in and pretty easy to do. One of the nicest parts of using **RProjects** is that they automatically set the working directory to the folder containing the `.RProj` file. You can make any existing folder an RProject folder, or make a new one!
-
-<aside> Avoid using `setwd()`! More reasons and rational [linked here](https://rstats.wtf/project-oriented-workflow.html#setwd) </aside>
+ - File path discipline: all paths are relative and, by default, relative to the project’s (your working directory) folder.
 
 ### Always start R as a blank slate
 
@@ -113,10 +182,6 @@ knitr::include_graphics(path="images/rstudio-workspace-default.png")
 
 
 ``` 
-
-## Best Practices: Organization Tips
-
-Although there is no “best” way to lay out a project, there are some general principles to adhere to that will make project management easier. 
 
 ### Safe File Naming
 
@@ -138,23 +203,10 @@ This is probably the most important tip for making a project reproducible and ha
 
 Anything generated by your scripts should be treated as disposable: it should all be able to be regenerated with code. Don't get attached to anything other than your raw data, and your code! There are lots of different ways to manage this output, and what’s best may depend on the particular kind of project. 
 
-### Basic Folders for Every Project
+## Summary
 
-At a minimum, it’s useful to have separate directories for each of the following:
+There are many ways to use project-based workflows in `R`. Importantly, we advise that you find a strategy that works for the majority of the work you do, and then be consistent about organizing things the same way (from folder structure to file naming). This will help folks you work with, it will help you (including your future self), and you spend less time figuring out where you are (and where the pieces you need to do work with are) and more time doing the work you need to do!
 
- - **`data`**: Ideally keep data in a `.csv` format, because these simple and universal data. You may have other specialized formats as well. This is generally where original, raw data lives.
- - **`data_output`**: This is where you save any data or analysis outputs. Any time you clean, tidy, summarize, or otherwise manipulate the data and save it out, it should end up somewhere clearly different than the raw data location.
- - **`scripts`**: In the `r icons::icon_style(icons::fontawesome("r-project"), color="darkblue")` world, this is generally `.R` files. However, maybe you have `.do` files if Stata is your thing, `.py` files for Python, etc. Using a sequential numbering file naming scheme can be useful. Remember to pad with a zero to make file sorting/ordering easy.
- - **`results`**: This could be for model results, data analysis, slides, whatever. Some folks may like to keep figures in this folder, others may like to make a specific `figures` folder.
- - **`documents`**: This is a place you can keep documents, papers, pdfs, etc. Typically where files with `.docx`, `.Rmd` (for RMarkdown), and `.pdf` or even `.html` may live.
- 
-
-```{r workingStructure, out.width="90%", eval=T, echo=FALSE, fig.cap="*An example project folder structure*"}
-
-knitr::include_graphics("https://gge-ucd.github.io/R-DAVIS/img/working-directory-structure.png")
-
-```
- 
 
 *Lesson adapted from [R-DAVIS](https://gge-ucd.github.io/R-DAVIS/index.html), Jenny Bryan and Jim Hester's [What they forgot to teach you about R](rstats.wtf), and the [Data Carpentry: R for data analysis and visualization of Ecological Data](https://datacarpentry.org/R-ecology-lesson/index.html) lessons*.
 
