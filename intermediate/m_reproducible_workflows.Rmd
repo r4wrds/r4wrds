@@ -347,7 +347,7 @@ Recall that in this case study, we want to reevaluate groundwater level trends t
 
 ### 1. Download
 
-Let's begin with the download step. Save this as `functions/f_wcr_download.R`. Notice that we add a `dir_out` argument that allows a user to specify a directory to save files to. If this path doesn't exist, we create it. Also, we allow users to specify the urls, so if case they change in the future, this function need not change.  
+Let's begin with the download step. Save this as `scripts/functions/f_wcr_download.R`. Notice that we add a `dir_out` argument that allows a user to specify a directory to save files to. If this path doesn't exist, we create it. Also, we allow users to specify the urls, so if case they change in the future, this function need not change.  
 
 ```{r f-wcr-download}
 
@@ -371,7 +371,7 @@ f_wcr_download <- function(dir_out, urls){
 
 ### 2. Read
 
-Next, the import function should be saved as `functions/f_wcr_import.R`. Let's design it so that the user provides a county and a vector of input files. The function returns a helpful message in case they don't provide a valid county. Along the way, we also provide helpful messages with `cat()` statements that print messages to the terminal as the function moves along. Messages like this are can be considered rudimentary form of logging which provides a user information on the status of a function, and may help diagnose and fix errors that may arise by showing the last place where a successful `cat()` message printed. 
+Next, the import function should be saved as `scripts/functions/f_wcr_import.R`. Let's design it so that the user provides a county and a vector of input files. The function returns a helpful message in case they don't provide a valid county. Along the way, we also provide helpful messages with `cat()` statements that print messages to the terminal as the function moves along. Messages like this are can be considered rudimentary form of logging which provides a user information on the status of a function, and may help diagnose and fix errors that may arise by showing the last place where a successful `cat()` message printed. 
 
 <aside>
 🐈 `cat()` stands for "concatenate and print". It takes any number of objects, concatenates them with a space in-between, and prints them to the console. In the function below, we add `"/n"` (newlines) to each `cat()` call so that the next `cat()` message begins on a new line in the console.  
@@ -456,7 +456,7 @@ Tuolumne, Ventura, Yolo, Yuba, ALL
 
 Next, we need to clean our data. You can imagine a much more extensive cleaning process for another dataset, but in our simple example, all we want to do is provide the user with the option to set a start and end time to filter the data by. If a start or end date is not provided, we have the function calculate the min and max date and use those.  
 
-Save the following code as `functions/f_wcr_clean.R`: 
+Save the following code as `scripts/functions/f_wcr_clean.R`: 
 
 ```{r f-wcr-clean}
 # clean wcr data
@@ -577,7 +577,7 @@ f_wcr_clean <- function(df, start_date = NULL, end_date = NULL){
 
 ### 4. Model
 
-Moving on, after cleaning, it's time to model. Save another function `functions/f_wcr_model.R` that calculates the linear model at each `SITE_CODE`:
+Moving on, after cleaning, it's time to model. Save another function `scripts/functions/f_wcr_model.R` that calculates the linear model at each `SITE_CODE`:
 
 ```{r, f-model}
 # build linear model for each unique SITE ID and
@@ -613,7 +613,7 @@ f_wcr_model <- function(df){
 
 ### 5. Visualize
 
-Next, we need to visualize and save these data. Add another function `functions/f_wcr_visualize_map.R` which creates the reproduced DWR map above. 
+Next, we need to visualize and save these data. Add another function `scripts/functions/f_wcr_visualize_map.R` which creates the reproduced DWR map above. 
 
 ```{r, f-viz-map}
 # visualize results 
@@ -653,7 +653,7 @@ f_wcr_visualize_map <- function(df, yr_min){
 
 ```
 
-Add another function `functions/f_wcr_visualize_timeseries.R` which writes a plot of the groundwater level over time, and shows its location on a map.
+Add another function `scripts/functions/f_wcr_visualize_timeseries.R` which writes a plot of the groundwater level over time, and shows its location on a map.
 
 ```{r, f-viz-timeseries}
 # visualize timeseries of groundwater level with a map
@@ -707,7 +707,7 @@ f_wcr_visualize_timeseries <- function(df, dir_out){
 
 And finally, we want to save these data. We can write another function for that, but we can also achieve that pretty simply within the control script using functional programming, so we'll do that.
 
-Now that we have functions defined, let's define one control module to download, import and clean, model, visualize, and write. Save this as a new file `code/00_control.R`.
+Now that we have functions defined, let's define one control module to download, import and clean, model, visualize, and write. Save this as a new file `scripts/00_control.R`.
 
 
 ```{r, eval = FALSE}
@@ -717,7 +717,7 @@ library(here)
 library(pathwork)
 
 # load functions
-list.files(here("functions"), full.names = TRUE, pattern = "f_wcr") %>%
+fs:dir_ls(here("functions"), regexp = "f_wcr") %>%
   walk(~source(.x))
 
 # urls for data
@@ -743,7 +743,7 @@ d <-
   # import downloaded data
   f_wcr_import(
     county   = "Sacramento",
-    files_in = list.files(data_path, full.names = TRUE)
+    files_in = fs::dir_ls(data_path)
   ) %>%
   # minor cleaning of one unreasonable value
   filter(WSE >-200) %>%

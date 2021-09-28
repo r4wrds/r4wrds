@@ -86,7 +86,7 @@ We can replace this code with a for loop and read all of these items into a `lis
 
 ```{r read-for}
 # list all files we want to read in
-files_in <- list.files(here("data", "gwl", "county"), full.names = TRUE)
+files_in <- fs::dir_ls(here("data", "gwl", "county"))
 
 # initialize a list of defined length
 l <- vector("list", length = length(files_in))
@@ -131,7 +131,7 @@ ldf <- bind_rows(l)
 ldf <- split(ldf, ldf$SITE_CODE)
 
 # loop over each list element and write a csv file
-dir.create(here("data", "gwl", "site_code"))
+fs::dir_create(here("data", "gwl", "site_code"))
 # here we make a list of files names ( names(ldf) is a vector )
 files_out <- glue::glue("{here('data', 'gwl', 'site_code', names(ldf))}.csv")
 
@@ -149,7 +149,7 @@ for(i in seq_along(ldf)){
 ```{r hide, echo = FALSE, message=FALSE, error=FALSE}
 ldf <- bind_rows(l)
 ldf <- split(ldf, ldf$SITE_CODE)
-dir.create(here("data", "gwl", "site_code"))
+fs::dir_create(here("data", "gwl", "site_code"))
 files_out <- here("data", "gwl", "site_code", 
                   paste0(names(ldf), ".csv"))
 ```
@@ -281,7 +281,7 @@ Taking things one step further, imagine you were:
 
 We could capture these transform steps in a function, store it in our `/functions` folder [as described in the project management module](m_project_management.html#strategies-to-organize-projectscode), and in this way, clean up our workspace so we can keep track of the functions applied on our data and keep our scripts short and readable.
 
-Store this in a file `/functions/f_import_clean.R`:
+Store this in a file `/scripts/functions/f_import_clean.R`:
 
 ```{r map-function-transform, eval = FALSE}
 # import dataframe, filter to observation wells, convert well 
@@ -299,13 +299,13 @@ f_import_clean_export <- function(file_in, file_out){
 Now we can `walk()` inputs over this function with ease in our main script without keeping track of loops and indices, or even the function internals, which are neatly stored in their own file.
 
 ```{r map-complex-2, eval = FALSE}
-source(here("functions", "f_import_clean_export.R"))
+source(here("scripts/functions/f_import_clean_export.R"))
 
 # create a directory to store results
-dir.create(here("results"))
+fs::dir_create(here("results"))
 
 # vectors with function args: input (.x) & output (.y) files
-files_in  <- list.files(here("data", "gwl", "county"), full.names = TRUE)
+files_in  <- fs::dir_ls(here("data", "gwl", "county"))
 files_out <- here("results", str_replace_all(basename(files_in), ".csv", ".shp"))
 
 walk2(files_in, files_out, ~f_import_clean_export(.x, .y))
