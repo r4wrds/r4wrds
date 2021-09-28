@@ -98,9 +98,6 @@ code span.wa { color: #bf0303; } /* Warning */
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
   <meta property="og:title" content="R for Water Resources Data Science: 3. Project Management &amp; Data Organization"/>
-  <meta property="og:image" content="https://r4wrds.com/./img/cover.png">
-  <meta property="og:image:width" content="1406">
-  <meta property="og:image:height" content="1146">
   <meta property="og:type" content="article"/>
   <meta property="og:description" content="Approaches towards organization and efficiency."/>
   <meta property="og:locale" content="en_US"/>
@@ -109,9 +106,6 @@ code span.wa { color: #bf0303; } /* Warning */
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
   <meta property="twitter:title" content="R for Water Resources Data Science: 3. Project Management &amp; Data Organization"/>
-  <meta property="twitter:image" content="https://r4wrds.com/./img/cover.png">
-  <meta property="twitter:image:width" content="1406">
-  <meta property="twitter:image:height" content="1146">
   <meta property="twitter:description" content="Approaches towards organization and efficiency."/>
 
   <!--/radix_placeholder_meta_tags-->
@@ -2043,7 +2037,7 @@ code span.wa { color: #bf0303; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2508,14 +2502,15 @@ hello world!
 </code></pre>
 </div>
 <pre><code>
- ----- 
-Autumn is a second spring when every leaf is a flower. - Albert Camus 
- ------ 
-    \   
+ -------------- 
+Loss is nothing else but change,and change is Natures delight. - Marcus Aurelius 
+ --------------
+    \
      \
-  &gt;&lt;((((º&gt;  &gt;&lt;((((º&gt;  &gt;&lt;((((º&gt;  &gt;&lt;((((º&gt;  &gt;&lt;((((º&gt;
-      Kiyoko Gotanda
-    </code></pre>
+      \
+         /\_/\
+        ( o.o )
+         &gt; ^ &lt;      [nosig]</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/rm.html'>rm</a></span><span class='op'>(</span><span class='va'>animals</span>, <span class='va'>quotes</span><span class='op'>)</span> <span class='co'># remove the objects we just created</span>
 </code></pre>
@@ -2530,7 +2525,7 @@ Autumn is a second spring when every leaf is a flower. - Albert Camus
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span><span class='op'>(</span><span class='st'>"USER"</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>[1] &quot;rapeek&quot;</code></pre>
+<pre><code>[1] &quot;richpauloo&quot;</code></pre>
 </div>
 <p>You can set your own environmental variables which are stored in another hidden file called <code>.Renviron</code> (this is the Python analog of <code>.env</code>). Keep in mind, <code>.Renviron</code> files typically contain lists of environmental variables that look similar to R code but it is actually not running R code…so don’t put R code in your <code>.Renviron</code> file! If we need to run R code when starting up R, we use <code>.RProfile</code>.</p>
 <p>To illustrate the use of <code>.Renviron</code>, we run <code>usethis::edit_r_environ()</code>, add the environmental variable <code>ANIMAL = "cat"</code>, save, and restart <code>R</code>.</p>
@@ -2588,7 +2583,7 @@ Autumn is a second spring when every leaf is a flower. - Albert Camus
 <p><br></p>
 <details>
 <summary class="challenge-ans-title">
-<p><font color="#0072B2"><strong>Click for Answers!</strong></font></p>
+<font color="#0072B2"><strong>Click for Answers!</strong></font>
 </summary>
 <div class="challenge-ans-body">
 <p>We can move read step of the csv into a project-level RProfile, so it’s available to the project where we need this csv, but not to any general R session we may open outside of the project.</p>
@@ -2644,7 +2639,7 @@ Autumn is a second spring when every leaf is a flower. - Albert Camus
   <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='st'>"world"</span><span class='op'>)</span>
 <span class='op'>}</span>
 
-<span class='co'># run code/functions</span>
+<span class='co'># run scripts/functions</span>
 <span class='fu'>my_first_function</span><span class='op'>(</span><span class='op'>)</span>
 <span class='fu'>my_second_function</span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
@@ -2686,7 +2681,7 @@ Autumn is a second spring when every leaf is a flower. - Albert Camus
 <p>We can call this script using <code>source()</code> to load or import these functions into our environment where they are available for use, just as we load a library.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/source.html'>source</a></span><span class='op'>(</span><span class='fu'>here</span><span class='op'>(</span><span class='st'>"functions.R"</span><span class='op'>)</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/source.html'>source</a></span><span class='op'>(</span><span class='fu'>here</span><span class='op'>(</span><span class='st'>"scripts/functions.R"</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
@@ -2695,7 +2690,7 @@ Autumn is a second spring when every leaf is a flower. - Albert Camus
 <aside>
 <p>A good rule of thumb to follow is to try and keep scripts less than 150 lines in length. When scripts approach this length, they become difficult to keep track of, and there were likely missed opportunities to refactor the script into separate functions and modules.</p>
 </aside>
-<p>Save as <strong><code>/functions/f_read_data.R</code></strong></p>
+<p>Save as <strong><code>/scripts/functions/f_read_data.R</code></strong></p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># read quotes from a url</span>
@@ -2708,7 +2703,7 @@ Autumn is a second spring when every leaf is a flower. - Albert Camus
 </code></pre>
 </div>
 </div>
-<p>Save as <strong><code>/functions/f_preprocess_data.R</code></strong></p>
+<p>Save as <strong><code>/scripts/functions/f_preprocess_data.R</code></strong></p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># paste the quote to the author</span>
@@ -2719,7 +2714,7 @@ Autumn is a second spring when every leaf is a flower. - Albert Camus
 </code></pre>
 </div>
 </div>
-<p>Save as <strong><code>/functions/f_inspire_me.R</code></strong></p>
+<p>Save as <strong><code>/scripts/functions/f_inspire_me.R</code></strong></p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># print a random animal and a random quote</span>
@@ -2735,7 +2730,7 @@ Autumn is a second spring when every leaf is a flower. - Albert Camus
 <p><img src="images/function_img.png" width="837" /></p>
 </div>
 <p>Now in our <code>/code</code> directory, we create a script, <code>01_control.R</code> to source our functions and use them. Be sure to restart <code>R</code> to clear your environment before sourcing this control script so we know we are working from a clean slate.</p>
-<p>Save as <strong><code>/code/01_control.R</code></strong> and run.</p>
+<p>Save as <strong><code>/scripts/01_control.R</code></strong> and run.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># packages needed for this script</span>
@@ -2743,7 +2738,7 @@ Autumn is a second spring when every leaf is a flower. - Albert Camus
 <span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>walk</a></span><span class='op'>(</span><span class='va'>pkgs</span>, <span class='va'>require</span>, character.only <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
 <span class='co'># silently source all functions using the purrr::walk function</span>
-<span class='va'>fns</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.files.html'>list.files</a></span><span class='op'>(</span><span class='fu'>here</span><span class='op'>(</span><span class='st'>"functions"</span><span class='op'>)</span>, full.names <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='va'>fns</span> <span class='op'>&lt;-</span> <span class='fu'>fs</span><span class='fu'>::</span><span class='fu'><a href='http://fs.r-lib.org/reference/dir_ls.html'>dir_ls</a></span><span class='op'>(</span><span class='fu'>here</span><span class='op'>(</span><span class='st'>"scripts/functions"</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>walk</a></span><span class='op'>(</span><span class='va'>fns</span>, <span class='op'>~</span><span class='kw'><a href='https://rdrr.io/r/base/source.html'>source</a></span><span class='op'>(</span><span class='va'>.x</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># define the url where quotes are located</span>
@@ -2827,12 +2822,12 @@ learn to surf. -Jon Kabat-Zinn
 </code></pre>
 </div>
 <pre><code>R version 4.1.0 (2021-05-18)
-Platform: aarch64-apple-darwin20 (64-bit)
-Running under: macOS Big Sur 11.4
+Platform: x86_64-apple-darwin17.0 (64-bit)
+Running under: macOS Catalina 10.15.7
 
 Matrix products: default
-BLAS:   /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/lib/libRblas.dylib
-LAPACK: /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/lib/libRlapack.dylib
+BLAS:   /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRblas.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRlapack.dylib
 
 locale:
 [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
@@ -2845,20 +2840,22 @@ other attached packages:
 [1] glue_1.4.2   cowsay_0.8.0 purrr_0.3.4  knitr_1.33  
 
 loaded via a namespace (and not attached):
- [1] bslib_0.2.5.1     compiler_4.1.0    pillar_1.6.1     
+ [1] bslib_0.2.5.1     compiler_4.1.0    pillar_1.6.2     
  [4] jquerylib_0.1.4   highr_0.9         tools_4.1.0      
- [7] rmsfact_0.0.3     digest_0.6.27     downlit_0.2.1    
-[10] jsonlite_1.7.2    evaluate_0.14     lifecycle_1.0.0  
-[13] tibble_3.1.2      pkgconfig_2.0.3   png_0.1-7        
-[16] rlang_0.4.11      rstudioapi_0.13   cli_3.0.1        
-[19] curl_4.3.2        distill_1.2       yaml_2.2.1       
-[22] xfun_0.24         stringr_1.4.0     fs_1.5.0         
-[25] vctrs_0.3.8       sass_0.4.0        hms_1.1.0        
-[28] rprojroot_2.0.2   here_1.0.1        R6_2.5.0         
-[31] fansi_0.5.0       rmarkdown_2.9     readr_1.4.0      
-[34] magrittr_2.0.1    usethis_2.0.1     fortunes_1.5-4   
-[37] htmltools_0.5.1.1 ellipsis_0.3.2    utf8_1.2.1       
-[40] stringi_1.7.3     crayon_1.4.1     </code></pre>
+ [7] bit_4.0.4         rmsfact_0.0.3     digest_0.6.27    
+[10] downlit_0.2.1     jsonlite_1.7.2    evaluate_0.14    
+[13] lifecycle_1.0.0   tibble_3.1.3      pkgconfig_2.0.3  
+[16] png_0.1-7         rlang_0.4.11      rstudioapi_0.13  
+[19] cli_3.0.1         curl_4.3.2        parallel_4.1.0   
+[22] distill_1.2       yaml_2.2.1        xfun_0.25        
+[25] stringr_1.4.0     fs_1.5.0          vctrs_0.3.8      
+[28] sass_0.4.0        hms_1.1.0         tidyselect_1.1.1 
+[31] bit64_4.0.5       rprojroot_2.0.2   here_1.0.1       
+[34] R6_2.5.0          fansi_0.5.0       vroom_1.5.4      
+[37] rmarkdown_2.10    tzdb_0.1.2        readr_2.0.1      
+[40] magrittr_2.0.1    usethis_2.0.1     fortunes_1.5-4   
+[43] htmltools_0.5.1.1 ellipsis_0.3.2    utf8_1.2.2       
+[46] stringi_1.7.3     crayon_1.4.1     </code></pre>
 </div>
 <p>The version number is the string of numbers listed after a package name and underscore.</p>
 <p>Similarly, you can use <code>installed.packages()</code> to view information on all of your installed packages.</p>

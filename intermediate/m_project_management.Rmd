@@ -208,11 +208,7 @@ In the example function above, we might notice that reading in a url from a csv 
 
 <details>
 
-<summary class="challenge-ans-title">
-
-<font color="#0072B2">**Click for Answers!**</font>
-
-</summary>
+<summary class="challenge-ans-title"><font color="#0072B2">**Click for Answers!**</font></summary>
 
 ::: {.challenge-ans-body}
 We can move read step of the csv into a project-level RProfile, so it's available to the project where we need this csv, but not to any general R session we may open outside of the project.
@@ -271,7 +267,7 @@ my_second_function <- function(){
   print("world")
 }
 
-# run code/functions
+# run scripts/functions
 my_first_function()
 my_second_function()
 ```
@@ -316,7 +312,7 @@ We can call this script using `source()` to load or import these functions into 
 
 ```{r source, eval = FALSE}
 
-source(here("functions.R"))
+source(here("scripts/functions.R"))
 
 ```
 
@@ -330,7 +326,7 @@ A good rule of thumb to follow is to try and keep scripts less than 150 lines in
 
 </aside>
 
-Save as **`/functions/f_read_data.R`**
+Save as **`/scripts/functions/f_read_data.R`**
 
 ```{r functions-r-1, eval = FALSE}
 
@@ -343,7 +339,7 @@ f_read_data <- function(url){
 }
 ```
 
-Save as **`/functions/f_preprocess_data.R`**
+Save as **`/scripts/functions/f_preprocess_data.R`**
 
 ```{r functions-r-2, eval = FALSE}
 # paste the quote to the author
@@ -353,7 +349,7 @@ f_preprocess_data <- function(d){
 }
 ```
 
-Save as **`/functions/f_inspire_me.R`**
+Save as **`/scripts/functions/f_inspire_me.R`**
 
 ```{r functions-r-3, eval = FALSE}
 # print a random animal and a random quote
@@ -371,7 +367,7 @@ knitr::include_graphics(here::here("images","function_img.png"))
 
 Now in our `/code` directory, we create a script, `01_control.R` to source our functions and use them. Be sure to restart `R` to clear your environment before sourcing this control script so we know we are working from a clean slate.
 
-Save as **`/code/01_control.R`** and run.
+Save as **`/scripts/01_control.R`** and run.
 
 ```{r source-functions-in-folder, eval=FALSE}
 # packages needed for this script
@@ -379,7 +375,7 @@ pkgs <- c("readr", "cowsay", "here", "tidyverse", "glue")
 walk(pkgs, require, character.only = TRUE)
 
 # silently source all functions using the purrr::walk function
-fns <- list.files(here("functions"), full.names = TRUE)
+fns <- fs::dir_ls(here("scripts/functions"))
 walk(fns, ~source(.x))
 
 # define the url where quotes are located
