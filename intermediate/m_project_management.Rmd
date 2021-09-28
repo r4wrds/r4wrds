@@ -365,7 +365,7 @@ The `functions` folder in the root project directory should now look like this:
 knitr::include_graphics(here::here("images","function_img.png"))
 ```
 
-Now in our `/code` directory, we create a script, `01_control.R` to source our functions and use them. Be sure to restart `R` to clear your environment before sourcing this control script so we know we are working from a clean slate.
+Now in our `/scripts` directory, we create a script, `01_control.R` to source our functions and use them. Be sure to restart `R` to clear your environment before sourcing this control script so we know we are working from a clean slate.
 
 Save as **`/scripts/01_control.R`** and run.
 
