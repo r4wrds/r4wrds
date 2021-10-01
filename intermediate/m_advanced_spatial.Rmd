@@ -62,26 +62,31 @@ The `{sf}` package truly makes working with vector-based spatial data easy. We c
 
 There are many more options that can be added or subtracted from these pieces, but at the core, we can use this very functional approach to provide data, make maps, conduct analysis, and so much more.
 
-# A Climate/Hydrology Example
+# A Groundwater/Surfacewater Hydrology Example
 
-Let's use an example where we take global climate data, crop it to an area of interest, join it to additional data, and finally, write it back out a few counties of interest in California (Yolo, Sacramento, San Joaquin, Sutter).
+Let's use an example where we read in some groundwater station data, spatially find the closest surface water stations, download some river data, and visualize!
 
 ## The Packages
 
+First we'll need a few packages we've not used yet. Please install these with `install.packages()` if you don't have them.
+
 ```{r packages}
 
-library(here)
-library(sf)
-library(dplyr)
-library(readr)
-library(viridis)
-library(ggplot2)
-library(USAboundaries)
-library(rnaturalearth)
-library(GSODR)
-library(cowplot)
-library(mapview)      # interactive maps!
-mapviewOptions(fgb = FALSE)
+# GENERAL PACKAGES
+library(here) # path management
+library(tidyverse) # data wrangling & viz
+library(cowplot) # plotting & data viz
+library(purrr) # iteration
+
+# SPATIAL PACKAGES
+library(sf) # analysis tools
+library(mapview)  # interactive maps!
+mapviewOptions(fgb = FALSE) # to save interactive maps
+# devtools::install_github("UrbanInstitute/urbnmapr")
+library(urbnmapr) # county & state boundaries
+library(dataRetrieval) # download USGS river data
+library(tmap) # mapping
+library(tmaptools) # mapping tools
 
 ```
 
@@ -91,121 +96,146 @@ We'll leverage the ability to pull in many different data and stitch them all to
 
 ### Get State & County Data
 
-First we need state and county boundaries. The `{USAboundaries}` package is excellent for this.
+First we need state and county boundaries. The `{urbnmapr}` package is excellent for this.
 
 ```{r boundaries}
 
 # get USA states, filter out Puerto Rico, Alaska, and Hawaii for now
-us <- USAboundaries::us_boundaries(type = "state", resolution = "low") %>% 
-  filter(!state_abbr %in% c("PR", "AK", "HI"))
-
-# get CA boundary with high definition
-ca <- USAboundaries::us_states(resolution = "high", states = "CA")
-
-# make a box around CA (a grid with an n=1) for inset
-ca_box <- st_make_grid(ca, n = 1)
+ca <- urbnmapr::get_urbn_map(map="states", sf=TRUE) %>% 
+  filter(state_abbv == "CA")
+# warning is ok!
 
 # get CA county boundary
-ca_co <- USAboundaries::us_counties(resolution = "high", states = "CA")
+ca_co <- urbnmapr::get_urbn_map(map = "counties", sf=TRUE) %>% 
+  filter(state_abbv == "CA")
+
+```
+
+Let's also pull in a shapefile that's just Sacramento County. We'll use this to crop/trim things down as we move forward. Note, we'll need to check the coordinate reference system and projection here, and make sure we are matching our spatial data.
+
+```{r sac-co}
+
+# get just sacramento: here we read in a shapefile:
+sac_co <- st_read(here("data/shp/sac/sac_county.shp"))
+
+# check CRS
+st_crs(sac_co)$epsg
+
+# match with other data
+sac_co <- st_transform(sac_co, st_crs(ca_co))
+st_crs(sac_co) == st_crs(ca_co) # should be TRUE!
+
+# make a box around sacramento county
+# (a grid with an n=1) for inset
+sac_box <- st_make_grid(sac_co, n = 1)
+
+```
+
+And let's quickly visualize these pieces! We'll use the base `plot()` functions here.
+
+```{r map1}
 
 # make sure we have all the pieces with a quick test plot
-plot(us$geometry)
-plot(ca$geometry, add = T, col = "gray50", border = "maroon")
-plot(ca_co$geometry, add = T, border = "pink", col = NA)
-plot(ca_box, add = T, border = "red3", col = NA, lwd = 2)
+plot(ca$geometry, col = alpha("gray", 0.5), border = "black", lwd=2)
+plot(ca_co$geometry, add = T, border = "purple", col = NA)
+plot(sac_co$geometry, add = T, border = "cyan4", col = "skyblue",alpha=0.4, lwd = 2)
+plot(sac_box, add = T, border = "orange", col = NA, lwd = 1.4)
 
 ```
 
-### Get Climate Data from the [GSODR](https://ropensci.github.io/GSODR/)
+### Iterate and Get Groundwater Stations
 
-Next let's take historical global climate data stations (Global Surface Summary of the Day = GSOD[^1]) and filter to stations that are just in California.
+Let's practice our iteration skills. We'll read in groundwater stations for 3 counties (*El Dorado*, *Placer*, and *Sacramento*), convert to {sf} objects, plot them, and then crop/select a subset of stations using spatial intersection.
 
-[^1]:  For more about the GSOD data, see NOAA's site [here](https://www.ncei.noaa.gov/access/metadata/landing-page/bin/iso?id=gov.noaa.ncdc:C00516).
+Iteration...remember {`purrr`}? Let's use it here!
 
-```{r gsod}
+```{r get-stations}
 
-# load the isd_history file (which ships with {GSODR}):
-load(system.file("extdata", "isd_history.rda", package = "GSODR"))
+# read the stations
+gw_files <- list.files(path = here("data/gwl/county"),full.names = TRUE, pattern = "*.csv")
 
-# make spatial
-isd_history <- as.data.frame(isd_history) %>% 
-  st_as_sf(coords = c("LON", "LAT"), crs = 4326, remove = FALSE)  
+# read all files into dataframes and combine with purrr
+gw_df <- map_df(gw_files, ~read.csv(.x))
 
-# filter to US and CA, many sites out in buoys along coast
-isd_history_ca <- dplyr::filter(isd_history, CTRY == "US", STATE == "CA")
+# the readr package will also do this same thing by default
+# when passed a list of files with the same data types
+gw_df <- read_csv(gw_files)
 
-```
+# now make "spatial" as sf objects
+gw_df <- st_as_sf(gw_df, coords=c("LONGITUDE","LATITUDE"), crs=4326, remove=FALSE) %>% 
+  # and transform!
+  st_transform(., st_crs(ca_co))
 
-Now let's plot all the stations globally and see what we have. Here we can leverage the many points to actually help fill out our global outlines a bit (there are `r nrow(isd_history)` stations to work with!).
-
-```{r plotWorldISD, layout="l-page"}
-
-# view!
-library(rnaturalearth)
-library(rnaturalearthdata)
-
-# get countries
-world <- ne_countries(scale = "medium", returnclass = "sf")
-
-# plot
-plot(isd_history$geometry, pch = 16, cex = 0.2, col = "gray50")
-plot(world$geometry, add = T, border = "gray10")
-plot(ca$geometry, col = "maroon", add = TRUE)
-title("GSOD Climate Stations")
+# preview!
+mapview(gw_df, zcol="COUNTY_NAME") + mapview(sac_co)
 
 ```
+
+Hmmm...looks like there are some stations up near Lake Tahoe, and then all the stations that are outside of the Sacramento County boundary. Let's move on to do some cleaning/cropping/joining.
 
 ## Filter, Select, & Spatial Joins
 
-Next we can zoom into just California. There are `r nrow(isd_history_ca)` total stations we can work with, but not all counties have stations.
+We could certainly leverage the `data.frame` aspect of `{sf}` and quickly filter down to the stations of interest using the `COUNTY_NAME` field. 
 
-```{r CAISD, layout="l-page"}
+:::challenge
 
-# look at CA sites only
-plot(ca$geometry, col = alpha("gray", 0.5), border = "#440154FF", lwd = 1.5)
-plot(ca_co$geometry, add = T, border = "purple", col = NA)
-plot(isd_history_ca$geometry, add = T, pch = 21, bg = "#21908CFF", 
-     cex = 0.7, col = "black")
-title("GSOD Climate Stations labeled as CA")
+<font color="#009E73">**You Try!**</font> 
+
+<p style="line-height: 1.5em;">
+
+Use `filter()` to filter our `gw_df` dataframe to only stations that occur in Sacramento County. Then make a `mapview()` map and make the color of the dots correspond with the different `WELL_USE` categories. How many stations are there in each `WELL_USE` category?
+
+</p>
+
+<br>
+
+<details>
+  <summary class="challenge-ans-title"><font color="#0072B2">**Click for Answers!**</font></summary>
+  <div class="challenge-ans-body">
+  
+```{r}
+
+gw_sac <- gw_df %>% 
+  filter(COUNTY_NAME == "Sacramento")
+
+table(gw_sac$WELL_USE)
+
+mapview(gw_sac, zcol="WELL_USE")
+
 ```
 
-We can leverage the `data.frame` aspect of `{sf}` and quickly filter down to the counties of interest (Stanislaus, San Joaquin, Sacramento, and Sutter), and select a single station from each county that has a station.
 
-First we filter to 4 specific counties, then we can use a spatial join to merge the information associated with the climate data stations. Note, we are using a spatial join here and selecting polygons (`counties`) that contain points (`GSOD stations`).
+  </div>
+</details>
+:::
 
-We can also use an anti_join (the `!`) to find counties that contain *no* stations. These operations can be helpful when exploring and understanding a dataset, to identify gaps, highlight specific areas, etc.
+Great! But what if we don't have the exact column we want, or any column at all? We may only have spatial data, and we want to trim/crop by *other* spatial data. Time for **spatial** operations.
+
+First, we can use the basic `[]` to subset/crop our data.
+
+```{r spCrop}
+
+# spatial crop: 
+# # does not bring attributes from polygons forward
+gw_sac_join1 <- gw_sac[sac_co,]
+
+```
+
+We can also use an anti_join (the `!`) to find the stations that  weren't contained in our focal area. These operations can be helpful when exploring and understanding a dataset, to identify gaps, highlight specific areas, etc.
 
 ```{r spatial-join1, layout="l-page"}
 
-# get specific counties
-ca_co_select <- ca_co %>% filter(name %in% 
-                                   c("Sacramento",
-                                     "San Joaquin", 
-                                     "Sutter"))
-
-# check CRS is the same
-identical(st_crs(ca_co_select)$epsg, st_crs(isd_history)$epsg)
-
-# SPATIAL JOIN: Get CA county POLYGONS that contain ISD points 
-# does not bring attributes from points forward
-ca_co_isd_poly <- ca_co_select[isd_history_ca, ]
-
-# anti_join: find counties that don't contain ISD points
-ca_co_poly_anti <- ca_co[!lengths(st_intersects(ca_co, isd_history_ca)), ]
+# anti_join: find stations that aren't contained in Sacramento Cnty
+gw_sac_anti <- gw_df[!lengths(st_intersects(gw_df, sac_co)), ]
 
 # plot of all CA counties with and without ISD stations
 plot(ca_co$geometry, col = alpha("gray70", 0.3))
-#plot(ca_co_select$geometry, col = alpha("gray", 0.3))
-plot(ca_co_poly_anti$geometry, col = alpha("purple", 0.3), add = TRUE)
-plot(ca_co_isd_poly$geometry, col = alpha("forestgreen", 0.6), add = TRUE)
-plot(isd_history_ca$geometry, add = T, pch = 21, bg = "yellow", 
-     cex = 0.5, col = "black")
-title("Counties with GSOD ISD Stations (green)\n No Stations (purple)")
+plot(gw_sac_anti$geometry, col = alpha("purple", 0.3), add = TRUE)
+plot(sac_co$geometry, col = alpha("forestgreen", 0.6), add = TRUE)
+title("GW Stations (purple) \nthat do not occur in Sacramento County")
 ```
 
-The map above shows there are 2 counties (green polygons) from our focus list that have GSOD stations. Let's find out some more info on the specific stations from our counties of interest, and pull one station per county. In this case, let's pull the station that has the most data (or longest period of time), so we can join these data to the nearest groundwater station.
-
-We can also use `st_join()` directly to filter for points that fall within a supplied polygon(s). In our case, we want GSOD stations (points) that fall within our selected counties (polygons).
+We can also use `st_join()` directly to filter for points that fall within a supplied polygon(s). In our case, we want groundwater stations (points) that fall within our selected counties (polygons).
 
 <aside>
 
@@ -215,12 +245,14 @@ When can also spatially join 2 `{sf}` dataframes, with `[ ]` notation as shown i
 
 ```{r spatial-join2}
 
-isd_select <- st_join(isd_history_ca, ca_co_isd_poly, left = FALSE)
+gw_sac_join2 <- st_join(gw_df, sac_co, left = FALSE)
 
-mapview(isd_select, zcol = "name", layer.name = "County") +
-  mapview(ca_co_isd_poly, alpha = 0.5, legend = FALSE)
+mapview(gw_sac_join2) +
+  mapview(sac_co, alpha = 0.5, legend = FALSE)
 
 ```
+
+Note, what's different between `gw_df` and `gw_sac_join1`?
 
 ## Writing Spatial Data Out
 
@@ -273,6 +305,10 @@ We use `map2()` here, but can also use `walk2()`, which is a "silent" map that d
 (clean_cnty_names <- make_clean_names(ca_co_isd_poly$name))
 
 ```
+
+
+###################################
+
 
 To make sure this worked as intended, we can check what layers exist in each of these geopackages with the `st_layers` function.
 
