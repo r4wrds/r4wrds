@@ -14,11 +14,6 @@ creative_commons: CC BY
 ```{r setup, include=FALSE, purl=FALSE, message=FALSE}
 
 library(knitr)
-library(glue)
-library(here)
-library(purrr)
-library(janitor)
-
 
 ```
 
@@ -49,7 +44,7 @@ For example, some common tasks may include:
 -   Integrating or spatial joining of datasets
 -   Reprojecting spatial data
 
-### The power of script-based analyses with `{sf}`
+### Script-based analyses with `{sf}`
 
 The `{sf}` package truly makes working with vector-based spatial data easy. We can use a pipeline that includes:
 
@@ -62,26 +57,34 @@ The `{sf}` package truly makes working with vector-based spatial data easy. We c
 
 There are many more options that can be added or subtracted from these pieces, but at the core, we can use this very functional approach to provide data, make maps, conduct analysis, and so much more.
 
-# A Climate/Hydrology Example
+# A Groundwater/Surfacewater Hydrology Example
 
-Let's use an example where we take global climate data, crop it to an area of interest, join it to additional data, and finally, write it back out a few counties of interest in California (Yolo, Sacramento, San Joaquin, Sutter).
+Let's use an example where we read in some groundwater station data, spatially find the closest surface water stations, download some river data, and visualize!
 
 ## The Packages
 
+First we'll need a few packages we've not used yet. Please install these with `install.packages()` if you don't have them.
+
 ```{r packages}
 
-library(here)
-library(sf)
-library(dplyr)
-library(readr)
-library(viridis)
-library(ggplot2)
-library(USAboundaries)
-library(rnaturalearth)
-library(GSODR)
-library(cowplot)
-library(mapview)      # interactive maps!
-mapviewOptions(fgb = FALSE)
+# GENERAL PACKAGES
+library(here) # path management
+library(tidyverse) # data wrangling & viz
+library(purrr) # iteration
+library(janitor) # name cleaning
+library(glue) # pasting stuff together
+library(here) # file paths
+
+# SPATIAL PACKAGES
+library(sf) # analysis tools
+library(mapview)  # interactive maps!
+mapviewOptions(fgb = FALSE) # to save interactive maps
+# devtools::install_github("UrbanInstitute/urbnmapr")
+library(urbnmapr) # county & state boundaries
+library(units) # for convert spatial and other units
+library(dataRetrieval) # download USGS river data
+library(tmap) # mapping
+library(tmaptools) # mapping tools
 
 ```
 
@@ -91,136 +94,189 @@ We'll leverage the ability to pull in many different data and stitch them all to
 
 ### Get State & County Data
 
-First we need state and county boundaries. The `{USAboundaries}` package is excellent for this.
+First we need state and county boundaries. The `{urbnmapr}` package is excellent for this.
 
 ```{r boundaries}
 
-# get USA states, filter out Puerto Rico, Alaska, and Hawaii for now
-us <- USAboundaries::us_boundaries(type = "state", resolution = "low") %>% 
-  filter(!state_abbr %in% c("PR", "AK", "HI"))
-
-# get CA boundary with high definition
-ca <- USAboundaries::us_states(resolution = "high", states = "CA")
-
-# make a box around CA (a grid with an n=1) for inset
-ca_box <- st_make_grid(ca, n = 1)
+# get CA
+ca <- urbnmapr::get_urbn_map(map="states", sf=TRUE) %>% 
+  filter(state_abbv == "CA")
+# warning is ok!
 
 # get CA county boundary
-ca_co <- USAboundaries::us_counties(resolution = "high", states = "CA")
+ca_co <- urbnmapr::get_urbn_map(map = "counties", sf=TRUE) %>% 
+  filter(state_abbv == "CA")
+
+```
+
+Let's also pull in a shapefile that's just Sacramento County. We'll use this to crop/trim things down as we move forward. Note, we'll need to check the coordinate reference system and projection here, and make sure we are matching our spatial data.
+
+```{r sac-co}
+
+# get just sacramento: here we read in a shapefile:
+sac_co <- st_read(here("data/shp/sac/sac_county.shp"))
+
+# check CRS
+st_crs(sac_co)$epsg
+
+# match with other data
+sac_co <- st_transform(sac_co, st_crs(ca_co))
+st_crs(sac_co) == st_crs(ca_co) # should be TRUE!
+
+# make a box around sacramento county
+# (a grid with an n=1) for inset
+sac_box <- st_make_grid(sac_co, n = 1)
+
+```
+
+And let's quickly visualize these pieces! We'll use the base `plot()` functions here.
+
+```{r map1, layout="l-page"}
 
 # make sure we have all the pieces with a quick test plot
-plot(us$geometry)
-plot(ca$geometry, add = T, col = "gray50", border = "maroon")
-plot(ca_co$geometry, add = T, border = "pink", col = NA)
-plot(ca_box, add = T, border = "red3", col = NA, lwd = 2)
+plot(ca$geometry, col = alpha("gray", 0.5), border = "black", lwd=2)
+plot(ca_co$geometry, add = T, border = "purple", col = NA)
+plot(sac_co$geometry, add = T, border = "cyan4", col = "skyblue",alpha=0.4, lwd = 2)
+plot(sac_box, add = T, border = "orange", col = NA, lwd = 1.4)
 
 ```
 
-### Get Climate Data from the [GSODR](https://ropensci.github.io/GSODR/)
+### Iterate: Get Groundwater Stations
 
-Next let's take historical global climate data stations (Global Surface Summary of the Day = GSOD[^1]) and filter to stations that are just in California.
+Let's practice our iteration skills. We'll read in groundwater stations for 3 counties (*El Dorado*, *Placer*, and *Sacramento*), convert to {sf} objects, plot them, and then crop/select a subset of stations using spatial intersection.
 
-[^1]:  For more about the GSOD data, see NOAA's site [here](https://www.ncei.noaa.gov/access/metadata/landing-page/bin/iso?id=gov.noaa.ncdc:C00516).
+Iteration...remember {`purrr`}? Let's use it here!
 
-```{r gsod}
+```{r get-stations}
 
-# load the isd_history file (which ships with {GSODR}):
-load(system.file("extdata", "isd_history.rda", package = "GSODR"))
+# read the stations
+gw_files <- list.files(path = here("data/gwl/county"),
+                       full.names = TRUE, pattern = "*.csv")
 
-# make spatial
-isd_history <- as.data.frame(isd_history) %>% 
-  st_as_sf(coords = c("LON", "LAT"), crs = 4326, remove = FALSE)  
+# read all files into dataframes and combine with purrr
+gw_df <- map_df(gw_files, ~read.csv(.x))
 
-# filter to US and CA, many sites out in buoys along coast
-isd_history_ca <- dplyr::filter(isd_history, CTRY == "US", STATE == "CA")
+# the readr package will also do this same thing by default
+# when passed a list of files with the same data types
+gw_df <- read_csv(gw_files)
 
-```
+# now make "spatial" as sf objects
+gw_df <- st_as_sf(gw_df, coords=c("LONGITUDE","LATITUDE"), 
+                  crs=4326, remove=FALSE) %>% 
+  # and transform!
+  st_transform(., st_crs(ca_co))
 
-Now let's plot all the stations globally and see what we have. Here we can leverage the many points to actually help fill out our global outlines a bit (there are `r nrow(isd_history)` stations to work with!).
-
-```{r plotWorldISD, layout="l-page"}
-
-# view!
-library(rnaturalearth)
-library(rnaturalearthdata)
-
-# get countries
-world <- ne_countries(scale = "medium", returnclass = "sf")
-
-# plot
-plot(isd_history$geometry, pch = 16, cex = 0.2, col = "gray50")
-plot(world$geometry, add = T, border = "gray10")
-plot(ca$geometry, col = "maroon", add = TRUE)
-title("GSOD Climate Stations")
+# preview!
+mapview(gw_df, zcol="COUNTY_NAME", layer.name="GW Stations") +
+  mapview(sac_co, legend=FALSE)
 
 ```
+
+Hmmm...looks like there are some stations up near Lake Tahoe, and then all the stations that are outside of the Sacramento County boundary. Let's move on to do some cleaning/cropping/joining.
 
 ## Filter, Select, & Spatial Joins
 
-Next we can zoom into just California. There are `r nrow(isd_history_ca)` total stations we can work with, but not all counties have stations.
+One of the more common spatial operations is filtering or clipping data based on a condition or another spatial layer.
 
-```{r CAISD, layout="l-page"}
+Often to complete a geospatial operation, we need to use a projected coordinate reference system[^3] (not latitude/longitude), so we can specify things in units that are easier to understand (kilometers or miles) instead of arc degrees, and so that the calculations take place correctly. Note, here we have transformed our data to match up.
 
-# look at CA sites only
-plot(ca$geometry, col = alpha("gray", 0.5), border = "#440154FF", lwd = 1.5)
-plot(ca_co$geometry, add = T, border = "purple", col = NA)
-plot(isd_history_ca$geometry, add = T, pch = 21, bg = "#21908CFF", 
-     cex = 0.7, col = "black")
-title("GSOD Climate Stations labeled as CA")
+[^3]: A discussion on coordinate reference systems is a complex topic in and of itself, and for the purposes of this module, we summarize it as follows: A geographic CRS is **round** and based on *angular units* of degrees (lat/lng), whereas a projected CRS is **flat** and has *linear* units (meters or feet). Many functions in `{sf}` that make calculations on data expect a projected CRS, and can return inaccurate results if an object in a geographic CRS is used. This is a fascinating topic with lots written about it! For more reading see this [Esri blog](https://www.esri.com/arcgis-blog/products/arcgis-pro/mapping/gcs_vs_pcs/), the Data Carpentry [geospatial lesson](https://datacarpentry.org/organization-geospatial/03-crs/), and the [online Geocomputation with R book](https://geocompr.robinlovelace.net/reproj-geo-data.html).
+
+
+### Filter
+
+We could certainly leverage the `data.frame` aspect of `{sf}` and quickly filter down to the stations of interest using the `COUNTY_NAME` field. 
+
+:::challenge
+
+<font color="#009E73">**You Try!**</font> 
+
+<p style="line-height: 1.5em;">
+
+Use `filter()` to filter our `gw_df` dataframe to only stations that occur in Sacramento County. Then make a `mapview()` map and make the color of the dots correspond with the different `WELL_USE` categories. How many stations are there in each `WELL_USE` category?
+
+</p>
+
+<br>
+
+<details>
+  <summary class="challenge-ans-title"><font color="#0072B2">**Click for Answers!**</font></summary>
+  <div class="challenge-ans-body">
+  
+```{r}
+
+gw_sac <- gw_df %>% 
+  filter(COUNTY_NAME == "Sacramento")
+
+table(gw_sac$WELL_USE)
+
+mapview(gw_sac, zcol="WELL_USE", layer.name="Well Use")
+
 ```
 
-We can leverage the `data.frame` aspect of `{sf}` and quickly filter down to the counties of interest (Stanislaus, San Joaquin, Sacramento, and Sutter), and select a single station from each county that has a station.
 
-First we filter to 4 specific counties, then we can use a spatial join to merge the information associated with the climate data stations. Note, we are using a spatial join here and selecting polygons (`counties`) that contain points (`GSOD stations`).
+  </div>
+</details>
+:::
 
-We can also use an anti_join (the `!`) to find counties that contain *no* stations. These operations can be helpful when exploring and understanding a dataset, to identify gaps, highlight specific areas, etc.
+### Spatial Crop
 
-```{r spatial-join1, layout="l-page"}
+Great! But what if we don't have the exact column we want, or any column at all? We may only have spatial data, and we want to trim/crop by *other* spatial data. Time for **spatial** operations.
 
-# get specific counties
-ca_co_select <- ca_co %>% filter(name %in% 
-                                   c("Sacramento",
-                                     "San Joaquin", 
-                                     "Sutter"))
+First, we can use base `[]` to crop our data. Here we take the dataset we want to crop or clip (`gw_sac`) and crop by the Sacramento county polygon (`sac_co`). This is a type of spatial join, but note, we retain the same number of columns in the data.
 
-# check CRS is the same
-identical(st_crs(ca_co_select)$epsg, st_crs(isd_history)$epsg)
+```{r spCrop}
 
-# SPATIAL JOIN: Get CA county POLYGONS that contain ISD points 
-# does not bring attributes from points forward
-ca_co_isd_poly <- ca_co_select[isd_history_ca, ]
+# spatial crop: 
+# # does not bring attributes from polygons forward
+gw_sac_join1 <- gw_df[sac_co,]
 
-# anti_join: find counties that don't contain ISD points
-ca_co_poly_anti <- ca_co[!lengths(st_intersects(ca_co, isd_history_ca)), ]
+plot(sac_co$geometry, col = alpha("forestgreen", 0.6))
+plot(gw_sac_join1$geometry, bg = alpha("orange", 0.3), pch=21, add = TRUE)
+title("GW Stations (orange) \nthat occur in Sacramento County")
 
-# plot of all CA counties with and without ISD stations
-plot(ca_co$geometry, col = alpha("gray70", 0.3))
-#plot(ca_co_select$geometry, col = alpha("gray", 0.3))
-plot(ca_co_poly_anti$geometry, col = alpha("purple", 0.3), add = TRUE)
-plot(ca_co_isd_poly$geometry, col = alpha("forestgreen", 0.6), add = TRUE)
-plot(isd_history_ca$geometry, add = T, pch = 21, bg = "yellow", 
-     cex = 0.5, col = "black")
-title("Counties with GSOD ISD Stations (green)\n No Stations (purple)")
 ```
 
-The map above shows there are 2 counties (green polygons) from our focus list that have GSOD stations. Let's find out some more info on the specific stations from our counties of interest, and pull one station per county. In this case, let's pull the station that has the most data (or longest period of time), so we can join these data to the nearest groundwater station.
 
-We can also use `st_join()` directly to filter for points that fall within a supplied polygon(s). In our case, we want GSOD stations (points) that fall within our selected counties (polygons).
+### Spatial Join
 
-<aside>
+We can also use `st_join()` directly to filter for points that fall within a supplied polygon(s). In our case, we want groundwater stations (points) that fall within our selected counties (polygons).
 
-When can also spatially join 2 `{sf}` dataframes, with `[ ]` notation as shown in the county joins above. `st_join()` and `[ ]` are equivalent when spatial data share the same CRS.
-
-</aside>
 
 ```{r spatial-join2}
 
-isd_select <- st_join(isd_history_ca, ca_co_isd_poly, left = FALSE)
+gw_sac_join2 <- st_join(gw_df, sac_co, left = FALSE)
 
-mapview(isd_select, zcol = "name", layer.name = "County") +
-  mapview(ca_co_isd_poly, alpha = 0.5, legend = FALSE)
+mapview(gw_sac_join2, col.region="orange", legend=FALSE) +
+  mapview(sac_co, alpha = 0.5, legend = FALSE)
 
 ```
+
+Note, what's different between `gw_df` and `gw_sac_join1`?
+
+<aside>
+
+`st_join` joins the data spatially, but it also **brings the attributes** along with it. Note all the county columns from `gw_df` now appear in the `gw_sac_join2`
+
+</aside>
+
+We can also use an anti_join (the `!`) to find the stations that  weren't contained in our focal area. These operations can be helpful when exploring and understanding a dataset, to identify gaps, highlight specific areas, etc. `st_intersects` returns a vector of items based on whether the two spatial objects intersect (which can be defined differently using a multitude of spatial functions, see the [sf help page](https://r-spatial.github.io/sf/reference/geos_binary_pred.html)).
+
+```{r anti-join, layout="l-page"}
+
+# anti_join: find stations that aren't contained in Sacramento County
+gw_sac_anti <- gw_df[!lengths(st_intersects(gw_df, sac_co)), ]
+
+# plot
+mapview(gw_sac_anti, 
+        col.regions="maroon", cex=3, 
+        layer.name="Anti-Join Sites") + 
+  mapview(sac_co, alpha.regions=0, 
+          color="black", lwd=3, legend=FALSE)
+
+```
+
+
 
 ## Writing Spatial Data Out
 
@@ -228,39 +284,28 @@ We may want to save these data and send to colleagues before we proceed with fur
 
 [^2]: See the [iteration module](m_iteration.html#map) for an example of iterating over a write function.
 
-Let's use the `{purrr}` package to iterate over two different lists and write them to a geopackage (a self contained spatial database). Geopackages are a great way to save vector-based spatial data, they can be read by ArcGIS and spatial software, and they are compact and self-contained (unlike shapefiles).
+Let's use the `{purrr}` package to iterate over a lists and write each layer to a geopackage (a self contained spatial database). Geopackages are a great way to save vector-based spatial data, they can be read by ArcGIS and spatial software, and they are compact and self-contained (unlike shapefiles).
 
-```{r gpkg, echo=TRUE, eval=FALSE}
+```{r gpkg, echo=TRUE, eval=TRUE}
+
 library(purrr)
 library(glue)
 library(janitor)
 
-# first split ISD data by county:
-isd_select_split <- isd_select %>% 
-  rename(cnty_name = name) %>% # avoid duplicate names
-  group_split(cnty_name) # split by cnty name
-
-# split county data by county
-ca_co_select_split <- ca_co_isd_poly %>% 
-  rename(cnty_name = name) %>% # avoid duplicate names
-  group_split(cnty_name) # split by cnty name
-
-# make a list of clean names with janitor pkg
-clean_cnty_names <- make_clean_names(ca_co_isd_poly$name)
+# first split our gw_df data by county:
+gw_df_split <- gw_df %>% 
+  split(.$COUNTY_NAME) %>% # split by cnty name 
+  set_names(., make_clean_names(names(.))) # make a file friendly name
 
 # now apply function to write out points by county
-map2(isd_select_split, # list of points
-     clean_cnty_names, # list of cnty names
+map2(gw_df_split, # list of points by county
+     names(gw_df_split), # list of names for layers
      ~st_write(.x, 
-               dsn = glue("data/{.y}_gsod.gpkg"),
-               layer = glue("{.y}_isd_pts")))
-
-# to add additional layers we can do the same with a diff layer
-map2(ca_co_select_split, # list of points
-     clean_cnty_names, #list of cnty names
-     ~st_write(.x, 
-               dsn = glue("data/{.y}_gsod.gpkg"),
-               layer = glue("{.y}_isd_cnty")))
+               dsn = here("data/county_gw_pts.gpkg"),
+               layer = glue("{.y}_gw_pts"), 
+               delete_layer=TRUE, # to remove layer if it exists
+               quiet = TRUE) # suppress messages
+     )
 
 ```
 
@@ -269,292 +314,140 @@ map2(ca_co_select_split, # list of points
 We use `map2()` here, but can also use `walk2()`, which is a "silent" map that doesn't print any output to the console.
 </aside>
 
-```{r, include=FALSE}
-(clean_cnty_names <- make_clean_names(ca_co_isd_poly$name))
 
-```
-
-To make sure this worked as intended, we can check what layers exist in each of these geopackages with the `st_layers` function.
+To make sure this worked as intended, we can check what layers exist in the geopackage with the `st_layers` function.
 
 ```{r stLayers}
 
-# check layers in one of gpkg files:
-map(c("sacramento", "san_joaquin"), 
-    ~st_layers(glue("data/{.x}_gsod.gpkg")))
+# check layers in the gpkg file
+st_layers(here("data/county_gw_pts.gpkg"))
+
 
 ```
 
-```{=html}
-<!--
 
-formative quiz here: mult choice with other options to place on line 269:
- - clean_cnty_names
- - ca_co_isd_poly
- - ca_co$name
--->
-```
+## River Data: Find Nearest USGS Station
 
-## Wrangling GSOD Data
+We've demonstrated how to join data and crop data in R, but let's use some alternate options to download new data. We'll focus on surface water here, and look at how we can download and map flowlines in R. Much of the USGS data network can be queried and downloaded in `R`. This may include data on water quality, river discharge, water temperature, spatial basins, and NHD flowlines. The {`dataRetrieval`} package is an excellent option for these operations.
 
-Before we can download the actual climate data, we want to use our subset of climate stations and **`filter`** these down to one per county. Let's use the station with the longest period of record, and pair it with additional data.
-
-```{r isd-filter}
-
-library(lubridate)
-
-# calculate the duration of data for each station
-isd_stations <- isd_select %>% 
-  mutate(date_begin = ymd(BEGIN),
-         date_end = ymd(END), 
-         tot_yrs = interval(date_begin, date_end) %>% 
-           time_length("year") %>% 
-           round(1)
-         )
-
-# group by county name
-isd_stations_keep <- isd_stations %>% 
-  group_by(name) %>% 
-  filter(tot_yrs > 1) %>% 
-  # get the station with the longest set of data
-  filter(tot_yrs == max(tot_yrs)) %>% 
-  select(STNID:LON, tot_yrs) %>% 
-  ungroup()
-
-glimpse(isd_stations_keep)
-
-```
-
-### Download GSOD Data
-
-We are nearly done! Finally we can pull climate data for our stations of interest and join these data. We'll add the GSOD data to our geopackage databases for each respective county to keep our data all together in one place.
-
-To download the data, we use the `get_GSOD` function. Note, this can take a few minutes, so for this example, the data have been pre-saved [here](https://github.com/r4wrds/r4wrds/blob/m_advanced_spatial/intermediate/data/isd_climdata_2_stations.rda?raw=true).
-
-```{r download-gsod, eval=FALSE}
-
-# get data (this takes a few minutes!):
-climdata <- get_GSOD(station = isd_stations_keep$STNID, years = c(1960:2020))
-
-```
-
-```{r, include=FALSE}
-# write out for future use since it takes a good minute
-# save(climdata, file = here("data", "isd_climdata_2_stations.rda"))
-load(here("data", "isd_climdata_2_stations.rda"))
-```
-
-### Write GSOD Data
-
-The data is large (\>30,000 observations), so let's write it out to the geopackage first (in case something breaks later!).
-
-```{r write-gsod}
-
-# to add additional layers we can do the same with a diff layer
-climdata %>% 
-  group_split(STNID) %>% 
-  map2(., clean_cnty_names,
-       ~st_write(.x, 
-                 dsn = glue("data/{.y}_gsod.gpkg"),
-                 layer = glue("{.y}_isd_data"), delete_layer=TRUE)
-       )
-
-# check layers
-map(clean_cnty_names, ~st_layers(glue("data/{.x}_gsod.gpkg")))
-
-```
-
-To read these data back in (or any other data from our geopackage), we can use `st_read()`.
-
-```{r read-gpkg, echo=TRUE, eval=FALSE}
-
-climdata_sac <- st_read(here("data","sacramento_gsod.gpkg"),
-                        "sacramento_isd_data")
-
-```
-
-### Visualize: Polar Plots
-
-Let's make some plots of our climate data. Here we explore different ways to visualize climate data that may account for seasonal trends (circular) by using polar plots. First, let's calculate the monthly and daily averages for air temperature and precipitation at each of our sites.
-
-```{r gsod-avg}
-
-# MONTHLY AVG:
-clim_month <- climdata %>% 
-  filter(!is.na(PRCP)) %>% # filter out missing data
-  filter(!is.na(TEMP)) %>% 
-  group_by(NAME, STNID, MONTH) %>% 
-  summarize(
-    across(c("TEMP","PRCP"), list(min = min, mean = mean, max = max))
-  ) %>% 
-  ungroup()
-```
-
-Then we can plot a polar plot!
-
-```{r gsod-polar}
-
-# monthly prcp
-(mPPT <- ggplot() + 
-  geom_col(data = clim_month, 
-           aes(x = MONTH, y = PRCP_mean,
-               fill = PRCP_mean), show.legend = T) +
-  theme_minimal() + 
-  labs(y = "", x = "") +
-  scale_x_continuous(breaks = c(1, 4, 7, 10),
-                     labels = c("Jan", "Apr", "Jul", "Oct")) +
-  theme(plot.background = element_blank(),
-        legend.position = "left",
-        #legend.position = c(-0.25, 0.55),
-        legend.key.height = unit(.15, units = "in"),
-        legend.key.width = unit(.1, units = "in"), 
-        panel.border = element_blank(),
-        axis.text.y = element_blank(),
-        plot.margin = unit(c(0, 0, 0 ,0), "mm")) +
-  scale_fill_viridis_c("Mean \nPPT(in)") +
-  labs(subtitle = "Monthly Mean Precipitation (1960-2020)",
-       caption = 
-         "Data from the {GSODR} package: https://ropensci.github.io/GSODR/")+
-  coord_polar() + 
-  facet_wrap(clim_month$NAME~., nrow = 1))
-```
-
-```{r gsod-temp}
-
-# take mean daily temp/precip values
-clim_day <- climdata %>% 
-  filter(!is.na(PRCP)) %>%
-  filter(!is.na(TEMP)) %>% 
-  group_by(NAME, STNID, YDAY) %>% 
-  summarize(
-    across(c("TEMP", "PRCP"), list(min = min, mean = mean, max = max))
-  )
-
-# plot
-(dTEMP <- ggplot() + 
-    geom_col(data = clim_day, 
-             aes(x = YDAY, y = TEMP_mean,
-                 fill = TEMP_mean), show.legend = T) +
-    theme_minimal() + 
-    labs(y = "", x = "",
-         subtitle = "Daily mean air temperature (1960-2020)",
-         caption = 
-           "Data from the {GSODR} package: https://ropensci.github.io/GSODR/") +
-    scale_x_continuous(breaks = c(1, 90, 180, 270),
-                       labels = c("Jan", "Apr", "Jul", "Oct")) +
-    theme(plot.background = element_blank(),
-          legend.position = "left",
-          #legend.position = c(-0.25, 0.55),
-          legend.key.height = unit(.15,units = "in"),
-          legend.key.width = unit(.1, units = "in"), 
-          panel.border = element_blank(),
-          axis.text.y = element_blank(),
-          plot.margin = unit(c(0, 0, 0 ,0), "mm")) +
-    scale_fill_viridis_c("Mean Air \n Temp(C)") +
-    coord_polar() + 
-    facet_wrap(NAME~., nrow = 1))
-
-```
-
-## Buffers
-
-Now that we have some climate stations in each county, but we may want to look for nearby stations or lines and join to additional data (e.g., groundwater stations, or surface water USGS stations). One approach we can use is to generate a buffer from each of our selected climate stations, and search within the buffer to find nearby sites or data localities.
-
-To buffer our data, we need to use a projected coordinate reference system[^3] (not latitude/longitude), so we can specify things in units that are easier to understand (kilometers or miles) instead of arc degrees, and so that the calculations take place correctly.
-
-[^3]: A discussion on coordinate reference systems is a complex topic in and of itself, and for the purposes of this module, we summarize it as follows: A geographic CRS is **round** and based on *angular units* of degrees (lat/lng), whereas a projected CRS is **flat** and has *linear* units (meters or feet). Many functions in `{sf}` that make calculations on data expect a projected CRS, and can return inaccurate results if an object in a geographic CRS is used. This is a fascinating topic with lots written about it! For more reading see this [Esri blog](https://www.esri.com/arcgis-blog/products/arcgis-pro/mapping/gcs_vs_pcs/), the Data Carpentry [geospatial lesson](https://datacarpentry.org/organization-geospatial/03-crs/), and the [online Geocomputation with R book](https://geocompr.robinlovelace.net/reproj-geo-data.html).
-
-```{r buffer}
-
-# transform our points
-isd_stations_keep <- st_transform(isd_stations_keep, 3310)
-
-# now buffer 5km around each station as our window to look within
-isd_stations_buff_5km <- st_buffer(isd_stations_keep, dist = 5000) %>% 
-  # transform back to proj of other components
-  st_transform(st_crs(ca_co_isd_poly))
-
-isd_stations_keep <- st_transform(isd_stations_keep, st_crs(ca_co_isd_poly))
-
-# double check on map
-mapview(ca_co_isd_poly, col.regions = "forestgreen", 
-        alpha.regions = 0.2, layer.name = "Selected Counties") +
-  mapview(isd_stations_buff_5km, col.regions = "orange", 
-          alpha.regions = 0.5, color = "orange", 
-          layer.name = "5km Buffer") +
-  mapview(isd_stations_keep, col.regions = "yellow", cex=1.5,
-          layer.name = "ISD Stations")
-```
-
-## Find Nearest USGS Station & Download Data
-
-With our buffered data, we can look for the nearest USGS station, which gives us the ability to pull water quality data, discharge, water temperature, and so on using packages like {`dataRetrieval`}.
-
-Let's use our 2 stations of interest and find the nearest USGS stations. The `findNLDI` function allows us to pass a single spatial point as well as a few different parameters like search upstream or downstream, and what we want to find, and then return a list of items (see the help page for using the function [here](http://usgs-r.github.io/dataRetrieval/articles/nldi.html)), leveraging the hydro-network linked data index (NLDI)^[For more info on the NLDI: https://labs.waterdata.usgs.gov/about-nldi/index.html].
-
-Let's look only at downstream mainstem flowlines from our points, and return the nearest [NWIS](https://waterdata.usgs.gov/ca/nwis/) sites as well as the NHD flowlines (streamlines). We'll use the `map()` function to pass a list of stations along (here only 2, but this is flexible, and in practice we can map over a much larger number of stations).
+Let's find a few groundwater stations to use. Here we'll grab one close to the American River and one close to the Cosumnes just for demonstration purposes, but this could be any X/Y point, or set of points you are interested in.
 
 <aside>
 
-If there are issues downloading the `all_nldi` file via `{dataRetrieval}`, data can be downloaded with: `load(url("https://github.com/r4wrds/r4wrds/raw/update_spatial/intermediate/data/dataRetrieval_all_nldi_data.rda"))`.
+Note, the X/Y points don't need to fall on a river! The function will look for the closest river segment and pull data based on that pairing.
 
 </aside>
+
+```{r sac_loi}
+
+
+sac_loi <- gw_sac %>% filter(STN_ID %in% c("52418", "5605"))
+
+mapview(sac_co, alpha.regions=0, 
+          color="black", lwd=3, legend=FALSE) +
+  mapview(sac_loi, col.regions="purple",layer.name="Locations of Interest") 
+
+```
+
+### Use `findNLDI`
+
+ The `findNLDI` function allows us to pass a single spatial point as well as a few different parameters like search upstream or downstream, and what we want to find, and then return a list of items (see the help page for using the function [here](http://usgs-r.github.io/dataRetrieval/articles/nldi.html)), leveraging the hydro-network linked data index (NLDI)^[For more info on the NLDI: https://labs.waterdata.usgs.gov/about-nldi/index.html]. Note, we'll need internet connectivity here for these functions to run successfully.
+
+Let's look only at mainstem flowlines from our locations of interest, and return the nearest [NWIS](https://waterdata.usgs.gov/ca/nwis/) sites as well as the NHD flowlines (streamlines). We'll use the `map()` function to pass a list of stations along (here only 2, but this is flexible, and in practice we can map over a much larger number of stations).
+
+<aside>
+
+If there are issues running the `findNLDI` function via `{dataRetrieval}`, data can be downloaded with: `load(url("https://github.com/r4wrds/r4wrds/raw/update_spatial/intermediate/data/dataRetrieval_all_nldi_data.rda"))`.
+
+</aside>
+
+First, we want to look up the COMID or location identifier for the centroids.
 
 ```{r dataRetrieval-nldi}
 
 library(dataRetrieval)
 
-all_nldi <- map(isd_stations_keep$geometry, 
-                ~findNLDI(location = st_sfc(.x),
-                          nav  = c("DM"), 
-                          find = c("nwis", "flowlines", "basin"))
+# Need to convert our locations of interest to WGS84
+sac_loi <- sac_loi %>% 
+  st_transform(4326)
+
+# now we can go get flowline data!
+us_nwis <- map(sac_loi$geometry,
+                ~findNLDI(location = .x,
+                          nav  = c("UM"), 
+                          find = c("nwis", "flowlines"),
+                          distance_km = 120)
                 )
 
-# add names based on county
-all_nldi <- set_names(all_nldi,
-                      glue("nldi_{substr(isd_stations_keep$NAME, 1, 5)}"))
+```
 
-names(all_nldi)
+Great, now we have a `list` of three or more things for each sf object we passed to `findNLDI`. In this case, we should have (for each location of interest we used): 
 
-# split these into data frames by specific counties/stations
-# and add them as objects to the .Global environment 
-all_nldi %>% list2env(.GlobalEnv)
+ - `origin`: this is the segment that the original LOI was linked to based on the nearest distance algorithm the function used. Note, this is an `sf LINESTRING` data.frame.
+ - `UM_nwissite`: these are all the NWIS sites that were identified upstream of our origin point.
+ - `UM_flowlines`: these are the Upstream Mainstem (UM) flowlines from our origin point.
+ 
+ Let's play with these data and make some maps.
 
-mapview(nldi_SACRA, legend = FALSE) + 
-  mapview(nldi_STOCK, legend = FALSE) + 
-  mapview(isd_stations_keep, col.regions = "yellow", cex = 5)
+### Extract the NLDI Info
+
+There are a few options, and it depends on what your goal is. Here we show a few simple ways to pull these data out or collapse them. Remember, we can access things in lists with our `[[]]` too!
+
+```{r splitNLDI}
+
+# we can split these data into separate data frame
+# and add them as objects to the .Global environment.
+# first add names based on our station IDs:
+us_nwis <- set_names(us_nwis, nm=glue("id_{sac_loi$STN_ID}"))
+
+# then split into separate dataframes
+# us_nwis %>% list2env(.GlobalEnv)
+
+# Or we can combine with map_df
+us_flowlines <- map_df(us_nwis, ~rbind(.x$UM_flowlines))
+us_nwissite <- map_df(us_nwis, ~rbind(.x$UM_nwissite))
+
+mapview(sac_loi, col.region="purple", legend = TRUE, 
+        cex=3, layer.name="GW LOI") +
+  mapview(us_nwissite, col.regions="orange", 
+          legend = TRUE, layer.name="UM NWIS Sites") +
+  mapview(us_flowlines, color="steelblue", lwd=2, 
+          layer.name="UM Flowlines", legend=FALSE)
 
 ```
 
 ```{r, include=FALSE, hide=TRUE, eval=FALSE}
 
 # save out intermediate file for future use (in case dataRetrieval is down)
-# save(all_nldi, file = "data/dataRetrieval_all_nldi_data.rda")
+save(us_nwis, file = "data/dataRetrieval_all_nldi_data.rda")
 
 # load
-load(url("https://github.com/r4wrds/r4wrds/raw/update_spatial/intermediate/data/dataRetrieval_all_nldi_data.rda"))
+load(url("https://github.com/r4wrds/r4wrds/raw/main/intermediate/data/dataRetrieval_all_nldi_data.rda"))
 ```
 
+Next, let’s filter to NWIS USGS stations that have flow data (generally these have 8-digit identifiers instead of a longer code which can be more water quality parameters), and pull streamflow data for the nearest station.
 
+```{r filtUSGS-stations}
 
-Next, let's filter to stations that have flow data (generally these have 8-digit identifiers instead of a longer code which can be more water quality parameters), and pull streamflow data for the nearest station.
-
-```{r filter-nldi}
-
-# here we can get the identifier code and filter to just 8 digits or less:
-usgs_stations <- map(all_nldi, "DM_nwissite") %>%
-  bind_rows() %>% 
+# use the stringr package, part of tidyverse to trim characters
+usgs_stations <- us_nwissite %>% 
   filter(stringr::str_count(identifier) < 14)
 
-mapview(nldi_SACRA$DM_flowlines, legend = FALSE) +
-  mapview(nldi_STOCK$DM_flowlines, legend = FALSE) +
-  mapview(usgs_stations, col.regions = "steelblue") +
-  mapview(isd_stations_keep, col.regions = "yellow", cex = 5)
+# double check?
+mapview(sac_loi, col.region="purple", legend = TRUE, 
+        cex=3, layer.name="GW LOI") +
+  mapview(us_nwissite, col.regions="orange", cex=2, 
+          legend = TRUE, layer.name="UM NWIS Sites") +
+  mapview(usgs_stations, col.regions="cyan4", 
+          legend = TRUE, layer.name="USGS Gages") +
+  mapview(us_flowlines, color="steelblue", lwd=2, 
+          layer.name="UM Flowlines", legend=FALSE)
 
 ```
-
+         
 ### Snap to the Nearest Point
 
-The final filter involves snapping our ISD station points (_n = 2_) to the nearest USGS stations from the stations we filtered to above. We can then use these data to generate some analysis and exploratory plots.
+The final filter involves snapping our LOI points (_n = 2_) to the nearest USGS stations from the stations we filtered to above. We can then use these data to generate some analysis and exploratory plots.
 
 Snapping spatial data can be tricky, mainly because decimal precision can cause problems. One solution is to add a slight buffer around points or lines to improve successful pairing.
 
@@ -563,35 +456,36 @@ For this example, we'll use `st_nearest_feature()`, which gives us an index of t
 ```{r snap-nearest}
 
 # get row index of nearest feature between points:
-usgs_nearest_index <- st_nearest_feature(isd_stations_keep, usgs_stations)
+usgs_nearest_index <- st_nearest_feature(sac_loi, usgs_stations)
 
 # now filter using the row index
 usgs_stations_final <- usgs_stations[usgs_nearest_index, ]
 
 # get vector of distances from each ISD station to nearest USGS station
-dist_to_isd <- st_distance(isd_stations_keep, 
+dist_to_loi <- st_distance(sac_loi, 
                            usgs_stations_final, 
                            by_element = TRUE)
 
 # use units package to convert units to miles or km
-(dist_to_isd_mi <- units::set_units(dist_to_isd, miles))
-(dist_to_isd_km <- units::set_units(dist_to_isd, km))
+(dist_to_loi_mi <- units::set_units(dist_to_loi, miles))
+(dist_to_loi_km <- units::set_units(dist_to_loi, km))
 
 # bind back to final dataset:
 usgs_stations_final <- usgs_stations_final %>% 
-  cbind(dist_to_isd_mi, dist_to_isd_km)
+  cbind(dist_to_loi_mi, dist_to_loi_km)
 
 # now plot!
 mapview(usgs_stations, cex = 2.75, col.regions = "gray",
         layer.name = "USGS Stations") +
-  mapview(nldi_SACRA$DM_flowlines, legend = FALSE, color = "steelblue") + 
-  mapview(nldi_STOCK$DM_flowlines, legend = FALSE, color = "darkblue") +
+  mapview(us_flowlines, legend = FALSE, color = "steelblue") + 
   mapview(usgs_stations_final, col.regions = "yellow",
-          layer.name = "Nearest USGS Station to ISD Pt") +
-  mapview(isd_stations_keep, col.regions="forestgreen",
-          layer.name = "ISD Stations")
+          layer.name = "Nearest USGS Station to LOI") +
+  mapview(sac_loi, col.regions="purple",
+          layer.name = "GW LOI")
 
 ```
+
+Notice anything? How could we approach this differently so we pulled at least one gage per river instead of two in one river and none in the other?
 
 ### Select Nearest by Distance
 
@@ -602,19 +496,21 @@ Therefore, first we transform our data into a projected CRS, then we do our join
 ```{r calc-dist}
 
 usgs_stations <- st_transform(usgs_stations, 3310)
-isd_stations_keep <- st_transform(isd_stations_keep, 3310)
+sac_loi <- st_transform(sac_loi, 3310)
 
-# use a search within 30km to select stations
-usgs_stations_30km <- st_join(isd_stations_keep,
+# use a search within 15km to select stations
+usgs_stations_15km <- st_join(sac_loi,
                               usgs_stations,
                               st_is_within_distance,
-                              dist = 30000) %>% 
-  st_drop_geometry() %>% 
+                              dist = 15000) %>% 
+  st_drop_geometry() %>%
+  filter(!is.na(X)) %>% # can't have NA's 
   st_as_sf(coords = c("X","Y"), crs = 4326)
 
 
-mapview(usgs_stations_30km,  col.regions = "yellow") +
-  mapview(isd_stations_keep, col.regions = "forestgreen")
+mapview(usgs_stations_15km,  col.regions = "yellow") +
+  mapview(sac_loi, col.regions = "purple") +
+  mapview(us_flowlines, legend = FALSE, color = "steelblue")
 
 ```
 
@@ -631,40 +527,40 @@ Now we have our stations of interest, and our climate data, let's download river
 ```{r download-nldi}
 
 # strip out the "USGS" from our identifier with "separate"
-usgs_stations_30km <- usgs_stations_30km %>% 
+usgs_stations_15km <- usgs_stations_15km %>% 
   tidyr::separate(col = identifier, # the column we want to separate
                   into = c("usgs", "usgs_id"), # the 2 cols to create
                   remove = FALSE) %>% # keep the original column
   select(-usgs) # drop this column
 
-# see what data is available for a station:
-dataRetrieval::whatNWISdata(siteNumber = usgs_stations_30km$usgs_id, 
+# see if there's daily discharge/wtemperature data available ("dv"):
+dataRetrieval::whatNWISdata(siteNumber = usgs_stations_15km$usgs_id, 
                             service = "dv", 
                             parameterCd = c("00060", "00010"),
                             statCd = "00003")
 
 
 # Extract Streamflow for identified sites
-Q <- readNWISdv(usgs_stations_30km$usgs_id, 
+usgs_Q <- readNWISdv(usgs_stations_15km$usgs_id, 
                 parameterCd = "00060", 
-                startDate = "1960-10-01") %>% 
+                startDate = "2016-10-01") %>% 
   renameNWISColumns()
 
-wTemp <- readNWISdv(usgs_stations_30km$usgs_id, 
+# extract water temp
+usgs_wTemp <- readNWISdv(usgs_stations_15km$usgs_id, 
                 parameterCd = "00010", 
-                startDate = "1960-10-01") %>% 
+                startDate = "2016-10-01") %>% 
   renameNWISColumns()
-
 
 ```
 
 ```{r, echo=FALSE, eval=FALSE}
 
 # save out intermediate file for future use (in case dataRetrieval is down)
-#save(Q, wTemp, file = "data/dataRetrieval_downloaded-nldi_data.rda")
+save(usgs_Q, usgs_wTemp, file = "data/dataRetrieval_downloaded-nldi_data.rda")
 
 # load
-load(url("https://github.com/r4wrds/r4wrds/raw/update_spatial/intermediate/data/dataRetrieval_downloaded-nldi_data.rda"))
+load(url("https://github.com/r4wrds/r4wrds/raw/main/intermediate/data/dataRetrieval_downloaded-nldi_data.rda"))
 ```
 
 
@@ -675,24 +571,24 @@ Now we have the data, let's plot!
 ```{r plot-usgs, layout="l-page"}
 # Plot! 
 (hydro <- ggplot() + 
-   geom_line(data = Q, aes(x = Date, y = Flow, col = site_no),
+   geom_line(data = usgs_Q, aes(x = Date, y = Flow, col = site_no),
              size = .5) + 
    scale_color_brewer(palette = "Set1") +
    facet_wrap(~site_no, scales = "free_x") + 
    theme_classic() + 
-   labs(title="USGS Discharge Data (1960-2020)",
+   labs(title="USGS Discharge Data",
         x="", y="Discharge (cfs)") +
    theme(legend.position = "none"))
 
 
 # Plot temp
 (gg_temp <- ggplot() + 
-    geom_path(data = wTemp, 
+    geom_path(data = usgs_wTemp, 
               aes(x = Date, y = Wtemp, col = site_no),
               size = .5) + 
     facet_wrap(~site_no) + 
     theme_bw() + 
-    labs(title="USGS Water Temperature Data (1960-2020)",
+    labs(title="USGS Water Temperature Data",
          x="", y="Water Temperature (C)") +
     scale_color_viridis_d() +
     theme(legend.position = "none"))
@@ -724,7 +620,8 @@ To do this, we can leverage handy functions from the `{tidyr}` package: `complet
 library(tidyr)
 
 # fill all unique combinations of Date in our data
-wTemp2 <- wTemp %>% 
+usgs_wTemp2 <- usgs_wTemp %>%
+  group_by(site_no) %>% # group by our gages first
   complete(Date = seq.Date(min(Date), max(Date), by="day")) %>% 
   # then list the cols we want to fill same value through whole dataset
   fill(site_no, agency_cd)
@@ -732,12 +629,12 @@ wTemp2 <- wTemp %>%
 # now regenerate plot!
 # Plot temp
 (gg_temp2 <- ggplot() + 
-    geom_path(data = wTemp2, 
+    geom_path(data = usgs_wTemp2, 
               aes(x = Date, y = Wtemp, col = site_no),
               size = .5) + 
     facet_wrap(~site_no) + 
     theme_bw() + 
-    labs(title="USGS Water Temperature Data (1960-2020)",
+    labs(title="USGS Water Temperature Data",
          x="", y="Water Temperature (C)") +
     scale_color_viridis_d() +
     theme(legend.position = "none"))
@@ -757,86 +654,49 @@ One final component that we haven't covered much is how to create a publication 
 
 The `{tmap}` and `{tmaptools}` are excellent options to create a nice map that can be used in any report or publication. First, let's load the packages we'll use. 
 
-```{r}
+```{r tmap-load}
 library(tmap)
 library(tmaptools)
 ```
 
-Next we can download a basemap layer to use in our map. For this we need to specify an area of interest for the . We can use the rivers layer we pulled previously using the `{dataRetrieval}` package. For this, we can use the `st_box()` to get an extent. Then we can use the `read_osm` function to pull data in.
-
-<aside>
-
-Note, the `read_osm` function requires `{rJava}`, which may be tricky to install. See [this post on Github](https://github.com/rstudio/rstudio/issues/2254#issuecomment-418830716) for a potential way to resolve these issues. 
-
-</aside>
-
-```{r, eval=FALSE, echo=TRUE}
-# create a boundary box
-st_bbox(ca_co_isd_poly)
-# get baselayer
-base_osm <- read_osm(ca_co_isd_poly, type = "esri-topo", raster = TRUE)
-```
-
-```{r, include=FALSE}
-# save(base_osm, file = here("data", "m_advanced_spatial_base_osm.rda"))
-load(here("data", "m_advanced_spatial_base_osm.rda"))
-```
-
-
-Once we have a base layer, we can make our plot!
-
+Now we build our layers using a similar structure as `{ggplot2}`.
 
 ```{r tmap, layout="l-page", preview = TRUE}
+
 final_tmap <-
-  # basemap
-  tm_shape(base_osm) + 
-  tm_rgb() +
-  
+
   # counties
-  tm_shape(ca_co_isd_poly) +
+  tm_shape(sac_co) +
   tm_polygons(border.col = "gray50", col = "gray50", 
               alpha = 0.1, border.alpha = 0.9, lwd = 0.5, lty = 1) +
-  # basins
-  tm_shape(nldi_SACRA$basin) +
-  tm_polygons(border.col = "cyan4", col = "cyan4", 
-              alpha = 0.8, border.alpha = 0.9, lwd = 0.3, lty = 2) +
-  tm_shape(nldi_STOCK$basin) +
-  tm_polygons(border.col = "cyan4", col = "cyan4", 
-              alpha = 0.8, border.alpha = 0.9, lwd = 0.3, lty = 2) +
+
   # rivers
-  tm_shape(nldi_SACRA$DM_flowlines) +
+  tm_shape(us_flowlines) +
   tm_lines(col = "steelblue", lwd = 2) +
-  tm_shape(nldi_STOCK$DM_flowlines) +
-  tm_lines(col="steelblue", lwd = 2) +
-  # points: ISD stations
-  tm_shape(isd_stations_keep) +
+  
+  # points: LOI stations
+  tm_shape(sac_loi) +
     tm_symbols(col = "orange3", border.col = "gray20", 
-               shape = 21, size = 2.5, alpha = 1) +
+               shape = 21, size = 1.5, alpha = 1) +
+    tm_add_legend('symbol',shape = 21, col='orange3', border.col='black', size=1,
+                 labels=c(' LOI')) +
   # points usgs
-  tm_shape(usgs_stations) +
-    tm_symbols(col = "gray50", border.col = "gray20", 
-               shape = 21, size = 0.5, alpha = 0.9) +
-  # points usgs
-  tm_shape(usgs_stations_final) +
-    tm_symbols(col = "yellow", border.col = "gray20", 
-               shape = 21, size = 1.8) +
+  tm_shape(usgs_stations_15km) +
+    tm_symbols(col = "cyan4", border.col = "gray20", 
+               shape = 23, size = 0.5) +
+  tm_add_legend('symbol',shape = 23, col='cyan4', border.col='black', size=1,
+                 labels=c(' USGS Stations')) +
   # layout
     tm_layout(
               frame = FALSE,
               legend.outside = FALSE, attr.outside = FALSE,
               inner.margins = 0.01, outer.margins = (0.01),
-              #legend.position = c(0.6,0.85),
-              title.position = c(0.7, 0.95)) +
+              legend.position = c(0.2,0.8)) +
     tm_compass(type = "4star", position = c("right","bottom")) +
     tm_scale_bar(position = c("right","bottom"))
+
 final_tmap
 ```
-
-<aside>
-
-When plotting rasters, we can specify the resolution that gets plotted using `tmap_options(max.raster = c(plot = 1e6))`. We can also specify a value for the `view()`. This helps speed up plotting when necessary.
-
-</aside>
 
 To save this map, we use a similar function as the `ggsave()`, but in this case, it's `tmap::tmap_save()`.
 
@@ -849,11 +709,10 @@ tmap::tmap_save(final_tmap,
 
 # Additional Resources
 
-We've covered a handful of packages and functions in this module, but many more exist that solve just about every spatial workflow task. All spatial and mapmaking operations are typically a websearch away, but we also recommend [the following resources](m_intro_mapmaking.html#additional-resources) to dig deeper into the `R` spatial universe.
+We've covered a handful of packages and functions in this module, but many more exist that solve just about every spatial workflow task. All spatial and mapmaking operations are typically a websearch away, but we also recommend [the following resources](https://www.r4wrds.com/intro/m_intro_mapmaking.html#additional-resources) to dig deeper into the `R` spatial universe.
 
 <br>  
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
 <a href="m_parameterized_reports.html" class="btn btn-secondary" style="float: left">Previous module:<br>7. Paramaterized reports</a>
-
