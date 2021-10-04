@@ -659,33 +659,7 @@ library(tmap)
 library(tmaptools)
 ```
 
-<<<<<<< Updated upstream
-Now we build our layers using a similar structure as `{ggplot2}`
-=======
-Next we can download a basemap layer to use in our map. For this we need to specify an area of interest for the . We can use the rivers layer we pulled previously using the `{dataRetrieval}` package. For this, we can use the `st_box()` to get an extent. Then we can use the `read_osm` function to pull data in.
-
-<aside>
-
-Note, the `read_osm` function requires `{rJava}`, which may be tricky to install. See [this post on Github](https://github.com/rstudio/rstudio/issues/2254#issuecomment-418830716) for a potential way to resolve these issues. You also need to `install.packages("OpenStreetMap")`.  
-
-</aside>
-
-```{r, eval=FALSE, echo=TRUE}
-# create a boundary box
-st_bbox(ca_co_isd_poly)
-# get baselayer
-base_osm <- read_osm(ca_co_isd_poly, type = "esri-topo", raster = TRUE)
-```
-
-```{r, include=FALSE}
-# save(base_osm, file = here("data", "m_advanced_spatial_base_osm.rda"))
-load(here("data", "m_advanced_spatial_base_osm.rda"))
-```
-
-
-Once we have a base layer, we can make our plot!
-
->>>>>>> Stashed changes
+Now we build our layers using a similar structure as `{ggplot2}`.
 
 ```{r tmap, layout="l-page", preview = TRUE}
 
@@ -735,11 +709,10 @@ tmap::tmap_save(final_tmap,
 
 # Additional Resources
 
-We've covered a handful of packages and functions in this module, but many more exist that solve just about every spatial workflow task. All spatial and mapmaking operations are typically a websearch away, but we also recommend [the following resources](m_intro_mapmaking.html#additional-resources) to dig deeper into the `R` spatial universe.
+We've covered a handful of packages and functions in this module, but many more exist that solve just about every spatial workflow task. All spatial and mapmaking operations are typically a websearch away, but we also recommend [the following resources](https://www.r4wrds.com/intro/m_intro_mapmaking.html#additional-resources) to dig deeper into the `R` spatial universe.
 
 <br>  
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
 <a href="m_parameterized_reports.html" class="btn btn-secondary" style="float: left">Previous module:<br>7. Paramaterized reports</a>
-
