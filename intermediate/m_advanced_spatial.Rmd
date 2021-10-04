@@ -422,7 +422,7 @@ mapview(sac_loi, col.region="purple", legend = TRUE,
 save(us_nwis, file = "data/dataRetrieval_all_nldi_data.rda")
 
 # load
-load(url("https://github.com/r4wrds/r4wrds/raw/update_spatial/intermediate/data/dataRetrieval_all_nldi_data.rda"))
+load(url("https://github.com/r4wrds/r4wrds/raw/main/intermediate/data/dataRetrieval_all_nldi_data.rda"))
 ```
 
 Next, let’s filter to NWIS USGS stations that have flow data (generally these have 8-digit identifiers instead of a longer code which can be more water quality parameters), and pull streamflow data for the nearest station.
@@ -560,7 +560,7 @@ usgs_wTemp <- readNWISdv(usgs_stations_15km$usgs_id,
 save(usgs_Q, usgs_wTemp, file = "data/dataRetrieval_downloaded-nldi_data.rda")
 
 # load
-load(url("https://github.com/r4wrds/r4wrds/raw/update_spatial/intermediate/data/dataRetrieval_downloaded-nldi_data.rda"))
+load(url("https://github.com/r4wrds/r4wrds/raw/main/intermediate/data/dataRetrieval_downloaded-nldi_data.rda"))
 ```
 
 
@@ -659,7 +659,33 @@ library(tmap)
 library(tmaptools)
 ```
 
+<<<<<<< Updated upstream
 Now we build our layers using a similar structure as `{ggplot2}`
+=======
+Next we can download a basemap layer to use in our map. For this we need to specify an area of interest for the . We can use the rivers layer we pulled previously using the `{dataRetrieval}` package. For this, we can use the `st_box()` to get an extent. Then we can use the `read_osm` function to pull data in.
+
+<aside>
+
+Note, the `read_osm` function requires `{rJava}`, which may be tricky to install. See [this post on Github](https://github.com/rstudio/rstudio/issues/2254#issuecomment-418830716) for a potential way to resolve these issues. You also need to `install.packages("OpenStreetMap")`.  
+
+</aside>
+
+```{r, eval=FALSE, echo=TRUE}
+# create a boundary box
+st_bbox(ca_co_isd_poly)
+# get baselayer
+base_osm <- read_osm(ca_co_isd_poly, type = "esri-topo", raster = TRUE)
+```
+
+```{r, include=FALSE}
+# save(base_osm, file = here("data", "m_advanced_spatial_base_osm.rda"))
+load(here("data", "m_advanced_spatial_base_osm.rda"))
+```
+
+
+Once we have a base layer, we can make our plot!
+
+>>>>>>> Stashed changes
 
 ```{r tmap, layout="l-page", preview = TRUE}
 
