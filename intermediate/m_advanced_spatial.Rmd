@@ -177,6 +177,11 @@ Hmmm...looks like there are some stations up near Lake Tahoe, and then all the s
 
 One of the more common spatial operations is filtering or clipping data based on a condition or another spatial layer.
 
+Often to complete a geospatial operation, we need to use a projected coordinate reference system[^3] (not latitude/longitude), so we can specify things in units that are easier to understand (kilometers or miles) instead of arc degrees, and so that the calculations take place correctly. Note, here we have transformed our data to match up.
+
+[^3]: A discussion on coordinate reference systems is a complex topic in and of itself, and for the purposes of this module, we summarize it as follows: A geographic CRS is **round** and based on *angular units* of degrees (lat/lng), whereas a projected CRS is **flat** and has *linear* units (meters or feet). Many functions in `{sf}` that make calculations on data expect a projected CRS, and can return inaccurate results if an object in a geographic CRS is used. This is a fascinating topic with lots written about it! For more reading see this [Esri blog](https://www.esri.com/arcgis-blog/products/arcgis-pro/mapping/gcs_vs_pcs/), the Data Carpentry [geospatial lesson](https://datacarpentry.org/organization-geospatial/03-crs/), and the [online Geocomputation with R book](https://geocompr.robinlovelace.net/reproj-geo-data.html).
+
+
 ### Filter
 
 We could certainly leverage the `data.frame` aspect of `{sf}` and quickly filter down to the stations of interest using the `COUNTY_NAME` field. 
@@ -254,18 +259,22 @@ Note, what's different between `gw_df` and `gw_sac_join1`?
 
 </aside>
 
-We can also use an anti_join (the `!`) to find the stations that  weren't contained in our focal area. These operations can be helpful when exploring and understanding a dataset, to identify gaps, highlight specific areas, etc.
+We can also use an anti_join (the `!`) to find the stations that  weren't contained in our focal area. These operations can be helpful when exploring and understanding a dataset, to identify gaps, highlight specific areas, etc. `st_intersects` returns a vector of items based on whether the two spatial objects intersect (which can be defined differently using a multitude of spatial functions, see the [sf help page](https://r-spatial.github.io/sf/reference/geos_binary_pred.html)).
 
 ```{r anti-join, layout="l-page"}
 
-# anti_join: find stations that aren't contained in Sacramento Cnty
+# anti_join: find stations that aren't contained in Sacramento County
 gw_sac_anti <- gw_df[!lengths(st_intersects(gw_df, sac_co)), ]
 
-# plot of all CA counties with and without ISD stations
-mapview(gw_sac_anti, col.regions="maroon", cex=3, layer.name="Anti-Join Sites") + mapview(sac_co, alpha.regions=0, color="black", lwd=3, legend=FALSE)
-
+# plot
+mapview(gw_sac_anti, 
+        col.regions="maroon", cex=3, 
+        layer.name="Anti-Join Sites") + 
+  mapview(sac_co, alpha.regions=0, 
+          color="black", lwd=3, legend=FALSE)
 
 ```
+
 
 
 ## Writing Spatial Data Out
@@ -305,9 +314,6 @@ We use `map2()` here, but can also use `walk2()`, which is a "silent" map that d
 </aside>
 
 
-###################################
-
-
 To make sure this worked as intended, we can check what layers exist in the geopackage with the `st_layers` function.
 
 ```{r stLayers}
@@ -329,102 +335,102 @@ formative quiz here: mult choice with other options to place on line 269:
 ```
 
 
-## Buffers
+## Find Nearest USGS Station & River Line Data
 
-Now that we have some stations to use, but we may want to look for nearby stations or lines and join to additional data (e.g., groundwater stations, or surface water USGS stations). One approach we can use is to generate a buffer from each of our selected sites, and search within the buffer to find nearby localities of interest.
+We've demonstrated how to join data and crop data in R, but let's use some alternate options to download new data. We'll focus on surface water here, and look at how we can download and map riverlines or flowlines in R. Much of the USGS data network can be queried and downloaded in `R`. This may include data on water quality, river discharge, water temperature, spatial basins, and NHD flowlines. The {`dataRetrieval`} package is an excellent option for these operations.
 
-To buffer our data, we need to use a projected coordinate reference system[^3] (not latitude/longitude), so we can specify things in units that are easier to understand (kilometers or miles) instead of arc degrees, and so that the calculations take place correctly.
-
-[^3]: A discussion on coordinate reference systems is a complex topic in and of itself, and for the purposes of this module, we summarize it as follows: A geographic CRS is **round** and based on *angular units* of degrees (lat/lng), whereas a projected CRS is **flat** and has *linear* units (meters or feet). Many functions in `{sf}` that make calculations on data expect a projected CRS, and can return inaccurate results if an object in a geographic CRS is used. This is a fascinating topic with lots written about it! For more reading see this [Esri blog](https://www.esri.com/arcgis-blog/products/arcgis-pro/mapping/gcs_vs_pcs/), the Data Carpentry [geospatial lesson](https://datacarpentry.org/organization-geospatial/03-crs/), and the [online Geocomputation with R book](https://geocompr.robinlovelace.net/reproj-geo-data.html).
-
-```{r buffer}
-
-# transform our points
-isd_stations_keep <- st_transform(isd_stations_keep, 3310)
-
-# now buffer 5km around each station as our window to look within
-isd_stations_buff_5km <- st_buffer(isd_stations_keep, dist = 5000) %>% 
-  # transform back to proj of other components
-  st_transform(st_crs(ca_co_isd_poly))
-
-isd_stations_keep <- st_transform(isd_stations_keep, st_crs(ca_co_isd_poly))
-
-# double check on map
-mapview(ca_co_isd_poly, col.regions = "forestgreen", 
-        alpha.regions = 0.2, layer.name = "Selected Counties") +
-  mapview(isd_stations_buff_5km, col.regions = "orange", 
-          alpha.regions = 0.5, color = "orange", 
-          layer.name = "5km Buffer") +
-  mapview(isd_stations_keep, col.regions = "yellow", cex=1.5,
-          layer.name = "ISD Stations")
-```
-
-## Find Nearest USGS Station & Download Data
-
-With our buffered data, we can look for the nearest USGS station, which gives us the ability to pull water quality data, discharge, water temperature, and so on using packages like {`dataRetrieval`}.
-
-Let's use our 2 stations of interest and find the nearest USGS stations. The `findNLDI` function allows us to pass a single spatial point as well as a few different parameters like search upstream or downstream, and what we want to find, and then return a list of items (see the help page for using the function [here](http://usgs-r.github.io/dataRetrieval/articles/nldi.html)), leveraging the hydro-network linked data index (NLDI)^[For more info on the NLDI: https://labs.waterdata.usgs.gov/about-nldi/index.html].
-
-Let's look only at downstream mainstem flowlines from our points, and return the nearest [NWIS](https://waterdata.usgs.gov/ca/nwis/) sites as well as the NHD flowlines (streamlines). We'll use the `map()` function to pass a list of stations along (here only 2, but this is flexible, and in practice we can map over a much larger number of stations).
+Let's find a few groundwater stations to use. Here we'll grab one close to the American River and one close to the Cosumnes just for demonstration purposes, but this could be any X/Y point, or set of points you are interested in.
 
 <aside>
 
-If there are issues downloading the `all_nldi` file via `{dataRetrieval}`, data can be downloaded with: `load(url("https://github.com/r4wrds/r4wrds/raw/update_spatial/intermediate/data/dataRetrieval_all_nldi_data.rda"))`.
+Note, the X/Y points don't need to fall on a river! The function will look for the closest river segment and pull data based on that pairing.
 
 </aside>
+
+```{r sac_loi}
+
+
+sac_loi <- gw_sac %>% filter(STN_ID %in% c("52418", "5605"))
+
+mapview(sac_co, alpha.regions=0, 
+          color="black", lwd=3, legend=FALSE) +
+  mapview(sac_loi, col.regions="purple",layer.name="Locations of Interest") 
+
+```
+
+### Use `findNLDI`
+
+ The `findNLDI` function allows us to pass a single spatial point as well as a few different parameters like search upstream or downstream, and what we want to find, and then return a list of items (see the help page for using the function [here](http://usgs-r.github.io/dataRetrieval/articles/nldi.html)), leveraging the hydro-network linked data index (NLDI)^[For more info on the NLDI: https://labs.waterdata.usgs.gov/about-nldi/index.html]. Note, we'll need internet connectivity here for these functions to run successfully.
+
+Let's look only at mainstem flowlines from our locations of interest, and return the nearest [NWIS](https://waterdata.usgs.gov/ca/nwis/) sites as well as the NHD flowlines (streamlines). We'll use the `map()` function to pass a list of stations along (here only 2, but this is flexible, and in practice we can map over a much larger number of stations).
+
+<aside>
+
+If there are issues running the `findNLDI` function via `{dataRetrieval}`, data can be downloaded with: `load(url("https://github.com/r4wrds/r4wrds/raw/update_spatial/intermediate/data/dataRetrieval_all_nldi_data.rda"))`.
+
+</aside>
+
+First, we want to look up the COMID or location identifier for the centroids.
 
 ```{r dataRetrieval-nldi}
 
 library(dataRetrieval)
 
-all_nldi <- map(isd_stations_keep$geometry, 
-                ~findNLDI(location = st_sfc(.x),
-                          nav  = c("DM"), 
-                          find = c("nwis", "flowlines", "basin"))
+# Need to convert our locations of interest to WGS84
+sac_loi <- sac_loi %>% 
+  st_transform(4326)
+
+# now we can go get flowline data!
+us_nwis <- map(sac_loi$geometry,
+                ~findNLDI(location = .x,
+                          nav  = c("UM"), 
+                          find = c("nwis", "flowlines"),
+                          distance_km = 120)
                 )
 
-# add names based on county
-all_nldi <- set_names(all_nldi,
-                      glue("nldi_{substr(isd_stations_keep$NAME, 1, 5)}"))
+```
 
-names(all_nldi)
+Great, now we have a `list` of three or more things for each sf object we passed to `findNLDI`. In this case, we should have (for each location of interest we used): 
 
-# split these into data frames by specific counties/stations
-# and add them as objects to the .Global environment 
-all_nldi %>% list2env(.GlobalEnv)
+ - `origin`: this is the segment that the original LOI was linked to based on the nearest distance algorithm the function used. Note, this is an `sf LINESTRING` data.frame.
+ - `UM_nwissite`: these are all the NWIS sites that were identified upstream of our origin point.
+ - `UM_flowlines`: these are the Upstream Mainstem (UM) flowlines from our origin point.
+ 
+ Let's play with these data and make some maps.
 
-mapview(nldi_SACRA, legend = FALSE) + 
-  mapview(nldi_STOCK, legend = FALSE) + 
-  mapview(isd_stations_keep, col.regions = "yellow", cex = 5)
+### Extract the NLDI Info
+
+There are a few options, and it depends on what your goal is. Here we show a few simple ways to pull these data out or collapse them. Remember, we can access things in lists with our `[[]]` too!
+
+```{r splitNLDI}
+
+# we can split these data into separate data frame
+# and add them as objects to the .Global environment.
+# first add names based on our station IDs:
+us_nwis <- set_names(us_nwis, nm=glue("id_{sac_loi$STN_ID}"))
+
+# then split!
+us_nwis %>% list2env(.GlobalEnv)
+
+# Or we can combine with map_df
+us_flowlines <- map_df(us_nwis, ~rbind(.x$UM_flowlines))
+us_nwissite <- map_df(us_nwis, ~rbind(.x$UM_nwissite))
+
+mapview(sac_loi, col.region="purple", legend = FALSE, cex=2) +
+  mapview(us_nwissite, col.regions="orange", legend =FALSE, layer.name="UM NWIS Sites") +
+  mapview(us_flowlines, color="steelblue", lwd=2, layer.name="UM Flowlines", legend=FALSE)
 
 ```
 
 ```{r, include=FALSE, hide=TRUE, eval=FALSE}
 
 # save out intermediate file for future use (in case dataRetrieval is down)
-# save(all_nldi, file = "data/dataRetrieval_all_nldi_data.rda")
+save(us_nwis, file = "data/dataRetrieval_all_nldi_data.rda")
 
 # load
 load(url("https://github.com/r4wrds/r4wrds/raw/update_spatial/intermediate/data/dataRetrieval_all_nldi_data.rda"))
 ```
 
-
-
-Next, let's filter to stations that have flow data (generally these have 8-digit identifiers instead of a longer code which can be more water quality parameters), and pull streamflow data for the nearest station.
-
-```{r filter-nldi}
-
-# here we can get the identifier code and filter to just 8 digits or less:
-usgs_stations <- map(all_nldi, "DM_nwissite") %>%
-  bind_rows() %>% 
-  filter(stringr::str_count(identifier) < 14)
-
-mapview(nldi_SACRA$DM_flowlines, legend = FALSE) +
-  mapview(nldi_STOCK$DM_flowlines, legend = FALSE) +
-  mapview(usgs_stations, col.regions = "steelblue") +
-  mapview(isd_stations_keep, col.regions = "yellow", cex = 5)
-
-```
 
 ### Snap to the Nearest Point
 
