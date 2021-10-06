@@ -94,7 +94,7 @@ We'll leverage the ability to pull in many different data and stitch them all to
 
 ### Get State & County Data
 
-First we need state and county boundaries. The [`{urbnmapr}`](https://github.com/UrbanInstitute/urbnmapr) package is excellent for this.
+First we need state and county boundaries. The [`{urbnmapr}`]( https://urbaninstitute.github.io/urbnmapr/) package is excellent for this.
 
 ```{r boundaries}
 
