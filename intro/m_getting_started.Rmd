@@ -66,6 +66,10 @@ Let's get familiar with RStudio. If you haven't done so already, download and in
 knitr::include_graphics(here::here("images", "rstudio_edit.png"))
 ```
 
+<aside>
+
+There's a great cheatsheet on using the RStudio IDE [**here**](https://raw.githubusercontent.com/rstudio/cheatsheets/main/rstudio-ide.pdf)
+
 There are four panes in RStudio (starting from the top right and moving clockwise): 
 
 * Source
@@ -204,6 +208,11 @@ apropos("print") # Returns all available functions with "print" in the name
 ??print # shortcut, but also searches demos and vignettes in a formatted page
 
 ```
+
+### RStudio Cheatsheets
+
+As we move deeper into learning how to use RStudio and various packages within R, there are some [handy cheatsheets](https://www.rstudio.com/resources/cheatsheets/) that can be helpful as a broad overview or quick references. Check them out!
+
 
 <br> 
 
