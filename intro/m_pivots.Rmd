@@ -71,13 +71,13 @@ include_graphics(here::here("images", "tidydata_3.jpg"))
 
 An important step towards tidy data is learning to quickly spot where data is *messy* and what needs to be fixed.
 
-Let's take a look at this [**messy** spreadsheet data](https://github.com/r4wrds/r4wrds-data/raw/main/data/calenviroscreen/ces3results_messy.xlsx) which is based on data from the [Calenviroscreen data](https://oehha.ca.gov/calenviroscreen) from previous modules.
+Let's take a look at this [**messy** spreadsheet data](https://github.com/r4wrds/r4wrds-data-intro/blob/main/data/calenviroscreen/ces3results_messy.xlsx) which is based on data from the [Calenviroscreen data](https://oehha.ca.gov/calenviroscreen) from previous modules.
 
 <br>
 
 ```{r messytab, echo=FALSE, out.width='100%', preview = TRUE}
 
-include_graphics(here::here("images", "messy_spreadsheet_1.png"))
+include_graphics(here::here("images", "messy_spreadsheet_1_updated.png"))
 
 ```
 
