@@ -271,11 +271,11 @@ dbGetQuery(dbcon, "SELECT * from measurements_sep WHERE STN_ID = 4775 LIMIT 5")
 
 ## Write (export) data
 
-To write (export) data in R you need 2 things: data to write, and a location and format to write the data. For example, if we wanted to write our stations data to a csv in the "results" folder, we would do the following:
+To write (export) data in R you need 2 things: data to write, and a location and format to write the data. For example, if we wanted to write our stations data to a csv in the "`data_output`" folder, we would do the following:
 
 ```{r, write-csv, eval = FALSE}
-# write "stations" to a file in the results folder called "my_stations.csv"
-write_csv(stations, here("results", "my_stations.csv"))
+# write "stations" to a file in the data_output folder called "my_stations.csv"
+write_csv(stations, here("data_output", "my_stations.csv"))
 ```
 
 Now check that location and verify that your station data was written. 
@@ -284,25 +284,25 @@ We can do the same for other files:
 
 ```{r, write-other, eval = FALSE}
 # write the Sacramento county polygon to a shapefile
-st_write(sac_county, here("results", "sac_county.shp"))
+st_write(sac_county, here("data_output", "sac_county.shp"))
 
 # write the Sacramento county polygon to an rds file
-write_rds(sac_county, here("results", "sac_county.rds"))
+write_rds(sac_county, here("data_output", "sac_county.rds"))
 ```
 
 As before, navigate to these folders to verify these data were written. We can also check to see if these data exist from within R:
 
 ```{r verify-write-other, eval = FALSE}
-my_results <- list.files(here("results"))
+my_results <- list.files(here("data_output"))
 my_files  <- c("sac_county.shp", "sac_county.rds")
  
-# test if your files are in the results folder
+# test if your files are in the data_output folder
 my_files %in% my_results
 
 # another handy function is `file.exists`, which tells you if your file exists
-file.exists(here("results", "sacramento_county.shp"))
-file.exists(here("results", "sac_county.shp"))
-file.exists(here("results", "sac_county.rds"))
+file.exists(here("data_output", "sacramento_county.shp"))
+file.exists(here("data_output", "sac_county.shp"))
+file.exists(here("data_output", "sac_county.rds"))
 ```
 
 
@@ -312,7 +312,7 @@ file.exists(here("results", "sac_county.rds"))
 <font color="#009E73">**Challenge 2**</font> 
 
 1. create an object called `breakfast` and assign it a string with what you had for breakfast. 
-2. write that object to `breakfast.rds` file in `/results`
+2. write that object to `breakfast.rds` file in `/data_output`
 3. verify this worked by reading the string back in and inspecting it
 
 :::
@@ -328,11 +328,11 @@ file.exists(here("results", "sac_county.rds"))
 # create a string and write it to an rds file
 breakfast <- "green eggs and ham"
 
-# write_rds takes two arguments: the object to write and location to wite it
-write_rds(breakfast, here("results", "breakfast.rds"))
+# write_rds takes two arguments: the object to write and location to write it
+write_rds(breakfast, here("data_output", "breakfast.rds"))
 
 # read the rds file back into R and save it as a variable
-my_breakfast <- read_rds(here("results", "breakfast.rds"))
+my_breakfast <- read_rds(here("data_output", "breakfast.rds"))
 
 # use the `cat()` function (concatenate) to announce your breakfast
 cat("Today for breakfast I ate", my_breakfast)
