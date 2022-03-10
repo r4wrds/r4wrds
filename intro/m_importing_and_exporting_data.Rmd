@@ -239,7 +239,9 @@ stations <- read_rds(here("data","gwl","stations.rds"))
 head(stations)
 ```
 
-Sometimes, you may create an intermediate result that is time-consuming to recreate from scratch each time, and you want to save that intermediate result to streamline future analyses. You can export, or write this object to any number of data formats like a csv, SQL database, or shapefile. Unlike these data formats however, data saved as .rds are saved as one of R's object classes, like data.frame, vector, list, and so on. In practice, only R is used to read .rds and .rda files, so these formats are chosen when we expect to use R to read these data at a later time.
+Sometimes, you may create an intermediate result that is time-consuming to recreate from scratch each time, and you want to save that intermediate result to streamline future analyses. You can export, or write this object to any number of data formats like a csv, SQL database, or shapefile. Unlike these data formats however, data saved as `.rds` are saved as one of R's object classes, like data.frame, vector, list, and so on. In practice, only R is used to read `.rds` and `.rda` files, so these formats are chosen when we expect to use R to read these data at a later time.
+
+One quick difference between `.rds` and `.rda` files, for `.rds` files we can only store a single R object (of any kind). For an `.rda` file, we can store **many**. `.rda` are also compressed by default. There are pros and cons we will discuss later.
 
 
 ### sqlite
