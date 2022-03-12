@@ -60,15 +60,21 @@ library(tidyverse)
 gw_stations <- read_csv("data/gwl/stations.csv")
 
 # GW measurements data for Sac, El Dorado, Placer Counties
-gw_measurements <- read_csv("data/gwl/measurements_sep.csv")
+gw_measurements <- read_csv("data/gwl/measurements_sep.csv.zip")
 
 # GW depths
 gw_perf <- read_csv("data/gwl/perforations.csv")
 
 # CalEnviroscreen Data
-calenviro <- read_csv("data/calenviroscreen/ces3results_data.csv")
+calenviro <- read_csv("data/calenviroscreen/ces3results_data.csv.zip")
 
 ```
+
+<aside>
+
+Did you know you can read a `.zip` file directly with `read_csv()`? Saves disk space 
+
+</aside>
 
 <br>
 
