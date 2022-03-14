@@ -153,7 +153,7 @@ p1 <- gwl %>%
   labs(title = "Monitoring well use", 
        subtitle = "Sacramento County",
        x = "", y = "Count") +
-  guides(fill = FALSE) # remove colorbar
+  guides(fill = "none") # remove colorbar
 
 p1
 ```
@@ -201,7 +201,7 @@ p2 <- ggplot() +
   geom_sf(data = sac) + 
   geom_sf(data = gwl_minimal, aes(color = WELL_USE), alpha = 0.4) +
   facet_wrap(~WELL_USE) +
-  guides(color = FALSE) +
+  guides(color = "none") +
   theme_void()
 
 p2
