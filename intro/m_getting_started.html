@@ -88,6 +88,7 @@ code span.vs { color: #bf0303; } /* VerbatimString */
 code span.wa { color: #bf0303; } /* Warning */
 </style>
 
+
   <!--radix_placeholder_meta_tags-->
   <title>R for Water Resources Data Science: 2. Getting Started with R for Water Resources Data Science</title>
 
@@ -98,12 +99,6 @@ code span.wa { color: #bf0303; } /* Warning */
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
   <meta property="og:title" content="R for Water Resources Data Science: 2. Getting Started with R for Water Resources Data Science"/>
-  <meta property="og:image" content="https://r4wrds.com/./img/cover.png">
-  <meta property="og:image:width" content="1406">
-  <meta property="og:image:height" content="1146">
-  <meta property="og:image" content="https://r4wrds.com/./img/cover.png">
-  <meta property="og:image:width" content="1406">
-  <meta property="og:image:height" content="1146">
   <meta property="og:type" content="article"/>
   <meta property="og:description" content="Unleash your potential to work with any kind of data..."/>
   <meta property="og:locale" content="en_US"/>
@@ -112,12 +107,6 @@ code span.wa { color: #bf0303; } /* Warning */
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
   <meta property="twitter:title" content="R for Water Resources Data Science: 2. Getting Started with R for Water Resources Data Science"/>
-  <meta property="twitter:image" content="https://r4wrds.com/./img/cover.png">
-  <meta property="twitter:image:width" content="1406">
-  <meta property="twitter:image:height" content="1146">
-  <meta property="twitter:image" content="https://r4wrds.com/./img/cover.png">
-  <meta property="twitter:image:width" content="1406">
-  <meta property="twitter:image:height" content="1146">
   <meta property="twitter:description" content="Unleash your potential to work with any kind of data..."/>
 
   <!--/radix_placeholder_meta_tags-->
@@ -471,7 +460,7 @@ code span.wa { color: #bf0303; } /* Warning */
 
   </style>
 
-  <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+  <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
   <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
   <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
   <script src="site_libs/headroom-0.9.4/headroom.min.js"></script>
@@ -1878,7 +1867,10 @@ code span.wa { color: #bf0303; } /* Warning */
 
       // hoverable references
       $('span.citation[data-cites]').each(function() {
-        var refHtml = $('#ref-' + $(this).attr('data-cites')).html();
+        var refs = $(this).attr('data-cites').split(" ");
+        var refHtml = refs.map(function(ref) {
+          return "<p>" + $('#ref-' + ref).html() + "</p>";
+        }).join("\n");
         window.tippy(this, {
           allowHTML: true,
           content: refHtml,
@@ -2049,7 +2041,7 @@ code span.wa { color: #bf0303; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2393,81 +2385,163 @@ Modules
 </ul></li>
 <li><a href="#course-objectives">Course Objectives</a>
 <ul>
-<li><a href="#why-should-i-invest-time-in-learning-r">Why should I invest time in learning R?</a></li>
+<li><a href="#why-should-i-invest-time-in-learning-r">Why should I
+invest time in learning R?</a></li>
 </ul></li>
 <li><a href="#rrstudio-fundamentals">R/RStudio Fundamentals</a>
 <ul>
-<li><a href="#executing-code-in-rstudio-console">Executing code in RStudio (<strong>Console</strong>)</a></li>
-<li><a href="#storing-variables-in-the-environment">Storing Variables in the <strong>Environment</strong></a></li>
-<li><a href="#installing-packages-files-etc-tab">Installing Packages (<strong>Files etc</strong> tab)</a>
+<li><a href="#executing-code-in-rstudio-console">Executing code in
+RStudio (<strong>Console</strong>)</a></li>
+<li><a href="#storing-variables-in-the-environment">Storing Variables in
+the <strong>Environment</strong></a></li>
+<li><a href="#installing-packages-files-etc-tab">Installing Packages
+(<strong>Files etc</strong> tab)</a>
 <ul>
 <li><a href="#cran">CRAN</a></li>
-<li><a href="#installing-tidyverse">Installing <code>{tidyverse}</code></a></li>
-<li><a href="#remaining-tabs-in-the-files-etc-pane">Remaining Tabs in the <strong>Files etc</strong> Pane</a></li>
+<li><a href="#installing-tidyverse">Installing
+<code>{tidyverse}</code></a></li>
+<li><a href="#remaining-tabs-in-the-files-etc-pane">Remaining Tabs in
+the <strong>Files etc</strong> Pane</a></li>
 </ul></li>
 <li><a href="#getting-help">Getting Help</a>
 <ul>
-<li><a href="#help-from-the-console">Help from the <strong>Console</strong></a></li>
+<li><a href="#help-from-the-console">Help from the
+<strong>Console</strong></a></li>
+<li><a href="#rstudio-cheatsheets">RStudio Cheatsheets</a></li>
 </ul></li>
 </ul></li>
 </ul>
 </nav>
 </div>
 <h1 id="welcome">Welcome!</h1>
-<p>The goals of this training are to expose you to fundamentals and to develop an appreciation of what is possible with R. Importantly, we hope to instill the idea that data science should be transferable and reproducible, no matter the specific tools (i.e., R) or the dataset used. Reproducibility is a framework and mindset. An introductory course will not make you an expert, but hopefully it will draw you in, build excitement about using reproducible approaches to your own work, and show you how to be more efficient and less stressed when faced with messy real-world data!</p>
-<p>We hope you will find this workshop both fun and helpful, and we appreciate your patience as we continue to develop this course, both virtually and elsewhere! We would also like to thank <a href="https://twitter.com/allison_horst">Allison Horst</a> for allowing us to use her incredible monste<strong>R</strong>s and R illustrations that you will see included throughout this course.</p>
+<p>The goals of this training are to expose you to fundamentals and to
+develop an appreciation of what is possible with R. Importantly, we hope
+to instill the idea that data science should be transferable and
+reproducible, no matter the specific tools (i.e., R) or the dataset
+used. Reproducibility is a framework and mindset. An introductory course
+will not make you an expert, but hopefully it will draw you in, build
+excitement about using reproducible approaches to your own work, and
+show you how to be more efficient and less stressed when faced with
+messy real-world data!</p>
+<p>We hope you will find this workshop both fun and helpful, and we
+appreciate your patience as we continue to develop this course, both
+virtually and elsewhere! We would also like to thank <a
+href="https://twitter.com/allison_horst">Allison Horst</a> for allowing
+us to use her incredible monste<strong>R</strong>s and R illustrations
+that you will see included throughout this course.</p>
 <h2 id="why-r-why-data-science">Why R? Why Data Science?</h2>
-<p>Computer literacy is essential in all aspects of the working world. The ability to reproduce a set of common or repetitive tasks efficiently and reliably is the root goal of reproducibility. Whether in science, management, or other fields, the skills required to increase productivity, maintain transparency, and feel competent and able to tackle multiple tasks all boil down to data science and project management tools.</p>
-<p>Data management skills are needed for entering data without errors, storing it in a usable way, and extracting key aspects of the data for analysis. Basic programming is required for everything from accessing and managing data, data visualization, to statistical analysis and modeling. Data science combines the skills and tools that allow for acquisition, processing, analyzing, communicating, and maintenance data of any type.</p>
+<p>Computer literacy is essential in all aspects of the working world.
+The ability to reproduce a set of common or repetitive tasks efficiently
+and reliably is the root goal of reproducibility. Whether in science,
+management, or other fields, the skills required to increase
+productivity, maintain transparency, and feel competent and able to
+tackle multiple tasks all boil down to data science and project
+management tools.</p>
+<p>Data management skills are needed for entering data without errors,
+storing it in a usable way, and extracting key aspects of the data for
+analysis. Basic programming is required for everything from accessing
+and managing data, data visualization, to statistical analysis and
+modeling. Data science combines the skills and tools that allow for
+acquisition, processing, analyzing, communicating, and maintenance data
+of any type.</p>
 <h1 id="course-objectives">Course Objectives</h1>
-<p>This course’s main objective is to provide students with a introduction to the power and possibility that an open source (free) and reproducible programming language such as <a href="https://www.r-project.org/about.html">R</a> provides by demonstrating how to import, explore, visualize, and communicate different types of data. Using water resources based examples, this course will guide students through basic data science skills and strategies for continued learning and use of R. <a href="https://www.r-project.org/">R</a> is a language for statistical computing and a general purpose programming language. It is one of the primary languages used in data science and for data analysis across many of the natural sciences. This course will provide lessons in:</p>
+<p>This course’s main objective is to provide students with a
+introduction to the power and possibility that an open source (free) and
+reproducible programming language such as <a
+href="https://www.r-project.org/about.html">R</a> provides by
+demonstrating how to import, explore, visualize, and communicate
+different types of data. Using water resources based examples, this
+course will guide students through basic data science skills and
+strategies for continued learning and use of R. <a
+href="https://www.r-project.org/">R</a> is a language for statistical
+computing and a general purpose programming language. It is one of the
+primary languages used in data science and for data analysis across many
+of the natural sciences. This course will provide lessons in:</p>
 <ul>
-<li>Data and file management: understanding RProjects and file paths</li>
-<li>Understanding and identifying different data formats (i.e., wide, long, tidy) and data structures (i.e., vectors, dataframes, lists)</li>
+<li>Data and file management: understanding RProjects and file
+paths</li>
+<li>Understanding and identifying different data formats (i.e., wide,
+long, tidy) and data structures (i.e., vectors, dataframes, lists)</li>
 <li>Importing and exporting various water resources data</li>
 <li>Strategies for Exploratory Data Analysis (EDA)</li>
-<li>Strategies for troubleshooting (reading documentation, reproducible examples)</li>
-<li>Transforming data with <a href="https://dplyr.tidyverse.org/"><code>{dplyr}</code></a></li>
-<li>Data visualization with <a href="https://ggplot2.tidyverse.org/"><code>{ggplot2}</code></a></li>
-<li>Data presentation and communication with <a href="https://rmarkdown.rstudio.com/">RMarkdown</a></li>
+<li>Strategies for troubleshooting (reading documentation, reproducible
+examples)</li>
+<li>Transforming data with <a
+href="https://dplyr.tidyverse.org/"><code>{dplyr}</code></a></li>
+<li>Data visualization with <a
+href="https://ggplot2.tidyverse.org/"><code>{ggplot2}</code></a></li>
+<li>Data presentation and communication with <a
+href="https://rmarkdown.rstudio.com/">RMarkdown</a></li>
 </ul>
-<h2 id="why-should-i-invest-time-in-learning-r">Why should I invest time in learning R?</h2>
-<p>There are many programming languages available and each has specific benefits. R was originally created as a statistical programming language but now is largely viewed as a ‘data science’ language. R is also an open-source programming language - not only is it free, but this means anybody can contribute to its development. Furthermore, R has powerful and nearly limitless plotting/visualization functionality, and you can adjust nearly any aspect of a graph to communicate your data effectively.</p>
+<h2 id="why-should-i-invest-time-in-learning-r">Why should I invest time
+in learning R?</h2>
+<p>There are many programming languages available and each has specific
+benefits. R was originally created as a statistical programming language
+but now is largely viewed as a ‘data science’ language. R is also an
+open-source programming language - not only is it free, but this means
+anybody can contribute to its development. Furthermore, R has powerful
+and nearly limitless plotting/visualization functionality, and you can
+adjust nearly any aspect of a graph to communicate your data
+effectively.</p>
 <p>As Hadley Wickham, a prominent R developer, states:</p>
 <blockquote>
-<p>“<em>R is not just a programming language, but it is also an interactive environment for doing data science. To support interaction, R is a much more flexible language than many of its peers… it helps you think about problems as a data scientist, while supporting fluent interaction between your brain and the computer. (R4DS)</em>”</p>
+<p>“<em>R is not just a programming language, but it is also an
+interactive environment for doing data science. To support interaction,
+R is a much more flexible language than many of its peers… it helps you
+think about problems as a data scientist, while supporting fluent
+interaction between your brain and the computer. (R4DS)</em>”</p>
 </blockquote>
 <aside>
 <div class="layout-chunk" data-layout="l-body">
-<div class="figure"><span id="fig:rfirst"></span>
+<div class="figure"><span style="display:block;" id="fig:rfirst"></span>
 <img src="images/r_first_then_blank.png" alt="R is hard at first...but it gets easier! Artwork by @allison_horst" width="50%" />
 <p class="caption">
-Figure 1: R is hard at first…but it gets easier! Artwork by <span class="citation" data-cites="allison_horst">@allison_horst</span>
+Figure 1: R is hard at first…but it gets easier! Artwork by <span
+class="citation" data-cites="allison_horst">@allison_horst</span>
 </p>
 </div>
 </div>
 </aside>
 <h1 id="rrstudio-fundamentals">R/RStudio Fundamentals</h1>
-<p>In the old days, the only way to use R was directly from the Console - this is a bare bones way of running R only with direct input of commands. Now, <a href="https://www.rstudio.com/">RStudio</a> is the go-to Interactive Development Environment (IDE) for R. Think of it like a car that is built around an engine. RStudio is built around the R Console (engine) and includes many other features to improve the user’s experience.</p>
-<p>Let’s get familiar with RStudio. If you haven’t done so already, download and install RStudio from the link above (version 1.4.1103). After it’s installed, find the RStudio shortcut and fire it up. You should see something like this:</p>
+<p>In the old days, the only way to use R was directly from the Console
+- this is a bare bones way of running R only with direct input of
+commands. Now, <a href="https://www.rstudio.com/">RStudio</a> is the
+go-to Interactive Development Environment (IDE) for R. Think of it like
+a car that is built around an engine. RStudio is built around the R
+Console (engine) and includes many other features to improve the user’s
+experience.</p>
+<p>Let’s get familiar with RStudio. If you haven’t done so already,
+download and install RStudio from the link above (version 1.4.1103).
+After it’s installed, find the RStudio shortcut and fire it up. You
+should see something like this:</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="figure"><span id="fig:unnamed-chunk-1"></span>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-1"></span>
 <img src="images/rstudio_edit.png" alt="*The RStudio window.*" width="100%" data-distill-preview=1 />
 <p class="caption">
 Figure 2: <em>The RStudio window.</em>
 </p>
 </div>
 </div>
-<p>There are four panes in RStudio (starting from the top right and moving clockwise):</p>
+<aside>
+<p>There’s a great cheatsheet on using the RStudio IDE <a
+href="https://raw.githubusercontent.com/rstudio/cheatsheets/main/rstudio-ide.pdf"><strong>here</strong></a></p>
+<p>There are four panes in RStudio (starting from the top right and
+moving clockwise):</p>
 <ul>
 <li>Source</li>
 <li>Environment, History, etc.</li>
 <li>Files, Plots, etc.</li>
 <li>Console</li>
 </ul>
-<h2 id="executing-code-in-rstudio-console">Executing code in RStudio (<strong>Console</strong>)</h2>
-<p>The first part of RStudio that we will work in is called the <em>Console</em>, which tells you what <code>code</code> R is running. We can use many of the same commands found in a calculator or Microsoft Excel.</p>
-<p>Type the following text into the console at the line that ends with <code>&gt;</code>, press <code>Enter</code>, and you should see the following results:</p>
+<h2 id="executing-code-in-rstudio-console">Executing code in RStudio
+(<strong>Console</strong>)</h2>
+<p>The first part of RStudio that we will work in is called the
+<em>Console</em>, which tells you what <code>code</code> R is running.
+We can use many of the same commands found in a calculator or Microsoft
+Excel.</p>
+<p>Type the following text into the console at the line that ends with
+<code>&gt;</code>, press <code>Enter</code>, and you should see the
+following results:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># enter in console (after the "&gt;" mark)</span>
@@ -2484,9 +2558,18 @@ Figure 2: <em>The RStudio window.</em>
 </div>
 <pre><code>[1] 12</code></pre>
 </div>
-<h2 id="storing-variables-in-the-environment">Storing Variables in the <strong>Environment</strong></h2>
-<p>You can also create variables with custom values (we’ll talk much more about this later). But here are the basics, the first part of the code is a name of your choosing. Meaningful variable names are better, but the only rules are: <em>1) that it can’t start with a number</em> and <em>2) it must not have any spaces</em>. The second bit, <code>&lt;-</code>, is the assignment operator. This tells R to take the result of whatever is on the right side of the <code>&lt;-</code> and save it as a new object in your R Environment.</p>
-<p>Type the following into your <strong>Console</strong> and press <code>enter</code> after each one to see their output:</p>
+<h2 id="storing-variables-in-the-environment">Storing Variables in the
+<strong>Environment</strong></h2>
+<p>You can also create variables with custom values (we’ll talk much
+more about this later). But here are the basics, the first part of the
+code is a name of your choosing. Meaningful variable names are better,
+but the only rules are: <em>1) that it can’t start with a number</em>
+and <em>2) it must not have any spaces</em>. The second bit,
+<code>&lt;-</code>, is the assignment operator. This tells R to take the
+result of whatever is on the right side of the <code>&lt;-</code> and
+save it as a new object in your R Environment.</p>
+<p>Type the following into your <strong>Console</strong> and press
+<code>enter</code> after each one to see their output:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># assign the value 4 to the variable name "stream"</span>
@@ -2501,9 +2584,22 @@ Figure 2: <em>The RStudio window.</em>
 </code></pre>
 </div>
 </div>
-<p>You might notice is no output in the <strong>Console</strong> for the lines of code you have just run. Instead, they have been stored in your R <strong>Environment</strong> in the top right pane of your RStudio window. Click on that tab and take a look! Because they have been stored, you can print these variables by typing their name in the <strong>Console</strong> and pressing <code>Enter</code>.</p>
-<p>Generally there are two possible outcomes when you run code. First, the code will simply print output directly in the console, as it did with the calculations you entered above. Second, there is no output because you have stored it as a variable in the <strong>Environment</strong>. The <strong>Environment</strong> is the collection of named objects that are stored in memory for your current R session. Anything stored in memory will be accessible by the variable name without running the original script that was used to create it.</p>
-<p>Add the variables you just created together, and examine the output:</p>
+<p>You might notice is no output in the <strong>Console</strong> for the
+lines of code you have just run. Instead, they have been stored in your
+R <strong>Environment</strong> in the top right pane of your RStudio
+window. Click on that tab and take a look! Because they have been
+stored, you can print these variables by typing their name in the
+<strong>Console</strong> and pressing <code>Enter</code>.</p>
+<p>Generally there are two possible outcomes when you run code. First,
+the code will simply print output directly in the console, as it did
+with the calculations you entered above. Second, there is no output
+because you have stored it as a variable in the
+<strong>Environment</strong>. The <strong>Environment</strong> is the
+collection of named objects that are stored in memory for your current R
+session. Anything stored in memory will be accessible by the variable
+name without running the original script that was used to create it.</p>
+<p>Add the variables you just created together, and examine the
+output:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>stream</span> <span class='op'>+</span> <span class='va'>pebble</span>
@@ -2511,45 +2607,97 @@ Figure 2: <em>The RStudio window.</em>
 </div>
 <pre><code>[1] 12</code></pre>
 </div>
-<p>You can also create new variables using existing variables like so:</p>
+<p>You can also create new variables using existing variables like
+so:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>habitat</span> <span class='op'>&lt;-</span> <span class='va'>stream</span> <span class='op'>+</span> <span class='va'>pebble</span>
 </code></pre>
 </div>
 </div>
-<p>Keep in mind R is <strong>case-sensitive</strong>! Details like spacing and spelling matter in coding (the computer will do only exactly what you say, nothing more, nothing less), so if we use <code>Habitat</code> or <code>habitatt</code> or <code>ha_bitat</code> hoping to get the value of <strong><code>habitat</code></strong>, we’re out of luck.</p>
-<p><strong>Please note:</strong> Clicking on the broom button in the <strong>Environment</strong> will permanently clear out your existing variables. Only do this if you are certain you want to remove/reset all saved variables and datasets.</p>
-<p>In this same pane in the RStudio window is the <strong>History</strong> tab, which will record all the code you’ve run, and the <strong>Connections</strong> tab will show connections to other databases, etc.</p>
-<h2 id="installing-packages-files-etc-tab">Installing Packages (<strong>Files etc</strong> tab)</h2>
-<p>Immediately below the <strong>Environment</strong> is the third section of RStudio, where all of your <strong>Packages</strong> are stored. The base or core installation of R is quite powerful, but because R is open-source, there are thousands of packages (pieces of code we can download and use) that dramatically extend the capability of R, from statistical analysis, to modeling, to geospatial mapping, to website and document creation. Packages are the collection of code or <em>functions</em> that are a standardized way of extending R with new methods, techniques, and programming functionality.</p>
+<p>Keep in mind R is <strong>case-sensitive</strong>! Details like
+spacing and spelling matter in coding (the computer will do only exactly
+what you say, nothing more, nothing less), so if we use
+<code>Habitat</code> or <code>habitatt</code> or <code>ha_bitat</code>
+hoping to get the value of <strong><code>habitat</code></strong>, we’re
+out of luck.</p>
+<p><strong>Please note:</strong> Clicking on the broom button in the
+<strong>Environment</strong> will permanently clear out your existing
+variables. Only do this if you are certain you want to remove/reset all
+saved variables and datasets.</p>
+<p>In this same pane in the RStudio window is the
+<strong>History</strong> tab, which will record all the code you’ve run,
+and the <strong>Connections</strong> tab will show connections to other
+databases, etc.</p>
+<h2 id="installing-packages-files-etc-tab">Installing Packages
+(<strong>Files etc</strong> tab)</h2>
+<p>Immediately below the <strong>Environment</strong> is the third
+section of RStudio, where all of your <strong>Packages</strong> are
+stored. The base or core installation of R is quite powerful, but
+because R is open-source, there are thousands of packages (pieces of
+code we can download and use) that dramatically extend the capability of
+R, from statistical analysis, to modeling, to geospatial mapping, to
+website and document creation. Packages are the collection of code or
+<em>functions</em> that are a standardized way of extending R with new
+methods, techniques, and programming functionality.</p>
 <h3 id="cran">CRAN</h3>
-<p>One of the reasons for R’s popularity is CRAN, <a href="http://cran.r-project.org/">The Comprehensive R Archive Network</a>. CRAN is where you download R and also where you can gain access to additional packages. All of the packages we will use during this tutorial will be downloaded from CRAN. As of 2021-07-02, there are 17,807 packages on CRAN!</p>
+<p>One of the reasons for R’s popularity is CRAN, <a
+href="http://cran.r-project.org/">The Comprehensive R Archive
+Network</a>. CRAN is where you download R and also where you can gain
+access to additional packages. All of the packages we will use during
+this tutorial will be downloaded from CRAN. As of 2022-03-22, there are
+18,984 packages on CRAN!</p>
 <h3 id="installing-tidyverse">Installing <code>{tidyverse}</code></h3>
-<p>When a package is installed, that means the source code is downloaded and put into your library. Let’s give it a shot using the <a href="https://tidyverse.tidyverse.org/index.html">{<code>tidyverse</code>}</a>, a set of packages assembled for data tidying and visualization purposes.</p>
-<p>We’re going to use our very first function: <code>install.packages()</code> to install this package. Type the following into your <em>Console</em> and press <code>enter</code>:</p>
+<p>When a package is installed, that means the source code is downloaded
+and put into your library. Let’s give it a shot using the <a
+href="https://tidyverse.tidyverse.org/index.html">{<code>tidyverse</code>}</a>,
+a set of packages assembled for data tidying and visualization
+purposes.</p>
+<p>We’re going to use our very first function:
+<code>install.packages()</code> to install this package. Type the
+following into your <em>Console</em> and press <code>enter</code>:</p>
 <p><code>install.packages("tidyverse")</code></p>
-<p>You should see it appear in the <strong>Packages</strong> tab. To find it, you can either scroll through the list, or type the package name into the search bar at the top of the pane.</p>
-<p>In order to use a package, you must load it into your current workspace. This is sometimes called <em>attaching</em> a package, but we prefer to avoid clicking whenever possible, so we’ll load this package using the <code>library()</code> function. Type the following into your <strong>Console</strong> and press <code>Enter</code>:</p>
+<p>You should see it appear in the <strong>Packages</strong> tab. To
+find it, you can either scroll through the list, or type the package
+name into the search bar at the top of the pane.</p>
+<p>In order to use a package, you must load it into your current
+workspace. This is sometimes called <em>attaching</em> a package, but we
+prefer to avoid clicking whenever possible, so we’ll load this package
+using the <code>library()</code> function. Type the following into your
+<strong>Console</strong> and press <code>Enter</code>:</p>
 <p><code>library(tidyverse)</code></p>
-<p>Now your package is loaded, and ready to use. You can be certain your package is attached if there is a check mark next to the package name in the <strong>Packages</strong> tab.</p>
+<p>Now your package is loaded, and ready to use. You can be certain your
+package is attached if there is a check mark next to the package name in
+the <strong>Packages</strong> tab.</p>
 <ul>
-<li><em><strong>General rule of thumb: Load packages once per session, install packages once per computer or R version!</strong></em></li>
+<li><em><strong>General rule of thumb: Load packages once per session,
+install packages once per computer or R version!</strong></em></li>
 </ul>
-<h3 id="remaining-tabs-in-the-files-etc-pane">Remaining Tabs in the <strong>Files etc</strong> Pane</h3>
+<h3 id="remaining-tabs-in-the-files-etc-pane">Remaining Tabs in the
+<strong>Files etc</strong> Pane</h3>
 <p>The remaining tabs in this pane allow you to see:</p>
 <ul>
 <li><strong>Files</strong> in your computer,</li>
 <li><strong>Plots</strong> you’ve created,</li>
 <li><strong>Help</strong> documents for when you get stuck,</li>
-<li><strong>Viewer</strong> view additional HTML content you might create</li>
+<li><strong>Viewer</strong> view additional HTML content you might
+create</li>
 </ul>
-<p>Great job! You’ve opened up RStudio, learned some of the basic functionality, and now we’re ready to get going on your first R project!</p>
+<p>Great job! You’ve opened up RStudio, learned some of the basic
+functionality, and now we’re ready to get going on your first R
+project!</p>
 <p><br></p>
 <h2 id="getting-help">Getting Help</h2>
-<p>Being able to find help and interpret that help is probably one of the most important skills for learning a new language. We have a whole lesson devoted to help and troubleshooting, but here’s a quick overview for “local” help that is already built into R and RStudio. Help on functions and packages can be accessed directly from R.</p>
-<h3 id="help-from-the-console">Help from the <strong>Console</strong></h3>
-<p>Getting help from the <strong>Console</strong> is straightforward and can be done numerous ways. If you know the name of the function or package we can type that as follows:</p>
+<p>Being able to find help and interpret that help is probably one of
+the most important skills for learning a new language. We have a whole
+lesson devoted to help and troubleshooting, but here’s a quick overview
+for “local” help that is already built into R and RStudio. Help on
+functions and packages can be accessed directly from R.</p>
+<h3 id="help-from-the-console">Help from the
+<strong>Console</strong></h3>
+<p>Getting help from the <strong>Console</strong> is straightforward and
+can be done numerous ways. If you know the name of the function or
+package we can type that as follows:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Using the help command/shortcut</span>
@@ -2562,7 +2710,8 @@ Figure 2: <em>The RStudio window.</em>
 </code></pre>
 </div>
 </div>
-<p>If we don’t know the name, or maybe just want to look for a part of something, we can use the following in the <strong>Console</strong>:</p>
+<p>If we don’t know the name, or maybe just want to look for a part of
+something, we can use the following in the <strong>Console</strong>:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Don't know the exact name or just part of it?</span>
@@ -2573,10 +2722,20 @@ Figure 2: <em>The RStudio window.</em>
 </code></pre>
 </div>
 </div>
+<h3 id="rstudio-cheatsheets">RStudio Cheatsheets</h3>
+<p>As we move deeper into learning how to use RStudio and various
+packages within R, there are some <a
+href="https://www.rstudio.com/resources/cheatsheets/">handy
+cheatsheets</a> that can be helpful as a broad overview or quick
+references. Check them out!</p>
 <p><br></p>
 <p><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"></p>
-<p><a href="m_install_R.html" class="btn btn-secondary" style="float: left">Previous module:<br> 1. Install R/RStudio</a> <a href="m_project_management.html" class="btn btn-secondary" style="float: right;">Next module:<br> 3. Project Management</a></p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<p><a href="m_install_R.html" class="btn btn-secondary" style="float: left">Previous
+module:<br> 1. Install R/RStudio</a>
+<a href="m_project_management.html" class="btn btn-secondary" style="float: right;">Next
+module:<br> 3. Project Management</a></p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
@@ -2597,7 +2756,10 @@ Figure 2: <em>The RStudio window.</em>
 <!--/radix_placeholder_appendices-->
 <!--radix_placeholder_navigation_after_body-->
 <div class="distill-site-nav distill-site-footer">
-<p>© Copyright 2021 <a href="http://ryanpeek.org/" target = "_blank">Ryan Peek</a> and <a href="https://www.richpauloo.com/" target = "_blank">Rich Pauloo</a>.</p>
+<p>© Copyright 2021
+<a href="http://ryanpeek.org/" target = "_blank">Ryan Peek</a> and
+<a href="https://www.richpauloo.com/" target = "_blank">Rich
+Pauloo</a>.</p>
 </div>
 <!--/radix_placeholder_navigation_after_body-->
 
