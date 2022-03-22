@@ -66,9 +66,15 @@ gw_measurements <- read_csv("data/gwl/measurements_sep.csv")
 gw_perf <- read_csv("data/gwl/perforations.csv")
 
 # CalEnviroscreen Data
-calenviro <- read_csv("data/calenviroscreen/ces3results_data.csv")
+calenviro <- read_csv("data/calenviroscreen/ces3results_data.csv.zip")
 
 ```
+
+<aside>
+
+Did you know you can read a `.zip` file directly with `read_csv()`? Saves disk space 
+
+</aside>
 
 <br>
 

@@ -86,14 +86,14 @@ knitr::include_graphics(path = "https://raw.githubusercontent.com/allisonhorst/s
 
 All data used in this course is expected to live in a `/data` subfolder in the project directory. It can be downloaded in 1 of 2 ways:
 
-1. [Downloaded and unzipped from OSF](https://osf.io/d7qse/download)  
-2. [Cloned from the `r4wrds-data` Github repository](https://github.com/r4wrds/r4wrds-data)  
+1. [Downloaded from the `r4wrds-data` Github repository](https://github.com/r4wrds/r4wrds-data-intro)
+2. [Downloaded and unzipped from OSF](https://osf.io/d7qse/download)  
 
 Your project directory structure should look like this (note the position of the `/data` subfolder):
 
 ```
 .
-├── code
+├── scripts
 │   ├── module_01.R
 │   └── module_02.R
 │   └── ...
@@ -104,9 +104,7 @@ Your project directory structure should look like this (note the position of the
 └── intro.Rproj
 ```
 
-To complete code exercises and follow along in the course, you will create a `/code` subfolder to store `.R` scripts, which we recommend naming by module. 
-
-You will also need to create an `intro.Rproj` file, covered in the [introductory project management module](m_project_management.html#use-project-workflows). Alternatively, on the command line, use `touch intro.Rproj` (MacOS/Linux) or `echo > intro.Rproj` (Windows) in the root project directory.
+To complete code exercises and follow along in the course, we will create these folders and download the data in the [introductory project management module](m_project_management.html#use-project-workflows). 
 
 <br>
 

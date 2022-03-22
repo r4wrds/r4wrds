@@ -80,6 +80,9 @@ library(sf)
 library(here)
 library(tidyverse)
 
+# may need to unzip first:
+unzip("data/shp/sac_county.zip", exdir = "data/shp/sac")
+
 # Read a shapefile of Sacramento county 
 sac <- st_read(here("data", "shp", "sac", "sac_county.shp"), quiet = TRUE) 
 

@@ -89,6 +89,8 @@ First we need to load our data, which we created in the module on [joins and bin
 ```{r import-jb-data}
 
 # groundwater level measurements joined to stations, perforations, and CES data
+
+# load imports an object named "gwl"
 gwl <- read_rds(here("data", "sacramento_gw_data_w_calenviro.rds"))
 
 # check class, dim, names to refresh memory
@@ -151,7 +153,7 @@ p1 <- gwl %>%
   labs(title = "Monitoring well use", 
        subtitle = "Sacramento County",
        x = "", y = "Count") +
-  guides(fill = FALSE) # remove colorbar
+  guides(fill = "none") # remove colorbar
 
 p1
 ```
@@ -199,7 +201,7 @@ p2 <- ggplot() +
   geom_sf(data = sac) + 
   geom_sf(data = gwl_minimal, aes(color = WELL_USE), alpha = 0.4) +
   facet_wrap(~WELL_USE) +
-  guides(color = FALSE) +
+  guides(color = "none") +
   theme_void()
 
 p2
