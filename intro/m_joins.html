@@ -88,6 +88,7 @@ code span.vs { color: #bf0303; } /* VerbatimString */
 code span.wa { color: #bf0303; } /* Warning */
 </style>
 
+
   <!--radix_placeholder_meta_tags-->
   <title>R for Water Resources Data Science: 10. Joining Data</title>
 
@@ -98,12 +99,6 @@ code span.wa { color: #bf0303; } /* Warning */
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
   <meta property="og:title" content="R for Water Resources Data Science: 10. Joining Data"/>
-  <meta property="og:image" content="https://r4wrds.com/./img/cover.png">
-  <meta property="og:image:width" content="1406">
-  <meta property="og:image:height" content="1146">
-  <meta property="og:image" content="https://r4wrds.com/./img/cover.png">
-  <meta property="og:image:width" content="1406">
-  <meta property="og:image:height" content="1146">
   <meta property="og:type" content="article"/>
   <meta property="og:description" content="How to merge your data!"/>
   <meta property="og:locale" content="en_US"/>
@@ -112,12 +107,6 @@ code span.wa { color: #bf0303; } /* Warning */
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
   <meta property="twitter:title" content="R for Water Resources Data Science: 10. Joining Data"/>
-  <meta property="twitter:image" content="https://r4wrds.com/./img/cover.png">
-  <meta property="twitter:image:width" content="1406">
-  <meta property="twitter:image:height" content="1146">
-  <meta property="twitter:image" content="https://r4wrds.com/./img/cover.png">
-  <meta property="twitter:image:width" content="1406">
-  <meta property="twitter:image:height" content="1146">
   <meta property="twitter:description" content="How to merge your data!"/>
 
   <!--/radix_placeholder_meta_tags-->
@@ -471,7 +460,7 @@ code span.wa { color: #bf0303; } /* Warning */
 
   </style>
 
-  <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+  <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
   <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
   <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
   <script src="site_libs/headroom-0.9.4/headroom.min.js"></script>
@@ -1878,7 +1867,10 @@ code span.wa { color: #bf0303; } /* Warning */
 
       // hoverable references
       $('span.citation[data-cites]').each(function() {
-        var refHtml = $('#ref-' + $(this).attr('data-cites')).html();
+        var refs = $(this).attr('data-cites').split(" ");
+        var refHtml = refs.map(function(ref) {
+          return "<p>" + $('#ref-' + ref).html() + "</p>";
+        }).join("\n");
         window.tippy(this, {
           allowHTML: true,
           content: refHtml,
@@ -2049,7 +2041,7 @@ code span.wa { color: #bf0303; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2390,7 +2382,8 @@ Modules
 <li><a href="#joining-data">Joining Data</a>
 <ul>
 <li><a href="#common-variables">Common Variables</a></li>
-<li><a href="#same-data-different-names">Same Data, Different Names</a></li>
+<li><a href="#same-data-different-names">Same Data, Different
+Names</a></li>
 </ul></li>
 <li><a href="#join-types">Join Types</a>
 <ul>
@@ -2400,12 +2393,14 @@ Modules
 <li><a href="#semi-join">Semi Join</a></li>
 <li><a href="#anti-join">Anti Join</a></li>
 </ul></li>
-<li><a href="#joining-with-common-variable-names">Joining With Common Variable Names</a>
+<li><a href="#joining-with-common-variable-names">Joining With Common
+Variable Names</a>
 <ul>
 <li><a href="#using-the-defaults">Using the defaults</a></li>
 <li><a href="#piping-joins">Piping Joins</a></li>
 </ul></li>
-<li><a href="#joining-with-different-variable-names">Joining With Different Variable Names</a></li>
+<li><a href="#joining-with-different-variable-names">Joining With
+Different Variable Names</a></li>
 <li><a href="#save-it-out">Save it Out!</a></li>
 </ul>
 </nav>
@@ -2419,45 +2414,82 @@ Modules
 </ul>
 </div>
 <h2 id="joining-data">Joining Data</h2>
-<p>We often need to take several datasets and merge them into a single dataset that we can use for analysis. This “<strong>join</strong>” can at times be tricky, and can be made more so if we aren’t exactly sure what data matches up between the two datasets, or if the same data is named differently in each dataframe. Sometimes joining data can resemble more of a gridlock than a clean and seamless merge.</p>
-
+<p>We often need to take several datasets and merge them into a single
+dataset that we can use for analysis. This “<strong>join</strong>” can
+at times be tricky, and can be made more so if we aren’t exactly sure
+what data matches up between the two datasets, or if the same data is
+named differently in each dataframe. Sometimes joining data can resemble
+more of a gridlock than a clean and seamless merge.</p>
+<p>(ref:gridlockWiki) Merging Data? <em>(source Wikipedia
+Commons)</em></p>
 <center>
 <div class="layout-chunk" data-layout="l-body">
-<div class="figure"><span id="fig:gridlock"></span>
-<img src="images/New_York_City_Gridlock.jpeg" alt="Merging Data? (source Wikipedia Commons)" width="384" height="50%" data-distill-preview=1 />
+<div class="figure"><span style="display:block;" id="fig:gridlock"></span>
+<img src="images/New_York_City_Gridlock.jpeg" alt="(ref:gridlockWiki)" width="384" height="50%" data-distill-preview=1 />
 <p class="caption">
-Figure 1: Merging Data? <em>(source Wikipedia Commons)</em>
+Figure 1: (ref:gridlockWiki)
 </p>
 </div>
 </div>
 </center>
 <h3 id="common-variables">Common Variables</h3>
-<p>The trick that makes a join possible is to have one or more shared variables across each dataset. This may be an ID column, or a specific <a href="m_data_structures.html#basic-object-classes">data class</a>. Importantly, these data can actually have different column names, but typically each needs to have the same <em>class</em> of data (i.e., <code>character</code> and <code>character</code>) and some shared observations across each dataset in order to <strong>join</strong> the datasets.</p>
-<p>While this may seem daunting at first, it’s not! R has some excellent tools built into the <strong><code>{dplyr}</code></strong> package that make joining datasets fairly straightforward. First let’s import some data we can use to join. Here we will build off of the datasets we used in the <a href="m_dplyr.html">previous {dplyr} module</a>.</p>
-<p>First let’s load the libraries and data we’ll be using. We’ll be continuing to use some groundwater data as shown in previous modules, including a dataframe of <strong><code>stations</code></strong>, <strong><code>measurements</code></strong> through time, and information on <strong><code>perforations</code></strong>. We’ll also <em>join</em> these data to the <a href="https://oehha.ca.gov/calenviroscreen">CalEnviroscreen dataset</a> which “<em>identifies California communities by census tract that are disproportionately burdened by, and vulnerable to, multiple sources of pollution</em>”. One of the most notable uses of the CalEnviroscreen dataset has been to inform CalEPA’s identification of disadvantaged communities. We’ll be using CalEnviroscreen v3.0 in the code that follows.</p>
+<p>The trick that makes a join possible is to have one or more shared
+variables across each dataset. This may be an ID column, or a specific
+<a href="m_data_structures.html#basic-object-classes">data class</a>.
+Importantly, these data can actually have different column names, but
+typically each needs to have the same <em>class</em> of data (i.e.,
+<code>character</code> and <code>character</code>) and some shared
+observations across each dataset in order to <strong>join</strong> the
+datasets.</p>
+<p>While this may seem daunting at first, it’s not! R has some excellent
+tools built into the <strong><code>{dplyr}</code></strong> package that
+make joining datasets fairly straightforward. First let’s import some
+data we can use to join. Here we will build off of the datasets we used
+in the <a href="m_dplyr.html">previous {dplyr} module</a>.</p>
+<p>First let’s load the libraries and data we’ll be using. We’ll be
+continuing to use some groundwater data as shown in previous modules,
+including a dataframe of <strong><code>stations</code></strong>,
+<strong><code>measurements</code></strong> through time, and information
+on <strong><code>perforations</code></strong>. We’ll also <em>join</em>
+these data to the <a
+href="https://oehha.ca.gov/calenviroscreen">CalEnviroscreen dataset</a>
+which “<em>identifies California communities by census tract that are
+disproportionately burdened by, and vulnerable to, multiple sources of
+pollution</em>”. One of the most notable uses of the CalEnviroscreen
+dataset has been to inform CalEPA’s identification of disadvantaged
+communities. We’ll be using CalEnviroscreen v3.0 in the code that
+follows.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
 
 <span class='co'># GW stations data</span>
-<span class='va'>gw_stations</span> <span class='op'>&lt;-</span> <span class='fu'>read_csv</span><span class='op'>(</span><span class='st'>"data/gwl/stations.csv"</span><span class='op'>)</span>
+<span class='va'>gw_stations</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"data/gwl/stations.csv"</span><span class='op'>)</span>
 
 <span class='co'># GW measurements data for Sac, El Dorado, Placer Counties</span>
-<span class='va'>gw_measurements</span> <span class='op'>&lt;-</span> <span class='fu'>read_csv</span><span class='op'>(</span><span class='st'>"data/gwl/measurements_sep.csv"</span><span class='op'>)</span>
+<span class='va'>gw_measurements</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"data/gwl/measurements_sep.csv"</span><span class='op'>)</span>
 
 <span class='co'># GW depths</span>
-<span class='va'>gw_perf</span> <span class='op'>&lt;-</span> <span class='fu'>read_csv</span><span class='op'>(</span><span class='st'>"data/gwl/perforations.csv"</span><span class='op'>)</span>
+<span class='va'>gw_perf</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"data/gwl/perforations.csv"</span><span class='op'>)</span>
 
 <span class='co'># CalEnviroscreen Data</span>
-<span class='va'>calenviro</span> <span class='op'>&lt;-</span> <span class='fu'>read_csv</span><span class='op'>(</span><span class='st'>"data/calenviroscreen/ces3results_data.csv"</span><span class='op'>)</span>
+<span class='va'>calenviro</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"data/calenviroscreen/ces3results_data.csv.zip"</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
+<aside>
+<p>Did you know you can read a <code>.zip</code> file directly with
+<code>read_csv()</code>? Saves disk space</p>
+</aside>
 <p><br></p>
 <div class="challenge">
-<p><font color="#009E73"><strong>Challenge 1: Find the Commonalities</strong></font></p>
+<p><font color="#009E73"><strong>Challenge 1: Find the
+Commonalities</strong></font></p>
 <ul>
-<li>Look at the 3 different groundwater datasets (<code>gw_measurments</code>, <code>gw_perf</code>, and <code>gw_stations</code>) and find potential common columns/variables we can use to join. How many are there?</li>
+<li>Look at the 3 different groundwater datasets
+(<code>gw_measurments</code>, <code>gw_perf</code>, and
+<code>gw_stations</code>) and find potential common columns/variables we
+can use to join. How many are there?</li>
 </ul>
 </div>
 <details>
@@ -2465,11 +2497,21 @@ Figure 1: Merging Data? <em>(source Wikipedia Commons)</em>
 <strong>Click for Answers!</strong>
 </summary>
 <div class="challenge-ans-body">
-<p>There are many ways to view our data. We want to not only know the column names, but also what kind of data exists in each. What common columns can we use?</p>
+<p>There are many ways to view our data. We want to not only know the
+column names, but also what kind of data exists in each. What common
+columns can we use?</p>
 <ul>
-<li><strong><code>SITE_CODE</code></strong> and <strong><code>STN_ID</code></strong> is in each of the <code>gw_measurments</code>, <code>gw_perf</code>, and <code>gw_stations</code> datasets.</li>
+<li><strong><code>SITE_CODE</code></strong> and
+<strong><code>STN_ID</code></strong> is in each of the
+<code>gw_measurments</code>, <code>gw_perf</code>, and
+<code>gw_stations</code> datasets.</li>
 </ul>
-<p>A great package to use for cleaning and checking things like this is the {<a href="http://sfirke.github.io/janitor/"><code>janitor</code></a>} package. We can use the <code>compare_df_cols</code> function to find out what data types exist across the dataframes we want to potentially join.</p>
+<p>A great package to use for cleaning and checking things like this is
+the {<a
+href="http://sfirke.github.io/janitor/"><code>janitor</code></a>}
+package. We can use the <code>compare_df_cols</code> function to find
+out what data types exist across the dataframes we want to potentially
+join.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/sfirke/janitor'>janitor</a></span><span class='op'>)</span>
@@ -2520,20 +2562,30 @@ Figure 1: Merging Data? <em>(source Wikipedia Commons)</em>
 </div>
 </details>
 <h3 id="same-data-different-names">Same Data, Different Names</h3>
-<p>Now we’d like to know if there are similar data columns between the groundwater datasets and the CalEnviroscreen data. To do this let’s inspect our <code>stations</code> and <code>calenviro</code> data with either <code>head</code> or <code>names</code> or <code>str</code>. All will tell us similar information. At this point, we know we can tie the groundwater data together, but we need to find something to crosswalk or join the CalEnviroscreen data to the groundwater data. In this case, the CalEnviroscreen data are at a census tract level, and contain data with ZIP codes, counties, and census tracts.</p>
-
+<p>Now we’d like to know if there are similar data columns between the
+groundwater datasets and the CalEnviroscreen data. To do this let’s
+inspect our <code>stations</code> and <code>calenviro</code> data with
+either <code>head</code> or <code>names</code> or <code>str</code>. All
+will tell us similar information. At this point, we know we can tie the
+groundwater data together, but we need to find something to crosswalk or
+join the CalEnviroscreen data to the groundwater data. In this case, the
+CalEnviroscreen data are at a census tract level, and contain data with
+ZIP codes, counties, and census tracts.</p>
+<p>(ref:AHmeetdata) <em>Artwork by <span class="citation"
+data-cites="allison_horst">@allison_horst</span></em></p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="figure"><span id="fig:AHmeetData"></span>
-<img src="https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/make-your-own-stats-cartoons/ex_2.png" alt="Artwork by @allison_horst" width="80%" />
+<div class="figure"><span style="display:block;" id="fig:AHmeetData"></span>
+<img src="https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/make-your-own-stats-cartoons/ex_2.png" alt="(ref:AHmeetdata)" width="80%" />
 <p class="caption">
-Figure 2: <em>Artwork by <span class="citation" data-cites="allison_horst">@allison_horst</span></em>
+Figure 2: (ref:AHmeetdata)
 </p>
 </div>
 </div>
-<p>There are a lot of variables in the CalEnviroscreen dataset, so we’re only showing the first 10 here.</p>
+<p>There are a lot of variables in the CalEnviroscreen dataset, so we’re
+only showing the first 10 here.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>calenviro</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>calenviro</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/janitor/man/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code> [1] &quot;Census Tract&quot;                                     
@@ -2555,72 +2607,126 @@ Figure 2: <em>Artwork by <span class="citation" data-cites="allison_horst">@alli
  [9] &quot;BASIN_CODE&quot;  &quot;BASIN_NAME&quot;  &quot;COUNTY_NAME&quot; &quot;WELL_DEPTH&quot; 
 [13] &quot;WELL_USE&quot;    &quot;WELL_TYPE&quot;   &quot;WCR_NO&quot;     </code></pre>
 </div>
-<p>What do we see? Looks like we have county names in both of these datasets, but they have different column names (<em><code>COUNTY_NAME</code></em> in <code>stations</code> and <em><code>California County</code></em> in <code>calenviro</code>. So we know we can join our three groundwater datasets together, and we know we can join the CalEnviroscreen data with the <code>stations</code> dataset by county. Let’s talk about the types of joins we may use now!</p>
+<p>What do we see? Looks like we have county names in both of these
+datasets, but they have different column names
+(<em><code>COUNTY_NAME</code></em> in <code>stations</code> and
+<em><code>California County</code></em> in <code>calenviro</code>. So we
+know we can join our three groundwater datasets together, and we know we
+can join the CalEnviroscreen data with the <code>stations</code> dataset
+by county. Let’s talk about the types of joins we may use now!</p>
 <h2 id="join-types">Join Types</h2>
-<p>There are quite a few different join types that are available via the <strong>{dplyr}</strong> package. Here are some great animations by <a href="https://www.garrickadenbuie.com/project/tidyexplain/#usage">Garrick Aden-Buie</a> that help illustrate the various join types.</p>
+<p>There are quite a few different join types that are available via the
+<strong>{dplyr}</strong> package. Here are some great animations by <a
+href="https://www.garrickadenbuie.com/project/tidyexplain/#usage">Garrick
+Aden-Buie</a> that help illustrate the various join types.</p>
 <h3 id="left-join">Left Join</h3>
-<p>Returns all rows from <code>x</code>, and all columns from <code>x</code> and <code>y</code>. Rows in <code>x</code> with no match in <code>y</code> will have <code>NA</code> values in the new columns. Probably one of the most common joins, where we want to keep <em>everything</em> from our first dataframe (<code>x</code>), and anything that matches <code>x</code> from the second dataframe (<code>y</code>).</p>
+<p>Returns all rows from <code>x</code>, and all columns from
+<code>x</code> and <code>y</code>. Rows in <code>x</code> with no match
+in <code>y</code> will have <code>NA</code> values in the new columns.
+Probably one of the most common joins, where we want to keep
+<em>everything</em> from our first dataframe (<code>x</code>), and
+anything that matches <code>x</code> from the second dataframe
+(<code>y</code>).</p>
 <aside>
-The left join is perhaps the most commonly used join, and if you only know one join, this should be it.
+The left join is perhaps the most commonly used join, and if you only
+know one join, this should be it.
 </aside>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="images/left-join.gif" width="70%" /></p>
 </div>
 <h3 id="inner-join">Inner Join</h3>
-<p>The matching join, returns all rows from <code>x</code> where there are matching values in <code>y</code>, and all columns from <code>x</code> and <code>y</code>.</p>
+<p>The matching join, returns all rows from <code>x</code> where there
+are matching values in <code>y</code>, and all columns from
+<code>x</code> and <code>y</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="images/inner-join.gif" width="70%" /></p>
 </div>
 <h3 id="full-join">Full Join</h3>
-<p>Returns all rows and all columns from both <code>x</code> and <code>y</code>. Where there are not matching values, the function returns <code>NA</code> for that observation. This is a full merge, where no data is lost from either dataset, and any non-matching data gets an <code>NA</code>.</p>
+<p>Returns all rows and all columns from both <code>x</code> and
+<code>y</code>. Where there are not matching values, the function
+returns <code>NA</code> for that observation. This is a full merge,
+where no data is lost from either dataset, and any non-matching data
+gets an <code>NA</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="images/full-join.gif" width="70%" /></p>
 </div>
 <h3 id="semi-join">Semi Join</h3>
-<p>Returns all rows from <code>x</code> where there are matching values in <code>y</code>, keeping only columns from <code>x</code>. Also known as a <em>filtering join</em> because you are basically filtering one dataframe, using another dataframe as the match. This can be useful when you don’t actually want to join with data, but you do want to subset the data to match observations in another dataset.</p>
+<p>Returns all rows from <code>x</code> where there are matching values
+in <code>y</code>, keeping only columns from <code>x</code>. Also known
+as a <em>filtering join</em> because you are basically filtering one
+dataframe, using another dataframe as the match. This can be useful when
+you don’t actually want to join with data, but you do want to subset the
+data to match observations in another dataset.</p>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="images/semi-join.gif" width="70%" /></p>
 </div>
 <h3 id="anti-join">Anti Join</h3>
-<p>Also a <em>filtering join</em>. This keeps all rows from <code>x</code> where there are not matching values in <code>y</code>, keeping just columns from <code>x</code>. This join is useful to find out which data is <strong>not</strong> joining. Note, the dataframe you put first matters: if you switch <code>x</code> and <code>y</code> you may get different answers.</p>
+<p>Also a <em>filtering join</em>. This keeps all rows from
+<code>x</code> where there are not matching values in <code>y</code>,
+keeping just columns from <code>x</code>. This join is useful to find
+out which data is <strong>not</strong> joining. Note, the dataframe you
+put first matters: if you switch <code>x</code> and <code>y</code> you
+may get different answers.</p>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="images/anti-join.gif" width="70%" /></p>
 </div>
 <div class="layout-chunk" data-layout="l-body">
 
 </div>
-<h2 id="joining-with-common-variable-names">Joining With Common Variable Names</h2>
-<p>Let’s demonstrate some joins with our groundwater dataframes. First, we’ll <strong><code>filter</code></strong> the station data to only stations in Sacramento County, and then join these data with the other groundwater data.</p>
+<h2 id="joining-with-common-variable-names">Joining With Common Variable
+Names</h2>
+<p>Let’s demonstrate some joins with our groundwater dataframes. First,
+we’ll <strong><code>filter</code></strong> the station data to only
+stations in Sacramento County, and then join these data with the other
+groundwater data.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>sac_stations</span> <span class='op'>&lt;-</span> <span class='va'>gw_stations</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>COUNTY_NAME</span> <span class='op'>==</span> <span class='st'>"Sacramento"</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>sac_stations</span> <span class='op'>&lt;-</span> <span class='va'>gw_stations</span> <span class='op'><a href='https://rdrr.io/pkg/janitor/man/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>COUNTY_NAME</span> <span class='op'>==</span> <span class='st'>"Sacramento"</span><span class='op'>)</span>
 
 <span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='va'>sac_stations</span><span class='op'>)</span> <span class='co'># get number of ROWS , COLUMNS</span>
 </code></pre>
 </div>
 <pre><code>[1] 494  15</code></pre>
 </div>
-<p>It looks like we have 494 groundwater stations in Sacramento County. Let’s use this subset of data to join to our other groundwater dataframes.</p>
+<p>It looks like we have 494 groundwater stations in Sacramento County.
+Let’s use this subset of data to join to our other groundwater
+dataframes.</p>
 <h3 id="using-the-defaults">Using the defaults</h3>
-<p>The various <code>joins</code> outlined above are very flexible, but the default options are also very good. That means, if we don’t specify any details, the functions will often try to match and join based on common columns (that have identical names and data types), though this isn’t a great habit to set because that may not always be what we want 👾!</p>
-<p>Let’s <strong><code>left_join()</code></strong> our Sacramento stations with the <code>gw_measurments</code> data. Note, we expect to get the same number of stations as the <em>left</em> part of our join (the <code>x</code> data.frame), because <code>left_join</code> should keep everything on the left side, and only keep what matches from the right side (<code>y</code>).</p>
+<p>The various <code>joins</code> outlined above are very flexible, but
+the default options are also very good. That means, if we don’t specify
+any details, the functions will often try to match and join based on
+common columns (that have identical names and data types), though this
+isn’t a great habit to set because that may not always be what we want
+👾!</p>
+<p>Let’s <strong><code>left_join()</code></strong> our Sacramento
+stations with the <code>gw_measurments</code> data. Note, we expect to
+get the same number of stations as the <em>left</em> part of our join
+(the <code>x</code> data.frame), because <code>left_join</code> should
+keep everything on the left side, and only keep what matches from the
+right side (<code>y</code>).</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># default join, only give x, y</span>
-<span class='va'>sac_stations_measurements</span> <span class='op'>&lt;-</span> <span class='fu'>left_join</span><span class='op'>(</span><span class='va'>sac_stations</span>, <span class='va'>gw_measurements</span><span class='op'>)</span>
+<span class='va'>sac_stations_measurements</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>left_join</a></span><span class='op'>(</span><span class='va'>sac_stations</span>, <span class='va'>gw_measurements</span><span class='op'>)</span>
 
 <span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='va'>sac_stations_measurements</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>[1] 28208    32</code></pre>
 </div>
-<p>What happened? Since there are two matching columns, the join used both <code>STN_ID</code> and <code>SITE_CODE</code>. We ended up with <em>lots</em> more observations, and additional columns. It’s important to check and validate things worked.</p>
+<p>What happened? Since there are two matching columns, the join used
+both <code>STN_ID</code> and <code>SITE_CODE</code>. We ended up with
+<em>lots</em> more observations, and additional columns. It’s important
+to check and validate things worked.</p>
 <div class="challenge">
-<p><font color="#009E73"><strong>Challenge 2: Verify the Join</strong></font></p>
+<p><font color="#009E73"><strong>Challenge 2: Verify the
+Join</strong></font></p>
 <ul>
 <li>How can we verify we successfully joined our two datasets?</li>
-<li>Can you use either <code>unique()</code> or <code>distinct()</code> to prove we only have groundwater stations from Sacramento County in our joined dataset?</li>
+<li>Can you use either <code>unique()</code> or <code>distinct()</code>
+to prove we only have groundwater stations from Sacramento County in our
+joined dataset?</li>
 </ul>
 </div>
 <details>
@@ -2628,30 +2734,35 @@ The left join is perhaps the most commonly used join, and if you only know one j
 <strong>Click for Answers!</strong>
 </summary>
 <div class="challenge-ans-body">
-<p>It’s always a good idea to double check both visually and numerically that things are working as expected. In the example above, there are many <code>gw_measurements</code> per station so it may seem difficult to know this worked. However, we can double check the number of unique stations in our joined dataset…it should still equal the total number stations in our <code>sac_stations</code> dataset (n = 494).</p>
+<p>It’s always a good idea to double check both visually and numerically
+that things are working as expected. In the example above, there are
+many <code>gw_measurements</code> per station so it may seem difficult
+to know this worked. However, we can double check the number of unique
+stations in our joined dataset…it should still equal the total number
+stations in our <code>sac_stations</code> dataset (n = 494).</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># look at how many unique SITE_CODE are in orig sac only dataset</span>
-<span class='fu'>distinct</span><span class='op'>(</span><span class='va'>sac_stations</span>, <span class='va'>SITE_CODE</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='fu'><a href='https://dplyr.tidyverse.org/reference/distinct.html'>distinct</a></span><span class='op'>(</span><span class='va'>sac_stations</span>, <span class='va'>SITE_CODE</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/janitor/man/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>[1] 494</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># look at how many unique are in joined dataset</span>
-<span class='fu'>distinct</span><span class='op'>(</span><span class='va'>sac_stations_measurements</span>, <span class='va'>SITE_CODE</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='fu'><a href='https://dplyr.tidyverse.org/reference/distinct.html'>distinct</a></span><span class='op'>(</span><span class='va'>sac_stations_measurements</span>, <span class='va'>SITE_CODE</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/janitor/man/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>[1] 494</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># look at top 10 stations with the most measurements:</span>
-<span class='va'>sac_stations_measurements</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>group_by</span><span class='op'>(</span><span class='va'>SITE_CODE</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='co'># group by SITE_CODE</span>
-  <span class='fu'>tally</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='co'># count how many measurements by STATION</span>
-  <span class='fu'>arrange</span><span class='op'>(</span><span class='fu'>desc</span><span class='op'>(</span><span class='va'>n</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='co'># arrange by count (n), descending</span>
+<span class='va'>sac_stations_measurements</span> <span class='op'><a href='https://rdrr.io/pkg/janitor/man/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>SITE_CODE</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/janitor/man/pipe.html'>%&gt;%</a></span> <span class='co'># group by SITE_CODE</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>tally</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/janitor/man/pipe.html'>%&gt;%</a></span> <span class='co'># count how many measurements by STATION</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/desc.html'>desc</a></span><span class='op'>(</span><span class='va'>n</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/janitor/man/pipe.html'>%&gt;%</a></span> <span class='co'># arrange by count (n), descending</span>
   <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span> <span class='co'># top 10 records only</span>
 </code></pre>
 </div>
-<pre><code># A tibble: 10 x 2
+<pre><code># A tibble: 10 × 2
    SITE_CODE              n
    &lt;chr&gt;              &lt;int&gt;
  1 384121N1212102W001  1582
@@ -2667,59 +2778,90 @@ The left join is perhaps the most commonly used join, and if you only know one j
 </div>
 </div>
 </details>
-<p>If we use an <code>inner_join()</code>, do we get a different number of stations? Why?</p>
+<p>If we use an <code>inner_join()</code>, do we get a different number
+of stations? Why?</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># default join, only give x, y</span>
-<span class='va'>sac_stations_inner</span> <span class='op'>&lt;-</span> <span class='fu'>inner_join</span><span class='op'>(</span><span class='va'>sac_stations</span>, <span class='va'>gw_measurements</span><span class='op'>)</span>
+<span class='va'>sac_stations_inner</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>inner_join</a></span><span class='op'>(</span><span class='va'>sac_stations</span>, <span class='va'>gw_measurements</span><span class='op'>)</span>
 
 <span class='co'># check station number</span>
-<span class='fu'>distinct</span><span class='op'>(</span><span class='va'>sac_stations_inner</span>, <span class='va'>SITE_CODE</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='fu'><a href='https://dplyr.tidyverse.org/reference/distinct.html'>distinct</a></span><span class='op'>(</span><span class='va'>sac_stations_inner</span>, <span class='va'>SITE_CODE</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/janitor/man/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>[1] 420</code></pre>
 </div>
-<p>There’s a different number of stations here! What happened? Remember, <code>inner_join()</code> only keeps the <em>rows that match in both data frames</em>. So, this means while the original <code>sac_stations</code> dataset had 494 stations, the <code>gw_measurements</code> dataset does not have data for every station in the <code>sac_stations</code> dataset, thus <code>n = 420</code> instead <code>n = 494</code>. When using <code>left_join()</code>, these missing observations get filled with <code>NA</code>, whereas with <code>inner_join()</code>, they are dropped.</p>
+<p>There’s a different number of stations here! What happened? Remember,
+<code>inner_join()</code> only keeps the <em>rows that match in both
+data frames</em>. So, this means while the original
+<code>sac_stations</code> dataset had 494 stations, the
+<code>gw_measurements</code> dataset does not have data for every
+station in the <code>sac_stations</code> dataset, thus
+<code>n = 420</code> instead <code>n = 494</code>. When using
+<code>left_join()</code>, these missing observations get filled with
+<code>NA</code>, whereas with <code>inner_join()</code>, they are
+dropped.</p>
 <h3 id="piping-joins">Piping Joins</h3>
-<p>We saw how we can join two datasets, but let’s try piping these together so we can join all three groundwater datasets together in one single chain of code. We’ll start with our Sacramento County stations only.</p>
-<p>Here we’ll pipe the data to the function, which means we only need to add the <code>y</code> argument. In R, a “<code>.</code>” is like a placeholder that represents the data we are piping along. It’s not strictly required (try running the function without it!), but here it helps us see the pieces that go into the function (<code>x</code> and <code>y</code>).</p>
+<p>We saw how we can join two datasets, but let’s try piping these
+together so we can join all three groundwater datasets together in one
+single chain of code. We’ll start with our Sacramento County stations
+only.</p>
+<p>Here we’ll pipe the data to the function, which means we only need to
+add the <code>y</code> argument. In R, a “<code>.</code>” is like a
+placeholder that represents the data we are piping along. It’s not
+strictly required (try running the function without it!), but here it
+helps us see the pieces that go into the function (<code>x</code> and
+<code>y</code>).</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># note, we aren't specifying the columns we want to join on (keep defaults)</span>
-<span class='va'>sac_gw_data_joined</span> <span class='op'>&lt;-</span> <span class='va'>sac_stations</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>left_join</span><span class='op'>(</span><span class='va'>.</span>, <span class='va'>gw_measurements</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='co'># passing this result to the next join</span>
-  <span class='fu'>left_join</span><span class='op'>(</span><span class='va'>.</span>, <span class='va'>gw_perf</span><span class='op'>)</span>
+<span class='va'>sac_gw_data_joined</span> <span class='op'>&lt;-</span> <span class='va'>sac_stations</span> <span class='op'><a href='https://rdrr.io/pkg/janitor/man/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>left_join</a></span><span class='op'>(</span><span class='va'>.</span>, <span class='va'>gw_measurements</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/janitor/man/pipe.html'>%&gt;%</a></span> <span class='co'># passing this result to the next join</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>left_join</a></span><span class='op'>(</span><span class='va'>.</span>, <span class='va'>gw_perf</span><span class='op'>)</span>
 
 <span class='co'># quick check of stations, should be n=494, because left_join!</span>
-<span class='fu'>distinct</span><span class='op'>(</span><span class='va'>sac_gw_data_joined</span>, <span class='va'>SITE_CODE</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='fu'><a href='https://dplyr.tidyverse.org/reference/distinct.html'>distinct</a></span><span class='op'>(</span><span class='va'>sac_gw_data_joined</span>, <span class='va'>SITE_CODE</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/janitor/man/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>[1] 494</code></pre>
 </div>
-<h2 id="joining-with-different-variable-names">Joining With Different Variable Names</h2>
-<p>What about joining dataframes with different variable names? This is much more common when trying to merge different datasets. Let’s try to join the CalEnviroscreen data with the Sacramento County groundwater <code>stations</code> data.</p>
+<h2 id="joining-with-different-variable-names">Joining With Different
+Variable Names</h2>
+<p>What about joining dataframes with different variable names? This is
+much more common when trying to merge different datasets. Let’s try to
+join the CalEnviroscreen data with the Sacramento County groundwater
+<code>stations</code> data.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>calenviro_stations</span> <span class='op'>&lt;-</span> <span class='fu'>left_join</span><span class='op'>(</span><span class='va'>calenviro</span>, <span class='va'>sac_stations</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>calenviro_stations</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>left_join</a></span><span class='op'>(</span><span class='va'>calenviro</span>, <span class='va'>sac_stations</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
 <pre><code>Error: `by` must be supplied when `x` and `y` have no common variables.
 ℹ use by = character()` to perform a cross-join.
 Run `rlang::last_error()` to see where the error occurred.</code></pre>
-
+<p>(ref:facewiggle) <em>Artwork by <span class="citation"
+data-cites="allison_horst">@allison_horst</span></em></p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="figure"><span id="fig:face"></span>
-<img src="images/faces_squiggle.png" alt="Artwork by @allison_horst" width="448" height="2%" />
+<div class="figure"><span style="display:block;" id="fig:face"></span>
+<img src="images/faces_squiggle.png" alt="(ref:facewiggle)" width="448" height="2%" />
 <p class="caption">
-Figure 3: <em>Artwork by <span class="citation" data-cites="allison_horst">@allison_horst</span></em>
+Figure 3: (ref:facewiggle)
 </p>
 </div>
 </div>
-<p>Uh-oh, an error message! But if we look more closely, this error message is pretty descriptive. It tells us the two pieces we are working with (x = <code>calenviro</code> and y = <code>sac_stations</code>) don’t have a common variable name. Then it gives us a suggestion, <code>use by = character()</code>. Let’s try specifying the column names we want to join using the <strong><code>by</code></strong> argument. Note, we need to quote the variable names here (a <code>character()</code> vector), and they need to match the same order the dataframes were provided (<code>x</code> and <code>y</code>).</p>
+<p>Uh-oh, an error message! But if we look more closely, this error
+message is pretty descriptive. It tells us the two pieces we are working
+with (x = <code>calenviro</code> and y = <code>sac_stations</code>)
+don’t have a common variable name. Then it gives us a suggestion,
+<code>use by = character()</code>. Let’s try specifying the column names
+we want to join using the <strong><code>by</code></strong> argument.
+Note, we need to quote the variable names here (a
+<code>character()</code> vector), and they need to match the same order
+the dataframes were provided (<code>x</code> and <code>y</code>).</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>calenviro_stations</span> <span class='op'>&lt;-</span> <span class='fu'>inner_join</span><span class='op'>(</span><span class='va'>sac_stations</span>, <span class='va'>calenviro</span>,
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>calenviro_stations</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>inner_join</a></span><span class='op'>(</span><span class='va'>sac_stations</span>, <span class='va'>calenviro</span>,
                                 by <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"COUNTY_NAME"</span> <span class='op'>=</span> <span class='st'>"California County"</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='va'>calenviro_stations</span><span class='op'>)</span>
@@ -2727,14 +2869,15 @@ Figure 3: <em>Artwork by <span class="citation" data-cites="allison_horst">@alli
 </div>
 <pre><code>[1] 156598     71</code></pre>
 </div>
-<p>Great this worked! But let’s figure out why there are so many records if there were only n = 494 stations.</p>
+<p>Great this worked! But let’s figure out why there are so many records
+if there were only n = 494 stations.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># how many stations per census tract?</span>
-<span class='va'>calenviro_stations</span> <span class='op'>%&gt;%</span> <span class='fu'>count</span><span class='op'>(</span><span class='va'>`Census Tract`</span><span class='op'>)</span>
+<span class='va'>calenviro_stations</span> <span class='op'><a href='https://rdrr.io/pkg/janitor/man/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>count</a></span><span class='op'>(</span><span class='va'>`Census Tract`</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code># A tibble: 317 x 2
+<pre><code># A tibble: 317 × 2
    `Census Tract`     n
             &lt;dbl&gt; &lt;int&gt;
  1     6067000100   494
@@ -2750,10 +2893,10 @@ Figure 3: <em>Artwork by <span class="citation" data-cites="allison_horst">@alli
 # … with 307 more rows</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># how many census tracts in Sacramento County</span>
-<span class='va'>calenviro_stations</span> <span class='op'>%&gt;%</span> <span class='fu'>count</span><span class='op'>(</span><span class='va'>`Census Tract`</span><span class='op'>)</span>
+<span class='va'>calenviro_stations</span> <span class='op'><a href='https://rdrr.io/pkg/janitor/man/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>count</a></span><span class='op'>(</span><span class='va'>`Census Tract`</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code># A tibble: 317 x 2
+<pre><code># A tibble: 317 × 2
    `Census Tract`     n
             &lt;dbl&gt; &lt;int&gt;
  1     6067000100   494
@@ -2768,23 +2911,34 @@ Figure 3: <em>Artwork by <span class="citation" data-cites="allison_horst">@alli
 10     6067001200   494
 # … with 307 more rows</code></pre>
 </div>
-<p>So there are 317 census tracts in Sacramento County, and 494 unique groundwater stations. If we multiply 317 * 494, we get the number of observations in our dataset (<code>n = 156,598</code>). So, it seems every single station is being joined to every single census tract…that’s because we only have county to join on.</p>
-<p>For these sorts of operations, we actually want a more spatially explicit join to reduce this sort of duplication. Thankfully we’ve done this already. Let’s grab this data now so we can use it to make a better join of the data. <a href="">Download it here</a>, and see the <a href="m_intro_mapmaking.html">spatial mapmaking module</a> to see more on spatial joins. Let’s join our full joined Sacramento County groundwater dataset from earlier using the census tracts instead of county.</p>
+<p>So there are 317 census tracts in Sacramento County, and 494 unique
+groundwater stations. If we multiply 317 * 494, we get the number of
+observations in our dataset (<code>n = 156,598</code>). So, it seems
+every single station is being joined to every single census tract…that’s
+because we only have county to join on.</p>
+<p>For these sorts of operations, we actually want a more spatially
+explicit join to reduce this sort of duplication. Thankfully we’ve done
+this already. Let’s grab this data now so we can use it to make a better
+join of the data. <a href="">Download it here</a>, and see the <a
+href="m_intro_mapmaking.html">spatial mapmaking module</a> to see more
+on spatial joins. Let’s join our full joined Sacramento County
+groundwater dataset from earlier using the census tracts instead of
+county.</p>
 <div class="layout-chunk" data-layout="l-body">
 
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># can use URL here too: </span>
-<span class='va'>xwalk</span> <span class='op'>&lt;-</span> <span class='fu'>read_csv</span><span class='op'>(</span><span class='st'>"data/calenviroscreen/sac_county_crosswalk_to_gw_stations.csv"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+<span class='va'>xwalk</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"data/calenviroscreen/sac_county_crosswalk_to_gw_stations.csv"</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/janitor/man/pipe.html'>%&gt;%</a></span> 
   <span class='co'># filter to just columns we need</span>
-  <span class='fu'>select</span><span class='op'>(</span><span class='va'>SITE_CODE</span>, <span class='va'>tract</span><span class='op'>)</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>SITE_CODE</span>, <span class='va'>tract</span><span class='op'>)</span>
 
 <span class='co'># join with station data...adding "tract" to dataframe</span>
-<span class='va'>sac_stations_w_tracts</span> <span class='op'>&lt;-</span> <span class='fu'>left_join</span><span class='op'>(</span><span class='va'>sac_stations</span>, <span class='va'>xwalk</span><span class='op'>)</span>
+<span class='va'>sac_stations_w_tracts</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>left_join</a></span><span class='op'>(</span><span class='va'>sac_stations</span>, <span class='va'>xwalk</span><span class='op'>)</span>
 
 <span class='co'># now join to CalEnviroScreen data</span>
-<span class='va'>sac_station_calenviro_by_tracts</span> <span class='op'>&lt;-</span> <span class='fu'>left_join</span><span class='op'>(</span><span class='va'>sac_stations_w_tracts</span>, <span class='va'>calenviro</span>,
+<span class='va'>sac_station_calenviro_by_tracts</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>left_join</a></span><span class='op'>(</span><span class='va'>sac_stations_w_tracts</span>, <span class='va'>calenviro</span>,
                                              by <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"tract"</span> <span class='op'>=</span> <span class='st'>"Census Tract"</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># check dim</span>
@@ -2793,33 +2947,47 @@ Figure 3: <em>Artwork by <span class="citation" data-cites="allison_horst">@alli
 </div>
 <pre><code>[1] 495  72</code></pre>
 </div>
-<p>Ok, so what happened? We used an intermediate table (<code>xwalk</code>) to crosswalk using a finer resolution join for our stations. So now each census tract is associated with a specific groundwater station in Sacramento County, based on a spatial join of the CalEnviroScreen data with the stations data.</p>
-<p>Let’s close the loop, and join the station-calenviroscreen data back to our <code>gw_perf</code> and <code>gw_measurement</code> data so we have one single dataset for Sacramento County!</p>
+<p>Ok, so what happened? We used an intermediate table
+(<code>xwalk</code>) to crosswalk using a finer resolution join for our
+stations. So now each census tract is associated with a specific
+groundwater station in Sacramento County, based on a spatial join of the
+CalEnviroScreen data with the stations data.</p>
+<p>Let’s close the loop, and join the station-calenviroscreen data back
+to our <code>gw_perf</code> and <code>gw_measurement</code> data so we
+have one single dataset for Sacramento County!</p>
 <!-- can add section on pivot_longer/wider here later -->
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>sac_gw_all</span> <span class='op'>&lt;-</span> <span class='fu'>left_join</span><span class='op'>(</span><span class='va'>sac_station_calenviro_by_tracts</span>, <span class='va'>gw_perf</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>left_join</span><span class='op'>(</span><span class='va'>.</span>, <span class='va'>gw_measurements</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>sac_gw_all</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>left_join</a></span><span class='op'>(</span><span class='va'>sac_station_calenviro_by_tracts</span>, <span class='va'>gw_perf</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/janitor/man/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>left_join</a></span><span class='op'>(</span><span class='va'>.</span>, <span class='va'>gw_measurements</span><span class='op'>)</span>
 
 <span class='co'># lets move the CalEnviroScreen variables to the end</span>
-<span class='va'>sac_gw_all</span> <span class='op'>&lt;-</span> <span class='va'>sac_gw_all</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>select</span><span class='op'>(</span><span class='va'>STN_ID</span><span class='op'>:</span><span class='va'>WCR_NO</span>, <span class='va'>TOP_PRF</span><span class='op'>:</span><span class='va'>COOP_ORG_NAME</span>, <span class='va'>tract</span><span class='op'>:</span><span class='va'>`Pop. Char. Pctl`</span><span class='op'>)</span>
+<span class='va'>sac_gw_all</span> <span class='op'>&lt;-</span> <span class='va'>sac_gw_all</span> <span class='op'><a href='https://rdrr.io/pkg/janitor/man/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>STN_ID</span><span class='op'>:</span><span class='va'>WCR_NO</span>, <span class='va'>TOP_PRF</span><span class='op'>:</span><span class='va'>COOP_ORG_NAME</span>, <span class='va'>tract</span><span class='op'>:</span><span class='va'>`Pop. Char. Pctl`</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
 <h2 id="save-it-out">Save it Out!</h2>
-<p>Remember how to do this? Let’s save this using an R specific format, <code>.rds</code>, because it will retain the formatting and allow us to import/read in the data using whatever name we prefer. Here we’ll use the <code>write_rds()</code> function from the <code>{readr}</code> package (part of the <code>{tidyverse}</code>).</p>
+<p>Remember how to do this? Let’s save this using an R specific format,
+<code>.rds</code>, because it will retain the formatting and allow us to
+import/read in the data using whatever name we prefer. Here we’ll use
+the <code>write_rds()</code> function from the <code>{readr}</code>
+package (part of the <code>{tidyverse}</code>).</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># remember to use a relative path!</span>
-<span class='fu'>write_rds</span><span class='op'>(</span><span class='va'>sac_gw_all</span>, file <span class='op'>=</span> <span class='st'>"data/sacramento_gw_data_w_calenviro.rds"</span><span class='op'>)</span>
+<span class='fu'><a href='https://readr.tidyverse.org/reference/read_rds.html'>write_rds</a></span><span class='op'>(</span><span class='va'>sac_gw_all</span>, file <span class='op'>=</span> <span class='st'>"data/sacramento_gw_data_w_calenviro.rds"</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
 <p><br></p>
 <p><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"></p>
-<p><a href="m_functions.html" class="btn btn-secondary" style="float: left">Previous module:<br> 9. Functions</a> <a href="m_intro_mapmaking.html" class="btn btn-secondary" style="float: right;">Next module:<br> 11. Spatial Data</a></p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<p><a href="m_functions.html" class="btn btn-secondary" style="float: left">Previous
+module:<br> 9. Functions</a>
+<a href="m_intro_mapmaking.html" class="btn btn-secondary" style="float: right;">Next
+module:<br> 11. Spatial Data</a></p>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
@@ -2840,7 +3008,10 @@ Figure 3: <em>Artwork by <span class="citation" data-cites="allison_horst">@alli
 <!--/radix_placeholder_appendices-->
 <!--radix_placeholder_navigation_after_body-->
 <div class="distill-site-nav distill-site-footer">
-<p>© Copyright 2021 <a href="http://ryanpeek.org/" target = "_blank">Ryan Peek</a> and <a href="https://www.richpauloo.com/" target = "_blank">Rich Pauloo</a>.</p>
+<p>© Copyright 2021
+<a href="http://ryanpeek.org/" target = "_blank">Ryan Peek</a> and
+<a href="https://www.richpauloo.com/" target = "_blank">Rich
+Pauloo</a>.</p>
 </div>
 <!--/radix_placeholder_navigation_after_body-->
 

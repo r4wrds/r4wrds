@@ -60,7 +60,7 @@ library(tidyverse)
 gw_stations <- read_csv("data/gwl/stations.csv")
 
 # GW measurements data for Sac, El Dorado, Placer Counties
-gw_measurements <- read_csv("data/gwl/measurements_sep.csv.zip")
+gw_measurements <- read_csv("data/gwl/measurements_sep.csv")
 
 # GW depths
 gw_perf <- read_csv("data/gwl/perforations.csv")
