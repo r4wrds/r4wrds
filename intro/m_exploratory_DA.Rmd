@@ -91,7 +91,7 @@ First we need to load our data, which we created in the module on [joins and bin
 # groundwater level measurements joined to stations, perforations, and CES data
 
 # load imports an object named "gwl"
-load(here("data", "sacramento_gw_data_w_calenviro.rda"))
+gwl <- read_rds(here("data", "sacramento_gw_data_w_calenviro.rds"))
 
 # check class, dim, names to refresh memory
 class(gwl)
