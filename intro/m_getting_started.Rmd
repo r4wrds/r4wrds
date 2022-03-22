@@ -70,6 +70,8 @@ knitr::include_graphics(here::here("images", "rstudio_edit.png"))
 
 There's a great cheatsheet on using the RStudio IDE [**here**](https://raw.githubusercontent.com/rstudio/cheatsheets/main/rstudio-ide.pdf)
 
+</aside>
+
 There are four panes in RStudio (starting from the top right and moving clockwise): 
 
 * Source

@@ -88,6 +88,7 @@ code span.vs { color: #bf0303; } /* VerbatimString */
 code span.wa { color: #bf0303; } /* Warning */
 </style>
 
+
   <!--radix_placeholder_meta_tags-->
   <title>R for Water Resources Data Science: 14. Strategies for Troubleshooting</title>
 
@@ -98,12 +99,6 @@ code span.wa { color: #bf0303; } /* Warning */
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
   <meta property="og:title" content="R for Water Resources Data Science: 14. Strategies for Troubleshooting"/>
-  <meta property="og:image" content="https://r4wrds.com/./img/cover.png">
-  <meta property="og:image:width" content="1406">
-  <meta property="og:image:height" content="1146">
-  <meta property="og:image" content="https://r4wrds.com/./img/cover.png">
-  <meta property="og:image:width" content="1406">
-  <meta property="og:image:height" content="1146">
   <meta property="og:type" content="article"/>
   <meta property="og:description" content="How to get unstuck... because we all get stuck at times"/>
   <meta property="og:locale" content="en_US"/>
@@ -112,12 +107,6 @@ code span.wa { color: #bf0303; } /* Warning */
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
   <meta property="twitter:title" content="R for Water Resources Data Science: 14. Strategies for Troubleshooting"/>
-  <meta property="twitter:image" content="https://r4wrds.com/./img/cover.png">
-  <meta property="twitter:image:width" content="1406">
-  <meta property="twitter:image:height" content="1146">
-  <meta property="twitter:image" content="https://r4wrds.com/./img/cover.png">
-  <meta property="twitter:image:width" content="1406">
-  <meta property="twitter:image:height" content="1146">
   <meta property="twitter:description" content="How to get unstuck... because we all get stuck at times"/>
 
   <!--/radix_placeholder_meta_tags-->
@@ -471,7 +460,7 @@ code span.wa { color: #bf0303; } /* Warning */
 
   </style>
 
-  <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+  <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
   <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
   <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
   <script src="site_libs/headroom-0.9.4/headroom.min.js"></script>
@@ -1878,7 +1867,10 @@ code span.wa { color: #bf0303; } /* Warning */
 
       // hoverable references
       $('span.citation[data-cites]').each(function() {
-        var refHtml = $('#ref-' + $(this).attr('data-cites')).html();
+        var refs = $(this).attr('data-cites').split(" ");
+        var refHtml = refs.map(function(ref) {
+          return "<p>" + $('#ref-' + ref).html() + "</p>";
+        }).join("\n");
         window.tippy(this, {
           allowHTML: true,
           content: refHtml,
@@ -2049,7 +2041,7 @@ code span.wa { color: #bf0303; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2416,7 +2408,7 @@ Modules
 <h2 id="error-messages">Error messages</h2>
 <!-- <aside> -->
 <div class="layout-chunk" data-layout="l-body">
-<div class="figure"><span id="fig:bryan-aside"></span>
+<div class="figure"><span style="display:block;" id="fig:bryan-aside"></span>
 <img src="images/bryan_try_again.png" alt="[Jenny Bryan's rstudio::conf(2020) talk](https://www.youtube.com/watch?v=vgYS-F8opgE) is a comical and educational deep dive into debugging." width="80%" />
 <p class="caption">
 Figure 1: <a href="https://www.youtube.com/watch?v=vgYS-F8opgE">Jenny Bryan’s rstudio::conf(2020) talk</a> is a comical and educational deep dive into debugging.
@@ -2426,7 +2418,7 @@ Figure 1: <a href="https://www.youtube.com/watch?v=vgYS-F8opgE">Jenny Bryan’s 
 <!-- </aside> -->
 <p>Interpreting error messages is a normal part of working with R. Getting errors is expected, and no amount of practice will prevent errors from happening. What practice <strong>will change</strong> however, is your ability to diagnose and address errors. In this module, we cover a few seasoned approaches to “get unstuck” when you encounter errors in R.</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="figure"><span id="fig:error-message"></span>
+<div class="figure"><span style="display:block;" id="fig:error-message"></span>
 <img src="images/closure-error.png" alt="The fabled error message: '`object of type 'closure' is not subsettable`'. This hard-to-interpret error arises when we try to subset an object that can't be subset. In this example, the function `mean()` doesn't have an index `[1, ]` so we get this opaque error." width="80%" />
 <p class="caption">
 Figure 2: The fabled error message: ‘<code>object of type 'closure' is not subsettable</code>’. This hard-to-interpret error arises when we try to subset an object that can’t be subset. In this example, the function <code>mean()</code> doesn’t have an index <code>[1, ]</code> so we get this opaque error.
@@ -2459,7 +2451,7 @@ Recall the classes of atomic vectors (logical, numeric, factor, character) from 
 </div>
 <pre><code>[1] &quot;character&quot;</code></pre>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span><span class='op'>(</span><span class='fu'>tibble</span><span class='op'>(</span>x <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, y <span class='op'>=</span> <span class='st'>"a string"</span><span class='op'>)</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span><span class='op'>(</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, y <span class='op'>=</span> <span class='st'>"a string"</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>[1] &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;</code></pre>
@@ -2602,7 +2594,7 @@ There’s even an <a href="https://reprex.tidyverse.org/articles/reprex-dos-and-
 <h2 id="searching-for-answers-and-asking-questions">Searching for answers and asking questions</h2>
 <p>Sometimes, knowing how to check object classes, read help documentation, and abstract your code’s error into a minimal, reproducible example just isn’t enough to solve the problem. Even the best programmers reach this point, and when you too reach this point, you’ll probably turn to the internet for answers. Here we present some guidance on <em>how</em> and <em>where</em> to ask questions and seek answers.</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="figure"><span id="fig:code-hero"></span>
+<div class="figure"><span style="display:block;" id="fig:code-hero"></span>
 <img src="images/code_hero.jpg" alt="Learning to code doesn't need to be a solitary experience. Online and in-real-life comunities of practice can support you on your jouRney. Artwork by @allison_horst" width="80%" />
 <p class="caption">
 Figure 3: Learning to code doesn’t need to be a solitary experience. Online and in-real-life comunities of practice can support you on your jouRney. Artwork by <span class="citation" data-cites="allison_horst">@allison_horst</span>
@@ -2615,7 +2607,7 @@ Figure 3: Learning to code doesn’t need to be a solitary experience. Online an
 <p><img src="images/error_filter.png" width="80%" /></p>
 </div>
 <div class="layout-chunk" data-layout="l-body">
-<div class="figure"><span id="fig:r-error"></span>
+<div class="figure"><span style="display:block;" id="fig:r-error"></span>
 <img src="images/r_error.jpeg" alt="Embrace the error message! It may even tell you something useful. Artwork by @allison_horst" width="80%" data-distill-preview=1 />
 <p class="caption">
 Figure 4: Embrace the error message! It may even tell you something useful. Artwork by <span class="citation" data-cites="allison_horst">@allison_horst</span>
@@ -2627,7 +2619,7 @@ Figure 4: Embrace the error message! It may even tell you something useful. Artw
 <p><strong>[R] + [package name] + [object type] + [error]</strong></p>
 </blockquote>
 <div class="layout-chunk" data-layout="l-body">
-<div class="figure"><span id="fig:error-google"></span>
+<div class="figure"><span style="display:block;" id="fig:error-google"></span>
 <img src="images/error_google.png" alt="Authoratitive answers to R programming errors are out there in the wild, and these webpages will usually have the following information: R, package name, object type, error message." width="80%" />
 <p class="caption">
 Figure 5: Authoratitive answers to R programming errors are out there in the wild, and these webpages will usually have the following information: R, package name, object type, error message.
@@ -2641,7 +2633,7 @@ Figure 5: Authoratitive answers to R programming errors are out there in the wil
 <p><a href="https://community.rstudio.com/latest">community.rstudio.com</a> is a beginner-friendly, safe space to ask questions and learn. Unlike Stack Exchange Sites (e.g., Stack Overflow, Cross Validated, and GIS Stack Exchange), community.RStudio is exclusively for R-based help.</p>
 <p>It’s free to create a user account and post questions in the forum. Present your problem in the form of a <a href="#minimal-reproducible-example">reprex</a> – this will enable others to help you, and is the form of question most likely to receive help. People answering questions on the site generally want to help. Your job is to make it as easy as possible for them to copy/paste your code into their environment so they can take a crack at your error.</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="figure"><span id="fig:community-rstudio"></span>
+<div class="figure"><span style="display:block;" id="fig:community-rstudio"></span>
 <img src="images/community_rstudio.png" alt="[community.rtudio.com](https://community.rstudio.com/) is an online question and answer site for R questions." width="1139" />
 <p class="caption">
 Figure 6: <a href="https://community.rstudio.com/">community.rtudio.com</a> is an online question and answer site for R questions.

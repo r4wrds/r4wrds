@@ -88,6 +88,7 @@ code span.vs { color: #bf0303; } /* VerbatimString */
 code span.wa { color: #bf0303; } /* Warning */
 </style>
 
+
   <!--radix_placeholder_meta_tags-->
   <title>R for Water Resources Data Science: 6. Variable Storage &amp; Data Structures</title>
 
@@ -98,12 +99,6 @@ code span.wa { color: #bf0303; } /* Warning */
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
   <meta property="og:title" content="R for Water Resources Data Science: 6. Variable Storage &amp; Data Structures"/>
-  <meta property="og:image" content="https://r4wrds.com/./img/cover.png">
-  <meta property="og:image:width" content="1406">
-  <meta property="og:image:height" content="1146">
-  <meta property="og:image" content="https://r4wrds.com/./img/cover.png">
-  <meta property="og:image:width" content="1406">
-  <meta property="og:image:height" content="1146">
   <meta property="og:type" content="article"/>
   <meta property="og:description" content="The building blocks of data science in R"/>
   <meta property="og:locale" content="en_US"/>
@@ -112,12 +107,6 @@ code span.wa { color: #bf0303; } /* Warning */
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
   <meta property="twitter:title" content="R for Water Resources Data Science: 6. Variable Storage &amp; Data Structures"/>
-  <meta property="twitter:image" content="https://r4wrds.com/./img/cover.png">
-  <meta property="twitter:image:width" content="1406">
-  <meta property="twitter:image:height" content="1146">
-  <meta property="twitter:image" content="https://r4wrds.com/./img/cover.png">
-  <meta property="twitter:image:width" content="1406">
-  <meta property="twitter:image:height" content="1146">
   <meta property="twitter:description" content="The building blocks of data science in R"/>
 
   <!--/radix_placeholder_meta_tags-->
@@ -471,7 +460,7 @@ code span.wa { color: #bf0303; } /* Warning */
 
   </style>
 
-  <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+  <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
   <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
   <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
   <script src="site_libs/headroom-0.9.4/headroom.min.js"></script>
@@ -1878,7 +1867,10 @@ code span.wa { color: #bf0303; } /* Warning */
 
       // hoverable references
       $('span.citation[data-cites]').each(function() {
-        var refHtml = $('#ref-' + $(this).attr('data-cites')).html();
+        var refs = $(this).attr('data-cites').split(" ");
+        var refHtml = refs.map(function(ref) {
+          return "<p>" + $('#ref-' + ref).html() + "</p>";
+        }).join("\n");
         window.tippy(this, {
           allowHTML: true,
           content: refHtml,
@@ -2049,7 +2041,7 @@ code span.wa { color: #bf0303; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2554,13 +2546,13 @@ There are many ways to query or use logical tests for data. In other languages l
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Is the character string "Merced River" in the character vector "reach"?</span>
-<span class='st'>"Merced River"</span> <span class='op'>%in%</span> <span class='va'>reach</span>
+<span class='st'>"Merced River"</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='va'>reach</span>
 </code></pre>
 </div>
 <pre><code>[1] FALSE</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Is the character string "Raging Waters" in the character vector "reach"?</span>
-<span class='st'>"Raging Waters"</span> <span class='op'>%in%</span> <span class='va'>reach</span>
+<span class='st'>"Raging Waters"</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='va'>reach</span>
 </code></pre>
 </div>
 <pre><code>[1] TRUE</code></pre>
@@ -2601,7 +2593,7 @@ There are many ways to query or use logical tests for data. In other languages l
 </div>
 <h3 id="character-string">character (string)</h3>
 <p>Character vectors can store arbitrary strings. There are many ways to work with strings from <a href="https://r4ds.had.co.nz/strings.html">basic string manipulation</a>, all the way to <a href="https://www.tidytextmining.com/">natural language processing</a> that we don’t have time to cover in this course, but you should know that they exist.</p>
-<p>Create strings by enclosing them with quotation marks. It doesn’t matter if you use single (’) or double quotes ("), just be sure to use the same quote style for a single character string!</p>
+<p>Create strings by enclosing them with quotation marks. It doesn’t matter if you use single (’) or double quotes (“), just be sure to use the same quote style for a single character string!</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># create a character vector of length 1 using single quotes</span>
@@ -2732,7 +2724,7 @@ There are many ways to query or use logical tests for data. In other languages l
 <p>We can access any column from the data frame as a vector using the <code>$</code> notation. In RStudio, typing <code>$</code> also brings up an auto-complete, and we can see all of the columns in the <code>data.frame</code>.</p>
 <aside>
 <div class="layout-chunk" data-layout="l-body">
-<div class="figure"><span id="fig:unnamed-chunk-4"></span>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-4"></span>
 <img src="images/R_dollar_sign_example.png" alt="Use $ to access columns" width="80%" />
 <p class="caption">
 Figure 1: Use $ to access columns

@@ -88,6 +88,7 @@ code span.vs { color: #bf0303; } /* VerbatimString */
 code span.wa { color: #bf0303; } /* Warning */
 </style>
 
+
   <!--radix_placeholder_meta_tags-->
   <title>R for Water Resources Data Science: 9. Function Junction</title>
 
@@ -98,12 +99,6 @@ code span.wa { color: #bf0303; } /* Warning */
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
   <meta property="og:title" content="R for Water Resources Data Science: 9. Function Junction"/>
-  <meta property="og:image" content="https://r4wrds.com/./img/cover.png">
-  <meta property="og:image:width" content="1406">
-  <meta property="og:image:height" content="1146">
-  <meta property="og:image" content="https://r4wrds.com/./img/cover.png">
-  <meta property="og:image:width" content="1406">
-  <meta property="og:image:height" content="1146">
   <meta property="og:type" content="article"/>
   <meta property="og:description" content="Use, re-use, and write code to do stuff!"/>
   <meta property="og:locale" content="en_US"/>
@@ -112,19 +107,13 @@ code span.wa { color: #bf0303; } /* Warning */
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
   <meta property="twitter:title" content="R for Water Resources Data Science: 9. Function Junction"/>
-  <meta property="twitter:image" content="https://r4wrds.com/./img/cover.png">
-  <meta property="twitter:image:width" content="1406">
-  <meta property="twitter:image:height" content="1146">
-  <meta property="twitter:image" content="https://r4wrds.com/./img/cover.png">
-  <meta property="twitter:image:width" content="1406">
-  <meta property="twitter:image:height" content="1146">
   <meta property="twitter:description" content="Use, re-use, and write code to do stuff!"/>
 
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","output","creative_commons","preview"]}},"value":[{"type":"character","attributes":{},"value":["9. Function Junction"]},{"type":"character","attributes":{},"value":["Use, re-use, and write code to do stuff!\n"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"character","attributes":{},"value":["CC BY"]},{"type":"character","attributes":{},"value":["https://r4wrds.com/img/cover.png"]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","output","creative_commons"]}},"value":[{"type":"character","attributes":{},"value":["9. Function Junction"]},{"type":"character","attributes":{},"value":["Use, re-use, and write code to do stuff!\n"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"character","attributes":{},"value":["CC BY"]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -471,7 +460,7 @@ code span.wa { color: #bf0303; } /* Warning */
 
   </style>
 
-  <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+  <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
   <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
   <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
   <script src="site_libs/headroom-0.9.4/headroom.min.js"></script>
@@ -1878,7 +1867,10 @@ code span.wa { color: #bf0303; } /* Warning */
 
       // hoverable references
       $('span.citation[data-cites]').each(function() {
-        var refHtml = $('#ref-' + $(this).attr('data-cites')).html();
+        var refs = $(this).attr('data-cites').split(" ");
+        var refHtml = refs.map(function(ref) {
+          return "<p>" + $('#ref-' + ref).html() + "</p>";
+        }).join("\n");
         window.tippy(this, {
           allowHTML: true,
           content: refHtml,
@@ -2049,7 +2041,7 @@ code span.wa { color: #bf0303; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2492,19 +2484,19 @@ The troubleshooting module has a section on <a href="m_troubleshooting.html#usin
 </code></pre>
 </div>
 <pre><code>  agency_cd           site_no             dateTime                  
- Length:61398       Length:61398       Min.   :2019-10-01 00:00:00  
- Class :character   Class :character   1st Qu.:2020-03-08 22:48:45  
- Mode  :character   Mode  :character   Median :2020-08-16 02:22:30  
-                                       Mean   :2020-08-16 05:49:48  
-                                       3rd Qu.:2021-01-23 14:41:15  
-                                       Max.   :2021-07-02 13:15:00  
- X_00060_00000    X_00060_00000_cd      tz_cd          
- Min.   :  31.1   Length:61398       Length:61398      
- 1st Qu.:  66.4   Class :character   Class :character  
- Median : 195.0   Mode  :character   Mode  :character  
- Mean   : 365.5                                        
- 3rd Qu.: 486.0                                        
- Max.   :4580.0                                        </code></pre>
+ Length:70080       Length:70080       Min.   :2019-10-01 00:00:00  
+ Class :character   Class :character   1st Qu.:2020-03-31 13:26:15  
+ Mode  :character   Mode  :character   Median :2020-09-30 13:07:30  
+                                       Mean   :2020-09-30 12:39:55  
+                                       3rd Qu.:2021-04-01 11:48:45  
+                                       Max.   :2021-09-30 23:45:00  
+ X_00060_00000     X_00060_00000_cd      tz_cd          
+ Min.   :   9.68   Length:70080       Length:70080      
+ 1st Qu.:  55.50   Class :character   Class :character  
+ Median : 115.00   Mode  :character   Mode  :character  
+ Mean   : 323.72                                        
+ 3rd Qu.: 411.00                                        
+ Max.   :4580.00                                        </code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>flow_site</span><span class='op'>)</span>
 </code></pre>
@@ -2535,10 +2527,10 @@ The troubleshooting module has a section on <a href="m_troubleshooting.html#usin
 [5] &quot;Flow_Inst_cd&quot; &quot;tz_cd&quot;       </code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># visualize:</span>
-<span class='fu'>ggplot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>flow_site</span><span class='op'>)</span> <span class='op'>+</span> 
-  <span class='fu'>geom_line</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>dateTime</span>, y <span class='op'>=</span> <span class='va'>Flow_Inst</span><span class='op'>)</span>, color <span class='op'>=</span> <span class='st'>"darkblue"</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>theme_classic</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>labs</span><span class='op'>(</span>x <span class='op'>=</span> <span class='st'>""</span>, y <span class='op'>=</span> <span class='st'>"Flow (cfs)"</span>, 
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>flow_site</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>dateTime</span>, y <span class='op'>=</span> <span class='va'>Flow_Inst</span><span class='op'>)</span>, color <span class='op'>=</span> <span class='st'>"darkblue"</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_classic</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='st'>""</span>, y <span class='op'>=</span> <span class='st'>"Flow (cfs)"</span>, 
        title <span class='op'>=</span> <span class='st'>"Discharge from USGS Station 11427000"</span>,
        caption <span class='op'>=</span> <span class='st'>"data pulled using {dataRetrieval} package in R"</span><span class='op'>)</span>
 </code></pre>
@@ -2581,8 +2573,8 @@ The troubleshooting module has a section on <a href="m_troubleshooting.html#usin
                          service <span class='op'>=</span> <span class='st'>"dv"</span>, <span class='co'># daily values</span>
                          parameterCd <span class='op'>=</span> <span class='st'>"00060"</span>, 
                          startDate <span class='op'>=</span> <span class='st'>"2019-10-01"</span>,
-                         endDate <span class='op'>=</span> <span class='st'>"2021-09-30"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://rdrr.io/pkg/dataRetrieval/man/renameNWISColumns.html'>renameNWISColumns</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>  <span class='co'># the pipe infers that the data is passed through</span>
+                         endDate <span class='op'>=</span> <span class='st'>"2021-09-30"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://rdrr.io/pkg/dataRetrieval/man/renameNWISColumns.html'>renameNWISColumns</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>  <span class='co'># the pipe infers that the data is passed through</span>
   <span class='fu'><a href='https://rdrr.io/pkg/dataRetrieval/man/addWaterYear.html'>addWaterYear</a></span><span class='op'>(</span><span class='op'>)</span>
 
 <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>flow_huc</span><span class='op'>)</span> <span class='co'># names look ok!</span>
@@ -2597,16 +2589,16 @@ The troubleshooting module has a section on <a href="m_troubleshooting.html#usin
 <pre><code>[1] &quot;11446500&quot; &quot;11447360&quot;</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># visualize:</span>
-<span class='fu'>ggplot</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> 
-  <span class='fu'>geom_line</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>flow_huc</span>, 
-            <span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>dateTime</span>, y <span class='op'>=</span> <span class='va'>Flow</span>, color <span class='op'>=</span> <span class='va'>site_no</span><span class='op'>)</span>, 
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>flow_huc</span>, 
+            <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>dateTime</span>, y <span class='op'>=</span> <span class='va'>Flow</span>, color <span class='op'>=</span> <span class='va'>site_no</span><span class='op'>)</span>, 
             show.legend <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>theme_classic</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>labs</span><span class='op'>(</span>x <span class='op'>=</span> <span class='st'>""</span>, y <span class='op'>=</span> <span class='st'>"Flow (cfs)"</span>, 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_classic</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='st'>""</span>, y <span class='op'>=</span> <span class='st'>"Flow (cfs)"</span>, 
        title <span class='op'>=</span> <span class='st'>"Discharge from USGS Stations: 11446500, 11447360"</span>,
        caption <span class='op'>=</span> <span class='st'>"data pulled using {dataRetrieval} package in R"</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='co'># a new way to view data with facets...add a free scale!</span>
-  <span class='fu'>facet_grid</span><span class='op'>(</span>rows <span class='op'>=</span> <span class='fu'>vars</span><span class='op'>(</span><span class='va'>site_no</span><span class='op'>)</span>, scales <span class='op'>=</span> <span class='st'>"free"</span><span class='op'>)</span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_grid.html'>facet_grid</a></span><span class='op'>(</span>rows <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/vars.html'>vars</a></span><span class='op'>(</span><span class='va'>site_no</span><span class='op'>)</span>, scales <span class='op'>=</span> <span class='st'>"free"</span><span class='op'>)</span> 
 </code></pre>
 </div>
 <p><img src="m_functions_files/figure-html5/challenge-1-1.png" width="624" /></p>
@@ -2626,15 +2618,15 @@ The troubleshooting module has a section on <a href="m_troubleshooting.html#usin
 <span class='op'>}</span>
 
 <span class='co'># add a new column to existing dataset with mutate</span>
-<span class='va'>flow_site</span> <span class='op'>&lt;-</span> <span class='va'>flow_site</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>mutate</span><span class='op'>(</span>Flow_cms <span class='op'>=</span> <span class='fu'>cfs_to_cms</span><span class='op'>(</span><span class='va'>Flow_Inst</span><span class='op'>)</span><span class='op'>)</span> <span class='co'># apply the function to the column</span>
+<span class='va'>flow_site</span> <span class='op'>&lt;-</span> <span class='va'>flow_site</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>Flow_cms <span class='op'>=</span> <span class='fu'>cfs_to_cms</span><span class='op'>(</span><span class='va'>Flow_Inst</span><span class='op'>)</span><span class='op'>)</span> <span class='co'># apply the function to the column</span>
 
 <span class='co'># quick plot to check!</span>
-<span class='fu'>ggplot</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> 
-  <span class='fu'>geom_line</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>flow_site</span>, 
-            <span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>dateTime</span>, y <span class='op'>=</span> <span class='va'>Flow_cms</span><span class='op'>)</span>, color <span class='op'>=</span> <span class='st'>"darkblue"</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>theme_classic</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>labs</span><span class='op'>(</span>x <span class='op'>=</span> <span class='st'>""</span>, y <span class='op'>=</span> <span class='st'>"Flow (cms)"</span>, 
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>flow_site</span>, 
+            <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>dateTime</span>, y <span class='op'>=</span> <span class='va'>Flow_cms</span><span class='op'>)</span>, color <span class='op'>=</span> <span class='st'>"darkblue"</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_classic</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='st'>""</span>, y <span class='op'>=</span> <span class='st'>"Flow (cms)"</span>, 
        title <span class='op'>=</span> <span class='st'>"Discharge from USGS Station 11427000"</span>,
        caption <span class='op'>=</span> <span class='st'>"data pulled using {dataRetrieval} package in R"</span><span class='op'>)</span>
 </code></pre>
@@ -2675,7 +2667,7 @@ The troubleshooting module has a section on <a href="m_troubleshooting.html#usin
 <pre><code>[1] &quot;sf&quot;         &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># get just downstream NWIS sites and make into dataframe</span>
-<span class='va'>nwis_sites</span> <span class='op'>&lt;-</span> <span class='va'>amer_ds_nimbus</span><span class='op'>$</span><span class='va'>DM_nwissite</span> <span class='op'>%&gt;%</span> 
+<span class='va'>nwis_sites</span> <span class='op'>&lt;-</span> <span class='va'>amer_ds_nimbus</span><span class='op'>$</span><span class='va'>DM_nwissite</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
   <span class='fu'><a href='https://r-spatial.github.io/sf/reference/st_geometry.html'>st_drop_geometry</a></span><span class='op'>(</span><span class='op'>)</span> <span class='co'># drop the sf class</span>
 
 <span class='co'># verify the class has changed</span>
@@ -2686,15 +2678,15 @@ The troubleshooting module has a section on <a href="m_troubleshooting.html#usin
 </div>
 <p>Let’s visualize these sites with a fancy map! See the <a href="m_intro_mapmaking.html">mapmaking</a> lesson for more details on making maps in R.</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="images/map_of_nwis_sites.png" width="90%" /></p>
+<p><img src="images/map_of_nwis_sites.png" width="90%" data-distill-preview=1 /></p>
 </div>
 <h3 id="save-our-data">Save Our Data!</h3>
 <p>Finally, let’s go ahead and save (export) our list of NWIS sites, and all our spatial components from the American River below Nimbus Dam so we can use it for future lessons.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># save out</span>
-<span class='fu'>write_csv</span><span class='op'>(</span><span class='va'>nwis_sites</span>, path <span class='op'>=</span> <span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"data"</span>, <span class='st'>"nwis_sites_american_river.csv"</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'>write_rds</span><span class='op'>(</span><span class='va'>amer_ds_nimbus</span>, path <span class='op'>=</span> <span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"data"</span>, <span class='st'>"nwis_sites_amer_ds_nimbus_sf.rds"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://readr.tidyverse.org/reference/write_delim.html'>write_csv</a></span><span class='op'>(</span><span class='va'>nwis_sites</span>, path <span class='op'>=</span> <span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"data"</span>, <span class='st'>"nwis_sites_american_river.csv"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://readr.tidyverse.org/reference/read_rds.html'>write_rds</a></span><span class='op'>(</span><span class='va'>amer_ds_nimbus</span>, path <span class='op'>=</span> <span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"data"</span>, <span class='st'>"nwis_sites_amer_ds_nimbus_sf.rds"</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
@@ -2731,7 +2723,6 @@ The troubleshooting module has a section on <a href="m_troubleshooting.html#usin
 <!--radix_placeholder_navigation_after_body-->
 <div class="distill-site-nav distill-site-footer">
 <p>© Copyright 2021 <a href="http://ryanpeek.org/" target = "_blank">Ryan Peek</a> and <a href="https://www.richpauloo.com/" target = "_blank">Rich Pauloo</a>.</p>
-<p>Software licensed under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, v2.0</a>.</p>
 </div>
 <!--/radix_placeholder_navigation_after_body-->
 

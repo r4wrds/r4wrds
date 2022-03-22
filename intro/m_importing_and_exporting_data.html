@@ -2370,9 +2370,7 @@ Modules
 <h1>4. Importing and Exporting Data</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
-<p><p>A journey of ten thousand steps begins with a single
-<font color="#009E73"><strong>import</strong></font> and ends with an
-<font color="#0072B2"><strong>export</strong></font>.</p></p>
+<p><p>A journey of ten thousand steps begins with a single <font color="#009E73"><strong>import</strong></font> and ends with an <font color="#0072B2"><strong>export</strong></font>.</p></p>
 </div>
 
 
@@ -2384,10 +2382,8 @@ Modules
 <li><a href="#whats-a-function">What’s a function?</a></li>
 <li><a href="#read-import-data">Read (import) data</a>
 <ul>
-<li><a href="#csv-comma-separated-values">csv (comma separated
-values)</a></li>
-<li><a href="#xlsx-and-xls-excel-files">xlsx and xls (Excel
-files)</a></li>
+<li><a href="#csv-comma-separated-values">csv (comma separated values)</a></li>
+<li><a href="#xlsx-and-xls-excel-files">xlsx and xls (Excel files)</a></li>
 <li><a href="#shp-arcgis-shapefiles">shp (ArcGIS shapefiles)</a></li>
 <li><a href="#dbf">dbf</a></li>
 <li><a href="#rds-and-.rda">rds and .rda</a></li>
@@ -2404,22 +2400,14 @@ files)</a></li>
 <li>Understand how to read (import) data into R</li>
 <li>Explore data within R using <code>View()</code></li>
 <li>Understand how to write (export) data from R</li>
-<li>Understand how to read and write different data formats (e.g.,
-excel, csv, shp, rds, dbf, access)</li>
+<li>Understand how to read and write different data formats (e.g., excel, csv, shp, rds, dbf, access)</li>
 </ul>
 </div>
 <p><br></p>
 <h2 id="whats-a-function">What’s a function?</h2>
-<p>Functions are how work gets done in <code>R</code>, and before we
-jump into reading and writing data, we need to know how functions work
-because we will use functions to perform these tasks.</p>
-<p>A <strong>function</strong> takes any number of
-<strong>arguments</strong> and, performs some transformations, and
-returns an <strong>output</strong>.</p>
-<p>For example, the <code>R</code> function <code>sum()</code> takes any
-number of numeric arguments and adds them together (recall you can view
-the documentation for <code>sum()</code> by entering <code>?sum</code>).
-Let’s add 1 and 2 like so:</p>
+<p>Functions are how work gets done in <code>R</code>, and before we jump into reading and writing data, we need to know how functions work because we will use functions to perform these tasks.</p>
+<p>A <strong>function</strong> takes any number of <strong>arguments</strong> and, performs some transformations, and returns an <strong>output</strong>.</p>
+<p>For example, the <code>R</code> function <code>sum()</code> takes any number of numeric arguments and adds them together (recall you can view the documentation for <code>sum()</code> by entering <code>?sum</code>). Let’s add 1 and 2 like so:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>)</span>
@@ -2427,11 +2415,7 @@ Let’s add 1 and 2 like so:</p>
 </div>
 <pre><code>[1] 3</code></pre>
 </div>
-<p>In <code>R</code>, we can create sequences easily. If we wanted to
-create a sequence of numbers from 1 to 10, we can use the function
-<code>seq()</code>, which takes 3 arguments: <code>from</code> (start
-value), <code>to</code> (end value), and <code>by</code> (increment of
-the sequence).</p>
+<p>In <code>R</code>, we can create sequences easily. If we wanted to create a sequence of numbers from 1 to 10, we can use the function <code>seq()</code>, which takes 3 arguments: <code>from</code> (start value), <code>to</code> (end value), and <code>by</code> (increment of the sequence).</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>10</span>, <span class='fl'>1</span><span class='op'>)</span>
@@ -2439,13 +2423,8 @@ the sequence).</p>
 </div>
 <pre><code> [1]  0  1  2  3  4  5  6  7  8  9 10</code></pre>
 </div>
-<p>Convince yourself that creating sequences of arbitrary length is
-possible. Can you create a sequence from 0 to 1 million by an increment
-of 500?</p>
-<p>Because creating sequences incremented by 1 are so common, there’s a
-special shorthand for these sequences, <code>1:10</code>. Let’s take the
-sum of the sequence from 1 to 10 by providing it as an argument to the
-function <code>sum()</code>:</p>
+<p>Convince yourself that creating sequences of arbitrary length is possible. Can you create a sequence from 0 to 1 million by an increment of 500?</p>
+<p>Because creating sequences incremented by 1 are so common, there’s a special shorthand for these sequences, <code>1:10</code>. Let’s take the sum of the sequence from 1 to 10 by providing it as an argument to the function <code>sum()</code>:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span>
@@ -2453,29 +2432,12 @@ function <code>sum()</code>:</p>
 </div>
 <pre><code>[1] 55</code></pre>
 </div>
-<p><code>sum()</code> and <code>seq()</code> are two of many functions
-you’ll encounter in <code>R</code>. Like all functions, they take inputs
-(arguments) and return an output. To take advantage of functions, we
-need to apply them to our data. Let’s now use import and export
-functions in R to explore some water resources data.</p>
+<p><code>sum()</code> and <code>seq()</code> are two of many functions you’ll encounter in <code>R</code>. Like all functions, they take inputs (arguments) and return an output. To take advantage of functions, we need to apply them to our data. Let’s now use import and export functions in R to explore some water resources data.</p>
 <p><br></p>
 <h2 id="read-import-data">Read (import) data</h2>
-<p>Data come in many formats, and <code>R</code> has utilities for
-reading and writing all kinds of data. In this lesson, we’ll explore
-some of the most common data formats you’ll encounter in the wild, and
-the functions used to import these data.</p>
+<p>Data come in many formats, and <code>R</code> has utilities for reading and writing all kinds of data. In this lesson, we’ll explore some of the most common data formats you’ll encounter in the wild, and the functions used to import these data.</p>
 <h3 id="csv-comma-separated-values">csv (comma separated values)</h3>
-<p>The comma separated value, or <code>.csv</code>, is a simple and
-effective way to store tabular data. To read a csv file, we first import
-the {<code>readr</code>} library, which contains the function
-<code>read_csv()</code>. We also load {<code>here</code>} in order to
-easily navigate our working directory. Let’s read a file from our
-<code>data/gwl</code> folder that contains station information for
-groundwater level monitoring sites in California. We use the “relative
-path” created by <code>here()</code>, which encode the much longer
-“absolute path”. You can also type “data/” and press
-<strong>Tab</strong> with your cursor just after the “/” to view all
-files in that path.</p>
+<p>The comma separated value, or <code>.csv</code>, is a simple and effective way to store tabular data. To read a csv file, we first import the {<code>readr</code>} library, which contains the function <code>read_csv()</code>. We also load {<code>here</code>} in order to easily navigate our working directory. Let’s read a file from our <code>data/gwl</code> folder that contains station information for groundwater level monitoring sites in California. We use the “relative path” created by <code>here()</code>, which encode the much longer “absolute path”. You can also type “data/” and press <strong>Tab</strong> with your cursor just after the “/” to view all files in that path.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://here.r-lib.org/'>here</a></span><span class='op'>)</span>
@@ -2508,9 +2470,7 @@ files in that path.</p>
 </code></pre>
 </div>
 </div>
-<p>R tells us upon import that this data has 43,807 rows and 15 columns.
-We can verify this with the <code>nrow()</code> and <code>ncol()</code>
-functions, and the <code>dim()</code> function:</p>
+<p>R tells us upon import that this data has 43,807 rows and 15 columns. We can verify this with the <code>nrow()</code> and <code>ncol()</code> functions, and the <code>dim()</code> function:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>stations</span><span class='op'>)</span>
@@ -2528,9 +2488,7 @@ functions, and the <code>dim()</code> function:</p>
 </div>
 <pre><code>[1] 43807    15</code></pre>
 </div>
-<p>Whenever we see rectangular data like this in R, it’s probably a
-<code>data.frame</code> object, but just to check, we can always ask R
-to tell us what the class of the object is:</p>
+<p>Whenever we see rectangular data like this in R, it’s probably a <code>data.frame</code> object, but just to check, we can always ask R to tell us what the class of the object is:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span><span class='op'>(</span><span class='va'>stations</span><span class='op'>)</span>
@@ -2538,22 +2496,15 @@ to tell us what the class of the object is:</p>
 </div>
 <pre><code>[1] &quot;spec_tbl_df&quot; &quot;tbl_df&quot;      &quot;tbl&quot;         &quot;data.frame&quot; </code></pre>
 </div>
-<p>The printed output shows us the first few rows of the stations data
-we just read, but if we wanted to dig a bit deeper and see more than 10
-rows and 7 columns of data, we can use the function <code>View()</code>,
-which in RStudio opens a data viewer.</p>
+<p>The printed output shows us the first few rows of the stations data we just read, but if we wanted to dig a bit deeper and see more than 10 rows and 7 columns of data, we can use the function <code>View()</code>, which in RStudio opens a data viewer.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/View.html'>View</a></span><span class='op'>(</span><span class='va'>stations</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
-<p>Within the viewer, we can search the data.frame, sort rows, and
-scroll through the data to inspect it.</p>
-<p>A data.frame is made of many vectors of the same length. We can
-access a column using the <code>$</code> operator, and subset the vector
-with bracket notation <code>[</code>. To access the first row in the
-<code>WELL_TYPE</code> column:</p>
+<p>Within the viewer, we can search the data.frame, sort rows, and scroll through the data to inspect it.</p>
+<p>A data.frame is made of many vectors of the same length. We can access a column using the <code>$</code> operator, and subset the vector with bracket notation <code>[</code>. To access the first row in the <code>WELL_TYPE</code> column:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>stations</span><span class='op'>$</span><span class='va'>WELL_TYPE</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>
@@ -2561,8 +2512,7 @@ with bracket notation <code>[</code>. To access the first row in the
 </div>
 <pre><code>[1] &quot;Part of a nested/multi-completion well&quot;</code></pre>
 </div>
-<p>If we wanted the <code>WELL_TYPE</code> entries 1 through 10, we can
-subset by a vector of the sequence from 1 through 10:</p>
+<p>If we wanted the <code>WELL_TYPE</code> entries 1 through 10, we can subset by a vector of the sequence from 1 through 10:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>stations</span><span class='op'>$</span><span class='va'>WELL_TYPE</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>]</span>
@@ -2579,8 +2529,7 @@ subset by a vector of the sequence from 1 through 10:</p>
  [9] &quot;Unknown&quot;                               
 [10] &quot;Unknown&quot;                               </code></pre>
 </div>
-<p>Sometimes it’s helpful to count unique variables in a column,
-especially for categorical data such as the well type.</p>
+<p>Sometimes it’s helpful to count unique variables in a column, especially for categorical data such as the well type.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>stations</span><span class='op'>$</span><span class='va'>WELL_TYPE</span><span class='op'>)</span>
@@ -2596,10 +2545,7 @@ Part of a nested/multi-completion well
 </div>
 <p><br></p>
 <h3 id="xlsx-and-xls-excel-files">xlsx and xls (Excel files)</h3>
-<p>Excel files are very common, and R has great utilities for reading in
-and processing excel files. <a
-href="https://oehha.ca.gov/calenviroscreen">Calenviroscreen data</a>
-comes in excel format, which we can read in like so:</p>
+<p>Excel files are very common, and R has great utilities for reading in and processing excel files. <a href="https://oehha.ca.gov/calenviroscreen">Calenviroscreen data</a> comes in excel format, which we can read in like so:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://readxl.tidyverse.org'>readxl</a></span><span class='op'>)</span>
@@ -2628,10 +2574,7 @@ comes in excel format, which we can read in like so:</p>
 #   `Ozone Pctl` &lt;dbl&gt;, PM2.5 &lt;dbl&gt;, `PM2.5 Pctl` &lt;dbl&gt;,
 #   `Diesel PM` &lt;dbl&gt;, `Diesel PM Pctl` &lt;dbl&gt;, …</code></pre>
 </div>
-<p>By default, <code>read_xlsx()</code> reads in the first sheet.
-However, there may be many sheets in an excel file. If we want to read
-in a different sheet, we can tell R which sheet to read in, and even how
-many lines to skip before reading in data.</p>
+<p>By default, <code>read_xlsx()</code> reads in the first sheet. However, there may be many sheets in an excel file. If we want to read in a different sheet, we can tell R which sheet to read in, and even how many lines to skip before reading in data.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>metadata</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readxl.tidyverse.org/reference/read_excel.html'>read_xlsx</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"data"</span>, <span class='st'>"calenviroscreen"</span>, <span class='st'>"ces3results.xlsx"</span><span class='op'>)</span>, 
@@ -2658,14 +2601,9 @@ many lines to skip before reading in data.</p>
 <div class="challenge">
 <p><font color="#009E73"><strong>Challenge 1</strong></font></p>
 <ol type="1">
-<li>open the documentation for <code>read_xlsx()</code> using
-<code>?</code> (Hint: type <code>?read_xlsx</code> in the console and
-hit enter)</li>
-<li>read through the Arguments to get a sense of what else the function
-can do</li>
-<li>Read in the “Index Summary” sheet of
-<code>here("data", "healthy_watersheds", "CA_PHWA_TabularResults_170518.xlsx")</code>,
-and select the appropriate number of rows to skip.</li>
+<li>open the documentation for <code>read_xlsx()</code> using <code>?</code> (Hint: type <code>?read_xlsx</code> in the console and hit enter)</li>
+<li>read through the Arguments to get a sense of what else the function can do</li>
+<li>Read in the “Index Summary” sheet of <code>here("data", "healthy_watersheds", "CA_PHWA_TabularResults_170518.xlsx")</code>, and select the appropriate number of rows to skip.</li>
 <li>What happened to column names during the read?</li>
 </ol>
 </div>
@@ -2696,19 +2634,12 @@ and select the appropriate number of rows to skip.</li>
 #   `Top 10%` &lt;chr&gt;, `Top 25%` &lt;chr&gt;, Score...11 &lt;dbl&gt;,
 #   Percentile...12 &lt;dbl&gt;, Score...13 &lt;dbl&gt;, Percentile...14 &lt;dbl&gt;</code></pre>
 </div>
-<p>Some column names during the read were renamed because they’re the
-same in the Excel sheet. In R, a data.frame can have only one unique
-name per column – duplicate names aren’t allowed! Thus, R renamed those
-duplicate names. In a later module, we will see how to rename columns
-within R.</p>
+<p>Some column names during the read were renamed because they’re the same in the Excel sheet. In R, a data.frame can have only one unique name per column – duplicate names aren’t allowed! Thus, R renamed those duplicate names. In a later module, we will see how to rename columns within R.</p>
 </div>
 </details>
 <p><br></p>
 <h3 id="shp-arcgis-shapefiles">shp (ArcGIS shapefiles)</h3>
-<p>Geospatial data is ubiquitous. So is the ArcGIS data format, the
-shapefile. A georeferenced shapefile is, at minimum made of 4 files:
-<code>.shp</code>, <code>.prj</code>, <code>.dbf</code>, and
-<code>.shx</code>.</p>
+<p>Geospatial data is ubiquitous. So is the ArcGIS data format, the shapefile. A georeferenced shapefile is, at minimum made of 4 files: <code>.shp</code>, <code>.prj</code>, <code>.dbf</code>, and <code>.shx</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># unzip Sacramento county shapefile</span>
@@ -2720,7 +2651,7 @@ shapefile. A georeferenced shapefile is, at minimum made of 4 files:
 </code></pre>
 </div>
 <pre><code>Reading layer `sac_county&#39; from data source 
-  `/Users/richpauloo/Documents/GitHub/r4wrds/intro/data/shp/sac/sac_county.shp&#39; 
+  `/Users/rapeek/Documents/github/r4wrds/intro/data/shp/sac/sac_county.shp&#39; 
   using driver `ESRI Shapefile&#39;
 Simple feature collection with 1 feature and 9 fields
 Geometry type: POLYGON
@@ -2737,16 +2668,8 @@ Projected CRS: WGS 84 / Pseudo-Mercator</code></pre>
 <p><img src="m_importing_and_exporting_data_files/figure-html5/plot-sac-1.png" width="624" /></p>
 </div>
 <h3 id="dbf">dbf</h3>
-<p><code>.dbf</code> files are one kind of database file. If you’ve ever
-opened a shapefile with attribute information, you’ve used a
-<code>.dbf</code> file. The <code>foreign</code> package allows us to
-read <code>.dbf</code> files into R. Since this is a new package, we
-need to install it with <code>install.packages("foreign")</code>.</p>
-<p>We’ve been loading entire packages with the <code>library()</code>
-function, but you can also call a function from a package without
-loading it by using
-<code>&lt;package_name&gt;::&lt;function_name&gt;</code> syntax. Let’s
-load the <code>.dbf</code> file from our Sacramento County polygon.</p>
+<p><code>.dbf</code> files are one kind of database file. If you’ve ever opened a shapefile with attribute information, you’ve used a <code>.dbf</code> file. The <code>foreign</code> package allows us to read <code>.dbf</code> files into R. Since this is a new package, we need to install it with <code>install.packages("foreign")</code>.</p>
+<p>We’ve been loading entire packages with the <code>library()</code> function, but you can also call a function from a package without loading it by using <code>&lt;package_name&gt;::&lt;function_name&gt;</code> syntax. Let’s load the <code>.dbf</code> file from our Sacramento County polygon.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>foreign</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/foreign/man/read.dbf.html'>read.dbf</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"data"</span>, <span class='st'>"shp"</span>, <span class='st'>"sac"</span>, <span class='st'>"sac_county.dbf"</span><span class='op'>)</span><span class='op'>)</span>
@@ -2758,12 +2681,7 @@ load the <code>.dbf</code> file from our Sacramento County polygon.</p>
 1        067 Polygon 4203503574.269531 406962.476293     &lt;NA&gt;</code></pre>
 </div>
 <h3 id="rds-and-.rda">rds and .rda</h3>
-<p><code>.rds</code> and <code>.rda</code> (<code>.rda</code> is
-shorthand for <code>.RData</code>) are a special R-based data formats
-used to store R objects. These files can be read just like another other
-import functions shown above. Let’s use it to import the groundwater
-level station data we read in earlier. Note that a <code>.rds</code>
-file can hold any single R object.</p>
+<p><code>.rds</code> and <code>.rda</code> (<code>.rda</code> is shorthand for <code>.RData</code>) are a special R-based data formats used to store R objects. These files can be read just like another other import functions shown above. Let’s use it to import the groundwater level station data we read in earlier. Note that a <code>.rds</code> file can hold any single R object.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>stations</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_rds.html'>read_rds</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"data"</span>,<span class='st'>"gwl"</span>,<span class='st'>"stations.rds"</span><span class='op'>)</span><span class='op'>)</span>
@@ -2783,27 +2701,10 @@ file can hold any single R object.</p>
 #   BASIN_NAME &lt;chr&gt;, COUNTY_NAME &lt;chr&gt;, WELL_DEPTH &lt;dbl&gt;,
 #   WELL_USE &lt;chr&gt;, WELL_TYPE &lt;chr&gt;, WCR_NO &lt;chr&gt;</code></pre>
 </div>
-<p>Sometimes, you may create an intermediate result that is
-time-consuming to recreate from scratch each time, and you want to save
-that intermediate result to streamline future analyses. You can export,
-or write this object to any number of data formats like a csv, SQL
-database, or shapefile. Unlike these data formats however, data saved as
-<code>.rds</code> are saved as one of R’s object classes, like
-data.frame, vector, list, and so on. In practice, only R is used to read
-<code>.rds</code> and <code>.rda</code> files, so these formats are
-chosen when we expect to use R to read these data at a later time.</p>
-<p>One quick difference between <code>.rds</code> and <code>.rda</code>
-files, for <code>.rds</code> files we can only store a single R object
-(of any kind). For an <code>.rda</code> file, we can store
-<strong>many</strong>. <code>.rda</code> are also compressed by default.
-There are pros and cons we will discuss later.</p>
+<p>Sometimes, you may create an intermediate result that is time-consuming to recreate from scratch each time, and you want to save that intermediate result to streamline future analyses. You can export, or write this object to any number of data formats like a csv, SQL database, or shapefile. Unlike these data formats however, data saved as <code>.rds</code> are saved as one of R’s object classes, like data.frame, vector, list, and so on. In practice, only R is used to read <code>.rds</code> and <code>.rda</code> files, so these formats are chosen when we expect to use R to read these data at a later time.</p>
+<p>One quick difference between <code>.rds</code> and <code>.rda</code> files, for <code>.rds</code> files we can only store a single R object (of any kind). For an <code>.rda</code> file, we can store <strong>many</strong>. <code>.rda</code> are also compressed by default. There are pros and cons we will discuss later.</p>
 <h3 id="sqlite">sqlite</h3>
-<p>SQLite is an open-source database format based on SQL that’s useful
-for storing large datasets locally on your computer. The methods to
-connect to a SQLite database, list tables, read tables, and send queries
-are similar across other cloud databases you may encounter in the wild,
-like <a href="https://rpostgres.r-dbi.org/">Postgres</a>, and enterprise
-database systems like Microsoft Access.</p>
+<p>SQLite is an open-source database format based on SQL that’s useful for storing large datasets locally on your computer. The methods to connect to a SQLite database, list tables, read tables, and send queries are similar across other cloud databases you may encounter in the wild, like <a href="https://rpostgres.r-dbi.org/">Postgres</a>, and enterprise database systems like Microsoft Access.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://rsqlite.r-dbi.org'>RSQLite</a></span><span class='op'>)</span>
@@ -2928,10 +2829,7 @@ database systems like Microsoft Access.</p>
 5 SACRAMENTO MUNICIPAL UTILITY DISTRICT</code></pre>
 </div>
 <h2 id="write-export-data">Write (export) data</h2>
-<p>To write (export) data in R you need 2 things: data to write, and a
-location and format to write the data. For example, if we wanted to
-write our stations data to a csv in the “<code>data_output</code>”
-folder, we would do the following:</p>
+<p>To write (export) data in R you need 2 things: data to write, and a location and format to write the data. For example, if we wanted to write our stations data to a csv in the “<code>data_output</code>” folder, we would do the following:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># write "stations" to a file in the data_output folder called "my_stations.csv"</span>
@@ -2939,8 +2837,7 @@ folder, we would do the following:</p>
 </code></pre>
 </div>
 </div>
-<p>Now check that location and verify that your station data was
-written.</p>
+<p>Now check that location and verify that your station data was written.</p>
 <p>We can do the same for other files:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -2952,8 +2849,7 @@ written.</p>
 </code></pre>
 </div>
 </div>
-<p>As before, navigate to these folders to verify these data were
-written. We can also check to see if these data exist from within R:</p>
+<p>As before, navigate to these folders to verify these data were written. We can also check to see if these data exist from within R:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>my_results</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.files.html'>list.files</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"data_output"</span><span class='op'>)</span><span class='op'>)</span>
@@ -2972,12 +2868,9 @@ written. We can also check to see if these data exist from within R:</p>
 <div class="challenge">
 <p><font color="#009E73"><strong>Challenge 2</strong></font></p>
 <ol type="1">
-<li>create an object called <code>breakfast</code> and assign it a
-string with what you had for breakfast.</li>
-<li>write that object to <code>breakfast.rds</code> file in
-<code>/data_output</code></li>
-<li>verify this worked by reading the string back in and inspecting
-it</li>
+<li>create an object called <code>breakfast</code> and assign it a string with what you had for breakfast.</li>
+<li>write that object to <code>breakfast.rds</code> file in <code>/data_output</code></li>
+<li>verify this worked by reading the string back in and inspecting it</li>
 </ol>
 </div>
 <p><br></p>
@@ -3006,12 +2899,8 @@ it</li>
 </details>
 <p><br></p>
 <p><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"></p>
-<p><a href="m_project_management.html" class="btn btn-secondary" style="float: left">Previous
-module:<br> 3. Project management</a>
-<a href="m_ggplot.html" class="btn btn-secondary" style="float: right;">Next
-module:<br> 5. Data visualization</a></p>
-<div class="sourceCode" id="cb22"><pre
-class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<p><a href="m_project_management.html" class="btn btn-secondary" style="float: left">Previous module:<br> 3. Project management</a> <a href="m_ggplot.html" class="btn btn-secondary" style="float: right;">Next module:<br> 5. Data visualization</a></p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
@@ -3032,10 +2921,7 @@ class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"><
 <!--/radix_placeholder_appendices-->
 <!--radix_placeholder_navigation_after_body-->
 <div class="distill-site-nav distill-site-footer">
-<p>© Copyright 2021
-<a href="http://ryanpeek.org/" target = "_blank">Ryan Peek</a> and
-<a href="https://www.richpauloo.com/" target = "_blank">Rich
-Pauloo</a>.</p>
+<p>© Copyright 2021 <a href="http://ryanpeek.org/" target = "_blank">Ryan Peek</a> and <a href="https://www.richpauloo.com/" target = "_blank">Rich Pauloo</a>.</p>
 </div>
 <!--/radix_placeholder_navigation_after_body-->
 
