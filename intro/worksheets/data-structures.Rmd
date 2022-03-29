@@ -1,0 +1,35 @@
+---
+### Click the RUN DOCUMENT 
+### (the green "Play" button") in RStudio to run worksheet!
+title: "Data Structures"
+author: "R. Peek"
+output: 
+  learnr::tutorial:
+    df_print: default
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+knitr::opts_chunk$set(echo = FALSE, comment = "")
+```
+
+This worksheet will help you work through some examples of different data classes and how we can use them. 
+
+You can write code into the code boxes and click the "Run Code" box to interact or answer the prompts. Some boxes may have *hints*, click the box to find out more!
+
+## Dataframes
+
+*Here's an exercise with some prepopulated code as well as `exercise.lines = 5` to provide a bit more initial room to work.*
+
+Now write a function that adds any two numbers and then call it:
+
+```{r add-function, exercise=TRUE, exercise.lines = 5}
+add <- function() {
+  
+}
+```
+
+## Types of missing values
+
+
