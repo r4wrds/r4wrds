@@ -11,25 +11,120 @@ runtime: shiny_prerendered
 
 ```{r setup, include=FALSE}
 library(learnr)
+library(here)
+library(tidyverse)
 knitr::opts_chunk$set(echo = FALSE, comment = "")
+stations <- read.csv(here("data/gwl/stations.csv"))
+matrix1 <- c(1,2,3,4,5,6,7,8,9)
+matrix1 <- matrix(matrix1, nrow=3,ncol=3,byrow=TRUE)
 ```
 
-This worksheet will help you work through some examples of different data classes and how we can use them. 
+This worksheet will help you work through some examples of different data classes and structures and how we can use them. 
 
 You can write code into the code boxes and click the "Run Code" box to interact or answer the prompts. Some boxes may have *hints*, click the box to find out more!
 
-## Dataframes
+# Data Classes and Structures
 
-*Here's an exercise with some prepopulated code as well as `exercise.lines = 5` to provide a bit more initial room to work.*
+Programming is essentially the conversion and storing of data in a way that a computer can interpret or manipulate. The following data classes are found in the `R` language, but there are similarities with many other coding languages too.
 
-Now write a function that adds any two numbers and then call it:
+## Vectors
 
-```{r add-function, exercise=TRUE, exercise.lines = 5}
-add <- function() {
-  
-}
+It is important to know these basic building blocks of data. Let's start with vectors, which are typically lists of the same types of data. There are primarily 4 core vector data classes in R (there are a few other types called `raw` and `complex`, however they aren't used as extensively). Recall an atomic vector is comprised of *the same class of data*, so it is **homogeneous**. 
+
+
+```{r quiz1}
+quiz(
+  question("Which of the following are atomic vector **`classes`** in R?
+",
+    answer("numeric (integer or double)", correct = TRUE),
+    answer("date"),
+    answer("factor"),
+    answer("logical", correct = TRUE),
+    answer("character", correct = TRUE)
+  ),
+  question("Are atomic vectors made of homogenous or heterogenous data?",
+    answer("homogenous", correct = TRUE),
+    answer("heterogenous")
+  )
+)
 ```
 
-## Types of missing values
+
+## Dataframes
+
+Let's use our stations data from the [lesson on data structures](https://www.r4wrds.com/intro/m_data_structures.html). An important point about data frames: they consist of **rows** of heterogeneous data and **columns** of vectors (homogeneous data classes). So dataframes are overall a heterogeneous type of data because they can include several different types of data.
+
+Let's take a look at some data:
+
+```{r libs, echo = TRUE, eval = FALSE}
+
+library(tidyverse)
+library(here)
+
+```
+
+Here's our groundwater `stations` dataset.
+
+```{r}
+
+stations <- read.csv(here("data/gwl/stations.csv"))
+
+```
+
+Let's look at the data classes of each **vector** in the data frame:
+
+```{r, echo=TRUE}
+glimpse(stations)
+```
+
+How do we access a single *vector* or column of our dataframe? Remember in R the rows and columns can be queried using brackets with the number or numbers of interest inside (`[rows, columns]`).
+
+How many different data classes are there in the first 10 columns? Go ahead and complete this code to check.
+
+```{r check-classes, exercise = TRUE}
+
+glimpse(stations[ ___ ])
+
+```
 
 
+```{r check-classes-hint}
+
+glimpse(stations[ , 1:___ ]) # specify all rows and columns 1: ? 
+
+```
+
+```{r check-classes-solution}
+
+glimpse(stations[ , 1:10 ]) # specify all rows and columns
+# so looks like 3 data classes!
+```
+
+
+## Matrix
+
+A matrix is a bit different because it is **homogeneous**. That is, all the data classes *must* be the same within the matrix. Typically, all numeric or all character. The default way to access a matrix assumes we are operating **column-wise** instead of `row-wise`. Check out the `matrix()` function.
+
+Here's matrix:
+
+```{r matrix-integer,cache=TRUE}
+matrix1 <- c(1,2,3,4,5,6,7,8,9)
+matrix1 <- matrix(matrix1, nrow=3,ncol=3,byrow=TRUE)
+matrix1
+
+```
+
+How do we access the element at the 3rd row and second column?
+
+```{r matrix-integer-ex1, exercise=TRUE}
+
+matrix1[___]
+
+```
+
+
+```{r matrix-integer-ex1-solution}
+
+matrix1[3, 2]
+
+```
