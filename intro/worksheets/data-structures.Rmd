@@ -31,6 +31,13 @@ Programming is essentially the conversion and storing of data in a way that a co
 
 There are really only a few main data classes and structures we need to know in R. It is important to know these basic building blocks of data. 
 
+
+```{r datafig, eval=TRUE, echo=FALSE, fig.align='center', out.width='90%'}
+
+knitr::include_graphics("images/dataclasses-2022-03-31.png")
+
+```
+
 ## Vectors
 
  - Vectors are the building blocks of data frames, each vector is really a column in the data frame.
