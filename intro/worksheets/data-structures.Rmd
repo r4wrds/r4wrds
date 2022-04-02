@@ -34,7 +34,7 @@ There are really only a few main data classes and structures we need to know in 
 
 ```{r datafig, eval=TRUE, echo=FALSE, fig.align='center', out.width='90%'}
 
-knitr::include_graphics("images/dataclasses-2022-03-31.png")
+knitr::include_graphics("images/dataclasses-2022.png")
 
 ```
 
