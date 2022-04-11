@@ -145,7 +145,7 @@ We want to import a shapefile (currently zipped, but accessible at the link belo
 
 If you want to recreate the data yourself, you can try the code below.
 
-```{r download-sf, echo=FALSE, eval=FALSE}
+```{r download-sf, echo=TRUE, eval=FALSE}
 
 # make a dir if it doesn't exist
 dir.create(here("worksheets"), showWarnings = TRUE)
@@ -168,29 +168,18 @@ save(shpfile, file = here("worksheets/CES3June2018Update.rda"))
 
 ```
 
-However, we can download the data directly and use it.
+However, we can read in the data directly as follows:
 
-```{r rm-shp-download, eval=TRUE, echo=FALSE}
+```{r rm-shp-download, eval=TRUE, echo=TRUE}
 
-load(here("worksheets/CES3June2018Update.rda"))
+load(url("https://github.com/r4wrds/r4wrds/raw/worksheet-wrangling/intro/worksheets/CES3June2018Update.rda"))
 
 ```
-
-
-To import a shapefile into `R`, we need to use the `{sf}` package and `st_read`. Go ahead and run this code after you've downloaded the data.
-
-```{r import-sf, echo=TRUE, eval=FALSE}
-# import to R as sf
-library(sf)
-shpfile <- st_read(here("worksheets/CES3_shp/CES3June2018Update.shp"), quiet = TRUE) %>% 
-  st_transform(4326)
-```
-
 
 
 ## Filter and Plot
 
-Now we have a few datasets, we often want to filter or select data. Let's filter to the zip code with the **most** groundwater stations in a single zip code from `stations` dataset, and then plot it with our spatial dataset.
+Now we have a few datasets (`shpfile` and `stations`), we often want to filter or select data. Let's filter to the zip code with the **most** groundwater stations in a single zip code from `stations` dataset, and then plot it with our spatial dataset.
 
 First what's the zip code with the most stations?
 
@@ -208,27 +197,23 @@ stations %>%
 ```{r top-zip, exercise=TRUE}
 
 # now we filter to just the zip of interest
-# what can we use here?
-shpfile %>% 
-  filter(ZIP ___ 95693) -> shp_trim 
 
-# make stations sf
+# get data:
+load(url("https://github.com/r4wrds/r4wrds/raw/worksheet-wrangling/intro/worksheets/CES3June2018Update.rda"))
+
+# what can we use here?
+head(shpfile %>% 
+  filter(ZIP ___ 95693) -> shp_trim)
+
 ```
 
 ```{r top-zip-hint-1}
 
-shpfile %>% 
-  # we can use %in% for one or more items
-  filter(ZIP %in% 95693) -> shp_trim 
+load(url("https://github.com/r4wrds/r4wrds/raw/worksheet-wrangling/intro/worksheets/CES3June2018Update.rda"))
 
-```
-
-
-```{r top-zip-hint-2}
-
-shpfile %>% 
-  # we can use == for a single item
-  filter(ZIP == 95693) -> shp_trim 
+# we can use %in% for one or more items, or == for a single item
+head(shp_trim <- 
+  filter(shpfile, ZIP %in% 95693))
 
 ```
 
@@ -246,16 +231,10 @@ stations_sf <- stations %>% filter(ZIP ==95693) %>%
 
 We can use a ggplot here to visualize! Can you fill out the pieces below? We want to fill the color by our census tracts that are in Zip 95693. Wrap `tract` in `as.factor()` to clean up the names.
 
-```{r ggplot-sf, echo=TRUE, exercise = TRUE}
+```{r ggplot-sf, echo=TRUE, eval=FALSE}
 
-ggplot() + 
-  geom_sf(data=___, aes(___=as.factor(tract))) + 
-  scale_fill_viridis_d("Census Tract") +
-  labs(x="Lon", y="Lat", title="Zip Code 95693 Groundwater Stations") + geom_sf(data=stations_sf, fill="blue"), pch=21)
-
-```
-
-```{r ggplot-sf-solution, echo=TRUE}
+load(url("https://github.com/r4wrds/r4wrds/raw/worksheet-wrangling/intro/worksheets/CES3June2018Update.rda"))
+shp_trim <- filter(shpfile, ZIP == 95693)
 
 p1 <- ggplot() + 
   geom_sf(data=shp_trim, aes(fill=as.factor(tract))) + 
