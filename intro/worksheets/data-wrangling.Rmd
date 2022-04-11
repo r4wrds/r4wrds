@@ -13,6 +13,7 @@ runtime: shiny_prerendered
 library(learnr)
 library(here)
 library(tidyverse)
+
 knitr::opts_chunk$set(echo = FALSE, comment = "")
 stations <- read_csv("https://github.com/r4wrds/r4wrds/raw/worksheet-wrangling/intro/data/calenviroscreen/sac_county_crosswalk_to_gw_stations.csv")
 
@@ -140,9 +141,14 @@ stations %>%
 
 ## Shapefiles
 
-We want to import a shapefile (currently zipped, but accessible at the link below). This may require downloading and saving to your computer directly, or look in unzipped data folder from previous lessons.
+We want to import a shapefile (currently zipped, but accessible at the link below). If you want this data, you can copy the code below to download and save it to your computer directly. These data are also already part of the unzipped data folder from previous lessons.
 
-```{r download-sf, echo=TRUE, eval=FALSE}
+If you want to recreate the data yourself, you can try the code below.
+
+```{r download-sf, echo=FALSE, eval=FALSE}
+
+# make a dir if it doesn't exist
+dir.create(here("worksheets"), showWarnings = TRUE)
 
 # download (change destfile to local dir in your project!)
 download.file(url = "https://github.com/r4wrds/r4wrds/raw/worksheet-wrangling/intro/data/calenviroscreen/CES3_shp.zip", destfile = "worksheets/CES3_shp.zip")
@@ -150,26 +156,37 @@ download.file(url = "https://github.com/r4wrds/r4wrds/raw/worksheet-wrangling/in
 # unzip to dir of your choice with "exdir"
 unzip("worksheets/CES3_shp.zip", exdir = "worksheets")
 
-```
-
-To import a shapefile into `R`, we need to use the `{sf}` package and `st_read`. What does adding `quiet = TRUE` do to your import? Try it!
-
-```{r import-sf, echo=TRUE, eval=TRUE, exercise = TRUE}
-# import to R as sf
-library(sf)
-shpfile <- st_read(here("worksheets/CES3_shp/CES3June2018Update.shp"), ___)
-
-```
-
-```{r import-sf-solution}
-# import to R as sf
+# read and write data back out:
 library(sf)
 shpfile <- st_read(here("worksheets/CES3_shp/CES3June2018Update.shp"), quiet = TRUE) %>% 
   # we need this line so data in this layer
   # will plot in the same space as our station data.
   st_transform(4326)
 
+# save: 
+save(shpfile, file = here("worksheets/CES3June2018Update.rda"))
+
 ```
+
+However, we can download the data directly and use it.
+
+```{r rm-shp-download, eval=TRUE, echo=FALSE}
+
+load(here("worksheets/CES3June2018Update.rda"))
+
+```
+
+
+To import a shapefile into `R`, we need to use the `{sf}` package and `st_read`. Go ahead and run this code after you've downloaded the data.
+
+```{r import-sf, echo=TRUE, eval=FALSE}
+# import to R as sf
+library(sf)
+shpfile <- st_read(here("worksheets/CES3_shp/CES3June2018Update.shp"), quiet = TRUE) %>% 
+  st_transform(4326)
+```
+
+
 
 ## Filter and Plot
 
@@ -177,7 +194,7 @@ Now we have a few datasets, we often want to filter or select data. Let's filter
 
 First what's the zip code with the most stations?
 
-```{r most-gw-stations}
+```{r most-gw-stations, echo=TRUE}
 
 stations %>% 
   group_by(ZIP) %>% # group by zip
@@ -246,7 +263,13 @@ p1 <- ggplot() +
   labs(x="Lon", y="Lat", 
        title="Zip Code 95693 Groundwater Stations") +
   geom_sf(data=stations_sf, fill="cyan4", size=3, pch=21)
-print(p1)
+
+```
+
+```{r mapfig, eval=TRUE, echo=FALSE, fig.align='center', out.width='90%'}
+
+knitr::include_graphics("images/ggplot_sf_gw_map.png")
+
 ```
 
 
