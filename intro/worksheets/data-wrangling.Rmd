@@ -229,11 +229,12 @@ stations_sf <- stations %>% filter(ZIP ==95693) %>%
 
 ## Plot!
 
-We can use a ggplot here to visualize! Can you fill out the pieces below? We want to fill the color by our census tracts that are in Zip 95693. Wrap `tract` in `as.factor()` to clean up the names.
+We can use a ggplot here to visualize! Can you fill out the pieces below? We want to fill the color by our census tracts that are in **Zip 95693**. Wrap `tract` in `as.factor()` to clean up the names.
 
-```{r ggplot-sf, echo=TRUE, eval=FALSE}
+```{r ggplot-sf-ex, echo=FALSE, eval=FALSE}
 
 load(url("https://github.com/r4wrds/r4wrds/raw/worksheet-wrangling/intro/worksheets/CES3June2018Update.rda"))
+
 shp_trim <- filter(shpfile, ZIP == 95693)
 
 p1 <- ggplot() + 
@@ -244,6 +245,71 @@ p1 <- ggplot() +
   geom_sf(data=stations_sf, fill="cyan4", size=3, pch=21)
 
 ```
+
+```{r ggplot-sf, exercise=TRUE}
+
+load(url("https://github.com/r4wrds/r4wrds/raw/worksheet-wrangling/intro/worksheets/CES3June2018Update.rda"))
+
+shp_trim <- filter(shpfile, ZIP ___)
+
+p1 <- ggplot() + 
+  geom_sf(data=shp_trim, aes(fill=___(tract))) + 
+  scale_fill_viridis_d("Census Tract") +
+  labs(x="Lon", y="Lat", 
+       title="Zip Code 95693 Groundwater Stations") +
+  geom___(data=stations_sf, fill="cyan4", size=3, pch=21)
+
+```
+
+```{r ggplot-sf-hint-1}
+
+load(url("https://github.com/r4wrds/r4wrds/raw/worksheet-wrangling/intro/worksheets/CES3June2018Update.rda"))
+
+shp_trim <- filter(shpfile, ZIP ___)
+
+p1 <- ggplot() + 
+  geom_sf(data=shp_trim, aes(fill=as.factor(tract))) + 
+  scale_fill_viridis_d("Census Tract") +
+  labs(x="Lon", y="Lat", 
+       title="Zip Code 95693 Groundwater Stations") +
+  geom___(data=stations_sf, fill="cyan4", size=3, pch=21)
+
+```
+
+```{r ggplot-sf-hint-2}
+
+load(url("https://github.com/r4wrds/r4wrds/raw/worksheet-wrangling/intro/worksheets/CES3June2018Update.rda"))
+
+shp_trim <- filter(shpfile, ZIP == 95693)
+
+p1 <- ggplot() + 
+  geom_sf(data=shp_trim, aes(fill=as.factor(tract))) + 
+  scale_fill_viridis_d("Census Tract") +
+  labs(x="Lon", y="Lat", 
+       title="Zip Code 95693 Groundwater Stations") +
+  geom___(data=stations_sf, fill="cyan4", size=3, pch=21)
+
+```
+
+```{r ggplot-sf-solution}
+
+stations_sf <- stations %>% filter(ZIP ==95693) %>% 
+  sf::st_as_sf(coords=c("LONGITUDE", "LATITUDE"), crs=4326)
+
+load(url("https://github.com/r4wrds/r4wrds/raw/worksheet-wrangling/intro/worksheets/CES3June2018Update.rda"))
+
+shp_trim <- filter(shpfile, ZIP == 95693)
+
+p1 <- ggplot() + 
+  geom_sf(data=shp_trim, aes(fill=as.factor(tract))) + 
+  scale_fill_viridis_d("Census Tract") +
+  labs(x="Lon", y="Lat", 
+       title="Zip Code 95693 Groundwater Stations") +
+  geom_sf(data=stations_sf, fill="cyan4", size=3, pch=21)
+
+```
+
+
 
 ```{r mapfig, eval=TRUE, echo=FALSE, fig.align='center', out.width='90%'}
 
