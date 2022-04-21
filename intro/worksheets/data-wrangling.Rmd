@@ -65,23 +65,19 @@ stations <- read_csv(webpath)
 
 Once we have our data, let's inspect it a bit more.
 
-```{r}
-glimpse(stations)
-```
-
  - How many `unique` stations (`STN_ID`) are in this dataset? 
  - How many `distinct` `ZIP` codes are in this dataset?
  - Which `ZIP` code has the most stations?
 
+Think about using the `glimpse()` or `str()` functions!
+
 ```{r sta-query, exercise = TRUE}
 
-length(unique(stations$STN_ID)) # n = 494
-stations %>% distinct(STN_ID) %>% tally() # same!
+# how do we get the total number of unique stations?
+___(___(stations$STN_ID)) # n = 494
 
-stations %>% distinct(ZIP) %>% tally() # same!
-
-stations %>% group_by(ZIP) %>% tally() %>% 
-  arrange(desc(n))
+# or using dplyr?
+stations %>% ___(STN_ID) %>% ___() # same!
 
 ```
 
@@ -105,11 +101,15 @@ stations %>% distinct(___) %>% tally()
 
 ```{r sta-query-solution}
 
+# how do we get the total number of unique stations?
+length(unique(stations$STN_ID)) # n = 494
+stations %>% distinct(STN_ID) %>% tally() # same!
+
 stations %>% distinct(ZIP) %>% tally() # same!
 
 ```
 
-To answer the third question, which zip code has the most groundwater stations present, we need to sort our data somehow from largest (the most) to smallest (fewwest) number of groundwater stations per zip code.
+To answer the third question, which zip code has the most groundwater stations present, we need to sort our data somehow from largest (the most) to smallest (fewest) number of groundwater stations per zip code.
 
 ```{r sta-query2, exercise = TRUE}
 
