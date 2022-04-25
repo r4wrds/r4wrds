@@ -174,10 +174,12 @@ library(here)
 
 # identify your working directory.
 here()
-#> [1] /Users/MyName/Documents/Projects/2020
 
-# load a file from `MyName/Documents/Projects/2020/data/superdata.csv`
-read.csv(here("data", "superdata.csv"))
+# will be something like this:
+#> [1] /Users/MyName/Documents/Projects/MyProject
+
+# read a file from our data folder! `data/nwis_sites_american_river.csv`
+read.csv(here("data", "nwis_sites_american_river.csv"))
 
 
 ```
