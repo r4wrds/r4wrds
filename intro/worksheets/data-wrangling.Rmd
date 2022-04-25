@@ -11,11 +11,10 @@ runtime: shiny_prerendered
 
 ```{r setup, include=FALSE}
 library(learnr)
-library(here)
 library(tidyverse)
 
 knitr::opts_chunk$set(echo = FALSE, comment = "")
-stations <- read_csv("https://github.com/r4wrds/r4wrds/raw/worksheet-wrangling/intro/data/calenviroscreen/sac_county_crosswalk_to_gw_stations.csv")
+stations <- readr::read_csv("https://github.com/r4wrds/r4wrds/raw/worksheet-wrangling/intro/data/calenviroscreen/sac_county_crosswalk_to_gw_stations.csv")
 
 
 
@@ -43,7 +42,7 @@ If we know a webpath, how do we use it to import our data with the `read_csv` fu
 
 webpath <- "https://github.com/r4wrds/r4wrds/raw/worksheet-wrangling/intro/data/calenviroscreen/sac_county_crosswalk_to_gw_stations.csv"
 
-stations <- read_csv(___)
+stations <- readr::read_csv(___)
 
 ```
 
@@ -51,7 +50,7 @@ stations <- read_csv(___)
 
 webpath <- "https://github.com/r4wrds/r4wrds/raw/worksheet-wrangling/intro/data/calenviroscreen/sac_county_crosswalk_to_gw_stations.csv"
 
-stations <- read_csv(file = ___)
+stations <- readr::read_csv(file = ___)
 
 ```
 
@@ -59,7 +58,7 @@ stations <- read_csv(file = ___)
 
 webpath <- "https://github.com/r4wrds/r4wrds/raw/worksheet-wrangling/intro/data/calenviroscreen/sac_county_crosswalk_to_gw_stations.csv"
 
-stations <- read_csv(webpath)
+stations <- readr::read_csv(webpath)
 
 ```
 
@@ -72,6 +71,8 @@ Once we have our data, let's inspect it a bit more.
 Think about using the `glimpse()` or `str()` functions!
 
 ```{r sta-query, exercise = TRUE}
+
+library(dplyr)
 
 # how do we get the total number of unique stations?
 ___(___(stations$STN_ID)) # n = 494
@@ -313,7 +314,7 @@ p1 <- ggplot() +
 
 ```{r mapfig, eval=TRUE, echo=FALSE, fig.align='center', out.width='90%'}
 
-knitr::include_graphics("images/ggplot_sf_gw_map.png")
+knitr::include_graphics("https://github.com/r4wrds/r4wrds/blob/main/intro/worksheets/images/ggplot_sf_gw_map.png?raw=true")
 
 ```
 
