@@ -40,6 +40,14 @@ navbar:
           href: m_intro_Rmarkdown.html
         - text: "Module 14: Troubleshooting"
           href: m_troubleshooting.html
+    - text: "Worksheets"
+      menu:
+        - text: "Data Wrangling"
+          href: worksheets/data-wrangling.Rmd
+        - text: "Data Structures"
+          href: worksheets/data-structures.Rmd
+        - text: "Data Visualization"
+          href: worksheets/data-viz.Rmd
     # - text: "Resources"
     #   href: resources.html
     - icon: fa-home fa-lg
