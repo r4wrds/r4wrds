@@ -33,6 +33,10 @@ habs_clean <- habs_clean %>%
     grepl("river", WaterBodyType, ignore.case = TRUE) ~ "River",
     grepl("lake", WaterBodyType, ignore.case = TRUE) ~ "Lake",
     TRUE ~ "Other"))
+
+habs_clean2 <- habs_clean %>% 
+  group_by(year = lubridate::year(ObservationDate), habtype) %>%
+  tally()
 ```
 
 <br>
@@ -57,7 +61,7 @@ Here we will work with some California Surface Water Data, stored online as a cs
 
 ## Import Harmful Algal Bloom Data 
 
-First we will read in some data on Harmful Algal Blooms, or "**HABs**". To see more about these data, see [this webpage on the California Open Data Portal](https://data.ca.gov/dataset/surface-water-freshwater-harmful-algal-blooms). How many columns are in our data? How many NAs are in the Latitude column? Is the data clean enough to use?
+First we will read in some data on Harmful Algal Blooms, or "**HABs**". To see more about these data, see [this webpage on the California Open Data Portal](https://data.ca.gov/dataset/surface-water-freshwater-harmful-algal-blooms). Here we explore the data a bit before we plot. How many columns are in our data? How many `NAs` are in the `Latitude` column? Is the data clean enough to use?
 
 ```{r get-habs, exercise = TRUE}
 
@@ -94,13 +98,29 @@ dim(habs) # 24 columns
 ncol(habs)
 
 sum(is.na(habs$Latitude))
-# could also use:
+# could also use to see how many other columns have NA
 # summary(habs)
 ```
 
+How can we figure out how many different NAs might be in in the `character` columns? For example, the `days_ago_label` column? Let's play with `table()`. What are some arguments to this function we could use to see the number of NAs?
+
+```{r tablefun, echo=TRUE, exercise=TRUE}
+
+table(habs$days_ago_label, ___)
+
+```
+
+
+```{r tablefun-solution}
+
+table(habs$days_ago_label, useNA = "ifany")
+
+```
+
+
 ## Clean the Data
 
-Rarely is a dataset fully ready as soon as you get it. Let's clean it up using some of our wrangling skills. Here we need to remove NAs for Latitude and Longitude, and at a column associated with any Habitat Type that is "Lake" or "River".
+Rarely is a dataset fully ready as soon as you get it. Let's clean it up using some of our wrangling skills. Here we need to remove `NAs` for `Latitude` and `Longitude`, and at a column associated with any Habitat Type that is "*Lake*" or "*River*".
 
 ```{r clean, exercise = TRUE}
 
@@ -148,6 +168,7 @@ habs_clean <- habs_clean %>%
     grepl("lake", WaterBodyType, ignore.case = TRUE) ~ "Lake",
     TRUE ~ "Other"))
 
+table(habs_clean$habtype)
 ```
 
 ```{r cleansetup, echo=FALSE, eval=TRUE}
@@ -176,36 +197,77 @@ Now we can at move forward with our cleaned dataset.
 
 ## Barplots
 
-Let's start with a simple barplot. Commonly used to compare the amounts or counts across categories. Let's plot how many records exist in each `CountyID`.
+Let's start with a simple barplot. Commonly used to compare the amounts or counts across categories. Let's plot how many records exist in each `CountyID`. Where can we put the `data=` argument?
 
-```{r barplot, echo=TRUE}
+```{r barplot, exercise=TRUE}
 
 # a simple barplot
-ggplot(data=habs_clean) + geom_bar(aes(CountyID))
+ggplot(___) + geom_bar(___, aes(CountyID))
 
 ```
 
-What if we want to arrange this plot by the total amount from largest to smallest? We need our data to be a `factor` to be ordered from largest to smallest. Here we can use the `forcats` package to order by the frequency of a variable.
+```{r barplot-solution}
 
-```{r barplot2, echo=TRUE}
+# this means all the geoms rely on one data set `hab_clean`
+ggplot(data=hab_clean) + geom_bar(aes(CountyID))
+
+# same result, but allows use of different data for diff. geoms 
+# ggplot( ) + geom_bar(data=hab_clean, aes(CountyID))
+```
+
+What if we want to arrange this plot by the total amount from largest to smallest? We need our data to be a `factor` to be ordered from largest to smallest. Here we can use the `forcats` package to order by the frequency of a variable. Let's use the `fct_infreq` function. Use ?forcats::fct_infreq()` to learn how we may need to use it...
+
+```{r barplot2, exercise=TRUE}
 
 # Use the "forcats" package
 ggplot(data = habs_clean) +
   geom_bar( aes(
+    forcats::fct_infreq( ___(CountyID) ) ) ) +
+  labs(x="County ID")
+
+```
+
+```{r barplot2-solution}
+
+ggplot(data = habs_clean) +
+  geom_bar( aes(
+    # we need CountyID to be a factor for this to work!
     forcats::fct_infreq( as.factor(CountyID) ) ) ) +
   labs(x="County ID")
 
 ```
 
+
 ## Line Plots
 
-What about the number of records over time? Let's look at how many records exist over time. We can change the `geom` and the `aesthetics` here to make some colors or shapes different. Let's use a summarize by year option here with the `lubridate::year()` package. We can use a data variable in the `aes( )` to map data to a color, shape, etc. Let's try with `habtype`!
+What about the number of records over time? Let's look at how many records exist over time. We can change the `geom` and the `aesthetics` here to make some colors or shapes different. Let's use a summarize by year option here with the `lubridate::year()` package. We can use a data variable in the `aes( )` to map data to a color, shape, etc. Let's try with `habtype`! First, let's use some `{dplyr}` commands: `group` and `tally` to calculate how many records exist per `habtype` per year.
 
-```{r lineplot, echo=TRUE}
+```{r linedf, exercise=TRUE}
+
+habs_clean2 <- habs_clean %>% 
+  ___(year = lubridate::year(ObservationDate), habtype) %>%
+  ___()
+```
+
+```{r linedf-solution}
 
 habs_clean2 <- habs_clean %>% 
   group_by(year = lubridate::year(ObservationDate), habtype) %>%
   tally()
+head(habs_clean2)
+
+```
+
+Now we can make a line plot. Let's use some additional arguments *inside* the `aes()` part of our ggplot and assign a different color to `habtype`.
+
+```{r lineplot, exercise=TRUE}
+
+ggplot(data=habs_clean2) + geom_line(aes(x=year, y=n, ___))
+
+```
+
+```{r lineplot-solution}
+
 ggplot(data=habs_clean2) + geom_line(aes(x=year, y=n, color=habtype))
 
 ```
@@ -232,22 +294,31 @@ ggplot(habs_clean) + geom_boxplot(aes(x=habtype, y=ObservationDate)) +
 
 Seems that while the data ranges are pretty similar for *River* and *Lake* types, the bulk of the data for *Rivers* is more recent.
 
-How can we visualize this distribution a bit more? Let's use a `violin` plot.
+How can we visualize this distribution a bit more? Let's use a `geom_violin` plot. Which orientation of the plots looks best?
 
-```{r boxviolin}
+```{r boxviolin, exercise=TRUE}
 
-ggplot(habs_clean) + geom_violin(aes(x=habtype, y=ObservationDate)) +
+ggplot(___) + geom____(aes(x=___, y=___)) +
   labs(x="", y="Obs. Date")
 
 ```
 
-This shows the same data, but now the wider areas indicate where more data exists, and we can see the weight is closer to more recent dates in `River` habitat types. Why not plot the actual data on top of this? Let's do that, with `points`.
+```{r boxviolin-solution}
+
+ggplot(data=habs_clean) + geom_violin(aes(x=habtype, y=ObservationDate)) +
+  labs(x="", y="Obs. Date")
+
+```
+
+
+This shows the same data, but now the wider areas indicate where more data exists, and we can see the "weight" of the plot is aligned more towards more recent dates in the `River` habitat types, whereas the `Lake` habitat types are more even throughout time. Why not plot the actual data on top of this? Let's do that, with `points`.
 
 ## Point Plots
 
-The great thing about `ggplot` is we can **layer** our data. Which means we can use the same or different data sets and stack them on top (visually) of one another to provide different perspectives. Here maybe instead of the violin plot, we could show the boxplot, but then show all the individual points behind each habitat type. That requires two additional things to think about...a new layer (`geom_point`), and transparency.
+The great thing about `ggplot` is we can **layer** our data. Which means we can use the same or different data sets and stack them on top (visually) of one another to provide different perspectives. Here maybe instead of the violin plot, we could show the boxplot, but then show all the individual points behind each habitat type. That requires two additional things to think about...a new layer (`geom_point`), and transparency (`alpha`). Let's try just a `geom_point` layer:
 
-```{r pointplot}
+
+```{r pointplot, echo=TRUE}
 
 ggplot(habs_clean) + 
   geom_boxplot(aes(x=habtype, y=ObservationDate)) +
@@ -256,8 +327,7 @@ ggplot(habs_clean) +
 
 ```
 
-Not so helpful. What about using a `jitter` option to spread the points out a bit so they are easier to see *without changing the underlying data*? Can you also change the underlying transparency so the points aren't covering the boxplots?
-
+Not so helpful. What about using a `jitter` option to spread the points out a bit so they are easier to see *without changing the underlying data*? Can you also change the underlying transparency so the points aren't covering the boxplots? Which layer order looks best?
 
 ```{r pointplot2, exercise=TRUE}
 
@@ -271,25 +341,10 @@ ggplot(habs_clean) +
 ```{r pointplot2-solution}
 
 ggplot(habs_clean) + 
-  geom_boxplot(aes(x=habtype, y=ObservationDate)) +
-  geom_jitter(aes(x=habtype, y=ObservationDate), alpha=0.2) +
+  geom_jitter(aes(x=habtype, y=ObservationDate), alpha=0.5) +
+  geom_boxplot(aes(x=habtype, y=ObservationDate, color=habtype), alpha=0.5, show.legend = FALSE) +
   labs(x="", y="Obs. Date")
 
 ```
 
-
-```{r pointplot2-print}
-
-ggplot(habs_clean) + 
-  geom_boxplot(aes(x=habtype, y=ObservationDate)) +
-  geom_jitter(aes(x=habtype, y=ObservationDate), alpha=0.2) +
-  labs(x="", y="Obs. Date")
-
-```
-
-Many ways to tell a story! 
-
-
-
-
-
+There are so many ways to plot the same data, so often it's worth trying different ways to figure out how best to tell the story! Be sure to check out the [{ggplot}](https://ggplot2.tidyverse.org) homepage, there's lots of great info, including a nice cheatsheet!
