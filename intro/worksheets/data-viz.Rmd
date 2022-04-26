@@ -1,7 +1,7 @@
 ---
 ### Click the RUN DOCUMENT 
 ### (the green "Play" button") in RStudio to run worksheet!
-title: "Data Wrangling"
+title: "Data Visualization"
 author: "R. Peek"
 output: 
   learnr::tutorial:
@@ -11,311 +11,284 @@ runtime: shiny_prerendered
 
 ```{r setup, include=FALSE}
 library(learnr)
-library(here)
 library(tidyverse)
 
 knitr::opts_chunk$set(echo = FALSE, comment = "")
-stations <- read_csv("https://github.com/r4wrds/r4wrds/raw/worksheet-wrangling/intro/data/calenviroscreen/sac_county_crosswalk_to_gw_stations.csv")
+
+webpath <- "https://data.ca.gov/dataset/ab672540-aecd-42f1-9b05-9aad326f97ec/resource/c6f760be-b94f-495e-aa91-2d8e6f426e11/download/fhab_bloomreport_portal.csv"
+habs <- readr::read_csv(webpath)
 
 
+habs_clean <- habs %>% 
+  # get rid of NAs
+  filter(!is.na(Latitude)) %>% 
+  # remove the outliers from Latitude (should be positive and between 32-42)
+  filter(Latitude > 32, Latitude < 42) %>% 
+  # remove the outliers from Longitude (should be negative and between 115-125)
+  filter(Longitude > -125, Longitude < -115)
 
+# Let's add a column that is River and Lake to simplify:
+habs_clean <- habs_clean %>% 
+  mutate(habtype = case_when(
+    grepl("river", WaterBodyType, ignore.case = TRUE) ~ "River",
+    grepl("lake", WaterBodyType, ignore.case = TRUE) ~ "Lake",
+    TRUE ~ "Other"))
 ```
 
 <br>
 
-This worksheet will help you work through some examples of some common data wrangling skills you may need to use. In particular, how to work with different types of data, join them, and summarize them.
+This worksheet will help you work through some examples of some data visualization skills using the `{ggplot}` package. You'll need an internet connection for this worksheet to work.
 
 You can write code into the code boxes and click the "**Run Document**" box to interact or answer the prompts. Some boxes may have __*Hints*__, click the box to find out more!
 
-# Data Wrangling
+# Data Visualization
 
-At the root of most data science is the need to pull or import different types of data onto your computer, do something with that data to clean and summarize it, and then save the updated dataset for visualization and reporting. This process is repeated everywhere, and there are often many approaches and tools we can use. Let's focus on an example of pulling some spatial data and a spreadsheet to compare and contrast data.
+After you are able to import data, the natural extension to working with data is the ability to visualize and communicate with those data. Sometimes this process is iterative and exploratory, at other points there is a specific objective and plot that is required for reporting or comparison purposes. The grammar of graphics (the root of **g** **g** *plot*) is based on the idea that any plot needs three basic components:
 
-## Import Data
+ - `data`: The dataset you want to visualize
+ - `geom`: A type of geometric representation of the data (i.e., points, lines, dots, bars...)
+ - `aes`: The aesthetics of the geometry. What color, size, transparency, shape do we want to use for our `geometry` and what data might these aesthetics link with? 
+ 
+The `ggplot` package is an amazingly powerful graphics library that allows us to do pretty much whatever we want, from a simple plot, to immensely complex visualizations of our data.
 
 We covered a number of different ways to import data in R in the lesson on [importing and exporting data](https://www.r4wrds.com/intro/m_importing_and_exporting_data.html).
 
-Let's import or download a `csv` from a web path, and a shapefile from a zipped file, bring both into our R environment, and do some tidying.
+Here we will work with some California Surface Water Data, stored online as a csv. We'll read that data in directly from a web path, do some wrangling, and try to visualize it in a few different ways. 
 
-If we know a webpath, how do we use it to import our data with the `read_csv` function?
+## Import Harmful Algal Bloom Data 
 
-```{r get-stations, exercise = TRUE}
+First we will read in some data on Harmful Algal Blooms, or "**HABs**". To see more about these data, see [this webpage on the California Open Data Portal](https://data.ca.gov/dataset/surface-water-freshwater-harmful-algal-blooms). How many columns are in our data? How many NAs are in the Latitude column? Is the data clean enough to use?
 
-webpath <- "https://github.com/r4wrds/r4wrds/raw/worksheet-wrangling/intro/data/calenviroscreen/sac_county_crosswalk_to_gw_stations.csv"
+```{r get-habs, exercise = TRUE}
 
-stations <- read_csv(___)
+webpath <- "https://data.ca.gov/dataset/ab672540-aecd-42f1-9b05-9aad326f97ec/resource/c6f760be-b94f-495e-aa91-2d8e6f426e11/download/fhab_bloomreport_portal.csv"
 
-```
-
-```{r get-stations-hint}
-
-webpath <- "https://github.com/r4wrds/r4wrds/raw/worksheet-wrangling/intro/data/calenviroscreen/sac_county_crosswalk_to_gw_stations.csv"
-
-stations <- read_csv(file = ___)
+habs <- read_csv(webpath)
+# how many columns?
+# how NAs in the Latitude column?
+___(is.na(habs___))
 
 ```
 
-```{r get-stations-solution}
+```{r get-habs-hint-1}
 
-webpath <- "https://github.com/r4wrds/r4wrds/raw/worksheet-wrangling/intro/data/calenviroscreen/sac_county_crosswalk_to_gw_stations.csv"
+webpath <- "https://data.ca.gov/dataset/ab672540-aecd-42f1-9b05-9aad326f97ec/resource/c6f760be-b94f-495e-aa91-2d8e6f426e11/download/fhab_bloomreport_portal.csv"
 
-stations <- read_csv(webpath)
+habs <- read_csv(webpath)
 
-```
+dim(habs) # 24 columns
+ncol(habs)
 
-Once we have our data, let's inspect it a bit more.
-
-```{r}
-glimpse(stations)
-```
-
- - How many `unique` stations (`STN_ID`) are in this dataset? 
- - How many `distinct` `ZIP` codes are in this dataset?
- - Which `ZIP` code has the most stations?
-
-```{r sta-query, exercise = TRUE}
-
-length(unique(stations$STN_ID)) # n = 494
-stations %>% distinct(STN_ID) %>% tally() # same!
-
-stations %>% distinct(ZIP) %>% tally() # same!
-
-stations %>% group_by(ZIP) %>% tally() %>% 
-  arrange(desc(n))
-
-```
-
-```{r sta-query-hint-1}
-
-# two ways to get the unique or distinct
-unique(___) # how do we count how many are in this list?
-
-```
-
-```{r sta-query-hint-2}
-
-# can count the length of a vector with length
-length(unique(___))
-
-# using a dplyr approach
-stations %>% distinct(___) %>% tally() 
+___(is.na(habs$Latitude))
 
 ```
 
 
-```{r sta-query-solution}
+```{r get-habs-solution}
 
-stations %>% distinct(ZIP) %>% tally() # same!
+webpath <- "https://data.ca.gov/dataset/ab672540-aecd-42f1-9b05-9aad326f97ec/resource/c6f760be-b94f-495e-aa91-2d8e6f426e11/download/fhab_bloomreport_portal.csv"
+
+habs <- read_csv(webpath)
+
+dim(habs) # 24 columns
+ncol(habs)
+
+sum(is.na(habs$Latitude))
+# could also use:
+# summary(habs)
+```
+
+## Clean the Data
+
+Rarely is a dataset fully ready as soon as you get it. Let's clean it up using some of our wrangling skills. Here we need to remove NAs for Latitude and Longitude, and at a column associated with any Habitat Type that is "Lake" or "River".
+
+```{r clean, exercise = TRUE}
+
+habs_clean <- habs %>% 
+  # get rid of NAs
+  filter(!is.na(___)) %>% 
+  # remove the outliers from Latitude (should be positive and between 32-42)
+  filter(Latitude > 32, Latitude < 42) %>% 
+  # remove the outliers from Longitude (should be negative and between 115-125)
+  filter(Longitude > -125, Longitude < -115)
+         
+# see how many types are actually the same! 
+___(habs_clean$WaterBodyType)
+
+# Let's add a column that is River and Lake to simplify
+# grepl is a way to search for words in a column of interest
+# what words should we use?
+habs_clean <- habs_clean %>% 
+  mutate(habtype = case_when(
+    grepl("___", WaterBodyType, ignore.case = ___) ~ "River",
+    grepl("___", WaterBodyType, ignore.case = ___) ~ "Lake"),
+    TRUE ~ "Other")
 
 ```
 
-To answer the third question, which zip code has the most groundwater stations present, we need to sort our data somehow from largest (the most) to smallest (fewwest) number of groundwater stations per zip code.
+What happens when we use `ignore.case=FALSE`?
 
-```{r sta-query2, exercise = TRUE}
+```{r clean-solution}
 
-stations %>% group_by(___) %>% 
-  tally() %>% 
-  arrange(___)
+habs_clean <- habs %>% 
+  # get rid of NAs
+  filter(!is.na(Latitude)) %>% 
+  # remove the outliers from Latitude (should be positive and between 32-42)
+  filter(Latitude > 32, Latitude < 42) %>% 
+  # remove the outliers from Longitude (should be negative and between 115-125)
+  filter(Longitude > -125, Longitude < -115)
+         
+# see how many Water Body Types are actually the same! 
+table(habs_clean$WaterBodyType)
 
-```
-
-```{r sta-query2-hint-1}
-
-stations %>% 
-  group_by(ZIP) %>% 
-  tally() %>% 
-  arrange(___(n))
-
-```
-
-```{r sta-query2-solution}
-
-stations %>% 
-  group_by(ZIP) %>% 
-  tally() %>% 
-  arrange(desc(n)) 
-# so top row in this is ZIP 95693 with 37 stations.
-
+# Let's add a column that is River and Lake to simplify:
+habs_clean <- habs_clean %>% 
+  mutate(habtype = case_when(
+    grepl("river", WaterBodyType, ignore.case = TRUE) ~ "River",
+    grepl("lake", WaterBodyType, ignore.case = TRUE) ~ "Lake",
+    TRUE ~ "Other"))
 
 ```
 
-## Shapefiles
+```{r cleansetup, echo=FALSE, eval=TRUE}
 
-We want to import a shapefile (currently zipped, but accessible at the link below). If you want this data, you can copy the code below to download and save it to your computer directly. These data are also already part of the unzipped data folder from previous lessons.
+habs_clean <- habs %>% 
+  # get rid of NAs
+  filter(!is.na(Latitude)) %>% 
+  # remove the outliers from Latitude (should be positive and between 32-42)
+  filter(Latitude > 32, Latitude < 42) %>% 
+  # remove the outliers from Longitude (should be negative and between 115-125)
+  filter(Longitude > -125, Longitude < -115)
 
-If you want to recreate the data yourself, you can try the code below.
-
-```{r download-sf, echo=TRUE, eval=FALSE}
-
-# make a dir if it doesn't exist
-dir.create(here("worksheets"), showWarnings = TRUE)
-
-# download (change destfile to local dir in your project!)
-download.file(url = "https://github.com/r4wrds/r4wrds/raw/worksheet-wrangling/intro/data/calenviroscreen/CES3_shp.zip", destfile = "worksheets/CES3_shp.zip")
-
-# unzip to dir of your choice with "exdir"
-unzip("worksheets/CES3_shp.zip", exdir = "worksheets")
-
-# read and write data back out:
-library(sf)
-shpfile <- st_read(here("worksheets/CES3_shp/CES3June2018Update.shp"), quiet = TRUE) %>% 
-  # we need this line so data in this layer
-  # will plot in the same space as our station data.
-  st_transform(4326)
-
-# save: 
-save(shpfile, file = here("worksheets/CES3June2018Update.rda"))
-
-```
-
-However, we can read in the data directly as follows:
-
-```{r rm-shp-download, eval=TRUE, echo=TRUE}
-
-load(url("https://github.com/r4wrds/r4wrds/raw/worksheet-wrangling/intro/worksheets/CES3June2018Update.rda"))
-
-```
-
-
-## Filter and Plot
-
-Now we have a few datasets (`shpfile` and `stations`), we often want to filter or select data. Let's filter to the zip code with the **most** groundwater stations in a single zip code from `stations` dataset, and then plot it with our spatial dataset.
-
-First what's the zip code with the most stations?
-
-```{r most-gw-stations, echo=TRUE}
-
-stations %>% 
-  group_by(ZIP) %>% # group by zip
-  tally() %>% # count how many stations per zip
-  arrange(desc(n)) %>% # arrange by most to least
-  head(n=1) -> stations_top # get just the top result!
+# Let's add a column that is River and Lake to simplify:
+habs_clean <- habs_clean %>% 
+  mutate(habtype = case_when(
+    grepl("river", WaterBodyType, ignore.case = TRUE) ~ "River",
+    grepl("lake", WaterBodyType, ignore.case = TRUE) ~ "Lake",
+    TRUE ~ "Other"))
 
 ```
 
 
-```{r top-zip, exercise=TRUE}
+# Plotting
 
-# now we filter to just the zip of interest
+Now we can at move forward with our cleaned dataset.
 
-# get data:
-load(url("https://github.com/r4wrds/r4wrds/raw/worksheet-wrangling/intro/worksheets/CES3June2018Update.rda"))
+## Barplots
 
-# what can we use here?
-head(shpfile %>% 
-  filter(ZIP ___ 95693) -> shp_trim)
+Let's start with a simple barplot. Commonly used to compare the amounts or counts across categories. Let's plot how many records exist in each `CountyID`.
 
-```
+```{r barplot, echo=TRUE}
 
-```{r top-zip-hint-1}
-
-load(url("https://github.com/r4wrds/r4wrds/raw/worksheet-wrangling/intro/worksheets/CES3June2018Update.rda"))
-
-# we can use %in% for one or more items, or == for a single item
-head(shp_trim <- 
-  filter(shpfile, ZIP %in% 95693))
+# a simple barplot
+ggplot(data=habs_clean) + geom_bar(aes(CountyID))
 
 ```
 
-Need to make our selected station data into a shapefile. We can do that pretty flexibly, like this:
+What if we want to arrange this plot by the total amount from largest to smallest? We need our data to be a `factor` to be ordered from largest to smallest. Here we can use the `forcats` package to order by the frequency of a variable.
 
-```{r}
+```{r barplot2, echo=TRUE}
 
-stations_sf <- stations %>% filter(ZIP ==95693) %>% 
-  sf::st_as_sf(coords=c("LONGITUDE", "LATITUDE"), crs=4326)
-
-```
-
-
-## Plot!
-
-We can use a ggplot here to visualize! Can you fill out the pieces below? We want to fill the color by our census tracts that are in **Zip 95693**. Wrap `tract` in `as.factor()` to clean up the names.
-
-```{r ggplot-sf-ex, echo=FALSE, eval=FALSE}
-
-load(url("https://github.com/r4wrds/r4wrds/raw/worksheet-wrangling/intro/worksheets/CES3June2018Update.rda"))
-
-shp_trim <- filter(shpfile, ZIP == 95693)
-
-p1 <- ggplot() + 
-  geom_sf(data=shp_trim, aes(fill=as.factor(tract))) + 
-  scale_fill_viridis_d("Census Tract") +
-  labs(x="Lon", y="Lat", 
-       title="Zip Code 95693 Groundwater Stations") +
-  geom_sf(data=stations_sf, fill="cyan4", size=3, pch=21)
+# Use the "forcats" package
+ggplot(data = habs_clean) +
+  geom_bar( aes(
+    forcats::fct_infreq( as.factor(CountyID) ) ) ) +
+  labs(x="County ID")
 
 ```
 
-```{r ggplot-sf, exercise=TRUE}
+## Line Plots
 
-load(url("https://github.com/r4wrds/r4wrds/raw/worksheet-wrangling/intro/worksheets/CES3June2018Update.rda"))
+What about the number of records over time? Let's look at how many records exist over time. We can change the `geom` and the `aesthetics` here to make some colors or shapes different. Let's use a summarize by year option here with the `lubridate::year()` package. We can use a data variable in the `aes( )` to map data to a color, shape, etc. Let's try with `habtype`!
 
-shp_trim <- filter(shpfile, ZIP ___)
+```{r lineplot, echo=TRUE}
 
-p1 <- ggplot() + 
-  geom_sf(data=shp_trim, aes(fill=___(tract))) + 
-  scale_fill_viridis_d("Census Tract") +
-  labs(x="Lon", y="Lat", 
-       title="Zip Code 95693 Groundwater Stations") +
-  geom___(data=stations_sf, fill="cyan4", size=3, pch=21)
+habs_clean2 <- habs_clean %>% 
+  group_by(year = lubridate::year(ObservationDate), habtype) %>%
+  tally()
+ggplot(data=habs_clean2) + geom_line(aes(x=year, y=n, color=habtype))
 
 ```
 
-```{r ggplot-sf-hint-1}
+## Box Plots
 
-load(url("https://github.com/r4wrds/r4wrds/raw/worksheet-wrangling/intro/worksheets/CES3June2018Update.rda"))
+A common way to compare distributions of data is using boxplots. Let's look at the distribution of data by `habtype` by date.
 
-shp_trim <- filter(shpfile, ZIP ___)
+```{r boxplot, echo=TRUE}
 
-p1 <- ggplot() + 
-  geom_sf(data=shp_trim, aes(fill=as.factor(tract))) + 
-  scale_fill_viridis_d("Census Tract") +
-  labs(x="Lon", y="Lat", 
-       title="Zip Code 95693 Groundwater Stations") +
-  geom___(data=stations_sf, fill="cyan4", size=3, pch=21)
+ggplot(habs_clean) + geom_boxplot(aes(x=habtype, y=ObservationDate))
 
 ```
 
-```{r ggplot-sf-hint-2}
+What does this boxplot tell us? What if we wanted to see the years on the x-axis? A quick way to make this possible (aside from just switching the x and y arguments) is the `coord_flip()` option.
 
-load(url("https://github.com/r4wrds/r4wrds/raw/worksheet-wrangling/intro/worksheets/CES3June2018Update.rda"))
+```{r boxplot2, echo=TRUE}
 
-shp_trim <- filter(shpfile, ZIP == 95693)
-
-p1 <- ggplot() + 
-  geom_sf(data=shp_trim, aes(fill=as.factor(tract))) + 
-  scale_fill_viridis_d("Census Tract") +
-  labs(x="Lon", y="Lat", 
-       title="Zip Code 95693 Groundwater Stations") +
-  geom___(data=stations_sf, fill="cyan4", size=3, pch=21)
+ggplot(habs_clean) + geom_boxplot(aes(x=habtype, y=ObservationDate)) +
+  coord_flip() +
+  labs(x="", y="Obs. Date")
 
 ```
 
-```{r ggplot-sf-solution}
+Seems that while the data ranges are pretty similar for *River* and *Lake* types, the bulk of the data for *Rivers* is more recent.
 
-stations_sf <- stations %>% filter(ZIP ==95693) %>% 
-  sf::st_as_sf(coords=c("LONGITUDE", "LATITUDE"), crs=4326)
+How can we visualize this distribution a bit more? Let's use a `violin` plot.
 
-load(url("https://github.com/r4wrds/r4wrds/raw/worksheet-wrangling/intro/worksheets/CES3June2018Update.rda"))
+```{r boxviolin}
 
-shp_trim <- filter(shpfile, ZIP == 95693)
+ggplot(habs_clean) + geom_violin(aes(x=habtype, y=ObservationDate)) +
+  labs(x="", y="Obs. Date")
 
-p1 <- ggplot() + 
-  geom_sf(data=shp_trim, aes(fill=as.factor(tract))) + 
-  scale_fill_viridis_d("Census Tract") +
-  labs(x="Lon", y="Lat", 
-       title="Zip Code 95693 Groundwater Stations") +
-  geom_sf(data=stations_sf, fill="cyan4", size=3, pch=21)
+```
+
+This shows the same data, but now the wider areas indicate where more data exists, and we can see the weight is closer to more recent dates in `River` habitat types. Why not plot the actual data on top of this? Let's do that, with `points`.
+
+## Point Plots
+
+The great thing about `ggplot` is we can **layer** our data. Which means we can use the same or different data sets and stack them on top (visually) of one another to provide different perspectives. Here maybe instead of the violin plot, we could show the boxplot, but then show all the individual points behind each habitat type. That requires two additional things to think about...a new layer (`geom_point`), and transparency.
+
+```{r pointplot}
+
+ggplot(habs_clean) + 
+  geom_boxplot(aes(x=habtype, y=ObservationDate)) +
+  geom_point(aes(x=habtype, y=ObservationDate)) +
+  labs(x="", y="Obs. Date")
+
+```
+
+Not so helpful. What about using a `jitter` option to spread the points out a bit so they are easier to see *without changing the underlying data*? Can you also change the underlying transparency so the points aren't covering the boxplots?
+
+
+```{r pointplot2, exercise=TRUE}
+
+ggplot(habs_clean) + 
+  geom_boxplot(aes(x=habtype, y=ObservationDate)) +
+  geom___(aes(x=habtype, y=ObservationDate) ___) +
+  labs(x="", y="Obs. Date")
+
+```
+
+```{r pointplot2-solution}
+
+ggplot(habs_clean) + 
+  geom_boxplot(aes(x=habtype, y=ObservationDate)) +
+  geom_jitter(aes(x=habtype, y=ObservationDate), alpha=0.2) +
+  labs(x="", y="Obs. Date")
 
 ```
 
 
+```{r pointplot2-print}
 
-```{r mapfig, eval=TRUE, echo=FALSE, fig.align='center', out.width='90%'}
-
-knitr::include_graphics("images/ggplot_sf_gw_map.png")
+ggplot(habs_clean) + 
+  geom_boxplot(aes(x=habtype, y=ObservationDate)) +
+  geom_jitter(aes(x=habtype, y=ObservationDate), alpha=0.2) +
+  labs(x="", y="Obs. Date")
 
 ```
+
+Many ways to tell a story! 
+
 
 
 
