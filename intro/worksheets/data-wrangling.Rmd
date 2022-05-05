@@ -14,7 +14,7 @@ library(learnr)
 library(tidyverse)
 
 knitr::opts_chunk$set(echo = FALSE, comment = "")
-stations <- readr::read_csv("https://github.com/r4wrds/r4wrds/raw/worksheet-wrangling/intro/data/calenviroscreen/sac_county_crosswalk_to_gw_stations.csv")
+stations <- readr::read_csv("https://raw.githubusercontent.com/r4wrds/r4wrds/main/intro/data/calenviroscreen/sac_county_crosswalk_to_gw_stations.csv")
 
 
 
@@ -173,7 +173,7 @@ However, we can read in the data directly as follows:
 
 ```{r rm-shp-download, eval=TRUE, echo=TRUE}
 
-load(url("https://github.com/r4wrds/r4wrds/raw/worksheet-wrangling/intro/worksheets/CES3June2018Update.rda"))
+load(url("https://github.com/r4wrds/r4wrds/raw/main/intro/worksheets/CES3June2018Update.rda"))
 
 ```
 
@@ -200,7 +200,7 @@ stations %>%
 # now we filter to just the zip of interest
 
 # get data:
-load(url("https://github.com/r4wrds/r4wrds/raw/worksheet-wrangling/intro/worksheets/CES3June2018Update.rda"))
+load(url("https://github.com/r4wrds/r4wrds/raw/main/intro/worksheets/CES3June2018Update.rda"))
 
 # what can we use here?
 head(shpfile %>% 
@@ -210,7 +210,7 @@ head(shpfile %>%
 
 ```{r top-zip-hint-1}
 
-load(url("https://github.com/r4wrds/r4wrds/raw/worksheet-wrangling/intro/worksheets/CES3June2018Update.rda"))
+load(url("https://github.com/r4wrds/r4wrds/raw/main/intro/worksheets/CES3June2018Update.rda"))
 
 # we can use %in% for one or more items, or == for a single item
 head(shp_trim <- 
@@ -234,7 +234,7 @@ We can use a ggplot here to visualize! Can you fill out the pieces below? We wan
 
 ```{r ggplot-sf-ex, echo=FALSE, eval=FALSE}
 
-load(url("https://github.com/r4wrds/r4wrds/raw/worksheet-wrangling/intro/worksheets/CES3June2018Update.rda"))
+load(url("https://github.com/r4wrds/r4wrds/raw/main/intro/worksheets/CES3June2018Update.rda"))
 
 shp_trim <- filter(shpfile, ZIP == 95693)
 
@@ -249,7 +249,7 @@ p1 <- ggplot() +
 
 ```{r ggplot-sf, exercise=TRUE}
 
-load(url("https://github.com/r4wrds/r4wrds/raw/worksheet-wrangling/intro/worksheets/CES3June2018Update.rda"))
+load(url("https://github.com/r4wrds/r4wrds/raw/main/intro/worksheets/CES3June2018Update.rda"))
 
 shp_trim <- filter(shpfile, ZIP ___)
 
@@ -264,7 +264,7 @@ p1 <- ggplot() +
 
 ```{r ggplot-sf-hint-1}
 
-load(url("https://github.com/r4wrds/r4wrds/raw/worksheet-wrangling/intro/worksheets/CES3June2018Update.rda"))
+load(url("https://github.com/r4wrds/r4wrds/raw/main/intro/worksheets/CES3June2018Update.rda"))
 
 shp_trim <- filter(shpfile, ZIP ___)
 
@@ -279,7 +279,7 @@ p1 <- ggplot() +
 
 ```{r ggplot-sf-hint-2}
 
-load(url("https://github.com/r4wrds/r4wrds/raw/worksheet-wrangling/intro/worksheets/CES3June2018Update.rda"))
+load(url("https://github.com/r4wrds/r4wrds/raw/main/intro/worksheets/CES3June2018Update.rda"))
 
 shp_trim <- filter(shpfile, ZIP == 95693)
 
@@ -297,7 +297,7 @@ p1 <- ggplot() +
 stations_sf <- stations %>% filter(ZIP ==95693) %>% 
   sf::st_as_sf(coords=c("LONGITUDE", "LATITUDE"), crs=4326)
 
-load(url("https://github.com/r4wrds/r4wrds/raw/worksheet-wrangling/intro/worksheets/CES3June2018Update.rda"))
+load(url("https://github.com/r4wrds/r4wrds/raw/main/intro/worksheets/CES3June2018Update.rda"))
 
 shp_trim <- filter(shpfile, ZIP == 95693)
 
