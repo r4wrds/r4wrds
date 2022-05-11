@@ -116,6 +116,7 @@ library(leafpm)
 library(leaflet)
 library(leaflet.extras)
 library(htmltools)
+library(here)
 
 # set up our map
 m <- leaflet() %>%
@@ -242,7 +243,7 @@ Let's use the [CalEnviroScreen data](https://oehha.ca.gov/calenviroscreen/report
 ```{r ciplot, eval=TRUE, echo=TRUE}
 
 # load CES data for Sacramento county
-ces3_sac <- readRDS(here::here("data", "ces3_sac.rds"))
+ces3_sac <- readRDS(here("data", "ces3_sac.rds"))
 
 mapview(ces3_sac, zcol = "CIscoreP")
 
