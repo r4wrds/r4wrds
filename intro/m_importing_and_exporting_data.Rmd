@@ -68,7 +68,7 @@ Data come in many formats, and `R` has utilities for reading and writing all kin
 
 ### csv (comma separated values) 
 
-The comma separated value, or `.csv`, is a simple and effective way to store tabular data. To read a csv file, we first import the {`readr`} library, which contains the function `read_csv()`. We also load {`here`} in order to easily navigate our working directory. Let's read a file from our `data/gwl` folder that contains station information for groundwater level monitoring sites in California. We use the "relative path" created by `here()`, which encode the much longer "absolute path". You can also type "data/" and press **Tab** with your cursor just after the "/" to view all files in that path.
+The comma separated value, or `.csv`, is a simple and effective way to store tabular data. To read a csv file, we first import the {`readr`} library, which contains the function `read_csv()`. Let's read a file from our `data/gwl` folder that contains station information for groundwater level monitoring sites in California. You can also type "data/" and press **Tab** with your cursor just after the "/" to view all files in that path.
 
 ```{r read-csv}
 library(readr)
@@ -168,7 +168,7 @@ metadata
 
 1. open the documentation for `read_xlsx()` using `?` (Hint: type `?read_xlsx` in the console and hit enter)
 2. read through the Arguments to get a sense of what else the function can do
-3. Read in the "Index Summary" sheet of `here("data", "healthy_watersheds", "CA_PHWA_TabularResults_170518.xlsx")`, and select the appropriate number of rows to skip. 
+3. Read in the "Index Summary" sheet of `"data/healthy_watersheds/CA_PHWA_TabularResults_170518.xlsx"`, and select the appropriate number of rows to skip. 
 4. What happened to column names during the read? 
 
 :::
@@ -245,7 +245,7 @@ One quick difference between `.rds` and `.rda` files, for `.rds` files we can on
 
 ### sqlite
 
-SQLite is an open-source database format based on SQL that's useful for storing large datasets locally on your computer. The methods to connect to a SQLite database, list tables, read tables, and send queries are similar across other cloud databases you may encounter in the wild, like [Postgres](https://rpostgres.r-dbi.org/), and enterprise database systems like Microsoft Access.
+SQLite is an open-source database format based on SQL that's useful for storing large datasets locally on your computer. The methods to connect to a SQLite database, list tables, read tables, and send queries are similar across other cloud databases you may encounter in the wild, like [Postgres](https://rpostgres.r-dbi.org/), and enterprise database systems like Microsoft Access. We use the `{here}` package to construct relative paths in the RProject.
 
 ```{r, read-sql}
 library(RSQLite)
