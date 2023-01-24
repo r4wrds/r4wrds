@@ -68,14 +68,13 @@ Data come in many formats, and `R` has utilities for reading and writing all kin
 
 ### csv (comma separated values) 
 
-The comma separated value, or `.csv`, is a simple and effective way to store tabular data. To read a csv file, we first import the {`readr`} library, which contains the function `read_csv()`. We also load {`here`} in order to easily navigate our working directory. Let's read a file from our `data/gwl` folder that contains station information for groundwater level monitoring sites in California. We use the "relative path" created by `here()`, which encode the much longer "absolute path". You can also type "data/" and press **Tab** with your cursor just after the "/" to view all files in that path.
+The comma separated value, or `.csv`, is a simple and effective way to store tabular data. To read a csv file, we first import the {`readr`} library, which contains the function `read_csv()`. Let's read a file from our `data/gwl` folder that contains station information for groundwater level monitoring sites in California. You can also type "data/" and press **Tab** with your cursor just after the "/" to view all files in that path.
 
 ```{r read-csv}
-library(here)
 library(readr)
 
 # read the "stations" csv, save it as an object called "stations", and print the object
-stations <- read_csv(here("data", "gwl" ,"stations.csv"))
+stations <- read_csv("data/gwl/stations.csv")
 
 head(stations)
 
@@ -148,14 +147,14 @@ Excel files are very common, and R has great utilities for reading in and proces
 
 ```{r import-excel, warning=FALSE}
 library(readxl)
-ces <- read_xlsx(here("data", "calenviroscreen", "ces3results.xlsx"))
+ces <- read_xlsx("data/calenviroscreen/ces3results.xlsx")
 head(ces, 10) # print the first 10 rows
 ```
 
 By default, `read_xlsx()` reads in the first sheet. However, there may be many sheets in an excel file. If we want to read in a different sheet, we can tell R which sheet to read in, and even how many lines to skip before reading in data. 
 
 ```{r import-excel-2}
-metadata <- read_xlsx(here("data", "calenviroscreen", "ces3results.xlsx"), 
+metadata <- read_xlsx("data/calenviroscreen/ces3results.xlsx", 
                       sheet = 2, 
                       skip  = 6)
 metadata
@@ -169,7 +168,7 @@ metadata
 
 1. open the documentation for `read_xlsx()` using `?` (Hint: type `?read_xlsx` in the console and hit enter)
 2. read through the Arguments to get a sense of what else the function can do
-3. Read in the "Index Summary" sheet of `here("data", "healthy_watersheds", "CA_PHWA_TabularResults_170518.xlsx")`, and select the appropriate number of rows to skip. 
+3. Read in the "Index Summary" sheet of `"data/healthy_watersheds/CA_PHWA_TabularResults_170518.xlsx"`, and select the appropriate number of rows to skip. 
 4. What happened to column names during the read? 
 
 :::
@@ -181,7 +180,7 @@ metadata
   <div class="challenge-ans-body">
 
 ```{r import-excel-challenge-1}
-health <- read_xlsx(here("data", "healthy_watersheds", "CA_PHWA_TabularResults_170518.xlsx"), 
+health <- read_xlsx("data/healthy_watersheds/CA_PHWA_TabularResults_170518.xlsx", 
                     sheet = 2, 
                     skip  = 4)
 head(health)
@@ -202,11 +201,11 @@ Geospatial data is ubiquitous. So is the ArcGIS data format, the shapefile. A ge
 ```{r, read-shp, echo=TRUE, eval=TRUE}
 
 # unzip Sacramento county shapefile
-unzip(here("data", "shp", "sac_county.zip"), exdir = here("data", "shp", "sac"))
+unzip("data/shp/sac_county.zip", exdir = "data/shp/sac")
 
 # read the shapefile
 library(sf)
-sac_county <- st_read(here("data", "shp", "sac", "sac_county.shp"))
+sac_county <- st_read("data/shp/sac/sac_county.shp")
 
 ```
 
@@ -226,7 +225,7 @@ ggplot(sac_county) + geom_sf()
 We've been loading entire packages with the `library()` function, but you can also call a function from a package without loading it by using `<package_name>::<function_name>` syntax. Let's load the `.dbf` file from our Sacramento County polygon.  
 
 ```{r import-dbf}
-foreign::read.dbf(here("data", "shp", "sac", "sac_county.dbf"))
+foreign::read.dbf("data/shp/sac/sac_county.dbf")
 ```
 
 
@@ -235,7 +234,7 @@ foreign::read.dbf(here("data", "shp", "sac", "sac_county.dbf"))
 `.rds` and `.rda` (`.rda` is shorthand for `.RData`) are a special R-based data formats used to store R objects. These files can be read just like another other import functions shown above. Let's use it to import the groundwater level station data we read in earlier. Note that a `.rds` file can hold any single R object.
 
 ```{r, read-rds}
-stations <- read_rds(here("data","gwl","stations.rds"))
+stations <- read_rds("data/gwl/stations.rds")
 head(stations)
 ```
 
@@ -246,13 +245,13 @@ One quick difference between `.rds` and `.rda` files, for `.rds` files we can on
 
 ### sqlite
 
-SQLite is an open-source database format based on SQL that's useful for storing large datasets locally on your computer. The methods to connect to a SQLite database, list tables, read tables, and send queries are similar across other cloud databases you may encounter in the wild, like [Postgres](https://rpostgres.r-dbi.org/), and enterprise database systems like Microsoft Access.
+SQLite is an open-source database format based on SQL that's useful for storing large datasets locally on your computer. The methods to connect to a SQLite database, list tables, read tables, and send queries are similar across other cloud databases you may encounter in the wild, like [Postgres](https://rpostgres.r-dbi.org/), and enterprise database systems like Microsoft Access. We use the `{here}` package to construct relative paths in the RProject.
 
 ```{r, read-sql}
 library(RSQLite)
-
+library(here)
 # location of an sqlite database
-dbpath <- here("data", "gwl", "gwl_data.sqlite")
+dbpath <- here("data/gwl/gwl_data.sqlite")
 
 # actually connect to the database
 dbcon <- dbConnect(dbDriver("SQLite"), dbpath)
@@ -275,7 +274,7 @@ To write (export) data in R you need 2 things: data to write, and a location and
 
 ```{r, write-csv, eval = FALSE}
 # write "stations" to a file in the data_output folder called "my_stations.csv"
-write_csv(stations, here("data_output", "my_stations.csv"))
+write_csv(stations, "data_output/my_stations.csv")
 ```
 
 Now check that location and verify that your station data was written. 
@@ -284,25 +283,25 @@ We can do the same for other files:
 
 ```{r, write-other, eval = FALSE}
 # write the Sacramento county polygon to a shapefile
-st_write(sac_county, here("data_output", "sac_county.shp"))
+st_write(sac_county, "data_output/sac_county.shp")
 
 # write the Sacramento county polygon to an rds file
-write_rds(sac_county, here("data_output", "sac_county.rds"))
+write_rds(sac_county, "data_output/sac_county.rds")
 ```
 
 As before, navigate to these folders to verify these data were written. We can also check to see if these data exist from within R:
 
 ```{r verify-write-other, eval = FALSE}
-my_results <- list.files(here("data_output"))
+my_results <- list.files("data_output")
 my_files  <- c("sac_county.shp", "sac_county.rds")
  
 # test if your files are in the data_output folder
 my_files %in% my_results
 
 # another handy function is `file.exists`, which tells you if your file exists
-file.exists(here("data_output", "sacramento_county.shp"))
-file.exists(here("data_output", "sac_county.shp"))
-file.exists(here("data_output", "sac_county.rds"))
+file.exists("data_output/sacramento_county.shp")
+file.exists("data_output/sac_county.shp")
+file.exists("data_output/sac_county.rds")
 ```
 
 
@@ -329,10 +328,10 @@ file.exists(here("data_output", "sac_county.rds"))
 breakfast <- "green eggs and ham"
 
 # write_rds takes two arguments: the object to write and location to write it
-write_rds(breakfast, here("data_output", "breakfast.rds"))
+write_rds(breakfast, "data_output/breakfast.rds")
 
 # read the rds file back into R and save it as a variable
-my_breakfast <- read_rds(here("data_output", "breakfast.rds"))
+my_breakfast <- read_rds("data_output/breakfast.rds")
 
 # use the `cat()` function (concatenate) to announce your breakfast
 cat("Today for breakfast I ate", my_breakfast)
