@@ -2391,24 +2391,39 @@ Worksheets
 <nav class="l-text toc figcaption" id="TOC">
 <h3>Contents</h3>
 <ul>
-<li><a href="#data-wrangling-with-dplyr">Data wrangling with <strong>{dplyr}</strong></a>
+<li><a href="#data-wrangling-with-dplyr"
+id="toc-data-wrangling-with-dplyr">Data wrangling with
+<strong>{dplyr}</strong></a>
 <ul>
-<li><a href="#have-an-objective">Have an Objective</a></li>
-<li><a href="#learn-some-core-tools-for-common-operations">Learn some Core Tools for Common Operations</a></li>
-<li><a href="#start-from-scratch">Start from Scratch</a></li>
-<li><a href="#import-libraries-and-data">Import Libraries and Data</a></li>
+<li><a href="#have-an-objective" id="toc-have-an-objective">Have an
+Objective</a></li>
+<li><a href="#learn-some-core-tools-for-common-operations"
+id="toc-learn-some-core-tools-for-common-operations">Learn some Core
+Tools for Common Operations</a></li>
+<li><a href="#start-from-scratch" id="toc-start-from-scratch">Start from
+Scratch</a></li>
+<li><a href="#import-libraries-and-data"
+id="toc-import-libraries-and-data">Import Libraries and Data</a></li>
 </ul></li>
-<li><a href="#filter-rows"><code>filter</code> rows</a>
+<li><a href="#filter-rows" id="toc-filter-rows"><code>filter</code>
+rows</a>
 <ul>
-<li><a href="#exclude-rows">Exclude rows</a></li>
+<li><a href="#exclude-rows" id="toc-exclude-rows">Exclude rows</a></li>
 </ul></li>
-<li><a href="#select-columns"><code>select</code> columns</a></li>
-<li><a href="#the-pipe">The Pipe ( <code>%&gt;%</code> )</a></li>
-<li><a href="#mutate-existing-data"><code>mutate</code> existing data</a></li>
-<li><a href="#group_by-summarize"><code>group_by</code> &amp; <code>summarize</code></a>
+<li><a href="#select-columns"
+id="toc-select-columns"><code>select</code> columns</a></li>
+<li><a href="#the-pipe" id="toc-the-pipe">The Pipe ( <code>%&gt;%</code>
+)</a></li>
+<li><a href="#mutate-existing-data"
+id="toc-mutate-existing-data"><code>mutate</code> existing data</a></li>
+<li><a href="#group_by-summarize"
+id="toc-group_by-summarize"><code>group_by</code> &amp;
+<code>summarize</code></a>
 <ul>
-<li><a href="#summarizing-data">Summarizing Data</a></li>
-<li><a href="#remember-to-ungroup">Remember to <code>ungroup</code></a></li>
+<li><a href="#summarizing-data" id="toc-summarizing-data">Summarizing
+Data</a></li>
+<li><a href="#remember-to-ungroup" id="toc-remember-to-ungroup">Remember
+to <code>ungroup</code></a></li>
 </ul></li>
 </ul>
 </nav>
@@ -2417,27 +2432,47 @@ Worksheets
 <p><strong>Learning objectives</strong></p>
 <ul>
 <li>Learn how to approach tidying and transforming datasets</li>
-<li>Understand how to use the pipe (<code>%&gt;%</code>) to chain operations together</li>
-<li>Learn the core <strong><code>{dplyr}</code></strong> tools including functions (<code>select</code>, <code>filter</code>, <code>group_by</code>, <code>summarize</code>)</li>
+<li>Understand how to use the pipe (<code>%&gt;%</code>) to chain
+operations together</li>
+<li>Learn the core <strong><code>{dplyr}</code></strong> tools including
+functions (<code>select</code>, <code>filter</code>,
+<code>group_by</code>, <code>summarize</code>)</li>
 </ul>
 </div>
-<h2 id="data-wrangling-with-dplyr">Data wrangling with <strong>{dplyr}</strong></h2>
-<p>Data wrangling is usually the part of any data analysis project that takes the most time. Although it may not necessarily be fun, it is foundational to all the work that follows. Often, data wrangling also takes significantly longer than actually performing the data analysis or creating a data visualization, so do not panic if, in the future, you find yourself spending a lot of time on this phase. Once you learn some core approaches and tools, you can deal with nearly any dataset you may face!</p>
-
+<h2 id="data-wrangling-with-dplyr">Data wrangling with
+<strong>{dplyr}</strong></h2>
+<p>Data wrangling is usually the part of any data analysis project that
+takes the most time. Although it may not necessarily be fun, it is
+foundational to all the work that follows. Often, data wrangling also
+takes significantly longer than actually performing the data analysis or
+creating a data visualization, so do not panic if, in the future, you
+find yourself spending a lot of time on this phase. Once you learn some
+core approaches and tools, you can deal with nearly any dataset you may
+face!</p>
+<p>(ref:AHtidyplot) <em>Illustration by <span class="citation"
+data-cites="allison_horst">@allison_horst</span>, from Hadley Wickham’s
+talk “The Joy of Functional Programming (for Data Science)”</em></p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="figure"><span style="display:block;" id="fig:tidywrangle"></span>
-<img src="images/data_cowboy.png" alt="Illustration by @allison_horst, from Hadley Wickham’s talk “The Joy of Functional Programming (for Data Science)”" width="100%" />
+<img src="images/data_cowboy.png" alt="(ref:AHtidyplot)" width="100%" />
 <p class="caption">
-Figure 1: <em>Illustration by <span class="citation" data-cites="allison_horst">@allison_horst</span>, from Hadley Wickham’s talk “The Joy of Functional Programming (for Data Science)”</em>
+Figure 1: (ref:AHtidyplot)
 </p>
 </div>
 </div>
-<p>The data wrangling process includes data import, tidying, and transformation. The process directly feeds into the <em>understanding</em> or modeling side of data exploration, but in a iterative way. More generally, data wrangling is the manipulation or combination of datasets for the purpose of analysis, and often you have to rinse and repeat this process as your understanding of the data changes, and as your modeling and visualization needs also changes.</p>
+<p>The data wrangling process includes data import, tidying, and
+transformation. The process directly feeds into the
+<em>understanding</em> or modeling side of data exploration, but in a
+iterative way. More generally, data wrangling is the manipulation or
+combination of datasets for the purpose of analysis, and often you have
+to rinse and repeat this process as your understanding of the data
+changes, and as your modeling and visualization needs also changes.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="figure"><span style="display:block;" id="fig:unnamed-chunk-1"></span>
 <img src="images/data-science-wrangle.png" alt="*Image from &quot;R for Data Science&quot; by Garrett Grolemund and Hadley Wickham.*" width="100%" />
 <p class="caption">
-Figure 2: <em>Image from “R for Data Science” by Garrett Grolemund and Hadley Wickham.</em>
+Figure 2: <em>Image from “R for Data Science” by Garrett
+Grolemund and Hadley Wickham.</em>
 </p>
 </div>
 </div>
@@ -2445,72 +2480,120 @@ Figure 2: <em>Image from “R for Data Science” by Garrett Grolemund and Hadle
 <blockquote>
 <p><strong>All data wrangling is based on a purpose.</strong></p>
 </blockquote>
-<p>No one wrangles for the sake of wrangling (usually), so the process always begins by answering the following two questions:</p>
+<p>No one wrangles for the sake of wrangling (usually), so the process
+always begins by answering the following two questions:</p>
 <ol type="1">
 <li>What do my <strong>input</strong> data look like?</li>
-<li>What <em>should</em> my <strong>output</strong> data look like given what I want to do?</li>
+<li>What <em>should</em> my <strong>output</strong> data look like given
+what I want to do?</li>
 </ol>
-<h3 id="learn-some-core-tools-for-common-operations">Learn some Core Tools for Common Operations</h3>
-<p>At the most basic level, going from what your data looks like to what you want it look like will require a few key operations. The more we practice these operations with common tools, the easier this will be no matter the size or complexity of data that we face.</p>
+<h3 id="learn-some-core-tools-for-common-operations">Learn some Core
+Tools for Common Operations</h3>
+<p>At the most basic level, going from what your data looks like to what
+you want it look like will require a few key operations. The more we
+practice these operations with common tools, the easier this will be no
+matter the size or complexity of data that we face.</p>
 <aside>
-<em>Tidy data</em> is an important part of being able to re-use these tools! See this great <a href="https://www.openscapes.org/blog/2020/10/12/tidy-data/">blog</a> (by Lowndes &amp; Horst)
+<em>Tidy data</em> is an important part of being able to re-use these
+tools! See this great <a
+href="https://www.openscapes.org/blog/2020/10/12/tidy-data/">blog</a>
+(by Lowndes &amp; Horst)
 </aside>
 <div class="layout-chunk" data-layout="l-body">
 <div class="figure"><span style="display:block;" id="fig:unnamed-chunk-2"></span>
 <img src="images/tidydata_4.jpg" alt="Illustrations from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst." width="80%" />
 <p class="caption">
-Figure 3: Illustrations from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst.
+Figure 3: Illustrations from the Openscapes blog Tidy Data
+for reproducibility, efficiency, and collaboration by Julia Lowndes and
+Allison Horst.
 </p>
 </div>
 </div>
 <p>Common operations that occur during data wrangling:</p>
 <ul>
 <li><strong><code>select</code></strong> specific variables</li>
-<li><strong><code>filter</code></strong> observations by some criteria</li>
-<li>Add or modify (<strong><code>mutate</code></strong>) existing variables</li>
+<li><strong><code>filter</code></strong> observations by some
+criteria</li>
+<li>Add or modify (<strong><code>mutate</code></strong>) existing
+variables</li>
 <li><strong><code>rename</code></strong> variables</li>
 <li><strong><code>arrange</code></strong> rows by a variable</li>
-<li><strong><code>summarize</code></strong> a variable conditional on others</li>
+<li><strong><code>summarize</code></strong> a variable conditional on
+others</li>
 </ul>
-<p>The <strong><code>{dplyr}</code></strong> package provides easy tools for these common data manipulation tasks and is a core package from the <a href="https://www.tidyverse.org/">{tidyverse}</a> suite of packages. The philosophy of <strong><code>{dplyr}</code></strong> is that <strong>one</strong> function does <strong>one</strong> thing and the name of the function says what it does.</p>
+<p>The <strong><code>{dplyr}</code></strong> package provides easy tools
+for these common data manipulation tasks and is a core package from the
+<a href="https://www.tidyverse.org/">{tidyverse}</a> suite of packages.
+The philosophy of <strong><code>{dplyr}</code></strong> is that
+<strong>one</strong> function does <strong>one</strong> thing and the
+name of the function says what it does.</p>
 <h3 id="start-from-scratch">Start from Scratch</h3>
-<p>Any reproducible analysis should be easily repeated. Using code in a script allows us to rebuild every step of the data analysis from scratch – from data import, to data wrangling, to visualization and modeling – sometimes over and over again. For that reason, it’s a good habit to <strong>Restart your R Session</strong> before you begin a new coding adventure. Sometimes this solves issues, sometimes it’s just good to make sure everything runs up to the point you are working. Let’s do that now!</p>
+<p>Any reproducible analysis should be easily repeated. Using code in a
+script allows us to rebuild every step of the data analysis from scratch
+– from data import, to data wrangling, to visualization and modeling –
+sometimes over and over again. For that reason, it’s a good habit to
+<strong>Restart your R Session</strong> before you begin a new coding
+adventure. Sometimes this solves issues, sometimes it’s just good to
+make sure everything runs up to the point you are working. Let’s do that
+now!</p>
 <ol type="1">
-<li>Go to <strong><code>Session</code></strong> &gt; <strong><code>Restart R</code></strong>!</li>
+<li>Go to <strong><code>Session</code></strong> &gt;
+<strong><code>Restart R</code></strong>!</li>
 <li>Check your <code>Environment</code> tab…it should be empty!</li>
 </ol>
 <h3 id="import-libraries-and-data">Import Libraries and Data</h3>
-<p>First we need to load the libraries that we’ll be using. Let’s use <code>{here}</code> and the <code>{tidyverse}</code> packages (which includes <code>{dplyr}</code> and <code>{ggplot2}</code>).</p>
+<p>First we need to load the libraries that we’ll be using. Let’s the
+<code>{tidyverse}</code> packages (which includes <code>{dplyr}</code>
+and <code>{ggplot2}</code>).</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://here.r-lib.org/'>here</a></span><span class='op'>)</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
-<p>Next we import a <code>.csv</code> of groundwater monitoring stations across California<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
+<p>Next we import a <code>.csv</code> of groundwater monitoring stations
+across California<a href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a>.</p>
 <aside>
-We can use either <code>read.csv</code> or <code>read_csv</code> functions. What’s the main difference between the two? Hint, check <code>class(stations)</code> for each method.
+We can use either <code>read.csv</code> or <code>read_csv</code>
+functions. What’s the main difference between the two? Hint, check
+<code>class(stations)</code> for each method.
 </aside>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># read the stations.csv file and assign it to an object "stations"</span>
-<span class='va'>stations</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"data"</span>, <span class='st'>"gwl"</span>, <span class='st'>"stations.csv"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>stations</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span><span class='op'>(</span><span class='st'>"data/gwl/stations.csv"</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
-<p>Below your code that imports the dataset, let’s make a new section! Go to <strong><code>Code</code></strong> &gt; <strong><code>Insert Section</code></strong>, and type your new section header <code>Wrangling Data</code>. We can also use keyboard shortcuts for this (<code>Ctrl</code> or <code>⌘</code> + <code>Shift</code> + <code>R</code>). You should notice how this now appears in an expandable table of contents on the right hand side of your script pane (look for the tiny button that has little gray horizontal lines on it). This feature can be very helpful in keeping you and your scripts organized.</p>
+<p>Below your code that imports the dataset, let’s make a new section!
+Go to <strong><code>Code</code></strong> &gt;
+<strong><code>Insert Section</code></strong>, and type your new section
+header <code>Wrangling Data</code>. We can also use keyboard shortcuts
+for this (<code>Ctrl</code> or <code>⌘</code> + <code>Shift</code> +
+<code>R</code>). You should notice how this now appears in an expandable
+table of contents on the right hand side of your script pane (look for
+the tiny button that has little gray horizontal lines on it). This
+feature can be very helpful in keeping you and your scripts
+organized.</p>
 <h2 id="filter-rows"><code>filter</code> rows</h2>
-<p>One of the most common steps to slicing data is to <strong>filter rows</strong> of a dataframe. We can filter by a variable (e.g., column name) or by a condition (i.e., only values greater than 100). Remember, <code>{dplyr}</code> is designed so that <em>one</em> function does <em>one</em> thing, and the name of the function says what it does.</p>
+<p>One of the most common steps to slicing data is to <strong>filter
+rows</strong> of a dataframe. We can filter by a variable (e.g., column
+name) or by a condition (i.e., only values greater than 100). Remember,
+<code>{dplyr}</code> is designed so that <em>one</em> function does
+<em>one</em> thing, and the name of the function says what it does.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="figure"><span style="display:block;" id="fig:filterArt"></span>
 <img src="images/filter.jpg" alt="Artwork by @allison_horst" width="80%" />
 <p class="caption">
-Figure 4: Artwork by <span class="citation" data-cites="allison_horst">@allison_horst</span>
+Figure 4: Artwork by <span class="citation"
+data-cites="allison_horst">@allison_horst</span>
 </p>
 </div>
 </div>
-<p>Let’s filter this large dataframe of potential groundwater station locations (n=43807 total!) to just stations from Sacramento County with <code>filter()</code>.</p>
+<p>Let’s filter this large dataframe of potential groundwater station
+locations (n=43807 total!) to just stations from Sacramento County with
+<code>filter()</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>stations_sac</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>stations</span>, <span class='va'>COUNTY_NAME</span> <span class='op'>==</span> <span class='st'>"Sacramento"</span><span class='op'>)</span>
@@ -2519,8 +2602,18 @@ Figure 4: Artwork by <span class="citation" data-cites="allison_horst">@allison_
 </div>
 <pre><code>[1] 494</code></pre>
 </div>
-<p>What happened? <code>filter()</code> requires the data, and then any number of filtering options. We provided just one. Here the <code>==</code> means “equal to”, while a single <code>=</code> would mean <code>is</code>.</p>
-<p>We can also combine filter conditions in the same call! Let’s add another condition that we only want <code>Residential</code> wells (a category of the <code>WELL_USE</code> column). We can get a count of how many categories of <code>WELL_USE</code> have observations (or rows) in the <code>stations_sac</code> dataframe using the <code>table()</code> function. Then we can combine multiple conditions in our <code>filter</code> with a <code>,</code> (in <code>filter</code>, commas are another way to say <code>AND</code>).</p>
+<p>What happened? <code>filter()</code> requires the data, and then any
+number of filtering options. We provided just one. Here the
+<code>==</code> means “equal to”, while a single <code>=</code> would
+mean <code>is</code>.</p>
+<p>We can also combine filter conditions in the same call! Let’s add
+another condition that we only want <code>Residential</code> wells (a
+category of the <code>WELL_USE</code> column). We can get a count of how
+many categories of <code>WELL_USE</code> have observations (or rows) in
+the <code>stations_sac</code> dataframe using the <code>table()</code>
+function. Then we can combine multiple conditions in our
+<code>filter</code> with a <code>,</code> (in <code>filter</code>,
+commas are another way to say <code>AND</code>).</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># get what the categories of WELL_USE are in Sacramento County:</span>
@@ -2540,7 +2633,12 @@ Figure 4: Artwork by <span class="citation" data-cites="allison_horst">@allison_
 </div>
 <pre><code>[1] 76</code></pre>
 </div>
-<p>We can mix and match <code>filter</code> conditions however we choose. What if we want to select multiple counties? The <code>%in%</code> is a great way to provide a list of things you want <code>filter</code> to use to see if there’s a match within your dataframe. Let’s filter to 3 counties: Sacramento, Placer, and El Dorado.</p>
+<p>We can mix and match <code>filter</code> conditions however we
+choose. What if we want to select multiple counties? The
+<code>%in%</code> is a great way to provide a list of things you want
+<code>filter</code> to use to see if there’s a match within your
+dataframe. Let’s filter to 3 counties: Sacramento, Placer, and El
+Dorado.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># filter to multiple counties</span>
@@ -2550,11 +2648,22 @@ Figure 4: Artwork by <span class="citation" data-cites="allison_horst">@allison_
 </div>
 </div>
 <aside>
-To quote or not to quote? Inside tidyverse functions like <code>filter</code> we typically <strong>don’t</strong> need to quote variable names (columns) but we <strong>do</strong> need to quote specific values.
+To quote or not to quote? Inside tidyverse functions like
+<code>filter</code> we typically <strong>don’t</strong> need to quote
+variable names (columns) but we <strong>do</strong> need to quote
+specific values.
 </aside>
-<p>What happened? We used a list (using the <code>c()</code> to combine different possible values of <code>COUNTY_NAME</code>) to specify what data we wanted to keep, and we told <code>filter</code> to return all rows in the <code>COUNTY_NAME</code> column with entries in (<code>%in%</code>) that list of county names (<code>sep_counties</code>).</p>
+<p>What happened? We used a list (using the <code>c()</code> to combine
+different possible values of <code>COUNTY_NAME</code>) to specify what
+data we wanted to keep, and we told <code>filter</code> to return all
+rows in the <code>COUNTY_NAME</code> column with entries in
+(<code>%in%</code>) that list of county names
+(<code>sep_counties</code>).</p>
 <h3 id="exclude-rows">Exclude rows</h3>
-<p>We can also <em>exclude</em> rows based on conditions. To exclude, we can negate a condition with the <code>!</code> symbol in front of the condition. Let’s exclude all stations from Yolo County. Here we show 3 ways to to do the same thing.</p>
+<p>We can also <em>exclude</em> rows based on conditions. To exclude, we
+can negate a condition with the <code>!</code> symbol in front of the
+condition. Let’s exclude all stations from Yolo County. Here we show 3
+ways to to do the same thing.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># include everything except Yolo County...3 different ways</span>
@@ -2565,7 +2674,11 @@ To quote or not to quote? Inside tidyverse functions like <code>filter</code> we
 </div>
 </div>
 <h2 id="select-columns"><code>select</code> columns</h2>
-<p>We can also select specific columns or variables of interest with the <code>select()</code> function. Similar to <code>filter</code>, we pass the data, and the conditions we want to use to subset our data. Let’s select only <code>STN_ID</code>, <code>LATITUDE</code>, <code>LONGITUDE</code>, and <code>COUNTY_NAME</code>.</p>
+<p>We can also select specific columns or variables of interest with the
+<code>select()</code> function. Similar to <code>filter</code>, we pass
+the data, and the conditions we want to use to subset our data. Let’s
+select only <code>STN_ID</code>, <code>LATITUDE</code>,
+<code>LONGITUDE</code>, and <code>COUNTY_NAME</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># select specific columns to keep</span>
@@ -2575,7 +2688,9 @@ To quote or not to quote? Inside tidyverse functions like <code>filter</code> we
 </div>
 <pre><code>[1] &quot;STN_ID&quot;      &quot;LATITUDE&quot;    &quot;LONGITUDE&quot;   &quot;COUNTY_NAME&quot;</code></pre>
 </div>
-<p>Remember we don’t have to quote the variable names here! What if we want to just remove a column? We can use the same structure, but put a “<strong><code>-</code></strong>” in front of our list or condition.</p>
+<p>Remember we don’t have to quote the variable names here! What if we
+want to just remove a column? We can use the same structure, but put a
+“<strong><code>-</code></strong>” in front of our list or condition.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># select columns to drop</span>
@@ -2585,8 +2700,13 @@ To quote or not to quote? Inside tidyverse functions like <code>filter</code> we
 </div>
 <pre><code>[1] 8</code></pre>
 </div>
-<p>Here we used the <code>:</code> to say columns from <code>LATITUDE</code> <em>through</em> <code>BASIN_NAME</code>, then we included <code>COUNTY_NAME</code> in the list of columns to drop.</p>
-<p>There are some very powerful options that exist within <code>select()</code>, including the ability to rename columns, or select by things that relate to the column names. Let’s select columns that start with “W” or contain “NAME”.</p>
+<p>Here we used the <code>:</code> to say columns from
+<code>LATITUDE</code> <em>through</em> <code>BASIN_NAME</code>, then we
+included <code>COUNTY_NAME</code> in the list of columns to drop.</p>
+<p>There are some very powerful options that exist within
+<code>select()</code>, including the ability to rename columns, or
+select by things that relate to the column names. Let’s select columns
+that start with “W” or contain “NAME”.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># select columns to drop</span>
@@ -2599,8 +2719,17 @@ To quote or not to quote? Inside tidyverse functions like <code>filter</code> we
 [9] &quot;COUNTY_NAME&quot;</code></pre>
 </div>
 <h2 id="the-pipe">The Pipe ( <code>%&gt;%</code> )</h2>
-<p>We now have two ways to slice and dice our data, filter rows and select by columns. A very useful tool you may have seen is something called a “pipe”. In R, this is represented by the symbol <strong><code>%&gt;%</code></strong> and can be inserted with the keyboard shortcut <code>Ctrl</code> or <code>⌘</code> + <code>Shift</code> + <code>M</code>.</p>
-<p>The pipe is a way to chain multiple commands together, and it passes the result of the first function to the second function This is particularly helpful in R when you don’t need to (or want to) assign temporary steps to your code. For example, compare a filter, select, and rename set of operations with and without the <code>%&gt;%</code>.</p>
+<p>We now have two ways to slice and dice our data, filter rows and
+select by columns. A very useful tool you may have seen is something
+called a “pipe”. In R, this is represented by the symbol
+<strong><code>%&gt;%</code></strong> and can be inserted with the
+keyboard shortcut <code>Ctrl</code> or <code>⌘</code> +
+<code>Shift</code> + <code>M</code>.</p>
+<p>The pipe is a way to chain multiple commands together, and it passes
+the result of the first function to the second function This is
+particularly helpful in R when you don’t need to (or want to) assign
+temporary steps to your code. For example, compare a filter, select, and
+rename set of operations with and without the <code>%&gt;%</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># filter</span>
@@ -2616,7 +2745,9 @@ To quote or not to quote? Inside tidyverse functions like <code>filter</code> we
 </code></pre>
 </div>
 </div>
-<p>Now let’s rewrite the code above with <code>%&gt;%</code>. Notice we don’t need to explicitly define intermediate variables for each step, because data is “piped” between steps.</p>
+<p>Now let’s rewrite the code above with <code>%&gt;%</code>. Notice we
+don’t need to explicitly define intermediate variables for each step,
+because data is “piped” between steps.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># filter, select, and rename</span>
@@ -2627,13 +2758,22 @@ To quote or not to quote? Inside tidyverse functions like <code>filter</code> we
 </code></pre>
 </div>
 </div>
-<p>We piped (<code>%&gt;%</code>) the data to <code>filter()</code>, and the result of the <code>filter()</code> to <code>select()</code>, and then piped the result of that to <code>rename()</code>. Since we assigned all of this at the very beginning to <code>stations_multcounty</code>, that’s our final output.</p>
+<p>We piped (<code>%&gt;%</code>) the data to <code>filter()</code>, and
+the result of the <code>filter()</code> to <code>select()</code>, and
+then piped the result of that to <code>rename()</code>. Since we
+assigned all of this at the very beginning to
+<code>stations_multcounty</code>, that’s our final output.</p>
 <div class="challenge">
-<p><font color="#009E73"><strong>Challenge 1: You Try!</strong></font></p>
+<p><font color="#009E73"><strong>Challenge 1: You
+Try!</strong></font></p>
 <ol type="1">
-<li>Using the <code>stations</code> dataset, filter to only <strong><code>Residential</code></strong> wells that have a <code>WELL_DEPTH &gt; 1000</code> feet.<br />
+<li>Using the <code>stations</code> dataset, filter to only
+<strong><code>Residential</code></strong> wells that have a
+<code>WELL_DEPTH &gt; 1000</code> feet.<br />
 </li>
-<li>Select only <code>STN_ID</code>, <code>WELL_DEPTH</code>, <code>WELL_NAME</code>, <code>BASIN_NAME</code>, and <code>COUNTY_NAME</code> columns in the dataframe.</li>
+<li>Select only <code>STN_ID</code>, <code>WELL_DEPTH</code>,
+<code>WELL_NAME</code>, <code>BASIN_NAME</code>, and
+<code>COUNTY_NAME</code> columns in the dataframe.</li>
 <li>How many records are in Los Angeles?</li>
 </ol>
 </div>
@@ -2668,17 +2808,26 @@ To quote or not to quote? Inside tidyverse functions like <code>filter</code> we
 </div>
 </details>
 <h2 id="mutate-existing-data"><code>mutate</code> existing data</h2>
-<p><code>mutate</code> is a function that modifies existing data, either by adding a new column, or modifying existing columns. When using <code>mutate</code> we expect R to return some modified version of our input dataframe… but it should still be a version of the original dataframe.</p>
+<p><code>mutate</code> is a function that modifies existing data, either
+by adding a new column, or modifying existing columns. When using
+<code>mutate</code> we expect R to return some modified version of our
+input dataframe… but it should still be a version of the original
+dataframe.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="figure"><span style="display:block;" id="fig:mutateFig"></span>
 <img src="images/mutate.png" alt="Artwork by @allison_horst" width="70%" />
 <p class="caption">
-Figure 5: Artwork by <span class="citation" data-cites="allison_horst">@allison_horst</span>
+Figure 5: Artwork by <span class="citation"
+data-cites="allison_horst">@allison_horst</span>
 </p>
 </div>
 </div>
-<p><code>mutate</code> allows us to pass other functions or data into our dataframe, and is a powerful way to clean and tidy our data.</p>
-<p>Let’s create a new <code>WELL_DEPTH_m</code> column which converts the existing <code>WELL_DEPTH</code> column from feet to meters. We pass the new column name and then the function or operation we want to preform to create the new column (or modify an existing column).</p>
+<p><code>mutate</code> allows us to pass other functions or data into
+our dataframe, and is a powerful way to clean and tidy our data.</p>
+<p>Let’s create a new <code>WELL_DEPTH_m</code> column which converts
+the existing <code>WELL_DEPTH</code> column from feet to meters. We pass
+the new column name and then the function or operation we want to
+preform to create the new column (or modify an existing column).</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>stations_mutate1</span> <span class='op'>&lt;-</span> <span class='va'>stations</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
@@ -2686,7 +2835,8 @@ Figure 5: Artwork by <span class="citation" data-cites="allison_horst">@allison_
 </code></pre>
 </div>
 </div>
-<p>Let’s use <code>ggplot2</code> to check and see if this worked. We can use the <code>%&gt;%</code> here too!</p>
+<p>Let’s use <code>ggplot2</code> to check and see if this worked. We
+can use the <code>%&gt;%</code> here too!</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>stations_mutate1</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
@@ -2700,13 +2850,21 @@ Figure 5: Artwork by <span class="citation" data-cites="allison_horst">@allison_
 </div>
 <p><img src="m_dplyr_files/figure-html5/mut1ggplot1-1.png" width="624" data-distill-preview=1 /></p>
 </div>
-<p>As shown above, the reddish circles for observations in units of meters indicate smaller values than the blueish circles for observations in units of feet. This looks about right! It is rarely a bad idea to “visualize” your outcomes whenever possible, these are great ways to double check things are happening as you intend when data wrangling.</p>
+<p>As shown above, the reddish circles for observations in units of
+meters indicate smaller values than the blueish circles for observations
+in units of feet. This looks about right! It is rarely a bad idea to
+“visualize” your outcomes whenever possible, these are great ways to
+double check things are happening as you intend when data wrangling.</p>
 <details>
 <summary class="extra-practice-title">
 Extra Practice
 </summary>
 <div class="extra-practice-body">
-<p>Let’s pause a moment and do this in base R <em>without</em> the tidyverse so we can see both methods. There are many positives about knowing different approaches, and also when troubleshooting, it can be helpful to understand different ways of doing the same thing. Can you spot a few differences?</p>
+<p>Let’s pause a moment and do this in base R <em>without</em> the
+tidyverse so we can see both methods. There are many positives about
+knowing different approaches, and also when troubleshooting, it can be
+helpful to understand different ways of doing the same thing. Can you
+spot a few differences?</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># filter and select (subset)</span>
@@ -2730,9 +2888,16 @@ Extra Practice
 </div>
 </div>
 </details>
-<h2 id="group_by-summarize"><code>group_by</code> &amp; <code>summarize</code></h2>
-<p>The final core <code>{dplyr}</code> “verbs” to be aware of are <code>group_by</code> and <code>summarize</code>. These are really useful to transform your data into an entirely <strong>new</strong> dataset, and to do many operations at once based on different columns (variables) within your dataset.</p>
-<p>For example let’s say we want a count of how many records exist for each county. We can use <strong><code>group_by</code></strong> and <strong><code>count</code></strong>.</p>
+<h2 id="group_by-summarize"><code>group_by</code> &amp;
+<code>summarize</code></h2>
+<p>The final core <code>{dplyr}</code> “verbs” to be aware of are
+<code>group_by</code> and <code>summarize</code>. These are really
+useful to transform your data into an entirely <strong>new</strong>
+dataset, and to do many operations at once based on different columns
+(variables) within your dataset.</p>
+<p>For example let’s say we want a count of how many records exist for
+each county. We can use <strong><code>group_by</code></strong> and
+<strong><code>count</code></strong>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>n_by_county</span> <span class='op'>&lt;-</span> <span class='va'>stations</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
@@ -2753,8 +2918,17 @@ Extra Practice
 5 Calaveras      17
 6 Colusa        229</code></pre>
 </div>
-<p>What happened? <code>group_by()</code> groups the data based on the variable(s) included in the function. Once our <code>data.frame</code> is grouped, there are many options and functions we can apply, including things like <code>count()</code>, <code>tally()</code>, and <code>summarize()</code>.</p>
-<p>Let’s look at this a bit more. What if we really only want the 5 counties with the most observations? We can add two additional options here. The <code>arrange()</code> function will sort our data by a variable(s) of our choice, and we can use <code>desc()</code> to specify we want that data in descending order. We then pipe that to <code>head()</code> and ask for just the first 5 rows.</p>
+<p>What happened? <code>group_by()</code> groups the data based on the
+variable(s) included in the function. Once our <code>data.frame</code>
+is grouped, there are many options and functions we can apply, including
+things like <code>count()</code>, <code>tally()</code>, and
+<code>summarize()</code>.</p>
+<p>Let’s look at this a bit more. What if we really only want the 5
+counties with the most observations? We can add two additional options
+here. The <code>arrange()</code> function will sort our data by a
+variable(s) of our choice, and we can use <code>desc()</code> to specify
+we want that data in descending order. We then pipe that to
+<code>head()</code> and ask for just the first 5 rows.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>stations</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
@@ -2775,7 +2949,14 @@ Extra Practice
 5 Merced          2479</code></pre>
 </div>
 <h3 id="summarizing-data">Summarizing Data</h3>
-<p>Similar to <code>mutate</code>, <code>summarize</code> allows us to create new columns. The difference is <code>summarize</code> creates a completely new dataframe based on the <code>group_by</code>. Thus, <code>summarize</code> always follows a <code>group_by</code>. Here we can do a similar analysis to what we did above, but now we can customize our columns and what we want to calculate. Let’s calculate the average depth of wells in all counties, then plot the top 10 counties with the deepest average well depth.</p>
+<p>Similar to <code>mutate</code>, <code>summarize</code> allows us to
+create new columns. The difference is <code>summarize</code> creates a
+completely new dataframe based on the <code>group_by</code>. Thus,
+<code>summarize</code> always follows a <code>group_by</code>. Here we
+can do a similar analysis to what we did above, but now we can customize
+our columns and what we want to calculate. Let’s calculate the average
+depth of wells in all counties, then plot the top 10 counties with the
+deepest average well depth.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>stations</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
@@ -2792,9 +2973,17 @@ Extra Practice
 <p><img src="m_dplyr_files/figure-html5/grpby3-1.png" width="624" /></p>
 </div>
 <aside>
-This is a plot to consider rotating the axis labels. How do we do that? Practice your web-search skills or visit the <a href="https://ggplot2.tidyverse.org/index.html">ggplot2 help page</a>. <em>Hint: look at <code>theme(axis.text.x = )</code>. Another option is <code>coord_flip()</code>.</em>
+This is a plot to consider rotating the axis labels. How do we do that?
+Practice your web-search skills or visit the <a
+href="https://ggplot2.tidyverse.org/index.html">ggplot2 help page</a>.
+<em>Hint: look at <code>theme(axis.text.x = )</code>. Another option is
+<code>coord_flip()</code>.</em>
 </aside>
-<p>We looked at only the top 10 counties before, but remember that <code>group_by</code> and <code>summarize</code> work on entire dataframes. To illustrate how these operations scale to entire dataframes, if we wanted to visualize the mean well depth for all counties in the data, we could do so with slightly modified code:</p>
+<p>We looked at only the top 10 counties before, but remember that
+<code>group_by</code> and <code>summarize</code> work on entire
+dataframes. To illustrate how these operations scale to entire
+dataframes, if we wanted to visualize the mean well depth for all
+counties in the data, we could do so with slightly modified code:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>stations</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
@@ -2817,10 +3006,15 @@ This is a plot to consider rotating the axis labels. How do we do that? Practice
 </div>
 <p><img src="m_dplyr_files/figure-html5/well-depth-all-counties-1.png" width="624" /></p>
 </div>
-<p>We can add additional groups or columns depending on what we are interested in. Let’s try the following:</p>
+<p>We can add additional groups or columns depending on what we are
+interested in. Let’s try the following:</p>
 <ul>
-<li>find the mean well depth by each <code>WELL_USE</code> category using <strong><code>summarize</code></strong></li>
-<li><strong><code>filter</code></strong> to only groups that have more than 10 stations and no NA’s (<em>for NA’s, we can use the <code>is.na()</code> function, and the negate or <code>!</code> symbol we used previously</em>)</li>
+<li>find the mean well depth by each <code>WELL_USE</code> category
+using <strong><code>summarize</code></strong></li>
+<li><strong><code>filter</code></strong> to only groups that have more
+than 10 stations and no NA’s (<em>for NA’s, we can use the
+<code>is.na()</code> function, and the negate or <code>!</code> symbol
+we used previously</em>)</li>
 <li>pipe to ggplot and make a boxplot to visualize the result</li>
 </ul>
 <div class="layout-chunk" data-layout="l-body">
@@ -2841,13 +3035,23 @@ This is a plot to consider rotating the axis labels. How do we do that? Practice
 </div>
 <p><img src="m_dplyr_files/figure-html5/grpby4-1.png" width="624" /></p>
 </div>
-<p>What happened? We grouped by two different variables, and then applied functions (or transformed the data) to those groups using <code>summarize</code>, then we filtered, and visualized. The order of these steps can influence your analysis and result, so it’s good to consider when you want to filter and when you want to group_by/summarize things. Let’s try a challenge!</p>
+<p>What happened? We grouped by two different variables, and then
+applied functions (or transformed the data) to those groups using
+<code>summarize</code>, then we filtered, and visualized. The order of
+these steps can influence your analysis and result, so it’s good to
+consider when you want to filter and when you want to group_by/summarize
+things. Let’s try a challenge!</p>
 <div class="challenge">
-<p><font color="#009E73"><strong>Challenge 2: You Try!</strong></font></p>
+<p><font color="#009E73"><strong>Challenge 2: You
+Try!</strong></font></p>
 <ol type="1">
-<li>Using the code we ran above, figure out how to make this boxplot without the “<code>Unknown</code>” and blank (<code>""</code>) <code>WELL_USE</code> categories.</li>
-<li>Try adding points as another layer over your boxplot using <code>geom_jitter</code>.</li>
-<li>For a bonus challenge, try adding a caption with information about this dataset, and plotting these data in meters instead of feet.</li>
+<li>Using the code we ran above, figure out how to make this boxplot
+without the “<code>Unknown</code>” and blank (<code>""</code>)
+<code>WELL_USE</code> categories.</li>
+<li>Try adding points as another layer over your boxplot using
+<code>geom_jitter</code>.</li>
+<li>For a bonus challenge, try adding a caption with information about
+this dataset, and plotting these data in meters instead of feet.</li>
 </ol>
 </div>
 <p><br></p>
@@ -2884,7 +3088,15 @@ This is a plot to consider rotating the axis labels. How do we do that? Practice
 </div>
 </details>
 <h3 id="remember-to-ungroup">Remember to <code>ungroup</code></h3>
-<p>A common blunder that can impact downstream analyses, or even the current analysis you may want to do is forgetting to ungroup. <code>{dplyr}</code> is smart, and will do exactly as you program it to do, but when you use <code>group_by</code>, your output dataframe <strong>will retain those groups</strong> for future use. This can be helpful in some cases, but it’s important to keep an eye on and be aware of (for when it’s <em>not</em> helpful). We can always use <code>class()</code> to better check this. Let’s try some code from above and check with <code>class()</code>.</p>
+<p>A common blunder that can impact downstream analyses, or even the
+current analysis you may want to do is forgetting to ungroup.
+<code>{dplyr}</code> is smart, and will do exactly as you program it to
+do, but when you use <code>group_by</code>, your output dataframe
+<strong>will retain those groups</strong> for future use. This can be
+helpful in some cases, but it’s important to keep an eye on and be aware
+of (for when it’s <em>not</em> helpful). We can always use
+<code>class()</code> to better check this. Let’s try some code from
+above and check with <code>class()</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>stations_by_cnty_use</span> <span class='op'>&lt;-</span> <span class='va'>stations</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
@@ -2899,7 +3111,11 @@ This is a plot to consider rotating the axis labels. How do we do that? Practice
 </div>
 <pre><code>[1] &quot;grouped_df&quot; &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;</code></pre>
 </div>
-<p>Here we can see the <code>grouped_df</code> title, which tells us this is a <strong>grouped</strong> dataset. We can easily <em>ungroup</em> with the concisely named <code>ungroup()</code> function. This isn’t required, but it’s a good habit to get into (or be aware of).</p>
+<p>Here we can see the <code>grouped_df</code> title, which tells us
+this is a <strong>grouped</strong> dataset. We can easily
+<em>ungroup</em> with the concisely named <code>ungroup()</code>
+function. This isn’t required, but it’s a good habit to get into (or be
+aware of).</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>stations_by_cnty_use</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a></span><span class='op'>(</span><span class='va'>stations_by_cnty_use</span><span class='op'>)</span>
@@ -2908,15 +3124,25 @@ This is a plot to consider rotating the axis labels. How do we do that? Practice
 </div>
 <pre><code>[1] &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;</code></pre>
 </div>
-<p>Congratulations! You’ve made it through <code>{dplyr}</code>. There are many more great options and tricks within <code>{dplyr}</code>, but hopefully this will get you going.</p>
+<p>Congratulations! You’ve made it through <code>{dplyr}</code>. There
+are many more great options and tricks within <code>{dplyr}</code>, but
+hopefully this will get you going.</p>
 <p><br></p>
 <p><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"></p>
-<p><a href="m_data_structures.html" class="btn btn-secondary" style="float: left">Previous module:<br> 6. Data Structures</a> <a href="m_pivots.html" class="btn btn-secondary" style="float: right;">Next module:<br> 8. Spreadsheets &amp; Pivots</a></p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
-<section class="footnotes" role="doc-endnotes">
+<p><a href="m_data_structures.html" class="btn btn-secondary" style="float: left">Previous
+module:<br> 6. Data Structures</a>
+<a href="m_pivots.html" class="btn btn-secondary" style="float: right;">Next
+module:<br> 8. Spreadsheets &amp; Pivots</a></p>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1" role="doc-endnote"><p>see <a href="https://data.cnra.ca.gov/dataset/periodic-groundwater-level-measurements">here for more about this data</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>see <a
+href="https://data.cnra.ca.gov/dataset/periodic-groundwater-level-measurements">here
+for more about this data</a><a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 <!--radix_placeholder_article_footer-->
@@ -2939,7 +3165,10 @@ This is a plot to consider rotating the axis labels. How do we do that? Practice
 <!--/radix_placeholder_appendices-->
 <!--radix_placeholder_navigation_after_body-->
 <div class="distill-site-nav distill-site-footer">
-<p>© Copyright 2021 <a href="http://ryanpeek.org/" target = "_blank">Ryan Peek</a> and <a href="https://www.richpauloo.com/" target = "_blank">Rich Pauloo</a>.</p>
+<p>© Copyright 2021
+<a href="http://ryanpeek.org/" target = "_blank">Ryan Peek</a> and
+<a href="https://www.richpauloo.com/" target = "_blank">Rich
+Pauloo</a>.</p>
 </div>
 <!--/radix_placeholder_navigation_after_body-->
 

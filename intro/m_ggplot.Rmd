@@ -11,7 +11,6 @@ creative_commons: CC BY
 ```{r setup, include=FALSE, purl=FALSE, message=FALSE}
 
 library(knitr)
-library(here)
 suppressPackageStartupMessages(library(tidyverse))
 
 knitr::opts_chunk$set(out.width="100%")
@@ -37,7 +36,7 @@ Data visualization allows us to effectively explore data in an Exploratory Data 
 
 
 ```{r ggplot-evl, eval=TRUE, echo=FALSE, out.width='80%', fig.cap='(ref:ah-ggplot)'}
-knitr::include_graphics(here("images", "ggplot2.png"))
+knitr::include_graphics("images/ggplot2.png")
 ```
 
 
@@ -51,7 +50,7 @@ These are only a few examples of the many possibilities that can be made. Becaus
 <aside> **`{ggplot2}`** art by [Antonio Sánchez Chinchón](https://fronkonstin.com/2018/03/11/mandalas-colored/) @aschinchon.
 
 ```{r p3, eval=TRUE, echo=FALSE, out.width='100%'}
-knitr::include_graphics(here("images", "mandala.png"))
+knitr::include_graphics("images/mandala.png")
 ```
 
 </aside>
@@ -60,19 +59,19 @@ knitr::include_graphics(here("images", "mandala.png"))
 (ref:cedric) *[Evolution of a ggplot](https://www.cedricscherer.com/2019/05/17/the-evolution-of-a-ggplot-ep.-1/), by Cedric Scherer shows how one can progressively refine and customize a gpplot.*
 
 ```{r ggplot-evol, eval=TRUE, echo=FALSE, out.width='80%', fig.cap='(ref:cedric)'}
-knitr::include_graphics(here("images", "ggplot_evolution.gif"))
+knitr::include_graphics("images/ggplot_evolution.gif")
 ```
 
 (ref:timo) *Created by [Timo Grossenbacher](https://timogrossenbacher.ch/2016/12/beautiful-thematic-maps-with-ggplot2-only/) @grssnbchr.*
 
 ```{r p1, eval=TRUE, echo=FALSE, out.width='80%', fig.cap='(ref:timo)'}
-knitr::include_graphics(here("images", "switzerland.png"))
+knitr::include_graphics("images/switzerland.png")
 ```
 
 (ref:cedric2) *Travelling to Outer Space by [Cédric Scherer](https://www.cedricscherer.com/top/dataviz/) @CedScherer.*
 
 ```{r p2, eval=TRUE, echo=FALSE, out.width='80%', fig.cap='(ref:cedric2)'}
-knitr::include_graphics(here("images", "2020_29_Astronauts_blur_color.png"))
+knitr::include_graphics("images/2020_29_Astronauts_blur_color.png")
 ```
 
 
@@ -82,9 +81,9 @@ To begin, we load the **`{ggplot2}`** package. We can load it independently, but
 
 ```{r, eval = FALSE, include = FALSE}
 # create joined data to use in ggplot lesson
-m <- read_csv(here("data","gwl","measurements_sep.csv"))
-s <- read_csv(here("data","gwl","stations.csv"))
-p <- read_csv(here("data","gwl","perforations.csv"))
+m <- read_csv("data/gwl/measurements_sep.csv")
+s <- read_csv("data/gwl/stations.csv")
+p <- read_csv("data/gwl/perforations.csv")
 d <- left_join(m, s) %>% 
   left_join(p) %>% 
   # coerce strings to NA
@@ -94,7 +93,7 @@ d <- left_join(m, s) %>%
          LATITUDE, LONGITUDE, COUNTY_NAME, WELL_DEPTH, WELL_USE) 
 
 # all stations
-write_csv(d, here("data","gwl","gwl_sep.csv"))
+write_csv(d, "data/gwl/gwl_sep.csv")
 
 # top n station ids
 top_n <- d %>% 
@@ -107,23 +106,22 @@ top_n <- d %>%
 d %>% 
   filter(SITE_CODE %in% top_n[1] & !is.na(WSE) & !is.na(GSE_WSE)) %>% 
   mutate(MSMT_DATE = as.Date(MSMT_DATE)) %>% 
-  write_csv(here("data","gwl","gwl.csv"))
+  write_csv("data/gwl/gwl.csv")
 
 # top 10 stations
 d %>% 
   filter(SITE_CODE %in% top_n & !is.na(WSE) & !is.na(GSE_WSE)) %>% 
   mutate(MSMT_DATE = as.Date(MSMT_DATE)) %>%
-  write_csv(here("data","gwl","gwl_10.csv"))
+  write_csv("data/gwl/gwl_10.csv")
 ```
 
 
 ```{r load-pkgs}
 # includes ggplot2
 library(tidyverse)
-library(here)
 
 # groundwater level from a single station in Sacramento County
-gwl <- read_csv(here("data", "gwl", "gwl.csv"))
+gwl <- read_csv("data/gwl/gwl.csv")
 
 # inspect the data
 head(gwl)
@@ -263,7 +261,7 @@ So far, we've been working with one monitoring site in Sacramento County, but to
 
 ```{r read-10}
 # groundwater level from 10 monitoring sites in Sacramento and Placer counties
-gwl_10 <- read_csv(here("data", "gwl", "gwl_10.csv"))
+gwl_10 <- read_csv("data/gwl/gwl_10.csv")
 
 # plot
 ggplot(data = gwl_10) +
@@ -395,7 +393,7 @@ my_plot <- ggplot(data = gwl_10) +
   facet_wrap(~SITE_CODE, ncol = 2, scales = "free")
 
 # open a PDF graphical device
-pdf(here("results", "my_plot.pdf"))
+pdf("results/my_plot.pdf")
 
 # print the plot
 my_plot
@@ -413,7 +411,7 @@ my_plot_2 <- ggplot(gwl_10) +
   facet_wrap(~WELL_USE, ncol = 1)
 
 # open a PDF graphical device
-pdf(here("results", "my_plots.pdf"))
+pdf("results/my_plots.pdf")
 
 # print the plot
 my_plot
@@ -429,7 +427,7 @@ We can save a png file in the same way, and specify output height and width.
 
 ```{r write-png, message=FALSE, warning=FALSE, error=FALSE}
 # open a PNG graphical device
-png(here("results", "my_plot.png"), width = 10, height = 7, units = "in", res = 300)
+png("results/my_plot.png", width = 10, height = 7, units = "in", res = 300)
 
 # print the plot
 my_plot
@@ -443,8 +441,8 @@ dev.off()
 Another way to save ggplots that involves less code is to use the `ggsave()` function. By default, `ggsave()` height and width arguments are understood to be in units of inches. This approach *only* works with plots that have been generated using the `{ggplot2}` package. To save different file types, we simply change the file extension to the format we want.
 
 ```{r ggsv}
-ggsave(here("results","my_plot_ggsave.pdf"), my_plot, height = 10, width = 7)
-ggsave(here("results","my_plot_ggsave.png"), my_plot)
+ggsave("results/my_plot_ggsave.pdf", my_plot, height = 10, width = 7)
+ggsave("results/my_plot_ggsave.png", my_plot)
 ```
 
 
@@ -513,7 +511,7 @@ We can also move the legend to the top of the plot. If you type `legend.position
 
 <center>
 ```{r, out.width="50%", echo = FALSE}
-knitr::include_graphics(here("images","legend_help.png"))
+knitr::include_graphics("images/legend_help.png")
 ```
 </center>
 

@@ -11,7 +11,6 @@ creative_commons: CC BY
 ```{r setup, include=FALSE, purl=FALSE, message=FALSE}
 
 library(knitr)
-library(here)
 suppressPackageStartupMessages(library(tidyverse))
 
 library(mapview)
@@ -48,24 +47,24 @@ There are a variety of spatial mapping/plotting packages in R. However, the best
 (ref:ah-sf) *Illustration by @allison_horst.*
 
 ```{r, eval=TRUE, echo=FALSE, out.width='80%', fig.cap='(ref:ah-sf)'}
-knitr::include_graphics(here("images","sf.png"))
+knitr::include_graphics("images/sf.png")
 ```
 
 ```{r, include = FALSE, eval = FALSE}
 library(sf)
 
 # subset stations down to sac county and save
-stations <- read_csv(here("data", "gwl", "stations.csv")) %>% 
+stations <- read_csv("data/gwl/stations.csv") %>% 
   st_as_sf(coords = c("LONGITUDE", "LATITUDE"), crs = 4269, remove = FALSE)
 
 # read Sacramento county shapefile and transform to NAD83, EPSG 4269
-sac <- st_read(here("data", "shp", "sac", "sac_county.shp"), quiet = TRUE) %>%
+sac <- st_read("data/shp/sac/sac_county.shp", quiet = TRUE) %>%
   st_transform(4269)
 
 # crops stations to sac county, add lat and lon, and 
 st_intersection(stations, sac) %>% 
   st_drop_geometry() %>% 
-  write_csv(here("data", "gwl", "stations_sac.csv"))
+  write_csv("data/gwl/stations_sac.csv")
 ```
 
 
@@ -77,14 +76,13 @@ The **`{sf}`** package can read spatial data in various formats (e.g., shapefile
 ```{r st-read}
 # First we load the sf and here packages
 library(sf)
-library(here)
 library(tidyverse)
 
 # may need to unzip first:
 unzip("data/shp/sac_county.zip", exdir = "data/shp/sac")
 
 # Read a shapefile of Sacramento county 
-sac <- st_read(here("data", "shp", "sac", "sac_county.shp"), quiet = TRUE) 
+sac <- st_read("data/shp/sac/sac_county.shp", quiet = TRUE) 
 
 colnames(sac)
 ```
@@ -108,7 +106,7 @@ Notice that all functions in **`{sf}`** begin with an "`st_`" prefix. This makes
 ```{r st-as-sf}
 
 # read groundwater level stations in Sacramento county as dataframe
-stations <- read_csv(here("data", "gwl", "stations_sac.csv"))
+stations <- read_csv("data/gwl/stations_sac.csv")
 
 # check object class
 class(stations)
@@ -174,7 +172,7 @@ With all of our spatial data in the same projection, we can perform a spatial jo
 ```{r st-intersection}
 
 # all gw stations in California
-all_gw_stations <- read_csv(here("data", "gwl", "stations.csv")) %>% 
+all_gw_stations <- read_csv("data/gwl/stations.csv") %>% 
   st_as_sf(coords = c("LONGITUDE", "LATITUDE"), 
            crs = 4269, 
            remove = FALSE) 
@@ -301,7 +299,7 @@ mapview(sac) + mapview(stations)
 Note that we can open a `{mapview}` object in our default web browser by clicking on the little box and arrow to expand and view. This is particularly helpful when pop-up tables contain dense information, as is the case with our `stations` dataframe.
 
 ```{r mapview-expand, eval=TRUE, echo=FALSE, out.width='80%'}
-knitr::include_graphics(here("images","mapview_expand.png"))
+knitr::include_graphics("images/mapview_expand.png")
 ```
 
 ### Customizing mapview
@@ -493,13 +491,13 @@ In this improved visualization, it's clear that irrigation wells tend to be deep
 Once a map has been created, how do we get it out of R and into a form we can share with others? One option is to save a map directly from the Plot viewer in RStudio.
 
 ```{r save-map, out.width="80%", echo = FALSE}
-knitr::include_graphics(here("images","export_sf_map.png"))
+knitr::include_graphics("images/export_sf_map.png")
 ```
 
 For more control and reproducibility, we can also save a map by using the methods covered in the ["Saving plots" section of data visualization module](04_ggplot.html#saving-plots), which include `ggsave()`. It's good to practice this way of doing things because it will build your understanding and help you automate saving hundreds of plots at a single time down the road.  
 
 ```{r save-map2}
-ggsave(here("results", "sac_well_depth_type.png"), p, height = 5, width = 8)
+ggsave("results/sac_well_depth_type.png", p, height = 5, width = 8)
 ```
 
 

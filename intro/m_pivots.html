@@ -2391,26 +2391,39 @@ Worksheets
 <nav class="l-text toc figcaption" id="TOC">
 <h3>Contents</h3>
 <ul>
-<li><a href="#spreadsheets">Spreadsheets</a></li>
-<li><a href="#what-is-tidy-data">What is Tidy Data?</a>
+<li><a href="#spreadsheets" id="toc-spreadsheets">Spreadsheets</a></li>
+<li><a href="#what-is-tidy-data" id="toc-what-is-tidy-data">What is Tidy
+Data?</a>
 <ul>
-<li><a href="#dealing-with-messy-data">Dealing with Messy Data</a></li>
-<li><a href="#same-tools-different-data">Same Tools, Different Data</a></li>
-<li><a href="#understanding-messy-spreadsheets">Understanding Messy Spreadsheets</a></li>
+<li><a href="#dealing-with-messy-data"
+id="toc-dealing-with-messy-data">Dealing with Messy Data</a></li>
+<li><a href="#same-tools-different-data"
+id="toc-same-tools-different-data">Same Tools, Different Data</a></li>
+<li><a href="#understanding-messy-spreadsheets"
+id="toc-understanding-messy-spreadsheets">Understanding Messy
+Spreadsheets</a></li>
 </ul></li>
-<li><a href="#spreadsheet-best-practices">Spreadsheet Best Practices</a>
+<li><a href="#spreadsheet-best-practices"
+id="toc-spreadsheet-best-practices">Spreadsheet Best Practices</a>
 <ul>
-<li><a href="#keep-raw-data-raw">Keep Raw Data <code>RAW</code></a></li>
-<li><a href="#record-what-you-did-with-readme-tab">Record what you did with <code>README</code> tab</a></li>
-<li><a href="#date-standards">Date Standards</a></li>
-<li><a href="#keep-one-table-per-tab">Keep one table per tab</a></li>
-<li><a href="#dont-merge-or-color-data">Don’t Merge or Color Data</a></li>
-<li><a href="#missing-data-or-na">Missing Data or <code>NA</code></a></li>
+<li><a href="#keep-raw-data-raw" id="toc-keep-raw-data-raw">Keep Raw
+Data <code>RAW</code></a></li>
+<li><a href="#record-what-you-did-with-readme-tab"
+id="toc-record-what-you-did-with-readme-tab">Record what you did with
+<code>README</code> tab</a></li>
+<li><a href="#date-standards" id="toc-date-standards">Date
+Standards</a></li>
+<li><a href="#keep-one-table-per-tab"
+id="toc-keep-one-table-per-tab">Keep one table per tab</a></li>
+<li><a href="#dont-merge-or-color-data"
+id="toc-dont-merge-or-color-data">Don’t Merge or Color Data</a></li>
+<li><a href="#missing-data-or-na" id="toc-missing-data-or-na">Missing
+Data or <code>NA</code></a></li>
 </ul></li>
-<li><a href="#pivoting">Pivoting</a>
+<li><a href="#pivoting" id="toc-pivoting">Pivoting</a>
 <ul>
-<li><a href="#wide-to-long">Wide to Long</a></li>
-<li><a href="#long-to-wide">Long to Wide</a></li>
+<li><a href="#wide-to-long" id="toc-wide-to-long">Wide to Long</a></li>
+<li><a href="#long-to-wide" id="toc-long-to-wide">Long to Wide</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -2420,50 +2433,98 @@ Worksheets
 <ul>
 <li>Understand what messy data is and how to avoid it</li>
 <li>Understand how to effectively use spreadsheets</li>
-<li>Learn the difference between wide and long data, and how to pivot between wide and long formats</li>
+<li>Learn the difference between wide and long data, and how to pivot
+between wide and long formats</li>
 </ul>
 </div>
 <h1 id="spreadsheets">Spreadsheets</h1>
-<p>Spreadsheets have been woven into nearly every facet and field, and although they are meant to make our lives easier, it is typical to spend lots of time untangling the data [mis]adventures they create.</p>
-<p>However, a few simple tips on how to structure and use spreadsheets can make all the difference. There will still always be messy datasets to face, but learning how to more effectively use spreadsheets <em>will</em> make life easier and more reproducible, and hopefully make these encounters less daunting.</p>
-<p>Let’s go over what tidy data should look like, how to wrangle a messy real-life spreadsheet, and how to understand the difference between human readable and computer readable information.</p>
+<p>Spreadsheets have been woven into nearly every facet and field, and
+although they are meant to make our lives easier, it is typical to spend
+lots of time untangling the data [mis]adventures they create.</p>
+<p>However, a few simple tips on how to structure and use spreadsheets
+can make all the difference. There will still always be messy datasets
+to face, but learning how to more effectively use spreadsheets
+<em>will</em> make life easier and more reproducible, and hopefully make
+these encounters less daunting.</p>
+<p>Let’s go over what tidy data should look like, how to wrangle a messy
+real-life spreadsheet, and how to understand the difference between
+human readable and computer readable information.</p>
 <h1 id="what-is-tidy-data">What is Tidy Data?</h1>
-<p>Ultimately spreadsheets (or any list or table of data) attempt to take <strong>human readable</strong> data and turn it into <strong><em>computer readable</em></strong> data. The problem is humans often like to add information that is only <strong>human readable</strong> (i.e., colors in spreadsheet). These bits of “flair” may be nice to visualize things, but computers can only interpret the literal pieces of data in each cell of a spreadsheet, so if we want additional information to be converted (like color, or what it represents), we need to store that information in a <strong>computer readable</strong> context.</p>
-<p>Typically when we look at data, we want it to be in a “tidy” format. Data in a tidy format, means that each <strong>column</strong> is a unique variable, and each <strong>row</strong> is a unique observation of data. Furthermore, any information we want the computer to retain should be stored as <code>variables</code> and not in side comments or coloring. This makes it possible for a computer to easily interpret these data, and avoids any unnecessary conversions or loss of data.</p>
-
+<p>Ultimately spreadsheets (or any list or table of data) attempt to
+take <strong>human readable</strong> data and turn it into
+<strong><em>computer readable</em></strong> data. The problem is humans
+often like to add information that is only <strong>human
+readable</strong> (i.e., colors in spreadsheet). These bits of “flair”
+may be nice to visualize things, but computers can only interpret the
+literal pieces of data in each cell of a spreadsheet, so if we want
+additional information to be converted (like color, or what it
+represents), we need to store that information in a <strong>computer
+readable</strong> context.</p>
+<p>Typically when we look at data, we want it to be in a “tidy” format.
+Data in a tidy format, means that each <strong>column</strong> is a
+unique variable, and each <strong>row</strong> is a unique observation
+of data. Furthermore, any information we want the computer to retain
+should be stored as <code>variables</code> and not in side comments or
+coloring. This makes it possible for a computer to easily interpret
+these data, and avoids any unnecessary conversions or loss of data.</p>
+<p>(ref:tidyData1) <em>Illustrations from the Openscapes blog Tidy Data
+for reproducibility, efficiency, and collaboration by Julia Lowndes and
+Allison Horst</em></p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="figure"><span style="display:block;" id="fig:tidydata"></span>
-<img src="images/tidydata_1.jpg" alt="Illustrations from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst" width="2400" />
+<img src="images/tidydata_1.jpg" alt="(ref:tidyData1)" width="2400" />
 <p class="caption">
-Figure 1: <em>Illustrations from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst</em>
+Figure 1: (ref:tidyData1)
 </p>
 </div>
 </div>
 <h2 id="dealing-with-messy-data">Dealing with Messy Data</h2>
-<p>In reality, we will generally encounter non-tidy data in the wild. Messy data comes in many forms and it exists <em>everywhere</em>. Much of data science hinges on cleaning up and reformatting data so it can be used in some way other than the form it exists in. The good news is the concept of tidy data can be applied to <em>any</em> dataset, and there are some very straightforward tips to make this easy to implement!</p>
-
+<p>In reality, we will generally encounter non-tidy data in the wild.
+Messy data comes in many forms and it exists <em>everywhere</em>. Much
+of data science hinges on cleaning up and reformatting data so it can be
+used in some way other than the form it exists in. The good news is the
+concept of tidy data can be applied to <em>any</em> dataset, and there
+are some very straightforward tips to make this easy to implement!</p>
+<p>(ref:tidyData2) <em>Illustrations from the Openscapes blog Tidy Data
+for reproducibility, efficiency, and collaboration by Julia Lowndes and
+Allison Horst</em></p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="figure"><span style="display:block;" id="fig:tidydata2"></span>
-<img src="images/tidydata_2.jpg" alt="Illustrations from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst" width="2400" />
+<img src="images/tidydata_2.jpg" alt="(ref:tidyData2)" width="2400" />
 <p class="caption">
-Figure 2: <em>Illustrations from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst</em>
+Figure 2: (ref:tidyData2)
 </p>
 </div>
 </div>
 <h2 id="same-tools-different-data">Same Tools, Different Data</h2>
-<p>The great news is we can use a similar set of tools to deal with tidying and cleaning our data, and once we’ve learned these tools, there are few datasets that will stand in your way (though some may take longer than others!). An important thing to learn is that <strong><em>tidy data starts the moment we begin recording information</em></strong>. The more we can collect and update data in a “<em>tidy</em>” fashion, the less cleaning and wrangling is required to work with that data.</p>
-
+<p>The great news is we can use a similar set of tools to deal with
+tidying and cleaning our data, and once we’ve learned these tools, there
+are few datasets that will stand in your way (though some may take
+longer than others!). An important thing to learn is that
+<strong><em>tidy data starts the moment we begin recording
+information</em></strong>. The more we can collect and update data in a
+“<em>tidy</em>” fashion, the less cleaning and wrangling is required to
+work with that data.</p>
+<p>(ref:tidyData3) <em>Illustrations from the Openscapes blog Tidy Data
+for reproducibility, efficiency, and collaboration by Julia Lowndes and
+Allison Horst</em></p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="figure"><span style="display:block;" id="fig:tidydata3"></span>
-<img src="images/tidydata_3.jpg" alt="Illustrations from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst" width="2872" />
+<img src="images/tidydata_3.jpg" alt="(ref:tidyData3)" width="2872" />
 <p class="caption">
-Figure 3: <em>Illustrations from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst</em>
+Figure 3: (ref:tidyData3)
 </p>
 </div>
 </div>
-<h2 id="understanding-messy-spreadsheets">Understanding Messy Spreadsheets</h2>
-<p>An important step towards tidy data is learning to quickly spot where data is <em>messy</em> and what needs to be fixed.</p>
-<p>Let’s take a look at this <a href="https://github.com/r4wrds/r4wrds-data-intro/blob/main/data/calenviroscreen/ces3results_messy.xlsx"><strong>messy</strong> spreadsheet data</a> which is based on data from the <a href="https://oehha.ca.gov/calenviroscreen">Calenviroscreen data</a> from previous modules.</p>
+<h2 id="understanding-messy-spreadsheets">Understanding Messy
+Spreadsheets</h2>
+<p>An important step towards tidy data is learning to quickly spot where
+data is <em>messy</em> and what needs to be fixed.</p>
+<p>Let’s take a look at this <a
+href="https://github.com/r4wrds/r4wrds-data-intro/blob/main/data/calenviroscreen/ces3results_messy.xlsx"><strong>messy</strong>
+spreadsheet data</a> which is based on data from the <a
+href="https://oehha.ca.gov/calenviroscreen">Calenviroscreen data</a>
+from previous modules.</p>
 <p><br></p>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="images/messy_spreadsheet_1_updated.png" width="100%" data-distill-preview=1 /></p>
@@ -2472,7 +2533,8 @@ Figure 3: <em>Illustrations from the Openscapes blog Tidy Data for reproducibili
 <div class="challenge">
 <p><strong>CHALLENGE 1</strong></p>
 <ul>
-<li><strong>What issues do you notice about this spreadsheet?</strong></li>
+<li><strong>What issues do you notice about this
+spreadsheet?</strong></li>
 <li><strong>What could we do to make this tidy?</strong></li>
 </ul>
 </div>
@@ -2483,10 +2545,12 @@ Figure 3: <em>Illustrations from the Openscapes blog Tidy Data for reproducibili
 <div class="challenge-ans-body">
 <ul>
 <li><p>Multiple tables on one sheet</p></li>
-<li><p>Multiple variables in a single column (see <code>T Code and Data Type</code>)</p></li>
+<li><p>Multiple variables in a single column (see
+<code>T Code and Data Type</code>)</p></li>
 <li><p>Tables start on different rows</p></li>
 <li><p>Different date formats</p></li>
-<li><p>Different county spellings (see <code>California County</code>)</p></li>
+<li><p>Different county spellings (see
+<code>California County</code>)</p></li>
 <li><p>Color encoding</p></li>
 </ul>
 </div>
@@ -2497,56 +2561,160 @@ Figure 3: <em>Illustrations from the Openscapes blog Tidy Data for reproducibili
 Extra Practice
 </summary>
 <div class="extra-practice-body">
-<p><em>If you are interested in an excellent lesson on how to improve your spreadsheet skills, checkout the excellent lesson via <a href="https://datacarpentry.org/spreadsheet-ecology-lesson/">Data Carpentry: Data Organization in Spreadsheets for Ecologists</a>. This lesson should be read by anyone and everyone who uses spreadsheets (which is everyone), so go take a look!</em></p>
+<p><em>If you are interested in an excellent lesson on how to improve
+your spreadsheet skills, checkout the excellent lesson via <a
+href="https://datacarpentry.org/spreadsheet-ecology-lesson/">Data
+Carpentry: Data Organization in Spreadsheets for Ecologists</a>. This
+lesson should be read by anyone and everyone who uses spreadsheets
+(which is everyone), so go take a look!</em></p>
 </div>
 </details>
 <h1 id="spreadsheet-best-practices">Spreadsheet Best Practices</h1>
-<p>If you have to work with a multi-tabbed spreadsheet (which we all do at some point), there are some basic rules/tips that can save you and anyone else that needs to work with the same spreadsheet. We also recommend checking out White et al. 2013<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> and Broman and Woo 2018<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
+<p>If you have to work with a multi-tabbed spreadsheet (which we all do
+at some point), there are some basic rules/tips that can save you and
+anyone else that needs to work with the same spreadsheet. We also
+recommend checking out White et al. 2013<a href="#fn1"
+class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> and
+Broman and Woo 2018<a href="#fn2" class="footnote-ref" id="fnref2"
+role="doc-noteref"><sup>2</sup></a>.</p>
 <h2 id="keep-raw-data-raw">Keep Raw Data <code>RAW</code></h2>
-<p>Any raw data you have should always stay <strong>raw</strong> so you can always go back and “reproduce” your analysis. The danger with spreadsheets is its easy to change things with a few clicks and overwrite the raw data, and have no record of what you did.</p>
-<p>So no matter what shape the data is in, it’s always advisable to make a copy of the tab with the data, append or prepend “RAW” to the tab name, and <em>lock</em> the tab so the data can’t be deleted or altered. To do this:</p>
+<p>Any raw data you have should always stay <strong>raw</strong> so you
+can always go back and “reproduce” your analysis. The danger with
+spreadsheets is its easy to change things with a few clicks and
+overwrite the raw data, and have no record of what you did.</p>
+<p>So no matter what shape the data is in, it’s always advisable to make
+a copy of the tab with the data, append or prepend “RAW” to the tab
+name, and <em>lock</em> the tab so the data can’t be deleted or altered.
+To do this:</p>
 <ul>
-<li>right click on the tab and select <strong><code>Move or Copy</code></strong></li>
+<li>right click on the tab and select
+<strong><code>Move or Copy</code></strong></li>
 <li>check <strong><code>Create a Copy</code></strong> box</li>
-<li>right click on the newly copied tab and select <strong><code>Rename</code></strong> and add <code>RAW</code></li>
-<li>right click on the <code>RAW</code> tab again, and select <strong><code>Protect Sheet</code></strong></li>
-<li>the only two boxes that should be checked are <code>Select locked cells</code> and <code>Select unlocked cells</code>. Click <code>OK</code> and save!</li>
+<li>right click on the newly copied tab and select
+<strong><code>Rename</code></strong> and add <code>RAW</code></li>
+<li>right click on the <code>RAW</code> tab again, and select
+<strong><code>Protect Sheet</code></strong></li>
+<li>the only two boxes that should be checked are
+<code>Select locked cells</code> and <code>Select unlocked cells</code>.
+Click <code>OK</code> and save!</li>
 </ul>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="images/messy_spreadsheet_2.png" width="100%" /></p>
 </div>
-<h2 id="record-what-you-did-with-readme-tab">Record what you did with <code>README</code> tab</h2>
-<p>While programming languages like <code>R</code> allow us to write scripts or code that record every step of the process, spreadsheet programs use an interface based on points and clicks. It’s easy to forget what we clicked on or what we did as we begin to clean/work with our data. An easy solution which your future self (or future collaborators) will thank you for is adding a <strong><code>README</code></strong> tab! This is where you can write notes about what things have been done to the data, ideally with sufficient information that future you or someone else would be able to reproduce your analysis or cleaned dataset by reading the <strong><code>README</code></strong>.</p>
+<h2 id="record-what-you-did-with-readme-tab">Record what you did with
+<code>README</code> tab</h2>
+<p>While programming languages like <code>R</code> allow us to write
+scripts or code that record every step of the process, spreadsheet
+programs use an interface based on points and clicks. It’s easy to
+forget what we clicked on or what we did as we begin to clean/work with
+our data. An easy solution which your future self (or future
+collaborators) will thank you for is adding a
+<strong><code>README</code></strong> tab! This is where you can write
+notes about what things have been done to the data, ideally with
+sufficient information that future you or someone else would be able to
+reproduce your analysis or cleaned dataset by reading the
+<strong><code>README</code></strong>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="images/messy_spreadsheet_3.png" width="80%" /></p>
 </div>
 <h2 id="date-standards">Date Standards</h2>
-<p>Perhaps one of the most frustrating and frequent data snafus you may encounter is how dates or datetimes get formatted. An entire lesson could be devoted to dealing with datetime data, but we can simplify it to one rule: <strong>keep dates formatted using the world standard<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> of YYYY-MM-DD</strong>. Better yet, in spreadsheets, split the date into unique columns for Year, Month, and Day. It’s straightforward to paste these back together and format them in R, and because they are then stored as simple integer values there will be no missed translations between people or computers.</p>
+<p>Perhaps one of the most frustrating and frequent data snafus you may
+encounter is how dates or datetimes get formatted. An entire lesson
+could be devoted to dealing with datetime data, but we can simplify it
+to one rule: <strong>keep dates formatted using the world standard<a
+href="#fn3" class="footnote-ref" id="fnref3"
+role="doc-noteref"><sup>3</sup></a> of YYYY-MM-DD</strong>. Better yet,
+in spreadsheets, split the date into unique columns for Year, Month, and
+Day. It’s straightforward to paste these back together and format them
+in R, and because they are then stored as simple integer values there
+will be no missed translations between people or computers.</p>
 <aside>
-The <a href="https://r4ds.had.co.nz/dates-and-times.html#creating-datetimes#from-strings">Dates and Times lesson</a> from R4DS by H. Wickham &amp; G. Grolemund is an excellent overview on dates and times. Does every minute always have 60 seconds?
+The <a
+href="https://r4ds.had.co.nz/dates-and-times.html#creating-datetimes#from-strings">Dates
+and Times lesson</a> from R4DS by H. Wickham &amp; G. Grolemund is an
+excellent overview on dates and times. Does every minute always have 60
+seconds?
 </aside>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="images/datestandards_global.png" width="80%" /></p>
 </div>
 <h2 id="keep-one-table-per-tab">Keep one table per tab</h2>
-<p>With spreadsheets, it is tempting to add additional summary tables in the same tab you may be working in, or paste another table into the sheet your are working so you can calculate something using a formula. When these data need to be read in by another program (e.g., R), a computer program cannot interpret the visual space our eyes may see between tables as an indication that these tables are separate. Computers are literal, and thus every sheet or tab will always be interpreted as one table by the computer. Follow <em>tidy data</em> principles and keep one table for every sheet. It makes import and export simpler, and in reality tabs are cheap (as are columns). When in doubt, keep things separate and clearly delineated in a way that is both <strong>computer readable</strong> and <strong>human readable</strong>. This includes figures…resist the temptation to include figures in a spreadsheet with a table. Keep them separate!</p>
+<p>With spreadsheets, it is tempting to add additional summary tables in
+the same tab you may be working in, or paste another table into the
+sheet your are working so you can calculate something using a formula.
+When these data need to be read in by another program (e.g., R), a
+computer program cannot interpret the visual space our eyes may see
+between tables as an indication that these tables are separate.
+Computers are literal, and thus every sheet or tab will always be
+interpreted as one table by the computer. Follow <em>tidy data</em>
+principles and keep one table for every sheet. It makes import and
+export simpler, and in reality tabs are cheap (as are columns). When in
+doubt, keep things separate and clearly delineated in a way that is both
+<strong>computer readable</strong> and <strong>human readable</strong>.
+This includes figures…resist the temptation to include figures in a
+spreadsheet with a table. Keep them separate!</p>
 <h2 id="dont-merge-or-color-data">Don’t Merge or Color Data</h2>
-<p>Please don’t merge cells. Just don’t. It creates many issues that are outlined above, and generally requires significant data wrangling to “untangle” merged data. Merging cells is generally reserved for creating a final table in a word document for display purposes only.</p>
-<p>And while using colors can be fun, remember these data are only <strong>human readable</strong>. Add a new column variable to encode these data. It’s rare that you will run out of space for new columns or rows, but common that data encoded visually will be forgotten or misinterpreted.</p>
+<p>Please don’t merge cells. Just don’t. It creates many issues that are
+outlined above, and generally requires significant data wrangling to
+“untangle” merged data. Merging cells is generally reserved for creating
+a final table in a word document for display purposes only.</p>
+<p>And while using colors can be fun, remember these data are only
+<strong>human readable</strong>. Add a new column variable to encode
+these data. It’s rare that you will run out of space for new columns or
+rows, but common that data encoded visually will be forgotten or
+misinterpreted.</p>
 <h2 id="missing-data-or-na">Missing Data or <code>NA</code></h2>
-<p>Remember, computers are literal, thus any blank cell will be interpreted as <em>missing data</em> or <strong><code>NA</code></strong> by the computer. Use this to your advantage! It’s preferable to have consistent designation of <strong><code>NA</code></strong> (i.e., blank cells) instead of using things like <code>"No data"</code> or <code>-999</code>. These are common ways to encode missing values, but they introduce different problems when trying to analyze or filter the data later. Using a character string like <code>"No data"</code> may unintentionally convert all the data to a <code>character</code> class when imported into R when it is actually numeric or integer (see <a href="m_data_structures.html">module on data structures</a>). If using a numeric value for <code>NA</code> like <code>-999</code>, the computer will interpret these as numbers, and it may be easy to miss or include these data in downstream analyses.</p>
+<p>Remember, computers are literal, thus any blank cell will be
+interpreted as <em>missing data</em> or <strong><code>NA</code></strong>
+by the computer. Use this to your advantage! It’s preferable to have
+consistent designation of <strong><code>NA</code></strong> (i.e., blank
+cells) instead of using things like <code>"No data"</code> or
+<code>-999</code>. These are common ways to encode missing values, but
+they introduce different problems when trying to analyze or filter the
+data later. Using a character string like <code>"No data"</code> may
+unintentionally convert all the data to a <code>character</code> class
+when imported into R when it is actually numeric or integer (see <a
+href="m_data_structures.html">module on data structures</a>). If using a
+numeric value for <code>NA</code> like <code>-999</code>, the computer
+will interpret these as numbers, and it may be easy to miss or include
+these data in downstream analyses.</p>
 <aside>
-<p>Typos happen. Imagine the issues that arise when a number used to signify <code>NA</code> gets mistyped. Now you need to find all <code>-99</code>, <code>-999</code>, and investigate any <code>99</code> numbers. Was there a typo or is this data?</p>
+<p>Typos happen. Imagine the issues that arise when a number used to
+signify <code>NA</code> gets mistyped. Now you need to find all
+<code>-99</code>, <code>-999</code>, and investigate any <code>99</code>
+numbers. Was there a typo or is this data?</p>
 </aside>
-<p>Although there is a potential risk to accidentally add a space in a blank cell, the simple and easiest approach for missing or <code>NA</code> data is to leave cells blank. This is generally and consistently interpreted as a missing value by computer programming languages and avoids the need to remember which code was used to signify <code>NA</code>. This also means that a <strong><code>0</code></strong> is a <strong><code>0</code></strong>. Any data that is <strong><code>0</code></strong> should be encoded as such, and not left blank.</p>
+<p>Although there is a potential risk to accidentally add a space in a
+blank cell, the simple and easiest approach for missing or
+<code>NA</code> data is to leave cells blank. This is generally and
+consistently interpreted as a missing value by computer programming
+languages and avoids the need to remember which code was used to signify
+<code>NA</code>. This also means that a <strong><code>0</code></strong>
+is a <strong><code>0</code></strong>. Any data that is
+<strong><code>0</code></strong> should be encoded as such, and not left
+blank.</p>
 <h1 id="pivoting">Pivoting</h1>
-<p>When we enter data in a spreadsheet, the data is typically oriented in a <strong><em>wide</em></strong> format. This makes entry easier and is generally easier for us to see, enter, and explore the data. Although <strong><em>wide</em></strong> data is more human-friendly for data entry, <strong><em>long</em></strong> data is much better for analysis and visualization. In particular, in <code>R</code>, the <code>{ggplot}</code> package prefers data in a <strong><em>long</em></strong> format, which facilitates easier filtering, grouping, and faceting of the data.</p>
+<p>When we enter data in a spreadsheet, the data is typically oriented
+in a <strong><em>wide</em></strong> format. This makes entry easier and
+is generally easier for us to see, enter, and explore the data. Although
+<strong><em>wide</em></strong> data is more human-friendly for data
+entry, <strong><em>long</em></strong> data is much better for analysis
+and visualization. In particular, in <code>R</code>, the
+<code>{ggplot}</code> package prefers data in a
+<strong><em>long</em></strong> format, which facilitates easier
+filtering, grouping, and faceting of the data.</p>
 <h2 id="wide-to-long">Wide to Long</h2>
-<p>Let’s use the <a href="https://github.com/r4wrds/r4wrds/blob/main/data/calenviroscreen/ces3results.xlsx?raw=true"><strong><code>ces3results.xlsx</code></strong></a> <a href="https://oehha.ca.gov/calenviroscreen">CalEnviroscreen data</a>, which we can read in and look at the column names and data types. By default, <code>read_xlsx()</code> reads in the first sheet. See the <a href="m_importing_and_exporting_data.html">import and export module</a> for more details.</p>
+<p>Let’s use the <a
+href="https://github.com/r4wrds/r4wrds/blob/main/data/calenviroscreen/ces3results.xlsx?raw=true"><strong><code>ces3results.xlsx</code></strong></a>
+<a href="https://oehha.ca.gov/calenviroscreen">CalEnviroscreen data</a>,
+which we can read in and look at the column names and data types. By
+default, <code>read_xlsx()</code> reads in the first sheet. See the <a
+href="m_importing_and_exporting_data.html">import and export module</a>
+for more details.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://readxl.tidyverse.org'>readxl</a></span><span class='op'>)</span>
-<span class='va'>ces</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readxl.tidyverse.org/reference/read_excel.html'>read_xlsx</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"data"</span>, <span class='st'>"calenviroscreen"</span>, <span class='st'>"ces3results.xlsx"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>ces</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readxl.tidyverse.org/reference/read_excel.html'>read_xlsx</a></span><span class='op'>(</span><span class='st'>"data/calenviroscreen/ces3results.xlsx"</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>ces</span><span class='op'>)</span>
 </code></pre>
 </div>
@@ -2611,10 +2779,28 @@ Percentile Range                       : chr [1:8035] &quot;95-100% (highest sco
  $ Pop. Char. Score                                   : num [1:8035] 9.55 9.07 9.81 8.99 8.3 ...
  $ Pop. Char. Pctl                                    : num [1:8035] 99.7 98.1 100 97.7 92.8 ...</code></pre>
 </div>
-<p>Note the different data classes (<code>num</code>, <code>chr</code>, etc). Even though all columns between <code>Ozone</code> and <code>Pop. Char. Pctl</code> should be numeric, there are a number of “<code>chr</code>” or <em>character</em> data. This is because one of the issues with messy spreadsheets we discussed above. If we were to open the spreadsheet and scroll down through these columns, we may notice there are <code>NA</code>’s sprinkled throughout. When importing these data into R, those <code>NA</code> are interpreted as character class, and thus the entire column of numeric data is converted to a character class.</p>
-<p>We know these data should all be numeric, so let’s fix this using some <code>dplyr</code> knowledge and a cool function called <code>across()</code>. This allows us to apply a function over many columns in a dataset, and it can be used in <code>mutate()</code> or <code>summarize()</code>.</p>
+<p>Note the different data classes (<code>num</code>, <code>chr</code>,
+etc). Even though all columns between <code>Ozone</code> and
+<code>Pop. Char. Pctl</code> should be numeric, there are a number of
+“<code>chr</code>” or <em>character</em> data. This is because one of
+the issues with messy spreadsheets we discussed above. If we were to
+open the spreadsheet and scroll down through these columns, we may
+notice there are <code>NA</code>’s sprinkled throughout. When importing
+these data into R, those <code>NA</code> are interpreted as character
+class, and thus the entire column of numeric data is converted to a
+character class.</p>
+<p>We know these data should all be numeric, so let’s fix this using
+some <code>dplyr</code> knowledge and a cool function called
+<code>across()</code>. This allows us to apply a function over many
+columns in a dataset, and it can be used in <code>mutate()</code> or
+<code>summarize()</code>.</p>
 <aside>
-<p>Note, we need to use backticks for `<code>column names</code>` because there are spaces and characters in our column names that aren’t permitted by default in R. Tidy column names are helpful for this. See the excellent <a href="http://sfirke.github.io/janitor/"><code>{janitor}</code></a> package for more info.</p>
+<p>Note, we need to use backticks for `<code>column names</code>`
+because there are spaces and characters in our column names that aren’t
+permitted by default in R. Tidy column names are helpful for this. See
+the excellent <a
+href="http://sfirke.github.io/janitor/"><code>{janitor}</code></a>
+package for more info.</p>
 </aside>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -2623,16 +2809,21 @@ Percentile Range                       : chr [1:8035] &quot;95-100% (highest sco
 </code></pre>
 </div>
 </div>
-
+<p>(ref:across) <em>Illustration by <span class="citation"
+data-cites="allison_horst">@allison_horst</span></em></p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="figure"><span style="display:block;" id="fig:across"></span>
-<img src="images/dplyr_across.png" alt="Illustration by @allison_horst" width="%80" />
+<img src="images/dplyr_across.png" alt="(ref:across)" width="%80" />
 <p class="caption">
-Figure 4: <em>Illustration by <span class="citation" data-cites="allison_horst">@allison_horst</span></em>
+Figure 4: (ref:across)
 </p>
 </div>
 </div>
-<p>The warnings are ok! They are saying <code>NAs introduced by coercion</code> which essentially means when converting these data from character to numeric, the <code>NA</code> text is being converted to an actual <strong><code>NA</code></strong> that R can use. Ok, now let’s look at the size of this dataset.</p>
+<p>The warnings are ok! They are saying
+<code>NAs introduced by coercion</code> which essentially means when
+converting these data from character to numeric, the <code>NA</code>
+text is being converted to an actual <strong><code>NA</code></strong>
+that R can use. Ok, now let’s look at the size of this dataset.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span><span class='op'>(</span><span class='va'>ces</span><span class='op'>)</span> <span class='co'># number of columns</span>
@@ -2645,7 +2836,17 @@ Figure 4: <em>Illustration by <span class="citation" data-cites="allison_horst">
 </div>
 <pre><code>[1] 8035</code></pre>
 </div>
-<p>So, if we want to reformat or <code>pivot</code> this data from a wide format (there are 57 columns, many of which are distinct variables measured as part of the CES calculation), we want to retain certain columns and collapse others. Let’s focus on collapsing all the columns that are used to calculate the CES scores into a single column. So from <code>Ozone:Pop. Char. Pctl</code>, we should have one column we’ll call <code>CES_variables</code> which will be all the various variable names from these columns, and a <code>CES_value</code> which will be the value associated with each of the columns we are collapsing or combining. We need the <code>{tidyr}</code> package for this, which is loaded as part of the <code>{tidyverse}</code>.</p>
+<p>So, if we want to reformat or <code>pivot</code> this data from a
+wide format (there are 57 columns, many of which are distinct variables
+measured as part of the CES calculation), we want to retain certain
+columns and collapse others. Let’s focus on collapsing all the columns
+that are used to calculate the CES scores into a single column. So from
+<code>Ozone:Pop. Char. Pctl</code>, we should have one column we’ll call
+<code>CES_variables</code> which will be all the various variable names
+from these columns, and a <code>CES_value</code> which will be the value
+associated with each of the columns we are collapsing or combining. We
+need the <code>{tidyr}</code> package for this, which is loaded as part
+of the <code>{tidyverse}</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyr.tidyverse.org'>tidyr</a></span><span class='op'>)</span>
@@ -2682,9 +2883,20 @@ Percentile Range                       : chr [1:369610] &quot;95-100% (highest s
  $ CES_variables                                      : chr [1:369610] &quot;Ozone&quot; &quot;Ozone Pctl&quot; &quot;PM2.5&quot; &quot;PM2.5 Pctl&quot; ...
  $ CES_values                                         : num [1:369610] 0.0649 98.1829 15.4 97.2181 48.5238 ...</code></pre>
 </div>
-<p>Wow! We just condensed our dataset from wide to long by collapsing 46 variables into a single column. That means there is some duplication in the data, but these data will be much easier to work with in {<code>ggplot</code>} or other downstream analyses in R. We can double check this worked as expected, because the original wide dataset had 8035 observations, so if we multiply 8035 * 46 variables, we should get the total number of observations in the <code>ces_long</code> dataset (n=369610).</p>
+<p>Wow! We just condensed our dataset from wide to long by collapsing 46
+variables into a single column. That means there is some duplication in
+the data, but these data will be much easier to work with in
+{<code>ggplot</code>} or other downstream analyses in R. We can double
+check this worked as expected, because the original wide dataset had
+8035 observations, so if we multiply 8035 * 46 variables, we should get
+the total number of observations in the <code>ces_long</code> dataset
+(n=369610).</p>
 <h2 id="long-to-wide">Long to Wide</h2>
-<p>If we want to do the opposite, and provide these data for folks to add additional variables or enter data, we can use <code>pivot_wider()</code>. Similar to <code>pivot_longer()</code>, we need to specify our columns of interest for the names, and column of interest for the values.</p>
+<p>If we want to do the opposite, and provide these data for folks to
+add additional variables or enter data, we can use
+<code>pivot_wider()</code>. Similar to <code>pivot_longer()</code>, we
+need to specify our columns of interest for the names, and column of
+interest for the values.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>ces_wide</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_wider.html'>pivot_wider</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>ces_long</span>,
@@ -2694,27 +2906,52 @@ Percentile Range                       : chr [1:369610] &quot;95-100% (highest s
 </code></pre>
 </div>
 </div>
-<p>There are many additional options within the {tidyr} <code>pivot_</code> functions. We recommend further reading on <a href="https://r4ds.had.co.nz/tidy-data.html#pivoting"><em>pivoting at R4DS</em></a> and the <a href="https://tidyr.tidyverse.org/articles/pivot.html"><em><code>{tidyr}</code> pivoting vignette</em></a>, as well as checking out the <code>separate()</code> and <code>unite()</code> functions from the same package.</p>
+<p>There are many additional options within the {tidyr}
+<code>pivot_</code> functions. We recommend further reading on <a
+href="https://r4ds.had.co.nz/tidy-data.html#pivoting"><em>pivoting at
+R4DS</em></a> and the <a
+href="https://tidyr.tidyverse.org/articles/pivot.html"><em><code>{tidyr}</code>
+pivoting vignette</em></a>, as well as checking out the
+<code>separate()</code> and <code>unite()</code> functions from the same
+package.</p>
 <p>Happy wrangling!</p>
-
+<p>(ref:tidyData6) <em>Illustrations from the Openscapes blog Tidy Data
+for reproducibility, efficiency, and collaboration by Julia Lowndes and
+Allison Horst</em></p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="figure"><span style="display:block;" id="fig:tidydata6"></span>
-<img src="images/tidydata_6.jpeg" alt="Illustrations from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst" width="2949" />
+<img src="images/tidydata_6.jpeg" alt="(ref:tidyData6)" width="2949" />
 <p class="caption">
-Figure 5: <em>Illustrations from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst</em>
+Figure 5: (ref:tidyData6)
 </p>
 </div>
 </div>
 <p><br></p>
 <p><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"></p>
-<p><a href="m_dplyr.html" class="btn btn-secondary" style="float: left">Previous module:<br> 7. Data Wrangling</a> <a href="m_functions.html" class="btn btn-secondary" style="float: right;">Next module:<br> 9. Functions</a></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
-<section class="footnotes" role="doc-endnotes">
+<p><a href="m_dplyr.html" class="btn btn-secondary" style="float: left">Previous
+module:<br> 7. Data Wrangling</a>
+<a href="m_functions.html" class="btn btn-secondary" style="float: right;">Next
+module:<br> 9. Functions</a></p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1" role="doc-endnote"><p> <a href="https://ojs.library.queensu.ca/index.php/IEE/article/view/4608">White, E. P., E. Baldridge, Z. T. Brym, K. J. Locey, D. J. McGlinn, and S. R. Supp. 2013. Nine simple ways to make it easier to (re)use your data. Ideas in Ecology and Evolution 6.</a> <a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2" role="doc-endnote"><p> <a href="https://doi.org/10.1080/00031305.2017.1375989">Broman, K. W., and K. H. Woo. 2018. Data Organization in Spreadsheets. The American Statistician 72:2–10</a> <a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3" role="doc-endnote"><p>See the <a href="https://xkcd.com/1179/">ISO 8601</a> standard.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p> <a
+href="https://ojs.library.queensu.ca/index.php/IEE/article/view/4608">White,
+E. P., E. Baldridge, Z. T. Brym, K. J. Locey, D. J. McGlinn, and S. R.
+Supp. 2013. Nine simple ways to make it easier to (re)use your data.
+Ideas in Ecology and Evolution 6.</a> <a href="#fnref1"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p> <a
+href="https://doi.org/10.1080/00031305.2017.1375989">Broman, K. W., and
+K. H. Woo. 2018. Data Organization in Spreadsheets. The American
+Statistician 72:2–10</a> <a href="#fnref2" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>See the <a href="https://xkcd.com/1179/">ISO 8601</a>
+standard.<a href="#fnref3" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 <!--radix_placeholder_article_footer-->
@@ -2737,7 +2974,10 @@ Figure 5: <em>Illustrations from the Openscapes blog Tidy Data for reproducibili
 <!--/radix_placeholder_appendices-->
 <!--radix_placeholder_navigation_after_body-->
 <div class="distill-site-nav distill-site-footer">
-<p>© Copyright 2021 <a href="http://ryanpeek.org/" target = "_blank">Ryan Peek</a> and <a href="https://www.richpauloo.com/" target = "_blank">Rich Pauloo</a>.</p>
+<p>© Copyright 2021
+<a href="http://ryanpeek.org/" target = "_blank">Ryan Peek</a> and
+<a href="https://www.richpauloo.com/" target = "_blank">Rich
+Pauloo</a>.</p>
 </div>
 <!--/radix_placeholder_navigation_after_body-->
 

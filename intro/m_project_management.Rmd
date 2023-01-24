@@ -35,7 +35,7 @@ library(here)
 
 ```{r messyroom, out.width="90%", eval=T, echo=FALSE, fig.cap="*A disorganized system for finding things*"}
 
-knitr::include_graphics(here("images","Messy_storage_room_with_boxes.jpg"))
+knitr::include_graphics("images/Messy_storage_room_with_boxes.jpg")
 
 ```
  
@@ -87,7 +87,7 @@ Let's create an RStudio Project as part of this course that you can use througho
 
 ```{r rprojsetup1, out.width = "100%", echo=FALSE, fig.cap='*RStudio Project setup*'}
 
-knitr::include_graphics(here("images", "rproj_setup_figure.png"))
+knitr::include_graphics("images/rproj_setup_figure.png")
 
 ```
 
@@ -101,7 +101,7 @@ It's a good idea to keep all your R projects in one place. You can decide if thi
 
 ```{r rprojsetup2, out.width = "85%", echo=FALSE, fig.cap='*Make a new project named **intro_r4wrds***'}
 
-knitr::include_graphics(here("images", "rproj_new_intro-r4wrds.png"))
+knitr::include_graphics("images/rproj_new_intro-r4wrds.png")
 
 ```
 
@@ -192,6 +192,8 @@ knitr::include_graphics("https://raw.githubusercontent.com/allisonhorst/stats-il
 ```
 
 Using the **{here}** package means we can share our project with other folks and it will work, and if something changes around inside the project, it will remain functional and accessible.
+
+In practice however, if we **always work from within an RProject**, we can simply use relative paths without the `here()` syntax -- that syntax just makes it very explicit what we're doing. 
 
 ## Best Practices: Project Organization/Workflow Tips
 

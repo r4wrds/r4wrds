@@ -11,7 +11,6 @@ creative_commons: CC BY
 ```{r setup, include=FALSE, purl=FALSE, message=FALSE}
 
 library(knitr)
-library(here)
 suppressPackageStartupMessages(library(tidyverse))
 
 ```
@@ -38,14 +37,14 @@ Data wrangling is usually the part of any data analysis project that takes the m
 # these are all from Allison Horst: https://github.com/allisonhorst/stats-illustrations
 # CITE AS: "Artwork by @allison_horst"
 
-knitr::include_graphics(here("images", "data_cowboy.png"))
+knitr::include_graphics("images/data_cowboy.png")
 
 ```
 
 The data wrangling process includes data import, tidying, and transformation.  The process directly feeds into the *understanding* or modeling side of data exploration, but in a iterative way.  More generally, data wrangling is the manipulation or combination of datasets for the purpose of analysis, and often you have to rinse and repeat this process as your understanding of the data changes, and as your modeling and visualization needs also changes.  
 
 ```{r out.width = "100%", echo=F, fig.cap = '*Image from "R for Data Science" by Garrett Grolemund and Hadley Wickham.*'}
-knitr::include_graphics(here("images", "data-science-wrangle.png"))
+knitr::include_graphics("images/data-science-wrangle.png")
 ```
 
 ### Have an Objective
@@ -90,10 +89,9 @@ Any reproducible analysis should be easily repeated. Using code in a script allo
 
 ### Import Libraries and Data 
 
-First we need to load the libraries that we'll be using. Let's use `{here}` and the `{tidyverse}` packages (which includes `{dplyr}` and `{ggplot2}`).
+First we need to load the libraries that we'll be using. Let's the `{tidyverse}` packages (which includes `{dplyr}` and `{ggplot2}`).
 
 ```{r load-libs, eval=FALSE}
-library(here)
 library(tidyverse)
 
 ```
@@ -106,7 +104,7 @@ Next we import a `.csv` of groundwater monitoring stations across California^[se
 ```{r load-data}
 
 # read the stations.csv file and assign it to an object "stations"
-stations <- read.csv(here("data", "gwl", "stations.csv"))
+stations <- read.csv("data/gwl/stations.csv")
 
 ```
 
