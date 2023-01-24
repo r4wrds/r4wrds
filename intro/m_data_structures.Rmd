@@ -36,10 +36,8 @@ When assigning an object, avoid overly simplistic names (e.g., `x`, `y`), and ra
 
 
 ```{r assignment-data}
-library(here)
-
 # read the stations.csv file and assign it to an object "stations"
-stations <- read.csv(here("data", "gwl", "stations.csv"))
+stations <- read.csv("data/gwl/stations.csv")
 ```
 
 Notice that in the Global Environment pane, we have now have a "Data" object `stations`.

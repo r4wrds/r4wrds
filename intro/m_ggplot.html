@@ -2391,20 +2391,30 @@ Worksheets
 <nav class="l-text toc figcaption" id="TOC">
 <h3>Contents</h3>
 <ul>
-<li><a href="#data-visualization-with-ggplot2">Data visualization with <strong>{ggplot2}</strong></a></li>
-<li><a href="#examples">Examples</a></li>
-<li><a href="#creating-your-first-ggplot">Creating your first ggplot</a></li>
-<li><a href="#adding-geom_-layers">Adding <code>geom_</code> layers</a></li>
-<li><a href="#aesthetics">Aesthetics</a></li>
-<li><a href="#faceting">Faceting</a></li>
-<li><a href="#saving-plots">Saving plots</a>
+<li><a href="#data-visualization-with-ggplot2"
+id="toc-data-visualization-with-ggplot2">Data visualization with
+<strong>{ggplot2}</strong></a></li>
+<li><a href="#examples" id="toc-examples">Examples</a></li>
+<li><a href="#creating-your-first-ggplot"
+id="toc-creating-your-first-ggplot">Creating your first ggplot</a></li>
+<li><a href="#adding-geom_-layers" id="toc-adding-geom_-layers">Adding
+<code>geom_</code> layers</a></li>
+<li><a href="#aesthetics" id="toc-aesthetics">Aesthetics</a></li>
+<li><a href="#faceting" id="toc-faceting">Faceting</a></li>
+<li><a href="#saving-plots" id="toc-saving-plots">Saving plots</a>
 <ul>
-<li><a href="#saving-with-a-graphical-device">Saving with a graphical device</a></li>
-<li><a href="#saving-with-ggsave">Saving with <code>ggsave()</code></a></li>
+<li><a href="#saving-with-a-graphical-device"
+id="toc-saving-with-a-graphical-device">Saving with a graphical
+device</a></li>
+<li><a href="#saving-with-ggsave" id="toc-saving-with-ggsave">Saving
+with <code>ggsave()</code></a></li>
 </ul></li>
-<li><a href="#colorblindness">Colorblindness</a></li>
-<li><a href="#bespoke-plots">Bespoke plots</a></li>
-<li><a href="#extending-ggplot2">Extending ggplot2</a></li>
+<li><a href="#colorblindness"
+id="toc-colorblindness">Colorblindness</a></li>
+<li><a href="#bespoke-plots" id="toc-bespoke-plots">Bespoke
+plots</a></li>
+<li><a href="#extending-ggplot2" id="toc-extending-ggplot2">Extending
+ggplot2</a></li>
 </ul>
 </nav>
 </div>
@@ -2413,69 +2423,116 @@ Worksheets
 <ul>
 <li>Learn how to create beautiful and informative plots from data<br />
 </li>
-<li>Understand the grammar of graphics implemented in <strong><code>{ggplot2}</code></strong> and how to create plots in “layers”<br />
+<li>Understand the grammar of graphics implemented in
+<strong><code>{ggplot2}</code></strong> and how to create plots in
+“layers”<br />
 </li>
-<li>Learn core <strong><code>{ggplot2}</code></strong> geometries like <code>geom_point()</code>, <code>geom_line()</code>, <code>geom_col()</code>, <code>geom_boxplot()</code>, <code>geom_histogram()</code></li>
+<li>Learn core <strong><code>{ggplot2}</code></strong> geometries like
+<code>geom_point()</code>, <code>geom_line()</code>,
+<code>geom_col()</code>, <code>geom_boxplot()</code>,
+<code>geom_histogram()</code></li>
 <li>Understand how to customize and save plots</li>
 </ul>
 </div>
-<h2 id="data-visualization-with-ggplot2">Data visualization with <strong>{ggplot2}</strong></h2>
-<p>Data visualization allows us to effectively explore data in an Exploratory Data Analysis (EDA), and allows us to communicate the results of an analysis or modeling exercise. A powerful package for data visualization in R is <strong><code>{ggplot2}</code></strong> (part of the <strong><code>{tidyverse}</code></strong> set of packages). <strong><code>{ggplot2}</code></strong> stands for “<strong>g</strong>rammar of <strong>g</strong>raphics <strong>plot</strong>” and generally provides a semantic syntax for data visualization that breaks down graphs in terms of <em>aesthetics</em>, <em>geoms</em>, <em>coordinates</em>, <em>scales</em>, and more, which allows users to create visualizations that range from simple to extraordinarily complex. The act of creating visualizations is not only useful, but also fun and motivating, so we cover it early, before more advanced data manipulation in subsequent modules. By the end of this module you will be able to create beautiful ggplots made entirely in R, and take your first steps towards reproducible and elegant data visualization.</p>
-
+<h2 id="data-visualization-with-ggplot2">Data visualization with
+<strong>{ggplot2}</strong></h2>
+<p>Data visualization allows us to effectively explore data in an
+Exploratory Data Analysis (EDA), and allows us to communicate the
+results of an analysis or modeling exercise. A powerful package for data
+visualization in R is <strong><code>{ggplot2}</code></strong> (part of
+the <strong><code>{tidyverse}</code></strong> set of packages).
+<strong><code>{ggplot2}</code></strong> stands for
+“<strong>g</strong>rammar of <strong>g</strong>raphics
+<strong>plot</strong>” and generally provides a semantic syntax for data
+visualization that breaks down graphs in terms of <em>aesthetics</em>,
+<em>geoms</em>, <em>coordinates</em>, <em>scales</em>, and more, which
+allows users to create visualizations that range from simple to
+extraordinarily complex. The act of creating visualizations is not only
+useful, but also fun and motivating, so we cover it early, before more
+advanced data manipulation in subsequent modules. By the end of this
+module you will be able to create beautiful ggplots made entirely in R,
+and take your first steps towards reproducible and elegant data
+visualization.</p>
+<p>(ref:ah-ggplot) <em>Illustration by <span class="citation"
+data-cites="allison_horst">@allison_horst</span>.</em></p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="figure"><span style="display:block;" id="fig:ggplot-evl"></span>
-<img src="images/ggplot2.png" alt="Illustration by @allison_horst." width="80%" />
+<img src="images/ggplot2.png" alt="(ref:ah-ggplot)" width="80%" />
 <p class="caption">
-Figure 1: <em>Illustration by <span class="citation" data-cites="allison_horst">@allison_horst</span>.</em>
+Figure 1: (ref:ah-ggplot)
 </p>
 </div>
 </div>
 <h2 id="examples">Examples</h2>
-<p>Before we begin, below are a few plots created entirely with <strong><code>{ggplot2}</code></strong> to illustrate the possibilities for data visualization enabled by this package.</p>
-<p>These are only a few examples of the many possibilities that can be made. Because ggplots are so customizable, some people even use <strong><code>{ggplot2}</code></strong> to create artwork<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. Once you are familiar with how to customize a ggplot, you may be surprised to see them appear in major news outlets and scientific publications.</p>
+<p>Before we begin, below are a few plots created entirely with
+<strong><code>{ggplot2}</code></strong> to illustrate the possibilities
+for data visualization enabled by this package.</p>
+<p>These are only a few examples of the many possibilities that can be
+made. Because ggplots are so customizable, some people even use
+<strong><code>{ggplot2}</code></strong> to create artwork<a href="#fn1"
+class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.
+Once you are familiar with how to customize a ggplot, you may be
+surprised to see them appear in major news outlets and scientific
+publications.</p>
 <aside>
-<p><strong><code>{ggplot2}</code></strong> art by <a href="https://fronkonstin.com/2018/03/11/mandalas-colored/">Antonio Sánchez Chinchón</a> <span class="citation" data-cites="aschinchon">@aschinchon</span>.</p>
+<p><strong><code>{ggplot2}</code></strong> art by <a
+href="https://fronkonstin.com/2018/03/11/mandalas-colored/">Antonio
+Sánchez Chinchón</a> <span class="citation"
+data-cites="aschinchon">@aschinchon</span>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="images/mandala.png" width="100%" /></p>
 </div>
 </aside>
-
+<p>(ref:cedric) <em><a
+href="https://www.cedricscherer.com/2019/05/17/the-evolution-of-a-ggplot-ep.-1/">Evolution
+of a ggplot</a>, by Cedric Scherer shows how one can progressively
+refine and customize a gpplot.</em></p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="figure"><span style="display:block;" id="fig:ggplot-evol"></span>
-<img src="images/ggplot_evolution.gif" alt="Evolution of a ggplot, by Cedric Scherer shows how one can progressively refine and customize a gpplot." width="80%" />
+<img src="images/ggplot_evolution.gif" alt="(ref:cedric)" width="80%" />
 <p class="caption">
-Figure 2: <em><a href="https://www.cedricscherer.com/2019/05/17/the-evolution-of-a-ggplot-ep.-1/">Evolution of a ggplot</a>, by Cedric Scherer shows how one can progressively refine and customize a gpplot.</em>
+Figure 2: (ref:cedric)
 </p>
 </div>
 </div>
-
+<p>(ref:timo) <em>Created by <a
+href="https://timogrossenbacher.ch/2016/12/beautiful-thematic-maps-with-ggplot2-only/">Timo
+Grossenbacher</a> <span class="citation"
+data-cites="grssnbchr">@grssnbchr</span>.</em></p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="figure"><span style="display:block;" id="fig:p1"></span>
-<img src="images/switzerland.png" alt="Created by Timo Grossenbacher @grssnbchr." width="80%" />
+<img src="images/switzerland.png" alt="(ref:timo)" width="80%" />
 <p class="caption">
-Figure 3: <em>Created by <a href="https://timogrossenbacher.ch/2016/12/beautiful-thematic-maps-with-ggplot2-only/">Timo Grossenbacher</a> <span class="citation" data-cites="grssnbchr">@grssnbchr</span>.</em>
+Figure 3: (ref:timo)
 </p>
 </div>
 </div>
-
+<p>(ref:cedric2) <em>Travelling to Outer Space by <a
+href="https://www.cedricscherer.com/top/dataviz/">Cédric Scherer</a>
+<span class="citation"
+data-cites="CedScherer">@CedScherer</span>.</em></p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="figure"><span style="display:block;" id="fig:p2"></span>
-<img src="images/2020_29_Astronauts_blur_color.png" alt="Travelling to Outer Space by Cédric Scherer @CedScherer." width="80%" />
+<img src="images/2020_29_Astronauts_blur_color.png" alt="(ref:cedric2)" width="80%" />
 <p class="caption">
-Figure 4: <em>Travelling to Outer Space by <a href="https://www.cedricscherer.com/top/dataviz/">Cédric Scherer</a> <span class="citation" data-cites="CedScherer">@CedScherer</span>.</em>
+Figure 4: (ref:cedric2)
 </p>
 </div>
 </div>
 <h2 id="creating-your-first-ggplot">Creating your first ggplot</h2>
-<p>To begin, we load the <strong><code>{ggplot2}</code></strong> package. We can load it independently, but let’s load it along with the <strong><code>{tidyverse}</code></strong> suite of R packages used in this course. We also need to load some data. Below we load a pre-processed dataframe that we’ll create later in the module on joins and binds.</p>
+<p>To begin, we load the <strong><code>{ggplot2}</code></strong>
+package. We can load it independently, but let’s load it along with the
+<strong><code>{tidyverse}</code></strong> suite of R packages used in
+this course. We also need to load some data. Below we load a
+pre-processed dataframe that we’ll create later in the module on joins
+and binds.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># includes ggplot2</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://here.r-lib.org/'>here</a></span><span class='op'>)</span>
 
 <span class='co'># groundwater level from a single station in Sacramento County</span>
-<span class='va'>gwl</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"data"</span>, <span class='st'>"gwl"</span>, <span class='st'>"gwl.csv"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>gwl</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"data/gwl/gwl.csv"</span><span class='op'>)</span>
 
 <span class='co'># inspect the data</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>gwl</span><span class='op'>)</span>
@@ -2493,9 +2550,17 @@ Figure 4: <em>Travelling to Outer Space by <a href="https://www.cedricscherer.co
 # … with 3 more variables: COUNTY_NAME &lt;chr&gt;, WELL_DEPTH &lt;dbl&gt;,
 #   WELL_USE &lt;chr&gt;</code></pre>
 </div>
-<p>The 10 columns in the data contain are a <code>SITE_CODE</code> or unique identifier, a date-time <code>MSMT_DATE</code>, a water surface elevation <code>WSE_FT</code>, and a depth to groundwater <code>GSE_WSE</code>, the agency that collected the measurement <code>WLM_ORG_NAME</code>, a latitude and longitude, the county, the well depth, and the well use.</p>
-<p>Perhaps we want to visualize the depth to groundwater at this site over time. To do this, we put <code>MSMT_DATE</code> on the x-axis and <code>GSE_WSE</code> on the y-axis.</p>
-<p>To create a ggplot we start with the function <code>ggplot()</code>.</p>
+<p>The 10 columns in the data contain are a <code>SITE_CODE</code> or
+unique identifier, a date-time <code>MSMT_DATE</code>, a water surface
+elevation <code>WSE_FT</code>, and a depth to groundwater
+<code>GSE_WSE</code>, the agency that collected the measurement
+<code>WLM_ORG_NAME</code>, a latitude and longitude, the county, the
+well depth, and the well use.</p>
+<p>Perhaps we want to visualize the depth to groundwater at this site
+over time. To do this, we put <code>MSMT_DATE</code> on the x-axis and
+<code>GSE_WSE</code> on the y-axis.</p>
+<p>To create a ggplot we start with the function
+<code>ggplot()</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='op'>)</span>
@@ -2503,12 +2568,16 @@ Figure 4: <em>Travelling to Outer Space by <a href="https://www.cedricscherer.co
 </div>
 <p><img src="m_ggplot_files/figure-html5/first-plot-1.png" width="100%" /></p>
 </div>
-<p>The above plot appears blank because we haven’t added any layers to it! A ggplot is nothing until we layer on one or more geometries or <code>geom</code>s.</p>
+<p>The above plot appears blank because we haven’t added any layers to
+it! A ggplot is nothing until we layer on one or more geometries or
+<code>geom</code>s.</p>
 <h2 id="adding-geom_-layers">Adding <code>geom_</code> layers</h2>
 <aside>
-ggplot can also create maps with <code>geom_sf()</code>, covered in the <a href="m_intro_mapmaking.html">mapmaking module</a>.
+ggplot can also create maps with <code>geom_sf()</code>, covered in the
+<a href="m_intro_mapmaking.html">mapmaking module</a>.
 </aside>
-<p>Let’s add a <code>geom_line()</code> layer to the <code>ggplot()</code> we created above.</p>
+<p>Let’s add a <code>geom_line()</code> layer to the
+<code>ggplot()</code> we created above.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl</span><span class='op'>)</span> <span class='op'>+</span>
@@ -2523,12 +2592,38 @@ ggplot can also create maps with <code>geom_sf()</code>, covered in the <a href=
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="er">&lt;</span>GEOM_FUNCTION<span class="sc">&gt;</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="sc">&lt;</span>MAPPINGS<span class="sc">&gt;</span>))</span></code></pre></div>
 </div>
 <aside>
-See a full list of available geoms on the <strong><code>{ggplot2}</code></strong> <a href="https://ggplot2.tidyverse.org/reference/">online documentation</a>.
+See a full list of available geoms on the
+<strong><code>{ggplot2}</code></strong> <a
+href="https://ggplot2.tidyverse.org/reference/">online
+documentation</a>.
 </aside>
-<p>We start creating a plot with the <code>ggplot()</code> function with our data (<code>data = gwl</code>). With {<code>ggplot2</code>}, each layer or piece of the ggplot is added by using a <code>+</code>. We added a <code>geom_line()</code> which connects data points with a line, but there are many other geoms, including <code>geom_point()</code>, <code>geom_col()</code>, <code>geom_boxplot()</code>, <code>geom_histogram()</code>, and so on. Inside each <code>geom_</code>, there are many options, but the core arguments that allow us to tell the <code>geom_line()</code> function to put the date on the x-axis and depth to groundwater on the y-axis are arguments <strong><code>data</code></strong> and <strong><code>mapping</code></strong> . For the <strong><code>data</code></strong>, we are using the data specified in the <code>ggplot(data = gwl)</code> line, which means that data is available for any future layer or <code>geom</code> we use. To specify what pieces go on the x-axis and y-axis, we use the mapped aesthetics, <code>mapping = aes(x = MSMT_DATE, y = GSE_WSE)</code>.</p>
-<p>In practice, we don’t need to explicitly write out all of the full argument names. <strong><code>{ggplot2}</code></strong> understands that mapping <code>aes(MSMT_DATE, GSE_WSE)</code> means that the measurement date and depth to groundwater belong on the x and y axis respectively. However, it is always a good idea to explicitly specify the <strong><code>data</code></strong> argument no matter what to avoid potential errors.</p>
+<p>We start creating a plot with the <code>ggplot()</code> function with
+our data (<code>data = gwl</code>). With {<code>ggplot2</code>}, each
+layer or piece of the ggplot is added by using a <code>+</code>. We
+added a <code>geom_line()</code> which connects data points with a line,
+but there are many other geoms, including <code>geom_point()</code>,
+<code>geom_col()</code>, <code>geom_boxplot()</code>,
+<code>geom_histogram()</code>, and so on. Inside each
+<code>geom_</code>, there are many options, but the core arguments that
+allow us to tell the <code>geom_line()</code> function to put the date
+on the x-axis and depth to groundwater on the y-axis are arguments
+<strong><code>data</code></strong> and
+<strong><code>mapping</code></strong> . For the
+<strong><code>data</code></strong>, we are using the data specified in
+the <code>ggplot(data = gwl)</code> line, which means that data is
+available for any future layer or <code>geom</code> we use. To specify
+what pieces go on the x-axis and y-axis, we use the mapped aesthetics,
+<code>mapping = aes(x = MSMT_DATE, y = GSE_WSE)</code>.</p>
+<p>In practice, we don’t need to explicitly write out all of the full
+argument names. <strong><code>{ggplot2}</code></strong> understands that
+mapping <code>aes(MSMT_DATE, GSE_WSE)</code> means that the measurement
+date and depth to groundwater belong on the x and y axis respectively.
+However, it is always a good idea to explicitly specify the
+<strong><code>data</code></strong> argument no matter what to avoid
+potential errors.</p>
 <aside>
-If using more than one dataframe, you can specify data in each geom function, rather than in <code>ggplot()</code>.
+If using more than one dataframe, you can specify data in each geom
+function, rather than in <code>ggplot()</code>.
 </aside>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -2546,7 +2641,8 @@ If using more than one dataframe, you can specify data in each geom function, ra
 </div>
 <p><img src="m_ggplot_files/figure-html5/geom-point-1.png" width="100%" /></p>
 </div>
-<p>Many points overlap, making them hard to pick apart. Let’s make them 50% opaque with the <code>alpha</code> argument.</p>
+<p>Many points overlap, making them hard to pick apart. Let’s make them
+50% opaque with the <code>alpha</code> argument.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl</span><span class='op'>)</span> <span class='op'>+</span>
@@ -2555,7 +2651,8 @@ If using more than one dataframe, you can specify data in each geom function, ra
 </div>
 <p><img src="m_ggplot_files/figure-html5/geom-point-alpha-1.png" width="100%" /></p>
 </div>
-<p>We can change the geom to an area (notice that the y axis scale now has a minimum of 0):</p>
+<p>We can change the geom to an area (notice that the y axis scale now
+has a minimum of 0):</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl</span><span class='op'>)</span> <span class='op'>+</span>
@@ -2564,7 +2661,9 @@ If using more than one dataframe, you can specify data in each geom function, ra
 </div>
 <p><img src="m_ggplot_files/figure-html5/geom-area-1.png" width="100%" /></p>
 </div>
-<p>We can add more than one geom to the plot (just link them with the <code>+</code>), for instance a point and line. We can also set the color of a geom with the <code>color</code> argument.</p>
+<p>We can add more than one geom to the plot (just link them with the
+<code>+</code>), for instance a point and line. We can also set the
+color of a geom with the <code>color</code> argument.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl</span><span class='op'>)</span> <span class='op'>+</span>
@@ -2574,7 +2673,10 @@ If using more than one dataframe, you can specify data in each geom function, ra
 </div>
 <p><img src="m_ggplot_files/figure-html5/geom-multiple-1.png" width="100%" /></p>
 </div>
-<p>It’s often useful to summarize large datasets using summary values like the median, mean, interquartile range, and so on. What does the distribution of depths to groundwater look like at this particular well?</p>
+<p>It’s often useful to summarize large datasets using summary values
+like the median, mean, interquartile range, and so on. What does the
+distribution of depths to groundwater look like at this particular
+well?</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> 
@@ -2583,7 +2685,11 @@ If using more than one dataframe, you can specify data in each geom function, ra
 </div>
 <p><img src="m_ggplot_files/figure-html5/geom-hist-1.png" width="100%" /></p>
 </div>
-<p>Notice that <code>geom_histogram()</code> takes only one argument for the x-axis and <strong>computes</strong> the bins for the y-axis. It appears that depths to groundwater range from around 130 to 160, with a median around 145. The default number of bins used is 30, but we can change this value.</p>
+<p>Notice that <code>geom_histogram()</code> takes only one argument for
+the x-axis and <strong>computes</strong> the bins for the y-axis. It
+appears that depths to groundwater range from around 130 to 160, with a
+median around 145. The default number of bins used is 30, but we can
+change this value.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl</span><span class='op'>)</span> <span class='op'>+</span> 
@@ -2593,11 +2699,15 @@ If using more than one dataframe, you can specify data in each geom function, ra
 <p><img src="m_ggplot_files/figure-html5/geom-hist2-1.png" width="100%" /></p>
 </div>
 <div class="challenge">
-<p><font color="#009E73"><strong>Challenge 1: You Try!</strong></font></p>
+<p><font color="#009E73"><strong>Challenge 1: You
+Try!</strong></font></p>
 <ol type="1">
-<li>Modify the plot above to make the histogram blue (Hint: use <code>fill = "blue"</code>).<br />
+<li>Modify the plot above to make the histogram blue (Hint: use
+<code>fill = "blue"</code>).<br />
 </li>
-<li>In the code above, change <code>geom_histogram()</code> to <code>geom_boxplot</code> and remove any <code>bins</code> and <code>fill</code> arguments.</li>
+<li>In the code above, change <code>geom_histogram()</code> to
+<code>geom_boxplot</code> and remove any <code>bins</code> and
+<code>fill</code> arguments.</li>
 </ol>
 </div>
 <p><br></p>
@@ -2625,15 +2735,25 @@ If using more than one dataframe, you can specify data in each geom function, ra
 </div>
 </details>
 <h2 id="aesthetics">Aesthetics</h2>
-<p><strong>Aesthetics</strong>, or <code>aes()</code> as we have seen, are how geoms map variables onto a plot. So far, we have only used the <code>x</code> and <code>y</code> aesthetics to map variables onto an x and y coordinate system. We can also add a third variable, like <strong>color</strong> to the aesthetics, and map values in the data to different colors.</p>
+<p><strong>Aesthetics</strong>, or <code>aes()</code> as we have seen,
+are how geoms map variables onto a plot. So far, we have only used the
+<code>x</code> and <code>y</code> aesthetics to map variables onto an x
+and y coordinate system. We can also add a third variable, like
+<strong>color</strong> to the aesthetics, and map values in the data to
+different colors.</p>
 <aside>
-Other aesthetics you can map variables to include <code>shape</code>, <code>size</code>, and <code>fill</code>.
+Other aesthetics you can map variables to include <code>shape</code>,
+<code>size</code>, and <code>fill</code>.
 </aside>
-<p>So far, we’ve been working with one monitoring site in Sacramento County, but to illustrate how mapping a variable to color can be useful, let’s read in a slightly larger version of this groundwater level dataset that includes data from <strong>10 monitoring sites</strong> in Sacramento and Placer counties.</p>
+<p>So far, we’ve been working with one monitoring site in Sacramento
+County, but to illustrate how mapping a variable to color can be useful,
+let’s read in a slightly larger version of this groundwater level
+dataset that includes data from <strong>10 monitoring sites</strong> in
+Sacramento and Placer counties.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># groundwater level from 10 monitoring sites in Sacramento and Placer counties</span>
-<span class='va'>gwl_10</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"data"</span>, <span class='st'>"gwl"</span>, <span class='st'>"gwl_10.csv"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>gwl_10</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"data/gwl/gwl_10.csv"</span><span class='op'>)</span>
 
 <span class='co'># plot</span>
 <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl_10</span><span class='op'>)</span> <span class='op'>+</span>
@@ -2642,8 +2762,12 @@ Other aesthetics you can map variables to include <code>shape</code>, <code>size
 </div>
 <p><img src="m_ggplot_files/figure-html5/read-10-1.png" width="100%" /></p>
 </div>
-<p>Pause for a moment to consider why does this data does not appear to have a clear trend.</p>
-<p>Let’s verify there are 10 unique sites in the data, then re-plot, and color the points by the <code>SITE_CODE</code> by assigning the variable <code>SITE_CODE</code> to the <code>color</code> argument <em>inside</em> the <code>aes()</code>.</p>
+<p>Pause for a moment to consider why does this data does not appear to
+have a clear trend.</p>
+<p>Let’s verify there are 10 unique sites in the data, then re-plot, and
+color the points by the <code>SITE_CODE</code> by assigning the variable
+<code>SITE_CODE</code> to the <code>color</code> argument
+<em>inside</em> the <code>aes()</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># unique site codes in the dataframe</span>
@@ -2662,7 +2786,10 @@ Other aesthetics you can map variables to include <code>shape</code>, <code>size
 </div>
 <p><img src="m_ggplot_files/figure-html5/plot-10-sites-1.png" width="100%" /></p>
 </div>
-<p>It’s now clear now which points belong to which group. Above, we <em>mapped</em> colored points by a categorical variable (<code>SITE_CODE</code>), but we can also color by a continuous variable, like the well depth.</p>
+<p>It’s now clear now which points belong to which group. Above, we
+<em>mapped</em> colored points by a categorical variable
+(<code>SITE_CODE</code>), but we can also color by a continuous
+variable, like the well depth.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># color the continuous well depth variable</span>
@@ -2672,7 +2799,9 @@ Other aesthetics you can map variables to include <code>shape</code>, <code>size
 </div>
 <p><img src="m_ggplot_files/figure-html5/color-depth-1.png" width="100%" /></p>
 </div>
-<p>What if we were curious to know the distribution of depth to groundwater (y axis) at each of the 10 sites (x axis) in the <code>gwl_10</code> dataset?</p>
+<p>What if we were curious to know the distribution of depth to
+groundwater (y axis) at each of the 10 sites (x axis) in the
+<code>gwl_10</code> dataset?</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl_10</span><span class='op'>)</span> <span class='op'>+</span>
@@ -2681,7 +2810,8 @@ Other aesthetics you can map variables to include <code>shape</code>, <code>size
 </div>
 <p><img src="m_ggplot_files/figure-html5/dist1-1.png" width="100%" /></p>
 </div>
-<p>Those x axis labels are hard to read. What happens if we switch the x and y aesthetics?</p>
+<p>Those x axis labels are hard to read. What happens if we switch the x
+and y aesthetics?</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl_10</span><span class='op'>)</span> <span class='op'>+</span>
@@ -2706,7 +2836,8 @@ Other aesthetics you can map variables to include <code>shape</code>, <code>size
 <p><img src="m_ggplot_files/figure-html5/dist3-1.png" width="100%" /></p>
 </div>
 <h2 id="faceting">Faceting</h2>
-<p>Faceting is a powerful way to split a plot by a categorical variable into many subplots, or <strong>facets</strong>.</p>
+<p>Faceting is a powerful way to split a plot by a categorical variable
+into many subplots, or <strong>facets</strong>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl_10</span><span class='op'>)</span> <span class='op'>+</span>
@@ -2716,7 +2847,11 @@ Other aesthetics you can map variables to include <code>shape</code>, <code>size
 </div>
 <p><img src="m_ggplot_files/figure-html5/facet1-1.png" width="100%" /></p>
 </div>
-<p>We can improve the plot above by noticing that there are 10 facets, which would fit well into a grid of 5 rows and 2 columns, and also if we “freed” the scales so that they didn’t all have the same x and y axis limits. We can achieve these changes by modifying the <code>nrow</code>, <code>ncol</code>, and <code>scales</code> arguments.</p>
+<p>We can improve the plot above by noticing that there are 10 facets,
+which would fit well into a grid of 5 rows and 2 columns, and also if we
+“freed” the scales so that they didn’t all have the same x and y axis
+limits. We can achieve these changes by modifying the <code>nrow</code>,
+<code>ncol</code>, and <code>scales</code> arguments.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl_10</span><span class='op'>)</span> <span class='op'>+</span>
@@ -2726,7 +2861,10 @@ Other aesthetics you can map variables to include <code>shape</code>, <code>size
 </div>
 <p><img src="m_ggplot_files/figure-html5/facet2-1.png" width="100%" /></p>
 </div>
-<p>You can also facet by 2 variables with <code>facet_grid()</code>. Here we facet by the county name and well use, and also separate individual sites within each facet by specifying <code>group = SITE_CODE</code>.</p>
+<p>You can also facet by 2 variables with <code>facet_grid()</code>.
+Here we facet by the county name and well use, and also separate
+individual sites within each facet by specifying
+<code>group = SITE_CODE</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>gwl_10</span><span class='op'>)</span> <span class='op'>+</span>
@@ -2736,13 +2874,20 @@ Other aesthetics you can map variables to include <code>shape</code>, <code>size
 </div>
 <p><img src="m_ggplot_files/figure-html5/facet-grid-1.png" width="100%" /></p>
 </div>
-<p>What would happen if <code>group = SITE_CODE</code> were not included?</p>
+<p>What would happen if <code>group = SITE_CODE</code> were not
+included?</p>
 <div class="challenge">
-<p><font color="#009E73"><strong>Challenge 2: You Try!</strong></font></p>
+<p><font color="#009E73"><strong>Challenge 2: You
+Try!</strong></font></p>
 <ol type="1">
-<li>Modify the plot above to color by the well use. (Hint: add <code>color = WELL_USE</code> inside the <code>aes()</code> function).<br />
+<li>Modify the plot above to color by the well use. (Hint: add
+<code>color = WELL_USE</code> inside the <code>aes()</code>
+function).<br />
 </li>
-<li>Using the <code>gwl_10</code> dataset, create a new ggplot. Use <code>geom_line()</code> to map <code>MSMT_DATE</code> to the x-axis and <code>GSE_WSE</code> to the y-axis. Then, color by the <code>SITE_CODE</code>, and facet by the <code>WELL_USE</code>.</li>
+<li>Using the <code>gwl_10</code> dataset, create a new ggplot. Use
+<code>geom_line()</code> to map <code>MSMT_DATE</code> to the x-axis and
+<code>GSE_WSE</code> to the y-axis. Then, color by the
+<code>SITE_CODE</code>, and facet by the <code>WELL_USE</code>.</li>
 </ol>
 </div>
 <p><br></p>
@@ -2773,9 +2918,15 @@ Other aesthetics you can map variables to include <code>shape</code>, <code>size
 </div>
 </details>
 <h2 id="saving-plots">Saving plots</h2>
-<p>There are two main ways to get plots out of R and into a file, using a graphical device, or using a ggplot function <code>ggsave</code>.</p>
-<h3 id="saving-with-a-graphical-device">Saving with a graphical device</h3>
-<p>To save using a graphical device, we essentially prepare a file of the type we want (i.e., a pdf or png or jpg). This is the “graphical device”. Once we’ve opened our blank graphical file, we print the plot, and then close the device. This method (using a graphical device) works with any graphical output from R, not just ggplot.</p>
+<p>There are two main ways to get plots out of R and into a file, using
+a graphical device, or using a ggplot function <code>ggsave</code>.</p>
+<h3 id="saving-with-a-graphical-device">Saving with a graphical
+device</h3>
+<p>To save using a graphical device, we essentially prepare a file of
+the type we want (i.e., a pdf or png or jpg). This is the “graphical
+device”. Once we’ve opened our blank graphical file, we print the plot,
+and then close the device. This method (using a graphical device) works
+with any graphical output from R, not just ggplot.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># create a plot and save it to a variable</span>
@@ -2784,7 +2935,7 @@ Other aesthetics you can map variables to include <code>shape</code>, <code>size
   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>SITE_CODE</span>, ncol <span class='op'>=</span> <span class='fl'>2</span>, scales <span class='op'>=</span> <span class='st'>"free"</span><span class='op'>)</span>
 
 <span class='co'># open a PDF graphical device</span>
-<span class='fu'><a href='https://rdrr.io/r/grDevices/pdf.html'>pdf</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"results"</span>, <span class='st'>"my_plot.pdf"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/grDevices/pdf.html'>pdf</a></span><span class='op'>(</span><span class='st'>"results/my_plot.pdf"</span><span class='op'>)</span>
 
 <span class='co'># print the plot</span>
 <span class='va'>my_plot</span>
@@ -2805,7 +2956,7 @@ Other aesthetics you can map variables to include <code>shape</code>, <code>size
   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>WELL_USE</span>, ncol <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
 
 <span class='co'># open a PDF graphical device</span>
-<span class='fu'><a href='https://rdrr.io/r/grDevices/pdf.html'>pdf</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"results"</span>, <span class='st'>"my_plots.pdf"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/grDevices/pdf.html'>pdf</a></span><span class='op'>(</span><span class='st'>"results/my_plots.pdf"</span><span class='op'>)</span>
 
 <span class='co'># print the plot</span>
 <span class='va'>my_plot</span>
@@ -2822,11 +2973,12 @@ Other aesthetics you can map variables to include <code>shape</code>, <code>size
 </code></pre>
 </div>
 </div>
-<p>We can save a png file in the same way, and specify output height and width.</p>
+<p>We can save a png file in the same way, and specify output height and
+width.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># open a PNG graphical device</span>
-<span class='fu'><a href='https://rdrr.io/r/grDevices/png.html'>png</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"results"</span>, <span class='st'>"my_plot.png"</span><span class='op'>)</span>, width <span class='op'>=</span> <span class='fl'>10</span>, height <span class='op'>=</span> <span class='fl'>7</span>, units <span class='op'>=</span> <span class='st'>"in"</span>, res <span class='op'>=</span> <span class='fl'>300</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/grDevices/png.html'>png</a></span><span class='op'>(</span><span class='st'>"results/my_plot.png"</span>, width <span class='op'>=</span> <span class='fl'>10</span>, height <span class='op'>=</span> <span class='fl'>7</span>, units <span class='op'>=</span> <span class='st'>"in"</span>, res <span class='op'>=</span> <span class='fl'>300</span><span class='op'>)</span>
 
 <span class='co'># print the plot</span>
 <span class='va'>my_plot</span>
@@ -2839,16 +2991,30 @@ Other aesthetics you can map variables to include <code>shape</code>, <code>size
                 2 </code></pre>
 </div>
 <h3 id="saving-with-ggsave">Saving with <code>ggsave()</code></h3>
-<p>Another way to save ggplots that involves less code is to use the <code>ggsave()</code> function. By default, <code>ggsave()</code> height and width arguments are understood to be in units of inches. This approach <em>only</em> works with plots that have been generated using the <code>{ggplot2}</code> package. To save different file types, we simply change the file extension to the format we want.</p>
+<p>Another way to save ggplots that involves less code is to use the
+<code>ggsave()</code> function. By default, <code>ggsave()</code> height
+and width arguments are understood to be in units of inches. This
+approach <em>only</em> works with plots that have been generated using
+the <code>{ggplot2}</code> package. To save different file types, we
+simply change the file extension to the format we want.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggsave.html'>ggsave</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"results"</span>,<span class='st'>"my_plot_ggsave.pdf"</span><span class='op'>)</span>, <span class='va'>my_plot</span>, height <span class='op'>=</span> <span class='fl'>10</span>, width <span class='op'>=</span> <span class='fl'>7</span><span class='op'>)</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggsave.html'>ggsave</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"results"</span>,<span class='st'>"my_plot_ggsave.png"</span><span class='op'>)</span>, <span class='va'>my_plot</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggsave.html'>ggsave</a></span><span class='op'>(</span><span class='st'>"results/my_plot_ggsave.pdf"</span>, <span class='va'>my_plot</span>, height <span class='op'>=</span> <span class='fl'>10</span>, width <span class='op'>=</span> <span class='fl'>7</span><span class='op'>)</span>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggsave.html'>ggsave</a></span><span class='op'>(</span><span class='st'>"results/my_plot_ggsave.png"</span>, <span class='va'>my_plot</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
 <h2 id="colorblindness">Colorblindness</h2>
-<p><a href="https://www.colourblindawareness.org/colour-blindness/">Global estimates</a> suggest that 8% of men and 0.5% of women experience some form of colorblindness. When creating data visualizations, default palettes may not be colorblind-safe. Fortunately, <strong><code>{ggplot2}</code></strong> includes options for colorblind-safe scales. These can be used with both <code>color</code> and <code>fill</code> aesthetics by adding the <code>scale_&lt;color or fill&gt;_viridis_&lt;c or d&gt;</code> functions to our ggplots.</p>
+<p><a
+href="https://www.colourblindawareness.org/colour-blindness/">Global
+estimates</a> suggest that 8% of men and 0.5% of women experience some
+form of colorblindness. When creating data visualizations, default
+palettes may not be colorblind-safe. Fortunately,
+<strong><code>{ggplot2}</code></strong> includes options for
+colorblind-safe scales. These can be used with both <code>color</code>
+and <code>fill</code> aesthetics by adding the
+<code>scale_&lt;color or fill&gt;_viridis_&lt;c or d&gt;</code>
+functions to our ggplots.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl_10</span><span class='op'>)</span> <span class='op'>+</span>
@@ -2858,8 +3024,12 @@ Other aesthetics you can map variables to include <code>shape</code>, <code>size
 </div>
 <p><img src="m_ggplot_files/figure-html5/vir-1.png" width="100%" data-distill-preview=1 /></p>
 </div>
-<p>Above, the variable we want to map <code>WELL_USE</code> is mapped to a <strong>color</strong> and is a <strong>discrete</strong> variable, therefore, we use <code>scale_color_viridis_d()</code>.</p>
-<p>If we were mapping a <strong>continuous</strong> variable to <strong>color</strong> we would use <code>scale_color_viridis_c()</code>.</p>
+<p>Above, the variable we want to map <code>WELL_USE</code> is mapped to
+a <strong>color</strong> and is a <strong>discrete</strong> variable,
+therefore, we use <code>scale_color_viridis_d()</code>.</p>
+<p>If we were mapping a <strong>continuous</strong> variable to
+<strong>color</strong> we would use
+<code>scale_color_viridis_c()</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl</span><span class='op'>)</span> <span class='op'>+</span>
@@ -2869,9 +3039,15 @@ Other aesthetics you can map variables to include <code>shape</code>, <code>size
 </div>
 <p><img src="m_ggplot_files/figure-html5/vir2-1.png" width="100%" /></p>
 </div>
-<p>We can toggle color palettes, and reverse them. See the <a href="https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html">{viridis} vignette</a> for more info.</p>
+<p>We can toggle color palettes, and reverse them. See the <a
+href="https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html">{viridis}
+vignette</a> for more info.</p>
 <aside>
-Color is a vibrantly discussed and very customizable in R. A few resources for color palette selection include <a href="https://colorbrewer2.org/">colorbrewer2</a>, <a href="https://sciviscolor.org/">sciviscolor.org</a>, and <a href="http://vrl.cs.brown.edu/color">colorgorical</a>.
+Color is a vibrantly discussed and very customizable in R. A few
+resources for color palette selection include <a
+href="https://colorbrewer2.org/">colorbrewer2</a>, <a
+href="https://sciviscolor.org/">sciviscolor.org</a>, and <a
+href="http://vrl.cs.brown.edu/color">colorgorical</a>.
 </aside>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -2883,8 +3059,16 @@ Color is a vibrantly discussed and very customizable in R. A few resources for c
 <p><img src="m_ggplot_files/figure-html5/vir3-1.png" width="100%" /></p>
 </div>
 <h2 id="bespoke-plots">Bespoke plots</h2>
-<p>What we’ve covered is just the tip of the iceberg. There are many, many more geoms, aesthetics, themes, scales, coordinates, and graphical libraries that extend the capabilities of ggplot. Once you have a handle on the grammar of graphics, bespoke plots are not far from your reach.</p>
-<p>Adjusting the <code>theme()</code> of a plot is a powerful way to customize the look and feel of the visualization. For example, we may improve the plot below by simply applying one of many preset themes (“<code>theme_&lt;name&gt;</code>”) and increasing the <code>base_size</code>.</p>
+<p>What we’ve covered is just the tip of the iceberg. There are many,
+many more geoms, aesthetics, themes, scales, coordinates, and graphical
+libraries that extend the capabilities of ggplot. Once you have a handle
+on the grammar of graphics, bespoke plots are not far from your
+reach.</p>
+<p>Adjusting the <code>theme()</code> of a plot is a powerful way to
+customize the look and feel of the visualization. For example, we may
+improve the plot below by simply applying one of many preset themes
+(“<code>theme_&lt;name&gt;</code>”) and increasing the
+<code>base_size</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl</span><span class='op'>)</span> <span class='op'>+</span>
@@ -2896,7 +3080,9 @@ Color is a vibrantly discussed and very customizable in R. A few resources for c
 </div>
 <p><img src="m_ggplot_files/figure-html5/theme-min-1.png" width="100%" /></p>
 </div>
-<p>Let’s remove minor gridlines with a general call to the <code>theme()</code> function and specifying that the <code>panel.grid.minor</code> argument is a blank element.</p>
+<p>Let’s remove minor gridlines with a general call to the
+<code>theme()</code> function and specifying that the
+<code>panel.grid.minor</code> argument is a blank element.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>+</span>
@@ -2906,7 +3092,8 @@ Color is a vibrantly discussed and very customizable in R. A few resources for c
 </div>
 <p><img src="m_ggplot_files/figure-html5/unnamed-chunk-2-1.png" width="100%" /></p>
 </div>
-<p>We can move the legend inside the plot area with another <code>theme()</code> argument, <code>legend.position</code>.</p>
+<p>We can move the legend inside the plot area with another
+<code>theme()</code> argument, <code>legend.position</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># place the legend position 90% along the x axis, and 25% along the y axis</span>
@@ -2915,7 +3102,9 @@ Color is a vibrantly discussed and very customizable in R. A few resources for c
 </div>
 <p><img src="m_ggplot_files/figure-html5/legend-in-1.png" width="100%" /></p>
 </div>
-<p>We can also move the legend to the top of the plot. If you type <code>legend.position</code> and read the documentation in the RStudio script editor, you’ll notice the position argument options.</p>
+<p>We can also move the legend to the top of the plot. If you type
+<code>legend.position</code> and read the documentation in the RStudio
+script editor, you’ll notice the position argument options.</p>
 <center>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="images/legend_help.png" width="50%" /></p>
@@ -2928,7 +3117,9 @@ Color is a vibrantly discussed and very customizable in R. A few resources for c
 </div>
 <p><img src="m_ggplot_files/figure-html5/legend-top-1.png" width="100%" /></p>
 </div>
-<p>Now let’s make the colorbar longer and thinner, move the legend title to the top, and center it. We’ll also overwrite our former plot with this new one.</p>
+<p>Now let’s make the colorbar longer and thinner, move the legend title
+to the top, and center it. We’ll also overwrite our former plot with
+this new one.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>+</span> 
@@ -2965,10 +3156,16 @@ Color is a vibrantly discussed and very customizable in R. A few resources for c
 </div>
 <p><img src="m_ggplot_files/figure-html5/unnamed-chunk-4-1.png" width="100%" /></p>
 </div>
-<p>Just about every aspect of plots can be customized with arguments in the <code>theme()</code> function. See <code>?theme</code> for a full list of options to customize.</p>
-<p>Built-in themes are also a quick way to change the look of your plots. Let’s start over with a basic plot, view some built-in themes.</p>
+<p>Just about every aspect of plots can be customized with arguments in
+the <code>theme()</code> function. See <code>?theme</code> for a full
+list of options to customize.</p>
+<p>Built-in themes are also a quick way to change the look of your
+plots. Let’s start over with a basic plot, view some built-in
+themes.</p>
 <aside>
-For even more themes, check out the <a href="https://github.com/jrnold/ggthemes"><strong><code>{ggthemes}</code></strong> package</a>.
+For even more themes, check out the <a
+href="https://github.com/jrnold/ggthemes"><strong><code>{ggthemes}</code></strong>
+package</a>.
 </aside>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -2990,7 +3187,10 @@ For even more themes, check out the <a href="https://github.com/jrnold/ggthemes"
 </div>
 <div class="challenge">
 <p><font color="#009E73"><strong>Extra Practice</strong></font></p>
-<p>There are many built-in themes in <strong>{<code>ggplot2</code>}</strong>. Add a theme you haven’t tried before to the <code>p</code> object from above. Type “theme_” and hit <em>Tab</em> to view options.</p>
+<p>There are many built-in themes in
+<strong>{<code>ggplot2</code>}</strong>. Add a theme you haven’t tried
+before to the <code>p</code> object from above. Type “theme_” and hit
+<em>Tab</em> to view options.</p>
 </div>
 <p><br></p>
 <details>
@@ -3008,20 +3208,35 @@ For even more themes, check out the <a href="https://github.com/jrnold/ggthemes"
 </div>
 </details>
 <h2 id="extending-ggplot2">Extending ggplot2</h2>
-<p>If you want to learn more about <code>{ggplot2}</code>, check out these two free online resources:</p>
+<p>If you want to learn more about <code>{ggplot2}</code>, check out
+these two free online resources:</p>
 <ul>
-<li><a href="https://ggplot2-book.org/index.html">ggplot2: elegant graphics for data analysis</a>: This is the definitive ggplot2 guide written by the package author that emphasizes code and ggplot2 fundamental skills and concepts.<br />
+<li><a href="https://ggplot2-book.org/index.html">ggplot2: elegant
+graphics for data analysis</a>: This is the definitive ggplot2 guide
+written by the package author that emphasizes code and ggplot2
+fundamental skills and concepts.<br />
 </li>
-<li><a href="https://clauswilke.com/dataviz/">Fundamentals of Data Visualization</a>: This book emphasizes principles of good data visualization that will inform the graphics you create.</li>
+<li><a href="https://clauswilke.com/dataviz/">Fundamentals of Data
+Visualization</a>: This book emphasizes principles of good data
+visualization that will inform the graphics you create.</li>
 </ul>
 <p><br></p>
 <p><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"></p>
-<p><a href="m_importing_and_exporting_data.html" class="btn btn-secondary" style="float: left">Previous module:<br> 4. Import/Export Data</a> <a href="m_data_structures.html" class="btn btn-secondary" style="float: right;">Next module:<br> 6. Data Structures</a></p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
-<section class="footnotes" role="doc-endnotes">
+<p><a href="m_importing_and_exporting_data.html" class="btn btn-secondary" style="float: left">Previous
+module:<br> 4. Import/Export Data</a>
+<a href="m_data_structures.html" class="btn btn-secondary" style="float: right;">Next
+module:<br> 6. Data Structures</a></p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1" role="doc-endnote"><p>See <a href="https://art.djnavarro.net/" class="uri">https://art.djnavarro.net/</a> or <a href="https://www.data-imaginist.com/art" class="uri">https://www.data-imaginist.com/art</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>See <a href="https://art.djnavarro.net/"
+class="uri">https://art.djnavarro.net/</a> or <a
+href="https://www.data-imaginist.com/art"
+class="uri">https://www.data-imaginist.com/art</a><a href="#fnref1"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 <!--radix_placeholder_article_footer-->
@@ -3044,7 +3259,10 @@ For even more themes, check out the <a href="https://github.com/jrnold/ggthemes"
 <!--/radix_placeholder_appendices-->
 <!--radix_placeholder_navigation_after_body-->
 <div class="distill-site-nav distill-site-footer">
-<p>© Copyright 2021 <a href="http://ryanpeek.org/" target = "_blank">Ryan Peek</a> and <a href="https://www.richpauloo.com/" target = "_blank">Rich Pauloo</a>.</p>
+<p>© Copyright 2021
+<a href="http://ryanpeek.org/" target = "_blank">Ryan Peek</a> and
+<a href="https://www.richpauloo.com/" target = "_blank">Rich
+Pauloo</a>.</p>
 </div>
 <!--/radix_placeholder_navigation_after_body-->
 

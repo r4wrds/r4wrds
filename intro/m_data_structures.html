@@ -2391,21 +2391,27 @@ Worksheets
 <nav class="l-text toc figcaption" id="TOC">
 <h3>Contents</h3>
 <ul>
-<li><a href="#assignment">Assignment</a></li>
-<li><a href="#basic-object-classes">Basic object classes</a>
+<li><a href="#assignment" id="toc-assignment">Assignment</a></li>
+<li><a href="#basic-object-classes" id="toc-basic-object-classes">Basic
+object classes</a>
 <ul>
-<li><a href="#logical-boolean">logical (boolean)</a></li>
-<li><a href="#numeric">numeric</a></li>
-<li><a href="#factor">factor</a></li>
-<li><a href="#character-string">character (string)</a></li>
+<li><a href="#logical-boolean" id="toc-logical-boolean">logical
+(boolean)</a></li>
+<li><a href="#numeric" id="toc-numeric">numeric</a></li>
+<li><a href="#factor" id="toc-factor">factor</a></li>
+<li><a href="#character-string" id="toc-character-string">character
+(string)</a></li>
 </ul></li>
-<li><a href="#basic-data-structures">Basic data structures</a>
+<li><a href="#basic-data-structures"
+id="toc-basic-data-structures">Basic data structures</a>
 <ul>
-<li><a href="#vector">vector</a></li>
-<li><a href="#list">list</a></li>
-<li><a href="#data.frame-and-tibble">data.frame and tibble</a></li>
+<li><a href="#vector" id="toc-vector">vector</a></li>
+<li><a href="#list" id="toc-list">list</a></li>
+<li><a href="#data.frame-and-tibble"
+id="toc-data.frame-and-tibble">data.frame and tibble</a></li>
 </ul></li>
-<li><a href="#a-note-on-na">A note on <code>NA</code></a></li>
+<li><a href="#a-note-on-na" id="toc-a-note-on-na">A note on
+<code>NA</code></a></li>
 </ul>
 </nav>
 </div>
@@ -2413,34 +2419,56 @@ Worksheets
 <p><strong>Learning objectives</strong></p>
 <ul>
 <li>Assigning objects</li>
-<li>Know basic object classes (logical, numeric, factor, character)<br />
+<li>Know basic object classes (logical, numeric, factor,
+character)<br />
 </li>
-<li>Understand basic R data structures (vectors, lists, data.frames)</li>
-<li>Know properties of R data structures and how to interact with them</li>
+<li>Understand basic R data structures (vectors, lists,
+data.frames)</li>
+<li>Know properties of R data structures and how to interact with
+them</li>
 <li>Know how to spot and deal with missing values (<code>NA</code>)</li>
 </ul>
 </div>
 <h2 id="assignment">Assignment</h2>
-<p>R is an object oriented programming language, which means that it is oriented around objects which can be data (e.g., data.frames, vectors, lists) or code (e.g., functions). We’ve already been using assignment to create variables, or objects. In the previous lesson, we read in csv files and <strong>assigned</strong> them to a variable using the assignment operator, <code>&lt;-</code> (RStudio shortcut: <code>Alt</code> + <code>-</code>). Avoid using <code>=</code> for assignment which will also work but cause confusion later (<a href="https://colinfay.me/r-assignment/">here’s a blog post on the history behind <code>&lt;-</code></a>).</p>
-<p>When assigning an object, avoid overly simplistic names (e.g., <code>x</code>, <code>y</code>), and rather, pick concise names that describes the object and improve code interpretability. Let’s read in our groundwater level station data and <em>assign</em> it to the variable name <code>stations</code>.</p>
+<p>R is an object oriented programming language, which means that it is
+oriented around objects which can be data (e.g., data.frames, vectors,
+lists) or code (e.g., functions). We’ve already been using assignment to
+create variables, or objects. In the previous lesson, we read in csv
+files and <strong>assigned</strong> them to a variable using the
+assignment operator, <code>&lt;-</code> (RStudio shortcut:
+<code>Alt</code> + <code>-</code>). Avoid using <code>=</code> for
+assignment which will also work but cause confusion later (<a
+href="https://colinfay.me/r-assignment/">here’s a blog post on the
+history behind <code>&lt;-</code></a>).</p>
+<p>When assigning an object, avoid overly simplistic names (e.g.,
+<code>x</code>, <code>y</code>), and rather, pick concise names that
+describes the object and improve code interpretability. Let’s read in
+our groundwater level station data and <em>assign</em> it to the
+variable name <code>stations</code>.</p>
 <aside>
-In R the only true rule about naming variables is we can’t start a variable with a number or use special characters (i.e., +-!@#$%^*)
+In R the only true rule about naming variables is we can’t start a
+variable with a number or use special characters (i.e., +-!@#$%^*)
 </aside>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://here.r-lib.org/'>here</a></span><span class='op'>)</span>
-
-<span class='co'># read the stations.csv file and assign it to an object "stations"</span>
-<span class='va'>stations</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"data"</span>, <span class='st'>"gwl"</span>, <span class='st'>"stations.csv"</span><span class='op'>)</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># read the stations.csv file and assign it to an object "stations"</span>
+<span class='va'>stations</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span><span class='op'>(</span><span class='st'>"data/gwl/stations.csv"</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
-<p>Notice that in the Global Environment pane, we have now have a “Data” object <code>stations</code>.</p>
+<p>Notice that in the Global Environment pane, we have now have a “Data”
+object <code>stations</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="images/rstudio_env_stations.png" width="80%" /></p>
 </div>
-<p>Let’s look at what types of data (<em>classes</em>) these columns currently have. We can use some useful functions that help us explore data a bit more, as well as use RStudio to figure these things out. We’ll talk more about functions later – there’s an entire <a href="">module on functions</a> coming up.</p>
-<p>Let’s look at <code>str()</code> or <strong>structure</strong> first. The same information can be displayed in RStudio by clicking the blue arrow in the Environment tab.</p>
+<p>Let’s look at what types of data (<em>classes</em>) these columns
+currently have. We can use some useful functions that help us explore
+data a bit more, as well as use RStudio to figure these things out.
+We’ll talk more about functions later – there’s an entire <a
+href="">module on functions</a> coming up.</p>
+<p>Let’s look at <code>str()</code> or <strong>structure</strong> first.
+The same information can be displayed in RStudio by clicking the blue
+arrow in the Environment tab.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>stations</span><span class='op'>)</span>
@@ -2466,18 +2494,28 @@ In R the only true rule about naming variables is we can’t start a variable wi
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="images/rstudio_env_stations_expand.png" width="80%" data-distill-preview=1 /></p>
 </div>
-<p>This function <code>str()</code> tells us the structure of the data. It gives us:</p>
+<p>This function <code>str()</code> tells us the structure of the data.
+It gives us:</p>
 <ul>
 <li>the type of Data (<code>data.frame</code>)</li>
 <li>the column names (the part after <code>$</code>)</li>
-<li>the <strong>data class</strong> (<code>int</code>=integer, <code>num</code>=numeric, <code>chr</code>=character)</li>
+<li>the <strong>data class</strong> (<code>int</code>=integer,
+<code>num</code>=numeric, <code>chr</code>=character)</li>
 <li>the number of rows in our dataset (or the length of the vector)</li>
 <li>finally, the the first 5 values for that vector</li>
 </ul>
 <h2 id="basic-object-classes">Basic object classes</h2>
-<p>Every object in R has a <code>class</code> property, and each property defines what functions will work on it. Many bugs result from functions applied to the wrong object class, so it’s important to know how to check the class of an object and figure out what functions can be applied to it.</p>
-<p>There are more base object classes in R, like matrices and arrays, but in this course we will focus on vectors, and devote most of our attention to a special type of list called the <code>data.frame</code> or <code>tibble</code>.</p>
-<p>Let’s check the class of the objects we created above with the <code>class()</code> function:</p>
+<p>Every object in R has a <code>class</code> property, and each
+property defines what functions will work on it. Many bugs result from
+functions applied to the wrong object class, so it’s important to know
+how to check the class of an object and figure out what functions can be
+applied to it.</p>
+<p>There are more base object classes in R, like matrices and arrays,
+but in this course we will focus on vectors, and devote most of our
+attention to a special type of list called the <code>data.frame</code>
+or <code>tibble</code>.</p>
+<p>Let’s check the class of the objects we created above with the
+<code>class()</code> function:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span><span class='op'>(</span><span class='va'>stations</span><span class='op'>)</span>
@@ -2485,7 +2523,8 @@ In R the only true rule about naming variables is we can’t start a variable wi
 </div>
 <pre><code>[1] &quot;data.frame&quot;</code></pre>
 </div>
-<p>What about for a single column? Or a value we assign to some text?</p>
+<p>What about for a single column? Or a value we assign to some
+text?</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span><span class='op'>(</span><span class='va'>stations</span><span class='op'>$</span><span class='va'>SITE_CODE</span><span class='op'>)</span>
@@ -2499,18 +2538,29 @@ In R the only true rule about naming variables is we can’t start a variable wi
 </div>
 <pre><code>[1] &quot;character&quot;</code></pre>
 </div>
-<p>As expected, <code>stations</code> is a data.frame, <code>stations$SITE_CODE</code> is a vector of <em>character</em>, and <code>river_name</code> is a single value of class <em>character</em>. <strong>Vectors</strong> are objects where every entry in that object is the <strong>same type of data</strong>. Sometimes, these are called <strong>atomic vectors</strong> because each part of the vector is the same.</p>
-<p>There are 4 major classes of atomic vectors, arranged below in order of complexity.</p>
+<p>As expected, <code>stations</code> is a data.frame,
+<code>stations$SITE_CODE</code> is a vector of <em>character</em>, and
+<code>river_name</code> is a single value of class <em>character</em>.
+<strong>Vectors</strong> are objects where every entry in that object is
+the <strong>same type of data</strong>. Sometimes, these are called
+<strong>atomic vectors</strong> because each part of the vector is the
+same.</p>
+<p>There are 4 major classes of atomic vectors, arranged below in order
+of complexity.</p>
 <ul>
-<li><strong>logical</strong> (<code>TRUE</code>, <code>FALSE</code>)<br />
+<li><strong>logical</strong> (<code>TRUE</code>,
+<code>FALSE</code>)<br />
 </li>
-<li><strong>numeric</strong> (contains both integer and double, but we will only cover double)<br />
+<li><strong>numeric</strong> (contains both integer and double, but we
+will only cover double)<br />
 </li>
 <li><strong>factor</strong> (categorical and ordinal variables)<br />
 </li>
 <li><strong>character</strong> (strings)</li>
 </ul>
-<p>Use the <code>c()</code> (<strong>concatenate or combine</strong>) function to create vectors. Let’s use <code>c()</code> to create each of these 4 vector classes for an imaginary data set of river reaches.</p>
+<p>Use the <code>c()</code> (<strong>concatenate or combine</strong>)
+function to create vectors. Let’s use <code>c()</code> to create each of
+these 4 vector classes for an imaginary data set of river reaches.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># logical: is the river dry at the time of measurement</span>
@@ -2527,7 +2577,9 @@ In R the only true rule about naming variables is we can’t start a variable wi
 </code></pre>
 </div>
 </div>
-<p>Each vector above has <strong>3 entries</strong>, also called <strong>elements</strong>. We can check the class of each of these vectors:</p>
+<p>Each vector above has <strong>3 entries</strong>, also called
+<strong>elements</strong>. We can check the class of each of these
+vectors:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span><span class='op'>(</span><span class='va'>dry</span><span class='op'>)</span>
@@ -2551,9 +2603,19 @@ In R the only true rule about naming variables is we can’t start a variable wi
 <pre><code>[1] &quot;character&quot;</code></pre>
 </div>
 <h3 id="logical-boolean">logical (boolean)</h3>
-<p>Logical vectors (also called booleans) are the most simple type of atomic vectors, and can take one of three values: <code>TRUE</code>, <code>FALSE</code>, or <code>NA</code>. Logical vectors are output as the result of logical tests.</p>
+<p>Logical vectors (also called booleans) are the most simple type of
+atomic vectors, and can take one of three values: <code>TRUE</code>,
+<code>FALSE</code>, or <code>NA</code>. Logical vectors are output as
+the result of logical tests.</p>
 <aside>
-There are many ways to query or use logical tests for data. In other languages like SQL, these are words like <strong>AND</strong>, <strong>OR</strong> <strong>IN</strong>. In R, we use <strong><code>&amp;</code></strong> for AND, <strong><code>|</code></strong> for OR, and <strong><code>%in%</code></strong> for IN. For more on this see <a href="https://r4ds.had.co.nz/transform.html#logical-operators">Fig 5.1 in R4DS</a>.
+There are many ways to query or use logical tests for data. In other
+languages like SQL, these are words like <strong>AND</strong>,
+<strong>OR</strong> <strong>IN</strong>. In R, we use
+<strong><code>&amp;</code></strong> for AND,
+<strong><code>|</code></strong> for OR, and
+<strong><code>%in%</code></strong> for IN. For more on this see <a
+href="https://r4ds.had.co.nz/transform.html#logical-operators">Fig 5.1
+in R4DS</a>.
 </aside>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -2570,7 +2632,10 @@ There are many ways to query or use logical tests for data. In other languages l
 <pre><code>[1] TRUE</code></pre>
 </div>
 <h3 id="numeric">numeric</h3>
-<p>Imagine you wanted to transform the numeric flow data you have from cubic feet per second (cfs) to gallons per minute (gpm). R is a “vectorized” language and allows transformations over an entire vector with relative ease.</p>
+<p>Imagine you wanted to transform the numeric flow data you have from
+cubic feet per second (cfs) to gallons per minute (gpm). R is a
+“vectorized” language and allows transformations over an entire vector
+with relative ease.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># convert each element of "flow" from cfs to gpm by multiplying by 448.83</span>
@@ -2583,7 +2648,8 @@ There are many ways to query or use logical tests for data. In other languages l
 <pre><code>[1]     0.00 25583.31 57450.24</code></pre>
 </div>
 <h3 id="factor">factor</h3>
-<p>If our factor variable <code>month</code> was an ordinary character vector, it would not sort meaningfully.</p>
+<p>If our factor variable <code>month</code> was an ordinary character
+vector, it would not sort meaningfully.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>date_character</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"July"</span>, <span class='st'>"January"</span>, <span class='st'>"February"</span><span class='op'>)</span>
@@ -2592,7 +2658,10 @@ There are many ways to query or use logical tests for data. In other languages l
 </div>
 <pre><code>[1] &quot;February&quot; &quot;January&quot;  &quot;July&quot;    </code></pre>
 </div>
-<p>The above is out of order, but if we define the <strong>levels</strong> that these ordinal variables should follow, we can store the vector as a factor and get meaningful sorting behavior. R defaults to alphabetic order with character vectors.</p>
+<p>The above is out of order, but if we define the
+<strong>levels</strong> that these ordinal variables should follow, we
+can store the vector as a factor and get meaningful sorting behavior. R
+defaults to alphabetic order with character vectors.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># create a factor by specifying the levels (order) of the variable</span>
@@ -2604,8 +2673,16 @@ There are many ways to query or use logical tests for data. In other languages l
 12 Levels: January February March April May June July ... December</code></pre>
 </div>
 <h3 id="character-string">character (string)</h3>
-<p>Character vectors can store arbitrary strings. There are many ways to work with strings from <a href="https://r4ds.had.co.nz/strings.html">basic string manipulation</a>, all the way to <a href="https://www.tidytextmining.com/">natural language processing</a> that we don’t have time to cover in this course, but you should know that they exist.</p>
-<p>Create strings by enclosing them with quotation marks. It doesn’t matter if you use single (’) or double quotes (“), just be sure to use the same quote style for a single character string!</p>
+<p>Character vectors can store arbitrary strings. There are many ways to
+work with strings from <a
+href="https://r4ds.had.co.nz/strings.html">basic string
+manipulation</a>, all the way to <a
+href="https://www.tidytextmining.com/">natural language processing</a>
+that we don’t have time to cover in this course, but you should know
+that they exist.</p>
+<p>Create strings by enclosing them with quotation marks. It doesn’t
+matter if you use single (’) or double quotes (“), just be sure to use
+the same quote style for a single character string!</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># create a character vector of length 1 using single quotes</span>
@@ -2620,17 +2697,26 @@ There are many ways to query or use logical tests for data. In other languages l
 </div>
 <pre><code>[1] &quot;Why helloooo Rich&quot; &quot;Why helloooo Ryan&quot;</code></pre>
 </div>
-<p>Notice that when we pasted together a vector of length 1 with a vector of length 2, we got an output character vector of length 2. This concept is called “recycling” (because the shorter length vector was used twice, or recycled) and will come back later in this module.</p>
+<p>Notice that when we pasted together a vector of length 1 with a
+vector of length 2, we got an output character vector of length 2. This
+concept is called “recycling” (because the shorter length vector was
+used twice, or recycled) and will come back later in this module.</p>
 <div class="challenge">
 <p><font color="#009E73"><strong>Challenge 1</strong></font></p>
 <ol type="1">
-<li>Create an character vector called <code>meals</code> and assign it a string with what you plan to have for for breakfast, lunch, and dinner today.<br />
+<li>Create an character vector called <code>meals</code> and assign it a
+string with what you plan to have for for breakfast, lunch, and dinner
+today.<br />
 </li>
-<li>Create a numeric vector called <code>cost</code> with the approximate cost in dollars of each meal.<br />
+<li>Create a numeric vector called <code>cost</code> with the
+approximate cost in dollars of each meal.<br />
 </li>
-<li>Calculate the cost each meal if you ate that and only that for 365 days a year (Hint: multiply <code>cost</code> by 365, then take the <code>sum()</code>).<br />
+<li>Calculate the cost each meal if you ate that and only that for 365
+days a year (Hint: multiply <code>cost</code> by 365, then take the
+<code>sum()</code>).<br />
 </li>
-<li><strong>Bonus</strong>: Paste together a string that announces this cost.</li>
+<li><strong>Bonus</strong>: Paste together a string that announces this
+cost.</li>
 </ol>
 </div>
 <p><br></p>
@@ -2663,9 +2749,13 @@ There are many ways to query or use logical tests for data. In other languages l
 </div>
 </details>
 <h2 id="basic-data-structures">Basic data structures</h2>
-<p>Vectors are the building blocks of more useful data structures, especially the <code>data.frame</code> and <code>tibble</code> that will be the focus of subsequent modules.</p>
+<p>Vectors are the building blocks of more useful data structures,
+especially the <code>data.frame</code> and <code>tibble</code> that will
+be the focus of subsequent modules.</p>
 <h3 id="vector">vector</h3>
-<p>Above, we covered atomic vectors, which have one and only one class (logical, factor, numeric, character). All vectors have a property of <code>length</code> greater than 1.</p>
+<p>Above, we covered atomic vectors, which have one and only one class
+(logical, factor, numeric, character). All vectors have a property of
+<code>length</code> greater than 1.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>reach</span><span class='op'>)</span>
@@ -2679,7 +2769,9 @@ There are many ways to query or use logical tests for data. In other languages l
 <pre><code>[1] 3</code></pre>
 </div>
 <h3 id="list">list</h3>
-<p>A special type of non-atomic vector called the <code>list</code> can contain many different types of data. Lists can contain any types of data structures, even other lists!</p>
+<p>A special type of non-atomic vector called the <code>list</code> can
+contain many different types of data. Lists can contain any types of
+data structures, even other lists!</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>l</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>dry</span>, <span class='va'>reach</span>, <span class='va'>flow</span>, <span class='st'>"a random string"</span><span class='op'>)</span>
@@ -2688,7 +2780,9 @@ There are many ways to query or use logical tests for data. In other languages l
 </div>
 <pre><code>[1] 4</code></pre>
 </div>
-<p>We can access list elements with double bracket notation <code>[[</code> and the index (think row number) of the element we want.</p>
+<p>We can access list elements with double bracket notation
+<code>[[</code> and the index (think row number) of the element we
+want.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># access first element of the list</span>
@@ -2709,7 +2803,9 @@ There are many ways to query or use logical tests for data. In other languages l
 </div>
 <pre><code>[1]   0  57 128</code></pre>
 </div>
-<p>We can also name a list, and then access list elements with double-bracket notation and <strong>name</strong> instead of index, like so:</p>
+<p>We can also name a list, and then access list elements with
+double-bracket notation and <strong>name</strong> instead of index, like
+so:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>l</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"dry"</span>, <span class='st'>"reach"</span>, <span class='st'>"flow"</span>, <span class='st'>"string"</span><span class='op'>)</span>
@@ -2719,8 +2815,15 @@ There are many ways to query or use logical tests for data. In other languages l
 <pre><code>[1]  TRUE FALSE FALSE</code></pre>
 </div>
 <h3 id="data.frame-and-tibble">data.frame and tibble</h3>
-<p>The <code>data.frame</code> is perhaps the most common form of data you will encounter in R, and the focus of most of the rest of the modules in the course. The data frame is a set of named vectors arranged as columns all of a common length, typically atomic vectors, but they can host general vectors or lists as well<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
-<p>Let’s use the vectors we created earlier to make a <code>data.frame</code> called <code>riv</code>.</p>
+<p>The <code>data.frame</code> is perhaps the most common form of data
+you will encounter in R, and the focus of most of the rest of the
+modules in the course. The data frame is a set of named vectors arranged
+as columns all of a common length, typically atomic vectors, but they
+can host general vectors or lists as well<a href="#fn1"
+class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a>.</p>
+<p>Let’s use the vectors we created earlier to make a
+<code>data.frame</code> called <code>riv</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>riv</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span><span class='va'>reach</span>, <span class='va'>date</span>, <span class='va'>dry</span>, <span class='va'>flow</span><span class='op'>)</span>
@@ -2733,7 +2836,10 @@ There are many ways to query or use logical tests for data. In other languages l
 2 Raging Waters  January FALSE   57
 3   Wild Rapids February FALSE  128</code></pre>
 </div>
-<p>We can access any column from the data frame as a vector using the <code>$</code> notation. In RStudio, typing <code>$</code> also brings up an auto-complete, and we can see all of the columns in the <code>data.frame</code>.</p>
+<p>We can access any column from the data frame as a vector using the
+<code>$</code> notation. In RStudio, typing <code>$</code> also brings
+up an auto-complete, and we can see all of the columns in the
+<code>data.frame</code>.</p>
 <aside>
 <div class="layout-chunk" data-layout="l-body">
 <div class="figure"><span style="display:block;" id="fig:unnamed-chunk-4"></span>
@@ -2756,7 +2862,10 @@ Figure 1: Use $ to access columns
 </div>
 <pre><code>[1]   0  57 128</code></pre>
 </div>
-<p>We can also use <code>$</code> to remove a column if we assign an existing column to a value of <code>NULL</code>, or add a <strong>new column</strong> by entering a new column name not already present, and assigning it a value.</p>
+<p>We can also use <code>$</code> to remove a column if we assign an
+existing column to a value of <code>NULL</code>, or add a <strong>new
+column</strong> by entering a new column name not already present, and
+assigning it a value.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># remove the "Reach" column</span>
@@ -2781,7 +2890,9 @@ Figure 1: Use $ to access columns
 2  January FALSE   57 Raging Waters
 3 February FALSE  128   Wild Rapids</code></pre>
 </div>
-<p>When we assign a vector to a <code>data.frame</code> with length less than the total number of rows of the <code>data.frame</code>, R will try to “recycle” the vector.</p>
+<p>When we assign a vector to a <code>data.frame</code> with length less
+than the total number of rows of the <code>data.frame</code>, R will try
+to “recycle” the vector.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># add a vector "tech" for the "field technician" to be recycled</span>
@@ -2789,7 +2900,9 @@ Figure 1: Use $ to access columns
 </code></pre>
 </div>
 </div>
-<p>Uh oh! This won’t work because the length of the vector we attempted to add (2) to the <code>data.frame</code> isn’t equal to, or a multiple of, the number of rows (3).</p>
+<p>Uh oh! This won’t work because the length of the vector we attempted
+to add (2) to the <code>data.frame</code> isn’t equal to, or a multiple
+of, the number of rows (3).</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>riv</span><span class='op'>)</span> <span class='co'># total rows is 3</span>
@@ -2802,7 +2915,8 @@ Figure 1: Use $ to access columns
 </div>
 <pre><code>[1] FALSE</code></pre>
 </div>
-<p>However, if we add a vector to the <code>data.frame</code> with length 1 (which is a multiple of 3):</p>
+<p>However, if we add a vector to the <code>data.frame</code> with
+length 1 (which is a multiple of 3):</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>riv</span><span class='op'>$</span><span class='va'>tech</span> <span class='op'>&lt;-</span> <span class='st'>"Rich"</span>
@@ -2814,9 +2928,24 @@ Figure 1: Use $ to access columns
 2  January FALSE   57 Raging Waters Rich
 3 February FALSE  128   Wild Rapids Rich</code></pre>
 </div>
-<p>R <strong>recycles</strong> the string “Rich”, repeating it 3 times. This is convenient, but can also lead to silent bugs, so we advise using the <code>tibble</code> instead of the <code>data.frame</code>.</p>
-<p>The <code>tibble</code> is a modern <code>data.frame</code> with stricter recycling rules, R-friendly print behavior (prints only the first 10 rows and shows column types), and a <a href="https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html">few more features</a> that make them more predictable and less likely to lead to bugs.</p>
-<p>To use <code>tibble</code> data types, we need to read our data with one of the <a href="https://www.tidyverse.org/"><code>{tidyverse}</code></a> packages,<a href="https://readr.tidyverse.org/"><code>{readr}</code></a>. When we read <code>stations</code> with <code>read_csv()</code> it reads it in as a tibble, which we can verify with <code>class(stations)</code>. We can always convert <code>stations</code> back to just a data.frame and print it to console by running <code>data.frame(stations)</code>.</p>
+<p>R <strong>recycles</strong> the string “Rich”, repeating it 3 times.
+This is convenient, but can also lead to silent bugs, so we advise using
+the <code>tibble</code> instead of the <code>data.frame</code>.</p>
+<p>The <code>tibble</code> is a modern <code>data.frame</code> with
+stricter recycling rules, R-friendly print behavior (prints only the
+first 10 rows and shows column types), and a <a
+href="https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html">few
+more features</a> that make them more predictable and less likely to
+lead to bugs.</p>
+<p>To use <code>tibble</code> data types, we need to read our data with
+one of the <a
+href="https://www.tidyverse.org/"><code>{tidyverse}</code></a>
+packages,<a
+href="https://readr.tidyverse.org/"><code>{readr}</code></a>. When we
+read <code>stations</code> with <code>read_csv()</code> it reads it in
+as a tibble, which we can verify with <code>class(stations)</code>. We
+can always convert <code>stations</code> back to just a data.frame and
+print it to console by running <code>data.frame(stations)</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://readr.tidyverse.org'>readr</a></span><span class='op'>)</span>
@@ -2827,7 +2956,9 @@ Figure 1: Use $ to access columns
 </div>
 <pre><code>[1] &quot;data.frame&quot;</code></pre>
 </div>
-<p><code>tibble</code>s are essentially spreadsheets in R, flat, 2D rectangular data made of rows and columns. We can check the number of rows and columns in a <code>tibble</code>.</p>
+<p><code>tibble</code>s are essentially spreadsheets in R, flat, 2D
+rectangular data made of rows and columns. We can check the number of
+rows and columns in a <code>tibble</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='va'>stations</span><span class='op'>)</span>
@@ -2845,7 +2976,8 @@ Figure 1: Use $ to access columns
 </div>
 <pre><code>[1] 15</code></pre>
 </div>
-<p>A <code>tibble</code> combines lists into columns, so its length is the same as its number of columns.</p>
+<p>A <code>tibble</code> combines lists into columns, so its length is
+the same as its number of columns.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>stations</span><span class='op'>)</span> 
@@ -2856,12 +2988,18 @@ Figure 1: Use $ to access columns
 <div class="challenge">
 <p><font color="#009E73"><strong>Challenge 2</strong></font></p>
 <ol type="1">
-<li>Extract the “LATITUDE” column from <code>stations</code>, assign it to a variable called <code>lat</code>, and calculate the mean latitude.<br />
+<li>Extract the “LATITUDE” column from <code>stations</code>, assign it
+to a variable called <code>lat</code>, and calculate the mean
+latitude.<br />
 </li>
-<li>Assign a column to <code>riv</code> called “depth” with values 1, 2, 3.</li>
-<li>Assign another column called “width” with values 10, 10, 10. Take advantage of recycling when creating the “width” column.<br />
+<li>Assign a column to <code>riv</code> called “depth” with values 1, 2,
+3.</li>
+<li>Assign another column called “width” with values 10, 10, 10. Take
+advantage of recycling when creating the “width” column.<br />
 </li>
-<li>Assign a new variable called “area” to <code>riv</code> which is the product of “depth” and “width” (Hint: <code>riv$depth * riv$width</code>).</li>
+<li>Assign a new variable called “area” to <code>riv</code> which is the
+product of “depth” and “width” (Hint:
+<code>riv$depth * riv$width</code>).</li>
 </ol>
 </div>
 <p><br></p>
@@ -2891,7 +3029,9 @@ Figure 1: Use $ to access columns
 </div>
 </details>
 <h2 id="a-note-on-na">A note on <code>NA</code></h2>
-<p><code>NA</code> has a special meaning in R and designates a missing value. Operations on a vector with missing values cannot return a value unless we explicitly tell R to ignore these missing values.</p>
+<p><code>NA</code> has a special meaning in R and designates a missing
+value. Operations on a vector with missing values cannot return a value
+unless we explicitly tell R to ignore these missing values.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>z</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='cn'>NA</span>, <span class='fl'>4</span><span class='op'>)</span>
@@ -2917,15 +3057,23 @@ Figure 1: Use $ to access columns
 </div>
 <pre><code>[1] 6</code></pre>
 </div>
-<p><em>Lesson adapted from <a href="https://r4ds.had.co.nz/">R for Data Science</a></em>.</p>
+<p><em>Lesson adapted from <a href="https://r4ds.had.co.nz/">R for Data
+Science</a></em>.</p>
 <p><br></p>
 <p><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"></p>
-<p><a href="m_ggplot.html" class="btn btn-secondary" style="float: left">Previous module:<br> 5. Data Visualization</a> <a href="m_dplyr.html" class="btn btn-secondary" style="float: right;">Next module:<br> 7. Data Wrangling</a></p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
-<section class="footnotes" role="doc-endnotes">
+<p><a href="m_ggplot.html" class="btn btn-secondary" style="float: left">Previous
+module:<br> 5. Data Visualization</a>
+<a href="m_dplyr.html" class="btn btn-secondary" style="float: right;">Next
+module:<br> 7. Data Wrangling</a></p>
+<div class="sourceCode" id="cb42"><pre
+class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1" role="doc-endnote"><p>List-columns are a special type of data that we will cover elsewhere.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>List-columns are a special type of data that we will
+cover elsewhere.<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 <!--radix_placeholder_article_footer-->
@@ -2948,7 +3096,10 @@ Figure 1: Use $ to access columns
 <!--/radix_placeholder_appendices-->
 <!--radix_placeholder_navigation_after_body-->
 <div class="distill-site-nav distill-site-footer">
-<p>© Copyright 2021 <a href="http://ryanpeek.org/" target = "_blank">Ryan Peek</a> and <a href="https://www.richpauloo.com/" target = "_blank">Rich Pauloo</a>.</p>
+<p>© Copyright 2021
+<a href="http://ryanpeek.org/" target = "_blank">Ryan Peek</a> and
+<a href="https://www.richpauloo.com/" target = "_blank">Rich
+Pauloo</a>.</p>
 </div>
 <!--/radix_placeholder_navigation_after_body-->
 

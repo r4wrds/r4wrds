@@ -11,7 +11,6 @@ creative_commons: CC BY
 ```{r setup, include=FALSE, purl=FALSE, message=FALSE}
 
 library(knitr)
-library(here)
 library(flair)
 suppressPackageStartupMessages(library(tidyverse))
 
@@ -355,8 +354,8 @@ Finally, let's go ahead and save (export) our list of NWIS sites, and all our sp
 ```{r saveNWISsites, echo=TRUE, eval=FALSE}
 
 # save out
-write_csv(nwis_sites, path = here("data", "nwis_sites_american_river.csv"))
-write_rds(amer_ds_nimbus, path = here("data", "nwis_sites_amer_ds_nimbus_sf.rds"))
+write_csv(nwis_sites, path = "data/nwis_sites_american_river.csv")
+write_rds(amer_ds_nimbus, path = "data/nwis_sites_amer_ds_nimbus_sf.rds")
 
 ```
 

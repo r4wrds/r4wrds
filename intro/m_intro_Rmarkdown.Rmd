@@ -12,7 +12,6 @@ creative_commons: CC BY
 ```{r setup, include=FALSE, purl=FALSE, message=FALSE}
 
 library(knitr)
-library(here)
 suppressPackageStartupMessages(library(tidyverse))
 
 ```
@@ -39,7 +38,7 @@ Check out the [RMarkdown Gallery](https://rmarkdown.rstudio.com/gallery.html) fo
 
 ```{r rmarkdownwiz, eval=TRUE, echo=FALSE, out.width='100%', fig.cap='(ref:AHrmdplot)'}
 
-knitr::include_graphics(here("images", "rmarkdown_wizards.png"))
+knitr::include_graphics("images/rmarkdown_wizards.png")
 
 ```
 
@@ -51,7 +50,7 @@ Depending on the tasks you are faced with, analysis is rarely something that hap
 
 ```{r reproducible, eval=TRUE, echo=FALSE, out.width='100%', fig.cap='(ref:AHreproducible)'}
 
-knitr::include_graphics(here("images", "tidydata_5.jpg"))
+knitr::include_graphics("images/tidydata_5.jpg")
 
 ```
 
@@ -71,7 +70,7 @@ We should see something like this:
 
 ```{r newRmdmenu, eval=TRUE, echo=FALSE, out.width='80%', fig.cap='New R Markdown file'}
 
-knitr::include_graphics(here("images", "new_rmarkdown.png"))
+knitr::include_graphics("images/new_rmarkdown.png")
 
 ```
 
@@ -81,7 +80,7 @@ Once the Rmarkdown document appears and opens in RStudio, we should see somethin
 
 ```{r newRmddoc, eval=TRUE, echo=FALSE, out.width='80%', fig.cap='The blank R Markdown template'}
 
-knitr::include_graphics(here("images", "new_rmarkdown_doc.png"))
+knitr::include_graphics("images/new_rmarkdown_doc.png")
 
 ```
 
@@ -91,7 +90,7 @@ If you look at the top right of the code editor window, there's a small "A" shap
 
 ```{r visualbutton, eval=TRUE, echo=FALSE, out.width='140%'}
 
-include_graphics(here("images/visual_editor_bar.png"))
+include_graphics("images/visual_editor_bar.png")
 
 ```
 
@@ -99,7 +98,7 @@ If you click on that icon, the R Markdown document will render into something th
 
 ```{r RmdVisual, eval=TRUE, echo=FALSE, out.width='100%', fig.cap='Visual markdown editor', preview = TRUE}
 
-knitr::include_graphics(here("images", "rmarkdown_visual_editor.png"))
+knitr::include_graphics("images/rmarkdown_visual_editor.png")
 
 ```
 
@@ -162,7 +161,7 @@ The third and final component of an R Markdown document is what makes it **R** M
 
 ```{r code-chunk-langs, echo=FALSE, eval=TRUE, out.width='80%'}
 
-include_graphics(here("images", "code_chunk_languages.png"))
+include_graphics("images/code_chunk_languages.png")
 ```
 
 </aside>
@@ -197,7 +196,7 @@ One thing that makes writing in R Markdown fun is the ability to get instant fee
 
 ```{r knit-button, echo=FALSE, eval=TRUE, out.width='80%'}
 
-include_graphics(here("images", "knit.png"))
+include_graphics("images/knit.png")
 
 ```
 
@@ -220,14 +219,14 @@ By using `fig.cap` in the code chunk, the figure caption numbers will be automag
 
     ```{r rivphoto, echo=FALSE, out.width='80%', fig.cap="A tranquil river (photo: R Peek)"}`r ''`
 
-    knitr::include_graphics(here("images", "river_peek.JPG"))
+    knitr::include_graphics("images/river_peek.JPG")
 
     ```
 
 
 ```{r river-image, eval=TRUE, echo=FALSE, out.width='80%', fig.cap="A tranquil river (photo: R Peek)"}
 
-knitr::include_graphics(here("images", "river_peek.JPG"))
+knitr::include_graphics("images/river_peek.JPG")
 
 ```
 
@@ -264,7 +263,7 @@ Let's load some data we can play with. We'll use some existing datasets that com
 storms <- dplyr::storms
 
 # sites
-nwis_sites <- read_csv(here("data", "nwis_sites_american_river.csv"))
+nwis_sites <- read_csv("data/nwis_sites_american_river.csv")
 
 
 ```

@@ -13,7 +13,6 @@ creative_commons: CC BY
 ```{r setup, include=FALSE, purl=FALSE, message=FALSE}
 
 library(knitr)
-library(here)
 suppressPackageStartupMessages(library(tidyverse))
 options(scipen = 25)
 
@@ -44,7 +43,7 @@ Typically when we look at data, we want it to be in a "tidy" format. Data in a t
 (ref:tidyData1) *Illustrations from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst*
 
 ```{r tidydata, echo=FALSE, fig.cap="(ref:tidyData1)"}
-include_graphics(here::here("images", "tidydata_1.jpg"))
+include_graphics("images/tidydata_1.jpg")
 ```
 
 ## Dealing with Messy Data
@@ -54,7 +53,7 @@ In reality, we will generally encounter non-tidy data in the wild. Messy data co
 (ref:tidyData2) *Illustrations from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst*
 
 ```{r tidydata2, echo=FALSE, fig.cap="(ref:tidyData2)"}
-include_graphics(here::here("images", "tidydata_2.jpg"))
+include_graphics("images/tidydata_2.jpg")
 ```
 
 ## Same Tools, Different Data
@@ -64,7 +63,7 @@ The great news is we can use a similar set of tools to deal with tidying and cle
 (ref:tidyData3) *Illustrations from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst*
 
 ```{r tidydata3, echo=FALSE, fig.cap="(ref:tidyData3)"}
-include_graphics(here::here("images", "tidydata_3.jpg"))
+include_graphics("images/tidydata_3.jpg")
 ```
 
 ## Understanding Messy Spreadsheets
@@ -77,7 +76,7 @@ Let's take a look at this [**messy** spreadsheet data](https://github.com/r4wrds
 
 ```{r messytab, echo=FALSE, out.width='100%', preview = TRUE}
 
-include_graphics(here::here("images", "messy_spreadsheet_1_updated.png"))
+include_graphics("images/messy_spreadsheet_1_updated.png")
 
 ```
 
@@ -145,7 +144,7 @@ So no matter what shape the data is in, it's always advisable to make a copy of 
 
 ```{r messytab2, echo=FALSE, out.width='100%'}
 
-include_graphics(here::here("images", "messy_spreadsheet_2.png"))
+include_graphics("images/messy_spreadsheet_2.png")
 
 ```
 
@@ -155,7 +154,7 @@ While programming languages like `R` allow us to write scripts or code that reco
 
 ```{r messytab3, echo=FALSE, out.width='80%'}
 
-include_graphics(here::here("images", "messy_spreadsheet_3.png"))
+include_graphics("images/messy_spreadsheet_3.png")
 
 ```
 
@@ -169,7 +168,7 @@ The [Dates and Times lesson](https://r4ds.had.co.nz/dates-and-times.html#creatin
 
 ```{r datestands, echo=FALSE, out.width='80%', fig.retina=2}
 
-include_graphics(here::here("images", "datestandards_global.png"))
+include_graphics("images/datestandards_global.png")
 
 ```
 
@@ -206,7 +205,7 @@ Let's use the [**`ces3results.xlsx`**](https://github.com/r4wrds/r4wrds/blob/mai
 
 ```{r import-excel, warning=FALSE}
 library(readxl)
-ces <- read_xlsx(here("data", "calenviroscreen", "ces3results.xlsx"))
+ces <- read_xlsx("data/calenviroscreen/ces3results.xlsx")
 str(ces)
 ```
 
@@ -230,7 +229,7 @@ ces <- ces %>%
 (ref:across) *Illustration by @allison_horst*
 
 ```{r across, echo=FALSE, out.width="%80", fig.cap="(ref:across)"}
-include_graphics(here::here("images", "dplyr_across.png"))
+include_graphics("images/dplyr_across.png")
 ```
 
 
@@ -283,7 +282,7 @@ Happy wrangling!
 (ref:tidyData6) *Illustrations from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst*
 
 ```{r tidydata6, echo=FALSE, fig.cap="(ref:tidyData6)"}
-include_graphics(here::here("images", "tidydata_6.jpeg"))
+include_graphics("images/tidydata_6.jpeg")
 ```
 
 

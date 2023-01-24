@@ -11,7 +11,6 @@ creative_commons: CC BY
 ```{r setup, include=FALSE, purl=FALSE, message=FALSE}
 
 library(knitr)
-library(here)
 suppressPackageStartupMessages(library(tidyverse))
 
 # may need to specify this option to get this to properly knit/print:
@@ -39,7 +38,7 @@ This process can be applied to any data, and is foundational to data science. Ul
 (ref:ah-openscapes) *Illustration by @allison_horst for Dr. Julia Lowndes useR!2019 keynote.*
 
 ```{r, eval=TRUE, echo=FALSE, out.width='80%', fig.cap='(ref:ah-openscapes)'}
-knitr::include_graphics(here("images","environmental-data-science-r4ds-general.jpg"))
+knitr::include_graphics("images/environmental-data-science-r4ds-general.jpg")
 ```
 
 In previous modules, we've covered the building blocks to perform EDA in R, and in this module, we're going to bring it all together and perform EDA on the groundwater measurements dataset[^1] and CalEnviroscreen 3.0 data.[^2]
@@ -61,7 +60,7 @@ To provide context for our analysis, the groundwater elevation dataset is based 
 (ref:aquifer) *Wells at different locations and depths in an aquifer, from [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Floridan_block_diagram.png).*
 
 ```{r gw-model, echo = FALSE, out.width="100%", fig.cap='(ref:aquifer)'}
-knitr::include_graphics(here("images", "aquifer.png"))
+knitr::include_graphics("images/aquifer.png")
 ```
 
 To begin, let's ask a few general questions:
@@ -91,10 +90,10 @@ First we need to load our data, which we created in the module on [joins and bin
 # groundwater level measurements joined to stations, perforations, and CES data
 
 # load imports an object named "gwl"
-load(here("data", "sacramento_gw_data_w_calenviro.rda"))
+load("data/sacramento_gw_data_w_calenviro.rda")
 
 # alternatively we can specify an object name when using an .rds file
-# gwl <- read_rds(here("data", "sacramento_gw_data_w_calenviro.rds"))
+# gwl <- read_rds("data/sacramento_gw_data_w_calenviro.rds")
 
 # check class, dim, names to refresh memory
 class(gwl)
@@ -107,7 +106,7 @@ We might want to use `View(gwl)` these data to refresh our memory. Remember when
 <aside>
 
 ```{r manyrows, echo = FALSE}
-knitr::include_graphics(here("images","manyrows.png"))
+knitr::include_graphics("images/manyrows.png")
 ```
 
 </aside>
@@ -177,7 +176,7 @@ class(gwl)
 
 # also read in the Sacramento county shapefile for plotting
 # and transform it to the same crs as gwl
-sac <- st_read(here("data", "shp", "sac", "sac_county.shp")) %>% 
+sac <- st_read("data/shp/sac/sac_county.shp") %>% 
   st_transform(st_crs(gwl))
 
 # verify gwl points and sac polygon are in the same crs
@@ -269,7 +268,7 @@ Now that we understand a bit about the relative proportion and spatial distribut
 We made a plot that explored these trends in the previous mapmaking module.
 
 ```{r gwl-depth, echo = FALSE}
-knitr::include_graphics(here("results", "sac_well_depth_type.png"))
+knitr::include_graphics("results/sac_well_depth_type.png")
 ```
 
 We have the spatial distribution of these values, but now let's summarize the distribution of well depth values themselves.
@@ -533,7 +532,7 @@ Next we can replot our map without this erroneous value, and spruce things up a 
 ```{r gwl-map-gwl-fixed}
 
 # read in major rivers in Sacramento County
-riv <- read_rds(here("data", "sac_co_main_rivers_dissolved.rds")) %>%
+riv <- read_rds("data/sac_co_main_rivers_dissolved.rds") %>%
   st_transform(st_crs(sac))
 
 ggplot() +
@@ -579,10 +578,10 @@ Finally, let's incorporate CES scores into our analysis and see how they relate 
 ```{r, eval = FALSE}
 
 # CES3 data for Sac County
-st_read(here("data","calenviroscreen","CES3_shp","CES3June2018Update.shp")) %>% 
+st_read("data/calenviroscreen/CES3_shp/CES3June2018Update.shp") %>% 
   st_transform(st_crs(sac)) %>% 
   st_intersection(sac) %>% 
-  write_rds(here("data","ces3_sac.rds"))
+  write_rds("data/ces3_sac.rds")
 
 ```
 
@@ -593,7 +592,7 @@ library(colormap) # one of many color palette packages in R
 mapviewOptions(fgb = FALSE)
 
 # read pre-processed CES Score spatial file, plot the CES percentile
-ces <- read_rds(here("data", "ces3_sac.rds"))
+ces <- read_rds("data/ces3_sac.rds")
 
 # calculate the population density per tract
 ces$pop_density <- ces$pop2010 / ces$Shape_Area
