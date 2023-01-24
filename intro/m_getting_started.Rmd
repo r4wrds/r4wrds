@@ -60,7 +60,7 @@ knitr::include_graphics("images/r_first_then_blank.png")
 
 In the old days, the only way to use R was directly from the Console - this is a bare bones way of running R only with direct input of commands. Now, [RStudio](https://www.rstudio.com/) is the go-to Interactive Development Environment (IDE) for R. Think of it like a car that is built around an engine. RStudio is built around the R Console (engine) and includes many other features to improve the user's experience. 
 
-Let's get familiar with RStudio. If you haven't done so already, download and install RStudio from the link above (version 1.4.1103). After it's installed, find the RStudio shortcut and fire it up. You should see something like this:
+Let's get familiar with RStudio. If you haven't done so already, download and install RStudio from the link above for the most recent version. After it's installed, find the RStudio shortcut and fire it up. You should see something like this:
 
 ```{r out.width = "100%", echo=F, fig.cap = '*The RStudio window.*', preview = TRUE}
 knitr::include_graphics("images/rstudio_edit.png")

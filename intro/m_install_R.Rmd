@@ -33,7 +33,7 @@ Below, we provide extra details appropriate for Windows and MacOSX operating sys
 R is the underlying statistical computing environment, or the engine we use to do things. 
 
 ### *Windows*: Download and install R
-Go to [CRAN and download](https://cran.rstudio.com/bin/windows/base/) the R installer for Windows. Make sure to choose the latest stable version (v4.1.3 as of Apr 2022). Download the <font color="#0072B2">`.exe`</font> file and double click to install.
+Go to [CRAN and download](https://cran.rstudio.com/bin/windows/base/) the R installer for Windows. Make sure to choose the latest stable version. Download the <font color="#0072B2">`.exe`</font> file and double click to install.
 
  - You can click next through the standard dialogs and accept most defaults. But at the destination
 screen, please verify that R is installing `C:\Program Files\R` (*version number may vary*), and **you may need administrative privileges to do this if you're not working on your personal computer.**
@@ -87,7 +87,7 @@ Once installed, RStudio should be accessible from the start menu.  Start up RStu
     version$version.string
     ```
 
- - **Verify your installed R version is `v4.1.3`**: Ideally you should be running the latest stable release (`v4.1.3` as of Apr 2022). If you have an older version, please install the newest version using the instructions above.
+ - **Verify your installed R version**: Ideally you should be running the latest stable release. If you have an older version, please install the newest version using the instructions above.
 
  - Here is what a current R version looks like.
  
