@@ -15,7 +15,6 @@ creative_commons: CC BY
 
 library(knitr)
 library(glue)
-library(here)
 
 ```
 
@@ -116,7 +115,6 @@ library(leafpm)
 library(leaflet)
 library(leaflet.extras)
 library(htmltools)
-library(here)
 
 # set up our map
 m <- leaflet() %>%
@@ -164,7 +162,7 @@ r2d3(data = read_csv("https://raw.githubusercontent.com/rstudio/r2d3/master/vign
      d3_version = 4, 
      container = "div", 
      options = list(start = 2006, end = 2011), 
-     script = here("scripts/functions/calendar.js"))
+     script = "scripts/functions/calendar.js")
 ```
 
 ### A Network with D3
@@ -226,7 +224,7 @@ If we wanted to save this interactive visualization and send it as a standalone 
 
 # save the widget
 library(htmlwidgets)
-saveWidget(p, file = here("output","network_interactive.html"))
+saveWidget(p, file = "output/network_interactive.html")
 
 ```
 
@@ -243,7 +241,7 @@ Let's use the [CalEnviroScreen data](https://oehha.ca.gov/calenviroscreen/report
 ```{r ciplot, eval=TRUE, echo=TRUE}
 
 # load CES data for Sacramento county
-ces3_sac <- readRDS(here("data", "ces3_sac.rds"))
+ces3_sac <- readRDS("data/ces3_sac.rds")
 
 mapview(ces3_sac, zcol = "CIscoreP")
 

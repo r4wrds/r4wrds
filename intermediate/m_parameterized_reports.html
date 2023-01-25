@@ -88,21 +88,17 @@ code span.vs { color: #bf0303; } /* VerbatimString */
 code span.wa { color: #bf0303; } /* Warning */
 </style>
 
+
   <!--radix_placeholder_meta_tags-->
   <title>R for Water Resources Data Science: 7. Parameterized reports</title>
 
   <meta property="description" itemprop="description" content="How to automate routine reporting"/>
 
+  <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
 
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
   <meta property="og:title" content="R for Water Resources Data Science: 7. Parameterized reports"/>
-  <meta property="og:image" content="https://r4wrds.com/./img/cover.png">
-  <meta property="og:image:width" content="1406">
-  <meta property="og:image:height" content="1146">
-  <meta property="og:image" content="https://r4wrds.com/./img/cover.png">
-  <meta property="og:image:width" content="1406">
-  <meta property="og:image:height" content="1146">
   <meta property="og:type" content="article"/>
   <meta property="og:description" content="How to automate routine reporting"/>
   <meta property="og:locale" content="en_US"/>
@@ -111,19 +107,13 @@ code span.wa { color: #bf0303; } /* Warning */
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
   <meta property="twitter:title" content="R for Water Resources Data Science: 7. Parameterized reports"/>
-  <meta property="twitter:image" content="https://r4wrds.com/./img/cover.png">
-  <meta property="twitter:image:width" content="1406">
-  <meta property="twitter:image:height" content="1146">
-  <meta property="twitter:image" content="https://r4wrds.com/./img/cover.png">
-  <meta property="twitter:image:width" content="1406">
-  <meta property="twitter:image:height" content="1146">
   <meta property="twitter:description" content="How to automate routine reporting"/>
 
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","output"]}},"value":[{"type":"character","attributes":{},"value":["7. Parameterized reports"]},{"type":"character","attributes":{},"value":["How to automate routine reporting\n"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","output","creative_commons","preview"]}},"value":[{"type":"character","attributes":{},"value":["7. Parameterized reports"]},{"type":"character","attributes":{},"value":["How to automate routine reporting\n"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"character","attributes":{},"value":["CC BY"]},{"type":"character","attributes":{},"value":["https://r4wrds.com/img/cover.png"]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -470,7 +460,7 @@ code span.wa { color: #bf0303; } /* Warning */
 
   </style>
 
-  <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+  <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
   <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
   <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
   <script src="site_libs/headroom-0.9.4/headroom.min.js"></script>
@@ -1877,7 +1867,10 @@ code span.wa { color: #bf0303; } /* Warning */
 
       // hoverable references
       $('span.citation[data-cites]').each(function() {
-        var refHtml = $('#ref-' + $(this).attr('data-cites')).html();
+        var refs = $(this).attr('data-cites').split(" ");
+        var refHtml = refs.map(function(ref) {
+          return "<p>" + $('#ref-' + ref).html() + "</p>";
+        }).join("\n");
         window.tippy(this, {
           allowHTML: true,
           content: refHtml,
@@ -2048,7 +2041,7 @@ code span.wa { color: #bf0303; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2390,78 +2383,132 @@ Modules
 <nav class="l-text toc figcaption" id="TOC">
 <h3>Contents</h3>
 <ul>
-<li><a href="#params"><code>params</code></a></li>
-<li><a href="#set-up-a-report-with-params">Set up a report with <code>params</code></a></li>
-<li><a href="#iterate-over-a-report">Iterate over a report</a></li>
-<li><a href="#in-line-r">In-line <code>R</code></a></li>
-<li><a href="#additional-resources">Additional Resources</a></li>
+<li><a href="#params" id="toc-params"><code>params</code></a></li>
+<li><a href="#set-up-a-report-with-params"
+id="toc-set-up-a-report-with-params">Set up a report with
+<code>params</code></a></li>
+<li><a href="#iterate-over-a-report"
+id="toc-iterate-over-a-report">Iterate over a report</a></li>
+<li><a href="#in-line-r" id="toc-in-line-r">In-line
+<code>R</code></a></li>
+<li><a href="#additional-resources"
+id="toc-additional-resources">Additional Resources</a></li>
 </ul>
 </nav>
 </div>
 <div class="obj">
 <p><strong>Learning objectives</strong></p>
 <ul>
-<li>Extend functional programming skills to automate <code>.Rmd</code> reports<br />
+<li>Extend functional programming skills to automate <code>.Rmd</code>
+reports<br />
 </li>
-<li>Understand the available types of reports provided by <code>{rmarkdown}</code><br />
+<li>Understand the available types of reports provided by
+<code>{rmarkdown}</code><br />
 </li>
 </ul>
 </div>
 <p><br></p>
 <blockquote>
-<p>“Your success in life will be determined largely by your ability to speak, your ability to write, and the quality of your ideas, in that order.” — <a href="https://www.youtube.com/watch?v=Unzc731iCUY&amp;t=37s">Patrick Winston (1943-2019)</a></p>
+<p>“Your success in life will be determined largely by your ability to
+speak, your ability to write, and the quality of your ideas, in that
+order.” — <a
+href="https://www.youtube.com/watch?v=Unzc731iCUY&amp;t=37s">Patrick
+Winston (1943-2019)</a></p>
 </blockquote>
-<p>Data science is the art of combining domain knowledge, statistics, math, programming, and visualization to find order and meaning in disorganized information. Communicating the results of your analyses, or ability to make data “speak”, is of utmost importance. The modern day open source package ecosystem is full of powerful ways to give voice to our analyses.</p>
-<p>Analyses typically lead to figures, tables, and interpretation of these information. The <a href="https://rmarkdown.rstudio.com/"><code>{rmarkdown}</code></a> package provides <code>R</code> users with a standardized approach for turning <code>R</code> analyses into reports, documents, presentations, dashboards, and websites. In this module, we assume familiarity with <code>{rmarkdown}</code>, and extend the previous modules on iteration, functional programming, and reproducible workflows to demonstrate how to iterate over reports.</p>
+<p>Data science is the art of combining domain knowledge, statistics,
+math, programming, and visualization to find order and meaning in
+disorganized information. Communicating the results of your analyses, or
+ability to make data “speak”, is of utmost importance. The modern day
+open source package ecosystem is full of powerful ways to give voice to
+our analyses.</p>
+<p>Analyses typically lead to figures, tables, and interpretation of
+these information. The <a
+href="https://rmarkdown.rstudio.com/"><code>{rmarkdown}</code></a>
+package provides <code>R</code> users with a standardized approach for
+turning <code>R</code> analyses into reports, documents, presentations,
+dashboards, and websites. In this module, we assume familiarity with
+<code>{rmarkdown}</code>, and extend the previous modules on iteration,
+functional programming, and reproducible workflows to demonstrate how to
+iterate over reports.</p>
 <aside>
-Review the <a href="../intro/m_intro_Rmarkdown.html">introduction to <code>{rmarkdown}</code></a> if needed.
+Review the <a href="../intro/m_intro_Rmarkdown.html">introduction to
+<code>{rmarkdown}</code></a> if needed.
 </aside>
-<p>According to <a href="https://bookdown.org/yihui/rmarkdown/params-declare.html">R Markdown: The Definitive Guide</a>, some example use cases for creating a parameterized report include:</p>
+<p>According to <a
+href="https://bookdown.org/yihui/rmarkdown/params-declare.html">R
+Markdown: The Definitive Guide</a>, some example use cases for creating
+a parameterized report include:</p>
 <ul>
 <li>Showing results for a specific geographic location.<br />
 </li>
 <li>Running a report that covers a specific time period.<br />
 </li>
-<li>Running a single analysis multiple times for different assumptions.<br />
+<li>Running a single analysis multiple times for different
+assumptions.<br />
 </li>
-<li>Controlling the behavior of knitr (e.g., specify if you want the code to be displayed or not).</li>
+<li>Controlling the behavior of knitr (e.g., specify if you want the
+code to be displayed or not).</li>
 </ul>
-<p>In this module, we will focus on the first case, and build parameterized reports for a set of geographic locations. Throughout this course, we’ve been working with groundwater elevation data across California counties. Let’s imagine that we want to generate a report on groundwater level trends for a set of counties.</p>
-<p>Although the RStudio Interactive Development Environment (IDE) encourages knitting RMarkdown documents by clicking a button, we can also knit documents via: <code>rmarkdown::render()</code>. Iterating over <code>render()</code> is the key to scaling parameterized reports. To iterate over R Markdown reports, we must first understand how to use <code>params</code>.</p>
+<p>In this module, we will focus on the first case, and build
+parameterized reports for a set of geographic locations. Throughout this
+course, we’ve been working with groundwater elevation data across
+California counties. Let’s imagine that we want to generate a report on
+groundwater level trends for a set of counties.</p>
+<p>Although the RStudio Interactive Development Environment (IDE)
+encourages knitting RMarkdown documents by clicking a button, we can
+also knit documents via: <code>rmarkdown::render()</code>. Iterating
+over <code>render()</code> is the key to scaling parameterized reports.
+To iterate over R Markdown reports, we must first understand how to use
+<code>params</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 
 </div>
 <p><br></p>
 <h2 id="params"><code>params</code></h2>
-<p>A parameterized .Rmd file takes a set of <code>params</code> (short for “parameters”) in the YAML header, which are bound into a named list called <code>params</code> and accessed with code from within the .Rmd file with <code>params$&lt;paramater-name&gt;</code>. For example, consider the example YAML:</p>
+<p>A parameterized .Rmd file takes a set of <code>params</code> (short
+for “parameters”) in the YAML header, which are bound into a named list
+called <code>params</code> and accessed with code from within the .Rmd
+file with <code>params$&lt;paramater-name&gt;</code>. For example,
+consider the example YAML:</p>
 <pre><code>title: &quot;My awesome paramaterized report&quot;
 output: html_document
 params:
   start_date: 2021-01-01
   watershed: Yuba
   data: gwl_yuba.csv</code></pre>
-<p>In the code, we could then access the value <code>"2021-01-01"</code> with <code>params$start_date</code>. Similarly, <code>params$watershed</code> will equal <code>"Yuba"</code> and <code>params$data</code> will equal <code>"gwl_yuba.csv"</code>.</p>
+<p>In the code, we could then access the value <code>"2021-01-01"</code>
+with <code>params$start_date</code>. Similarly,
+<code>params$watershed</code> will equal <code>"Yuba"</code> and
+<code>params$data</code> will equal <code>"gwl_yuba.csv"</code>.</p>
 <p><br></p>
-<h2 id="set-up-a-report-with-params">Set up a report with <code>params</code></h2>
-<p>Let’s apply <code>params</code> to our task and generate an <code>html_document</code> for a set of counties. To illustrate, we will use a simplified, pre-processed dataset of 3 counties (Sacramento, Yolo, and San Joaquin counties). If you’re motivated to do so, you can use the entire groundwater level dataset of &gt; 2 million records to scale the process to all counties. Read in the data and take a look at the fields.</p>
+<h2 id="set-up-a-report-with-params">Set up a report with
+<code>params</code></h2>
+<p>Let’s apply <code>params</code> to our task and generate an
+<code>html_document</code> for a set of counties. To illustrate, we will
+use a simplified, pre-processed dataset of 3 counties (Sacramento, Yolo,
+and San Joaquin counties). If you’re motivated to do so, you can use the
+entire groundwater level dataset of &gt; 2 million records to scale the
+process to all counties. Read in the data and take a look at the
+fields.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://here.r-lib.org/'>here</a></span><span class='op'>)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://r-spatial.github.io/sf/'>sf</a></span><span class='op'>)</span>
 
 <span class='co'># groundwater level data for Sacramento, Yolo, San Joaquin counties</span>
-<span class='va'>gwl</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_rds.html'>read_rds</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"data"</span>, <span class='st'>"sac_yolo_sj.rds"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>gwl</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_rds.html'>read_rds</a></span><span class='op'>(</span><span class='st'>"data/sac_yolo_sj.rds"</span><span class='op'>)</span>
 
-<span class='va'>gwl</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>SITE_CODE</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+<span class='va'>gwl</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>SITE_CODE</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
   <span class='fu'><a href='https://r-spatial.github.io/sf/reference/plot.html'>plot</a></span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
 <p><img src="m_parameterized_reports_files/figure-html5/read-counties-1.png" width="624" /></p>
 </div>
-<p>We will iterate over the <code>COUNTY_NAME</code> to create three reports, one for each county. Copy and paste the following code into a new file <code>reports/gwl_report.Rmd</code></p>
+<p>We will iterate over the <code>COUNTY_NAME</code> to create three
+reports, one for each county. Copy and paste the following code into a
+new file <code>reports/gwl_report.Rmd</code></p>
 <div class="layout-chunk" data-layout="l-body">
 <pre><code>---
 title: &quot;`r paste(params$county, &#39;Groundwater Levels&#39;)`&quot;
@@ -2579,21 +2626,37 @@ Report generated on `r Sys.Date()`.</code></pre>
 </div>
 <div class="challenge">
 <p><strong>Pause and think</strong></p>
-<p>Take a moment to read the <code>.Rmd</code> file above and see what it does. Notice where <code>params$county</code> is located in the document. Particularly, in the first code chunk it’s used to filter the groundwater level data (assumed to be in memory so we only load it once rather than every time we run this script) down to the county parameter.</p>
+<p>Take a moment to read the <code>.Rmd</code> file above and see what
+it does. Notice where <code>params$county</code> is located in the
+document. Particularly, in the first code chunk it’s used to filter the
+groundwater level data (assumed to be in memory so we only load it once
+rather than every time we run this script) down to the county
+parameter.</p>
 <pre><code>d &lt;- filter(gwl, COUNTY_NAME == params$county)</code></pre>
-<p>Next, how might you write an <code>.Rmd</code> file like the one above and test that everything looks the way you want it to before calling it done? In other words, would you start by writing <code>params$county</code> in all places it needs to be or start with one county, make sure everything works, and then substitute in <code>params$county</code>?</p>
+<p>Next, how might you write an <code>.Rmd</code> file like the one
+above and test that everything looks the way you want it to before
+calling it done? In other words, would you start by writing
+<code>params$county</code> in all places it needs to be or start with
+one county, make sure everything works, and then substitute in
+<code>params$county</code>?</p>
 </div>
 <p><br></p>
 <h2 id="iterate-over-a-report">Iterate over a report</h2>
-<p>Finally, we create a vector of counties we want to write reports for and iterate over them. We also need to specify the output location of each file. Since we are writing <code>html_documents</code>, the file extension is <code>.html</code>. Using <code>walk2()</code> from our functional programming toolkit, we can pass in the counties vector and the output file paths into <code>rmarkdown::render()</code> and silently write the files.</p>
+<p>Finally, we create a vector of counties we want to write reports for
+and iterate over them. We also need to specify the output location of
+each file. Since we are writing <code>html_documents</code>, the file
+extension is <code>.html</code>. Using <code>walk2()</code> from our
+functional programming toolkit, we can pass in the counties vector and
+the output file paths into <code>rmarkdown::render()</code> and silently
+write the files.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># unique counties to write reports for</span>
 <span class='va'>counties</span>  <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>gwl</span><span class='op'>$</span><span class='va'>COUNTY_NAME</span><span class='op'>)</span>
 
 <span class='co'># output file names</span>
-<span class='va'>files_out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/chartr.html'>tolower</a></span><span class='op'>(</span><span class='va'>counties</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>str_replace_all</span><span class='op'>(</span><span class='st'>" "</span>, <span class='st'>"_"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+<span class='va'>files_out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/chartr.html'>tolower</a></span><span class='op'>(</span><span class='va'>counties</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_replace.html'>str_replace_all</a></span><span class='op'>(</span><span class='st'>" "</span>, <span class='st'>"_"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
   <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='va'>.</span>, <span class='st'>".html"</span><span class='op'>)</span>
 
 <span class='co'># silently (walk) over the county names and file names, </span>
@@ -2602,7 +2665,7 @@ Report generated on `r Sys.Date()`.</code></pre>
   <span class='va'>counties</span>, 
   <span class='va'>files_out</span>,
   <span class='op'>~</span><span class='fu'>rmarkdown</span><span class='fu'>::</span><span class='fu'><a href='https://pkgs.rstudio.com/rmarkdown/reference/render.html'>render</a></span><span class='op'>(</span>
-    input       <span class='op'>=</span> <span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"reports"</span>, <span class='st'>"gwl_report.Rmd"</span><span class='op'>)</span>, 
+    input       <span class='op'>=</span> <span class='st'>"reports/gwl_report.Rmd"</span>, 
     output_file <span class='op'>=</span> <span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"reports"</span>, <span class='va'>.y</span><span class='op'>)</span>,
     params      <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>county <span class='op'>=</span> <span class='va'>.x</span><span class='op'>)</span>
   <span class='op'>)</span>
@@ -2614,12 +2677,17 @@ Report generated on `r Sys.Date()`.</code></pre>
 <p><br></p>
 <div class="challenge">
 <p><strong>Pause and think</strong></p>
-<p>If we wanted to automate reports like this and have them published online or emailed to our team every morning at 7AM, what tools would we need?</p>
-<p>Hint: see the <a href="m_reproducible_workflows.html#task-scheduling">automation module section on task schedulers</a>.</p>
+<p>If we wanted to automate reports like this and have them published
+online or emailed to our team every morning at 7AM, what tools would we
+need?</p>
+<p>Hint: see the <a
+href="m_reproducible_workflows.html#task-scheduling">automation module
+section on task schedulers</a>.</p>
 </div>
 <p><br></p>
 <h2 id="in-line-r">In-line <code>R</code></h2>
-<p>Within an <code>.Rmd</code> we can insert <code>R</code> code in-line using the following syntax:</p>
+<p>Within an <code>.Rmd</code> we can insert <code>R</code> code in-line
+using the following syntax:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>`r &lt;function&gt;`</span>
@@ -2631,18 +2699,35 @@ Report generated on `r Sys.Date()`.</code></pre>
 <div class="sourceCode" id="cb4"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>The mean of 1 and 3 is <span class="in">`r mean(c(1,3))`</span>.</span></code></pre></div>
 </div>
 <p>And when the document knits, we get: The mean of 1 and 3 is 2.</p>
-<p>Consider this as an approach to add specific output about each site in the text narrative.</p>
+<p>Consider this as an approach to add specific output about each site
+in the text narrative.</p>
 <p><br></p>
 <h2 id="additional-resources">Additional Resources</h2>
-<p>Although we only demonstrated one type of output report in this module, the <code>html_document</code>, there are many other output formats that you can parameterize and iterate over, including <a href="https://bookdown.org/yihui/rmarkdown/word-document.html">Word documents</a>, <a href="https://bookdown.org/yihui/rmarkdown/pdf-document.html">PDFs</a>, <a href="https://pkgs.rstudio.com/flexdashboard/index.html">flexdashboards</a>, and presentations.</p>
+<p>Although we only demonstrated one type of output report in this
+module, the <code>html_document</code>, there are many other output
+formats that you can parameterize and iterate over, including <a
+href="https://bookdown.org/yihui/rmarkdown/word-document.html">Word
+documents</a>, <a
+href="https://bookdown.org/yihui/rmarkdown/pdf-document.html">PDFs</a>,
+<a
+href="https://pkgs.rstudio.com/flexdashboard/index.html">flexdashboards</a>,
+and presentations.</p>
 <aside>
-View some of the available <a href="https://rmarkdown.rstudio.com/formats.html">R Markdown output formats here</a>.
+View some of the available <a
+href="https://rmarkdown.rstudio.com/formats.html">R Markdown output
+formats here</a>.
 </aside>
-<p>To dig deeper, see the official <a href="https://bookdown.org/yihui/rmarkdown/parameterized-reports.html">RMarkdown guide for paramaterized reports</a>.</p>
+<p>To dig deeper, see the official <a
+href="https://bookdown.org/yihui/rmarkdown/parameterized-reports.html">RMarkdown
+guide for paramaterized reports</a>.</p>
 <p><br></p>
 <p><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"></p>
-<p><a href="m_iteration.html" class="btn btn-secondary" style="float: left">Previous module:<br>6. Iteration</a> <a href="m_advanced_spatial.html" class="btn btn-secondary" style="float: right;">Next module:<br>8. Advanced spatial</a></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<p><a href="m_iteration.html" class="btn btn-secondary" style="float: left">Previous
+module:<br>6. Iteration</a>
+<a href="m_advanced_spatial.html" class="btn btn-secondary" style="float: right;">Next
+module:<br>8. Advanced spatial</a></p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
@@ -2657,12 +2742,16 @@ View some of the available <a href="https://rmarkdown.rstudio.com/formats.html">
 <div class="appendix-bottom">
 <h3 id="updates-and-corrections">Corrections</h3>
 <p>If you see mistakes or want to suggest changes, please <a href="https://github.com/r4wrds/r4wrds/issues/new">create an issue</a> on the source repository.</p>
+<h3 id="reuse">Reuse</h3>
+<p>Text and figures are licensed under Creative Commons Attribution <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Source code is available at <a href="https://github.com/r4wrds/r4wrds">https://github.com/r4wrds/r4wrds</a>, unless otherwise noted. The figures that have been reused from other sources don't fall under this license and can be recognized by a note in their caption: "Figure from ...".</p>
 </div>
 <!--/radix_placeholder_appendices-->
 <!--radix_placeholder_navigation_after_body-->
 <div class="distill-site-nav distill-site-footer">
-<p>© Copyright 2021 <a href="http://ryanpeek.org/" target = "_blank">Ryan Peek</a> and <a href="https://www.richpauloo.com/" target = "_blank">Rich Pauloo</a>.</p>
-<p>Software licensed under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, v2.0</a>.</p>
+<p>© Copyright 2021
+<a href="http://ryanpeek.org/" target = "_blank">Ryan Peek</a> and
+<a href="https://www.richpauloo.com/" target = "_blank">Rich
+Pauloo</a>.</p>
 </div>
 <!--/radix_placeholder_navigation_after_body-->
 

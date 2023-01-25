@@ -13,7 +13,6 @@ creative_commons: CC BY
 
 library(knitr)
 library(glue)
-library(here)
 
 ```
 
@@ -53,9 +52,9 @@ Imagine you're analyzing groundwater levels across California[^1] and want to as
 
 ```{r gwl-sac, eval = FALSE, echo = FALSE}
 # sac county gwl 
-m    <- read_csv(here("data", "gwl", "measurements.csv"))
-perf <- read_csv(here("data", "gwl", "perforations.csv"))
-sta  <- read_csv(here("data", "gwl", "stations.csv"))
+m    <- read_csv("data/gwl/measurements.csv")
+perf <- read_csv("data/gwl/perforations.csv")
+sta  <- read_csv("data/gwl/stations.csv")
 
 # join measurement data to perforation and station data
 m <- left_join(m, perf, by = "SITE_CODE") %>% 
@@ -65,12 +64,12 @@ m$STN_ID.x <- NULL
 m$STN_ID.y <- NULL
 
 # write
-write_csv(m, here("data","gwl","gwl_sac.csv"))
+write_csv(m, "data/gwl/gwl_sac.csv")
 
 # write data for shiny app
-read_csv(here("data", "gwl", "gwl_sac.csv")) %>% 
+read_csv("data/gwl/gwl_sac.csv") %>% 
   select(SITE_CODE, MSMT_DATE, WSE) %>% 
-  write_csv(here("data","gwl","gwl_sac_shiny.csv"))
+  write_csv("data/gwl/gwl_sac_shiny.csv")
 ```
 
 ```{r gwl-eda}
@@ -79,11 +78,11 @@ library(here)
 library(sf)
 
 # read groundwater level data pre-filtered to Sacramento county
-gwl <- read_csv(here("data", "gwl", "gwl_sac.csv")) %>% 
+gwl <- read_csv("data/gwl/gwl_sac.csv") %>% 
   st_as_sf(coords = c("LONGITUDE","LATITUDE"), crs = 4269)
 
 # read sacramento county shapefile and reproject
-sac <- st_read(here("data", "shp", "sac", "sac_county.shp"), quiet=TRUE) %>% 
+sac <- st_read("data/shp/sac/sac_county.shp", quiet=TRUE) %>% 
   st_transform(4269)
 
 # plot the groundwater levels at each monitoring site 
@@ -150,21 +149,20 @@ In order to demonstrate a simple Shiny App, we will use a single file called `ap
 The most simple way to create an app within RStudio is to click **File \> New File \> Shiny Web App...**.
 
 ```{r shiny1, eval=T, echo=F}
-include_graphics(here::here("images", "shiny1.png"))
+include_graphics("images/shiny1.png")
 ```
 
-By default, RStudio will create a new folder with a name you provide in your project directory[^2]. Enter `gwl_shiny` as the "Application name" and click **Create**.
+By default, RStudio will create a new folder with a name you provide in your project directorY. Enter `gwl_shiny` as the "Application name" and click **Create**.
 
-[^2]: If using `{here}`, find your project directory by running `here()`.
 
 ```{r shiny2, eval=T, echo=F}
-include_graphics(here::here("images", "shiny2.png"))
+include_graphics("images/shiny2.png")
 ```
 
 You should now have a folder called `gwl_shiny` in the project directory, which you can verify in the File Viewer Pane. Inside that folder should be a single file, `app.R`.
 
 ```{r shiny3, eval=T, echo=F}
-include_graphics(here::here("images", "shiny4.png"))
+include_graphics("images/shiny4.png")
 ```
 
 A default Shiny App is contained in this file. We can run all of the code to view the app on our local machine, or click the **Run App** icon in the top right corner of the code editor.
@@ -172,7 +170,7 @@ A default Shiny App is contained in this file. We can run all of the code to vie
 <aside>
 
 ```{r shiny4, eval=T, echo=F}
-include_graphics(here::here("images", "shiny3.png"))
+include_graphics("images/shiny3.png")
 ```
 
 </aside>
@@ -244,7 +242,7 @@ shinyApp(ui = ui, server = server)
 ```
 
 ```{r shiny-inputs, eval=T, echo=F}
-include_graphics(here::here("images", "shiny_inputs.png"))
+include_graphics("images/shiny_inputs.png")
 ```
 
 <aside>
@@ -260,7 +258,7 @@ Chances are that you won't use all of the control widget inputs available in any
 A `ui` with only control widgets (i.e., the App example above) is like having a keyboard without a monitor. You can change inputs by typing on the keyboard, but can't see anything happen without a monitor! In this analogy, the monitor is a set of *outputs*. Your Shiny App users will spend a lot of time interacting with *outputs*, and most of our time spent designing and creating a Shiny App will go into creating outputs. To view default Shiny outputs, type `shiny::output` and see what comes up in tab complete. For example, `plotOutput()` is used to render plots, `textOutput()` is used to render text, and so on.
 
 ```{r shiny-outputs, eval=T, echo=F}
-include_graphics(here::here("images", "shiny_outputs.png"))
+include_graphics("images/shiny_outputs.png")
 ```
 
 <aside>
@@ -345,7 +343,7 @@ Reactivity[^4] is a driving concept in Shiny App programming. The fundamental id
 In the `ui` we saw that each output ID created by the `server` had a unique ID name and was wrapped in an "output" function. For example, **`plotOutput("`**<font color="#009E73">**`my_plot`**</font>**`")`** had an object in the server called **`output$`**<font color="#009E73">**`my_plot`**</font> that was assigned the result of a **`renderPlot({ })`** function, and inside that function was the code for our plot. Each "`render`" function has a corresponding "`output`" function (e.g., `renderText()` and `textOutput()` go together). To view some of the default "`render`" functions, type `shiny::render` and view the options available in the tab complete popup.
 
 ```{r shiny-render, eval=T, echo=F}
-include_graphics(here::here("images", "shiny_render.png"))
+include_graphics("images/shiny_render.png")
 ```
 
 <br>  
@@ -360,7 +358,7 @@ library(shinythemes)
 library(tidyverse)
 
 # load sac county groundwater data and sac county polygon
-gwl <- read_csv(here::here("data", "gwl", "gwl_sac_shiny.csv"))
+gwl <- read_csv("data/gwl/gwl_sac_shiny.csv")
 
 # ------------------------------------------------------------------------
 # user interface
@@ -461,7 +459,7 @@ And the resulting Shiny App is:
 <br>
 
 ```{r shiny-screenshot, eval=T, echo=F, layout="l-page", preview = TRUE}
-include_graphics(here::here("images", "gwl_shiny.png"))
+include_graphics("images/gwl_shiny.png")
 ```
 
 

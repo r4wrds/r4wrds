@@ -34,7 +34,7 @@ library(purrr)
 
 ```{r updatepkg, fig.cap="What to avoid building (Source: https://xkcd.com/2054/).", eval=T, echo=F}
 
-include_graphics(here::here("images", "data_pipeline_2x.png"))
+include_graphics("images/data_pipeline_2x.png")
 
 ```
 
@@ -255,8 +255,8 @@ Best practices for writing code across languages typically recommend package imp
 
 ```{r org-ex, eval = FALSE}
 # import packages
-library(package_1)
-library(package_2)
+library(tidyvere)
+library(fs)
 
 # define functions
 my_first_function <- function(){
@@ -312,7 +312,7 @@ We can call this script using `source()` to load or import these functions into 
 
 ```{r source, eval = FALSE}
 
-source(here("scripts/functions.R"))
+source("scripts/functions.R")
 
 ```
 
@@ -362,7 +362,7 @@ f_inspire_me <- function(d){
 The `functions` folder in the root project directory should now look like this:
 
 ```{r function-img, echo = FALSE}
-knitr::include_graphics(here::here("images","function_img.png"))
+knitr::include_graphics("images/function_img.png")
 ```
 
 Now in our `/scripts` directory, we create a script, `01_control.R` to source our functions and use them. Be sure to restart `R` to clear your environment before sourcing this control script so we know we are working from a clean slate.
@@ -375,7 +375,7 @@ pkgs <- c("readr", "cowsay", "here", "tidyverse", "glue")
 walk(pkgs, require, character.only = TRUE)
 
 # silently source all functions using the purrr::walk function
-fns <- fs::dir_ls(here("scripts/functions"))
+fns <- fs::dir_ls("scripts/functions")
 walk(fns, ~source(.x))
 
 # define the url where quotes are located
