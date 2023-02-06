@@ -88,6 +88,7 @@ code span.vs { color: #bf0303; } /* VerbatimString */
 code span.wa { color: #bf0303; } /* Warning */
 </style>
 
+
   <!--radix_placeholder_meta_tags-->
   <title>R for Water Resources Data Science: 6. From loops to functions</title>
 
@@ -459,7 +460,7 @@ code span.wa { color: #bf0303; } /* Warning */
 
   </style>
 
-  <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+  <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
   <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
   <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
   <script src="site_libs/headroom-0.9.4/headroom.min.js"></script>
@@ -1866,7 +1867,10 @@ code span.wa { color: #bf0303; } /* Warning */
 
       // hoverable references
       $('span.citation[data-cites]').each(function() {
-        var refHtml = $('#ref-' + $(this).attr('data-cites')).html();
+        var refs = $(this).attr('data-cites').split(" ");
+        var refHtml = refs.map(function(ref) {
+          return "<p>" + $('#ref-' + ref).html() + "</p>";
+        }).join("\n");
         window.tippy(this, {
           allowHTML: true,
           content: refHtml,
@@ -2037,7 +2041,7 @@ code span.wa { color: #bf0303; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2379,79 +2383,145 @@ Modules
 <nav class="l-text toc figcaption" id="TOC">
 <h3>Contents</h3>
 <ul>
-<li><a href="#many-paths-to-the-same-summit">Many paths to the same summit</a></li>
-<li><a href="#for-loops"><code>for</code> loops</a></li>
-<li><a href="#lapply"><code>lapply()</code></a></li>
-<li><a href="#map"><code>map()</code></a></li>
-<li><a href="#additional-resources">Additional Resources</a></li>
+<li><a href="#many-paths-to-the-same-summit"
+id="toc-many-paths-to-the-same-summit">Many paths to the same
+summit</a></li>
+<li><a href="#for-loops" id="toc-for-loops"><code>for</code>
+loops</a></li>
+<li><a href="#lapply" id="toc-lapply"><code>lapply()</code></a></li>
+<li><a href="#map" id="toc-map"><code>map()</code></a></li>
+<li><a href="#additional-resources"
+id="toc-additional-resources">Additional Resources</a></li>
 </ul>
 </nav>
 </div>
 <div class="obj">
 <p><strong>Learning objectives</strong></p>
 <ul>
-<li>Understand the costs and benefits of loops and functional programming<br />
+<li>Understand the costs and benefits of loops and functional
+programming<br />
 </li>
 <li>Practice iteration with <code>for</code> loops<br />
 </li>
-<li>Practice iteration with <code>lapply()</code> and the <code>{purrr}</code> family of functions<br />
+<li>Practice iteration with <code>lapply()</code> and the
+<code>{purrr}</code> family of functions<br />
 </li>
 <li>Understand how interact with the <code>list</code> object type<br />
 </li>
 </ul>
 </div>
 <p><br></p>
-<h2 id="many-paths-to-the-same-summit">Many paths to the same summit</h2>
-<p>One of the wonderful things about <code>R</code> is that there are often many ways to achieve the same result. This makes <code>R</code> expressive, and as you practice and expand your <code>R</code> vocabulary, you’ll inevitably find multiple ways to obtain the same results. Some ways may be long and meandering, and others may be more direct and easy to remember. In this module we will practice two approaches towards <strong>iteration</strong>—the art of not repeating yourself—specifically, <code>for</code> loops<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> and functions (functional programming).</p>
-<p>For most parallel problems (i.e., the current operation does not depend on the one that came before), functional programming offers significant advantages to <code>for</code> loops. However, both loops and functions are powerful ways to automate processes and workflows. We will review how and when to use each, and their pros and cons.</p>
-<p>The core objective of this lesson is to practice harnessing the power of iteration in your workflows, and to demonstrate ways to iterate with functional programming. If you can define a function to work with one object in <code>R</code>, functional programming allows you to scale that function to any number of objects (assuming you have enough computing resources). Together, functional programming and iteration allow automation at scale, and put <code>R</code> a cut above GUI-based data workflows that require “clicking though” an analysis.</p>
+<h2 id="many-paths-to-the-same-summit">Many paths to the same
+summit</h2>
+<p>One of the wonderful things about <code>R</code> is that there are
+often many ways to achieve the same result. This makes <code>R</code>
+expressive, and as you practice and expand your <code>R</code>
+vocabulary, you’ll inevitably find multiple ways to obtain the same
+results. Some ways may be long and meandering, and others may be more
+direct and easy to remember. In this module we will practice two
+approaches towards <strong>iteration</strong>—the art of not repeating
+yourself—specifically, <code>for</code> loops<a href="#fn1"
+class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> and
+functions (functional programming).</p>
+<p>For most parallel problems (i.e., the current operation does not
+depend on the one that came before), functional programming offers
+significant advantages to <code>for</code> loops. However, both loops
+and functions are powerful ways to automate processes and workflows. We
+will review how and when to use each, and their pros and cons.</p>
+<p>The core objective of this lesson is to practice harnessing the power
+of iteration in your workflows, and to demonstrate ways to iterate with
+functional programming. If you can define a function to work with one
+object in <code>R</code>, functional programming allows you to scale
+that function to any number of objects (assuming you have enough
+computing resources). Together, functional programming and iteration
+allow automation at scale, and put <code>R</code> a cut above GUI-based
+data workflows that require “clicking though” an analysis.</p>
 <ul>
-<li>Proficiency in <strong>functional programming</strong> means you can turn an entire workflow into a function, or individual steps for a workflow can each be discrete functions, making it easy to reproduce or revise your work.<br />
+<li>Proficiency in <strong>functional programming</strong> means you can
+turn an entire workflow into a function, or individual steps for a
+workflow can each be discrete functions, making it easy to reproduce or
+revise your work.<br />
 </li>
-<li>Proficiency in <strong>iteration</strong> means you can apply developed functions many times with little effort, which allows you to work with small or large datasets with ease.<br />
+<li>Proficiency in <strong>iteration</strong> means you can apply
+developed functions many times with little effort, which allows you to
+work with small or large datasets with ease.<br />
 </li>
-<li>Proficiency in <strong>automation</strong> means you can remove yourself from running the code entirely so that it happens all on its own—we will demonstrate approaches to automation in the next module.</li>
+<li>Proficiency in <strong>automation</strong> means you can remove
+yourself from running the code entirely so that it happens all on its
+own—we will demonstrate approaches to automation in the next
+module.</li>
 </ul>
-<p>In this module, let’s imagine you’re a data manager, and need to provide data to a group of users. We’ll practice iteration on reading and writing data to illustrate a transition from <code>for</code> loops to functional programming.</p>
+<p>In this module, let’s imagine you’re a data manager, and need to
+provide data to a group of users. We’ll practice iteration on reading
+and writing data to illustrate a transition from <code>for</code> loops
+to functional programming.</p>
 <p><br></p>
 <h2 id="for-loops"><code>for</code> loops</h2>
 <blockquote>
-<p>“Don’t repeat yourself. It’s not only repetitive, it’s redundant, and people have heard it before.” -Lemony Snicket</p>
+<p>“Don’t repeat yourself. It’s not only repetitive, it’s redundant, and
+people have heard it before.” -Lemony Snicket</p>
 </blockquote>
-<p>The <code>for</code> loop is ubiquitous across programming languages and a fundamental concept that allows us to obey a core concept in programming: don’t repeat yourself. The <code>for</code> loop is a good place to begin a discussion of iteration because it makes iteration very explicit—you can see exactly what is taking place in each iteration, or loop.</p>
-<p>A common problem we might face is reading multiple data frames into <code>R</code>. In the <code>/data/gwl</code> folder, we have station data for El Dorado, Placer, and Sacramento counties. We can read these in one by one by copy and pasting code, but we’re repeating ourselves. This may not matter for only 3 counties, but if we were to use all 58 counties with groundwater level data, this would be a non-scaleable approach prone to human error.</p>
+<p>The <code>for</code> loop is ubiquitous across programming languages
+and a fundamental concept that allows us to obey a core concept in
+programming: don’t repeat yourself. The <code>for</code> loop is a good
+place to begin a discussion of iteration because it makes iteration very
+explicit—you can see exactly what is taking place in each iteration, or
+loop.</p>
+<p>A common problem we might face is reading multiple data frames into
+<code>R</code>. In the <code>/data/gwl</code> folder, we have station
+data for El Dorado, Placer, and Sacramento counties. We can read these
+in one by one by copy and pasting code, but we’re repeating ourselves.
+This may not matter for only 3 counties, but if we were to use all 58
+counties with groundwater level data, this would be a non-scaleable
+approach prone to human error.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://here.r-lib.org/'>here</a></span><span class='op'>)</span>
 
-<span class='va'>eldorado</span> <span class='op'>&lt;-</span> <span class='fu'>read_csv</span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"data"</span>, <span class='st'>"gwl"</span>, <span class='st'>"county"</span>, <span class='st'>"El Dorado.csv"</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>placer</span>   <span class='op'>&lt;-</span> <span class='fu'>read_csv</span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"data"</span>, <span class='st'>"gwl"</span>, <span class='st'>"county"</span>, <span class='st'>"Placer.csv"</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>sac</span>      <span class='op'>&lt;-</span> <span class='fu'>read_csv</span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"data"</span>, <span class='st'>"gwl"</span>, <span class='st'>"county"</span>, <span class='st'>"Sacramento.csv"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>eldorado</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"data/gwl/county/El Dorado.csv"</span><span class='op'>)</span>
+<span class='va'>placer</span>   <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"data/gwl/county/Placer.csv"</span><span class='op'>)</span>
+<span class='va'>sac</span>      <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"data/gwl/county/Sacramento.csv"</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
-<p>We can replace this code with a for loop and read all of these items into a <code>list</code><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
+<p>We can replace this code with a for loop and read all of these items
+into a <code>list</code><a href="#fn2" class="footnote-ref" id="fnref2"
+role="doc-noteref"><sup>2</sup></a>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># list all files we want to read in</span>
-<span class='va'>files_in</span> <span class='op'>&lt;-</span> <span class='fu'>fs</span><span class='fu'>::</span><span class='fu'><a href='http://fs.r-lib.org/reference/dir_ls.html'>dir_ls</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"data"</span>, <span class='st'>"gwl"</span>, <span class='st'>"county"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>files_in</span> <span class='op'>&lt;-</span> <span class='fu'>fs</span><span class='fu'>::</span><span class='fu'><a href='https://fs.r-lib.org/reference/dir_ls.html'>dir_ls</a></span><span class='op'>(</span><span class='st'>"data/gwl/county"</span><span class='op'>)</span>
 
 <span class='co'># initialize a list of defined length</span>
 <span class='va'>l</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/vector.html'>vector</a></span><span class='op'>(</span><span class='st'>"list"</span>, length <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>files_in</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># loop over all files and read them into each element of the list</span>
 <span class='kw'>for</span><span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_along</a></span><span class='op'>(</span><span class='va'>l</span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span>
-  <span class='va'>l</span><span class='op'>[[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'>read_csv</span><span class='op'>(</span><span class='va'>files_in</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>)</span>
+  <span class='va'>l</span><span class='op'>[[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='va'>files_in</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>)</span>
 <span class='op'>}</span>
 </code></pre>
 </div>
 </div>
 <aside>
-<p>After the loop finished, if you run <code>i</code> in the console, you’ll notice that it has a value of 3. That’s because <code>i</code> is updated as the loop evaluates, and 3 is the last iteration of <code>i</code> in the loop. This can be useful when debugging a loop because the last index that the loop was evaluated may identify the location of a problem that breaks the loop.</p>
+<p>After the loop finished, if you run <code>i</code> in the console,
+you’ll notice that it has a value of 3. That’s because <code>i</code> is
+updated as the loop evaluates, and 3 is the last iteration of
+<code>i</code> in the loop. This can be useful when debugging a loop
+because the last index that the loop was evaluated may identify the
+location of a problem that breaks the loop.</p>
 </aside>
-<p>What happened above is that we evaluated the loop first starting with 1 in the place of <code>i</code>, and went to <code>length(l)</code>, which is 3, each time placing the integer wherever there is an <code>i</code> in the above loop. Although our index is <code>i</code>, we can use any other unquoted character string, like <code>j</code>, <code>k</code>, or even <code>index</code> — its only purpose is to hold the index that we iterate through.</p>
-<p>After the loop evaluates, we can access each element of the list with double bracket <code>[[</code> notation, subsetting either by an integer index, or a name if one exists. This list doesn’t have names, but we could set them by assigning a vector of names to <code>names(l)</code>.</p>
+<p>What happened above is that we evaluated the loop first starting with
+1 in the place of <code>i</code>, and went to <code>length(l)</code>,
+which is 3, each time placing the integer wherever there is an
+<code>i</code> in the above loop. Although our index is <code>i</code>,
+we can use any other unquoted character string, like <code>j</code>,
+<code>k</code>, or even <code>index</code> — its only purpose is to hold
+the index that we iterate through.</p>
+<p>After the loop evaluates, we can access each element of the list with
+double bracket <code>[[</code> notation, subsetting either by an integer
+index, or a name if one exists. This list doesn’t have names, but we
+could set them by assigning a vector of names to
+<code>names(l)</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># access first list element - El Dorado county dataframe</span>
@@ -2459,8 +2529,14 @@ Modules
 </code></pre>
 </div>
 </div>
-<p><code>for</code> loops happen sequentially, and require us to think of code in terms of objects that we iterate through, index by index. This can result in both slower and duplicated (verbose) code. In addition to writing efficient code, a core rule of good programming is to not repeat oneself.</p>
-<p>Let’s imagine now that you needed to write each of these data into a separate file, separated by the unique ID of each station (e.g., the <code>SITE_CODE</code>). Your entire loop would look like this:</p>
+<p><code>for</code> loops happen sequentially, and require us to think
+of code in terms of objects that we iterate through, index by index.
+This can result in both slower and duplicated (verbose) code. In
+addition to writing efficient code, a core rule of good programming is
+to not repeat oneself.</p>
+<p>Let’s imagine now that you needed to write each of these data into a
+separate file, separated by the unique ID of each station (e.g., the
+<code>SITE_CODE</code>). Your entire loop would look like this:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># initialize a list of defined length</span>
@@ -2468,192 +2544,308 @@ Modules
 
 <span class='co'># loop over all files and read them into each element of the list</span>
 <span class='kw'>for</span><span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_along</a></span><span class='op'>(</span><span class='va'>l</span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span>
-  <span class='va'>l</span><span class='op'>[[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'>read_csv</span><span class='op'>(</span><span class='va'>files_in</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>)</span>
+  <span class='va'>l</span><span class='op'>[[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='va'>files_in</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>)</span>
 <span class='op'>}</span>
 
 <span class='co'># combine all list elements into a single dataframe</span>
 <span class='co'># then split into another list by SITE_CODE.</span>
-<span class='va'>ldf</span> <span class='op'>&lt;-</span> <span class='fu'>bind_rows</span><span class='op'>(</span><span class='va'>l</span><span class='op'>)</span>
+<span class='va'>ldf</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/bind.html'>bind_rows</a></span><span class='op'>(</span><span class='va'>l</span><span class='op'>)</span>
 <span class='va'>ldf</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/split.html'>split</a></span><span class='op'>(</span><span class='va'>ldf</span>, <span class='va'>ldf</span><span class='op'>$</span><span class='va'>SITE_CODE</span><span class='op'>)</span>
 
 <span class='co'># loop over each list element and write a csv file</span>
-<span class='fu'>fs</span><span class='fu'>::</span><span class='fu'><a href='http://fs.r-lib.org/reference/create.html'>dir_create</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"data"</span>, <span class='st'>"gwl"</span>, <span class='st'>"site_code"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>fs</span><span class='fu'>::</span><span class='fu'><a href='https://fs.r-lib.org/reference/create.html'>dir_create</a></span><span class='op'>(</span><span class='st'>"data/gwl/site_code"</span><span class='op'>)</span>
 <span class='co'># here we make a list of files names ( names(ldf) is a vector )</span>
 <span class='va'>files_out</span> <span class='op'>&lt;-</span> <span class='fu'>glue</span><span class='fu'>::</span><span class='fu'><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></span><span class='op'>(</span><span class='st'>"{here('data', 'gwl', 'site_code', names(ldf))}.csv"</span><span class='op'>)</span>
 
 <span class='kw'>for</span><span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_along</a></span><span class='op'>(</span><span class='va'>ldf</span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span>
-  <span class='fu'>write_csv</span><span class='op'>(</span><span class='va'>ldf</span><span class='op'>[[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>]</span>, <span class='va'>files_out</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>)</span>
+  <span class='fu'><a href='https://readr.tidyverse.org/reference/write_delim.html'>write_csv</a></span><span class='op'>(</span><span class='va'>ldf</span><span class='op'>[[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>]</span>, <span class='va'>files_out</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>)</span>
 <span class='op'>}</span>
 </code></pre>
 </div>
 </div>
 <aside>
-<p><br> <code>dplyr::bind_rows(l)</code> row binds a list of <code>data.frame</code>s similar to base <code>R</code>’s <code>do.call(rbind.data.frame, l)</code>, but is more strict, and will throw an error if column types don’t match.</p>
+<p><br> <code>dplyr::bind_rows(l)</code> row binds a list of
+<code>data.frame</code>s similar to base <code>R</code>’s
+<code>do.call(rbind.data.frame, l)</code>, but is more strict, and will
+throw an error if column types don’t match.</p>
 </aside>
 <div class="layout-chunk" data-layout="l-body">
 
 </div>
-<p>This is a lot of code to accomplish a relatively standard iterative workflow of reading in a directory of files, combining them, and writing them out. Functional programming can simplify loop-based workflows, run faster, and encourage you to think conceptually about the transformations at play, without worrying about tracking a changing index. Moreover, loops in <code>R</code> are usually unnecessary unless the result of the <code>i</code>th index depends on the <code>i-1</code> (previous) index.</p>
+<p>This is a lot of code to accomplish a relatively standard iterative
+workflow of reading in a directory of files, combining them, and writing
+them out. Functional programming can simplify loop-based workflows, run
+faster, and encourage you to think conceptually about the
+transformations at play, without worrying about tracking a changing
+index. Moreover, loops in <code>R</code> are usually unnecessary unless
+the result of the <code>i</code>th index depends on the <code>i-1</code>
+(previous) index.</p>
 <h2 id="lapply"><code>lapply()</code></h2>
-<p>Base <code>R</code> gives us a toolkit for functional programming via the <code>apply</code> family of functions, specifically <code>lapply()</code> and <code>mapply()</code>. The “l” in <code>lapply()</code> stands for “<code>list</code>”, and can be read as “list apply”. The <code>apply</code> functions are designed to iterate over lists, matrices, rows, or columns, and are very flexible. For example, we can simplify the <code>for</code> loops above as:</p>
+<p>Base <code>R</code> gives us a toolkit for functional programming via
+the <code>apply</code> family of functions, specifically
+<code>lapply()</code> and <code>mapply()</code>. The “l” in
+<code>lapply()</code> stands for “<code>list</code>”, and can be read as
+“list apply”. The <code>apply</code> functions are designed to iterate
+over lists, matrices, rows, or columns, and are very flexible. For
+example, we can simplify the <code>for</code> loops above as:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># read</span>
 <span class='va'>l</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='va'>files_in</span>, <span class='va'>read_csv</span><span class='op'>)</span>
 
 <span class='co'># bind and split by SITE_CODE</span>
-<span class='va'>ldf</span> <span class='op'>&lt;-</span> <span class='fu'>bind_rows</span><span class='op'>(</span><span class='va'>l</span><span class='op'>)</span>
+<span class='va'>ldf</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/bind.html'>bind_rows</a></span><span class='op'>(</span><span class='va'>l</span><span class='op'>)</span>
 <span class='va'>ldf</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/split.html'>split</a></span><span class='op'>(</span><span class='va'>ldf</span>, <span class='va'>ldf</span><span class='op'>$</span><span class='va'>SITE_CODE</span><span class='op'>)</span>
 
 <span class='co'># write out: requires function (write_csv) </span>
 <span class='co'># with 2 args (x = ldf &amp; y = files_out)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/mapply.html'>mapply</a></span><span class='op'>(</span><span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span> <span class='fu'>write_csv</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span>, <span class='va'>ldf</span>, <span class='va'>files_out</span><span class='op'>)</span> 
+<span class='fu'><a href='https://rdrr.io/r/base/mapply.html'>mapply</a></span><span class='op'>(</span><span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/write_delim.html'>write_csv</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span>, <span class='va'>ldf</span>, <span class='va'>files_out</span><span class='op'>)</span> 
 </code></pre>
 </div>
 </div>
-<p>We can make this clearer by extracting the <em>anonymous function</em><a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> above, assigning it to an identifier, and calling that in <code>mapply()</code>:</p>
+<p>We can make this clearer by extracting the <em>anonymous
+function</em><a href="#fn3" class="footnote-ref" id="fnref3"
+role="doc-noteref"><sup>3</sup></a> above, assigning it to an
+identifier, and calling that in <code>mapply()</code>:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>my_function</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span><span class='op'>{</span> 
-  <span class='fu'>write_csv</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span>
+  <span class='fu'><a href='https://readr.tidyverse.org/reference/write_delim.html'>write_csv</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span>
 <span class='op'>}</span>
 
 <span class='fu'><a href='https://rdrr.io/r/base/mapply.html'>mapply</a></span><span class='op'>(</span><span class='va'>my_function</span>, <span class='va'>ldf</span>, <span class='va'>files_out</span><span class='op'>)</span> 
 </code></pre>
 </div>
 </div>
-<p>Notice that we don’t need to initialize a list to store output, or keep track of indices. The emphasis is on the transformation taking place, not index bookkeeping, and setting up looping patterns. The result is the same, and we have a much clearer way to approach the problem.</p>
+<p>Notice that we don’t need to initialize a list to store output, or
+keep track of indices. The emphasis is on the transformation taking
+place, not index bookkeeping, and setting up looping patterns. The
+result is the same, and we have a much clearer way to approach the
+problem.</p>
 <p><br></p>
 <h2 id="map"><code>map()</code></h2>
-<p>The <code>map</code> family of functions in the <code>{purrr}</code> package improves on base <code>R</code>’s <code>apply</code> functions with simplified syntax, type-specific output that makes it harder to accidentally create errors, and convenience functions for common operations. When we combine <code>map()</code> with pipes (<code>%&gt;%</code>) we can greatly simplify our code.</p>
+<p>The <code>map</code> family of functions in the <code>{purrr}</code>
+package improves on base <code>R</code>’s <code>apply</code> functions
+with simplified syntax, type-specific output that makes it harder to
+accidentally create errors, and convenience functions for common
+operations. When we combine <code>map()</code> with pipes
+(<code>%&gt;%</code>) we can greatly simplify our code.</p>
 <p>First, to mimic what we did with <code>lapply()</code> above:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># read</span>
-<span class='va'>l</span> <span class='op'>&lt;-</span> <span class='fu'>map</span><span class='op'>(</span><span class='va'>files_in</span>, <span class='op'>~</span><span class='fu'>read_csv</span><span class='op'>(</span><span class='va'>.x</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>l</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>map</a></span><span class='op'>(</span><span class='va'>files_in</span>, <span class='op'>~</span><span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='va'>.x</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># bind and split by SITE_CODE</span>
-<span class='va'>ldf</span> <span class='op'>&lt;-</span> <span class='fu'>bind_rows</span><span class='op'>(</span><span class='va'>l</span><span class='op'>)</span>
-<span class='va'>ldf</span> <span class='op'>&lt;-</span> <span class='fu'>group_split</span><span class='op'>(</span><span class='va'>ldf</span>, <span class='va'>SITE_CODE</span><span class='op'>)</span>
+<span class='va'>ldf</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/bind.html'>bind_rows</a></span><span class='op'>(</span><span class='va'>l</span><span class='op'>)</span>
+<span class='va'>ldf</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_split.html'>group_split</a></span><span class='op'>(</span><span class='va'>ldf</span>, <span class='va'>SITE_CODE</span><span class='op'>)</span>
 
 <span class='co'># write</span>
-<span class='fu'>walk2</span><span class='op'>(</span><span class='va'>ldf</span>, <span class='va'>files_out</span>, <span class='op'>~</span><span class='fu'>write_csv</span><span class='op'>(</span><span class='va'>.x</span>, <span class='va'>.y</span><span class='op'>)</span><span class='op'>)</span> 
+<span class='fu'><a href='https://purrr.tidyverse.org/reference/map2.html'>walk2</a></span><span class='op'>(</span><span class='va'>ldf</span>, <span class='va'>files_out</span>, <span class='op'>~</span><span class='fu'><a href='https://readr.tidyverse.org/reference/write_delim.html'>write_csv</a></span><span class='op'>(</span><span class='va'>.x</span>, <span class='va'>.y</span><span class='op'>)</span><span class='op'>)</span> 
 </code></pre>
 </div>
 </div>
-<p>The <code>.x</code> signifies each of the individual elements of passed into the function, and can be thought of as a placeholder for the input. We begin <code>read_csv()</code> with a <code>~</code> to indicate the beginning of a function.</p>
-<p>We can further simplify our code with <code>map_df()</code> to automatically row bind the list elements into one dataframe. Moreover, we can pipe these statements together to avoid creating the intermediate <code>ldf</code> object.</p>
+<p>The <code>.x</code> signifies each of the individual elements of
+passed into the function, and can be thought of as a placeholder for the
+input. We begin <code>read_csv()</code> with a <code>~</code> to
+indicate the beginning of a function.</p>
+<p>We can further simplify our code with <code>map_df()</code> to
+automatically row bind the list elements into one dataframe. Moreover,
+we can pipe these statements together to avoid creating the intermediate
+<code>ldf</code> object.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># read and bind, split, and write</span>
-<span class='fu'>map_df</span><span class='op'>(</span><span class='va'>files_in</span>, <span class='op'>~</span><span class='fu'>read_csv</span><span class='op'>(</span><span class='va'>.x</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>group_split</span><span class='op'>(</span><span class='va'>SITE_CODE</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>walk2</span><span class='op'>(</span><span class='va'>files_out</span>, <span class='op'>~</span><span class='fu'>write_csv</span><span class='op'>(</span><span class='va'>.x</span>, <span class='va'>.y</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>map_df</a></span><span class='op'>(</span><span class='va'>files_in</span>, <span class='op'>~</span><span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='va'>.x</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_split.html'>group_split</a></span><span class='op'>(</span><span class='va'>SITE_CODE</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://purrr.tidyverse.org/reference/map2.html'>walk2</a></span><span class='op'>(</span><span class='va'>files_out</span>, <span class='op'>~</span><span class='fu'><a href='https://readr.tidyverse.org/reference/write_delim.html'>write_csv</a></span><span class='op'>(</span><span class='va'>.x</span>, <span class='va'>.y</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
 <p>Let’s break down what we did above.</p>
 <ol type="1">
-<li>We mapped the function <code>read_csv()</code> over the vector of file paths, <code>files_in</code>. Although this function is simple, in practice we can map a large and complex function in the same way. The <code>_df</code> in <code>map_df()</code> means we pass the list otherwise returned by <code>map()</code> into <code>bind_rows()</code>, and thus return one combined dataframe of all the csv files we read instead of a list of dataframes.</li>
-<li>We used <code>group_split()</code> to split the combined dataframe by <code>SITE_CODE</code> which returns a list of dataframes ordered by the unique values of the grouping variable. This is identical to base <code>R</code>’s <code>split()</code> except it doesn’t return a named list.<br />
+<li>We mapped the function <code>read_csv()</code> over the vector of
+file paths, <code>files_in</code>. Although this function is simple, in
+practice we can map a large and complex function in the same way. The
+<code>_df</code> in <code>map_df()</code> means we pass the list
+otherwise returned by <code>map()</code> into <code>bind_rows()</code>,
+and thus return one combined dataframe of all the csv files we read
+instead of a list of dataframes.</li>
+<li>We used <code>group_split()</code> to split the combined dataframe
+by <code>SITE_CODE</code> which returns a list of dataframes ordered by
+the unique values of the grouping variable. This is identical to base
+<code>R</code>’s <code>split()</code> except it doesn’t return a named
+list.<br />
 </li>
-<li>We <code>walk2()</code>ed over the list of dataframes (one for each <code>SITE_CODE</code>), and the <code>files_out</code> vector from above, and wrote a csv for each pair of objects (<code>.x</code> = dataframe and <code>.y</code> = output file path).</li>
+<li>We <code>walk2()</code>ed over the list of dataframes (one for each
+<code>SITE_CODE</code>), and the <code>files_out</code> vector from
+above, and wrote a csv for each pair of objects (<code>.x</code> =
+dataframe and <code>.y</code> = output file path).</li>
 </ol>
 <div class="challenge">
 <p><font color="#009E73"><strong>Extra information</strong></font></p>
 <p style="line-height: 1.5em;">
-<p>What would happen if we used <code>map2()</code> instead of <code>walk2()</code> in the code above?</p>
+<p>What would happen if we used <code>map2()</code> instead of
+<code>walk2()</code> in the code above?</p>
 </p>
 <details>
 <summary class="challenge-ans-title">
 <font color="#0072B2"><strong>Click for the Answer!</strong></font>
 </summary>
 <div class="challenge-ans-body">
-<p><code>walk2()</code> is a special case of <code>walk()</code> which takes 2 vector inputs instead of 1. The first and second vector inputs are called in the function with <code>.x</code> and <code>.y</code> like so: <code>walk2(input_1, input_2, ~function(.x, .y))</code>. We use <code>walk()</code> instead of <code>map()</code> whenever we want the side effect of the function, like writing a file. We could also use <code>map()</code> here, but it would unnecessarily print each of the 723 dataframes.</p>
-<p>You may now we wondering if there is a <code>map3()</code>, <code>map4()</code> and so on. To map over more than 2 inputs at once, check out the “parallel” map <code>purrr::pmap()</code> function, which is similar to base <code>R</code>’s <code>mapply()</code>.</p>
+<p><code>walk2()</code> is a special case of <code>walk()</code> which
+takes 2 vector inputs instead of 1. The first and second vector inputs
+are called in the function with <code>.x</code> and <code>.y</code> like
+so: <code>walk2(input_1, input_2, ~function(.x, .y))</code>. We use
+<code>walk()</code> instead of <code>map()</code> whenever we want the
+side effect of the function, like writing a file. We could also use
+<code>map()</code> here, but it would unnecessarily print each of the
+723 dataframes.</p>
+<p>You may now we wondering if there is a <code>map3()</code>,
+<code>map4()</code> and so on. To map over more than 2 inputs at once,
+check out the “parallel” map <code>purrr::pmap()</code> function, which
+is similar to base <code>R</code>’s <code>mapply()</code>.</p>
 </div>
 </details>
 </div>
 <p><br></p>
-<p>You may notice that we used an intermediate object (<code>files_out</code>) from above. We could re-write our chain without this object by creating it within the function call:</p>
+<p>You may notice that we used an intermediate object
+(<code>files_out</code>) from above. We could re-write our chain without
+this object by creating it within the function call:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># read, bind, and write</span>
-<span class='fu'>map_df</span><span class='op'>(</span><span class='va'>files_in</span>, <span class='op'>~</span><span class='fu'>read_csv</span><span class='op'>(</span><span class='va'>.x</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>group_split</span><span class='op'>(</span><span class='va'>SITE_CODE</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'>walk</span><span class='op'>(</span>
-    <span class='op'>~</span><span class='fu'>write_csv</span><span class='op'>(</span>
+<span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>map_df</a></span><span class='op'>(</span><span class='va'>files_in</span>, <span class='op'>~</span><span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='va'>.x</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_split.html'>group_split</a></span><span class='op'>(</span><span class='va'>SITE_CODE</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>walk</a></span><span class='op'>(</span>
+    <span class='op'>~</span><span class='fu'><a href='https://readr.tidyverse.org/reference/write_delim.html'>write_csv</a></span><span class='op'>(</span>
       <span class='va'>.x</span>, 
-      <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"data"</span>,<span class='st'>"gwl"</span>,<span class='st'>"site_code"</span><span class='op'>)</span>, <span class='st'>"/"</span>, <span class='va'>.x</span><span class='op'>$</span><span class='va'>SITE_CODE</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>, <span class='st'>".csv"</span><span class='op'>)</span>
+      <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='st'>"data/gwl/site_code"</span>, <span class='st'>"/"</span>, <span class='va'>.x</span><span class='op'>$</span><span class='va'>SITE_CODE</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>, <span class='st'>".csv"</span><span class='op'>)</span>
     <span class='op'>)</span>
   <span class='op'>)</span>
 </code></pre>
 </div>
 </div>
-<p>The <code>~</code>, <code>.x</code>, and <code>.y</code> syntax may seem confusing at first, but with some practice it will become easier, and it provides a consistent syntax to express complex ideas about your code. More more importantly, the emphasis is on keeping track of functions rather than creating and managing the scaffolding of <code>for</code> loops.</p>
+<p>The <code>~</code>, <code>.x</code>, and <code>.y</code> syntax may
+seem confusing at first, but with some practice it will become easier,
+and it provides a consistent syntax to express complex ideas about your
+code. More more importantly, the emphasis is on keeping track of
+functions rather than creating and managing the scaffolding of
+<code>for</code> loops.</p>
 <p>Taking things one step further, imagine you were:</p>
 <ul>
-<li>only interested in <code>WELL_USE</code> types equal to “<code>Observation</code>”</li>
-<li>you needed to convert the <code>WELL_DEPTH</code> from feet to meters</li>
-<li>you needed to output the data as three shapefiles, one for each county</li>
+<li>only interested in <code>WELL_USE</code> types equal to
+“<code>Observation</code>”</li>
+<li>you needed to convert the <code>WELL_DEPTH</code> from feet to
+meters</li>
+<li>you needed to output the data as three shapefiles, one for each
+county</li>
 </ul>
-<p>We could capture these transform steps in a function, store it in our <code>/functions</code> folder <a href="m_project_management.html#strategies-to-organize-projectscode">as described in the project management module</a>, and in this way, clean up our workspace so we can keep track of the functions applied on our data and keep our scripts short and readable.</p>
-<p>Store this in a file <code>/scripts/functions/f_import_clean.R</code>:</p>
+<p>We could capture these transform steps in a function, store it in our
+<code>/functions</code> folder <a
+href="m_project_management.html#strategies-to-organize-projectscode">as
+described in the project management module</a>, and in this way, clean
+up our workspace so we can keep track of the functions applied on our
+data and keep our scripts short and readable.</p>
+<p>Store this in a file
+<code>/scripts/functions/f_import_clean.R</code>:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># import dataframe, filter to observation wells, convert well </span>
 <span class='co'># depth feet to meters, project to epgs 3310, &amp; export the data</span>
 <span class='va'>f_import_clean_export</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>file_in</span>, <span class='va'>file_out</span><span class='op'>)</span><span class='op'>{</span>
-  <span class='fu'>read_csv</span><span class='op'>(</span><span class='va'>file_in</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-    <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>WELL_USE</span> <span class='op'>==</span> <span class='st'>"Observation"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-    <span class='fu'>mutate</span><span class='op'>(</span>well_depth_m <span class='op'>=</span> <span class='va'>WELL_DEPTH</span> <span class='op'>*</span> <span class='fl'>0.3048</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-    <span class='fu'>sf</span><span class='fu'>::</span><span class='fu'><a href='https://r-spatial.github.io/sf/reference/st_as_sf.html'>st_as_sf</a></span><span class='op'>(</span>coords <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"LONGITUDE"</span>, <span class='st'>"LATITUDE"</span><span class='op'>)</span>, crs <span class='op'>=</span> <span class='fl'>4269</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-    <span class='fu'>sf</span><span class='fu'>::</span><span class='fu'><a href='https://r-spatial.github.io/sf/reference/st_transform.html'>st_transform</a></span><span class='op'>(</span><span class='fl'>3310</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='va'>file_in</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>WELL_USE</span> <span class='op'>==</span> <span class='st'>"Observation"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>well_depth_m <span class='op'>=</span> <span class='va'>WELL_DEPTH</span> <span class='op'>*</span> <span class='fl'>0.3048</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+    <span class='fu'>sf</span><span class='fu'>::</span><span class='fu'><a href='https://r-spatial.github.io/sf/reference/st_as_sf.html'>st_as_sf</a></span><span class='op'>(</span>coords <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"LONGITUDE"</span>, <span class='st'>"LATITUDE"</span><span class='op'>)</span>, crs <span class='op'>=</span> <span class='fl'>4269</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+    <span class='fu'>sf</span><span class='fu'>::</span><span class='fu'><a href='https://r-spatial.github.io/sf/reference/st_transform.html'>st_transform</a></span><span class='op'>(</span><span class='fl'>3310</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
     <span class='fu'>sf</span><span class='fu'>::</span><span class='fu'><a href='https://r-spatial.github.io/sf/reference/st_write.html'>st_write</a></span><span class='op'>(</span><span class='va'>file_out</span>, delete_layer <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 <span class='op'>}</span>
 </code></pre>
 </div>
 </div>
-<p>Now we can <code>walk()</code> inputs over this function with ease in our main script without keeping track of loops and indices, or even the function internals, which are neatly stored in their own file.</p>
+<p>Now we can <code>walk()</code> inputs over this function with ease in
+our main script without keeping track of loops and indices, or even the
+function internals, which are neatly stored in their own file.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/source.html'>source</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"scripts/functions/f_import_clean_export.R"</span><span class='op'>)</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/source.html'>source</a></span><span class='op'>(</span><span class='st'>"scripts/functions/f_import_clean_export.R"</span><span class='op'>)</span>
 
 <span class='co'># create a directory to store results</span>
-<span class='fu'>fs</span><span class='fu'>::</span><span class='fu'><a href='http://fs.r-lib.org/reference/create.html'>dir_create</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"results"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>fs</span><span class='fu'>::</span><span class='fu'><a href='https://fs.r-lib.org/reference/create.html'>dir_create</a></span><span class='op'>(</span><span class='st'>"results"</span><span class='op'>)</span>
 
 <span class='co'># vectors with function args: input (.x) &amp; output (.y) files</span>
-<span class='va'>files_in</span>  <span class='op'>&lt;-</span> <span class='fu'>fs</span><span class='fu'>::</span><span class='fu'><a href='http://fs.r-lib.org/reference/dir_ls.html'>dir_ls</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"data"</span>, <span class='st'>"gwl"</span>, <span class='st'>"county"</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>files_out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"results"</span>, <span class='fu'>str_replace_all</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/basename.html'>basename</a></span><span class='op'>(</span><span class='va'>files_in</span><span class='op'>)</span>, <span class='st'>".csv"</span>, <span class='st'>".shp"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>files_in</span>  <span class='op'>&lt;-</span> <span class='fu'>fs</span><span class='fu'>::</span><span class='fu'><a href='https://fs.r-lib.org/reference/dir_ls.html'>dir_ls</a></span><span class='op'>(</span><span class='st'>"data/gwl/county"</span><span class='op'>)</span>
+<span class='va'>files_out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"results"</span>, <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_replace.html'>str_replace_all</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/basename.html'>basename</a></span><span class='op'>(</span><span class='va'>files_in</span><span class='op'>)</span>, <span class='st'>".csv"</span>, <span class='st'>".shp"</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='fu'>walk2</span><span class='op'>(</span><span class='va'>files_in</span>, <span class='va'>files_out</span>, <span class='op'>~</span><span class='fu'>f_import_clean_export</span><span class='op'>(</span><span class='va'>.x</span>, <span class='va'>.y</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://purrr.tidyverse.org/reference/map2.html'>walk2</a></span><span class='op'>(</span><span class='va'>files_in</span>, <span class='va'>files_out</span>, <span class='op'>~</span><span class='fu'>f_import_clean_export</span><span class='op'>(</span><span class='va'>.x</span>, <span class='va'>.y</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
-<p>Now we check the <code>/results</code> directory to verify it is populated with the shapefiles we just wrote.</p>
+<p>Now we check the <code>/results</code> directory to verify it is
+populated with the shapefiles we just wrote.</p>
 <p><br></p>
 <h2 id="additional-resources">Additional Resources</h2>
-<p>Iteration is a core skill that will allow you to scale your workflows from small to large while maintaining reproducibility. Combined with a proficiency in functional programming, you will more easily develop and store functions, declutter your workspace to focus on important transformations, streamline tracking down and fixing bugs, and keep track of data pipelines. Your ability to perform and re-perform arbitrarily complex workflows will exponentially increase.</p>
-<p>We recommend the following places to start to learn more about functional programming in <code>R</code>:</p>
+<p>Iteration is a core skill that will allow you to scale your workflows
+from small to large while maintaining reproducibility. Combined with a
+proficiency in functional programming, you will more easily develop and
+store functions, declutter your workspace to focus on important
+transformations, streamline tracking down and fixing bugs, and keep
+track of data pipelines. Your ability to perform and re-perform
+arbitrarily complex workflows will exponentially increase.</p>
+<p>We recommend the following places to start to learn more about
+functional programming in <code>R</code>:</p>
 <ul>
-<li><em>R for Data Science</em> book section on <a href="https://r4ds.had.co.nz/program-intro.html">Programming</a><br />
+<li><em>R for Data Science</em> book section on <a
+href="https://r4ds.had.co.nz/program-intro.html">Programming</a><br />
 </li>
-<li><a href="https://learning.acm.org/techtalks/functionalprogramming">A talk about functional programming</a> by Hadley Wickham<br />
+<li><a href="https://learning.acm.org/techtalks/functionalprogramming">A
+talk about functional programming</a> by Hadley Wickham<br />
 </li>
-<li><em>Advanced R</em> book chapter on <a href="https://adv-r.hadley.nz/fp.html">Functional programming</a></li>
+<li><em>Advanced R</em> book chapter on <a
+href="https://adv-r.hadley.nz/fp.html">Functional programming</a></li>
 </ul>
 <p><br></p>
-<p><em>Lesson adapted from <a href="https://r4ds.had.co.nz/iteration.html">R for Data Science</a>.</em></p>
+<p><em>Lesson adapted from <a
+href="https://r4ds.had.co.nz/iteration.html">R for Data
+Science</a>.</em></p>
 <p><br></p>
 <p><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"></p>
-<p><a href="m_simple_shiny.html" class="btn btn-secondary" style="float: left">Previous module:<br>5. Simple Shiny</a> <a href="m_parameterized_reports.html" class="btn btn-secondary" style="float: right;">Next module:<br>7. Paramaterized Reports</a></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
-<section class="footnotes" role="doc-endnotes">
+<p><a href="m_simple_shiny.html" class="btn btn-secondary" style="float: left">Previous
+module:<br>5. Simple Shiny</a>
+<a href="m_parameterized_reports.html" class="btn btn-secondary" style="float: right;">Next
+module:<br>7. Paramaterized Reports</a></p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1" role="doc-endnote"><p>For loops are an example of <a href="https://en.wikipedia.org/wiki/Imperative_programming"><em>imperative programming</em></a>, which differs from <a href="https://en.wikipedia.org/wiki/Functional_programming"><em>functional programming</em></a> in that it emphasizes the steps to take to change the state of a computer rather than composing and applying functions.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2" role="doc-endnote"><p>For a review of <code>R</code>’s <code>list</code> data structure, see the <a href="../intro/m_data_structures.html#list">data structures module</a> and Hadley Wickham’s excellent <em>“R for Data Science”</em> chapter on <a href="https://r4ds.had.co.nz/vectors.html">vectors</a>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3" role="doc-endnote"><p>An anonymous function is a function that is not assigned to an identifier. In other words, it is created and used but doesn’t exist in the Gobal Environment as a function you can call by name. The benefit of using anonymous functions is that they allow you to quickly write single-use functions without storing and managing them. For example, in the expression <code>lapply(1:5, function(x) print(x))</code>, the anonymous function is <code>function(x) print(x)</code>. To make it a regular, named function, we assign it to a value, like <code>print_value &lt;- function(x) print(x)</code>. Then it can be called by name like so: <code>lapply(1:5, print_value)</code>.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>For loops are an example of <a
+href="https://en.wikipedia.org/wiki/Imperative_programming"><em>imperative
+programming</em></a>, which differs from <a
+href="https://en.wikipedia.org/wiki/Functional_programming"><em>functional
+programming</em></a> in that it emphasizes the steps to take to change
+the state of a computer rather than composing and applying functions.<a
+href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>For a review of <code>R</code>’s <code>list</code> data
+structure, see the <a href="../intro/m_data_structures.html#list">data
+structures module</a> and Hadley Wickham’s excellent <em>“R for Data
+Science”</em> chapter on <a
+href="https://r4ds.had.co.nz/vectors.html">vectors</a>.<a href="#fnref2"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>An anonymous function is a function that is not assigned
+to an identifier. In other words, it is created and used but doesn’t
+exist in the Gobal Environment as a function you can call by name. The
+benefit of using anonymous functions is that they allow you to quickly
+write single-use functions without storing and managing them. For
+example, in the expression
+<code>lapply(1:5, function(x) print(x))</code>, the anonymous function
+is <code>function(x) print(x)</code>. To make it a regular, named
+function, we assign it to a value, like
+<code>print_value &lt;- function(x) print(x)</code>. Then it can be
+called by name like so: <code>lapply(1:5, print_value)</code>.<a
+href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 <!--radix_placeholder_article_footer-->
@@ -2676,7 +2868,10 @@ Modules
 <!--/radix_placeholder_appendices-->
 <!--radix_placeholder_navigation_after_body-->
 <div class="distill-site-nav distill-site-footer">
-<p>© Copyright 2021 <a href="http://ryanpeek.org/" target = "_blank">Ryan Peek</a> and <a href="https://www.richpauloo.com/" target = "_blank">Rich Pauloo</a>.</p>
+<p>© Copyright 2021
+<a href="http://ryanpeek.org/" target = "_blank">Ryan Peek</a> and
+<a href="https://www.richpauloo.com/" target = "_blank">Rich
+Pauloo</a>.</p>
 </div>
 <!--/radix_placeholder_navigation_after_body-->
 

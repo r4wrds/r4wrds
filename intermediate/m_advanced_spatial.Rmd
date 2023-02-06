@@ -68,12 +68,10 @@ First we'll need a few packages we've not used yet. Please install these with `i
 ```{r packages}
 
 # GENERAL PACKAGES
-library(here) # path management
 library(tidyverse) # data wrangling & viz
 library(purrr) # iteration
 library(janitor) # name cleaning
 library(glue) # pasting stuff together
-library(here) # file paths
 
 # SPATIAL PACKAGES
 library(sf) # analysis tools
@@ -114,7 +112,7 @@ Let's also pull in a shapefile that's just Sacramento County. We'll use this to 
 ```{r sac-co}
 
 # get just sacramento: here we read in a shapefile:
-sac_co <- st_read(here("data/shp/sac/sac_county.shp"))
+sac_co <- st_read("data/shp/sac/sac_county.shp")
 
 # check CRS
 st_crs(sac_co)$epsg
@@ -150,7 +148,7 @@ Iteration...remember {`purrr`}? Let's use it here!
 ```{r get-stations}
 
 # read the stations
-gw_files <- list.files(path = here("data/gwl/county"),
+gw_files <- list.files(path = "data/gwl/county",
                        full.names = TRUE, pattern = "*.csv")
 
 # read all files into dataframes and combine with purrr
@@ -301,7 +299,7 @@ gw_df_split <- gw_df %>%
 map2(gw_df_split, # list of points by county
      names(gw_df_split), # list of names for layers
      ~st_write(.x, 
-               dsn = here("data/county_gw_pts.gpkg"),
+               dsn = "data/county_gw_pts.gpkg",
                layer = glue("{.y}_gw_pts"), 
                delete_layer=TRUE, # to remove layer if it exists
                quiet = TRUE) # suppress messages
@@ -320,7 +318,7 @@ To make sure this worked as intended, we can check what layers exist in the geop
 ```{r stLayers}
 
 # check layers in the gpkg file
-st_layers(here("data/county_gw_pts.gpkg"))
+st_layers("data/county_gw_pts.gpkg")
 
 
 ```
@@ -702,7 +700,7 @@ To save this map, we use a similar function as the `ggsave()`, but in this case,
 
 ```{r, echo=TRUE, eval=FALSE}
 tmap::tmap_save(final_tmap, 
-                filename = here("images","map_of_sites.jpg"),
+                filename = "images/map_of_sites.jpg",
                 height = 11, width = 8, units = "in", dpi = 300)
 ```
 

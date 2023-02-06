@@ -51,7 +51,7 @@ Although the RStudio Interactive Development Environment (IDE) encourages knitti
 
 ```{r create-data, echo = FALSE, eval = FALSE}
 # create a file to work with that includes only Sac, Yolo, and SJ counties
-data_path <- here("data", "pgwl")
+data_path <- "data/pgwl"
 counties  <- c("Sacramento", "Yolo", "San Joaquin")
 sep <- map_df(
   counties,
@@ -60,7 +60,7 @@ sep <- map_df(
     files_in = list.files(data_path, full.names = TRUE)
   )
 )
-sep %>% write_rds(here("data", "sac_yolo_sj.rds"))
+sep %>% write_rds("data/sac_yolo_sj.rds")
 ```
 
 
@@ -90,11 +90,10 @@ Let's apply `params` to our task and generate an `html_document` for a set of co
 
 ```{r read-counties}
 library(tidyverse)
-library(here)
 library(sf)
 
 # groundwater level data for Sacramento, Yolo, San Joaquin counties
-gwl <- read_rds(here("data", "sac_yolo_sj.rds"))
+gwl <- read_rds("data/sac_yolo_sj.rds")
 
 gwl %>% 
   group_by(SITE_CODE) %>% 
@@ -105,7 +104,7 @@ gwl %>%
 We will iterate over the `COUNTY_NAME` to create three reports, one for each county. Copy and paste the following code into a new file `reports/gwl_report.Rmd`
 
 ```{r rmd-file, echo = FALSE}
-cat(htmltools::includeText(here("reports", "gwl_report.Rmd")))
+cat(htmltools::includeText("reports/gwl_report.Rmd"))
 ```
 
 
@@ -145,7 +144,7 @@ walk2(
   counties, 
   files_out,
   ~rmarkdown::render(
-    input       = here("reports", "gwl_report.Rmd"), 
+    input       = "reports/gwl_report.Rmd", 
     output_file = here("reports", .y),
     params      = list(county = .x)
   )
