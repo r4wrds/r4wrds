@@ -22,7 +22,6 @@ library(purrr)
 
 -   Implement best practices for reproducible data science\
 -   Create and use an RStudio project (.RProj)\
--   Understand filepaths and `{here}`\
 -   Understand how and when to modify `.RProfile` and `.Renviron` files
 -   Apply strategies to organize functions and scripts
 -   Understand package environments and how to manage them with `{renv}`
@@ -51,7 +50,7 @@ A *development environment* is the set of tools you use to process data and the 
 
 <p style="line-height: 1.5em;">
 
-**Although this is an intermediate level course, we will revisit [[introductory material on "Project Management"]{style="color: #009e73"}](../intro/m_project_management.html) because no matter your skill level in R, strategic project management remains fundamental.** Subsequent modules in this course assume familiarity with `{here}`, `.Rproject`s, naming conventions, and general best practices.
+**Although this is an intermediate level course, we will revisit [[introductory material on "Project Management"]{style="color: #009e73"}](../intro/m_project_management.html) because no matter your skill level in R, strategic project management remains fundamental.** Subsequent modules in this course assume familiarity `.Rproject`s, naming conventions, and general best practices.
 
 </p>
 :::
@@ -371,7 +370,7 @@ Save as **`/scripts/01_control.R`** and run.
 
 ```{r source-functions-in-folder, eval=FALSE}
 # packages needed for this script
-pkgs <- c("readr", "cowsay", "here", "tidyverse", "glue")
+pkgs <- c("readr", "cowsay", "tidyverse", "glue")
 walk(pkgs, require, character.only = TRUE)
 
 # silently source all functions using the purrr::walk function
@@ -424,7 +423,7 @@ If project management and reproducible data pipelines are interesting to you, ch
 
 # `{renv}`
 
-We use `{here}` because we expect that whoever else opens your code on their machine is likely to have a different project root path, and `{here}` ensures your code is portable between different computers with different root project paths (e.g., `~/Documents/Github/myproject` versus `C:\Users\louis\Documents\myproject`).
+We use RProjects because we expect that whoever else opens your code on their machine is likely to have a different project root path, and using an RProject ensures your code is portable between different computers with different root project paths (e.g., `~/Documents/Github/myproject` versus `C:\Users\louis\Documents\myproject`).
 
 Development environments are similar. When we work in `R` -- or any programming language for that matter -- we use a snapshot of package versions based on when we downloaded and installed them [e.g. with `install.packages()`]. You can check the version of the installed packages loaded into your current environment with `sessionInfo()`.
 
