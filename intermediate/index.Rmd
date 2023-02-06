@@ -77,7 +77,26 @@ knitr::include_graphics(path = "https://raw.githubusercontent.com/allisonhorst/s
 
 All data used in this course is expected to live in a `/data` subfolder in a project directory. 
 
-To setup a new RStudio project: `intermediate_r4wrds.Rproj`, we can create this file in a few different ways. Directly from RStudio (detailed in the [introductory project management module](../intro/m_project_management.html#use-project-workflows)), or via the command line. We can use `touch intermediate_r4wrds.Rproj` (MacOS/Linux) or `echo > intermediate_r4wrds.Rproj` (Windows) in the root project directory.
+### Create a New Project
+
+We will be working in an project using RStudio. We can create a new project file (`intermediate_r4wrds.Rproj`), in a few different ways. Directly from RStudio (detailed in the [introductory project management module](../intro/m_project_management.html#use-project-workflows)), or via the command line. We can use `touch intermediate_r4wrds.Rproj` (MacOS/Linux) or `echo > intermediate_r4wrds.Rproj` (Windows) in the root project directory.
+
+To complete code exercises and follow along in the course, you will create a `/data` subfolder, and a `/scripts` subfolder to store `.R` scripts, which we recommend naming by module.
+
+Your project directory structure should look like this (note the position of the `/data` subfolder):
+
+    .
+    ├── scripts
+    │   ├── module_01.R
+    │   └── module_02.R
+    │   └── ...
+    ├── data
+    │   ├── gwl.csv
+    │   └── polygon.shp
+    │   └── ...
+    └── intermediate_r4wrds.Rproj
+
+### Download Data
 
 Once a RStudio project has been created we can download the data in in a few ways:
 
@@ -94,23 +113,10 @@ Once a RStudio project has been created we can download the data in in a few way
     # if get resulting __MACOSX folder (artifact of unzip), remove:
     unlink("__MACOSX", recursive = TRUE)
 ```
-2.  [Cloned from the `r4wrds-data-intermediate` Github repository](https://github.com/r4wrds/r4wrds-data-intermediate/raw/main/data.zip)\
-3.  [Downloaded and unzipped from OSF](https://osf.io/qweju/download)
 
-Your project directory structure should look like this (note the position of the `/data` subfolder):
+2.  [Downloaded and unzipped from OSF](https://osf.io/qweju/download)
 
-    .
-    ├── scripts
-    │   ├── module_01.R
-    │   └── module_02.R
-    │   └── ...
-    ├── data
-    │   ├── gwl.csv
-    │   └── polygon.shp
-    │   └── ...
-    └── intermediate_r4wrds.Rproj
-
-To complete code exercises and follow along in the course, you will create a `/scripts` subfolder to store `.R` scripts, which we recommend naming by module.
+Once data have been downloaded and moved to a data folder, or downloaded directly into the project, we are ready to roll!
 
 <br>
 
