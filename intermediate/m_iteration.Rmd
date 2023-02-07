@@ -14,7 +14,6 @@ preview: https://r4wrds.com/img/cover.png
 
 library(knitr)
 library(tidyverse)
-library(here)
 
 ```
 
@@ -55,15 +54,14 @@ The `for` loop is ubiquitous across programming languages and a fundamental conc
 
 ```{r preprocess, eval = FALSE, include = FALSE}
 library(tidyverse)
-read_csv(here("data","gwl","stations.csv")) %>% 
+read_csv("data/gwl/stations.csv") %>% 
   select(-WCR_NO) %>% # some character v integer issues to avoid
   filter(COUNTY_NAME %in% c("Sacramento", "El Dorado", "Placer")) %>%
   group_split(COUNTY_NAME) %>% 
   walk(
     ~write_csv(
       .x, 
-      here("data/gwl/county",
-           glue::glue("{.x$COUNTY_NAME[1]}.csv"))
+      glue::glue("data/gwl/county/{.x$COUNTY_NAME[1]}.csv")
       )
   )
 ```
@@ -131,7 +129,7 @@ ldf <- split(ldf, ldf$SITE_CODE)
 # loop over each list element and write a csv file
 fs::dir_create("data/gwl/site_code")
 # here we make a list of files names ( names(ldf) is a vector )
-files_out <- glue::glue("{here('data', 'gwl', 'site_code', names(ldf))}.csv")
+files_out <- glue::glue("data/gwl/site_code/{names(ldf)}.csv")
 
 for(i in seq_along(ldf)){
   write_csv(ldf[[i]], files_out[i])
@@ -148,7 +146,7 @@ for(i in seq_along(ldf)){
 ldf <- bind_rows(l)
 ldf <- split(ldf, ldf$SITE_CODE)
 fs::dir_create("data/gwl/site_code")
-files_out <- here("data/gwl/site_code", paste0(names(ldf), ".csv"))
+files_out <- glue::glue("data/gwl/site_code{names(ldf)}.csv")
 ```
 
 This is a lot of code to accomplish a relatively standard iterative workflow of reading in a directory of files, combining them, and writing them out. Functional programming can simplify loop-based workflows, run faster, and encourage you to think conceptually about the transformations at play, without worrying about tracking a changing index. Moreover, loops in `R` are usually unnecessary unless the result of the `i`th index depends on the `i-1` (previous) index.
@@ -262,7 +260,7 @@ map_df(files_in, ~read_csv(.x)) %>%
   walk(
     ~write_csv(
       .x, 
-      paste0("data/gwl/site_code", "/", .x$SITE_CODE[1], ".csv")
+      glue::glue("data/gwl/site_code/{.x$SITE_CODE[1]}.csv")
     )
   )
 
