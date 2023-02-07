@@ -2461,23 +2461,26 @@ mapmaking</a></li>
 </ol>
 </div>
 <p><br></p>
-<h2 id="data">Data</h2>
+<h2 id="project-setup-and-data">Project Setup and Data</h2>
 <p>All data used in this course is expected to live in a
-<code>/data</code> subfolder in the project directory. It can be
-downloaded in 1 of 2 ways:</p>
-<ol type="1">
-<li><a
-href="https://github.com/r4wrds/r4wrds-data-intermediate/raw/main/data.zip">Cloned
-from the <code>r4wrds-data-intermediate</code> Github
-repository</a><br />
-</li>
-<li><a href="https://osf.io/qweju/download">Downloaded and unzipped from
-OSF</a></li>
-</ol>
+<code>/data</code> subfolder in a project directory.</p>
+<h3 id="create-a-new-project">Create a New Project</h3>
+<p>We will be working in an project using RStudio. We can create a new
+project file (<code>intermediate_r4wrds.Rproj</code>), in a few
+different ways. Directly from RStudio (detailed in the <a
+href="../intro/m_project_management.html#use-project-workflows">introductory
+project management module</a>), or via the command line. We can use
+<code>touch intermediate_r4wrds.Rproj</code> (MacOS/Linux) or
+<code>echo &gt; intermediate_r4wrds.Rproj</code> (Windows) in the root
+project directory.</p>
+<p>To complete code exercises and follow along in the course, you will
+create a <code>/data</code> subfolder, and a <code>/scripts</code>
+subfolder to store <code>.R</code> scripts, which we recommend naming by
+module.</p>
 <p>Your project directory structure should look like this (note the
 position of the <code>/data</code> subfolder):</p>
 <pre><code>.
-├── code
+├── scripts
 │   ├── module_01.R
 │   └── module_02.R
 │   └── ...
@@ -2485,17 +2488,35 @@ position of the <code>/data</code> subfolder):</p>
 │   ├── gwl.csv
 │   └── polygon.shp
 │   └── ...
-└── intermediate.Rproj</code></pre>
-<p>To complete code exercises and follow along in the course, you will
-create a <code>/code</code> subfolder to store <code>.R</code> scripts,
-which we recommend naming by module.</p>
-<p>You will also need to create an <code>intro.Rproj</code> file,
-covered in the <a
-href="../intro/m_project_management.html#use-project-workflows">introductory
-project management module</a>. Alternatively, on the command line, use
-<code>touch intro.Rproj</code> (MacOS/Linux) or
-<code>echo &gt; intro.Rproj</code> (Windows) in the root project
-directory.</p>
+└── intermediate_r4wrds.Rproj</code></pre>
+<h3 id="download-data">Download Data</h3>
+<p>Once a RStudio project has been created we can download the data in
+in a few ways:</p>
+<ol type="1">
+<li>Download to a data folder in your project from a <a
+href="https://github.com/r4wrds/r4wrds-data-intermediate/">Github
+repository</a>:</li>
+</ol>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r">    <span class='co'># downloads the data.zip file to the `data` directory</span>
+    <span class='fu'><a href='https://rdrr.io/r/base/files2.html'>dir.create</a></span><span class='op'>(</span><span class='st'>"data"</span><span class='op'>)</span>
+    <span class='fu'><a href='https://rdrr.io/r/utils/download.file.html'>download.file</a></span><span class='op'>(</span><span class='st'>"https://github.com/r4wrds/r4wrds-data-intermediate/raw/main/data.zip"</span>, destfile <span class='op'>=</span> <span class='st'>"data/data.zip"</span><span class='op'>)</span>
+
+    <span class='co'># unzip the data:</span>
+    <span class='fu'><a href='https://rdrr.io/r/utils/unzip.html'>unzip</a></span><span class='op'>(</span>zipfile <span class='op'>=</span> <span class='st'>"data/data.zip"</span><span class='op'>)</span>
+
+    <span class='co'># if get resulting __MACOSX folder (artifact of unzip), remove:</span>
+    <span class='fu'><a href='https://rdrr.io/r/base/unlink.html'>unlink</a></span><span class='op'>(</span><span class='st'>"__MACOSX"</span>, recursive <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<ol start="2" type="1">
+<li><a href="https://osf.io/qweju/download">Downloaded and unzipped from
+OSF</a></li>
+</ol>
+<p>Once data have been downloaded and moved to a data folder, or
+downloaded directly into the project, we are ready to roll!</p>
 <p><br></p>
 <h2 id="workshop-overview">Workshop Overview</h2>
 <p>We will follow the <a
@@ -2524,7 +2545,7 @@ science</a>.</p>
 <p><a href="m_updating_r.html" class="btn btn-secondary" style="float: right;">Next
 module:<br>1. Updating <code>R</code></a></p>
 <hr />
-<p><em>site last updated: <code>2022-05-17 08:25</code></em></p>
+<p><em>site last updated: 2023-02-06 19:37</em></p>
 <div class="sourceCode" id="cb2"><pre
 class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->

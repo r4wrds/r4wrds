@@ -7,32 +7,33 @@ creative_commons: CC BY
 preview: https://r4wrds.com/img/cover.png
 ---
 
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+```{=html}
 <style>
   .title{
     display: none;
   }
 </style>
-
+```
 <br>
 
 ## Who is this course for?
 
 What makes an *Intermediate `R` user*? This course is most relevant and targeted at folks who:
 
- - Took the [Introductory R4WRDS](../intro/index.html) course
- - Regularly use `R` and want improve their efficiency and skill set
- - Have a general understanding and proficiency in using `{dplyr}`, `{ggplot2}`, `{sf}`, and `{rmarkdown}`
- - Understand (and use) general best practices for data science in `R`
+-   Took the [Introductory R4WRDS](../intro/index.html) course
+-   Regularly use `R` and want improve their efficiency and skill set
+-   Have a general understanding and proficiency in using `{dplyr}`, `{ggplot2}`, `{sf}`, and `{rmarkdown}`
+-   Understand (and use) general best practices for data science in `R`
 
 <br>
 
 ## Why `R`?
 
-[`R`](https://www.r-project.org/) is an open-source language for statistical computing and a general purpose programming language. It is one of the primary languages used for data science, modeling, and visualization.  
+[`R`](https://www.r-project.org/) is an open-source language for statistical computing and a general purpose programming language. It is one of the primary languages used for data science, modeling, and visualization.
 
 <br>
 
@@ -42,13 +43,12 @@ In this course, we will move more quickly, assume familiarity with basic `R` ski
 
 **This course emphasizes:**
 
- - Intermediate scripting skills like iteration, functional programming, writing functions, and controlling project workflows for better reproducibility and efficiency
- - Approaches to working with more complex data structures like lists and timeseries data
- - The fundamentals of building Shiny Apps
- - Pulling water resources data from APIs
- - Intermediate mapmaking and spatial data processing
- - Integrating version control in projects with git
-
+-   Intermediate scripting skills like iteration, functional programming, writing functions, and controlling project workflows for better reproducibility and efficiency
+-   Approaches to working with more complex data structures like lists and timeseries data
+-   The fundamentals of building Shiny Apps
+-   Pulling water resources data from APIs
+-   Intermediate mapmaking and spatial data processing
+-   Integrating version control in projects with git
 
 (ref:AHRemoteR) *Artwork by @allison_horst*
 
@@ -58,64 +58,77 @@ knitr::include_graphics(path = "https://raw.githubusercontent.com/allisonhorst/s
 
 ```
 
-:::obj
-
+::: obj
 **Course Modules**
 
-1. [Check/Update R/RStudio and Packages](m_updating_r.html)  
-2. [Version Control with git](m_version_control.html) 
-3. [Project Management and workflows](m_project_management.html)   
-4. [Interactive visualization](m_interactive_viz.html)   
-5. [Simple shiny](m_simple_shiny.html)    
-6. [Iteration and functional programming](m_iteration.html)    
-7. [Parameterized reports](m_parameterized_reports.html)
-8. [Advanced spatial R and mapmaking](m_advanced_spatial.html)
-
+1.  [Check/Update R/RStudio and Packages](m_updating_r.html)\
+2.  [Version Control with git](m_version_control.html)
+3.  [Project Management and workflows](m_project_management.html)\
+4.  [Interactive visualization](m_interactive_viz.html)\
+5.  [Simple shiny](m_simple_shiny.html)\
+6.  [Iteration and functional programming](m_iteration.html)\
+7.  [Parameterized reports](m_parameterized_reports.html)
+8.  [Advanced spatial R and mapmaking](m_advanced_spatial.html)
 :::
-
 
 <br>
 
-## Data
+## Project Setup and Data
 
-All data used in this course is expected to live in a `/data` subfolder in the project directory. It can be downloaded in 1 of 2 ways:
+All data used in this course is expected to live in a `/data` subfolder in a project directory. 
 
-1. [Cloned from the `r4wrds-data-intermediate` Github repository](https://github.com/r4wrds/r4wrds-data-intermediate/raw/main/data.zip)  
-2. [Downloaded and unzipped from OSF](https://osf.io/qweju/download)  
+### Create a New Project
+
+We will be working in an project using RStudio. We can create a new project file (`intermediate_r4wrds.Rproj`), in a few different ways. Directly from RStudio (detailed in the [introductory project management module](../intro/m_project_management.html#use-project-workflows)), or via the command line. We can use `touch intermediate_r4wrds.Rproj` (MacOS/Linux) or `echo > intermediate_r4wrds.Rproj` (Windows) in the root project directory.
+
+To complete code exercises and follow along in the course, you will create a `/data` subfolder, and a `/scripts` subfolder to store `.R` scripts, which we recommend naming by module.
 
 Your project directory structure should look like this (note the position of the `/data` subfolder):
 
+    .
+    ├── scripts
+    │   ├── module_01.R
+    │   └── module_02.R
+    │   └── ...
+    ├── data
+    │   ├── gwl.csv
+    │   └── polygon.shp
+    │   └── ...
+    └── intermediate_r4wrds.Rproj
+
+### Download Data
+
+Once a RStudio project has been created we can download the data in in a few ways:
+
+1.  Download to a data folder in your project from a [Github repository](https://github.com/r4wrds/r4wrds-data-intermediate/):
+
+```{r}
+    # downloads the data.zip file to the `data` directory
+    dir.create("data")
+    download.file("https://github.com/r4wrds/r4wrds-data-intermediate/raw/main/data.zip", destfile = "data/data.zip")
+
+    # unzip the data:
+    unzip(zipfile = "data/data.zip")
+
+    # if get resulting __MACOSX folder (artifact of unzip), remove:
+    unlink("__MACOSX", recursive = TRUE)
 ```
-.
-├── code
-│   ├── module_01.R
-│   └── module_02.R
-│   └── ...
-├── data
-│   ├── gwl.csv
-│   └── polygon.shp
-│   └── ...
-└── intermediate.Rproj
-```
 
-To complete code exercises and follow along in the course, you will create a `/code` subfolder to store `.R` scripts, which we recommend naming by module. 
+2.  [Downloaded and unzipped from OSF](https://osf.io/qweju/download)
 
-You will also need to create an `intro.Rproj` file, covered in the [introductory project management module](../intro/m_project_management.html#use-project-workflows). Alternatively, on the command line, use `touch intro.Rproj` (MacOS/Linux) or `echo > intro.Rproj` (Windows) in the root project directory.
-
+Once data have been downloaded and moved to a data folder, or downloaded directly into the project, we are ready to roll!
 
 <br>
-
 
 ## Workshop Overview
 
 We will follow the [SFS Code of Conduct](https://freshwater-science.org/about/society-governance/code-of-conduct) throughout our workshop.
 
-
 <br>
 
 ## Source content
 
-All source materials for this website can be accessed at the [`r4wrds` Github repository](https://github.com/r4wrds/r4wrds).  
+All source materials for this website can be accessed at the [`r4wrds` Github repository](https://github.com/r4wrds/r4wrds).
 
 <br>
 
@@ -127,9 +140,8 @@ Content in these lessons has been modified and/or adapted from [Data Carpentry: 
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-<a href="m_updating_r.html" class="btn btn-secondary" style="float: right;">Next module:<br>1. Updating `R`</a>  
+<a href="m_updating_r.html" class="btn btn-secondary" style="float: right;">Next module:<br>1. Updating `R`</a>
 
+------------------------------------------------------------------------
 
----
-
-*site last updated: ```r format(Sys.time(), "%Y-%m-%d %H:%M")```*
+*site last updated: `r format(Sys.time(), "%Y-%m-%d %H:%M")`*
