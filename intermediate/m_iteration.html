@@ -2555,7 +2555,7 @@ separate file, separated by the unique ID of each station (e.g., the
 <span class='co'># loop over each list element and write a csv file</span>
 <span class='fu'>fs</span><span class='fu'>::</span><span class='fu'><a href='https://fs.r-lib.org/reference/create.html'>dir_create</a></span><span class='op'>(</span><span class='st'>"data/gwl/site_code"</span><span class='op'>)</span>
 <span class='co'># here we make a list of files names ( names(ldf) is a vector )</span>
-<span class='va'>files_out</span> <span class='op'>&lt;-</span> <span class='fu'>glue</span><span class='fu'>::</span><span class='fu'><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></span><span class='op'>(</span><span class='st'>"{here('data', 'gwl', 'site_code', names(ldf))}.csv"</span><span class='op'>)</span>
+<span class='va'>files_out</span> <span class='op'>&lt;-</span> <span class='fu'>glue</span><span class='fu'>::</span><span class='fu'><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></span><span class='op'>(</span><span class='st'>"data/gwl/site_code/{names(ldf)}.csv"</span><span class='op'>)</span>
 
 <span class='kw'>for</span><span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_along</a></span><span class='op'>(</span><span class='va'>ldf</span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span>
   <span class='fu'><a href='https://readr.tidyverse.org/reference/write_delim.html'>write_csv</a></span><span class='op'>(</span><span class='va'>ldf</span><span class='op'>[[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>]</span>, <span class='va'>files_out</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>)</span>
@@ -2720,7 +2720,7 @@ this object by creating it within the function call:</p>
   <span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>walk</a></span><span class='op'>(</span>
     <span class='op'>~</span><span class='fu'><a href='https://readr.tidyverse.org/reference/write_delim.html'>write_csv</a></span><span class='op'>(</span>
       <span class='va'>.x</span>, 
-      <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='st'>"data/gwl/site_code"</span>, <span class='st'>"/"</span>, <span class='va'>.x</span><span class='op'>$</span><span class='va'>SITE_CODE</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>, <span class='st'>".csv"</span><span class='op'>)</span>
+      <span class='fu'>glue</span><span class='fu'>::</span><span class='fu'><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></span><span class='op'>(</span><span class='st'>"data/gwl/site_code/{.x$SITE_CODE[1]}.csv"</span><span class='op'>)</span>
     <span class='op'>)</span>
   <span class='op'>)</span>
 </code></pre>
@@ -2776,7 +2776,7 @@ function internals, which are neatly stored in their own file.</p>
 
 <span class='co'># vectors with function args: input (.x) &amp; output (.y) files</span>
 <span class='va'>files_in</span>  <span class='op'>&lt;-</span> <span class='fu'>fs</span><span class='fu'>::</span><span class='fu'><a href='https://fs.r-lib.org/reference/dir_ls.html'>dir_ls</a></span><span class='op'>(</span><span class='st'>"data/gwl/county"</span><span class='op'>)</span>
-<span class='va'>files_out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"results"</span>, <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_replace.html'>str_replace_all</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/basename.html'>basename</a></span><span class='op'>(</span><span class='va'>files_in</span><span class='op'>)</span>, <span class='st'>".csv"</span>, <span class='st'>".shp"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>files_out</span> <span class='op'>&lt;-</span> <span class='fu'>here</span><span class='op'>(</span><span class='st'>"results"</span>, <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_replace.html'>str_replace_all</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/basename.html'>basename</a></span><span class='op'>(</span><span class='va'>files_in</span><span class='op'>)</span>, <span class='st'>".csv"</span>, <span class='st'>".shp"</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='fu'><a href='https://purrr.tidyverse.org/reference/map2.html'>walk2</a></span><span class='op'>(</span><span class='va'>files_in</span>, <span class='va'>files_out</span>, <span class='op'>~</span><span class='fu'>f_import_clean_export</span><span class='op'>(</span><span class='va'>.x</span>, <span class='va'>.y</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
