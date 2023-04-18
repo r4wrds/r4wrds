@@ -165,33 +165,10 @@ Just make sure to type "**No**" at the end of the line and hit `Enter`!
 
 ### `Windows` Geospatial Instructions (from source):
 
-To install {`sf`} successfully from source, Windows users will need to install [Rtools](https://cran.r-project.org/bin/windows/Rtools/). Download the 64-bit compiler.
+To install {`sf`} successfully from source, Windows users will need to install [Rtools](https://cran.r-project.org/bin/windows/Rtools/). Download the 64-bit compiler. **Use the "R-release" version, not the R-devel version.** R-release is the stable version, and the devel version is in development. 
 
-After installing [RTools](https://cran.r-project.org/bin/windows/Rtools/), one final step remains...adding RTools to your path. This may require administrative privileges.
+Ensure that the Rtools installation matches the version of R you downloaded. For example if you downloaded R version 4.2.3, you would want Rtools version 4.2. 
 
-**_Why do we need to do this?_**
-
-What does this mean? Why do we need to do it? RTools is like a translator for your computer, and it helps translate code and build software (R packages). Before your computer can use it, we need to tell R (on your computer) where the RTools you just installed is actually located. Once we add this path (the location of the directory where RTools lives), the computer can use it when it is needed.
-
-**_To Add RTools to your Path_**
-
-Good news is we can typically do this within R/RStudio without too much trouble. Try this:
-
- 1. Open RStudio
- 2. Navigate to the **Console** panel
- 3. Right after the `>` prompt, paste the following line and hit `Enter` or `Return`
-    
-      `writeLines('PATH="${RTOOLS40_HOME}\\usr\\bin;${PATH}"', con = "~/.Renviron")` 
-
- 4. Test that it worked. Close down RStudio, reopen it, and in the **Console** after the `>` prompt, paste the following: 
-
-      `Sys.which("make")`
-
- 5. We should see something like this printed out:
-
-      `# "C:\\rtools40\\usr\\bin\\make.exe"`
-
-Now you should be able to install or "*compile*" packages in R in Windows. Proceed with installation instructions for additional packages! 
 
 ### `MacOS` Geospatial Instructions (from source): 
 
@@ -205,7 +182,6 @@ brew install pkg-config
 
 brew install gdal
 # then hit enter and wait
-
 ```
 
 At this point, you should now be able to install {`sf`} from binary on a Mac. Proceed to the next section!
