@@ -1,5 +1,5 @@
 ---
-title: "8. Advanced spatial R and mapmaking: II"
+title: "9. Advanced spatial R and mapmaking: II"
 description: | 
    From 1,000 point-clicks to 1 script...
 output: 

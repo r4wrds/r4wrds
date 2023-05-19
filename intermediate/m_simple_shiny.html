@@ -2353,7 +2353,8 @@ Modules
 <a href="m_simple_shiny.html">Module 5: Shiny</a>
 <a href="m_iteration.html">Module 6: Iteration and functional programming</a>
 <a href="m_parameterized_reports.html">Module 7: Parameterized reports</a>
-<a href="m_advanced_spatial.html">Module 8: Advanced spatial R and mapmaking</a>
+<a href="m_advanced_spatial.html">Module 8: Advanced spatial R and mapmaking: I</a>
+<a href="m_advanced_spatial_2.html">Module 9: Advanced spatial R and mapmaking: II</a>
 </div>
 </div>
 <a href="../index.html">
@@ -2631,41 +2632,41 @@ role="doc-noteref"><sup>2</sup></a> inputs available for Shiny Apps.</p>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://shiny.rstudio.com/'>shiny</a></span><span class='op'>)</span>
 
-<span class='va'>ui</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/fluidPage.html'>fluidPage</a></span><span class='op'>(</span>
+<span class='va'>ui</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/fluidPage.html'>fluidPage</a></span><span class='op'>(</span>
     <span class='co'># sidebar with generic example inputs</span>
-    <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/sidebarLayout.html'>sidebarLayout</a></span><span class='op'>(</span>
-        <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/sidebarLayout.html'>sidebarPanel</a></span><span class='op'>(</span>
-            <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/sliderInput.html'>sliderInput</a></span><span class='op'>(</span>
+    <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/sidebarLayout.html'>sidebarLayout</a></span><span class='op'>(</span>
+        <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/sidebarLayout.html'>sidebarPanel</a></span><span class='op'>(</span>
+            <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/sliderInput.html'>sliderInput</a></span><span class='op'>(</span>
               <span class='st'>"i_slider"</span>,     <span class='co'># control widget ID     </span>
               <span class='st'>"Slider Input"</span>, <span class='co'># label above the widget</span>
               min <span class='op'>=</span> <span class='fl'>1</span>,
               max <span class='op'>=</span> <span class='fl'>50</span>,
               value <span class='op'>=</span> <span class='fl'>30</span>
             <span class='op'>)</span>,
-            <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/fileInput.html'>fileInput</a></span><span class='op'>(</span>
+            <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/fileInput.html'>fileInput</a></span><span class='op'>(</span>
               <span class='st'>"i_file"</span>,       <span class='co'># control widget ID     </span>
               <span class='st'>"File Input"</span>    <span class='co'># label above the widget</span>
             <span class='op'>)</span>,
-            <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/dateInput.html'>dateInput</a></span><span class='op'>(</span>
+            <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/dateInput.html'>dateInput</a></span><span class='op'>(</span>
               <span class='st'>"i_date"</span>,       <span class='co'># control widget ID     </span>
               <span class='st'>"Date Input"</span>    <span class='co'># label above the widget</span>
             <span class='op'>)</span>,
-            <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/textInput.html'>textInput</a></span><span class='op'>(</span>
+            <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/textInput.html'>textInput</a></span><span class='op'>(</span>
               <span class='st'>"i_text"</span>,       <span class='co'># control widget ID     </span>
               <span class='st'>"Text Input"</span>    <span class='co'># label above the widget</span>
             <span class='op'>)</span>,
-            <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/selectInput.html'>selectInput</a></span><span class='op'>(</span>
+            <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/selectInput.html'>selectInput</a></span><span class='op'>(</span>
               <span class='st'>"i_select"</span>,     <span class='co'># control widget ID     </span>
               <span class='st'>"Select Input"</span>, <span class='co'># label above the widget</span>
               choices <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"A"</span>,<span class='st'>"B"</span>,<span class='st'>"C"</span><span class='op'>)</span>
             <span class='op'>)</span>,
-            <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/radioButtons.html'>radioButtons</a></span><span class='op'>(</span> 
+            <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/radioButtons.html'>radioButtons</a></span><span class='op'>(</span> 
               <span class='st'>"i_radio"</span>,      <span class='co'># control widget ID  </span>
               <span class='st'>"Radio Buttons"</span>,<span class='co'># label above the widget</span>
               choices <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"A"</span>,<span class='st'>"B"</span><span class='op'>)</span>
             <span class='op'>)</span>
         <span class='op'>)</span>,
-        <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/sidebarLayout.html'>mainPanel</a></span><span class='op'>(</span><span class='st'>"Look at all those inputs!"</span><span class='op'>)</span>
+        <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/sidebarLayout.html'>mainPanel</a></span><span class='op'>(</span><span class='st'>"Look at all those inputs!"</span><span class='op'>)</span>
     <span class='op'>)</span>
 <span class='op'>)</span>
 
@@ -2674,7 +2675,7 @@ role="doc-noteref"><sup>2</sup></a> inputs available for Shiny Apps.</p>
 <span class='va'>server</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>input</span>, <span class='va'>output</span><span class='op'>)</span> <span class='op'>{</span><span class='op'>}</span>
 
 <span class='co'># run the Shiny app</span>
-<span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/shinyApp.html'>shinyApp</a></span><span class='op'>(</span>ui <span class='op'>=</span> <span class='va'>ui</span>, server <span class='op'>=</span> <span class='va'>server</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/pkg/shiny/man/shinyApp.html'>shinyApp</a></span><span class='op'>(</span>ui <span class='op'>=</span> <span class='va'>ui</span>, server <span class='op'>=</span> <span class='va'>server</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
@@ -2735,15 +2736,15 @@ if you see a plot when running the App.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://shiny.rstudio.com/'>shiny</a></span><span class='op'>)</span>
 
 <span class='co'># user interface</span>
-<span class='va'>ui</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/fluidPage.html'>fluidPage</a></span><span class='op'>(</span> <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/plotOutput.html'>plotOutput</a></span><span class='op'>(</span><span class='st'>"plot"</span><span class='op'>)</span> <span class='op'>)</span>
+<span class='va'>ui</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/fluidPage.html'>fluidPage</a></span><span class='op'>(</span> <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/plotOutput.html'>plotOutput</a></span><span class='op'>(</span><span class='st'>"plot"</span><span class='op'>)</span> <span class='op'>)</span>
 
 <span class='co'># server logic that draws a plot</span>
 <span class='va'>server</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>input</span>, <span class='va'>output</span><span class='op'>)</span> <span class='op'>{</span>
-  <span class='va'>output</span><span class='op'>$</span><span class='va'>my_plot</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/renderPlot.html'>renderPlot</a></span><span class='op'>(</span><span class='op'>{</span> <span class='fu'><a href='https://r-spatial.github.io/sf/reference/plot.html'>plot</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span> <span class='op'>}</span><span class='op'>)</span>
+  <span class='va'>output</span><span class='op'>$</span><span class='va'>my_plot</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/renderPlot.html'>renderPlot</a></span><span class='op'>(</span><span class='op'>{</span> <span class='fu'><a href='https://r-spatial.github.io/sf/reference/plot.html'>plot</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span> <span class='op'>}</span><span class='op'>)</span>
 <span class='op'>}</span>
 
 <span class='co'># Run the application</span>
-<span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/shinyApp.html'>shinyApp</a></span><span class='op'>(</span>ui <span class='op'>=</span> <span class='va'>ui</span>, server <span class='op'>=</span> <span class='va'>server</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/pkg/shiny/man/shinyApp.html'>shinyApp</a></span><span class='op'>(</span>ui <span class='op'>=</span> <span class='va'>ui</span>, server <span class='op'>=</span> <span class='va'>server</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
@@ -2765,15 +2766,15 @@ respectively.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://shiny.rstudio.com/'>shiny</a></span><span class='op'>)</span>
 
 <span class='co'># user interface</span>
-<span class='va'>ui</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/fluidPage.html'>fluidPage</a></span><span class='op'>(</span> <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/plotOutput.html'>plotOutput</a></span><span class='op'>(</span><span class='st'>"my_plot"</span><span class='op'>)</span> <span class='op'>)</span>
+<span class='va'>ui</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/fluidPage.html'>fluidPage</a></span><span class='op'>(</span> <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/plotOutput.html'>plotOutput</a></span><span class='op'>(</span><span class='st'>"my_plot"</span><span class='op'>)</span> <span class='op'>)</span>
 
 <span class='co'># server logic that draws a plot</span>
 <span class='va'>server</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>input</span>, <span class='va'>output</span><span class='op'>)</span> <span class='op'>{</span>
-  <span class='va'>output</span><span class='op'>$</span><span class='va'>my_plot</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/renderPlot.html'>renderPlot</a></span><span class='op'>(</span><span class='op'>{</span> <span class='fu'><a href='https://r-spatial.github.io/sf/reference/plot.html'>plot</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span> <span class='op'>}</span><span class='op'>)</span>
+  <span class='va'>output</span><span class='op'>$</span><span class='va'>my_plot</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/renderPlot.html'>renderPlot</a></span><span class='op'>(</span><span class='op'>{</span> <span class='fu'><a href='https://r-spatial.github.io/sf/reference/plot.html'>plot</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span> <span class='op'>}</span><span class='op'>)</span>
 <span class='op'>}</span>
 
 <span class='co'># Run the application</span>
-<span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/shinyApp.html'>shinyApp</a></span><span class='op'>(</span>ui <span class='op'>=</span> <span class='va'>ui</span>, server <span class='op'>=</span> <span class='va'>server</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/pkg/shiny/man/shinyApp.html'>shinyApp</a></span><span class='op'>(</span>ui <span class='op'>=</span> <span class='va'>ui</span>, server <span class='op'>=</span> <span class='va'>server</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
@@ -2835,27 +2836,27 @@ href="https://plotly.com/r/"><code>{plotly}</code></a>.</p>
 
 <span class='co'># ------------------------------------------------------------------------</span>
 <span class='co'># user interface</span>
-<span class='va'>ui</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/fluidPage.html'>fluidPage</a></span><span class='op'>(</span>
+<span class='va'>ui</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/fluidPage.html'>fluidPage</a></span><span class='op'>(</span>
 
     <span class='co'># change default theme to "united"</span>
-    theme <span class='op'>=</span> <span class='fu'>shinytheme</span><span class='op'>(</span><span class='st'>"united"</span><span class='op'>)</span>,
+    theme <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/shinythemes/man/shinytheme.html'>shinytheme</a></span><span class='op'>(</span><span class='st'>"united"</span><span class='op'>)</span>,
   
     <span class='co'># application title</span>
-    <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/titlePanel.html'>titlePanel</a></span><span class='op'>(</span><span class='st'>"Sacramento County Groundwater Level Data"</span><span class='op'>)</span>,
+    <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/titlePanel.html'>titlePanel</a></span><span class='op'>(</span><span class='st'>"Sacramento County Groundwater Level Data"</span><span class='op'>)</span>,
 
     <span class='co'># sidebar with a dropdown input for site_code</span>
-    <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/sidebarLayout.html'>sidebarLayout</a></span><span class='op'>(</span>
-        <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/sidebarLayout.html'>sidebarPanel</a></span><span class='op'>(</span>
-            <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/selectInput.html'>selectInput</a></span><span class='op'>(</span><span class='st'>"site_code"</span>,
+    <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/sidebarLayout.html'>sidebarLayout</a></span><span class='op'>(</span>
+        <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/sidebarLayout.html'>sidebarPanel</a></span><span class='op'>(</span>
+            <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/selectInput.html'>selectInput</a></span><span class='op'>(</span><span class='st'>"site_code"</span>,
                         <span class='st'>"Select a site code:"</span>,
                         choices <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>gwl</span><span class='op'>$</span><span class='va'>SITE_CODE</span><span class='op'>)</span><span class='op'>)</span>
         <span class='op'>)</span>,
 
         <span class='co'># tabs with hydrograph and data table</span>
-        <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/sidebarLayout.html'>mainPanel</a></span><span class='op'>(</span>
-            <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/tabsetPanel.html'>tabsetPanel</a></span><span class='op'>(</span>
-                <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/tabPanel.html'>tabPanel</a></span><span class='op'>(</span><span class='st'>"Hydrograph"</span>, <span class='fu'>plotly</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/plotly/man/plotly-shiny.html'>plotlyOutput</a></span><span class='op'>(</span><span class='st'>"gwl_plot"</span><span class='op'>)</span><span class='op'>)</span>,
-                <span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/tabPanel.html'>tabPanel</a></span><span class='op'>(</span><span class='st'>"Data"</span>, <span class='fu'>DT</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/DT/man/dataTableOutput.html'>dataTableOutput</a></span><span class='op'>(</span><span class='st'>"gwl_data"</span><span class='op'>)</span><span class='op'>)</span>
+        <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/sidebarLayout.html'>mainPanel</a></span><span class='op'>(</span>
+            <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/tabsetPanel.html'>tabsetPanel</a></span><span class='op'>(</span>
+                <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/tabPanel.html'>tabPanel</a></span><span class='op'>(</span><span class='st'>"Hydrograph"</span>, <span class='fu'>plotly</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/plotly/man/plotly-shiny.html'>plotlyOutput</a></span><span class='op'>(</span><span class='st'>"gwl_plot"</span><span class='op'>)</span><span class='op'>)</span>,
+                <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/tabPanel.html'>tabPanel</a></span><span class='op'>(</span><span class='st'>"Data"</span>, <span class='fu'>DT</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/DT/man/dataTableOutput.html'>dataTableOutput</a></span><span class='op'>(</span><span class='st'>"gwl_data"</span><span class='op'>)</span><span class='op'>)</span>
             <span class='op'>)</span>
         <span class='op'>)</span>
     <span class='op'>)</span>
@@ -2898,7 +2899,7 @@ href="https://plotly.com/r/"><code>{plotly}</code></a>.</p>
 
 <span class='co'># ------------------------------------------------------------------------</span>
 <span class='co'># Run the application</span>
-<span class='fu'><a href='https://shiny.rstudio.com/reference/shiny/latest/shinyApp.html'>shinyApp</a></span><span class='op'>(</span>ui <span class='op'>=</span> <span class='va'>ui</span>, server <span class='op'>=</span> <span class='va'>server</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/pkg/shiny/man/shinyApp.html'>shinyApp</a></span><span class='op'>(</span>ui <span class='op'>=</span> <span class='va'>ui</span>, server <span class='op'>=</span> <span class='va'>server</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>

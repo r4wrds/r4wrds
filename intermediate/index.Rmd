@@ -68,7 +68,8 @@ knitr::include_graphics(path = "https://raw.githubusercontent.com/allisonhorst/s
 5.  [Simple shiny](m_simple_shiny.html)\
 6.  [Iteration and functional programming](m_iteration.html)\
 7.  [Parameterized reports](m_parameterized_reports.html)
-8.  [Advanced spatial R and mapmaking](m_advanced_spatial.html)
+8.  [Advanced spatial R and mapmaking: I](m_advanced_spatial.html)
+9.  [Advanced spatial R and mapmaking: II](m_advanced_spatial_2.html)
 :::
 
 <br>
