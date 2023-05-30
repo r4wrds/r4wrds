@@ -26,8 +26,10 @@ navbar:
           href: m_iteration.html
         - text: "Module 7: Parameterized reports"
           href: m_parameterized_reports.html
-        - text: "Module 8: Advanced spatial R and mapmaking"
+        - text: "Module 8: Advanced spatial R and mapmaking: I"
           href: m_advanced_spatial.html
+        - text: "Module 9: Advanced spatial R and mapmaking: II"
+          href: m_advanced_spatial_2.html
     # - text: "Resources"
     #   href: resources.html
     - icon: fa-home fa-lg
