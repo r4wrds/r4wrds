@@ -1,7 +1,7 @@
 ---
 title: "R4WRDS Introductory Course"
 description: |
-  Unleasing the power of reproducible workflows with "R for Water Resources Data Science" (R 4 WRDS).
+  Unleashing the power of reproducible workflows with "R for Water Resources Data Science" (R 4 WRDS).
 site: distill::distill_website
 creative_commons: CC BY
 preview: https://r4wrds.com/img/cover.png
