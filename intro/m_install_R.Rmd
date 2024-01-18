@@ -202,7 +202,7 @@ Success should return something like this (not an error message) when you load t
 
 ```r
 library(sf)
-# Linking to GEOS 3.9.1, GDAL 3.2.3, PROJ 7.2.1; sf_use_s2() is TRUE
+# Linking to GEOS 3.11.0, GDAL 3.5.3, PROJ 9.1.0; sf_use_s2() is TRUE
 ```
 
 <aside>
@@ -219,10 +219,10 @@ mapview(breweries)
 
 ## Step 5. Download Workshop Datasets
 
-We'll be working with a few different datasets for this workshop (see [here](https://github.com/r4wrds/r4wrds-data-intro)). We've zipped all these files into a single folder, which can be downloaded [here](https://github.com/r4wrds/r4wrds-data-intro/raw/main/data.zip). Bear in mind this **`.zip`** file is ~30 MB in size, and may take a few minutes to download depending on internet connections.
+We'll be working with a few different datasets for this workshop (see [here](https://github.com/r4wrds/r4wrds-data-intro)). We've zipped all these data and created an RStudio project into a single folder, which can be downloaded [here](https://github.com/r4wrds/r4wrds-data-intro/raw/main/intro_proj.zip). Bear in mind this **`.zip`** file is ~30 MB in size, and may take a few minutes to download depending on internet connections.
 
- - [**Download the zipped file of all intro course data**](https://github.com/r4wrds/r4wrds-data-intro/raw/main/data.zip).
- - We will help you set up a project and put the data in the correct place.
+ - [**Download the zipped file of all intro course data**](https://github.com/r4wrds/r4wrds-data-intro/raw/main/intro_proj.zip).
+ - We will help you set up a project in the upcoming lessons!
 
 ### Quick Test!
 
