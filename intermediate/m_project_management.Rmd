@@ -136,11 +136,11 @@ rm(animals, quotes) # remove the objects we just created
 
 Sometimes you need to store sensitive information, like API Keys, Database passwords, data storage paths, or general variables used across all scripts. We don't want to accidentally share these information, accidentally push them to Github, or copy and paste them over and over again from script to script. We also might want to build a codebase that relies on a few variables that another user can set in their own system in a way that works for them. Environmental variables are the way to address all of these concerns.
 
-**Environmental variables** are objects that store character strings. They are accessible from within R upon startup. To view all environmental variables, use `Sys.getenv()`. You can also pull out one environmental variable at a time by passing in its name, for instance:
+**Environmental variables** are objects that store character strings. They are accessible from within R upon startup. To view all environmental variables, use `Sys.getenv()` or `Sys.info()`. You can also pull out one environmental variable at a time by passing in its name, for instance:
 
 ```{r getenv}
 
-Sys.getenv("USER")
+Sys.info[["user"]]
 
 ```
 
