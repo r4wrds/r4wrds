@@ -140,7 +140,7 @@ Sometimes you need to store sensitive information, like API Keys, Database passw
 
 ```{r getenv}
 
-Sys.info[["user"]]
+Sys.info()[["user"]]
 
 ```
 
