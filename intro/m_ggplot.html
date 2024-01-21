@@ -461,8 +461,8 @@ code span.wa { color: #bf0303; } /* Warning */
   </style>
 
   <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-  <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
-  <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
+  <link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet"/>
+  <link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet"/>
   <script src="site_libs/headroom-0.9.4/headroom.min.js"></script>
   <script src="site_libs/autocomplete-0.37.1/autocomplete.min.js"></script>
   <script src="site_libs/fuse-6.4.1/fuse.min.js"></script>
@@ -791,6 +791,7 @@ code span.wa { color: #bf0303; } /* Warning */
   d-article table.gt_table td,
   d-article table.gt_table th {
     border-bottom: none;
+    font-size: 100%;
   }
 
   .html-widget {
@@ -831,9 +832,21 @@ code span.wa { color: #bf0303; } /* Warning */
     display: none !important;
   }
 
+  hr.section-separator {
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    margin: 0px;
+  }
+
+
+  d-byline {
+    border-top: none;
+  }
+
   d-article {
     padding-top: 2.5rem;
     padding-bottom: 30px;
+    border-top: none;
   }
 
   d-appendix {
@@ -928,6 +941,11 @@ code span.wa { color: #bf0303; } /* Warning */
   d-article div.sourceCode pre {
     padding-left: 18px;
     font-size: 14px;
+  }
+
+  /* tweak for Pandoc numbered line within distill */
+  d-article pre.numberSource code > span {
+      left: -2em;
   }
 
   d-article pre {
@@ -1032,10 +1050,6 @@ code span.wa { color: #bf0303; } /* Warning */
     position: relative;
     margin-bottom: 2.5em;
     margin-top: 1.5em;
-  }
-
-  .figure img {
-    width: 100%;
   }
 
   .figure .caption {
@@ -1693,6 +1707,12 @@ code span.wa { color: #bf0303; } /* Warning */
     // create d-title
     $('.d-title').changeElementType('d-title');
 
+    // separator
+    var separator = '<hr class="section-separator" style="clear: both"/>';
+    // prepend separator above appendix
+    $('.d-byline').before(separator);
+    $('.d-article').before(separator);
+
     // create d-byline
     var byline = $('<d-byline></d-byline>');
     $('.d-byline').replaceWith(byline);
@@ -1770,8 +1790,9 @@ code span.wa { color: #bf0303; } /* Warning */
     $('.distill-force-highlighting-css').parent().remove();
 
     // remove empty line numbers inserted by pandoc when using a
-    // custom syntax highlighting theme
-    $('code.sourceCode a:empty').remove();
+    // custom syntax highlighting theme, except when numbering line
+    // in code chunk
+    $('pre:not(.numberLines) code.sourceCode a:empty').remove();
 
     // load distill framework
     load_distill_framework();
@@ -1797,12 +1818,13 @@ code span.wa { color: #bf0303; } /* Warning */
       // add orcid ids
       $('.authors-affiliations').find('.author').each(function(i, el) {
         var orcid_id = front_matter.authors[i].orcidID;
+        var author_name = front_matter.authors[i].author
         if (orcid_id) {
           var a = $('<a></a>');
           a.attr('href', 'https://orcid.org/' + orcid_id);
           var img = $('<img></img>');
           img.addClass('orcid-id');
-          img.attr('alt', 'ORCID ID');
+          img.attr('alt', author_name ? 'ORCID ID for ' + author_name : 'ORCID ID');
           img.attr('src','data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg==');
           a.append(img);
           $(this).append(a);
@@ -1867,9 +1889,21 @@ code span.wa { color: #bf0303; } /* Warning */
 
       // hoverable references
       $('span.citation[data-cites]').each(function() {
+        const citeChild = $(this).children()[0]
+        // Do not process if @xyz has been used without escaping and without bibliography activated
+        // https://github.com/rstudio/distill/issues/466
+        if (citeChild === undefined) return true
+
+        if (citeChild.nodeName == "D-FOOTNOTE") {
+          var fn = citeChild
+          $(this).html(fn.shadowRoot.querySelector("sup"))
+          $(this).id = fn.id
+          fn.remove()
+        }
         var refs = $(this).attr('data-cites').split(" ");
         var refHtml = refs.map(function(ref) {
-          return "<p>" + $('#ref-' + ref).html() + "</p>";
+          // Could use CSS.escape too here, we insure backward compatibility in navigator
+          return "<p>" + $('div[id="ref-' + ref + '"]').html() + "</p>";
         }).join("\n");
         window.tippy(this, {
           allowHTML: true,
@@ -1881,6 +1915,31 @@ code span.wa { color: #bf0303; } /* Warning */
           placement: 'bottom-start'
         });
       });
+
+      // fix footnotes in tables (#411)
+      // replacing broken distill.pub feature
+      $('table d-footnote').each(function() {
+        // we replace internal showAtNode methode which is triggered when hovering a footnote
+        this.hoverBox.showAtNode = function(node) {
+          // ported from https://github.com/distillpub/template/pull/105/files
+          calcOffset = function(elem) {
+              let x = elem.offsetLeft;
+              let y = elem.offsetTop;
+              // Traverse upwards until an `absolute` element is found or `elem`
+              // becomes null.
+              while (elem = elem.offsetParent && elem.style.position != 'absolute') {
+                  x += elem.offsetLeft;
+                  y += elem.offsetTop;
+              }
+
+              return { left: x, top: y };
+          }
+          // https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/offsetTop
+          const bbox = node.getBoundingClientRect();
+          const offset = calcOffset(node);
+          this.show([offset.left + bbox.width, offset.top + bbox.height]);
+        }
+      })
 
       // clear polling timer
       clearInterval(tid);
@@ -1980,6 +2039,8 @@ code span.wa { color: #bf0303; } /* Warning */
     // mark non-body figures created by knitr chunks as 100% width
     $('.layout-chunk').each(function(i, val) {
       var figures = $(this).find('img, .html-widget');
+      // ignore leaflet img layers (#106)
+      figures = figures.filter(':not(img[class*="leaflet"])')
       if ($(this).attr('data-layout') !== "l-body") {
         figures.css('width', '100%');
       } else {
@@ -2002,7 +2063,7 @@ code span.wa { color: #bf0303; } /* Warning */
     // get rid of index.html references in header
     if (window.location.protocol !== "file:") {
       $('.distill-site-header a[href]').each(function(i,val) {
-        $(this).attr('href', $(this).attr('href').replace("index.html", "./"));
+        $(this).attr('href', $(this).attr('href').replace(/^index[.]html/, "./"));
       });
     }
 
@@ -2041,7 +2102,7 @@ code span.wa { color: #bf0303; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2380,6 +2441,7 @@ Worksheets
 
 <div class="d-title">
 <h1>5. Data visualization with ggplot2</h1>
+
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
 <p><p>The grammar of graphics.</p></p>
@@ -2391,30 +2453,20 @@ Worksheets
 <nav class="l-text toc figcaption" id="TOC">
 <h3>Contents</h3>
 <ul>
-<li><a href="#data-visualization-with-ggplot2"
-id="toc-data-visualization-with-ggplot2">Data visualization with
-<strong>{ggplot2}</strong></a></li>
+<li><a href="#data-visualization-with-ggplot2" id="toc-data-visualization-with-ggplot2">Data visualization with <strong>{ggplot2}</strong></a></li>
 <li><a href="#examples" id="toc-examples">Examples</a></li>
-<li><a href="#creating-your-first-ggplot"
-id="toc-creating-your-first-ggplot">Creating your first ggplot</a></li>
-<li><a href="#adding-geom_-layers" id="toc-adding-geom_-layers">Adding
-<code>geom_</code> layers</a></li>
+<li><a href="#creating-your-first-ggplot" id="toc-creating-your-first-ggplot">Creating your first ggplot</a></li>
+<li><a href="#adding-geom_-layers" id="toc-adding-geom_-layers">Adding <code>geom_</code> layers</a></li>
 <li><a href="#aesthetics" id="toc-aesthetics">Aesthetics</a></li>
 <li><a href="#faceting" id="toc-faceting">Faceting</a></li>
 <li><a href="#saving-plots" id="toc-saving-plots">Saving plots</a>
 <ul>
-<li><a href="#saving-with-a-graphical-device"
-id="toc-saving-with-a-graphical-device">Saving with a graphical
-device</a></li>
-<li><a href="#saving-with-ggsave" id="toc-saving-with-ggsave">Saving
-with <code>ggsave()</code></a></li>
+<li><a href="#saving-with-a-graphical-device" id="toc-saving-with-a-graphical-device">Saving with a graphical device</a></li>
+<li><a href="#saving-with-ggsave" id="toc-saving-with-ggsave">Saving with <code>ggsave()</code></a></li>
 </ul></li>
-<li><a href="#colorblindness"
-id="toc-colorblindness">Colorblindness</a></li>
-<li><a href="#bespoke-plots" id="toc-bespoke-plots">Bespoke
-plots</a></li>
-<li><a href="#extending-ggplot2" id="toc-extending-ggplot2">Extending
-ggplot2</a></li>
+<li><a href="#colorblindness" id="toc-colorblindness">Colorblindness</a></li>
+<li><a href="#bespoke-plots" id="toc-bespoke-plots">Bespoke plots</a></li>
+<li><a href="#extending-ggplot2" id="toc-extending-ggplot2">Extending ggplot2</a></li>
 </ul>
 </nav>
 </div>
@@ -2423,120 +2475,71 @@ ggplot2</a></li>
 <ul>
 <li>Learn how to create beautiful and informative plots from data<br />
 </li>
-<li>Understand the grammar of graphics implemented in
-<strong><code>{ggplot2}</code></strong> and how to create plots in
-“layers”<br />
+<li>Understand the grammar of graphics implemented in <strong><code>{ggplot2}</code></strong> and how to create plots in “layers”<br />
 </li>
-<li>Learn core <strong><code>{ggplot2}</code></strong> geometries like
-<code>geom_point()</code>, <code>geom_line()</code>,
-<code>geom_col()</code>, <code>geom_boxplot()</code>,
-<code>geom_histogram()</code></li>
+<li>Learn core <strong><code>{ggplot2}</code></strong> geometries like <code>geom_point()</code>, <code>geom_line()</code>, <code>geom_col()</code>, <code>geom_boxplot()</code>, <code>geom_histogram()</code></li>
 <li>Understand how to customize and save plots</li>
 </ul>
 </div>
-<h2 id="data-visualization-with-ggplot2">Data visualization with
-<strong>{ggplot2}</strong></h2>
-<p>Data visualization allows us to effectively explore data in an
-Exploratory Data Analysis (EDA), and allows us to communicate the
-results of an analysis or modeling exercise. A powerful package for data
-visualization in R is <strong><code>{ggplot2}</code></strong> (part of
-the <strong><code>{tidyverse}</code></strong> set of packages).
-<strong><code>{ggplot2}</code></strong> stands for
-“<strong>g</strong>rammar of <strong>g</strong>raphics
-<strong>plot</strong>” and generally provides a semantic syntax for data
-visualization that breaks down graphs in terms of <em>aesthetics</em>,
-<em>geoms</em>, <em>coordinates</em>, <em>scales</em>, and more, which
-allows users to create visualizations that range from simple to
-extraordinarily complex. The act of creating visualizations is not only
-useful, but also fun and motivating, so we cover it early, before more
-advanced data manipulation in subsequent modules. By the end of this
-module you will be able to create beautiful ggplots made entirely in R,
-and take your first steps towards reproducible and elegant data
-visualization.</p>
-<p>(ref:ah-ggplot) <em>Illustration by <span class="citation"
-data-cites="allison_horst">@allison_horst</span>.</em></p>
+<h2 id="data-visualization-with-ggplot2">Data visualization with <strong>{ggplot2}</strong></h2>
+<p>Data visualization allows us to effectively explore data in an Exploratory Data Analysis (EDA), and allows us to communicate the results of an analysis or modeling exercise. A powerful package for data visualization in R is <strong><code>{ggplot2}</code></strong> (part of the <strong><code>{tidyverse}</code></strong> set of packages). <strong><code>{ggplot2}</code></strong> stands for “<strong>g</strong>rammar of <strong>g</strong>raphics <strong>plot</strong>” and generally provides a semantic syntax for data visualization that breaks down graphs in terms of <em>aesthetics</em>, <em>geoms</em>, <em>coordinates</em>, <em>scales</em>, and more, which allows users to create visualizations that range from simple to extraordinarily complex. The act of creating visualizations is not only useful, but also fun and motivating, so we cover it early, before more advanced data manipulation in subsequent modules. By the end of this module you will be able to create beautiful ggplots made entirely in R, and take your first steps towards reproducible and elegant data visualization.</p>
+
 <div class="layout-chunk" data-layout="l-body">
 <div class="figure"><span style="display:block;" id="fig:ggplot-evl"></span>
-<img src="images/ggplot2.png" alt="(ref:ah-ggplot)" width="80%" />
+<img src="images/ggplot2.png" alt="Illustration by @allison_horst." width="80%" />
 <p class="caption">
-Figure 1: (ref:ah-ggplot)
+Figure 1: <em>Illustration by <span class="citation" data-cites="allison_horst">@allison_horst</span>.</em>
 </p>
 </div>
 </div>
 <h2 id="examples">Examples</h2>
-<p>Before we begin, below are a few plots created entirely with
-<strong><code>{ggplot2}</code></strong> to illustrate the possibilities
-for data visualization enabled by this package.</p>
-<p>These are only a few examples of the many possibilities that can be
-made. Because ggplots are so customizable, some people even use
-<strong><code>{ggplot2}</code></strong> to create artwork<a href="#fn1"
-class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.
-Once you are familiar with how to customize a ggplot, you may be
-surprised to see them appear in major news outlets and scientific
-publications.</p>
+<p>Before we begin, below are a few plots created entirely with <strong><code>{ggplot2}</code></strong> to illustrate the possibilities for data visualization enabled by this package.</p>
+<p>These are only a few examples of the many possibilities that can be made. Because ggplots are so customizable, some people even use <strong><code>{ggplot2}</code></strong> to create artwork<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. Once you are familiar with how to customize a ggplot, you may be surprised to see them appear in major news outlets and scientific publications.</p>
 <aside>
-<p><strong><code>{ggplot2}</code></strong> art by <a
-href="https://fronkonstin.com/2018/03/11/mandalas-colored/">Antonio
-Sánchez Chinchón</a> <span class="citation"
-data-cites="aschinchon">@aschinchon</span>.</p>
+<p><strong><code>{ggplot2}</code></strong> art by <a href="https://fronkonstin.com/2018/03/11/mandalas-colored/">Antonio Sánchez Chinchón</a> <span class="citation" data-cites="aschinchon">@aschinchon</span>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="images/mandala.png" width="100%" /></p>
 </div>
 </aside>
-<p>(ref:cedric) <em><a
-href="https://www.cedricscherer.com/2019/05/17/the-evolution-of-a-ggplot-ep.-1/">Evolution
-of a ggplot</a>, by Cedric Scherer shows how one can progressively
-refine and customize a gpplot.</em></p>
+
 <div class="layout-chunk" data-layout="l-body">
 <div class="figure"><span style="display:block;" id="fig:ggplot-evol"></span>
-<img src="images/ggplot_evolution.gif" alt="(ref:cedric)" width="80%" />
+<img src="images/ggplot_evolution.gif" alt="Evolution of a ggplot, by Cedric Scherer shows how one can progressively refine and customize a gpplot." width="80%" />
 <p class="caption">
-Figure 2: (ref:cedric)
+Figure 2: <em><a href="https://www.cedricscherer.com/2019/05/17/the-evolution-of-a-ggplot-ep.-1/">Evolution of a ggplot</a>, by Cedric Scherer shows how one can progressively refine and customize a gpplot.</em>
 </p>
 </div>
 </div>
-<p>(ref:timo) <em>Created by <a
-href="https://timogrossenbacher.ch/2016/12/beautiful-thematic-maps-with-ggplot2-only/">Timo
-Grossenbacher</a> <span class="citation"
-data-cites="grssnbchr">@grssnbchr</span>.</em></p>
+
 <div class="layout-chunk" data-layout="l-body">
 <div class="figure"><span style="display:block;" id="fig:p1"></span>
-<img src="images/switzerland.png" alt="(ref:timo)" width="80%" />
+<img src="images/switzerland.png" alt="Created by Timo Grossenbacher @grssnbchr." width="80%" />
 <p class="caption">
-Figure 3: (ref:timo)
+Figure 3: <em>Created by <a href="https://timogrossenbacher.ch/2016/12/beautiful-thematic-maps-with-ggplot2-only/">Timo Grossenbacher</a> <span class="citation" data-cites="grssnbchr">@grssnbchr</span>.</em>
 </p>
 </div>
 </div>
-<p>(ref:cedric2) <em>Travelling to Outer Space by <a
-href="https://www.cedricscherer.com/top/dataviz/">Cédric Scherer</a>
-<span class="citation"
-data-cites="CedScherer">@CedScherer</span>.</em></p>
+
 <div class="layout-chunk" data-layout="l-body">
 <div class="figure"><span style="display:block;" id="fig:p2"></span>
-<img src="images/2020_29_Astronauts_blur_color.png" alt="(ref:cedric2)" width="80%" />
+<img src="images/2020_29_Astronauts_blur_color.png" alt="Travelling to Outer Space by Cédric Scherer @CedScherer." width="80%" />
 <p class="caption">
-Figure 4: (ref:cedric2)
+Figure 4: <em>Travelling to Outer Space by <a href="https://www.cedricscherer.com/top/dataviz/">Cédric Scherer</a> <span class="citation" data-cites="CedScherer">@CedScherer</span>.</em>
 </p>
 </div>
 </div>
 <h2 id="creating-your-first-ggplot">Creating your first ggplot</h2>
-<p>To begin, we load the <strong><code>{ggplot2}</code></strong>
-package. We can load it independently, but let’s load it along with the
-<strong><code>{tidyverse}</code></strong> suite of R packages used in
-this course. We also need to load some data. Below we load a
-pre-processed dataframe that we’ll create later in the module on joins
-and binds.</p>
+<p>To begin, we load the <strong><code>{ggplot2}</code></strong> package. We can load it independently, but let’s load it along with the <strong><code>{tidyverse}</code></strong> suite of R packages used in this course. We also need to load some data. Below we load a pre-processed dataframe that we’ll create later in the module on joins and binds.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># includes ggplot2</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
-
-<span class='co'># groundwater level from a single station in Sacramento County</span>
-<span class='va'>gwl</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"data/gwl/gwl.csv"</span><span class='op'>)</span>
-
-<span class='co'># inspect the data</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>gwl</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># includes ggplot2</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span></span>
+<span></span>
+<span><span class='co'># groundwater level from a single station in Sacramento County</span></span>
+<span><span class='va'>gwl</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"data/gwl/gwl.csv"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='co'># inspect the data</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>gwl</span><span class='op'>)</span></span></code></pre>
 </div>
 <pre><code># A tibble: 6 × 10
   SITE_CODE   MSMT_DATE    WSE GSE_WSE WLM_ORG_NAME LATITUDE LONGITUDE
@@ -2547,42 +2550,28 @@ and binds.</p>
 4 384121N121… 2020-06-12 -25.2    159. Southeast S…     38.4     -121.
 5 384121N121… 2020-04-17 -21.1    155. Southeast S…     38.4     -121.
 6 384121N121… 2020-03-20 -21.8    156. Southeast S…     38.4     -121.
-# … with 3 more variables: COUNTY_NAME &lt;chr&gt;, WELL_DEPTH &lt;dbl&gt;,
+# ℹ 3 more variables: COUNTY_NAME &lt;chr&gt;, WELL_DEPTH &lt;dbl&gt;,
 #   WELL_USE &lt;chr&gt;</code></pre>
 </div>
-<p>The 10 columns in the data contain are a <code>SITE_CODE</code> or
-unique identifier, a date-time <code>MSMT_DATE</code>, a water surface
-elevation <code>WSE_FT</code>, and a depth to groundwater
-<code>GSE_WSE</code>, the agency that collected the measurement
-<code>WLM_ORG_NAME</code>, a latitude and longitude, the county, the
-well depth, and the well use.</p>
-<p>Perhaps we want to visualize the depth to groundwater at this site
-over time. To do this, we put <code>MSMT_DATE</code> on the x-axis and
-<code>GSE_WSE</code> on the y-axis.</p>
-<p>To create a ggplot we start with the function
-<code>ggplot()</code>.</p>
+<p>The 10 columns in the data contain are a <code>SITE_CODE</code> or unique identifier, a date-time <code>MSMT_DATE</code>, a water surface elevation <code>WSE_FT</code>, and a depth to groundwater <code>GSE_WSE</code>, the agency that collected the measurement <code>WLM_ORG_NAME</code>, a latitude and longitude, the county, the well depth, and the well use.</p>
+<p>Perhaps we want to visualize the depth to groundwater at this site over time. To do this, we put <code>MSMT_DATE</code> on the x-axis and <code>GSE_WSE</code> on the y-axis.</p>
+<p>To create a ggplot we start with the function <code>ggplot()</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
 </div>
 <p><img src="m_ggplot_files/figure-html5/first-plot-1.png" width="100%" /></p>
 </div>
-<p>The above plot appears blank because we haven’t added any layers to
-it! A ggplot is nothing until we layer on one or more geometries or
-<code>geom</code>s.</p>
+<p>The above plot appears blank because we haven’t added any layers to it! A ggplot is nothing until we layer on one or more geometries or <code>geom</code>s.</p>
 <h2 id="adding-geom_-layers">Adding <code>geom_</code> layers</h2>
 <aside>
-ggplot can also create maps with <code>geom_sf()</code>, covered in the
-<a href="m_intro_mapmaking.html">mapmaking module</a>.
+ggplot can also create maps with <code>geom_sf()</code>, covered in the <a href="m_intro_mapmaking.html">mapmaking module</a>.
 </aside>
-<p>Let’s add a <code>geom_line()</code> layer to the
-<code>ggplot()</code> we created above.</p>
+<p>Let’s add a <code>geom_line()</code> layer to the <code>ggplot()</code> we created above.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span>mapping <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>MSMT_DATE</span>, y <span class='op'>=</span> <span class='va'>GSE_WSE</span><span class='op'>)</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span>mapping <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>MSMT_DATE</span>, y <span class='op'>=</span> <span class='va'>GSE_WSE</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
 <p><img src="m_ggplot_files/figure-html5/geom-line-1.png" width="100%" /></p>
 </div>
@@ -2592,122 +2581,74 @@ ggplot can also create maps with <code>geom_sf()</code>, covered in the
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="er">&lt;</span>GEOM_FUNCTION<span class="sc">&gt;</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="sc">&lt;</span>MAPPINGS<span class="sc">&gt;</span>))</span></code></pre></div>
 </div>
 <aside>
-See a full list of available geoms on the
-<strong><code>{ggplot2}</code></strong> <a
-href="https://ggplot2.tidyverse.org/reference/">online
-documentation</a>.
+See a full list of available geoms on the <strong><code>{ggplot2}</code></strong> <a href="https://ggplot2.tidyverse.org/reference/">online documentation</a>.
 </aside>
-<p>We start creating a plot with the <code>ggplot()</code> function with
-our data (<code>data = gwl</code>). With {<code>ggplot2</code>}, each
-layer or piece of the ggplot is added by using a <code>+</code>. We
-added a <code>geom_line()</code> which connects data points with a line,
-but there are many other geoms, including <code>geom_point()</code>,
-<code>geom_col()</code>, <code>geom_boxplot()</code>,
-<code>geom_histogram()</code>, and so on. Inside each
-<code>geom_</code>, there are many options, but the core arguments that
-allow us to tell the <code>geom_line()</code> function to put the date
-on the x-axis and depth to groundwater on the y-axis are arguments
-<strong><code>data</code></strong> and
-<strong><code>mapping</code></strong> . For the
-<strong><code>data</code></strong>, we are using the data specified in
-the <code>ggplot(data = gwl)</code> line, which means that data is
-available for any future layer or <code>geom</code> we use. To specify
-what pieces go on the x-axis and y-axis, we use the mapped aesthetics,
-<code>mapping = aes(x = MSMT_DATE, y = GSE_WSE)</code>.</p>
-<p>In practice, we don’t need to explicitly write out all of the full
-argument names. <strong><code>{ggplot2}</code></strong> understands that
-mapping <code>aes(MSMT_DATE, GSE_WSE)</code> means that the measurement
-date and depth to groundwater belong on the x and y axis respectively.
-However, it is always a good idea to explicitly specify the
-<strong><code>data</code></strong> argument no matter what to avoid
-potential errors.</p>
+<p>We start creating a plot with the <code>ggplot()</code> function with our data (<code>data = gwl</code>). With {<code>ggplot2</code>}, each layer or piece of the ggplot is added by using a <code>+</code>. We added a <code>geom_line()</code> which connects data points with a line, but there are many other geoms, including <code>geom_point()</code>, <code>geom_col()</code>, <code>geom_boxplot()</code>, <code>geom_histogram()</code>, and so on. Inside each <code>geom_</code>, there are many options, but the core arguments that allow us to tell the <code>geom_line()</code> function to put the date on the x-axis and depth to groundwater on the y-axis are arguments <strong><code>data</code></strong> and <strong><code>mapping</code></strong> . For the <strong><code>data</code></strong>, we are using the data specified in the <code>ggplot(data = gwl)</code> line, which means that data is available for any future layer or <code>geom</code> we use. To specify what pieces go on the x-axis and y-axis, we use the mapped aesthetics, <code>mapping = aes(x = MSMT_DATE, y = GSE_WSE)</code>.</p>
+<p>In practice, we don’t need to explicitly write out all of the full argument names. <strong><code>{ggplot2}</code></strong> understands that mapping <code>aes(MSMT_DATE, GSE_WSE)</code> means that the measurement date and depth to groundwater belong on the x and y axis respectively. However, it is always a good idea to explicitly specify the <strong><code>data</code></strong> argument no matter what to avoid potential errors.</p>
 <aside>
-If using more than one dataframe, you can specify data in each geom
-function, rather than in <code>ggplot()</code>.
+If using more than one dataframe, you can specify data in each geom function, rather than in <code>ggplot()</code>.
 </aside>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>MSMT_DATE</span>, <span class='va'>GSE_WSE</span><span class='op'>)</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>MSMT_DATE</span>, <span class='va'>GSE_WSE</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
 <p>We can change the geom to a point:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>MSMT_DATE</span>, <span class='va'>GSE_WSE</span><span class='op'>)</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>MSMT_DATE</span>, <span class='va'>GSE_WSE</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
 <p><img src="m_ggplot_files/figure-html5/geom-point-1.png" width="100%" /></p>
 </div>
-<p>Many points overlap, making them hard to pick apart. Let’s make them
-50% opaque with the <code>alpha</code> argument.</p>
+<p>Many points overlap, making them hard to pick apart. Let’s make them 50% opaque with the <code>alpha</code> argument.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>MSMT_DATE</span>, <span class='va'>GSE_WSE</span><span class='op'>)</span>, alpha <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>MSMT_DATE</span>, <span class='va'>GSE_WSE</span><span class='op'>)</span>, alpha <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span></span></code></pre>
 </div>
 <p><img src="m_ggplot_files/figure-html5/geom-point-alpha-1.png" width="100%" /></p>
 </div>
-<p>We can change the geom to an area (notice that the y axis scale now
-has a minimum of 0):</p>
+<p>We can change the geom to an area (notice that the y axis scale now has a minimum of 0):</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_ribbon.html'>geom_area</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>MSMT_DATE</span>, <span class='va'>GSE_WSE</span><span class='op'>)</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_ribbon.html'>geom_area</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>MSMT_DATE</span>, <span class='va'>GSE_WSE</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
 <p><img src="m_ggplot_files/figure-html5/geom-area-1.png" width="100%" /></p>
 </div>
-<p>We can add more than one geom to the plot (just link them with the
-<code>+</code>), for instance a point and line. We can also set the
-color of a geom with the <code>color</code> argument.</p>
+<p>We can add more than one geom to the plot (just link them with the <code>+</code>), for instance a point and line. We can also set the color of a geom with the <code>color</code> argument.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>MSMT_DATE</span>, <span class='va'>GSE_WSE</span><span class='op'>)</span>, alpha <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>MSMT_DATE</span>, <span class='va'>GSE_WSE</span><span class='op'>)</span>, color <span class='op'>=</span> <span class='st'>"red"</span>, alpha <span class='op'>=</span> <span class='fl'>0.7</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>MSMT_DATE</span>, <span class='va'>GSE_WSE</span><span class='op'>)</span>, alpha <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>MSMT_DATE</span>, <span class='va'>GSE_WSE</span><span class='op'>)</span>, color <span class='op'>=</span> <span class='st'>"red"</span>, alpha <span class='op'>=</span> <span class='fl'>0.7</span><span class='op'>)</span></span></code></pre>
 </div>
 <p><img src="m_ggplot_files/figure-html5/geom-multiple-1.png" width="100%" /></p>
 </div>
-<p>It’s often useful to summarize large datasets using summary values
-like the median, mean, interquartile range, and so on. What does the
-distribution of depths to groundwater look like at this particular
-well?</p>
+<p>It’s often useful to summarize large datasets using summary values like the median, mean, interquartile range, and so on. What does the distribution of depths to groundwater look like at this particular well?</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> 
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>GSE_WSE</span><span class='op'>)</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>GSE_WSE</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
 <p><img src="m_ggplot_files/figure-html5/geom-hist-1.png" width="100%" /></p>
 </div>
-<p>Notice that <code>geom_histogram()</code> takes only one argument for
-the x-axis and <strong>computes</strong> the bins for the y-axis. It
-appears that depths to groundwater range from around 130 to 160, with a
-median around 145. The default number of bins used is 30, but we can
-change this value.</p>
+<p>Notice that <code>geom_histogram()</code> takes only one argument for the x-axis and <strong>computes</strong> the bins for the y-axis. It appears that depths to groundwater range from around 130 to 160, with a median around 145. The default number of bins used is 30, but we can change this value.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl</span><span class='op'>)</span> <span class='op'>+</span> 
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>GSE_WSE</span><span class='op'>)</span>, bins <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>GSE_WSE</span><span class='op'>)</span>, bins <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span></span></code></pre>
 </div>
 <p><img src="m_ggplot_files/figure-html5/geom-hist2-1.png" width="100%" /></p>
 </div>
 <div class="challenge">
-<p><font color="#009E73"><strong>Challenge 1: You
-Try!</strong></font></p>
+<p><font color="#009E73"><strong>Challenge 1: You Try!</strong></font></p>
 <ol type="1">
-<li>Modify the plot above to make the histogram blue (Hint: use
-<code>fill = "blue"</code>).<br />
+<li>Modify the plot above to make the histogram blue (Hint: use <code>fill = "blue"</code>).<br />
 </li>
-<li>In the code above, change <code>geom_histogram()</code> to
-<code>geom_boxplot</code> and remove any <code>bins</code> and
-<code>fill</code> arguments.</li>
+<li>In the code above, change <code>geom_histogram()</code> to <code>geom_boxplot</code> and remove any <code>bins</code> and <code>fill</code> arguments.</li>
 </ol>
 </div>
 <p><br></p>
@@ -2718,176 +2659,129 @@ Try!</strong></font></p>
 <div class="challenge-ans-body">
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl</span><span class='op'>)</span> <span class='op'>+</span> 
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>GSE_WSE</span><span class='op'>)</span>, bins <span class='op'>=</span> <span class='fl'>100</span>, fill <span class='op'>=</span> <span class='st'>"blue"</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>GSE_WSE</span><span class='op'>)</span>, bins <span class='op'>=</span> <span class='fl'>100</span>, fill <span class='op'>=</span> <span class='st'>"blue"</span><span class='op'>)</span></span></code></pre>
 </div>
 <p><img src="m_ggplot_files/figure-html5/challenge-1a-1.png" width="100%" /></p>
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl</span><span class='op'>)</span> <span class='op'>+</span> 
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_boxplot.html'>geom_boxplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>GSE_WSE</span><span class='op'>)</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_boxplot.html'>geom_boxplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>GSE_WSE</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
 <p><img src="m_ggplot_files/figure-html5/challenge-1b-1.png" width="100%" /></p>
 </div>
 </div>
 </details>
 <h2 id="aesthetics">Aesthetics</h2>
-<p><strong>Aesthetics</strong>, or <code>aes()</code> as we have seen,
-are how geoms map variables onto a plot. So far, we have only used the
-<code>x</code> and <code>y</code> aesthetics to map variables onto an x
-and y coordinate system. We can also add a third variable, like
-<strong>color</strong> to the aesthetics, and map values in the data to
-different colors.</p>
+<p><strong>Aesthetics</strong>, or <code>aes()</code> as we have seen, are how geoms map variables onto a plot. So far, we have only used the <code>x</code> and <code>y</code> aesthetics to map variables onto an x and y coordinate system. We can also add a third variable, like <strong>color</strong> to the aesthetics, and map values in the data to different colors.</p>
 <aside>
-Other aesthetics you can map variables to include <code>shape</code>,
-<code>size</code>, and <code>fill</code>.
+Other aesthetics you can map variables to include <code>shape</code>, <code>size</code>, and <code>fill</code>.
 </aside>
-<p>So far, we’ve been working with one monitoring site in Sacramento
-County, but to illustrate how mapping a variable to color can be useful,
-let’s read in a slightly larger version of this groundwater level
-dataset that includes data from <strong>10 monitoring sites</strong> in
-Sacramento and Placer counties.</p>
+<p>So far, we’ve been working with one monitoring site in Sacramento County, but to illustrate how mapping a variable to color can be useful, let’s read in a slightly larger version of this groundwater level dataset that includes data from <strong>10 monitoring sites</strong> in Sacramento and Placer counties.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># groundwater level from 10 monitoring sites in Sacramento and Placer counties</span>
-<span class='va'>gwl_10</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"data/gwl/gwl_10.csv"</span><span class='op'>)</span>
-
-<span class='co'># plot</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl_10</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>MSMT_DATE</span>, <span class='va'>GSE_WSE</span><span class='op'>)</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># groundwater level from 10 monitoring sites in Sacramento and Placer counties</span></span>
+<span><span class='va'>gwl_10</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"data/gwl/gwl_10.csv"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='co'># plot</span></span>
+<span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl_10</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>MSMT_DATE</span>, <span class='va'>GSE_WSE</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
 <p><img src="m_ggplot_files/figure-html5/read-10-1.png" width="100%" /></p>
 </div>
-<p>Pause for a moment to consider why does this data does not appear to
-have a clear trend.</p>
-<p>Let’s verify there are 10 unique sites in the data, then re-plot, and
-color the points by the <code>SITE_CODE</code> by assigning the variable
-<code>SITE_CODE</code> to the <code>color</code> argument
-<em>inside</em> the <code>aes()</code>.</p>
+<p>Pause for a moment to consider why does this data does not appear to have a clear trend.</p>
+<p>Let’s verify there are 10 unique sites in the data, then re-plot, and color the points by the <code>SITE_CODE</code> by assigning the variable <code>SITE_CODE</code> to the <code>color</code> argument <em>inside</em> the <code>aes()</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># unique site codes in the dataframe</span>
-<span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>gwl_10</span><span class='op'>$</span><span class='va'>SITE_CODE</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># unique site codes in the dataframe</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>gwl_10</span><span class='op'>$</span><span class='va'>SITE_CODE</span><span class='op'>)</span></span></code></pre>
 </div>
 <pre><code> [1] &quot;382913N1213131W001&quot; &quot;384082N1213845W001&quot; &quot;385567N1214751W001&quot;
  [4] &quot;386016N1213761W001&quot; &quot;387511N1213389W001&quot; &quot;388974N1213665W001&quot;
  [7] &quot;383264N1213191W001&quot; &quot;382548N1212908W001&quot; &quot;388943N1214335W001&quot;
 [10] &quot;384121N1212102W001&quot;</code></pre>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># re-plot with color as an aesthetic</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl_10</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>MSMT_DATE</span>, y <span class='op'>=</span> <span class='va'>GSE_WSE</span>, color <span class='op'>=</span> <span class='va'>SITE_CODE</span><span class='op'>)</span>, alpha <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># re-plot with color as an aesthetic</span></span>
+<span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl_10</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>MSMT_DATE</span>, y <span class='op'>=</span> <span class='va'>GSE_WSE</span>, color <span class='op'>=</span> <span class='va'>SITE_CODE</span><span class='op'>)</span>, alpha <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span></span></code></pre>
 </div>
 <p><img src="m_ggplot_files/figure-html5/plot-10-sites-1.png" width="100%" /></p>
 </div>
-<p>It’s now clear now which points belong to which group. Above, we
-<em>mapped</em> colored points by a categorical variable
-(<code>SITE_CODE</code>), but we can also color by a continuous
-variable, like the well depth.</p>
+<p>It’s now clear now which points belong to which group. Above, we <em>mapped</em> colored points by a categorical variable (<code>SITE_CODE</code>), but we can also color by a continuous variable, like the well depth.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># color the continuous well depth variable</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl_10</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>MSMT_DATE</span>, y <span class='op'>=</span> <span class='va'>GSE_WSE</span>, color <span class='op'>=</span> <span class='va'>WELL_DEPTH</span><span class='op'>)</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># color the continuous well depth variable</span></span>
+<span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl_10</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>MSMT_DATE</span>, y <span class='op'>=</span> <span class='va'>GSE_WSE</span>, color <span class='op'>=</span> <span class='va'>WELL_DEPTH</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
 <p><img src="m_ggplot_files/figure-html5/color-depth-1.png" width="100%" /></p>
 </div>
-<p>What if we were curious to know the distribution of depth to
-groundwater (y axis) at each of the 10 sites (x axis) in the
-<code>gwl_10</code> dataset?</p>
+<p>What if we were curious to know the distribution of depth to groundwater (y axis) at each of the 10 sites (x axis) in the <code>gwl_10</code> dataset?</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl_10</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_boxplot.html'>geom_boxplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>SITE_CODE</span>, y <span class='op'>=</span> <span class='va'>GSE_WSE</span><span class='op'>)</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl_10</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_boxplot.html'>geom_boxplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>SITE_CODE</span>, y <span class='op'>=</span> <span class='va'>GSE_WSE</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
 <p><img src="m_ggplot_files/figure-html5/dist1-1.png" width="100%" /></p>
 </div>
-<p>Those x axis labels are hard to read. What happens if we switch the x
-and y aesthetics?</p>
+<p>Those x axis labels are hard to read. What happens if we switch the x and y aesthetics?</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl_10</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_boxplot.html'>geom_boxplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>GSE_WSE</span>, y <span class='op'>=</span> <span class='va'>SITE_CODE</span><span class='op'>)</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl_10</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_boxplot.html'>geom_boxplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>GSE_WSE</span>, y <span class='op'>=</span> <span class='va'>SITE_CODE</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
 <p><img src="m_ggplot_files/figure-html5/dist2-1.png" width="100%" /></p>
 </div>
 <p>That’s easier to read. Let’s also add some more intuitive labels.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl_10</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_boxplot.html'>geom_boxplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>GSE_WSE</span>, y <span class='op'>=</span> <span class='va'>SITE_CODE</span>, color <span class='op'>=</span> <span class='va'>WELL_USE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='st'>""</span>, 
-       x <span class='op'>=</span> <span class='st'>"Depth to groundwater (ft)"</span>,
-       color <span class='op'>=</span> <span class='st'>"Well type"</span>,
-       title <span class='op'>=</span> <span class='st'>"Depth to groundwater at 10 monitoring sites"</span>,
-       subtitle <span class='op'>=</span> <span class='st'>"Sacramento and Placer county (1960-present)"</span>,
-       caption <span class='op'>=</span> <span class='st'>"Source: Periodic groundwater level database, CA-DWR."</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl_10</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_boxplot.html'>geom_boxplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>GSE_WSE</span>, y <span class='op'>=</span> <span class='va'>SITE_CODE</span>, color <span class='op'>=</span> <span class='va'>WELL_USE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='st'>""</span>, </span>
+<span>       x <span class='op'>=</span> <span class='st'>"Depth to groundwater (ft)"</span>,</span>
+<span>       color <span class='op'>=</span> <span class='st'>"Well type"</span>,</span>
+<span>       title <span class='op'>=</span> <span class='st'>"Depth to groundwater at 10 monitoring sites"</span>,</span>
+<span>       subtitle <span class='op'>=</span> <span class='st'>"Sacramento and Placer county (1960-present)"</span>,</span>
+<span>       caption <span class='op'>=</span> <span class='st'>"Source: Periodic groundwater level database, CA-DWR."</span><span class='op'>)</span></span></code></pre>
 </div>
 <p><img src="m_ggplot_files/figure-html5/dist3-1.png" width="100%" /></p>
 </div>
 <h2 id="faceting">Faceting</h2>
-<p>Faceting is a powerful way to split a plot by a categorical variable
-into many subplots, or <strong>facets</strong>.</p>
+<p>Faceting is a powerful way to split a plot by a categorical variable into many subplots, or <strong>facets</strong>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl_10</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>MSMT_DATE</span>, <span class='va'>GSE_WSE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>SITE_CODE</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl_10</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>MSMT_DATE</span>, <span class='va'>GSE_WSE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>SITE_CODE</span><span class='op'>)</span></span></code></pre>
 </div>
 <p><img src="m_ggplot_files/figure-html5/facet1-1.png" width="100%" /></p>
 </div>
-<p>We can improve the plot above by noticing that there are 10 facets,
-which would fit well into a grid of 5 rows and 2 columns, and also if we
-“freed” the scales so that they didn’t all have the same x and y axis
-limits. We can achieve these changes by modifying the <code>nrow</code>,
-<code>ncol</code>, and <code>scales</code> arguments.</p>
+<p>We can improve the plot above by noticing that there are 10 facets, which would fit well into a grid of 5 rows and 2 columns, and also if we “freed” the scales so that they didn’t all have the same x and y axis limits. We can achieve these changes by modifying the <code>nrow</code>, <code>ncol</code>, and <code>scales</code> arguments.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl_10</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>MSMT_DATE</span>, <span class='va'>GSE_WSE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>SITE_CODE</span>, ncol <span class='op'>=</span> <span class='fl'>2</span>, scales <span class='op'>=</span> <span class='st'>"free"</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl_10</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>MSMT_DATE</span>, <span class='va'>GSE_WSE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>SITE_CODE</span>, ncol <span class='op'>=</span> <span class='fl'>2</span>, scales <span class='op'>=</span> <span class='st'>"free"</span><span class='op'>)</span></span></code></pre>
 </div>
 <p><img src="m_ggplot_files/figure-html5/facet2-1.png" width="100%" /></p>
 </div>
-<p>You can also facet by 2 variables with <code>facet_grid()</code>.
-Here we facet by the county name and well use, and also separate
-individual sites within each facet by specifying
-<code>group = SITE_CODE</code>.</p>
+<p>You can also facet by 2 variables with <code>facet_grid()</code>. Here we facet by the county name and well use, and also separate individual sites within each facet by specifying <code>group = SITE_CODE</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>gwl_10</span><span class='op'>)</span> <span class='op'>+</span>
-    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>MSMT_DATE</span>, <span class='va'>GSE_WSE</span>, color <span class='op'>=</span> <span class='va'>WELL_USE</span>, group <span class='op'>=</span> <span class='va'>SITE_CODE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_grid.html'>facet_grid</a></span><span class='op'>(</span><span class='va'>COUNTY_NAME</span><span class='op'>~</span><span class='va'>WELL_USE</span>, scales <span class='op'>=</span> <span class='st'>"free"</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>gwl_10</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>MSMT_DATE</span>, <span class='va'>GSE_WSE</span>, color <span class='op'>=</span> <span class='va'>WELL_USE</span>, group <span class='op'>=</span> <span class='va'>SITE_CODE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_grid.html'>facet_grid</a></span><span class='op'>(</span><span class='va'>COUNTY_NAME</span><span class='op'>~</span><span class='va'>WELL_USE</span>, scales <span class='op'>=</span> <span class='st'>"free"</span><span class='op'>)</span></span></code></pre>
 </div>
 <p><img src="m_ggplot_files/figure-html5/facet-grid-1.png" width="100%" /></p>
 </div>
-<p>What would happen if <code>group = SITE_CODE</code> were not
-included?</p>
+<p>What would happen if <code>group = SITE_CODE</code> were not included?</p>
 <div class="challenge">
-<p><font color="#009E73"><strong>Challenge 2: You
-Try!</strong></font></p>
+<p><font color="#009E73"><strong>Challenge 2: You Try!</strong></font></p>
 <ol type="1">
-<li>Modify the plot above to color by the well use. (Hint: add
-<code>color = WELL_USE</code> inside the <code>aes()</code>
-function).<br />
+<li>Modify the plot above to color by the well use. (Hint: add <code>color = WELL_USE</code> inside the <code>aes()</code> function).<br />
 </li>
-<li>Using the <code>gwl_10</code> dataset, create a new ggplot. Use
-<code>geom_line()</code> to map <code>MSMT_DATE</code> to the x-axis and
-<code>GSE_WSE</code> to the y-axis. Then, color by the
-<code>SITE_CODE</code>, and facet by the <code>WELL_USE</code>.</li>
+<li>Using the <code>gwl_10</code> dataset, create a new ggplot. Use <code>geom_line()</code> to map <code>MSMT_DATE</code> to the x-axis and <code>GSE_WSE</code> to the y-axis. Then, color by the <code>SITE_CODE</code>, and facet by the <code>WELL_USE</code>.</li>
 </ol>
 </div>
 <p><br></p>
@@ -2898,51 +2792,42 @@ function).<br />
 <div class="challenge-ans-body">
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl_10</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>MSMT_DATE</span>, <span class='va'>GSE_WSE</span>, color <span class='op'>=</span> <span class='va'>WELL_USE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>SITE_CODE</span>, ncol <span class='op'>=</span> <span class='fl'>2</span>, scales <span class='op'>=</span> <span class='st'>"free"</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl_10</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>MSMT_DATE</span>, <span class='va'>GSE_WSE</span>, color <span class='op'>=</span> <span class='va'>WELL_USE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>SITE_CODE</span>, ncol <span class='op'>=</span> <span class='fl'>2</span>, scales <span class='op'>=</span> <span class='st'>"free"</span><span class='op'>)</span></span></code></pre>
 </div>
 <p><img src="m_ggplot_files/figure-html5/challenge-2a-1.png" width="100%" /></p>
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># color the continuous well depth variable</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl_10</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>MSMT_DATE</span>, <span class='va'>GSE_WSE</span>, color <span class='op'>=</span> <span class='va'>SITE_CODE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>WELL_USE</span>, ncol <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># color the continuous well depth variable</span></span>
+<span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl_10</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>MSMT_DATE</span>, <span class='va'>GSE_WSE</span>, color <span class='op'>=</span> <span class='va'>SITE_CODE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>WELL_USE</span>, ncol <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span></span></code></pre>
 </div>
 <p><img src="m_ggplot_files/figure-html5/challenge-2b-1.png" width="100%" /></p>
 </div>
 </div>
 </details>
 <h2 id="saving-plots">Saving plots</h2>
-<p>There are two main ways to get plots out of R and into a file, using
-a graphical device, or using a ggplot function <code>ggsave</code>.</p>
-<h3 id="saving-with-a-graphical-device">Saving with a graphical
-device</h3>
-<p>To save using a graphical device, we essentially prepare a file of
-the type we want (i.e., a pdf or png or jpg). This is the “graphical
-device”. Once we’ve opened our blank graphical file, we print the plot,
-and then close the device. This method (using a graphical device) works
-with any graphical output from R, not just ggplot.</p>
+<p>There are two main ways to get plots out of R and into a file, using a graphical device, or using a ggplot function <code>ggsave</code>.</p>
+<h3 id="saving-with-a-graphical-device">Saving with a graphical device</h3>
+<p>To save using a graphical device, we essentially prepare a file of the type we want (i.e., a pdf or png or jpg). This is the “graphical device”. Once we’ve opened our blank graphical file, we print the plot, and then close the device. This method (using a graphical device) works with any graphical output from R, not just ggplot.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># create a plot and save it to a variable</span>
-<span class='va'>my_plot</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl_10</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>MSMT_DATE</span>, <span class='va'>GSE_WSE</span>, color <span class='op'>=</span> <span class='va'>WELL_USE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>SITE_CODE</span>, ncol <span class='op'>=</span> <span class='fl'>2</span>, scales <span class='op'>=</span> <span class='st'>"free"</span><span class='op'>)</span>
-
-<span class='co'># open a PDF graphical device</span>
-<span class='fu'><a href='https://rdrr.io/r/grDevices/pdf.html'>pdf</a></span><span class='op'>(</span><span class='st'>"results/my_plot.pdf"</span><span class='op'>)</span>
-
-<span class='co'># print the plot</span>
-<span class='va'>my_plot</span>
-
-<span class='co'># close the graphical device</span>
-<span class='fu'><a href='https://rdrr.io/r/grDevices/dev.html'>dev.off</a></span><span class='op'>(</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># create a plot and save it to a variable</span></span>
+<span><span class='va'>my_plot</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl_10</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>MSMT_DATE</span>, <span class='va'>GSE_WSE</span>, color <span class='op'>=</span> <span class='va'>WELL_USE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>SITE_CODE</span>, ncol <span class='op'>=</span> <span class='fl'>2</span>, scales <span class='op'>=</span> <span class='st'>"free"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='co'># open a PDF graphical device</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/grDevices/pdf.html'>pdf</a></span><span class='op'>(</span><span class='st'>"results/my_plot.pdf"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='co'># print the plot</span></span>
+<span><span class='va'>my_plot</span></span>
+<span></span>
+<span><span class='co'># close the graphical device</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/grDevices/dev.html'>dev.off</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
 </div>
 <pre><code>quartz_off_screen 
                 2 </code></pre>
@@ -2950,161 +2835,113 @@ with any graphical output from R, not just ggplot.</p>
 <p>We can print multiple plots into a PDF graphical device.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># create a plot and save it to a variable</span>
-<span class='va'>my_plot_2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>gwl_10</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>MSMT_DATE</span>, <span class='va'>GSE_WSE</span>, color <span class='op'>=</span> <span class='va'>SITE_CODE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>WELL_USE</span>, ncol <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
-
-<span class='co'># open a PDF graphical device</span>
-<span class='fu'><a href='https://rdrr.io/r/grDevices/pdf.html'>pdf</a></span><span class='op'>(</span><span class='st'>"results/my_plots.pdf"</span><span class='op'>)</span>
-
-<span class='co'># print the plot</span>
-<span class='va'>my_plot</span>
-<span class='va'>my_plot_2</span>
-
-<span class='co'># close the graphical device</span>
-<span class='fu'><a href='https://rdrr.io/r/grDevices/dev.html'>dev.off</a></span><span class='op'>(</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># create a plot and save it to a variable</span></span>
+<span><span class='va'>my_plot_2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>gwl_10</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>MSMT_DATE</span>, <span class='va'>GSE_WSE</span>, color <span class='op'>=</span> <span class='va'>SITE_CODE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>WELL_USE</span>, ncol <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='co'># open a PDF graphical device</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/grDevices/pdf.html'>pdf</a></span><span class='op'>(</span><span class='st'>"results/my_plots.pdf"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='co'># print the plot</span></span>
+<span><span class='va'>my_plot</span></span>
+<span><span class='va'>my_plot_2</span></span>
+<span></span>
+<span><span class='co'># close the graphical device</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/grDevices/dev.html'>dev.off</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
 </div>
 <pre><code>quartz_off_screen 
                 2 </code></pre>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># we will get a message about how many screens we still have open...this is ok!</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># we will get a message about how many screens we still have open...this is ok!</span></span></code></pre>
 </div>
 </div>
-<p>We can save a png file in the same way, and specify output height and
-width.</p>
+<p>We can save a png file in the same way, and specify output height and width.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># open a PNG graphical device</span>
-<span class='fu'><a href='https://rdrr.io/r/grDevices/png.html'>png</a></span><span class='op'>(</span><span class='st'>"results/my_plot.png"</span>, width <span class='op'>=</span> <span class='fl'>10</span>, height <span class='op'>=</span> <span class='fl'>7</span>, units <span class='op'>=</span> <span class='st'>"in"</span>, res <span class='op'>=</span> <span class='fl'>300</span><span class='op'>)</span>
-
-<span class='co'># print the plot</span>
-<span class='va'>my_plot</span>
-
-<span class='co'># close the graphical device</span>
-<span class='fu'><a href='https://rdrr.io/r/grDevices/dev.html'>dev.off</a></span><span class='op'>(</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># open a PNG graphical device</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/grDevices/png.html'>png</a></span><span class='op'>(</span><span class='st'>"results/my_plot.png"</span>, width <span class='op'>=</span> <span class='fl'>10</span>, height <span class='op'>=</span> <span class='fl'>7</span>, units <span class='op'>=</span> <span class='st'>"in"</span>, res <span class='op'>=</span> <span class='fl'>300</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='co'># print the plot</span></span>
+<span><span class='va'>my_plot</span></span>
+<span></span>
+<span><span class='co'># close the graphical device</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/grDevices/dev.html'>dev.off</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
 </div>
 <pre><code>quartz_off_screen 
                 2 </code></pre>
 </div>
 <h3 id="saving-with-ggsave">Saving with <code>ggsave()</code></h3>
-<p>Another way to save ggplots that involves less code is to use the
-<code>ggsave()</code> function. By default, <code>ggsave()</code> height
-and width arguments are understood to be in units of inches. This
-approach <em>only</em> works with plots that have been generated using
-the <code>{ggplot2}</code> package. To save different file types, we
-simply change the file extension to the format we want.</p>
+<p>Another way to save ggplots that involves less code is to use the <code>ggsave()</code> function. By default, <code>ggsave()</code> height and width arguments are understood to be in units of inches. This approach <em>only</em> works with plots that have been generated using the <code>{ggplot2}</code> package. To save different file types, we simply change the file extension to the format we want.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggsave.html'>ggsave</a></span><span class='op'>(</span><span class='st'>"results/my_plot_ggsave.pdf"</span>, <span class='va'>my_plot</span>, height <span class='op'>=</span> <span class='fl'>10</span>, width <span class='op'>=</span> <span class='fl'>7</span><span class='op'>)</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggsave.html'>ggsave</a></span><span class='op'>(</span><span class='st'>"results/my_plot_ggsave.png"</span>, <span class='va'>my_plot</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggsave.html'>ggsave</a></span><span class='op'>(</span><span class='st'>"results/my_plot_ggsave.pdf"</span>, <span class='va'>my_plot</span>, height <span class='op'>=</span> <span class='fl'>10</span>, width <span class='op'>=</span> <span class='fl'>7</span><span class='op'>)</span></span>
+<span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggsave.html'>ggsave</a></span><span class='op'>(</span><span class='st'>"results/my_plot_ggsave.png"</span>, <span class='va'>my_plot</span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
 <h2 id="colorblindness">Colorblindness</h2>
-<p><a
-href="https://www.colourblindawareness.org/colour-blindness/">Global
-estimates</a> suggest that 8% of men and 0.5% of women experience some
-form of colorblindness. When creating data visualizations, default
-palettes may not be colorblind-safe. Fortunately,
-<strong><code>{ggplot2}</code></strong> includes options for
-colorblind-safe scales. These can be used with both <code>color</code>
-and <code>fill</code> aesthetics by adding the
-<code>scale_&lt;color or fill&gt;_viridis_&lt;c or d&gt;</code>
-functions to our ggplots.</p>
+<p><a href="https://www.colourblindawareness.org/colour-blindness/">Global estimates</a> suggest that 8% of men and 0.5% of women experience some form of colorblindness. When creating data visualizations, default palettes may not be colorblind-safe. Fortunately, <strong><code>{ggplot2}</code></strong> includes options for colorblind-safe scales. These can be used with both <code>color</code> and <code>fill</code> aesthetics by adding the <code>scale_&lt;color or fill&gt;_viridis_&lt;c or d&gt;</code> functions to our ggplots.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl_10</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>MSMT_DATE</span>, <span class='va'>GSE_WSE</span>, color <span class='op'>=</span> <span class='va'>SITE_CODE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_viridis.html'>scale_color_viridis_d</a></span><span class='op'>(</span><span class='op'>)</span> <span class='co'># a "discrete" viridis color palette.</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl_10</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>MSMT_DATE</span>, <span class='va'>GSE_WSE</span>, color <span class='op'>=</span> <span class='va'>SITE_CODE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_viridis.html'>scale_color_viridis_d</a></span><span class='op'>(</span><span class='op'>)</span> <span class='co'># a "discrete" viridis color palette.</span></span></code></pre>
 </div>
 <p><img src="m_ggplot_files/figure-html5/vir-1.png" width="100%" data-distill-preview=1 /></p>
 </div>
-<p>Above, the variable we want to map <code>WELL_USE</code> is mapped to
-a <strong>color</strong> and is a <strong>discrete</strong> variable,
-therefore, we use <code>scale_color_viridis_d()</code>.</p>
-<p>If we were mapping a <strong>continuous</strong> variable to
-<strong>color</strong> we would use
-<code>scale_color_viridis_c()</code>.</p>
+<p>Above, the variable we want to map <code>WELL_USE</code> is mapped to a <strong>color</strong> and is a <strong>discrete</strong> variable, therefore, we use <code>scale_color_viridis_d()</code>.</p>
+<p>If we were mapping a <strong>continuous</strong> variable to <strong>color</strong> we would use <code>scale_color_viridis_c()</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>MSMT_DATE</span>, <span class='va'>GSE_WSE</span>, color <span class='op'>=</span> <span class='va'>MSMT_DATE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_viridis.html'>scale_color_viridis_c</a></span><span class='op'>(</span>trans <span class='op'>=</span> <span class='st'>"date"</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>MSMT_DATE</span>, <span class='va'>GSE_WSE</span>, color <span class='op'>=</span> <span class='va'>MSMT_DATE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_viridis.html'>scale_color_viridis_c</a></span><span class='op'>(</span>trans <span class='op'>=</span> <span class='st'>"date"</span><span class='op'>)</span></span></code></pre>
 </div>
 <p><img src="m_ggplot_files/figure-html5/vir2-1.png" width="100%" /></p>
 </div>
-<p>We can toggle color palettes, and reverse them. See the <a
-href="https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html">{viridis}
-vignette</a> for more info.</p>
+<p>We can toggle color palettes, and reverse them. See the <a href="https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html">{viridis} vignette</a> for more info.</p>
 <aside>
-Color is a vibrantly discussed and very customizable in R. A few
-resources for color palette selection include <a
-href="https://colorbrewer2.org/">colorbrewer2</a>, <a
-href="https://sciviscolor.org/">sciviscolor.org</a>, and <a
-href="http://vrl.cs.brown.edu/color">colorgorical</a>.
+Color is a vibrantly discussed and very customizable in R. A few resources for color palette selection include <a href="https://colorbrewer2.org/">colorbrewer2</a>, <a href="https://sciviscolor.org/">sciviscolor.org</a>, and <a href="http://vrl.cs.brown.edu/color">colorgorical</a>.
 </aside>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>MSMT_DATE</span>, <span class='va'>GSE_WSE</span>, color <span class='op'>=</span> <span class='va'>MSMT_DATE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_viridis.html'>scale_color_viridis_c</a></span><span class='op'>(</span>option <span class='op'>=</span> <span class='st'>"B"</span>, direction <span class='op'>=</span> <span class='op'>-</span><span class='fl'>1</span>, trans <span class='op'>=</span> <span class='st'>"date"</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>MSMT_DATE</span>, <span class='va'>GSE_WSE</span>, color <span class='op'>=</span> <span class='va'>MSMT_DATE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_viridis.html'>scale_color_viridis_c</a></span><span class='op'>(</span>option <span class='op'>=</span> <span class='st'>"B"</span>, direction <span class='op'>=</span> <span class='op'>-</span><span class='fl'>1</span>, trans <span class='op'>=</span> <span class='st'>"date"</span><span class='op'>)</span></span></code></pre>
 </div>
 <p><img src="m_ggplot_files/figure-html5/vir3-1.png" width="100%" /></p>
 </div>
 <h2 id="bespoke-plots">Bespoke plots</h2>
-<p>What we’ve covered is just the tip of the iceberg. There are many,
-many more geoms, aesthetics, themes, scales, coordinates, and graphical
-libraries that extend the capabilities of ggplot. Once you have a handle
-on the grammar of graphics, bespoke plots are not far from your
-reach.</p>
-<p>Adjusting the <code>theme()</code> of a plot is a powerful way to
-customize the look and feel of the visualization. For example, we may
-improve the plot below by simply applying one of many preset themes
-(“<code>theme_&lt;name&gt;</code>”) and increasing the
-<code>base_size</code>.</p>
+<p>What we’ve covered is just the tip of the iceberg. There are many, many more geoms, aesthetics, themes, scales, coordinates, and graphical libraries that extend the capabilities of ggplot. Once you have a handle on the grammar of graphics, bespoke plots are not far from your reach.</p>
+<p>Adjusting the <code>theme()</code> of a plot is a powerful way to customize the look and feel of the visualization. For example, we may improve the plot below by simply applying one of many preset themes (“<code>theme_&lt;name&gt;</code>”) and increasing the <code>base_size</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>MSMT_DATE</span>, <span class='va'>GSE_WSE</span>, color <span class='op'>=</span> <span class='va'>MSMT_DATE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_viridis.html'>scale_color_viridis_c</a></span><span class='op'>(</span>option <span class='op'>=</span> <span class='st'>"B"</span>, direction <span class='op'>=</span> <span class='op'>-</span><span class='fl'>1</span>, trans <span class='op'>=</span> <span class='st'>"date"</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_minimal</a></span><span class='op'>(</span>base_size <span class='op'>=</span> <span class='fl'>14</span><span class='op'>)</span> 
-<span class='va'>p</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>MSMT_DATE</span>, <span class='va'>GSE_WSE</span>, color <span class='op'>=</span> <span class='va'>MSMT_DATE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_viridis.html'>scale_color_viridis_c</a></span><span class='op'>(</span>option <span class='op'>=</span> <span class='st'>"B"</span>, direction <span class='op'>=</span> <span class='op'>-</span><span class='fl'>1</span>, trans <span class='op'>=</span> <span class='st'>"date"</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_minimal</a></span><span class='op'>(</span>base_size <span class='op'>=</span> <span class='fl'>14</span><span class='op'>)</span> </span>
+<span><span class='va'>p</span></span></code></pre>
 </div>
 <p><img src="m_ggplot_files/figure-html5/theme-min-1.png" width="100%" /></p>
 </div>
-<p>Let’s remove minor gridlines with a general call to the
-<code>theme()</code> function and specifying that the
-<code>panel.grid.minor</code> argument is a blank element.</p>
+<p>Let’s remove minor gridlines with a general call to the <code>theme()</code> function and specifying that the <code>panel.grid.minor</code> argument is a blank element.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span><span class='op'>(</span>panel.grid.minor <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_blank</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>p</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span><span class='op'>(</span>panel.grid.minor <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_blank</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span>
+<span><span class='va'>p</span></span></code></pre>
 </div>
 <p><img src="m_ggplot_files/figure-html5/unnamed-chunk-2-1.png" width="100%" /></p>
 </div>
-<p>We can move the legend inside the plot area with another
-<code>theme()</code> argument, <code>legend.position</code>.</p>
+<p>We can move the legend inside the plot area with another <code>theme()</code> argument, <code>legend.position</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># place the legend position 90% along the x axis, and 25% along the y axis</span>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span><span class='op'>(</span>legend.position <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.9</span>, <span class='fl'>0.25</span><span class='op'>)</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># place the legend position 90% along the x axis, and 25% along the y axis</span></span>
+<span><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span><span class='op'>(</span>legend.position <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.9</span>, <span class='fl'>0.25</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
 <p><img src="m_ggplot_files/figure-html5/legend-in-1.png" width="100%" /></p>
 </div>
-<p>We can also move the legend to the top of the plot. If you type
-<code>legend.position</code> and read the documentation in the RStudio
-script editor, you’ll notice the position argument options.</p>
+<p>We can also move the legend to the top of the plot. If you type <code>legend.position</code> and read the documentation in the RStudio script editor, you’ll notice the position argument options.</p>
 <center>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="images/legend_help.png" width="50%" /></p>
@@ -3112,85 +2949,68 @@ script editor, you’ll notice the position argument options.</p>
 </center>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span><span class='op'>(</span>legend.position <span class='op'>=</span> <span class='st'>"top"</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span><span class='op'>(</span>legend.position <span class='op'>=</span> <span class='st'>"top"</span><span class='op'>)</span></span></code></pre>
 </div>
 <p><img src="m_ggplot_files/figure-html5/legend-top-1.png" width="100%" /></p>
 </div>
-<p>Now let’s make the colorbar longer and thinner, move the legend title
-to the top, and center it. We’ll also overwrite our former plot with
-this new one.</p>
+<p>Now let’s make the colorbar longer and thinner, move the legend title to the top, and center it. We’ll also overwrite our former plot with this new one.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>+</span> 
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span><span class='op'>(</span>legend.position <span class='op'>=</span> <span class='st'>"top"</span><span class='op'>)</span> <span class='op'>+</span> 
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guides.html'>guides</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guide_colourbar.html'>guide_colorbar</a></span><span class='op'>(</span>barwidth <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span><span class='op'>(</span><span class='fl'>20</span>, <span class='st'>"lines"</span><span class='op'>)</span>, 
-                                barheight <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span><span class='op'>(</span><span class='fl'>0.5</span>, <span class='st'>"lines"</span><span class='op'>)</span>,
-                                title.hjust <span class='op'>=</span> <span class='fl'>0.5</span>, 
-                                title.position <span class='op'>=</span> <span class='st'>"top"</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>p</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span><span class='op'>(</span>legend.position <span class='op'>=</span> <span class='st'>"top"</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guides.html'>guides</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/guide_colourbar.html'>guide_colorbar</a></span><span class='op'>(</span>barwidth <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span><span class='op'>(</span><span class='fl'>20</span>, <span class='st'>"lines"</span><span class='op'>)</span>, </span>
+<span>                                barheight <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span><span class='op'>(</span><span class='fl'>0.5</span>, <span class='st'>"lines"</span><span class='op'>)</span>,</span>
+<span>                                title.hjust <span class='op'>=</span> <span class='fl'>0.5</span>, </span>
+<span>                                title.position <span class='op'>=</span> <span class='st'>"top"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span><span class='va'>p</span></span></code></pre>
 </div>
 <p><img src="m_ggplot_files/figure-html5/legend-top-long-1.png" width="100%" /></p>
 </div>
 <p>We can add a trend line by fitting a linear model to these data.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>MSMT_DATE</span>, <span class='va'>GSE_WSE</span><span class='op'>)</span>, 
-              method <span class='op'>=</span> <span class='st'>"lm"</span>, se <span class='op'>=</span> <span class='cn'>FALSE</span>, linetype <span class='op'>=</span> <span class='st'>"dashed"</span><span class='op'>)</span>
-<span class='va'>p</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>MSMT_DATE</span>, <span class='va'>GSE_WSE</span><span class='op'>)</span>, </span>
+<span>              method <span class='op'>=</span> <span class='st'>"lm"</span>, se <span class='op'>=</span> <span class='cn'>FALSE</span>, linetype <span class='op'>=</span> <span class='st'>"dashed"</span><span class='op'>)</span></span>
+<span><span class='va'>p</span></span></code></pre>
 </div>
 <p><img src="m_ggplot_files/figure-html5/trendline-1.png" width="100%" /></p>
 </div>
 <p>Finally, let’s format some labels.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='st'>""</span>, y <span class='op'>=</span> <span class='st'>"Depth to groundwater (ft)"</span>,
-       title <span class='op'>=</span> <span class='st'>"Site code: 384121N1212102W001"</span>,
-       caption <span class='op'>=</span> <span class='st'>"Source: Periodic groundwater level database, CA-DWR."</span><span class='op'>)</span>
-<span class='va'>p</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='st'>""</span>, y <span class='op'>=</span> <span class='st'>"Depth to groundwater (ft)"</span>,</span>
+<span>       title <span class='op'>=</span> <span class='st'>"Site code: 384121N1212102W001"</span>,</span>
+<span>       caption <span class='op'>=</span> <span class='st'>"Source: Periodic groundwater level database, CA-DWR."</span><span class='op'>)</span></span>
+<span><span class='va'>p</span></span></code></pre>
 </div>
 <p><img src="m_ggplot_files/figure-html5/unnamed-chunk-4-1.png" width="100%" /></p>
 </div>
-<p>Just about every aspect of plots can be customized with arguments in
-the <code>theme()</code> function. See <code>?theme</code> for a full
-list of options to customize.</p>
-<p>Built-in themes are also a quick way to change the look of your
-plots. Let’s start over with a basic plot, view some built-in
-themes.</p>
+<p>Just about every aspect of plots can be customized with arguments in the <code>theme()</code> function. See <code>?theme</code> for a full list of options to customize.</p>
+<p>Built-in themes are also a quick way to change the look of your plots. Let’s start over with a basic plot, view some built-in themes.</p>
 <aside>
-For even more themes, check out the <a
-href="https://github.com/jrnold/ggthemes"><strong><code>{ggthemes}</code></strong>
-package</a>.
+For even more themes, check out the <a href="https://github.com/jrnold/ggthemes"><strong><code>{ggthemes}</code></strong> package</a>.
 </aside>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># basic plot</span>
-<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>MSMT_DATE</span>, <span class='va'>GSE_WSE</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='co'># a built in theme </span>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_bw</a></span><span class='op'>(</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># basic plot</span></span>
+<span><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gwl</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>MSMT_DATE</span>, <span class='va'>GSE_WSE</span><span class='op'>)</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='co'># a built in theme </span></span>
+<span><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_bw</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
 </div>
 <img src="m_ggplot_files/figure-html5/theme-1.png" width="100%" />
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># another built in theme</span>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_dark</a></span><span class='op'>(</span>base_size <span class='op'>=</span> <span class='fl'>18</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># another built in theme</span></span>
+<span><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_dark</a></span><span class='op'>(</span>base_size <span class='op'>=</span> <span class='fl'>18</span><span class='op'>)</span></span></code></pre>
 </div>
 <p><img src="m_ggplot_files/figure-html5/theme-2.png" width="100%" /></p>
 </div>
 <div class="challenge">
 <p><font color="#009E73"><strong>Extra Practice</strong></font></p>
-<p>There are many built-in themes in
-<strong>{<code>ggplot2</code>}</strong>. Add a theme you haven’t tried
-before to the <code>p</code> object from above. Type “theme_” and hit
-<em>Tab</em> to view options.</p>
+<p>There are many built-in themes in <strong>{<code>ggplot2</code>}</strong>. Add a theme you haven’t tried before to the <code>p</code> object from above. Type “theme_” and hit <em>Tab</em> to view options.</p>
 </div>
 <p><br></p>
 <details>
@@ -3200,43 +3020,28 @@ before to the <code>p</code> object from above. Type “theme_” and hit
 <div class="challenge-ans-body">
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_classic</a></span><span class='op'>(</span><span class='op'>)</span> 
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_classic</a></span><span class='op'>(</span><span class='op'>)</span> </span></code></pre>
 </div>
 <p><img src="m_ggplot_files/figure-html5/challenge-3a-1.png" width="100%" /></p>
 </div>
 </div>
 </details>
 <h2 id="extending-ggplot2">Extending ggplot2</h2>
-<p>If you want to learn more about <code>{ggplot2}</code>, check out
-these two free online resources:</p>
+<p>If you want to learn more about <code>{ggplot2}</code>, check out these two free online resources:</p>
 <ul>
-<li><a href="https://ggplot2-book.org/index.html">ggplot2: elegant
-graphics for data analysis</a>: This is the definitive ggplot2 guide
-written by the package author that emphasizes code and ggplot2
-fundamental skills and concepts.<br />
+<li><a href="https://ggplot2-book.org/index.html">ggplot2: elegant graphics for data analysis</a>: This is the definitive ggplot2 guide written by the package author that emphasizes code and ggplot2 fundamental skills and concepts.<br />
 </li>
-<li><a href="https://clauswilke.com/dataviz/">Fundamentals of Data
-Visualization</a>: This book emphasizes principles of good data
-visualization that will inform the graphics you create.</li>
+<li><a href="https://clauswilke.com/dataviz/">Fundamentals of Data Visualization</a>: This book emphasizes principles of good data visualization that will inform the graphics you create.</li>
 </ul>
 <p><br></p>
 <p><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"></p>
-<p><a href="m_importing_and_exporting_data.html" class="btn btn-secondary" style="float: left">Previous
-module:<br> 4. Import/Export Data</a>
-<a href="m_data_structures.html" class="btn btn-secondary" style="float: right;">Next
-module:<br> 6. Data Structures</a></p>
-<div class="sourceCode" id="cb7"><pre
-class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
-<section id="footnotes" class="footnotes footnotes-end-of-document"
-role="doc-endnotes">
+<p><a href="m_importing_and_exporting_data.html" class="btn btn-secondary" style="float: left">Previous module:<br> 4. Import/Export Data</a>
+<a href="m_data_structures.html" class="btn btn-secondary" style="float: right;">Next module:<br> 6. Data Structures</a></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1"><p>See <a href="https://art.djnavarro.net/"
-class="uri">https://art.djnavarro.net/</a> or <a
-href="https://www.data-imaginist.com/art"
-class="uri">https://www.data-imaginist.com/art</a><a href="#fnref1"
-class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>See <a href="https://art.djnavarro.net/" class="uri">https://art.djnavarro.net/</a> or <a href="https://www.data-imaginist.com/art" class="uri">https://www.data-imaginist.com/art</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 <!--radix_placeholder_article_footer-->
