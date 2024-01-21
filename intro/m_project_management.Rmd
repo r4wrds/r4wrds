@@ -130,17 +130,16 @@ dir.create("scripts")
 
 ```
  
-
-Then in your `Console` tab, you can enter this code to download the data directly into your project!
+We can download data directly via the `download.file()` function.
+In your `Console` tab, you can enter this code to download the data into your `data` folder!
 
 ```{r, echo=TRUE, eval=FALSE}
 
-dir.create("data") # warning is ok if already exists!
-
 # downloads the file (data.zip) to your data directory
-download.file("https://github.com/r4wrds/r4wrds-data-intro/raw/main/data.zip", destfile = "data/data.zip")
+download.file("https://github.com/r4wrds/r4wrds-data-intro/raw/main/data.zip", 
+              destfile = "data/data.zip")
 
-# unzip the data we need for the course:
+# unzip the datasets for the course:
 unzip(zipfile = "data/data.zip")
 
 ```

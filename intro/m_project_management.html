@@ -461,8 +461,8 @@ code span.wa { color: #bf0303; } /* Warning */
   </style>
 
   <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-  <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
-  <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
+  <link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet"/>
+  <link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet"/>
   <script src="site_libs/headroom-0.9.4/headroom.min.js"></script>
   <script src="site_libs/autocomplete-0.37.1/autocomplete.min.js"></script>
   <script src="site_libs/fuse-6.4.1/fuse.min.js"></script>
@@ -791,6 +791,7 @@ code span.wa { color: #bf0303; } /* Warning */
   d-article table.gt_table td,
   d-article table.gt_table th {
     border-bottom: none;
+    font-size: 100%;
   }
 
   .html-widget {
@@ -831,9 +832,21 @@ code span.wa { color: #bf0303; } /* Warning */
     display: none !important;
   }
 
+  hr.section-separator {
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    margin: 0px;
+  }
+
+
+  d-byline {
+    border-top: none;
+  }
+
   d-article {
     padding-top: 2.5rem;
     padding-bottom: 30px;
+    border-top: none;
   }
 
   d-appendix {
@@ -928,6 +941,11 @@ code span.wa { color: #bf0303; } /* Warning */
   d-article div.sourceCode pre {
     padding-left: 18px;
     font-size: 14px;
+  }
+
+  /* tweak for Pandoc numbered line within distill */
+  d-article pre.numberSource code > span {
+      left: -2em;
   }
 
   d-article pre {
@@ -1032,10 +1050,6 @@ code span.wa { color: #bf0303; } /* Warning */
     position: relative;
     margin-bottom: 2.5em;
     margin-top: 1.5em;
-  }
-
-  .figure img {
-    width: 100%;
   }
 
   .figure .caption {
@@ -1693,6 +1707,12 @@ code span.wa { color: #bf0303; } /* Warning */
     // create d-title
     $('.d-title').changeElementType('d-title');
 
+    // separator
+    var separator = '<hr class="section-separator" style="clear: both"/>';
+    // prepend separator above appendix
+    $('.d-byline').before(separator);
+    $('.d-article').before(separator);
+
     // create d-byline
     var byline = $('<d-byline></d-byline>');
     $('.d-byline').replaceWith(byline);
@@ -1770,8 +1790,9 @@ code span.wa { color: #bf0303; } /* Warning */
     $('.distill-force-highlighting-css').parent().remove();
 
     // remove empty line numbers inserted by pandoc when using a
-    // custom syntax highlighting theme
-    $('code.sourceCode a:empty').remove();
+    // custom syntax highlighting theme, except when numbering line
+    // in code chunk
+    $('pre:not(.numberLines) code.sourceCode a:empty').remove();
 
     // load distill framework
     load_distill_framework();
@@ -1797,12 +1818,13 @@ code span.wa { color: #bf0303; } /* Warning */
       // add orcid ids
       $('.authors-affiliations').find('.author').each(function(i, el) {
         var orcid_id = front_matter.authors[i].orcidID;
+        var author_name = front_matter.authors[i].author
         if (orcid_id) {
           var a = $('<a></a>');
           a.attr('href', 'https://orcid.org/' + orcid_id);
           var img = $('<img></img>');
           img.addClass('orcid-id');
-          img.attr('alt', 'ORCID ID');
+          img.attr('alt', author_name ? 'ORCID ID for ' + author_name : 'ORCID ID');
           img.attr('src','data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg==');
           a.append(img);
           $(this).append(a);
@@ -1867,9 +1889,21 @@ code span.wa { color: #bf0303; } /* Warning */
 
       // hoverable references
       $('span.citation[data-cites]').each(function() {
+        const citeChild = $(this).children()[0]
+        // Do not process if @xyz has been used without escaping and without bibliography activated
+        // https://github.com/rstudio/distill/issues/466
+        if (citeChild === undefined) return true
+
+        if (citeChild.nodeName == "D-FOOTNOTE") {
+          var fn = citeChild
+          $(this).html(fn.shadowRoot.querySelector("sup"))
+          $(this).id = fn.id
+          fn.remove()
+        }
         var refs = $(this).attr('data-cites').split(" ");
         var refHtml = refs.map(function(ref) {
-          return "<p>" + $('#ref-' + ref).html() + "</p>";
+          // Could use CSS.escape too here, we insure backward compatibility in navigator
+          return "<p>" + $('div[id="ref-' + ref + '"]').html() + "</p>";
         }).join("\n");
         window.tippy(this, {
           allowHTML: true,
@@ -1881,6 +1915,31 @@ code span.wa { color: #bf0303; } /* Warning */
           placement: 'bottom-start'
         });
       });
+
+      // fix footnotes in tables (#411)
+      // replacing broken distill.pub feature
+      $('table d-footnote').each(function() {
+        // we replace internal showAtNode methode which is triggered when hovering a footnote
+        this.hoverBox.showAtNode = function(node) {
+          // ported from https://github.com/distillpub/template/pull/105/files
+          calcOffset = function(elem) {
+              let x = elem.offsetLeft;
+              let y = elem.offsetTop;
+              // Traverse upwards until an `absolute` element is found or `elem`
+              // becomes null.
+              while (elem = elem.offsetParent && elem.style.position != 'absolute') {
+                  x += elem.offsetLeft;
+                  y += elem.offsetTop;
+              }
+
+              return { left: x, top: y };
+          }
+          // https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/offsetTop
+          const bbox = node.getBoundingClientRect();
+          const offset = calcOffset(node);
+          this.show([offset.left + bbox.width, offset.top + bbox.height]);
+        }
+      })
 
       // clear polling timer
       clearInterval(tid);
@@ -1980,6 +2039,8 @@ code span.wa { color: #bf0303; } /* Warning */
     // mark non-body figures created by knitr chunks as 100% width
     $('.layout-chunk').each(function(i, val) {
       var figures = $(this).find('img, .html-widget');
+      // ignore leaflet img layers (#106)
+      figures = figures.filter(':not(img[class*="leaflet"])')
       if ($(this).attr('data-layout') !== "l-body") {
         figures.css('width', '100%');
       } else {
@@ -2002,7 +2063,7 @@ code span.wa { color: #bf0303; } /* Warning */
     // get rid of index.html references in header
     if (window.location.protocol !== "file:") {
       $('.distill-site-header a[href]').each(function(i,val) {
-        $(this).attr('href', $(this).attr('href').replace("index.html", "./"));
+        $(this).attr('href', $(this).attr('href').replace(/^index[.]html/, "./"));
       });
     }
 
@@ -2041,7 +2102,7 @@ code span.wa { color: #bf0303; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2380,6 +2441,7 @@ Worksheets
 
 <div class="d-title">
 <h1>3. Project Management: Let’s Get Organized</h1>
+
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
 <p><p>Know where you are…</p></p>
@@ -2392,42 +2454,24 @@ Worksheets
 <h3>Contents</h3>
 <ul>
 <li><a href="#where-am-i" id="toc-where-am-i">Where Am I?</a></li>
-<li><a href="#use-project-workflows" id="toc-use-project-workflows">Use
-Project Workflows</a>
+<li><a href="#use-project-workflows" id="toc-use-project-workflows">Use Project Workflows</a>
 <ul>
-<li><a href="#basic-folders-for-every-project"
-id="toc-basic-folders-for-every-project">Basic Folders for Every
-Project</a></li>
-<li><a href="#rstudio-projects" id="toc-rstudio-projects">RStudio
-Projects</a></li>
-<li><a href="#setting-up-an-.rproj"
-id="toc-setting-up-an-.rproj">Setting up an <code>.Rproj</code></a></li>
-<li><a href="#make-folders-add-data" id="toc-make-folders-add-data">Make
-Folders &amp; Add Data</a></li>
+<li><a href="#basic-folders-for-every-project" id="toc-basic-folders-for-every-project">Basic Folders for Every Project</a></li>
+<li><a href="#rstudio-projects" id="toc-rstudio-projects">RStudio Projects</a></li>
+<li><a href="#setting-up-an-.rproj" id="toc-setting-up-an-.rproj">Setting up an <code>.Rproj</code></a></li>
+<li><a href="#make-folders-add-data" id="toc-make-folders-add-data">Make Folders &amp; Add Data</a></li>
 </ul></li>
 <li><a href="#file-paths" id="toc-file-paths">File Paths</a>
 <ul>
-<li><a href="#the-working-directory" id="toc-the-working-directory">The
-Working Directory</a></li>
-<li><a href="#using-the-here-package"
-id="toc-using-the-here-package">Using the <strong>{here}</strong>
-package</a></li>
+<li><a href="#the-working-directory" id="toc-the-working-directory">The Working Directory</a></li>
+<li><a href="#using-the-here-package" id="toc-using-the-here-package">Using the <strong>{here}</strong> package</a></li>
 </ul></li>
-<li><a href="#best-practices-project-organizationworkflow-tips"
-id="toc-best-practices-project-organizationworkflow-tips">Best
-Practices: Project Organization/Workflow Tips</a>
+<li><a href="#best-practices-project-organizationworkflow-tips" id="toc-best-practices-project-organizationworkflow-tips">Best Practices: Project Organization/Workflow Tips</a>
 <ul>
-<li><a href="#always-start-r-as-a-blank-slate"
-id="toc-always-start-r-as-a-blank-slate">Always start R as a blank
-slate</a></li>
-<li><a href="#safe-file-naming" id="toc-safe-file-naming">Safe File
-Naming</a></li>
-<li><a href="#treat-raw-data-as-read-only"
-id="toc-treat-raw-data-as-read-only">Treat raw data as <em>Read
-Only</em></a></li>
-<li><a href="#treat-generated-output-as-disposable"
-id="toc-treat-generated-output-as-disposable">Treat generated output as
-disposable</a></li>
+<li><a href="#always-start-r-as-a-blank-slate" id="toc-always-start-r-as-a-blank-slate">Always start R as a blank slate</a></li>
+<li><a href="#safe-file-naming" id="toc-safe-file-naming">Safe File Naming</a></li>
+<li><a href="#treat-raw-data-as-read-only" id="toc-treat-raw-data-as-read-only">Treat raw data as <em>Read Only</em></a></li>
+<li><a href="#treat-generated-output-as-disposable" id="toc-treat-generated-output-as-disposable">Treat generated output as disposable</a></li>
 </ul></li>
 <li><a href="#summary" id="toc-summary">Summary</a></li>
 </ul>
@@ -2451,71 +2495,23 @@ Figure 1: <em>A disorganized system for finding things</em>
 </p>
 </div>
 </div>
-<p>Any time you are working on your computer, you must navigate amidst a
-forest of files and folders.</p>
+<p>Any time you are working on your computer, you must navigate amidst a forest of files and folders.</p>
 <blockquote>
-<p>One of the most common issues we deal with in <code>R</code>
-programming is to <strong>tell your computer where a file or folder is
-located</strong>.</p>
+<p>One of the most common issues we deal with in <code>R</code> programming is to <strong>tell your computer where a file or folder is located</strong>.</p>
 </blockquote>
-<p>Thus, one of the most useful habits you can form (whether using
-<code>R</code> or not), is to <strong>intentionally keep a clear
-structure</strong> and use that same structure across all of your
-projects. This becomes especially important when using computer
-programming languages like
-<svg aria-hidden="true" role="img" viewBox="0 0 581 512" style="height:1em;width:1.13em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:steelblue;overflow:visible;stroke:3;position:relative;"><path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"/></svg>
-in your work. You will need to tell <code>R</code>, very specifically,
-where you are and where your files are located in the forest of your
-computer.</p>
-<p><em>Where you are</em> is typically referred to as the
-<strong>working directory</strong>. The working directory is a
-<strong>folder</strong>. In
-<svg aria-hidden="true" role="img" viewBox="0 0 581 512" style="height:1em;width:1.13em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:steelblue;overflow:visible;stroke:3;position:relative;"><path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"/></svg>,
-think of this as your homebase, and everything is <em>relative</em> to
-this folder on your computer.</p>
+<p>Thus, one of the most useful habits you can form (whether using <code>R</code> or not), is to <strong>intentionally keep a clear structure</strong> and use that same structure across all of your projects. This becomes especially important when using computer programming languages like <svg aria-hidden="true" role="img" viewBox="0 0 581 512" style="height:1em;width:1.13em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:steelblue;overflow:visible;stroke:3;position:relative;"><path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"/></svg> in your work. You will need to tell <code>R</code>, very specifically, where you are and where your files are located in the forest of your computer.</p>
+<p><em>Where you are</em> is typically referred to as the <strong>working directory</strong>. The working directory is a <strong>folder</strong>. In <svg aria-hidden="true" role="img" viewBox="0 0 581 512" style="height:1em;width:1.13em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:steelblue;overflow:visible;stroke:3;position:relative;"><path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"/></svg>, think of this as your homebase, and everything is <em>relative</em> to this folder on your computer.</p>
 <h2 id="use-project-workflows">Use Project Workflows</h2>
-<p>One of the great advantages of using tools like RStudio is they make
-it easy to use an organized “<strong>project</strong>” workflow. What do
-we mean by “<strong>using projects</strong>”? Projects refer to a
-general pattern or structure used for each work project or analysis.
-This approach is not specific to <code>R</code>. Any practiced data
-scientist will use a folder structure and organization scheme, no matter
-what programming language they use.</p>
-<p>The general idea is to always use the same structure and naming
-schemes across every project. Do this every single time with every
-single project you make, in order to make it a habit. This will save you
-time and brainpower! Imagine quickly moving between tasks or projects
-with minimal time spent “<em>trying to find where things are and getting
-oriented</em>”. You’ll always know where things should be!</p>
-<h3 id="basic-folders-for-every-project">Basic Folders for Every
-Project</h3>
-<p>At a minimum, it’s useful to have separate directories (folders) for
-each of the following:</p>
+<p>One of the great advantages of using tools like RStudio is they make it easy to use an organized “<strong>project</strong>” workflow. What do we mean by “<strong>using projects</strong>”? Projects refer to a general pattern or structure used for each work project or analysis. This approach is not specific to <code>R</code>. Any practiced data scientist will use a folder structure and organization scheme, no matter what programming language they use.</p>
+<p>The general idea is to always use the same structure and naming schemes across every project. Do this every single time with every single project you make, in order to make it a habit. This will save you time and brainpower! Imagine quickly moving between tasks or projects with minimal time spent “<em>trying to find where things are and getting oriented</em>”. You’ll always know where things should be!</p>
+<h3 id="basic-folders-for-every-project">Basic Folders for Every Project</h3>
+<p>At a minimum, it’s useful to have separate directories (folders) for each of the following:</p>
 <ul>
-<li><strong><code>data</code></strong>: Ideally keep data in a
-<code>.csv</code> format, because these simple and universal data. You
-may have other specialized formats as well. This is generally where
-original, raw data lives.</li>
-<li><strong><code>data_output</code></strong>: This is where you save
-any data or analysis outputs. Any time you clean, tidy, summarize, or
-otherwise manipulate the data and save it out, it should end up
-somewhere clearly different than the raw data location.</li>
-<li><strong><code>scripts</code></strong>: In the
-<svg aria-hidden="true" role="img" viewBox="0 0 581 512" style="height:1em;width:1.13em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:darkblue;overflow:visible;position:relative;"><path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"/></svg>
-world, “scripts” are generally <code>.R</code> files. However, you may
-have <code>.do</code> files if wokring with Stata, <code>.py</code>
-files for Python, and so on. Using a sequential numbering file naming
-scheme can be useful. Remember to pad with a zero to make file
-sorting/ordering easy (e.g., <code>00_script_a.R</code>,
-<code>01_script_b.py</code>, etc).</li>
-<li><strong><code>results</code></strong>: These may include model
-results, data analysis, slides, and so on. Some like to keep figures in
-this folder and others prefer a specific <code>figures</code>
-folder.</li>
-<li><strong><code>documents</code></strong>: This is a place you can
-keep documents, papers, pdfs, etc. These may include files with
-<code>.docx</code>, <code>.Rmd</code> (for RMarkdown), <code>.pdf</code>
-or even <code>.html</code> extensions.</li>
+<li><strong><code>data</code></strong>: Ideally keep data in a <code>.csv</code> format, because these simple and universal data. You may have other specialized formats as well. This is generally where original, raw data lives.</li>
+<li><strong><code>data_output</code></strong>: This is where you save any data or analysis outputs. Any time you clean, tidy, summarize, or otherwise manipulate the data and save it out, it should end up somewhere clearly different than the raw data location.</li>
+<li><strong><code>scripts</code></strong>: In the <svg aria-hidden="true" role="img" viewBox="0 0 581 512" style="height:1em;width:1.13em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:darkblue;overflow:visible;position:relative;"><path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"/></svg> world, “scripts” are generally <code>.R</code> files. However, you may have <code>.do</code> files if wokring with Stata, <code>.py</code> files for Python, and so on. Using a sequential numbering file naming scheme can be useful. Remember to pad with a zero to make file sorting/ordering easy (e.g., <code>00_script_a.R</code>, <code>01_script_b.py</code>, etc).</li>
+<li><strong><code>results</code></strong>: These may include model results, data analysis, slides, and so on. Some like to keep figures in this folder and others prefer a specific <code>figures</code> folder.</li>
+<li><strong><code>documents</code></strong>: This is a place you can keep documents, papers, pdfs, etc. These may include files with <code>.docx</code>, <code>.Rmd</code> (for RMarkdown), <code>.pdf</code> or even <code>.html</code> extensions.</li>
 </ul>
 <div class="layout-chunk" data-layout="l-body">
 <div class="figure"><span style="display:block;" id="fig:workingStructure"></span>
@@ -2526,35 +2522,15 @@ Figure 2: <em>An example project folder structure</em>
 </div>
 </div>
 <h3 id="rstudio-projects">RStudio Projects</h3>
-<p>Within the R environment, something that makes project management and
-organization much easier is the use of RStudio Projects
-(<code>.Rproj</code> file). RStudio makes the use of Projects
-straightforward. One of the nicest parts of using <strong>RStudio
-Projects</strong> is that they automatically set the working directory
-to the folder containing a specified <code>.RProj</code> file. You can
-make any existing folder an RProject folder, or make a new one. RStudio
-projects are a great way to quickly and easily organize your workflows;
-each project can be a specific task, or a larger set of objectives you
-need to complete. With <strong>RStudio Projects</strong>, it’s easy to
-switch between projects, or work on different projects simultaneously
-without much mental overload, <em>especially if you use the same project
-folder structure across each project</em>!</p>
+<p>Within the R environment, something that makes project management and organization much easier is the use of RStudio Projects (<code>.Rproj</code> file). RStudio makes the use of Projects straightforward. One of the nicest parts of using <strong>RStudio Projects</strong> is that they automatically set the working directory to the folder containing a specified <code>.RProj</code> file. You can make any existing folder an RProject folder, or make a new one. RStudio projects are a great way to quickly and easily organize your workflows; each project can be a specific task, or a larger set of objectives you need to complete. With <strong>RStudio Projects</strong>, it’s easy to switch between projects, or work on different projects simultaneously without much mental overload, <em>especially if you use the same project folder structure across each project</em>!</p>
 <aside>
-Avoid using <code>setwd()</code>! More reasons and rationale <a
-href="https://rstats.wtf/project-oriented-workflow.html#setwd">linked
-here</a>.
+Avoid using <code>setwd()</code>! More reasons and rationale <a href="https://rstats.wtf/project-oriented-workflow.html#setwd">linked here</a>.
 </aside>
 <h3 id="setting-up-an-.rproj">Setting up an <code>.Rproj</code></h3>
-<p>Let’s create an RStudio Project as part of this course that you can
-use throughout each module. We highly recommend that no matter what you
-are working on in <code>R</code>, that you try to do it within the
-structure of an RStudio Project!</p>
+<p>Let’s create an RStudio Project as part of this course that you can use throughout each module. We highly recommend that no matter what you are working on in <code>R</code>, that you try to do it within the structure of an RStudio Project!</p>
 <ol type="1">
-<li>Open RStudio and navigate to the upper right-hand side where it says
-“<strong>Project: (None)</strong>”. If we click on this button, we
-should see some options. Select <strong>New Project</strong>.</li>
-<li>We can use either a New Directory, or setup a project in an Existing
-Directory. Both give similar options.</li>
+<li>Open RStudio and navigate to the upper right-hand side where it says “<strong>Project: (None)</strong>”. If we click on this button, we should see some options. Select <strong>New Project</strong>.</li>
+<li>We can use either a New Directory, or setup a project in an Existing Directory. Both give similar options.</li>
 <li>Select “<strong>New Project</strong>”</li>
 </ol>
 <div class="layout-chunk" data-layout="l-body">
@@ -2566,47 +2542,28 @@ Figure 3: <em>RStudio Project setup</em>
 </div>
 </div>
 <ol start="4" type="1">
-<li>Make a new sub-directory folder (if you don’t have it) under your
-Documents folder called: <strong><code>Rprojects</code></strong></li>
+<li>Make a new sub-directory folder (if you don’t have it) under your Documents folder called: <strong><code>Rprojects</code></strong></li>
 </ol>
 <aside>
-It’s a good idea to keep all your R projects in one place. You can
-decide if this should be in your
-<strong><code>~/Documents</code></strong> folder, or somewhere else
-(associated with a version control or cloud service like
-Dropbox/Box/etc).
+It’s a good idea to keep all your R projects in one place. You can decide if this should be in your <strong><code>~/Documents</code></strong> folder, or somewhere else (associated with a version control or cloud service like Dropbox/Box/etc).
 </aside>
 <ol start="5" type="1">
-<li>Finally, we can name our new project (remember no spaces in our
-folder/file names!): <strong><code>intro_r4wrds</code></strong></li>
+<li>Finally, we can name our new project (remember no spaces in our folder/file names!): <strong><code>intro_r4wrds</code></strong></li>
 </ol>
 <div class="layout-chunk" data-layout="l-body">
 <div class="figure"><span style="display:block;" id="fig:rprojsetup2"></span>
 <img src="images/rproj_new_intro-r4wrds.png" alt="*Make a new project named **intro_r4wrds***" width="85%" />
 <p class="caption">
-Figure 4: <em>Make a new project named
-<strong>intro_r4wrds</strong></em>
+Figure 4: <em>Make a new project named <strong>intro_r4wrds</strong></em>
 </p>
 </div>
 </div>
 <h3 id="make-folders-add-data">Make Folders &amp; Add Data</h3>
-<p>Great! Now we can create a folder structure in our project as
-discussed in the <a href="#basic-folders-for-every-project">Basic
-Folders for Every Project</a> section above. More importantly, we can
-also put all our <a
-href="https://www.r4wrds.com/intro/m_install_r#step-5.-download-workshop-datasets">course
-data</a> into the <strong><code>data</code></strong> folder in your
-RStudio project.</p>
+<p>Great! Now we can create a folder structure in our project as discussed in the <a href="#basic-folders-for-every-project">Basic Folders for Every Project</a> section above. More importantly, we can also put all our <a href="https://www.r4wrds.com/intro/m_install_r#step-5.-download-workshop-datasets">course data</a> into the <strong><code>data</code></strong> folder in your RStudio project.</p>
 <aside>
-We can’t drag and drop files from an Explorer or Finder window directly
-into RStudio. We can only go from Explorer to Explorer. In the
-<strong><code>Files</code></strong> tab, click on <em>More</em> with the
-little
-<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:steelblue;overflow:visible;position:relative;"><path d="M487.4 315.7l-42.6-24.6c4.3-23.2 4.3-47 0-70.2l42.6-24.6c4.9-2.8 7.1-8.6 5.5-14-11.1-35.6-30-67.8-54.7-94.6-3.8-4.1-10-5.1-14.8-2.3L380.8 110c-17.9-15.4-38.5-27.3-60.8-35.1V25.8c0-5.6-3.9-10.5-9.4-11.7-36.7-8.2-74.3-7.8-109.2 0-5.5 1.2-9.4 6.1-9.4 11.7V75c-22.2 7.9-42.8 19.8-60.8 35.1L88.7 85.5c-4.9-2.8-11-1.9-14.8 2.3-24.7 26.7-43.6 58.9-54.7 94.6-1.7 5.4.6 11.2 5.5 14L67.3 221c-4.3 23.2-4.3 47 0 70.2l-42.6 24.6c-4.9 2.8-7.1 8.6-5.5 14 11.1 35.6 30 67.8 54.7 94.6 3.8 4.1 10 5.1 14.8 2.3l42.6-24.6c17.9 15.4 38.5 27.3 60.8 35.1v49.2c0 5.6 3.9 10.5 9.4 11.7 36.7 8.2 74.3 7.8 109.2 0 5.5-1.2 9.4-6.1 9.4-11.7v-49.2c22.2-7.9 42.8-19.8 60.8-35.1l42.6 24.6c4.9 2.8 11 1.9 14.8-2.3 24.7-26.7 43.6-58.9 54.7-94.6 1.5-5.5-.7-11.3-5.6-14.1zM256 336c-44.1 0-80-35.9-80-80s35.9-80 80-80 80 35.9 80 80-35.9 80-80 80z"/></svg>,
-and then select “<strong>Show Folder in New Window</strong>”.
+We can’t drag and drop files from an Explorer or Finder window directly into RStudio. We can only go from Explorer to Explorer. In the <strong><code>Files</code></strong> tab, click on <em>More</em> with the little <svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:steelblue;overflow:visible;position:relative;"><path d="M495.9 166.6c3.2 8.7 .5 18.4-6.4 24.6l-43.3 39.4c1.1 8.3 1.7 16.8 1.7 25.4s-.6 17.1-1.7 25.4l43.3 39.4c6.9 6.2 9.6 15.9 6.4 24.6c-4.4 11.9-9.7 23.3-15.8 34.3l-4.7 8.1c-6.6 11-14 21.4-22.1 31.2c-5.9 7.2-15.7 9.6-24.5 6.8l-55.7-17.7c-13.4 10.3-28.2 18.9-44 25.4l-12.5 57.1c-2 9.1-9 16.3-18.2 17.8c-13.8 2.3-28 3.5-42.5 3.5s-28.7-1.2-42.5-3.5c-9.2-1.5-16.2-8.7-18.2-17.8l-12.5-57.1c-15.8-6.5-30.6-15.1-44-25.4L83.1 425.9c-8.8 2.8-18.6 .3-24.5-6.8c-8.1-9.8-15.5-20.2-22.1-31.2l-4.7-8.1c-6.1-11-11.4-22.4-15.8-34.3c-3.2-8.7-.5-18.4 6.4-24.6l43.3-39.4C64.6 273.1 64 264.6 64 256s.6-17.1 1.7-25.4L22.4 191.2c-6.9-6.2-9.6-15.9-6.4-24.6c4.4-11.9 9.7-23.3 15.8-34.3l4.7-8.1c6.6-11 14-21.4 22.1-31.2c5.9-7.2 15.7-9.6 24.5-6.8l55.7 17.7c13.4-10.3 28.2-18.9 44-25.4l12.5-57.1c2-9.1 9-16.3 18.2-17.8C227.3 1.2 241.5 0 256 0s28.7 1.2 42.5 3.5c9.2 1.5 16.2 8.7 18.2 17.8l12.5 57.1c15.8 6.5 30.6 15.1 44 25.4l55.7-17.7c8.8-2.8 18.6-.3 24.5 6.8c8.1 9.8 15.5 20.2 22.1 31.2l4.7 8.1c6.1 11 11.4 22.4 15.8 34.3zM256 336a80 80 0 1 0 0-160 80 80 0 1 0 0 160z"/></svg>, and then select “<strong>Show Folder in New Window</strong>”.
 </aside>
-<p>Let’s go ahead and make the following folders (<em>HINT: you can use
-the “New Folder” button in RStudio, or use the code below!</em>)</p>
+<p>Let’s go ahead and make the following folders (<em>HINT: you can use the “New Folder” button in RStudio, or use the code below!</em>)</p>
 <ul>
 <li><code>data</code></li>
 <li><code>data_output</code></li>
@@ -2616,197 +2573,102 @@ the “New Folder” button in RStudio, or use the code below!</em>)</p>
 <div class="layout-chunk" data-layout="l-body">
 
 </div>
-<p>Then in your <code>Console</code> tab, you can enter this code to
-download the data directly into your project!</p>
+<p>We can download data directly via the <code>download.file()</code> function.
+In your <code>Console</code> tab, you can enter this code to download the data into your <code>data</code> folder!</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/files2.html'>dir.create</a></span><span class='op'>(</span><span class='st'>"data"</span><span class='op'>)</span> <span class='co'># warning is ok if already exists!</span>
-
-<span class='co'># downloads the file (data.zip) to your data directory</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/download.file.html'>download.file</a></span><span class='op'>(</span><span class='st'>"https://github.com/r4wrds/r4wrds-data-intro/raw/main/data.zip"</span>, destfile <span class='op'>=</span> <span class='st'>"data/data.zip"</span><span class='op'>)</span>
-
-<span class='co'># unzip the data we need for the course:</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/unzip.html'>unzip</a></span><span class='op'>(</span>zipfile <span class='op'>=</span> <span class='st'>"data/data.zip"</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># downloads the file (data.zip) to your data directory</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/utils/download.file.html'>download.file</a></span><span class='op'>(</span><span class='st'>"https://github.com/r4wrds/r4wrds-data-intro/raw/main/data.zip"</span>, </span>
+<span>              destfile <span class='op'>=</span> <span class='st'>"data/data.zip"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='co'># unzip the datasets for the course:</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/utils/unzip.html'>unzip</a></span><span class='op'>(</span>zipfile <span class='op'>=</span> <span class='st'>"data/data.zip"</span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
 <h2 id="file-paths">File Paths</h2>
-<p>In R, file paths are always wrapped in quotes. There are 2 basic
-kinds of file paths:</p>
+<p>In R, file paths are always wrapped in quotes. There are 2 basic kinds of file paths:</p>
 <ul>
-<li><p><strong>Absolute</strong>: Absolute paths list out the full file
-path, usually starting with your username, which you can also refer to
-using the shortcut ~. So instead of <code>C:/MyName/Documents</code> or
-<code>/Users/MyName/Documents</code>, you can type
-<code>~/Documents</code>. <strong>But generally, the only place an
-absolute path will work is your computer! It will break on anyone else
-computer, or anytime you move or rename something!</strong></p></li>
-<li><p><strong>Relative</strong>: Relative paths are relative to your
-working directory. So if R thinks we’re in that
-<code>~/MyName/Documents/Projects/2020</code> folder, and we want to
-access a file in a folder inside it called <code>data</code>, we can
-type <code>data/my_file</code> instead of
-<code>~MyName/Documents/Projects/2020/data</code>.</p></li>
+<li><p><strong>Absolute</strong>: Absolute paths list out the full file path, usually starting with your username, which you can also refer to using the shortcut ~. So instead of <code>C:/MyName/Documents</code> or <code>/Users/MyName/Documents</code>, you can type <code>~/Documents</code>. <strong>But generally, the only place an absolute path will work is your computer! It will break on anyone else computer, or anytime you move or rename something!</strong></p></li>
+<li><p><strong>Relative</strong>: Relative paths are relative to your working directory. So if R thinks we’re in that <code>~/MyName/Documents/Projects/2020</code> folder, and we want to access a file in a folder inside it called <code>data</code>, we can type <code>data/my_file</code> instead of <code>~MyName/Documents/Projects/2020/data</code>.</p></li>
 </ul>
-<p>The good news is if you setup an RStudio project as shown above, you
-can use relative filepaths with ease!</p>
+<p>The good news is if you setup an RStudio project as shown above, you can use relative filepaths with ease!</p>
 <h3 id="the-working-directory">The Working Directory</h3>
-<p>Our working directory <em>should</em> be the root place where our
-<strong>project</strong> lives (as shown above). You can always check
-what <code>R</code> thinks is the working directory with
-<code>getwd()</code>, and you should see the folder where your
-<strong><code>.Rproj</code></strong> file lives! Importantly, everything
-you do should be relative to that working directory.</p>
-<p>That means we really <strong>don’t</strong> want to use things like
-<code>setwd()</code> (set working directory) to locate a file or folder
-on our computer, or use a hard path (i.e., a full path like
-<code>C:/MyUserName/My_Documents/A_Folder_You_May_Have/But_This_One_You_Definitely_Dont/</code>).
-That’s because this will pretty much <strong>never</strong> work on
-anyone’s computer other than your own, and sometimes it may not even
-work on your own computer if you change a file name or folder! How can
-we make things reproducible for others, and for our future self? We
-advise using the <code>{here}</code> package.</p>
-<h3 id="using-the-here-package">Using the <strong><a
-href="https://here.r-lib.org/">{here}</a></strong> package</h3>
-<p>Good news! There’s a package designed to make project-based workflows
-work so that code is portable between machines (i.e., you can share your
-project with a collaborator and they don’t need to fiddle with working
-directories and file paths). The <strong>{here}</strong> package makes
-it easy to create a path <em>relative</em> to the top-level directory
-(the place where your current project is) with a single function:
-<code>here()</code>. In addition, we can use <code>here()</code> to
-build a relative path to a file for saving or loading. Let’s say we’re
-working in our <code>MyName/Documents/Projects/2020</code> folder.</p>
+<p>Our working directory <em>should</em> be the root place where our <strong>project</strong> lives (as shown above). You can always check what <code>R</code> thinks is the working directory with <code>getwd()</code>, and you should see the folder where your <strong><code>.Rproj</code></strong> file lives! Importantly, everything you do should be relative to that working directory.</p>
+<p>That means we really <strong>don’t</strong> want to use things like <code>setwd()</code> (set working directory) to locate a file or folder on our computer, or use a hard path (i.e., a full path like <code>C:/MyUserName/My_Documents/A_Folder_You_May_Have/But_This_One_You_Definitely_Dont/</code>). That’s because this will pretty much <strong>never</strong> work on anyone’s computer other than your own, and sometimes it may not even work on your own computer if you change a file name or folder! How can we make things reproducible for others, and for our future self? We advise using the <code>{here}</code> package.</p>
+<h3 id="using-the-here-package">Using the <strong><a href="https://here.r-lib.org/">{here}</a></strong> package</h3>
+<p>Good news! There’s a package designed to make project-based workflows work so that code is portable between machines (i.e., you can share your project with a collaborator and they don’t need to fiddle with working directories and file paths). The <strong>{here}</strong> package makes it easy to create a path <em>relative</em> to the top-level directory (the place where your current project is) with a single function: <code>here()</code>. In addition, we can use <code>here()</code> to build a relative path to a file for saving or loading. Let’s say we’re working in our <code>MyName/Documents/Projects/2020</code> folder.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://here.r-lib.org/'>here</a></span><span class='op'>)</span>
-
-<span class='co'># identify your working directory.</span>
-<span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='op'>)</span>
-
-<span class='co'># will be something like this:</span>
-<span class='co'>#&gt; [1] /Users/MyName/Documents/Projects/MyProject</span>
-
-<span class='co'># read a file from our data folder! `data/nwis_sites_american_river.csv`</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"data"</span>, <span class='st'>"nwis_sites_american_river.csv"</span><span class='op'>)</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://here.r-lib.org/'>here</a></span><span class='op'>)</span></span>
+<span></span>
+<span><span class='co'># identify your working directory.</span></span>
+<span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='co'># will be something like this:</span></span>
+<span><span class='co'>#&gt; [1] /Users/MyName/Documents/Projects/MyProject</span></span>
+<span></span>
+<span><span class='co'># read a file from our data folder! `data/nwis_sites_american_river.csv`</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"data"</span>, <span class='st'>"nwis_sites_american_river.csv"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="figure"><span style="display:block;" id="fig:here"></span>
 <img src="https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/here.png" alt="*Illustration by @allison_horst.*" width="90%" />
 <p class="caption">
-Figure 5: <em>Illustration by <span class="citation"
-data-cites="allison_horst">@allison_horst</span>.</em>
+Figure 5: <em>Illustration by <span class="citation" data-cites="allison_horst">@allison_horst</span>.</em>
 </p>
 </div>
 </div>
-<p>Using the <strong>{here}</strong> package means we can share our
-project with other folks and it will work, and if something changes
-around inside the project, it will remain functional and accessible.</p>
-<p>In practice however, if we <strong>always work from within an
-RProject</strong>, we can simply use relative paths without the
-<code>here()</code> syntax – that syntax just makes it very explicit
-what we’re doing.</p>
-<h2 id="best-practices-project-organizationworkflow-tips">Best
-Practices: Project Organization/Workflow Tips</h2>
-<p>Although there is no “best” way to lay out a project, there are some
-general principles to adhere to that will make project management
-easier. Here’s some sage advice from Jenny Bryan and Jim Hester from <a
-href="https://rstats.wtf/">What They Forgot to Teach you About R</a>
-(worth checking out!):</p>
+<p>Using the <strong>{here}</strong> package means we can share our project with other folks and it will work, and if something changes around inside the project, it will remain functional and accessible.</p>
+<p>In practice however, if we <strong>always work from within an RProject</strong>, we can simply use relative paths without the <code>here()</code> syntax – that syntax just makes it very explicit what we’re doing.</p>
+<h2 id="best-practices-project-organizationworkflow-tips">Best Practices: Project Organization/Workflow Tips</h2>
+<p>Although there is no “best” way to lay out a project, there are some general principles to adhere to that will make project management easier. Here’s some sage advice from Jenny Bryan and Jim Hester from <a href="https://rstats.wtf/">What They Forgot to Teach you About R</a> (worth checking out!):</p>
 <ul>
-<li>File system discipline: put all the files related to a single
-project in a designated folder.</li>
+<li>File system discipline: put all the files related to a single project in a designated folder.</li>
 <li>This applies to data, code, figures, notes, etc.</li>
-<li>Depending on project complexity, you might enforce further
-organization into subfolders.</li>
-<li>Use a standard naming convention for files &amp; folders (<em>no
-spaces!</em>).</li>
+<li>Depending on project complexity, you might enforce further organization into subfolders.</li>
+<li>Use a standard naming convention for files &amp; folders (<em>no spaces!</em>).</li>
 <li>Don’t use absolute paths!</li>
-<li>File path discipline: all paths are relative and, by default,
-relative to the project’s (your working directory) folder.</li>
+<li>File path discipline: all paths are relative and, by default, relative to the project’s (your working directory) folder.</li>
 </ul>
-<h3 id="always-start-r-as-a-blank-slate">Always start R as a blank
-slate</h3>
-<p>When you quit R, do not save the workspace to an <code>.Rdata</code>
-file. When you launch, do not reload the workspace from an
-<code>.Rdata</code> file.</p>
-<p>In fact, we should all make our default setting a blank slate. We
-should only be loading and working on data and code that we knowingly
-and willingly open or import into R.</p>
+<h3 id="always-start-r-as-a-blank-slate">Always start R as a blank slate</h3>
+<p>When you quit R, do not save the workspace to an <code>.Rdata</code> file. When you launch, do not reload the workspace from an <code>.Rdata</code> file.</p>
+<p>In fact, we should all make our default setting a blank slate. We should only be loading and working on data and code that we knowingly and willingly open or import into R.</p>
 <blockquote>
 <p>In RStudio, set this via <em>Tools &gt; Global Options</em></p>
 </blockquote>
-<p>(ref:workspaceDef) <em>Change defaults to never save your workspace
-to <code>.RData</code>! (Credit to Jenny Bryan and Jim Hester at <a
-href="https://rstats.wtf/save-source.html">rstats.wtf</a>)</em></p>
+
 <div class="layout-chunk" data-layout="l-body">
 <div class="figure"><span style="display:block;" id="fig:tidyplotgraphic"></span>
-<img src="images/rstudio-workspace-default.png" alt="(ref:workspaceDef)" width="100%" data-distill-preview=1 />
+<img src="images/rstudio-workspace-default.png" alt="Change defaults to never save your workspace to .RData! (Credit to Jenny Bryan and Jim Hester at rstats.wtf)" width="100%" data-distill-preview=1 />
 <p class="caption">
-Figure 6: (ref:workspaceDef)
+Figure 6: <em>Change defaults to never save your workspace to <code>.RData</code>! (Credit to Jenny Bryan and Jim Hester at <a href="https://rstats.wtf/save-source.html">rstats.wtf</a>)</em>
 </p>
 </div>
 </div>
 <h3 id="safe-file-naming">Safe File Naming</h3>
-<p>This is really important and will make life easier for everyone in
-the long run. Jenny Bryan has the best set of slides on this, so take a
-few minutes and go read them. Then be the change!</p>
+<p>This is really important and will make life easier for everyone in the long run. Jenny Bryan has the best set of slides on this, so take a few minutes and go read them. Then be the change!</p>
 <blockquote>
-<p><a href="https://speakerdeck.com/jennybc/how-to-name-files">Slides
-You Need to Read</a></p>
+<p><a href="https://speakerdeck.com/jennybc/how-to-name-files">Slides You Need to Read</a></p>
 </blockquote>
 <p><strong>TL&amp;DR</strong> <em>(Too long, didn’t read)</em></p>
 <ul>
 <li>File names should be machine readable (i.e., no spaces)</li>
 <li>Human readable (<code>m_import_clean_data.R</code>)</li>
-<li>Makes default ordering easy (i.e., dates are always
-<code>YYYY-MM-DD</code>)</li>
+<li>Makes default ordering easy (i.e., dates are always <code>YYYY-MM-DD</code>)</li>
 </ul>
-<h3 id="treat-raw-data-as-read-only">Treat raw data as <em>Read
-Only</em></h3>
-<p>This is probably the most important tip for making a project
-reproducible and hassle free. Raw data should never be edited, because
-you don’t want to permanently change your starting point in an analysis,
-and you want to have a record of any changes you make to data.
-Therefore, treat your raw data as “read only”, perhaps even making a
-<strong><code>raw_data</code></strong> directory that is never modified.
-If you do some data cleaning or modification, save the modified file
-separate from the raw data, and ideally keep all the modifying actions
-in a script so that you can review and revise them as needed in the
-future.</p>
-<h3 id="treat-generated-output-as-disposable">Treat generated output as
-disposable</h3>
-<p>Anything generated by your scripts should be treated as disposable:
-it should all be able to be regenerated with code. Don’t get attached to
-anything other than your raw data, and your code! There are lots of
-different ways to manage this output, and what’s best may depend on the
-particular kind of project.</p>
+<h3 id="treat-raw-data-as-read-only">Treat raw data as <em>Read Only</em></h3>
+<p>This is probably the most important tip for making a project reproducible and hassle free. Raw data should never be edited, because you don’t want to permanently change your starting point in an analysis, and you want to have a record of any changes you make to data. Therefore, treat your raw data as “read only”, perhaps even making a <strong><code>raw_data</code></strong> directory that is never modified. If you do some data cleaning or modification, save the modified file separate from the raw data, and ideally keep all the modifying actions in a script so that you can review and revise them as needed in the future.</p>
+<h3 id="treat-generated-output-as-disposable">Treat generated output as disposable</h3>
+<p>Anything generated by your scripts should be treated as disposable: it should all be able to be regenerated with code. Don’t get attached to anything other than your raw data, and your code! There are lots of different ways to manage this output, and what’s best may depend on the particular kind of project.</p>
 <h2 id="summary">Summary</h2>
-<p>There are many ways to use project-based workflows in <code>R</code>.
-Importantly, we advise that you find a strategy that works for the
-majority of the work you do, and then be consistent about organizing
-things the same way (from folder structure to file naming). This will
-help folks you work with, it will help you (including your future self),
-and you spend less time figuring out where you are (and where the pieces
-you need to do work with are) and more time doing the work you need to
-do!</p>
-<p><em>Lesson adapted from <a
-href="https://gge-ucd.github.io/R-DAVIS/index.html">R-DAVIS</a>, Jenny
-Bryan and Jim Hester’s <a href="rstats.wtf">What they forgot to teach
-you about R</a>, and the <a
-href="https://datacarpentry.org/R-ecology-lesson/index.html">Data
-Carpentry: R for data analysis and visualization of Ecological Data</a>
-lessons</em>.</p>
+<p>There are many ways to use project-based workflows in <code>R</code>. Importantly, we advise that you find a strategy that works for the majority of the work you do, and then be consistent about organizing things the same way (from folder structure to file naming). This will help folks you work with, it will help you (including your future self), and you spend less time figuring out where you are (and where the pieces you need to do work with are) and more time doing the work you need to do!</p>
+<p><em>Lesson adapted from <a href="https://gge-ucd.github.io/R-DAVIS/index.html">R-DAVIS</a>, Jenny Bryan and Jim Hester’s <a href="rstats.wtf">What they forgot to teach you about R</a>, and the <a href="https://datacarpentry.org/R-ecology-lesson/index.html">Data Carpentry: R for data analysis and visualization of Ecological Data</a> lessons</em>.</p>
 <p><br></p>
 <p><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"></p>
-<p><a href="m_getting_started.html" class="btn btn-secondary" style="float: left">Previous
-module:<br> 2. Getting started</a>
-<a href="m_importing_and_exporting_data.html" class="btn btn-secondary" style="float: right;">Next
-module:<br> 4. Import/export data</a></p>
-<div class="sourceCode" id="cb1"><pre
-class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<p><a href="m_getting_started.html" class="btn btn-secondary" style="float: left">Previous module:<br> 2. Getting started</a>
+<a href="m_importing_and_exporting_data.html" class="btn btn-secondary" style="float: right;">Next module:<br> 4. Import/export data</a></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
