@@ -2502,7 +2502,7 @@ Figure 1: <em>Artwork by <span class="citation" data-cites="allison_horst">@alli
 <p><br></p>
 <h2 id="project-setup-and-data">Project Setup and Data</h2>
 <p>All data used in this course is expected to live in a <code>/data</code> subfolder in a project directory.</p>
-<p>We will be working in an R project using RStudio. If you’ve already downloaded <a href="https://github.com/r4wrds/r4wrds-data-intro/raw/main/r4wds_proj.zip"><strong>zipped data and Rproj file</strong></a> from the introductory course, you’re already set and can move on to the modules.</p>
+<p>We will be working in an R project using RStudio. If you’ve already downloaded <a href="https://github.com/r4wrds/r4wrds-data/raw/main/r4wds_proj.zip"><strong>zipped data and Rproj file</strong></a> from the introductory course setup, you’re already set and can move on to the modules.</p>
 <h3 id="create-a-new-project">Create a New Project</h3>
 <p>If you want to set up your own new RStudio project (<em>highly recommend for experience!</em>), we can create a new project file (<code>intermediate_r4wrds.Rproj</code>), in a few different ways. Directly from RStudio (detailed in the <a href="../intro/m_project_management.html#use-project-workflows">introductory project management module</a>), or via the command line. We can use <code>touch intermediate_r4wrds.Rproj</code> (MacOS/Linux) or <code>echo &gt; intermediate_r4wrds.Rproj</code> (Windows) in the root project directory.</p>
 <p>To complete code exercises and follow along in the course, you will create a <code>/data</code> subfolder, and a <code>/scripts</code> subfolder to store <code>.R</code> scripts, which we recommend naming by module.</p>
@@ -2520,13 +2520,13 @@ Figure 1: <em>Artwork by <span class="citation" data-cites="allison_horst">@alli
 <h3 id="download-data">Download Data</h3>
 <p>Once an RStudio project has been created we can download the data in in a few ways:</p>
 <ol type="1">
-<li>Download to a data folder in your project from a <a href="https://github.com/r4wrds/r4wrds-data-intro/">Github repository</a>:</li>
+<li>Download to a data folder in your project from a <a href="https://github.com/r4wrds/r4wrds-data/">Github repository</a>:</li>
 </ol>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span>    <span class='co'># downloads the data.zip file to the `data` directory</span></span>
 <span>    <span class='fu'><a href='https://rdrr.io/r/base/files2.html'>dir.create</a></span><span class='op'>(</span><span class='st'>"data"</span><span class='op'>)</span></span>
-<span>    <span class='fu'><a href='https://rdrr.io/r/utils/download.file.html'>download.file</a></span><span class='op'>(</span><span class='st'>"https://github.com/r4wrds/r4wrds-data-intro/raw/main/data.zip"</span>, destfile <span class='op'>=</span> <span class='st'>"data/data.zip"</span><span class='op'>)</span></span>
+<span>    <span class='fu'><a href='https://rdrr.io/r/utils/download.file.html'>download.file</a></span><span class='op'>(</span><span class='st'>"https://github.com/r4wrds/r4wrds-data/raw/main/data.zip"</span>, destfile <span class='op'>=</span> <span class='st'>"data/data.zip"</span><span class='op'>)</span></span>
 <span></span>
 <span>    <span class='co'># unzip the data:</span></span>
 <span>    <span class='fu'><a href='https://rdrr.io/r/utils/unzip.html'>unzip</a></span><span class='op'>(</span>zipfile <span class='op'>=</span> <span class='st'>"data/data.zip"</span><span class='op'>)</span></span>
@@ -2552,7 +2552,7 @@ Figure 1: <em>Artwork by <span class="citation" data-cites="allison_horst">@alli
 <p><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"></p>
 <p><a href="m_updating_r.html" class="btn btn-secondary" style="float: right;">Next module:<br>1. Updating <code>R</code></a></p>
 <hr />
-<p><em>site last updated: 2025-05-08 18:25</em></p>
+<p><em>site last updated: 2025-05-12 10:45</em></p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->

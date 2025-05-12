@@ -78,7 +78,7 @@ knitr::include_graphics(path = "https://raw.githubusercontent.com/allisonhorst/s
 
 All data used in this course is expected to live in a `/data` subfolder in a project directory. 
 
-We will be working in an R project using RStudio. If you've already downloaded [**zipped data and Rproj file**](https://github.com/r4wrds/r4wrds-data-intro/raw/main/r4wds_proj.zip) from the introductory course, you're already set and can move on to the modules. 
+We will be working in an R project using RStudio. If you've already downloaded [**zipped data and Rproj file**](https://github.com/r4wrds/r4wrds-data/raw/main/r4wds_proj.zip) from the introductory course setup, you're already set and can move on to the modules. 
 
 ### Create a New Project
 
@@ -103,12 +103,12 @@ Your project directory structure should look like this (note the position of the
 
 Once an RStudio project has been created we can download the data in in a few ways:
 
-1.  Download to a data folder in your project from a [Github repository](https://github.com/r4wrds/r4wrds-data-intro/):
+1.  Download to a data folder in your project from a [Github repository](https://github.com/r4wrds/r4wrds-data/):
 
 ```{r}
     # downloads the data.zip file to the `data` directory
     dir.create("data")
-    download.file("https://github.com/r4wrds/r4wrds-data-intro/raw/main/data.zip", destfile = "data/data.zip")
+    download.file("https://github.com/r4wrds/r4wrds-data/raw/main/data.zip", destfile = "data/data.zip")
 
     # unzip the data:
     unzip(zipfile = "data/data.zip")
