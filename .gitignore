@@ -44,3 +44,6 @@ docs/*
 
 # results folder
 results/*
+
+# data folders 
+intermediate/data/*

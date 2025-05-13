@@ -78,9 +78,11 @@ knitr::include_graphics(path = "https://raw.githubusercontent.com/allisonhorst/s
 
 All data used in this course is expected to live in a `/data` subfolder in a project directory. 
 
+We will be working in an R project using RStudio. If you've already downloaded [**zipped data and Rproj file**](https://github.com/r4wrds/r4wrds-data/raw/main/r4wds_proj.zip) from the introductory course setup, you're already set and can move on to the modules. 
+
 ### Create a New Project
 
-We will be working in an project using RStudio. We can create a new project file (`intermediate_r4wrds.Rproj`), in a few different ways. Directly from RStudio (detailed in the [introductory project management module](../intro/m_project_management.html#use-project-workflows)), or via the command line. We can use `touch intermediate_r4wrds.Rproj` (MacOS/Linux) or `echo > intermediate_r4wrds.Rproj` (Windows) in the root project directory.
+If you want to set up your own new RStudio project (*highly recommend for experience!*), we can create a new project file (`intermediate_r4wrds.Rproj`), in a few different ways. Directly from RStudio (detailed in the [introductory project management module](../intro/m_project_management.html#use-project-workflows)), or via the command line. We can use `touch intermediate_r4wrds.Rproj` (MacOS/Linux) or `echo > intermediate_r4wrds.Rproj` (Windows) in the root project directory.
 
 To complete code exercises and follow along in the course, you will create a `/data` subfolder, and a `/scripts` subfolder to store `.R` scripts, which we recommend naming by module.
 
@@ -99,14 +101,14 @@ Your project directory structure should look like this (note the position of the
 
 ### Download Data
 
-Once a RStudio project has been created we can download the data in in a few ways:
+Once an RStudio project has been created we can download the data in in a few ways:
 
-1.  Download to a data folder in your project from a [Github repository](https://github.com/r4wrds/r4wrds-data-intermediate/):
+1.  Download to a data folder in your project from a [Github repository](https://github.com/r4wrds/r4wrds-data/):
 
 ```{r}
     # downloads the data.zip file to the `data` directory
     dir.create("data")
-    download.file("https://github.com/r4wrds/r4wrds-data-intermediate/raw/main/data.zip", destfile = "data/data.zip")
+    download.file("https://github.com/r4wrds/r4wrds-data/raw/main/data.zip", destfile = "data/data.zip")
 
     # unzip the data:
     unzip(zipfile = "data/data.zip")
