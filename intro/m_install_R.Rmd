@@ -219,10 +219,13 @@ mapview(breweries)
 
 ## Step 5. Download Workshop Datasets
 
-We'll be working with a few different datasets for this workshop (see [here](https://github.com/r4wrds/r4wrds-data)). We've zipped all these data (for both the introductory and intermediate courses) and created an RStudio project into a single folder, which can be downloaded [here](https://github.com/r4wrds/r4wrds-data/raw/main/r4wds_proj.zip). Bear in mind this **`.zip`** file is ~30 MB in size, and may take a few minutes to download depending on internet connections.
+We'll be working with a few different datasets for this workshop. We've zipped all these data (for both the introductory and intermediate courses) into a single folder, which can be downloaded [here](https://github.com/r4wrds/r4wrds-data-intro/raw/main/data.zip). Bear in mind this **`.zip`** file is ~30 MB in size, and may take a few minutes to download depending on internet connections.
 
- - [**Download the zipped file of all course data + RStudio project**](https://github.com/r4wrds/r4wrds-data/raw/main/r4wds_proj.zip).
- - We will still help you set up a project in the upcoming lessons!
+<!---
+  - [**Download the zipped file of all course data + RStudio project**](https://github.com/r4wrds/r4wrds-data/raw/main/r4wds_proj.zip).
+--->
+
+With these data downloaded, we will still help you set up a project in the upcoming lessons!
 
 ### Quick Test!
 
