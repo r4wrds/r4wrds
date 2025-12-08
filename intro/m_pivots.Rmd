@@ -201,7 +201,7 @@ When we enter data in a spreadsheet, the data is typically oriented in a ***wide
 
 ## Wide to Long
 
-Let's use the [**`ces3results.xlsx`**](https://github.com/r4wrds/r4wrds/blob/main/data/calenviroscreen/ces3results.xlsx?raw=true) [CalEnviroscreen data](https://oehha.ca.gov/calenviroscreen), which we can read in and look at the column names and data types. By default, `read_xlsx()` reads in the first sheet. See the [import and export module](m_importing_and_exporting_data.html) for more details.
+Let's use the **`ces3results.xlsx`** spreadsheet from [CalEnviroscreen data](https://oehha.ca.gov/calenviroscreen). This spreadsheet should be in your data folder: data > calenviroscreen > ces3results.xlsx. We can read it in and look at the column names and data types. By default, `read_xlsx()` reads in the first sheet. See the [import and export module](m_importing_and_exporting_data.html) for more details.
 
 ```{r import-excel, warning=FALSE}
 library(readxl)
