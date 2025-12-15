@@ -4,8 +4,8 @@
   publish = "_book"
 
 [build.environment]
+  NODE_VERSION = "20"
   QUARTO_VERSION = "1.6.42"
 
 [[plugins]]
   package = "@quarto/netlify-plugin-quarto"
-

@@ -1,0 +1,8 @@
+{
+  "name": "r4wrds-quarto-book",
+  "private": true,
+  "devDependencies": {
+    "@quarto/netlify-plugin-quarto": "latest"
+  }
+}
+
