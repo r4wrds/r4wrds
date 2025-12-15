@@ -7,8 +7,7 @@ LATEST_RELEASE_JSON_URL="https://api.github.com/repos/quarto-dev/quarto-cli/rele
 
 TARBALL_URL="$(
   curl -fsSL "${LATEST_RELEASE_JSON_URL}" \
-    | grep -Eo 'https://[^"]+quarto-[^"]+-linux-amd64\\.tar\\.gz' \
-    | head -n 1
+    | grep -m 1 -Eo 'https://[^"]+quarto-[^"]+-linux-amd64\.tar\.gz' || true
 )"
 
 if [[ -z "${TARBALL_URL}" ]]; then
@@ -16,6 +15,7 @@ if [[ -z "${TARBALL_URL}" ]]; then
   exit 1
 fi
 
+echo "Downloading Quarto: ${TARBALL_URL}"
 curl -fsSL -L -o quarto.tar.gz "${TARBALL_URL}"
 
 mkdir -p "${QUARTO_INSTALL_DIR}"
