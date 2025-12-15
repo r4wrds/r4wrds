@@ -1,0 +1,320 @@
+---
+title: Interactive Visualization
+description: 'Having fun with interactivity in `R`
+
+  '
+editor_options:
+  chunk_output_type: console
+creative_commons: CC BY
+---
+```{r setup, include=FALSE, purl=FALSE, message=FALSE}
+
+library(knitr)
+library(glue)
+
+```
+
+::: {.obj}
+**Learning objectives**
+
+-   How to use interactive visualization in `R`
+-   Workflows to go from data to visualization
+-   Understand a visualization objective
+:::
+
+<br>
+
+## Why interactive visualizations?
+
+One of the most exciting and rewarding parts of learning to code is the ability to ***see results***! Visualization is one of `R`'s strengths, and there are a seemingly constantly growing number of packages that can assist you in customizing just about any visualization you can think of. Importantly, this allows users to access and interact with data on a level that would not otherwise be possible.
+
+Because we can learn new things and develop new questions by effectively interacting with data, the ability to stitch raw data into something visual can help provide unique insight that may be much harder to discern with a table or some raw data.
+
+Let's demonstrate a simple way we can collect data, update it *automagically*, and visualize in a fairly streamlined manner. Keep in mind, this is one approach, but there are many more, with increasing complexity. But for illustration, "working" examples (as in, it works when you try it!) are the best way to build your proficiency in `R` programming.
+
+<br>
+
+## Mapping with Geocoder
+
+This example will couple the power of collecting user input (favorite places to eat/drink) with interactive mapping. We'll use a Form to collect some data, and then display that via a map. This illustrates some of the power (and fun!) of programming in `R`.
+
+### Collect Data
+
+Answer as many questions as you feel comfortable, but at minimum, the street address/name of your favorite place to eat or get a beverage (hot or cold).
+
+<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfy6hsEVZ2b0yvAnK907ESR83j0M8jqEM7cFyXKjKpo8GGwnw/viewform?embedded=true" width="640" height="1026" frameborder="0" marginheight="0" marginwidth="0">
+
+Loading...
+
+</iframe>
+
+### Import and Map Data
+
+We'll need these packages to work with this data.
+
+```{r pkgs, message=FALSE, warning=FALSE}
+
+library(tidygeocoder) # geocode our addresses
+library(tidyverse)    # wrangle data
+library(janitor)      # clean column names
+library(glue)         # modern paste() function
+library(sf)           # make spatial data
+library(mapview)      # interactive maps!
+mapviewOptions(fgb = FALSE)
+
+
+```
+
+The entire script we need is below (don't forget to include the packages above). To generate a public `.csv` from a Form, we can use `File > Publish to the Web`[^1]. Importantly, here we are publishing to a `.csv` so we can read the data in directly and simply using `read_csv`. We then clean, convert it into an `sf` object, and map!
+
+[^1]: Note that these instructions are specific to Google Drive, where we created the Form, but most cloud-based repositories (Box, Dropbox, etc) have some version of allowing public read access of files (including csv files). We chose a Google Form in this example because of the integration between the Form and a readable csv.
+
+To keep this book self-contained we ship a snapshot of the form responses in `data/dining_geocoded.csv`. Use it for local practice, and adapt the chunk below when you want to pull fresh data from a live form.
+
+```{r geocode_form, echo=TRUE, eval=FALSE}
+
+# the url for the Form data 
+form_data <- paste0("https://docs.google.com/spreadsheets/d/e/",
+                    "2PACX-1vSODxBm_z5Gu8a42C6ZFEa3S5iTbYV-",
+                    "qucCGvasGS6c0qFUAml5vSMEgbvI9PYo1HJ20Y_WY62aTAb-",
+                    "/pub?gid=1462593645&single=true&output=csv")
+
+# read in url and clean
+dat <- read_csv(form_data) %>% 
+  clean_names() %>% 
+  rename( dining_name = 3, dining_address = 4)
+
+# geocode using Open Street Map (osm) API because it's free
+dat_geo <- dat %>%
+  geocode(dining_address, method = 'osm', lat = latitude , long = longitude)
+
+# make into sf object so we can map
+dat_geo <- dat_geo %>% 
+  filter(!is.na(latitude) & !is.na(longitude)) %>% 
+  st_as_sf(coords = c("longitude", "latitude"), crs = 4326, remove = FALSE)
+
+# map!
+mapview(
+  dat_geo, 
+  zcol = "comfort_using_r", 
+  layer.name = "R comfort level", 
+  cex = 6.5
+)
+
+```
+
+```{r mapview, echo=TRUE}
+
+# load cached responses for offline rendering
+dat_geo <- read_csv(
+  here::here("data", "dining_geocoded.csv"),
+  show_col_types = FALSE
+) %>% 
+  mutate(
+    comfort_using_r = as.numeric(comfort_using_r),
+    latitude = as.numeric(latitude),
+    longitude = as.numeric(longitude)
+  ) %>% 
+  filter(!is.na(latitude) & !is.na(longitude)) %>% 
+  st_as_sf(coords = c("longitude", "latitude"), crs = 4326, remove = FALSE)
+
+# map!
+mapview(
+  dat_geo, 
+  zcol = "comfort_using_r", 
+  layer.name = "R comfort level", 
+  cex = 6.5
+)
+
+```
+
+### Use `{leaflet}`
+
+We used {`mapview`} above, but we could also use the `{leaflet}` package to make a more customizable map with some fancy icons and a measuring tool, to calculate how far each location is from a point of interest, or the the total area that encompasses all our points.
+
+```{r leaflet}
+
+library(leafpm)
+library(leaflet)
+library(leaflet.extras)
+library(htmltools)
+
+# set up our map
+m <- leaflet() %>%
+  # add tiles or the "basemaps"
+  addTiles(group = "OSM") %>% # defaults to Open Street Maps
+  addProviderTiles(providers$CartoDB.Positron, group = "Positron") %>% 
+  addCircleMarkers(
+    lng = -121.4944, lat = 38.5816, fillColor = "red", color = "black",
+    popup = "Sacramento!", group = "Home",
+  ) %>% 
+  addCircleMarkers(
+    data = dat_geo, group = "Food & Drink",
+    label = ~htmlEscape(first_name),
+    popup = glue(
+      "<b>Name:</b> {dat_geo$first_name}<br>
+      <b>Food_Name:</b> {dat_geo$dining_name}<br>
+      <b>Food_Address:</b> {dat_geo$dining_address}<br>
+      <b>R comfort (1-10):</b> {dat_geo$comfort_using_r}"
+    )
+  )  %>% 
+  addLayersControl(
+    baseGroups = c("Positron", "OSM"),
+    overlayGroups = c("Home", "Food & Drink"),
+    options = layersControlOptions(collapsed = FALSE)
+  ) %>% 
+  addMeasure()
+
+m  # Print the map
+
+```
+
+<br>
+
+## Using D3
+
+A powerful visualization tool is the [D3.js](https://d3js.org) (javascript) library, which has some amazing options. What's great is there are ways to easily translate your R code into D3, via packages like [{`r2d3`}](https://rstudio.github.io/r2d3/index.qmd).
+
+Here's an example of a calendar visualization, based on the stock market open and close between 2006 and 2010.
+
+```{r, eval=TRUE, echo=FALSE, preview = TRUE}
+library(r2d3)
+
+r2d3(data = read_csv("https://raw.githubusercontent.com/rstudio/r2d3/master/vignettes/gallery/calendar/dji-latest.csv"), 
+     d3_version = 4, 
+     container = "div", 
+     options = list(start = 2006, end = 2011), 
+     script = "scripts/functions/calendar.js")
+```
+
+### A Network with D3
+
+Another example of a way to interactively engage with data is networks. Here's a simple example of an interactive network visualization:
+
+```{r d3}
+# Libraries
+library(igraph)
+library(networkD3)
+
+# create a dataset:
+data <- tibble(
+  from = c(
+    "Dam","Dam","Dam", "Dam",
+    "River","River","River", "River","River",
+    "Canal", "Canal", 
+    "Diversion","Diversion", 
+    "Reservoir", "Reservoir","Reservoir",
+    "Lake","Lake","Lake", "Lake", 
+    "Road","Road","Road",
+    "Culvert", "Culvert",
+    "Fish", "Fish","Fish",
+    "Frog","Frog","Frog",
+    "MacroInvertebrates","MacroInvertebrates"
+  ),
+  to = c(
+    "River","Reservoir","Canal","Diversion",
+    "Lake","Reservoir","Frog","Fish","MacroInvertebrates",
+    "Diversion", "Reservoir",
+    "Dam", "River",
+    "River","Dam","Fish",
+    "Fish","Dam","Frog","MacroInvertebrates",
+    "Fish","Dam", "Canal",
+    "Road", "Dam",
+    "Frog", "River","MacroInvertebrates",
+    "Fish", "River", "Lake",
+    "River", "Lake"
+  )
+)
+
+# Plot
+(p <- simpleNetwork(data, height = "600px", width = "600px", 
+                    fontSize = 16, fontFamily = "serif",
+                    nodeColour = "darkblue", linkColour = "steelblue",
+                    opacity = 0.9, zoom = FALSE, charge = -500))
+
+```
+
+<aside>
+
+When we wrap code with `()`, as we did with the plot above, it will evaluate the code and provide the output in the `Console`, `Plots`, or `Viewer` tab (depending on the code). This is a handy shortcut instead of having to save the object `p <- my_code` and then call/print the object `p`. We use `(p <- my_code)`.
+
+</aside>
+
+If we wanted to save this interactive visualization and send it as a standalone `.html` file, we could use the following code:
+
+```{r, eval=FALSE}
+
+# save the widget
+library(htmlwidgets)
+saveWidget(p, file = "output/network_interactive.html")
+
+```
+
+<br>
+
+## Plotly
+
+Another great tool for interacting with data is the `{plotly}` package, which if using the `{ggplot2}` framework, has a very handy `ggplotly()` function which you can wrap around pretty much any `ggplot` to turn a static plot into an interactive one. This allows you to click, hover, zoom, etc. inside your plot, and is a very useful tool for exploring data.
+
+For example, say you were asked to find the date of a peak flow for a given year, or an outlier in a graph. We could figure this out with `dplyr::filter()` and additional queries of our data, but it would also be easy to visually look and see the date of peak flow on a plot. This is where the power of `plotly` can be very helpful.
+
+Let's use the [CalEnviroScreen data](https://oehha.ca.gov/calenviroscreen/report/calenviroscreen-30) from Sacramento County from a [previous module](../intro/m_exploratory_DA.qmd#question-4-relating-groundwater-to-ces-scores). Recall, higher scores mean a higher impact of pollution to a community.
+
+```{r ciplot, eval=TRUE, echo=TRUE}
+
+# load CES data for Sacramento county
+ces3_sac <- readRDS("data/ces3_sac.rds")
+
+mapview(ces3_sac, zcol = "CIscoreP")
+
+```
+
+Let's make a static plot that shows the association between groundwater threats and the CES score. The trend is interesting, but what if we want to know what census tracts are associated with outliers (high or low) on this static plot?
+
+```{r, out.width="90%"}
+# plot of Groundwater threats vs. CES score
+(ces_plot <- ces3_sac %>% 
+   ggplot(aes(x = gwthreatsP, y = CIscoreP, label = tract)) + 
+   geom_point() +
+   geom_smooth(method = "gam") +
+   cowplot::theme_half_open(font_size = 12) +
+   labs(
+     title = "CES Score vs. Groundwater Threats in Sacramento County",
+     subtitle = "Higher CI Score indicates higher threat/impact",
+     x = "Groundwater Threats (percentile)", 
+     y = "CI Score (percentile)"
+   )
+)
+  
+```
+
+Try wrapping the exact plot above with `ggplotly()`. Now we can quickly interact and select data of interest. Try hovering your pointer over a point on the plot below. Or, click and drag to select a specific region of the plot to zoom into just that region. You can double click to return to the original zoom level. Visual inspection like so can help us quickly explore large and complex datasets, and identify the next step in our workflow.
+
+```{r plotlyCI, eval=TRUE, echo=TRUE, fig.height=6}
+
+library(plotly)
+ggplotly(ces_plot)
+
+
+```
+
+<br>
+
+## Summary
+
+There are many options to make very fancy visualizations in R, but remember to consider the objective of your work, and how to use visualization as a tool to communicate with the end user. Stories are powerful, and although a flashy visualization may grab someone's attention, it will have more impact if it tells a story. At other times, the end user of interactive data visualization is you (the analyst!), as interactive visualization is an important tool for Exploratory Data Analysis (see the [EDA module](../intro/m_exploratory_DA.qmd)).
+
+Whatever the visualization, if it communicates data in a way that provides new insight, or provides a easier medium to transfer information (i.e., with an Rmarkdown document), the ability to quickly take data, transform it, and visualize it is a powerful skill to practice.
+
+<br>
+
+## Additional Resources
+
+-   [Rmarkdown Flexdashboard](https://pkgs.rstudio.com/flexdashboard/)
+-   [`{r2d3}` Visualizations](https://rstudio.github.io/r2d3/index.qmd)
+-   [RGraph Gallery](https://www.r-graph-gallery.com/index.qmd)
+-   All things [Shiny](https://shiny.rstudio.com/gallery/)
+-   [Network visualization](https://kateto.net/network-visualization)
+
+<br>
+

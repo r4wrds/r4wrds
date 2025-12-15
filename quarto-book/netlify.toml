@@ -1,0 +1,10 @@
+[build]
+  base = "."
+  command = "quarto render"
+  publish = "_book"
+
+[build.environment]
+  QUARTO_VERSION = "1.6.42"
+
+[[plugins]]
+  package = "@quarto/netlify-plugin-quarto"

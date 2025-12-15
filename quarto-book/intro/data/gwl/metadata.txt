@@ -1,0 +1,40 @@
+title: Periodic Groundwater Level Measurements
+name: periodic-groundwater-level-measurements
+data_extract_date: 2020-09-22
+notes: b"The DWR Periodic Groundwater Levels dataset contains seasonal and long-term
+groundwater level measurements collected by the Department of Water Resources and
+cooperating agencies in groundwater basins statewide. It also includes data collected
+through the CASGEM (California Statewide Groundwater Elevation Monitoring) Program. Most
+measurements are taken manually twice per year to capture the peak high and low values in
+groundwater elevations. However, the dataset also includes measurements recorded more
+frequently, monthly, weekly, or daily. For groundwater level measurements recorded at more
+frequent intervals, please refer to DWR's Continuous Groundwater Level Measurements
+dataset. \r\n\r\nFor additional information regarding DWR groundwater levels data
+collection please visit DWR's Groundwater Management website
+(https://www.water.ca.gov/Programs/Groundwater-Management).  The source data can be also
+be accessed directly from two websites. The Water Data Library (http://wdl.water.ca.gov)
+provides anonymous access to this and other data sets. The CASGEM online system
+(https://www.casgem.water.ca.gov/OSS) provides authenticated access to only the the
+periodic groundwater measurements. \r\n\r\nThis dataset is maintained in the DWR
+Enterprise Water Management database, and contains information specific to the location of
+groundwater level monitoring wells and groundwater level measurements collected at these
+wells.  The Stations resource identifies well location coordinates and other supplementary
+items about the well type. Measurements resources includes information about the time/date
+a measurement was collected, the entity collecting the measurement, a measurement
+indicating the depth to groundwater, and quality information about the measurement. The
+Well Perforations resources contains well construction information identifying the well's
+screened intervals (not available for all wells). "
+organization: California Department of Water Resources
+contact_name: Water Data Library
+contact_email: wdlweb@water.ca.gov
+public_access_level: Public
+license_title: Other (Public Domain)
+program:
+temporal_coverage: 1900-Present
+frequency: Weekly
+language: English
+url: https://data.cnra.ca.gov/dataset/periodic-groundwater-level-measurements
+open_data_url: https://data.cnra.ca.gov/dataset/periodic-groundwater-level-measurements
+limitations: DWR makes no warranties or guarantees - either expressed or implied - as to
+the completeness, accuracy, or correctness of the data. DWR neither accepts nor assumes
+liability arising from or for any incorrect, incomplete, or misleading subject data.

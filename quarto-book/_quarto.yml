@@ -1,0 +1,66 @@
+project:
+  type: book
+  output-dir: _book
+  resources:
+    - intro/images
+    - intermediate/images
+    - intro/data
+    - intermediate/data
+
+execute-dir: file
+
+book:
+  title: "R for Water Resources Data Science"
+  subtitle: ""
+  author:
+    - "Rich Pauloo"
+    - "Ryan Peek"
+  description: ""
+  page-navigation: true
+  search: true
+  chapters:
+    - file: index.qmd
+      text: "Welcome to r4wrds"
+    - part: intro/index.qmd
+      chapters:
+        - intro/m_install_R.qmd
+        - intro/m_getting_started.qmd
+        - intro/m_project_management.qmd
+        - intro/m_importing_and_exporting_data.qmd
+        - intro/m_ggplot.qmd
+        - intro/m_data_structures.qmd
+        - intro/m_dplyr.qmd
+        - intro/m_pivots.qmd
+        - intro/m_functions.qmd
+        - intro/m_joins.qmd
+        - intro/m_intro_mapmaking.qmd
+        - intro/m_exploratory_DA.qmd
+        - intro/m_intro_Rmarkdown.qmd
+        - intro/m_troubleshooting.qmd
+    - part: intermediate/index.qmd
+      chapters:
+        - intermediate/m_updating_r.qmd
+        - intermediate/m_version_control.qmd
+        - intermediate/m_reproducible_workflows.qmd
+        - intermediate/m_interactive_viz.qmd
+        - intermediate/m_simple_shiny.qmd
+        - intermediate/m_iteration.qmd
+        - intermediate/m_parameterized_reports.qmd
+        - intermediate/m_advanced_spatial.qmd
+        - intermediate/m_advanced_spatial_2.qmd
+
+format:
+  html:
+    theme:
+      light: cosmo
+      dark: slate
+    toc: true
+    number-sections: true
+    df-print: paged
+    code-fold: false
+    include-after-body: includes/after-body.html
+    css: styles.css
+
+execute:
+  warning: false
+  message: false

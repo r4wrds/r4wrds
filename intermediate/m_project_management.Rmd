@@ -112,7 +112,7 @@ library(cowsay) # animals!
 library(glue)   # pasting things together
 
 # get vector of all animals
-animals <- names(cowsay::animals)
+animals <- cowsay::animals
 
 # get pieces to make link
 repo <- "JakubPetriska/060958fd744ca34f099e947cd080b540"

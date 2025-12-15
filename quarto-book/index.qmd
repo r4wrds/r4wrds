@@ -1,0 +1,45 @@
+---
+title: "Welcome to r4wrds"
+numbered: false
+format:
+  html:
+    toc: false
+    number-sections: false
+---
+
+# R for Water Resources Data Science
+
+Welcome! **r4wrds** (R for Water Resources Data Science) is a two-part learning path that guides you from zero-to-proficiency with reproducible water data workflows in R. The original Introductory and Intermediate courses now live together in this book so you can move smoothly from the basics to more advanced topics without jumping across different sites.
+
+## What you will learn
+
+**Introductory Fundamentals** focus on the essentials you need to feel confident in R:
+
+- Installing and updating R/RStudio, organizing projects, and managing files.
+- Importing messy spreadsheets, working with tidy data structures, and transforming data with `{dplyr}`.
+- Building plots with `{ggplot2}`, creating reports with R Markdown, and troubleshooting common errors.
+- Beginning spatial analysis, joins, functions, and exploratory data analysis.
+
+**Intermediate Workflows** build on that foundation with skills you’ll use on production projects:
+
+- Version control with Git/GitHub, automating tasks, and structuring reproducible pipelines.
+- Interactive visualization, parameterized reporting, and Shiny applications.
+- Advanced spatial data handling, iteration/functional programming, and working with APIs.
+
+Each chapter stands on its own, but the book is organized so you can work through the Intro part in order, then dive into any Intermediate topic that matches your needs.
+
+## How to navigate
+
+- Use the sidebar or the **Next/Previous** links at the bottom of every chapter to follow the recommended sequence.
+- Callouts labeled **Learning objectives**, **Pause and think**, or **Challenge** highlight key ideas and practice prompts. Collapsible answers let you check your work.
+- Worksheets and supporting datasets are linked directly within the relevant chapters. Download them when you are ready to try the exercises.
+- Need to revisit setup instructions? The first Intro chapters walk you through installing software and downloading the course data. Intermediate chapters assume you’ve completed that preparation.
+
+## Tips for success
+
+- Pace yourself. Most learners tackle one or two Intro chapters per sitting before practicing with the associated worksheet or their own data.
+- Keep RStudio open while you read so you can run the examples. All code chunks are executable; edit them, experiment, and see what happens.
+- When you finish the Intro part, skim the Intermediate table of contents and pick the topics that align with your current projects. You do not have to complete them in order.
+- Join the conversation—many modules point to community resources, GitHub issues, or discussion boards where you can ask questions and share ideas.
+
+Ready? Start with **Software Installation & Setup**, or jump to any chapter from the sidebar. Let’s build transferable, reproducible water data science skills together. 
