@@ -34,7 +34,6 @@ quarto render
 ## Netlify deploy (GitHub)
 
 - Base directory: `quarto-book`
-- Build command: `quarto render`
+- Build command: `bash scripts/netlify-build.sh` (downloads Quarto, then renders)
 - Publish directory: `_book`
 - `netlify.toml` in this folder encodes the same settings.
-- Netlify needs Quarto available; this repo uses the `@quarto/netlify-plugin-quarto` plugin (installed via `quarto-book/package.json`).

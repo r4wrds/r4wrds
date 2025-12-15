@@ -1,10 +1,4 @@
 [build]
   base = "quarto-book"
-  command = "quarto render"
+  command = "bash scripts/netlify-build.sh"
   publish = "_book"
-
-[build.environment]
-  NODE_VERSION = "20"
-
-[[plugins]]
-  package = "@quarto/netlify-plugin-quarto"
