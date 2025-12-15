@@ -284,6 +284,8 @@ library(purrr)
 library(glue)
 library(janitor)
 
+dir.create("data_output", showWarnings = FALSE, recursive = TRUE)
+
 # first split our gw_df data by county:
 gw_df_split <- gw_df %>% 
   split(.$COUNTY_NAME) %>% # split by cnty name 
@@ -293,7 +295,7 @@ gw_df_split <- gw_df %>%
 map2(gw_df_split, # list of points by county
      names(gw_df_split), # list of names for layers
      ~st_write(.x, 
-               dsn = "data/county_gw_pts.gpkg",
+               dsn = "data_output/county_gw_pts.gpkg",
                layer = glue("{.y}_gw_pts"), 
                delete_layer=TRUE, # to remove layer if it exists
                quiet = TRUE) # suppress messages
@@ -312,7 +314,7 @@ To make sure this worked as intended, we can check what layers exist in the geop
 ```{r stLayers}
 
 # check layers in the gpkg file
-st_layers("data/county_gw_pts.gpkg")
+st_layers("data_output/county_gw_pts.gpkg")
 
 
 ```
@@ -323,5 +325,3 @@ st_layers("data/county_gw_pts.gpkg")
 We've covered a handful of packages and functions in this module, but many more exist that solve just about every spatial workflow task. All spatial and mapmaking operations are typically a websearch away, but we also recommend [the following resources](https://www.r4wrds.com/intro/m_intro_mapmaking.qmd#additional-resources) to dig deeper into the `R` spatial universe.
 
 <br>  
-
-

@@ -1,4 +1,3 @@
-.quarto/
 _book/
 _site/
 *_cache/
@@ -7,3 +6,5 @@ _site/
 .DS_Store
 **/results/
 **/data_output/
+
+/.quarto/

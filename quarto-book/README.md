@@ -37,3 +37,5 @@ quarto render
 - Build command: `bash scripts/netlify-build.sh` (downloads Quarto, then renders)
 - Publish directory: `_book`
 - `netlify.toml` in this folder encodes the same settings.
+- Netlify does not install R; the book uses Quarto `freeze` and commits `quarto-book/_freeze/` so Netlify can render without executing code.
+- After editing `.qmd` files, run `quarto render` locally and commit the updated `quarto-book/_freeze/` so Netlify doesn’t try to re-execute.

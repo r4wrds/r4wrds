@@ -62,5 +62,6 @@ format:
     css: styles.css
 
 execute:
+  freeze: auto
   warning: false
   message: false
