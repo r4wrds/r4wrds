@@ -21,7 +21,7 @@ library(knitr)
 -   Expand your geospatial skills in R!
 :::
 
-# Overview
+## Overview
 
 The ability to work in one place or with one program from start to finish is powerful and more efficient than splitting your workflow across multiple tools. By sticking with one single framework or set of tools, we can reduce the mental workload necessary when switch between programs, staying organized in each, and dealing with import/export across multiple programs. Although different tools such as ESRI (or ArcPy extensions) are powerful, they require a paid license and typically use point-click user interfaces.
 
@@ -29,7 +29,7 @@ The advantage `R` has over these tools is that it is freely available, easily in
 
 If we use a functional programming approach (described in the [iteration module](m_iteration.qmd#map) ) for spatial problems, `R` can be a very robust and powerful tool for analysis and spatial visualization of data! Furthermore, once analyses have been completed, we can re-use the scripts and functions for common spatial tasks (like making maps or exporting specific spatial files).
 
-## Common Geospatial Tasks
+### Common Geospatial Tasks
 
 Common tasks in a GUI-based approach will always require the same number of point and clicks. With a script-based approach, it's much easier to recycle previously written code, or to just change a variable and re-run the code. This efficiency is magnified immensely when it can be automated or iterated over the same task through time, or multiple data sets.
 
@@ -40,7 +40,7 @@ For example, some common tasks may include:
 -   Integrating or spatial joining of datasets
 -   Reprojecting spatial data
 
-### Script-based analyses with `{sf}`
+#### Script-based analyses with `{sf}`
 
 The `{sf}` package truly makes working with vector-based spatial data easy. We can use a pipeline that includes:
 
@@ -53,11 +53,11 @@ The `{sf}` package truly makes working with vector-based spatial data easy. We c
 
 There are many more options that can be added or subtracted from these pieces, but at the core, we can use this very functional approach to provide data, make maps, conduct analysis, and so much more.
 
-# A Groundwater/Surfacewater Hydrology Example
+## A Groundwater/Surfacewater Hydrology Example
 
 Let's use an example where we read in some groundwater station data, spatially find the closest surface water stations, download some river data, and visualize!
 
-## The Packages
+### The Packages
 
 First we'll need a few packages we've not used yet. Please install these with `install.packages()` if you don't have them.
 
@@ -82,11 +82,11 @@ library(tmaptools) # mapping tools
 
 ```
 
-## Importing Spatial Data
+### Importing Spatial Data
 
 We'll leverage the ability to pull in many different data and stitch them all together through joins (spatial or common attributes). Each data component may be comprised of one or more "*layers*", which ultimately we can use on a map. 
 
-### Get State & County Data
+#### Get State & County Data
 
 First we need state and county boundaries. The [`{tigris}`](https://github.com/walkerke/tigris) package is excellent for this.
 
@@ -133,7 +133,7 @@ plot(sac_box, add = T, border = "orange", col = NA, lwd = 1.4)
 
 ```
 
-### Iterate: Get Groundwater Stations
+#### Iterate: Get Groundwater Stations
 
 Let's practice our iteration skills. We'll read in groundwater stations for 3 counties (*El Dorado*, *Placer*, and *Sacramento*), convert to {sf} objects, plot them, and then crop/select a subset of stations using spatial intersection.
 
@@ -166,7 +166,7 @@ mapview(gw_df, zcol="COUNTY_NAME", layer.name="GW Stations") +
 
 Hmmm...looks like there are some stations up near Lake Tahoe, and then all the stations that are outside of the Sacramento County boundary. Let's move on to do some cleaning/cropping/joining.
 
-## Filter, Select, & Spatial Joins
+### Filter, Select, & Spatial Joins
 
 One of the more common spatial operations is filtering or clipping data based on a condition or another spatial layer.
 
@@ -175,7 +175,7 @@ Often to complete a geospatial operation, we need to use a projected coordinate 
 [^3]: A discussion on coordinate reference systems is a complex topic in and of itself, and for the purposes of this module, we summarize it as follows: A geographic CRS is **round** and based on *angular units* of degrees (lat/lng), whereas a projected CRS is **flat** and has *linear* units (meters or feet). Many functions in `{sf}` that make calculations on data expect a projected CRS, and can return inaccurate results if an object in a geographic CRS is used. This is a fascinating topic with lots written about it! For more reading see this [Esri blog](https://www.esri.com/arcgis-blog/products/arcgis-pro/mapping/gcs_vs_pcs/), the Data Carpentry [geospatial lesson](https://datacarpentry.org/organization-geospatial/03-crs/), and the [online Geocomputation with R book](https://geocompr.robinlovelace.net/reproj-geo-data.html).
 
 
-### Filter
+#### Filter
 
 We could certainly leverage the `data.frame` aspect of `{sf}` and quickly filter down to the stations of interest using the `COUNTY_NAME` field. 
 
@@ -211,7 +211,7 @@ mapview(gw_sac, zcol="WELL_USE", layer.name="Well Use")
 </details>
 :::
 
-### Spatial Crop
+#### Spatial Crop
 
 Great! But what if we don't have the exact column we want, or any column at all? We may only have spatial data, and we want to trim/crop by *other* spatial data. Time for **spatial** operations.
 
@@ -230,7 +230,7 @@ title("GW Stations (orange) \nthat occur in Sacramento County")
 ```
 
 
-### Spatial Join
+#### Spatial Join
 
 We can also use `st_join()` directly to filter for points that fall within a supplied polygon(s). In our case, we want groundwater stations (points) that fall within our selected counties (polygons).
 
@@ -270,7 +270,7 @@ mapview(gw_sac_anti,
 
 
 
-## Writing Spatial Data Out
+### Writing Spatial Data Out
 
 We may want to save these data and send to colleagues before we proceed with further analysis. As we've shown before[^2], functional programming allows us to split data and write it out for future use, or to share and distribute. Here we use a fairly simple example, but the concept can be expanded.
 
@@ -320,7 +320,7 @@ st_layers("data_output/county_gw_pts.gpkg")
 ```
 
 
-# Additional Resources
+## Additional Resources
 
 We've covered a handful of packages and functions in this module, but many more exist that solve just about every spatial workflow task. All spatial and mapmaking operations are typically a websearch away, but we also recommend [the following resources](https://www.r4wrds.com/intro/m_intro_mapmaking.qmd#additional-resources) to dig deeper into the `R` spatial universe.
 

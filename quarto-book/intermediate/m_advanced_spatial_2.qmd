@@ -21,11 +21,11 @@ library(knitr)
 -   Advanced spatial operations with vector data
 :::
 
-# Overview
+## Overview
 
 We can use some of the same tools and data we used previously, but we can now also add a few options to download and actively use USGS/NHD data. These data include river stage and flow, water quality, station locations, watershed and streamline attributes, etc. Particularly for water scientists, it can be immensely useful to tie in additional data, or use standard datasets that are continuously updated (like the USGS gage network).
 
-## The Packages
+### The Packages
 
 First we'll need a few packages we've not used yet. Please install these with `install.packages()` if you don't have them.
 
@@ -50,7 +50,7 @@ library(tmaptools) # mapping tools
 
 ```
 
-## River Data: Find Nearest USGS Station
+### River Data: Find Nearest USGS Station
 
 We've demonstrated how to join data and crop data in R, but let's use some alternate options to download new data. We'll focus on surface water here, and look at how we can download and map flowlines in R. Much of the USGS data network can be queried and downloaded in `R`. This may include data on water quality, river discharge, water temperature, spatial basins, and NHD flowlines. The {`dataRetrieval`} package is an excellent option for these operations.
 
@@ -62,7 +62,7 @@ Note, the X/Y points don't need to fall on a river! The function will look for t
 
 </aside>
 
-### Groundwater Data
+#### Groundwater Data
 
 Iteration...remember {`purrr`}? Let's use it here!
 
@@ -126,7 +126,7 @@ mapview(sac_co, alpha.regions=0,
 
 ```
 
-### Use `findNLDI`
+#### Use `findNLDI`
 
  The `findNLDI` function allows us to pass a single spatial point as well as a few different parameters like search upstream or downstream, and what we want to find, and then return a list of items (see the help page for using the function [here](http://usgs-r.github.io/dataRetrieval/articles/nldi.html)), leveraging the hydro-network linked data index (NLDI)^[For more info on the NLDI: https://labs.waterdata.usgs.gov/about-nldi/index.qmd]. Note, we'll need internet connectivity here for these functions to run successfully.
 
@@ -166,7 +166,7 @@ Great, now we have a `list` of three or more things for each sf object we passed
  
  Let's play with these data and make some maps.
 
-### Extract the NLDI Info
+#### Extract the NLDI Info
 
 There are a few options, and it depends on what your goal is. Here we show a few simple ways to pull these data out or collapse them. Remember, we can access things in lists with our `[[]]` too!
 
@@ -222,7 +222,7 @@ mapview(sac_loi, col.region="purple", legend = TRUE,
 
 ```
          
-### Snap to the Nearest Point
+#### Snap to the Nearest Point
 
 The final filter involves snapping our LOI points (_n = 2_) to the nearest USGS stations from the stations we filtered to above. We can then use these data to generate some analysis and exploratory plots.
 
@@ -264,7 +264,7 @@ mapview(usgs_stations, cex = 2.75, col.regions = "gray",
 
 Notice anything? How could we approach this differently so we pulled at least one gage per river instead of two in one river and none in the other?
 
-### Select Nearest by Distance
+#### Select Nearest by Distance
 
 If we want to select more than a single point based on a threshold distance we can use a non-overlapping join and specify a distance. For many spatial operations, using a **projected CRS** is important because it generally provides a more accurate calculation since it is based on a "flat" surface and uses a linear grid. It has the additional advantage that we tend to process and understand information that is grid based more easily than curvilinear (degree-based), so a distance of 100 yards or 100 meters makes sense when compared with 0.001 degrees.
 
@@ -297,7 +297,7 @@ Why did we use `st_drop_geometry()`? Sometimes it's cleaner (and faster) to oper
 
 </aside>
 
-### Download USGS Data with NLDI
+#### Download USGS Data with NLDI
 
 Now we have our stations of interest, and our climate data, let's download river flow and water temperature data with the `{dataRetrieval}` package.
 
@@ -341,7 +341,7 @@ load(url("https://github.com/r4wrds/r4wrds/raw/main/intermediate/data/dataRetrie
 ```
 
 
-### Plot our USGS Data
+#### Plot our USGS Data
 
 Now we have the data, let's plot!
 
@@ -425,7 +425,7 @@ usgs_wTemp2 <- usgs_wTemp %>%
 
 
 
-# Make a Map with `{tmap}`
+## Make a Map with `{tmap}`
 
 One final component that we haven't covered much is how to create a publication ready-map. We can do this using the `{ggplot2}` package in conjunction with `geom_sf()`, or we can use some alternate packages which are built specifically to work with spatial data and use a similar code structure to `{ggplot2}`.  
 
@@ -485,5 +485,4 @@ tmap::tmap_save(final_tmap,
 
 
 <br>  
-
 
