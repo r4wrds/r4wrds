@@ -1,0 +1,9 @@
+.quarto/
+_book/
+_site/
+*_cache/
+*.knit.md
+*.utf8.md
+.DS_Store
+**/results/
+**/data_output/

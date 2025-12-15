@@ -11,7 +11,6 @@ creative_commons: CC BY
 ```{r setup, include=FALSE, purl=FALSE, message=FALSE}
 
 library(knitr)
-library(flair)
 suppressPackageStartupMessages(library(tidyverse))
 
 ```
@@ -55,18 +54,6 @@ cms_to_cfs <- function(discharge) {
   cfs_out <- discharge * 35.3146662
   return(cfs_out)
 }
-
-```
-
-```{r cmsFlair, include=FALSE, echo=FALSE, eval=FALSE}
-
-decorate_chunk("cms-to-cfs", ) %>% 
-  flair_args(background="#FFBF00") %>% 
-  flair(pattern = "discharge", background="#6FCFEB", bold=TRUE) %>%
-  flair(pattern = "discharge", color="darkblue", bold=TRUE) %>%
-  flair("cms_to_cfs", color="maroon") %>% 
-  flair("cfs_out", background="gold") %>% 
-  flair_funs(color="forestgreen")
 
 ```
 

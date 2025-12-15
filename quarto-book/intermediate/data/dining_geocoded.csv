@@ -1,0 +1,128 @@
+timestamp,first_name,dining_name,dining_address,division,comfort_using_r,whats_one_thing_you_hope_to_learn_in_r,latitude,longitude
+5/17/2021 22:18:50,Yoda,Boba Loca,"1689 Arden Way, Sacramento, CA 95815",Boba,8,How to order more boba,38.603327,-121.42853
+5/17/2021 22:20:11,Goose,Fox & Goose Pub,"1001 R St, Sacramento, CA 95811",Down,6,Hiding from fox,38.5715806,-121.4969661
+5/17/2021 22:22:35,Teo,Cocina Dona Chuyita,"1035 Drever St, West Sacramento, CA 95691",NA,3,Recipes,38.5726619,-121.5231962
+5/17/2021 23:32:16,BobaFet,Tea For U,"2212 16th St, Sacramento, CA 95818",NA,1,hyper jumps,38.5644826,-121.49142
+7/2/2021 10:30:53,Cocoa Rose,Teabo Cafe,"2191 Cowell Blvd, Davis, CA, 95618",Water,5,How to make bread,38.5409226,-121.7238086
+7/9/2021 9:55:40,Nate,Asiana,"423, 6th STREET, RACINE, WI, 53403",NA,7,I want to move from being an independent R user to a collaborative user that can be a part of a data science team. This involves learning more about reproducible workflows and Git.,42.7263708,-87.785941
+9/21/2021 11:09:25,Rich Pauloo,tacos in La Paz,"La Paz, Mexico",NA,9,"Putting R into production with Github Actions and Docker, and the tidymodels framework",24.1619948,-110.3158532
+9/21/2021 11:09:33,A,The Barn,"985 Riverfront St, West Sacramento, CA 95691",OIMA,5,Mapping in R,38.5753958,-121.514712
+9/21/2021 11:09:46,Corey,Dunedin,"3501, 30TH STREET, SAN DIEGO, CA, 92104",OIMA,7,NA,32.742342,-117.12986
+9/21/2021 11:09:53,Sami,Easy Creole,"1761 Alcatraz Ave, Berkeley, CA 94703",Region 2,6,RShiny Apps,37.8487929,-122.2721779
+9/21/2021 11:10:06,Scott,Drunken Noodle,"2502 J St, Sacramento, CA 95816",Drinking Water,7,interactive maps,38.5747864,-121.4730749
+9/21/2021 11:10:19,chloe,Office,1001 I street,ORPP,2,everything,38.5815239,-121.4919662
+9/21/2021 11:10:36,Kelsey,TAQUERIA LAS PALMAS,"415 Santa Rosa Ave, Santa Rosa, CA 95404",Region 1,7,Raster Math w/o accessing ArcGIS b/c ArcGIS is bloatware,38.4341985,-122.7124262
+9/21/2021 11:10:38,Valerie,Tree House Cafe,"630, 3rd St, West Sacramento, CA 95605",DWR,5,How to process and display spatial data for analysis,38.5838206,-121.5111917
+9/21/2021 11:10:40,Ryan,Sophias,"129 E St, Davis, CA, 95616",NA,7,Better interactive teaching tools!,38.5423527,-121.740925
+9/21/2021 11:10:45,Michael Macon,Tony's Delicatessen,"1131 J St, Sacramento, CA 95814",Water Rights,3,Better Data Manipulation and analysis,38.579909,-121.4916204
+9/21/2021 11:10:46,Michael,Revolution Winery,"2831 S St, Sacramento, CA 95816",DWQ,6,"More efficient shiny, working with others through GIT",38.5637827,-121.472329
+9/21/2021 11:10:52,Alison,Stonemill Matcha,"561 Valencia St. San Francisco, CA, 94110",DDW,4,"Making data visualization process easier, better workflow management for current projects",37.764019,-122.421528
+9/21/2021 11:10:56,Jacob,Shoki Ramen,"2530 21st Street, Sacramento, CA 95818",DWQ,3,Data viz: Exactly this,38.559417,-121.4860982
+9/21/2021 11:10:59,SueAnn,Oak Glen Steakhouse,"38490 Oak Glen Road, Yucaipa, CA 92399",NA,4,To learn how to efficiently run the program.,34.0354058,-117.0712178
+9/21/2021 11:11:03,Lauren,Bottle and Barlow,"1120 R St, Sacramento, CA, 95811",Water Rights,4,Streamlined approach to sharing scripts/data,38.5706054,-121.4951743
+9/21/2021 11:11:10,Larry,Spoon Trade,"295 W Grand Ave, Grover Beach, CA 93433",Central Coast WB,6,Intermediate stuff,35.122139,-120.6278272
+9/21/2021 11:11:15,Dan,Rice,"3890 El Camino Real, Palo Alto, CA 94306",DDW,5,streamline data prep,37.4166574,-122.130439
+9/21/2021 11:11:33,Izaac,Sunflower,"3111 16th St, San Francisco, CA 94103",Region 1,6,NA,37.7647786,-122.4223084
+9/21/2021 11:11:41,Micaela,Tres Hermanas,"805 2nd St, Davis, CA 95616",Planning,7,Making interactive maps!,38.5437138,-121.7387516
+9/21/2021 11:12:15,Claudia,Brickwood,"3653 Main St, Riverside, CA 92501",Planning,4,data analysis with multiple datasets,33.9834851,-117.3735548
+9/21/2021 11:14:16,Val in Sept,Cafe Provence,"11 Center St, Brandon, VT 05733",DWR,5,NA,43.7988704,-73.0882203
+10/5/2021 11:16:54,Kristina,Sol Food,"903 Lincoln Ave, San Rafael, CA 94901",Region 2,5,Creating functions and loops,37.9718042,-122.524124
+10/5/2021 11:17:20,Lance Le,Trading Post,"102 S Cloverdale Blvd, Cloverdale, CA 95425",RB1,9,Shiny stuff; parallel processing/multithreading with spatial data,38.8052719,-123.0165256
+10/5/2021 11:17:20,Patrick,Ramen Gaijin,"6948 Sebastopol Ave, Sebastopol, CA 95472",DDW,6,Shiny app optimization,38.4025672,-122.8237651
+10/5/2021 11:17:23,Rachel,Thai Boat,"3212 Broad St #140, San Luis Obispo, CA 93401",R1SR,4,How to get un-stuck when script doesn't work,35.26085,-120.648776
+10/5/2021 11:17:24,Rebecca,Carmelita's,"204, Riverside Ave, Roseville, CA, 95678",DWQ,3,more about markdown and mapping in R,38.742352,-121.290708
+10/5/2021 11:17:35,carla,mulvaneys,"1215 19th St, Sacramento, CA 95811",R5S,3,Become more efficient,38.5743422,-121.4821451
+10/5/2021 11:17:38,james,Hidden Kitchen,"113 N Ocean Ave, Cayucos, CA 93430",Central Coast Regional Board,5,creating workflows that are shareable/usable but beginning or non-users,35.4487418,-120.9047066
+10/5/2021 11:17:42,Lark,The Shack,"6941 La Jolla Blvd, La Jolla, CA 92037",Region 9,2,Easy visualizations,32.8326398,-117.2766811
+10/5/2021 11:17:43,Alisha,Hop Gardens,"2904 Franklin Blvd, Sacramento, CA 95818",R5S,5,Batch statistics,38.5518797,-121.476074
+10/5/2021 11:17:53,Molly,Kru,"3135 Folsom Blvd, Sacramento, CA 95816",OPP,6,Comfort with iterative processes,38.5690276,-121.4658987
+10/5/2021 11:18:13,Prachi,King Falafel,"100 Brown Street, Sebastopol, CA 95472",NA,5,"Project Management, Workflow, Best Practices",38.40254,-122.8223825
+10/5/2021 11:18:17,Nick,Blue Plate,"3218 Mission St, San Francisco, CA, 94110",R1,4,Functions and loops,37.74516,-122.4203711
+10/5/2021 11:18:25,Jesse,Temescal Brewing,"4115, Telegraph Ave, Oakland, CA, 94609",DWR,3,automated web data pulls,37.8302065,-122.2643735
+10/5/2021 11:18:52,John Wheeler,La Cosecha,"917, 9th St, Sacramento, CA, 95814",Division of Water Quality,3,NA,38.5811799,-121.4942496
+10/5/2021 11:18:58,Yongxuan,Macau Cafe,"4406 Del Rio Rd, Sacramento, CA 95822",DWR,6,geospatial analysis,38.5372862,-121.503781
+10/5/2021 11:19:02,Patty Cubanski,Andina,"1314, NW Glisan Street, Portland, Oregon, 97209",DWQ,5,get more comfortable using RShiny,45.5263373,-122.684597
+10/5/2021 11:20:35,Suzanne,Easy Creole,"1762 Alcatraz Ave, Berkeley, CA 94703",DDW,4,manipulating data - joins/pivots/aggregation,37.848757,-122.2722712
+10/5/2021 11:22:48,Chris Carr,Bonchon,"1234, Laguna Boulevard, Elk Grove, Sacramento, California, 95828",Water Rights,2,Data visualization,38.4235445,-121.4152442
+10/5/2021 11:24:02,Jason,The Holding Company,Newport Ave,9,2,Data extraction from PDFs,51.5086835,-3.67e-05
+11/23/2021 11:46:41,Aaron,Himalayan Homes,"31 middlevale road, East Lansing, Michigan, 48823",GDS,5,Learn more,42.7143193,-84.5026645
+3/19/2022 15:37:03,fm,the core,"3 kikuyu road johannesburg, gauteng 2190",NA,8,NA,-26.0352567,28.0650034
+5/17/2022 11:03:55,Ryan,Dunloe Brewery,"1606 Olive Dr, Davis, CA 95616",R,9,More Maps!!,38.5447433,-121.7311242
+5/17/2022 11:04:03,Beverley,Capitol Beer and Tap Room (Cap Tap),"1431 I Street  Sacramento, CA 95814",NA,2,NA,38.5798635,-121.4869082
+5/17/2022 11:04:07,Von,Queen Sheba,"1704 Broadway, Sacramento, CA 95818",R,8,Python,38.5610283,-121.4908678
+5/17/2022 11:04:24,Rebeca,Folsom Thai Cuisine,"2371 Iron Point Rd #100, Folsom, CA 95630",DWQ,3,Analyzing large data sets with large numbers and mapping.,38.6448749,-121.1250189
+5/17/2022 11:04:35,Joe,Taqueria Las Pencas,"319 Baden Ave, South San Francisco, CA 94080",NA,7,Interactive map-maping,37.6542316,-122.4110132
+5/17/2022 11:04:36,Jacqueline,Cholita Linda,"4923 Telegraph Ave, Oakland, CA 94609",Surface Water Ambient Monitoring Program,5,more mapping and graphs,37.836176,-122.2627806
+5/17/2022 11:04:44,Mina,Olive Garden,"1780 Challenge Way, Sacramento, CA 95815",DWR,7,Functions used for data,38.5973762,-121.4254009
+5/17/2022 11:04:59,Dennis,Crow's Nest Restaurant,"2218 E Cliff Dr, Santa Cruz, CA 95062",NA,4,NA,36.9632362,-122.001329
+5/17/2022 11:05:02,Brandon,Ellie's,"204, Orange Ave, Long Beach, CA, 90802",Division of Drinking Water,3,NA,33.7682085,-118.1767378
+5/17/2022 11:05:03,Catherine,Diavola Pizzeria & Salumeria,"21021 Geyserville Ave, Geyserville, CA 95441",dwq,2,NA,38.7063085,-122.9042274
+5/17/2022 11:05:04,John,Mikuni,"1194 Roseville Pkwy, Roseville, CA 95678",DWR,5,Making a Map,38.7724918,-121.27324
+5/17/2022 11:05:05,James,Momoyama Sushi,"18906 Brookhurst St, Fountain Valley, CA, 92708",DWQ,6,NA,33.6881812,-117.953897
+5/17/2022 11:06:55,Payman,Burgers & Brew,"403 3rd St, Davis, CA 95616",DDW,5,Incorporating Github,38.5442548,-121.7434853
+8/12/2022 11:51:00,Aaron,BJ's,"107 S 1st St, Burbank, CA 91502",NA,8,everything,34.1487213,-118.3409654
+2/6/2023 10:57:52,Hannah,The Slice Pizza,"719 14th St, San Francisco, CA 94114",Region 5 - Central Valley,8,Shiny App integration with databases/more work with reactive expressions in shiny apps,37.7675654,-122.429738
+2/6/2023 10:57:52,Jose,taqueria santa cruz,"1002 Soquel Ave, Santa Cruz, CA 95062",Division of water rights,3,Cleaning large datasets,36.9784237,-122.0127999
+2/6/2023 10:57:53,Hong,Tartine Bakery,"1925 Arizona Ave, Santa Monica CA 90404",R4,7,Automatically pulling data from Survey123,34.030118,-118.482121
+2/6/2023 10:57:55,C,matcha ice cream,"450 E 2nd St, Los Angeles, CA 90012",NA,3,NA,34.0470232,-118.2386155
+2/6/2023 10:58:01,Paul,Philz Coffee,"4680 Freeport Blvd, Sacramento, CA, 95822",DDW,2,comfort level,38.5327677,-121.4946449
+2/6/2023 10:58:05,Matt Graves,El Coqui,"400 Mendocino Ave, Santa Rosa, CA 95401",NCRWQCB,2,daa cleaning,38.4412658,-122.714443
+2/6/2023 10:58:13,molly,round corner,"2333 S st, sacramento, california, 95816",office of public participation,7,more ease with creating maps!,38.5656549,-121.4796624
+2/6/2023 10:58:20,Victor,The Walnut Cafe,"106 Walnut Ave, Santa Cruz, CA 95060",R5,6,How to make maps and plots,36.97336,-122.027322
+2/6/2023 10:58:20,Patrick,Dhat Island,"308, W State St, Redlands, CA, 92373",NA,7,More shiny,34.056793,-117.1860772
+2/6/2023 10:58:25,Ryan,Sac City Brews,"3940 60th St, Sacramento, CA 95820",DWQ,4,Cleaning data,38.539139,-121.4345789
+2/6/2023 10:58:26,Abbey,Juhachi,"1730, S St, Sacramento, CA, 95811",Division of Water Rights,6,workflows,38.5673808,-121.4871208
+2/6/2023 10:58:27,Mike,Popeyes,"1925, Sebastopol Rd, Santa Rosa, CA, 95407",NCRWQCB,4,Setting up workflows to run univariate statistics,38.4270732,-122.7405959
+2/6/2023 10:58:36,Lucy Montgomery,dinosaurs,"2275, Market Street, San Francisco, CA, 94114",planning,4,cleaning data and github,37.7645648,-122.4320037
+2/6/2023 10:58:38,Danny McClure,Sidellis,"3350 Sandy Way, South Lake Tahoe, CA, 96150",RB6,3,pivot longer,38.9446387,-119.9694783
+2/6/2023 10:58:44,Laura,Canon,"1719 34th St. Sacramento, CA 95816",Water Rights,6,NA,38.5640332,-121.4649987
+2/6/2023 10:58:46,Sydney,Chick-fil-A,"13490, JAMBOREE ROAD, IRVINE, CALIFORNIA, 92602",OIMA,7,more complex data visualizations,33.7255316,-117.7886881
+2/6/2023 10:58:49,Bridget,Saigon Noodle House,"6831 Hollister Ave L., Goleta, CA 93117",R6 South Lake Tahoe,2,data visualization,34.4293443,-119.8670147
+2/6/2023 10:58:49,Yongxuan Gao,Yue Huang,"3860 Truxel Rd, Sacramento, CA 95834",DWR,6,analyzing and displaying geo data,38.638338,-121.5042493
+2/6/2023 11:00:24,Randy,Paesanos,"1806 Capitol Ave, Sacramento, CA 95814",Region 5,7,utilizing looping functions to extract data from data frames.,38.5739422,-121.4838172
+2/6/2023 11:00:26,Francisco,Frank Fat's,"806 L St., Sacramento, CA 95814",DWR,6,compiling data from multiple sources and merge into preformatted tables,38.5784178,-121.4968576
+5/15/2023 10:28:29,Katie,The Banshee,"134 W 2nd St, Chico, CA 95928",DFA,2,Data cleanup and formatting,39.7301114,-121.8411711
+5/15/2023 10:28:31,Suzanne,Bodega Kitchen,"6401 Riverside Blvd, Sacramento, CA 95831",DDW,4,Dealing with shp geometry issues,38.5099853,-121.5408722
+5/15/2023 10:28:33,Lily,La Costa,"335, Oak St, Brentwood, CA, 94513",Region 2,5,to feel more confident in using R,37.9324866,-121.6958348
+5/15/2023 10:28:36,Nick,Nixtaco,"1805 Cirby Way #12, Roseville, CA 95661",Water Rights,4,mostly how to work with large datasets to get specific information,38.7298369,-121.256589
+5/15/2023 10:28:36,Jenalyn,Revolution Winery & Kitchen,"2831 S St, Sacramento, CA 95816",OPP,3,How to create visualizations,38.5637827,-121.472329
+5/15/2023 10:28:40,Manoela,Sancho,"491 Lytton Ave, Palo Alto, CA 94301",DWQ,5,data management,37.4489563,-122.1608461
+5/15/2023 10:28:50,Karen,Olive Garden,"7480 Elk Grove Blvd, Elk Grove, CA 95757",SCP,5,Data visualization,38.4089479,-121.4119646
+5/15/2023 10:28:52,Lang,Aura,"1401 G St, Sacramento, CA 95814",DWR,5,Match everything I can do in Excel and GIS,38.582136,-121.486274
+5/15/2023 10:28:56,Erin,Kaleidoscope Coffee,"2380 Athens Ave, Redding, CA, 96001",R5R,6,EVERYTHING!,40.5755111,-122.3764394
+5/15/2023 10:28:59,Julie,Marafuku Ramen,"4828 Telegraph Ave, Oakland, CA, 94609",DDW,7,Practice writing my own functions.,37.8353156,-122.2629862
+5/15/2023 10:29:02,Travis,Taqueria Las Palmas,"415 Santa Rosa Ave, Santa Rosa, CA 95404",North Coast Regional Water Quality Control Board (WSP),4,I definitely want to learn how to organize and make maps in R.,38.4341985,-122.7124262
+5/15/2023 10:29:03,Carlotta,17th Street Public House,"315 W Main St, Merced, CA 95340",DWQ,5,plotting amazingly,37.3005081,-120.480608
+5/15/2023 10:29:08,Chris,Limon E Sal,"6693 Folsom-Auburn Rd, Folsom, CA 95630",ORPP,4,More R shortcuts,38.6848013,-121.1787598
+5/15/2023 10:29:26,Katt,Roll N Roaster,"2901 Emmons Ave, Brooklyn, NY 11235",DWR,8,Use R code collaboratively,40.5841462,-73.9396418
+5/15/2023 10:29:27,Gerardo,54 Mint,"16 Mint Plaza, San Francisco, CA, 94103",Region 2,7,Improve data analysis and wrangling,37.7827232,-122.4076899
+5/15/2023 10:29:48,Zaira,Moon indian cuisine,"600 w harder rd, hayward ca",Region 5-Fresno,6,working with large data sets,37.6469571,-122.0900164
+5/15/2023 10:29:51,Tony,Philz,"202 N Glassell St, Orange, CA, 92866",R7,5,Mapview,33.789841,-117.853187
+5/15/2023 10:33:02,Marshall,Kru,3135 Folsom Blvd,Water Rights,5,Go to function to handle raw data,38.5690276,-121.4658987
+5/7/2024 10:54:02,Megan,Chick Fil A,"1452 Mendocino Ave, Santa Rosa, CA 95401",WSP,3,ggplot,38.4540822,-122.7171232
+5/7/2024 10:54:13,Shulamit Shroder,Thai Canteen,"117 E ST, DAVIS, CA 95616",DWQ,5,everything,38.5424669,-121.7409905
+5/7/2024 10:54:28,Jennifer,Pho House,"6436, Fair Oaks Blvd, Carmichael, CA, 95608",Water Rights,2,Just exploring the possibilities,38.618089,-121.3284653
+5/7/2024 10:54:33,Melissa,Negroni Warehouse,"631 Ninth Ave, San Diego, CA 92101",San Diego Waterboard,8,Mapping,33.1107666,-117.0835475
+5/7/2024 10:54:39,Ava,South Davis Guads,417 Mace Blvd A,ORPP,2,I hope to remember syntax and the names of popular functions,38.5501225,-121.695876
+5/7/2024 10:55:20,Alessandra,Tower Cafe,1518 Broadway Sacramento CA 95818,Water Rights,5,More mapping tools.,38.5616848,-121.493363
+5/7/2024 10:55:37,Saul,Barney's Beanery,"1037, Broxton Ave, Los Angeles, CA, 90024",WSP,7,Shiny skills.,34.0616538,-118.4467552
+5/7/2024 10:55:59,John,Sushi Stop Pasadena,"58 E. Colorado Blvd, Pasadena, CA 91105",ENF-1,6,Better methods in processing and visualizing data.,34.1454914,-118.1492359
+5/7/2024 10:56:19,Janine,Lefty's,"5610 Elvas Ave, Sacramento, CA 95819",DDW,1,RMarkdown,38.570255,-121.433374
+5/7/2024 10:57:16,Jake,Taco Bell,"5919 Stockton Blvd, Sacramento, CA 95824",Water Rights,3,Using R Shiny to develop interactive web apps,38.5194058,-121.4396608
+3/21/2025 13:59:09,J T,Hay Camp Brewing Company,"601 Kansas City St, Rapid City, SD 57701",NA,6,Improve my workflows,44.07889,-103.227816
+5/4/2025 22:40:24,Lisa,Kru,"3135 Folsom Blvd, Sacramento, CA 95816",NA,10,NA,38.5690276,-121.4658987
+5/5/2025 10:00:49,Shaela,Jayna Gyro,"3101 Folsom Blvd, Sacramento, CA, 95816",Water rights,5,refresh on spatial analysis/making maps,38.5695137,-121.4661694
+5/5/2025 10:00:52,Elena,Kru,"3135 Folsom Blvd, Sacramento, CA 95816",Office of Information Management and Analysis,8,Spatial analyses,38.5690276,-121.4658987
+5/5/2025 10:00:52,Shulamit,Mandos,"1260 Lake Blvd, Davis, CA 95616",DWQ,7,Shiny,38.5536352,-121.787547
+5/5/2025 10:01:08,Danielle,Hulas,"622 Lighthouse Ave, Monterey, CA 93940",Drinking Water,7,Better function writing.,36.6139814,-121.9018441
+5/5/2025 10:01:17,Lisa,Burger Me,"10418 Donner Pass Rd, Truckee, CA 96161",NA,10,How to make packages,39.3256776,-120.1905053
+5/5/2025 10:01:25,Joann,Hide Sushi,"2040 Sawtelle Blvd, Los Angeles, CA 90025",NA,4,NA,34.0398265,-118.4424289
+5/5/2025 10:01:27,Megan,Surawon,"2833 W Olympic Blvd, Los Angeles, CA 90006",OPEETA,7,Spatial analysis,34.0527278,-118.2954982
+5/5/2025 10:01:27,Silvia,El Gallo Giro,"10161 Sierra Ave., Fontana, CA 92335",Land Disposal - Scientific Aid,3,I want to learn more about what it's capable of.,34.0692695,-117.4353476
+5/5/2025 10:01:29,Lucas,Taco Bell,1001 I street,Water Rights,3,managing and plotting data for varying model scenarios,38.5815239,-121.4919662
+5/5/2025 10:01:29,Will,Richmond Yacht Club,"351 Brickyard Cove Road, Richmond, CA, 94553",Office of the Delta Watermaster,4,Shiny. And lists in dplyr,37.9088782,-122.3842094
+5/5/2025 10:01:40,Madi,Luigi's,"725 East 19th Street, Bakersfield, CA 93305",DWQ,5,more wrangling data skills,35.3746075,-118.9932077
+5/5/2025 10:01:49,Eli,Curry & Grill,"2297 Lake Tahoe Blvd, South Lake Tahoe, CA 96150",Lahontan Regional Water Quality Control Board,5,NA,38.9199037,-119.994564
+5/5/2025 10:01:50,Hannah,Coconut on T,"1110 T St, Sacramento, CA 95811",Office of Information Management and Analysis,7,Spatial analysis!,38.5687971,-121.4966832
+5/5/2025 10:02:18,Lou,Gayle's Bakery & Rosticceria,"504, Bay Avenue, Capitola, CA, 95010",NCRWQCB,4,fully understanding custom functions and mapping,36.9784346,-121.9524905
+5/5/2025 10:02:36,Kelly,New Kathmandu Kitchen,"3672, J St, Sacramento, CA, 95816",DWQ,5,geospatial,38.5704199,-121.457175

@@ -689,7 +689,7 @@ f_wcr_visualize_timeseries <- function(df, dir_out){
     theme_void() +
     geom_sf(data = df_sf[1, ], color = col_trend, size = 4, alpha = 0.9)
 
-  # combine plots: requires {pathwork}
+# combine plots: requires {patchwork}
   p_combined <- p_map + p_hydrograph
 
   # save
@@ -714,7 +714,7 @@ Now that we have functions defined, let's define one control module to download,
 library(tidyverse)
 library(sf)
 library(here)
-library(pathwork)
+library(patchwork)
 
 # load functions
 fs:dir_ls(here("functions"), regexp = "f_wcr") %>%

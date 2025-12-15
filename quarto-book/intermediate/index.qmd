@@ -1,0 +1,146 @@
+---
+title: Intermediate Workflows
+description: 'Increasing your efficiency with reproducible workflows in R
+
+  '
+creative_commons: CC BY
+preview: https://r4wrds.com/img/cover.png
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{=html}
+<style>
+  .title{
+    display: none;
+  }
+</style>
+```
+<br>
+
+## Who is this course for?
+
+What makes an *Intermediate `R` user*? This course is most relevant and targeted at folks who:
+
+-   Took the [Introductory R4WRDS](../intro/index.qmd) course
+-   Regularly use `R` and want improve their efficiency and skill set
+-   Have a general understanding and proficiency in using `{dplyr}`, `{ggplot2}`, `{sf}`, and `{rmarkdown}`
+-   Understand (and use) general best practices for data science in `R`
+
+<br>
+
+## Why `R`?
+
+[`R`](https://www.r-project.org/) is an open-source language for statistical computing and a general purpose programming language. It is one of the primary languages used for data science, modeling, and visualization.
+
+<br>
+
+## What will you learn?
+
+In this course, we will move more quickly, assume familiarity with basic `R` skills, and also assume that the participant has working experience with more complex workflows, operations, and code-bases. Each module in this course functions as a "stand-alone" lesson, and can be read linearly, or out of order according to your needs and interests. Each module doesn't necessarily require familiarity with the previous module.
+
+**This course emphasizes:**
+
+-   Intermediate scripting skills like iteration, functional programming, writing functions, and controlling project workflows for better reproducibility and efficiency
+-   Approaches to working with more complex data structures like lists and timeseries data
+-   The fundamentals of building Shiny Apps
+-   Pulling water resources data from APIs
+-   Intermediate mapmaking and spatial data processing
+-   Integrating version control in projects with git
+
+(ref:AHRemoteR) *Artwork by @allison_horst*
+
+```{r remoteLearning, eval=TRUE, echo=FALSE, out.width='50%', fig.cap='(ref:AHRemoteR)'}
+
+knitr::include_graphics(path = "https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/monster_support.jpg")
+
+```
+
+::: obj
+**Course Modules**
+
+1.  [Check/Update R/RStudio and Packages](m_updating_r.qmd)\
+2.  [Version Control with git](m_version_control.qmd)
+3.  [Interactive visualization](m_interactive_viz.qmd)\
+4.  [Simple shiny](m_simple_shiny.qmd)\
+5.  [Iteration and functional programming](m_iteration.qmd)\
+6.  [Parameterized reports](m_parameterized_reports.qmd)
+7.  [Advanced spatial R and mapmaking: I](m_advanced_spatial.qmd)
+8.  [Advanced spatial R and mapmaking: II](m_advanced_spatial_2.qmd)
+:::
+
+<br>
+
+## Project Setup and Data
+
+All data used in this course is expected to live in a `/data` subfolder in a project directory. 
+
+We will be working in an R project using RStudio. If you've already downloaded [**zipped data and Rproj file**](https://github.com/r4wrds/r4wrds-data/raw/main/r4wds_proj.zip) from the introductory course setup, you're already set and can move on to the modules. 
+
+### Create a New Project
+
+If you want to set up your own new RStudio project (*highly recommend for experience!*), we can create a new project file (`intermediate_r4wrds.Rproj`), in a few different ways. Directly from RStudio (detailed in the [introductory project management module](../intro/m_project_management.qmd#use-project-workflows)), or via the command line. We can use `touch intermediate_r4wrds.Rproj` (MacOS/Linux) or `echo > intermediate_r4wrds.Rproj` (Windows) in the root project directory.
+
+To complete code exercises and follow along in the course, you will create a `/data` subfolder, and a `/scripts` subfolder to store `.R` scripts, which we recommend naming by module.
+
+Your project directory structure should look like this (note the position of the `/data` subfolder):
+
+    .
+    ├── scripts
+    │   ├── module_01.R
+    │   └── module_02.R
+    │   └── ...
+    ├── data
+    │   ├── gwl.csv
+    │   └── polygon.shp
+    │   └── ...
+    └── intermediate_r4wrds.Rproj
+
+### Download Data
+
+Once an RStudio project has been created we can download the data in in a few ways:
+
+1.  Download to a data folder in your project from a [Github repository](https://github.com/r4wrds/r4wrds-data/):
+
+```{r}
+    # downloads the data.zip file to the `data` directory
+    dir.create("data")
+    download.file("https://github.com/r4wrds/r4wrds-data/raw/main/data.zip", destfile = "data/data.zip")
+
+    # unzip the data:
+    unzip(zipfile = "data/data.zip")
+
+    # if get resulting __MACOSX folder (artifact of unzip), remove:
+    unlink("__MACOSX", recursive = TRUE)
+```
+
+2.  [Downloaded and unzipped from OSF](https://osf.io/qweju/download)
+
+Once data have been downloaded and moved to a data folder, or downloaded directly into the project, we are ready to roll!
+
+<br>
+
+## Workshop Overview
+
+We will follow the [SFS Code of Conduct](https://freshwater-science.org/about/society-governance/code-of-conduct) throughout our workshop.
+
+<br>
+
+## Source content
+
+All source materials for this website can be accessed at the [`r4wrds` Github repository](https://github.com/r4wrds/r4wrds).
+
+<br>
+
+## Attribution
+
+Content in these lessons has been modified and/or adapted from [Data Carpentry: `R` for data analysis and visualization of Ecological Data](https://datacarpentry.org/R-ecology-lesson/index.qmd), the USGS-R training curriculum [here](https://github.com/USGS-R/training-curriculum), the NCEAS Open Science for Synthesis workshop [here](https://nceas.github.io/oss-2017/index.qmd), [Mapping in `R`](https://ryanpeek.org/mapping-in-R-workshop/), and the wonderful text [`R` for data science](https://github.com/hadley/r4ds).
+
+<br>
+
+
+
+------------------------------------------------------------------------
+
+*site last updated: `r format(Sys.time(), "%Y-%m-%d %H:%M")`*
