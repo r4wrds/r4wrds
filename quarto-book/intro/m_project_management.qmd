@@ -156,12 +156,12 @@ The good news is if you setup an RStudio project as shown above, you can use rel
 
 Our working directory *should* be the root place where our **project** lives (as shown above). You can always check what `R` thinks is the working directory with `getwd()`, and you should see the folder where your **`.Rproj`** file lives! Importantly, everything you do should be relative to that working directory. 
 
-That means we really **don't** want to use things like `setwd()` (set working directory) to locate a file or folder on our computer, or use a hard path (i.e., a full path like `C:/MyUserName/My_Documents/A_Folder_You_May_Have/But_This_One_You_Definitely_Dont/`). That's because this will pretty much **never** work on anyone's computer other than your own, and sometimes it may not even work on your own computer if you change a file name or folder! How can we make things reproducible for others, and for our future self? We advise using the `{here}` package.
+That means we really **don't** want to use things like `setwd()` (set working directory) to locate a file or folder on our computer, or use a hard path (i.e., a full path like `C:/MyUserName/My_Documents/A_Folder_You_May_Have/But_This_One_You_Definitely_Dont/`). That's because this will pretty much **never** work on anyone's computer other than your own, and sometimes it may not even work on your own computer if you change a file name or folder! How can we make things reproducible for others, and for our future self? We advise using the `here` package.
 
 
-### Using the **[{here}](https://here.r-lib.org/)** package
+### Using the **[`here`](https://here.r-lib.org/)** package
 
-Good news! There's a package designed to make project-based workflows work so that code is portable between machines (i.e., you can share your project with a collaborator and they don't need to fiddle with working directories and file paths). The **{here}** package makes it easy to create a path *relative* to the top-level directory (the place where your current project is) with a single function: `here()`. In addition, we can use `here()` to build a relative path to a file for saving or loading. Let's say we're working in our `MyName/Documents/Projects/2020` folder.
+Good news! There's a package designed to make project-based workflows work so that code is portable between machines (i.e., you can share your project with a collaborator and they don't need to fiddle with working directories and file paths). The **`here`** package makes it easy to create a path *relative* to the top-level directory (the place where your current project is) with a single function: `here()`. In addition, we can use `here()` to build a relative path to a file for saving or loading. Let's say we're working in our `MyName/Documents/Projects/2020` folder.
 
 ```{r, eval=FALSE, echo=TRUE}
 
@@ -186,7 +186,7 @@ knitr::include_graphics("https://raw.githubusercontent.com/allisonhorst/stats-il
 
 ```
 
-Using the **{here}** package means we can share our project with other folks and it will work, and if something changes around inside the project, it will remain functional and accessible.
+Using the **`here`** package means we can share our project with other folks and it will work, and if something changes around inside the project, it will remain functional and accessible.
 
 In practice however, if we **always work from within an RProject**, we can simply use relative paths without the `here()` syntax -- that syntax just makes it very explicit what we're doing. 
 

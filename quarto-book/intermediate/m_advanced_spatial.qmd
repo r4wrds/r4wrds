@@ -16,7 +16,7 @@ library(knitr)
 ::: {.obj}
 **Learning objectives**
 
--   Learn to extend and use `{sf}` for geospatial work
+-   Learn to extend and use `sf` for geospatial work
 -   Understand the power of script-based geospatial/mapping
 -   Expand your geospatial skills in R!
 :::
@@ -40,9 +40,9 @@ For example, some common tasks may include:
 -   Integrating or spatial joining of datasets
 -   Reprojecting spatial data
 
-#### Script-based analyses with `{sf}`
+#### Script-based analyses with `sf`
 
-The `{sf}` package truly makes working with vector-based spatial data easy. We can use a pipeline that includes:
+The `sf` package truly makes working with vector-based spatial data easy. We can use a pipeline that includes:
 
 -   `st_read()`: read spatial data in (e.g., shapefiles)
 -   `st_transform()`: transform or reproject data
@@ -88,7 +88,7 @@ We'll leverage the ability to pull in many different data and stitch them all to
 
 #### Get State & County Data
 
-First we need state and county boundaries. The [`{tigris}`](https://github.com/walkerke/tigris) package is excellent for this.
+First we need state and county boundaries. The [`tigris`](https://github.com/walkerke/tigris) package is excellent for this.
 
 ```{r boundaries}
 
@@ -135,9 +135,9 @@ plot(sac_box, add = T, border = "orange", col = NA, lwd = 1.4)
 
 #### Iterate: Get Groundwater Stations
 
-Let's practice our iteration skills. We'll read in groundwater stations for 3 counties (*El Dorado*, *Placer*, and *Sacramento*), convert to {sf} objects, plot them, and then crop/select a subset of stations using spatial intersection.
+Let's practice our iteration skills. We'll read in groundwater stations for 3 counties (*El Dorado*, *Placer*, and *Sacramento*), convert to `sf` objects, plot them, and then crop/select a subset of stations using spatial intersection.
 
-Iteration...remember {`purrr`}? Let's use it here!
+Iteration...remember `purrr`? Let's use it here!
 
 ```{r get-stations}
 
@@ -172,12 +172,12 @@ One of the more common spatial operations is filtering or clipping data based on
 
 Often to complete a geospatial operation, we need to use a projected coordinate reference system[^3] (not latitude/longitude), so we can specify things in units that are easier to understand (kilometers or miles) instead of arc degrees, and so that the calculations take place correctly. Note, here we have transformed our data to match up.
 
-[^3]: A discussion on coordinate reference systems is a complex topic in and of itself, and for the purposes of this module, we summarize it as follows: A geographic CRS is **round** and based on *angular units* of degrees (lat/lng), whereas a projected CRS is **flat** and has *linear* units (meters or feet). Many functions in `{sf}` that make calculations on data expect a projected CRS, and can return inaccurate results if an object in a geographic CRS is used. This is a fascinating topic with lots written about it! For more reading see this [Esri blog](https://www.esri.com/arcgis-blog/products/arcgis-pro/mapping/gcs_vs_pcs/), the Data Carpentry [geospatial lesson](https://datacarpentry.org/organization-geospatial/03-crs/), and the [online Geocomputation with R book](https://geocompr.robinlovelace.net/reproj-geo-data.html).
+[^3]: A discussion on coordinate reference systems is a complex topic in and of itself, and for the purposes of this module, we summarize it as follows: A geographic CRS is **round** and based on *angular units* of degrees (lat/lng), whereas a projected CRS is **flat** and has *linear* units (meters or feet). Many functions in `sf` that make calculations on data expect a projected CRS, and can return inaccurate results if an object in a geographic CRS is used. This is a fascinating topic with lots written about it! For more reading see this [Esri blog](https://www.esri.com/arcgis-blog/products/arcgis-pro/mapping/gcs_vs_pcs/), the Data Carpentry [geospatial lesson](https://datacarpentry.org/organization-geospatial/03-crs/), and the [online Geocomputation with R book](https://geocompr.robinlovelace.net/reproj-geo-data.html).
 
 
 #### Filter
 
-We could certainly leverage the `data.frame` aspect of `{sf}` and quickly filter down to the stations of interest using the `COUNTY_NAME` field. 
+We could certainly leverage the `data.frame` aspect of `sf` and quickly filter down to the stations of interest using the `COUNTY_NAME` field. 
 
 :::challenge
 
@@ -276,7 +276,7 @@ We may want to save these data and send to colleagues before we proceed with fur
 
 [^2]: See the [iteration module](m_iteration.qmd#map) for an example of iterating over a write function.
 
-Let's use the `{purrr}` package to iterate over a lists and write each layer to a geopackage (a self contained spatial database). Geopackages are a great way to save vector-based spatial data, they can be read by ArcGIS and spatial software, and they are compact and self-contained (unlike shapefiles).
+Let's use the `purrr` package to iterate over a lists and write each layer to a geopackage (a self contained spatial database). Geopackages are a great way to save vector-based spatial data, they can be read by ArcGIS and spatial software, and they are compact and self-contained (unlike shapefiles).
 
 ```{r gpkg, echo=TRUE, eval=TRUE}
 

@@ -45,7 +45,7 @@ Next, visit the [`R` CRAN website](https://cran.r-project.org/) to see what the 
 
 <aside>
 
-When you update a **major** version of R, your personal library of packages will no longer work, and you will need to reinstall all of your packages. There are a few tools you can use to do this like **[{installr}](https://cran.r-project.org/web/packages/installr/)** for Windows machines, and **[{updateR}](https://github.com/AndreaCirilloAC/updateR)**. This work to stay up-to-date happens fairly infrequently.
+When you update a **major** version of R, your personal library of packages will no longer work, and you will need to reinstall all of your packages. There are a few tools you can use to do this like **[`installr`](https://cran.r-project.org/web/packages/installr/)** for Windows machines, and **[`updateR`](https://github.com/AndreaCirilloAC/updateR)**. This work to stay up-to-date happens fairly infrequently.
 
 </aside>
 
@@ -105,14 +105,14 @@ We recommend the following approach to updating `R` packages (check out the grea
 
  - ***Update packages frequently (weekly)***
  - ***Update R quarterly (or at least check)***
- - ***For complete reproducibility for a project check out the [`{renv}` package](https://rstudio.github.io/renv/articles/renv.html)***
+ - ***For complete reproducibility for a project check out the [`renv` package](https://rstudio.github.io/renv/articles/renv.html)***
  - ***Don't copy packages over between R versions--start clean and fresh***
 
-Updating packages can be irksome, but it's typically for the best. We advise updating your packages frequently if you regularly use `R` (e.g;, a weekly checks and updates to packages). If you want to be sure you have the exact package version for future use and reproducibility, the `{renv}` may be a great solution for an analysis or report, but may not be necessary if your aren't using or working on a specific project/analysis. `{renv}` keeps a record of your R packages within an RProject down to the exact version number when you originally loaded these packages, and allows you to update this record as your project evolves over time. 
+Updating packages can be irksome, but it's typically for the best. We advise updating your packages frequently if you regularly use `R` (e.g;, a weekly checks and updates to packages). If you want to be sure you have the exact package version for future use and reproducibility, the `renv` may be a great solution for an analysis or report, but may not be necessary if your aren't using or working on a specific project/analysis. `renv` keeps a record of your R packages within an RProject down to the exact version number when you originally loaded these packages, and allows you to update this record as your project evolves over time. 
 
 <aside>
 
-Read more about `{renv}` in the [project management module](../intro/m_project_management.qmd#renv).
+Read more about `renv` in the [project management module](../intro/m_project_management.qmd#renv).
 
 </aside>
 

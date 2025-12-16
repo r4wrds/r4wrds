@@ -118,7 +118,7 @@ Finally, let's keep in mind that the dataframe structure of this dataset is many
 
 ### Question 1: Well use and location
 
-What well uses are most common? We can answer this with `table(gwl$WELL_USE)`, but let's do the same thing with {`dplyr`} functions.
+What well uses are most common? We can answer this with `table(gwl$WELL_USE)`, but let's do the same thing with `dplyr` functions.
 
 ```{r well-use-count}
 gwl %>% 
@@ -157,7 +157,7 @@ p1 <- gwl %>%
 p1
 ```
 
-Understanding where wells are located is a spatial question, luckily these data contain spatial information we can use to make a map (see our last module [how to convert a dataframe to an sf object](m_intro_mapmaking.qmd#converting-a-dataframe-to-sf)). We know the well coordinates are using a projection and coordinate reference system in NAD83 (EPSG 4269), so we can convert this **`gw`** object to an {sf} object class. We will also import a Sacramento county polygon shapefile for plotting.
+Understanding where wells are located is a spatial question, luckily these data contain spatial information we can use to make a map (see our last module [how to convert a dataframe to an sf object](m_intro_mapmaking.qmd#converting-a-dataframe-to-sf)). We know the well coordinates are using a projection and coordinate reference system in NAD83 (EPSG 4269), so we can convert this **`gw`** object to an `sf` object class. We will also import a Sacramento county polygon shapefile for plotting.
 
 ```{r gwl-to-sf}
 
@@ -209,7 +209,7 @@ p2
 
 #### Combining Plots
 
-The {patchwork} R package is great for combining plots. We can combine the previous 2 plots with a simple "`+`" once patchwork is loaded.
+The `patchwork` R package is great for combining plots. We can combine the previous 2 plots with a simple "`+`" once patchwork is loaded.
 
 ```{r patchwork, out.width="100%", preview = TRUE}
 library(patchwork)
@@ -523,7 +523,7 @@ gwl_diff <- gwl_filt %>%
 
 ```
 
-Next we can replot our map without this erroneous value, and spruce things up a bit. Let's also add major rivers in Sacramento County, just to demonstrate the `LINESTRING` `{sf}` data type.
+Next we can replot our map without this erroneous value, and spruce things up a bit. Let's also add major rivers in Sacramento County, just to demonstrate the `LINESTRING` `sf` data type.
 
 
 ```{r gwl-map-gwl-fixed}
@@ -570,7 +570,7 @@ These trendlines suggest that observed depths to groundwater have increased duri
 
 ### Question 4: Relating groundwater to CES scores
 
-Finally, let's incorporate CES scores into our analysis and see how they relate to groundwater level trends. First, let's look at CES scores in Sacramento County on a basemap with `{mapview}`. Scores are assigned per Census Tract. Urban areas tend to have higher CES scores due to greater exposures across the range of variables that CES measures.
+Finally, let's incorporate CES scores into our analysis and see how they relate to groundwater level trends. First, let's look at CES scores in Sacramento County on a basemap with `mapview`. Scores are assigned per Census Tract. Urban areas tend to have higher CES scores due to greater exposures across the range of variables that CES measures.
 
 ```{r, eval = FALSE}
 

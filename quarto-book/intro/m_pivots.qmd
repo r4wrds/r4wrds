@@ -192,7 +192,7 @@ Although there is a potential risk to accidentally add a space in a blank cell, 
 
 ## Pivoting
 
-When we enter data in a spreadsheet, the data is typically oriented in a ***wide*** format. This makes entry easier and is generally easier for us to see, enter, and explore the data. Although ***wide*** data is more human-friendly for data entry, ***long*** data is much better for analysis and visualization. In particular, in `R`, the `{ggplot}` package prefers data in a ***long*** format, which facilitates easier filtering, grouping, and faceting of the data.
+When we enter data in a spreadsheet, the data is typically oriented in a ***wide*** format. This makes entry easier and is generally easier for us to see, enter, and explore the data. Although ***wide*** data is more human-friendly for data entry, ***long*** data is much better for analysis and visualization. In particular, in `R`, the `ggplot` package prefers data in a ***long*** format, which facilitates easier filtering, grouping, and faceting of the data.
 
 ### Wide to Long
 
@@ -210,7 +210,7 @@ We know these data should all be numeric, so let's fix this using some `dplyr` k
 
 <aside>
 
-Note, we need to use backticks for \``column names`\` because there are spaces and characters in our column names that aren't permitted by default in R. Tidy column names are helpful for this. See the excellent [`{janitor}`](http://sfirke.github.io/janitor/) package for more info.
+Note, we need to use backticks for \``column names`\` because there are spaces and characters in our column names that aren't permitted by default in R. Tidy column names are helpful for this. See the excellent [`janitor`](http://sfirke.github.io/janitor/) package for more info.
 
 </aside>
 
@@ -236,7 +236,7 @@ ncol(ces) # number of columns
 nrow(ces) # number of rows
 ```
 
-So, if we want to reformat or `pivot` this data from a wide format (there are `r ncol(ces)` columns, many of which are distinct variables measured as part of the CES calculation), we want to retain certain columns and collapse others. Let's focus on collapsing all the columns that are used to calculate the CES scores into a single column. So from `Ozone:Pop. Char. Pctl`, we should have one column we'll call `CES_variables` which will be all the various variable names from these columns, and a `CES_value` which will be the value associated with each of the columns we are collapsing or combining. We need the `{tidyr}` package for this, which is loaded as part of the `{tidyverse}`.
+So, if we want to reformat or `pivot` this data from a wide format (there are `r ncol(ces)` columns, many of which are distinct variables measured as part of the CES calculation), we want to retain certain columns and collapse others. Let's focus on collapsing all the columns that are used to calculate the CES scores into a single column. So from `Ozone:Pop. Char. Pctl`, we should have one column we'll call `CES_variables` which will be all the various variable names from these columns, and a `CES_value` which will be the value associated with each of the columns we are collapsing or combining. We need the `tidyr` package for this, which is loaded as part of the `tidyverse`.
 
 ```{r pivot-long, warning=FALSE}
 
@@ -254,7 +254,7 @@ dim(ces_long)
 str(ces_long)
 ```
 
-Wow! We just condensed our dataset from wide to long by collapsing 46 variables into a single column. That means there is some duplication in the data, but these data will be much easier to work with in {`ggplot`} or other downstream analyses in R. We can double check this worked as expected, because the original wide dataset had `r nrow(ces)` observations, so if we multiply `r nrow(ces)` * 46 variables, we should get the total number of observations in the `ces_long` dataset (n=`r nrow(ces)*46`).
+Wow! We just condensed our dataset from wide to long by collapsing 46 variables into a single column. That means there is some duplication in the data, but these data will be much easier to work with in `ggplot` or other downstream analyses in R. We can double check this worked as expected, because the original wide dataset had `r nrow(ces)` observations, so if we multiply `r nrow(ces)` * 46 variables, we should get the total number of observations in the `ces_long` dataset (n=`r nrow(ces)*46`).
 
 ### Long to Wide
 
@@ -270,7 +270,7 @@ ces_wide <- pivot_wider(data = ces_long,
 ```
 
 
-There are many additional options within the {tidyr} `pivot_` functions. We recommend further reading on [*pivoting at R4DS*](https://r4ds.had.co.nz/tidy-data.html#pivoting) and the [*`{tidyr}` pivoting vignette*](https://tidyr.tidyverse.org/articles/pivot.html), as well as checking out the `separate()` and `unite()` functions from the same package.
+There are many additional options within the `tidyr` `pivot_` functions. We recommend further reading on [*pivoting at R4DS*](https://r4ds.had.co.nz/tidy-data.html#pivoting) and the [*`tidyr` pivoting vignette*](https://tidyr.tidyverse.org/articles/pivot.html), as well as checking out the `separate()` and `unite()` functions from the same package.
 
 Happy wrangling!
 

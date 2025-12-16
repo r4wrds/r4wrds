@@ -115,7 +115,7 @@ d <- filter(d, COUNTY_NAME == "Sacramento")
 
 <br>
 
-We use copied URLs here, but for large, standardized websites you can use [`{rvest}` and SelectorGadget](https://rvest.tidyverse.org/articles/articles/selectorgadget.html) to automate scraping URLs and other data. We also used `purrr::reduce()` to recursively `left_join()` a list of dataframes. This is a powerful concept, because the alternative is to manually `left_join()` each list element. Read up on `?reduce` to learn more.
+We use copied URLs here, but for large, standardized websites you can use [`rvest` and SelectorGadget](https://rvest.tidyverse.org/articles/articles/selectorgadget.html) to automate scraping URLs and other data. We also used `purrr::reduce()` to recursively `left_join()` a list of dataframes. This is a powerful concept, because the alternative is to manually `left_join()` each list element. Read up on `?reduce` to learn more.
 
 <br>
 
@@ -181,7 +181,7 @@ ggplot(d_recent) +
   geom_smooth(aes(MSMT_DATE, WSE), method = "lm", se = FALSE)
 ```
 
-However, this isn't quite what we need. What we need is a linear model for *each and every one of the individual stations in this dataset*. `{ggplot2}` is great for visualizing what we are looking for. For example, here are a few of the monitoring sites, each with a unique linear model, which can be viewed with `facet_wrap()`.
+However, this isn't quite what we need. What we need is a linear model for *each and every one of the individual stations in this dataset*. `ggplot2` is great for visualizing what we are looking for. For example, here are a few of the monitoring sites, each with a unique linear model, which can be viewed with `facet_wrap()`.
 
 ```{r gwl-3}
 d_recent %>% 
@@ -192,7 +192,7 @@ d_recent %>%
   facet_wrap(~SITE_CODE)
 ```
 
- Now, it's time to calculate those numbers with `lm()`. We will use `{broom}` to tidy up model results in a clean dataframe. Note that because the class of our `MSMT_DATE` column is `"POSIXct"`, the units returned for our coefficient $\beta_1$ will be in $ft/sec$ rather than the more intuitive $ft/yr$, thus we define a function to handle the conversion from $ft/sec$ to $ft/yr$. For the entire dataset the average annual change in groundwater level over the 20 year timeframe is:
+ Now, it's time to calculate those numbers with `lm()`. We will use `broom` to tidy up model results in a clean dataframe. Note that because the class of our `MSMT_DATE` column is `"POSIXct"`, the units returned for our coefficient $\beta_1$ will be in $ft/sec$ rather than the more intuitive $ft/yr$, thus we define a function to handle the conversion from $ft/sec$ to $ft/yr$. For the entire dataset the average annual change in groundwater level over the 20 year timeframe is:
 
 ```{r gwl-sac}
 # convert from seconds to years
@@ -860,7 +860,7 @@ As with all things in coding, there are many ways to accomplish this, but some w
 
 Notice that `f_wcr_import()` has an argument `county`. To scale the analysis to Placer county, we would simply change the `county` argument to `"Placer"`. However, you may notice that `f_wcr_visualize_map()` and `f_wcr_visualize_timeseries()` both depend on a Sacramento county polygon, so you can swap that out with a Placer county polygon and be off to the races.  
 
-However, if you wanted to scale this to the state, you'd need to assemble polygons for all counties in the state. That sounds time consuming. However, as with most things, it's good practice to google what feels like a common problem, because chances are you're not the first person with this problem! In fact, there's a great way to grab county data from directly within `R` using the `{maps}` package. 
+However, if you wanted to scale this to the state, you'd need to assemble polygons for all counties in the state. That sounds time consuming. However, as with most things, it's good practice to google what feels like a common problem, because chances are you're not the first person with this problem! In fact, there's a great way to grab county data from directly within `R` using the `maps` package. 
 
 ```{r, maps-pkg}
 library(maps)
@@ -871,7 +871,7 @@ plot(counties)
 
 With all California counties in hand, we can re-write the function to filter this polygon to the county of interest. 
 
-Going one step further, if we had a dataset of groundwater levels across the entire US, `{maps}` has county polygons for each county, so it wouldn't be difficult to extend our code to a nationwide analysis. 
+Going one step further, if we had a dataset of groundwater levels across the entire US, `maps` has county polygons for each county, so it wouldn't be difficult to extend our code to a nationwide analysis. 
 
 
 </div>
@@ -891,7 +891,7 @@ Task schedulers vary by system. In general, they run a program at defined interv
 -   [How to set up `cron`, an open source task scheduler for Linux](https://www.richpauloo.com/post/crontabs/)    
 
 <aside>
-Also check out the [`{taskscheduleR}`](https://github.com/bnosac/taskscheduleR) and [`{cronR}`](https://github.com/bnosac/cronR) packages for Windows and Linux, which have RStudio add-ins.
+Also check out the [`taskscheduleR`](https://github.com/bnosac/taskscheduleR) and [`cronR`](https://github.com/bnosac/cronR) packages for Windows and Linux, which have RStudio add-ins.
 </aside>
 
 
@@ -901,8 +901,8 @@ Whenever code is running without your supervision on a task scheduler, things ma
 
 A full discussion of logging is out of scope for this lesson, but you can learn more about logging by browsing these packages:
 
-- [`{lgr}`](https://github.com/s-fleck/lgr)  
-- [`{logger}`](https://github.com/daroczig/logger/)  
+- [`lgr`](https://github.com/s-fleck/lgr)  
+- [`logger`](https://github.com/daroczig/logger/)  
 
 
 <br>

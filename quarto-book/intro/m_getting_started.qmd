@@ -35,8 +35,8 @@ This course's main objective is to provide students with a introduction to the p
  - Importing and exporting various water resources data
  - Strategies for Exploratory Data Analysis (EDA)
  - Strategies for troubleshooting (reading documentation, reproducible examples)
- - Transforming data with [`{dplyr}`](https://dplyr.tidyverse.org/)
- - Data visualization with [`{ggplot2}`](https://ggplot2.tidyverse.org/)
+ - Transforming data with [`dplyr`](https://dplyr.tidyverse.org/)
+ - Data visualization with [`ggplot2`](https://ggplot2.tidyverse.org/)
  - Data presentation and communication with [RMarkdown](https://rmarkdown.rstudio.com/)
 
 ### Why should I invest time in learning R?
@@ -147,9 +147,9 @@ Immediately below the **Environment** is the third section of RStudio, where all
 
 One of the reasons for R's popularity is CRAN, [The Comprehensive R Archive Network](http://cran.r-project.org/).  CRAN is where you download R and also where you can gain access to additional packages.  All of the packages we will use during this tutorial will be downloaded from CRAN.  As of `r format(Sys.time(), "%Y-%m-%d")`, there are `r format(nrow(available.packages()), big.mark = ",")` packages on CRAN! 
 
-#### Installing `{tidyverse}`
+#### Installing `tidyverse`
 
-When a package is installed, that means the source code is downloaded and put into your library. Let's give it a shot using the [{`tidyverse`}](https://tidyverse.tidyverse.org/index.qmd), a set of packages assembled for data tidying and visualization purposes.
+When a package is installed, that means the source code is downloaded and put into your library. Let's give it a shot using the [`tidyverse`](https://tidyverse.tidyverse.org/index.qmd), a set of packages assembled for data tidying and visualization purposes.
 
 We're going to use our very first function: `install.packages()` to install this package. Type the following into your *Console* and press `enter`:
 

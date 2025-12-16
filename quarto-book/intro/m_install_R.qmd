@@ -20,7 +20,7 @@ Our goal is for you to learn how to use these tools so you can get stuff done. Y
  1. Install [<img src="https://cran.r-project.org/Rlogo.svg" alt="R" width="5%">&nbsp;](https://cran.rstudio.com/)
  2. Install [<img src="https://d33wubrfki0l68.cloudfront.net/62bcc8535a06077094ca3c29c383e37ad7334311/a263f/assets/img/logo.svg" alt="RStudio" width="10%">&nbsp;](https://www.rstudio.com/products/rstudio/download/)
  3. Install R Packages & Test They Work
- 4. Install [Geospatial Packages](https://r-spatial.github.io/sf/) and <img src="https://user-images.githubusercontent.com/520851/34887433-ce1d130e-f7c6-11e7-83fc-d60ad4fae6bd.gif" alt="{sf}" width="5%">
+ 4. Install [Geospatial Packages](https://r-spatial.github.io/sf/) and <img src="https://user-images.githubusercontent.com/520851/34887433-ce1d130e-f7c6-11e7-83fc-d60ad4fae6bd.gif" alt="`sf`" width="5%">
 
  5. Download Data for the Workshop
 
@@ -133,7 +133,7 @@ That's OK! There’s a dialog box hiding behind RStudio asking if you want to cr
 
 ## Step 4. Install Geospatial Packages
 
-For some of the mapping and spatial lessons, we need a set of geospatial tools/packages. For the majority of the content we will cover, this requires installation of the [{`sf`}](https://r-spatial.github.io/sf/) package. When we run the lines below, we may get a question in the Console that is preceded by a list of package names and columns with `binary`, `source`, and `needs_compilation`. That's ok! 
+For some of the mapping and spatial lessons, we need a set of geospatial tools/packages. For the majority of the content we will cover, this requires installation of the [`sf`](https://r-spatial.github.io/sf/) package. When we run the lines below, we may get a question in the Console that is preceded by a list of package names and columns with `binary`, `source`, and `needs_compilation`. That's ok! 
 
 The **First Option** should be to try and install *without* compilation. So, if you run the lines below:
 
@@ -163,14 +163,14 @@ Just make sure to type "**No**" at the end of the line and hit `Enter`!
 
 ### `Windows` Geospatial Instructions (from source):
 
-To install {`sf`} successfully from source, Windows users will need to install [Rtools](https://cran.r-project.org/bin/windows/Rtools/). Download the 64-bit compiler. **Use the "R-release" version, not the R-devel version.** R-release is the stable version, and the devel version is in development. 
+To install `sf` successfully from source, Windows users will need to install [Rtools](https://cran.r-project.org/bin/windows/Rtools/). Download the 64-bit compiler. **Use the "R-release" version, not the R-devel version.** R-release is the stable version, and the devel version is in development. 
 
 Ensure that the Rtools installation matches the version of R you downloaded. For example if you downloaded R version 4.2.3, you would want Rtools version 4.2. 
 
 
 ### `MacOS` Geospatial Instructions (from source): 
 
-For MacOS users, follow the recommended instructions on the [{`sf`}](https://r-spatial.github.io/sf/) webpage, which if possible, requires opening a Terminal window and successfully installing [Homebrew with the code at this website](https://brew.sh/). You can test if `brew` is installed by typing `brew config` in the Terminal and hitting **Enter**.
+For MacOS users, follow the recommended instructions on the [`sf`](https://r-spatial.github.io/sf/) webpage, which if possible, requires opening a Terminal window and successfully installing [Homebrew with the code at this website](https://brew.sh/). You can test if `brew` is installed by typing `brew config` in the Terminal and hitting **Enter**.
 
 We can then install a few spatial tools (via Terminal still!) with the following code:
 
@@ -182,7 +182,7 @@ brew install gdal
 # then hit enter and wait
 ```
 
-At this point, you should now be able to install {`sf`} from binary on a Mac. Proceed to the next section!
+At this point, you should now be able to install `sf` from binary on a Mac. Proceed to the next section!
 
 ### Install Spatial R Packages
 
@@ -194,7 +194,7 @@ install.packages("sf")
 install.packages("mapview")
 ```
 
-For {`sf`}, try installing from binary first (so type "**No**" in your `R Console` window and hit **Enter**).
+For `sf`, try installing from binary first (so type "**No**" in your `R Console` window and hit **Enter**).
 
 Success should return something like this (not an error message) when you load the library with `library(sf)`:
 

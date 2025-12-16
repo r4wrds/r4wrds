@@ -43,7 +43,7 @@ knitr::include_graphics("images/New_York_City_Gridlock.jpeg")
 
 The trick that makes a join possible is to have one or more shared variables across each dataset. This may be an ID column, or a specific [data class](m_data_structures.qmd#basic-object-classes). Importantly, these data can actually have different column names, but typically each needs to have the same *class* of data (i.e., `character` and `character`) and some shared observations across each dataset in order to **join** the datasets.
 
-While this may seem daunting at first, it's not! R has some excellent tools built into the **`{dplyr}`** package that make joining datasets fairly straightforward. First let's import some data we can use to join. Here we will build off of the datasets we used in the [previous {dplyr} module](m_dplyr.qmd). 
+While this may seem daunting at first, it's not! R has some excellent tools built into the **`dplyr`** package that make joining datasets fairly straightforward. First let's import some data we can use to join. Here we will build off of the datasets we used in the [previous `dplyr` module](m_dplyr.qmd). 
 
 First let's load the libraries and data we'll be using. We'll be continuing to use some groundwater data as shown in previous modules, including a dataframe of **`stations`**, **`measurements`** through time, and information on **`perforations`**. We'll also *join* these data to the [CalEnviroscreen dataset](https://oehha.ca.gov/calenviroscreen) which "*identifies California communities by census tract that are disproportionately burdened by, and vulnerable to, multiple sources of pollution*". One of the most notable uses of the CalEnviroscreen dataset has been to inform CalEPA’s identification of disadvantaged communities. We'll be using CalEnviroscreen v3.0 in the code that follows.
 
@@ -132,7 +132,7 @@ What do we see? Looks like we have county names in both of these datasets, but t
 
 ## Join Types
 
-There are quite a few different join types that are available via the **{dplyr}** package. Here are some great animations by [Garrick Aden-Buie](https://www.garrickadenbuie.com/project/tidyexplain/#usage) that help illustrate the various join types. 
+There are quite a few different join types that are available via the **`dplyr`** package. Here are some great animations by [Garrick Aden-Buie](https://www.garrickadenbuie.com/project/tidyexplain/#usage) that help illustrate the various join types. 
 
 ### Left Join
 
@@ -422,7 +422,7 @@ sac_gw_all <- sac_gw_all %>%
 
 ## Save it Out!
 
-Remember how to do this? Let's save this using an R specific format, `.rds`, because it will retain the formatting and allow us to import/read in the data using whatever name we prefer. Here we'll use the `write_rds()` function from the `{readr}` package (part of the `{tidyverse}`). 
+Remember how to do this? Let's save this using an R specific format, `.rds`, because it will retain the formatting and allow us to import/read in the data using whatever name we prefer. Here we'll use the `write_rds()` function from the `readr` package (part of the `tidyverse`). 
 
 ```{r saveOut, echo=T, eval=T}
 

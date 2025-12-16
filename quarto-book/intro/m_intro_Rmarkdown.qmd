@@ -38,7 +38,7 @@ knitr::include_graphics("images/rmarkdown_wizards.png")
 
 ### Reproducible
 
-Depending on the tasks you are faced with, analysis is rarely something that happens a single time. We are constantly faced with tasks (sometimes small, sometimes large) that have repetitive information, or repetitive steps to complete. Making this process more reproducible by using reusable tools (*e.g. `{dplyr}`*) and skills (**R/Rmarkdown!**) means you save your future self time and energy, as well as make it easier to communicate and share your work.
+Depending on the tasks you are faced with, analysis is rarely something that happens a single time. We are constantly faced with tasks (sometimes small, sometimes large) that have repetitive information, or repetitive steps to complete. Making this process more reproducible by using reusable tools (*e.g. `dplyr`*) and skills (**R/Rmarkdown!**) means you save your future self time and energy, as well as make it easier to communicate and share your work.
 
 (ref:AHreproducible) *Illustrations from the [Openscapes](https://www.openscapes.org/) blog [Tidy Data for reproducibility, efficiency, and collaboration](https://www.openscapes.org/blog/2020/10/12/tidy-data/) by Julia Lowndes and Allison Horst"*
 
@@ -202,7 +202,7 @@ Knitting frequently can be tedious if you have a large document with lots of fig
 
 There's lots of great visualization materials out there, but there are a few helpful tips to keep in mind when using images or graphics in your R Markdown documents. While the default Markdown option does permit adding images with the `![](image.png)` syntax, it doesn't permit as much fine control.
 
-If we use a handy function from the `{knitr}` package, we can have more more concise control over the size and placement of an image without having to learn a lot of special code. For example, we can use either a local file path, or a url! In addition we can add some arguments that help us specify the size of the image, using the `out.width` or `out.height` parameters. Finally, we can add a caption with `fig.cap`. Note, here we want to hide the code and just show the image, so we use `echo=FALSE`.
+If we use a handy function from the `knitr` package, we can have more more concise control over the size and placement of an image without having to learn a lot of special code. For example, we can use either a local file path, or a url! In addition we can add some arguments that help us specify the size of the image, using the `out.width` or `out.height` parameters. Finally, we can add a caption with `fig.cap`. Note, here we want to hide the code and just show the image, so we use `echo=FALSE`.
 
 <aside>
 
@@ -243,11 +243,11 @@ knitr::include_graphics("https://raw.githubusercontent.com/richpauloo/rp/master/
 
 Sharing data in tables is a common need for reporting, summary, and analysis. There are a number of packages in R that may be helpful for making tables. This list is not exhaustive, and is meant to just show a few options that may be useful.
 
--   [{DT}](https://rstudio.github.io/DT/): Great for interactive and dynamic html based tables
--   {kable} & [{kableExtra}](https://haozhu233.github.io/kableExtra/): Highly customizable static or dynamic tables
--   [{gt}](https://gt.rstudio.com/): Very customizable static or dynamic tables
+-   [`DT`](https://rstudio.github.io/DT/): Great for interactive and dynamic html based tables
+-   `kable` & [`kableExtra`](https://haozhu233.github.io/kableExtra/): Highly customizable static or dynamic tables
+-   [`gt`](https://gt.rstudio.com/): Very customizable static or dynamic tables
 
-Let's load some data we can play with. We'll use some existing datasets that come with packages you already have installed. The {dplyr} package comes with a number of different datasets, as do many R packages[^4]. We'll use the *`storms`* dataset since it's large (+10,000 observations), and our `nwis_sites` from the American River which we created in a previous module.
+Let's load some data we can play with. We'll use some existing datasets that come with packages you already have installed. The `dplyr` package comes with a number of different datasets, as do many R packages[^4]. We'll use the *`storms`* dataset since it's large (+10,000 observations), and our `nwis_sites` from the American River which we created in a previous module.
 
 [^4]: To figure out what datasets are available across all installed packages, try `data(package = .packages(all.available = TRUE))`.
 
@@ -262,7 +262,7 @@ nwis_sites <- read_csv("data/nwis_sites_american_river.csv")
 
 ```
 
-For large unwieldy tables that you may want to just be able to quickly search or explore, the `{DT}` package is great, especially for `.html` documents. Let's make a table of the `storms` data. A nice feature of the `datatable()` is we can search and filter our table interactively.
+For large unwieldy tables that you may want to just be able to quickly search or explore, the `DT` package is great, especially for `.html` documents. Let's make a table of the `storms` data. A nice feature of the `datatable()` is we can search and filter our table interactively.
 
 ```{r tables-dt, warning=FALSE, message=FALSE}
 
@@ -276,7 +276,7 @@ storms %>%
 
 <br>
 
-For a quick and easy static table, the `kable()` function from `{knitr}` is great. We can simply pass a dataframe to the function and we get a table! For more fancy options, we can use the functions from the `{kableExtra}` package.
+For a quick and easy static table, the `kable()` function from `knitr` is great. We can simply pass a dataframe to the function and we get a table! For more fancy options, we can use the functions from the `kableExtra` package.
 
 ```{r tables-kable1}
 
@@ -289,7 +289,7 @@ storms %>%
 
 <br>
 
-Here's a slightly fancier option using `{kableExtra}`. See the great [vignette](https://haozhu233.github.io/kableExtra/awesome_table_in_html.html) for more details.
+Here's a slightly fancier option using `kableExtra`. See the great [vignette](https://haozhu233.github.io/kableExtra/awesome_table_in_html.html) for more details.
 
 ```{r tables-kableExtra}
 
@@ -304,7 +304,7 @@ storms %>%
 
 <br>
 
-For nicely formatted tables and lots of control, the `{gt}` package is good. It does take a little more wrangling to get things formatted, but there's great documentation for this package as well.
+For nicely formatted tables and lots of control, the `gt` package is good. It does take a little more wrangling to get things formatted, but there's great documentation for this package as well.
 
 ```{r tables-gt, echo=TRUE, eval=TRUE}
 
@@ -331,9 +331,9 @@ tab2
 
 ## Interactive Maps
 
-And as you've seen from previous modules, we can also add maps! This is also a really nice way to share lots of information. We can only add `{mapview}` maps if we are using an html-based output, but they work well in R Markdown.
+And as you've seen from previous modules, we can also add maps! This is also a really nice way to share lots of information. We can only add `mapview` maps if we are using an html-based output, but they work well in R Markdown.
 
-Let's plot our NWIS Stations from the American River that we already loaded above. First we need to convert these data to {sf}. Let's show code that does that. Remember to use `eval=TRUE` and `echo=TRUE`! One additional tip is to *label your R code chunks*. This helps us troubleshoot when things are not knitting properly, and helps keep things organized.
+Let's plot our NWIS Stations from the American River that we already loaded above. First we need to convert these data to `sf`. Let's show code that does that. Remember to use `eval=TRUE` and `echo=TRUE`! One additional tip is to *label your R code chunks*. This helps us troubleshoot when things are not knitting properly, and helps keep things organized.
 
 <aside>
 
@@ -349,9 +349,9 @@ Code chunk labels show up in the outline, so making them informative is good. No
 
     ```
 
-Next we can make our map with `mapview()`. Note, there may be a minor rendering issue with `{mapview}`. Adding `fgb=FALSE` seems to address this![^5] Note, here we are going to hide our code (`echo = FALSE` in the code chunk options) so that we only show the results!
+Next we can make our map with `mapview()`. Note, there may be a minor rendering issue with `mapview`. Adding `fgb=FALSE` seems to address this![^5] Note, here we are going to hide our code (`echo = FALSE` in the code chunk options) so that we only show the results!
 
-[^5]: {mapview} is not a static package. Rather, it's under active development. At the time of writing, the solution to inserting mapview objects into an html document is to use `mapviewOptions(fgb=FALSE)`. In the future, this may change so that it's not needed and mapview objects in an html document "just work". A benefit of using open source projects is that conversations about these fixes and updates can sometimes come from the package developers themselves, as in the case of [this mapview issue discussed on Github that provided our fix](https://github.com/r-spatial/mapview/issues/312).
+[^5]: `mapview` is not a static package. Rather, it's under active development. At the time of writing, the solution to inserting mapview objects into an html document is to use `mapviewOptions(fgb=FALSE)`. In the future, this may change so that it's not needed and mapview objects in an html document "just work". A benefit of using open source projects is that conversations about these fixes and updates can sometimes come from the package developers themselves, as in the case of [this mapview issue discussed on Github that provided our fix](https://github.com/r-spatial/mapview/issues/312).
 
 
     ```{r make-nwis-mapview, echo=FALSE, eval=TRUE}`r ''`
@@ -381,14 +381,14 @@ We've demonstrated that R Markdown can be used for creating html files. This is 
 
 ## Additional Resources
 
-There many different types of outputs possible, including slide presentations (see [{xaringan}](https://slides.yihui.org/xaringan/#1) and [RStudio's page on slides](https://rmarkdown.rstudio.com/lesson-11.html)), pdfs, and word docs. 
+There many different types of outputs possible, including slide presentations (see [`xaringan`](https://slides.yihui.org/xaringan/#1) and [RStudio's page on slides](https://rmarkdown.rstudio.com/lesson-11.html)), pdfs, and word docs. 
 
 Here's a sample of some good resources that are freely available online:
 
 - [One R Markdown document, 14 demos](https://www.rstudio.com/resources/rstudioconf-2020/one-r-markdown-document-fourteen-demos/): a video of a talk by R Markdown creator and developer Yihui Xie at rstudio::conf(2020)  
 - [R Markdown (online book)](https://bookdown.org/yihui/rmarkdown/): all the tips and details you could ever want
 - [Tips for Working with Images in R Markdown](http://zevross.com/blog/2017/06/19/tips-and-tricks-for-working-with-images-and-figures-in-r-markdown-documents/): Helpful tips on sizing and image resolution
-- [Working with pdf's via R Markdown using the {tinytex} package](https://bookdown.org/yihui/rmarkdown-cookbook/install-latex.html): you'll need a LaTeX distribution installed in order to render or knit to pdf. The [{tinytex} package](https://yihui.org/tinytex/) is a great solution.
+- [Working with pdf's via R Markdown using the `tinytex` package](https://bookdown.org/yihui/rmarkdown-cookbook/install-latex.html): you'll need a LaTeX distribution installed in order to render or knit to pdf. The [`tinytex` package](https://yihui.org/tinytex/) is a great solution.
 
 
 <br>  

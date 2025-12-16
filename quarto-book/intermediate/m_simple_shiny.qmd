@@ -30,13 +30,13 @@ According to the [Mastering Shiny](https://mastering-shiny.org/index.qmd) book:
 
 <aside>
 
-Shiny Apps are made using the [`{shiny}`](https://github.com/rstudio/shiny) package.
+Shiny Apps are made using the [`shiny`](https://github.com/rstudio/shiny) package.
 
 </aside>
 
 Because they extend `R`-based analyses, interactive Shiny Apps have as many diverse niches and uses as the the `R` community itself, and it's likely that you have come across a Shiny App in the wild before.
 
-Shiny Apps are highly customizable, and allow `R` users to wrap existing code and data with an additional layer of interactivity using `R` code from the `{shiny}` package to better visualize, analyze, export, and more. This allows any user (even non-`R` users!) to interact with the data, providing a powerful way of exploring and understanding the data within the Shiny App.
+Shiny Apps are highly customizable, and allow `R` users to wrap existing code and data with an additional layer of interactivity using `R` code from the `shiny` package to better visualize, analyze, export, and more. This allows any user (even non-`R` users!) to interact with the data, providing a powerful way of exploring and understanding the data within the Shiny App.
 
 Now that we know what a Shiny App is, a fundamental question that we need to answer is "when and why should I build a Shiny App?" Generally, you should create a Shiny App when you want to make results and/or data available to others, or when the dataset is complex enough to warrant a Shiny App to ease exploration. To provide a specific example, let's examine a case study.
 
@@ -259,7 +259,7 @@ include_graphics("images/shiny_outputs.png")
 
 <aside>
 
-There are other types of output not included in the `{shiny}` package for objects created by other packages, for example `leaflet::leafletOutput()` and `DT::dataTableOutput()` create [`leaflet`](https://rstudio.github.io/leaflet/) and [`DT`](https://rstudio.github.io/DT/) objects.
+There are other types of output not included in the `shiny` package for objects created by other packages, for example `leaflet::leafletOutput()` and `DT::dataTableOutput()` create [`leaflet`](https://rstudio.github.io/leaflet/) and [`DT`](https://rstudio.github.io/DT/) objects.
 
 </aside>
 
@@ -346,7 +346,7 @@ include_graphics("images/shiny_render.png")
 
 ## Putting it all together
 
-Let's take what we've covered and put it all together to address the [Case Study](#case-study-sacramento-county-groundwater-elevation) introduced above. We will build a simple Shiny App with a `plotOutput()` and `DT::dataTableOutput()` that shows the hydrograph and data for a user-specified monitoring point. We'll also include data download buttons within the data table and demonstrate how to make the plot interactive with [`{plotly}`](https://plotly.com/r/).
+Let's take what we've covered and put it all together to address the [Case Study](#case-study-sacramento-county-groundwater-elevation) introduced above. We will build a simple Shiny App with a `plotOutput()` and `DT::dataTableOutput()` that shows the hydrograph and data for a user-specified monitoring point. We'll also include data download buttons within the data table and demonstrate how to make the plot interactive with [`plotly`](https://plotly.com/r/).
 
 ```{r, eval = FALSE}
 library(shiny)
@@ -432,7 +432,7 @@ shinyApp(ui = ui, server = server)
 
 The `sidebarLayout()` and `tabsetPanel()` functions demonstrated in this module are just a few of the many [layout options](https://shiny.rstudio.com/articles/layout-guide.html) to configure the placement of control widgets and outputs in your Shiny Apps.
 
-Shiny App design and customization options are vast. We demonstrated the "united" theme here, which is one of many [`{shinythemes}`](https://shiny.rstudio.com/gallery/shiny-theme-selector.html). You can also add [custom CSS](https://shiny.rstudio.com/articles/css.html) in-line, or in a `styles.css` script in the Shiny App directory.
+Shiny App design and customization options are vast. We demonstrated the "united" theme here, which is one of many [`shinythemes`](https://shiny.rstudio.com/gallery/shiny-theme-selector.html). You can also add [custom CSS](https://shiny.rstudio.com/articles/css.html) in-line, or in a `styles.css` script in the Shiny App directory.
 
 Finally, although we demonstrate a simple Shiny App, more functional and complex Apps may benefit from modularizing particular App components. [Learn more about building Shiny modules here](https://shiny.rstudio.com/articles/modules.html).
 
@@ -444,7 +444,7 @@ Finally, although we demonstrate a simple Shiny App, more functional and complex
 
 1.  Before anything else, we loaded the packages we needed[^5] and our groundwater level data `gwl`.
 
-2.  Next, in the `ui`, we added a custom theme from the `{shinythemes}` package to change the default appearance of our App. We used a `selectInput()` control widget with a ID `"site_code"` and choices equal to the unique values of `SITE_CODE`s in the `gwl` dataframe. Then, in the `mainPanel()` we added a `tabsetPanel()` with two `tabPanel()` tabs: one with a `plotly::plotlyOutput()` plot, and another with a `DT::dataTableOutput()` output.
+2.  Next, in the `ui`, we added a custom theme from the `shinythemes` package to change the default appearance of our App. We used a `selectInput()` control widget with a ID `"site_code"` and choices equal to the unique values of `SITE_CODE`s in the `gwl` dataframe. Then, in the `mainPanel()` we added a `tabsetPanel()` with two `tabPanel()` tabs: one with a `plotly::plotlyOutput()` plot, and another with a `DT::dataTableOutput()` output.
 
 3.  Finally, in the `server`, we rendered plotly and dataTable objects and saved them to the `output` object under the output IDs `"gwl_plot"` and `"gwl_data"`. These objects are displayed in the `ui`.
 
@@ -471,7 +471,7 @@ There are a range of services that allow us to deploy Shiny Apps that range from
 
 A relatively painless way to deploy is via [shinyapps.io](https://www.shinyapps.io/), run by RStudio. A free tier is available, and provides a limited number of "live hours" per month for users to interact with your App. Paid tiers afford more "live hours" per month, a faster web server, and features like password protection.
 
-`{shiny}` is open source, and in that spirit, the open source [Shiny Server](https://www.rstudio.com/products/shiny/shiny-server/) can be installed on any local or cloud server (e.g., AWS, Google Cloud, Microsoft Azure). If you don't have a background in cloud computing, your System Administrator (Sys Admin) can help you move your App onto a cloud or company server[^6]. Although this option requires more manual setup than shinyapps.io, it offers a non-commercial alternative, and perhaps more control depending on your needs.
+`shiny` is open source, and in that spirit, the open source [Shiny Server](https://www.rstudio.com/products/shiny/shiny-server/) can be installed on any local or cloud server (e.g., AWS, Google Cloud, Microsoft Azure). If you don't have a background in cloud computing, your System Administrator (Sys Admin) can help you move your App onto a cloud or company server[^6]. Although this option requires more manual setup than shinyapps.io, it offers a non-commercial alternative, and perhaps more control depending on your needs.
 
 [^6]: The [Shiny Server Administrator's Guide](%5Bhttps://docs.rstudio.com/shiny-server/)](<https://docs.rstudio.com/shiny-server/>)) provides detailed documentation geared towards System Administrators that will help in deploying a Shiny App.
 
@@ -480,7 +480,7 @@ A relatively painless way to deploy is via [shinyapps.io](https://www.shinyapps.
 
 ## Extending Shiny
 
-Congratulations! You're now familiar with the basics of `{shiny}`. This module is just the tip of the iceberg. There are so many ways to extend `{shiny}`, and the opportunities for customization of Shiny Apps are vast. We recommend the following ways to increase your knowledge in this domain:
+Congratulations! You're now familiar with the basics of `shiny`. This module is just the tip of the iceberg. There are so many ways to extend `shiny`, and the opportunities for customization of Shiny Apps are vast. We recommend the following ways to increase your knowledge in this domain:
 
 -   find open source Shiny Apps that you admire, clone their source code to your machine, run the App, and change things so you can explore how the App works. Borrow bits of code in new Apps you create\
 -   find a side project that's a good candidate for a Shiny App and build one - it doesn't need to be work-related; in fact, it might be more fun to work on something tangential that you find interesting\

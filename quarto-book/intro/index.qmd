@@ -45,8 +45,8 @@ In this course, we start from first principles and assume no prior experience wi
  - Importing and exporting various water resources data
  - Strategies for Exploratory Data Analysis (EDA)
  - Strategies for troubleshooting (reading documentation, intro to reprex)
- - Transforming data with `{dplyr}`
- - Data visualization with `{ggplot2}`
+ - Transforming data with `dplyr`
+ - Data visualization with `ggplot2`
  - Data presentation and communication with RMarkdown
 
 
@@ -66,15 +66,15 @@ knitr::include_graphics(path = "https://raw.githubusercontent.com/allisonhorst/s
 2. [Get oriented in RStudio](m_getting_started.qmd)  
 3. [Practice data and file management: understand RProjects and file paths](m_project_management.qmd) 
 4. [Import and export various water resources data](m_importing_and_exporting_data.qmd)   
-5. [Visualize data with {`ggplot2`}](m_ggplot.qmd)   
+5. [Visualize data with `ggplot2`](m_ggplot.qmd)   
 6. [Understand and identify different data structures (i.e., vectors, dataframes, lists)](m_data_structures.qmd)    
-7. [Transform data with {`dplyr`}](m_dplyr.qmd)    
+7. [Transform data with `dplyr`](m_dplyr.qmd)    
 8. [Discuss spreadsheets and pivots](m_pivots.qmd)    
 9. [Learn how to write custom functions](m_functions.qmd)  
 10. [Join different datasets together](m_joins.qmd)  
 11. [Use spatial data to create static and interactive maps](m_intro_mapmaking.qmd)  
 12. [Explore strategies for Exploratory Data Analysis (EDA)](m_exploratory_DA.qmd)  
-13. [Practice data presentation and communication with {`RMarkdown`}](m_intro_Rmarkdown.qmd)  
+13. [Practice data presentation and communication with `RMarkdown`](m_intro_Rmarkdown.qmd)  
 14. [Explore strategies for troubleshooting (reading documentation, intro to reprex)](m_troubleshooting.qmd)  
 
 

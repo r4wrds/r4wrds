@@ -25,7 +25,7 @@ What makes an *Intermediate `R` user*? This course is most relevant and targeted
 
 -   Took the [Introductory R4WRDS](../intro/index.qmd) course
 -   Regularly use `R` and want improve their efficiency and skill set
--   Have a general understanding and proficiency in using `{dplyr}`, `{ggplot2}`, `{sf}`, and `{rmarkdown}`
+-   Have a general understanding and proficiency in using `dplyr`, `ggplot2`, `sf`, and `rmarkdown`
 -   Understand (and use) general best practices for data science in `R`
 
 <br>

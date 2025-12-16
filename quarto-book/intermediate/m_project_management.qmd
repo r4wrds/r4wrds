@@ -20,7 +20,7 @@ library(purrr)
 -   Create and use an RStudio project (.RProj)\
 -   Understand how and when to modify `.RProfile` and `.Renviron` files
 -   Apply strategies to organize functions and scripts
--   Understand package environments and how to manage them with `{renv}`
+-   Understand package environments and how to manage them with `renv`
 :::
 
 <br>
@@ -56,7 +56,7 @@ A *development environment* is the set of tools you use to process data and the 
 After reviewing core introductory topics, we will discuss `.RProfile` and `.Renviron` files and when to use them. To review core best practices we recommend particular familiarity with the following concepts:
 
 -   [Filenaming](../intro/m_project_management.qmd#safe-file-naming)
--   [Relative filepaths and the **`{here}`** package](../intro/m_project_management.qmd#file-paths)
+-   [Relative filepaths and the **`here`** package](../intro/m_project_management.qmd#file-paths)
 -   [Best practices for project organization](../intro/m_project_management.qmd#best-practices-organization-tips)
 
 <br>
@@ -75,7 +75,7 @@ You can also "show hidden files" (instructions for [Mac](https://www.macworld.co
 
 ### Global (user-level) `.Rprofile`
 
-The easiest and most consistent way to edit your `.RProfile` file across operating systems is with the `{usethis}` package. Run `usethis::edit_r_profile()` to open your user-level (or *global*) `.RProfile`. This is the default `.Rprofile` that will be used for any and all projects *unless* you have a local (project-level) `.Rprofile`.
+The easiest and most consistent way to edit your `.RProfile` file across operating systems is with the `usethis` package. Run `usethis::edit_r_profile()` to open your user-level (or *global*) `.RProfile`. This is the default `.Rprofile` that will be used for any and all projects *unless* you have a local (project-level) `.Rprofile`.
 
 ```{r usethis-rprofile, eval = FALSE}
 usethis::edit_r_profile()
@@ -95,7 +95,7 @@ usethis::edit_r_profile(scope = "project")
 
 To illustrate how `.RProfile` works, let's do something cool and useless. We'll write a short program that greets us with a random inspirational quote, and then we'll put in `.RProfile` so it runs whenever we start up R.
 
-The [`{cowsay}`](https://cran.r-project.org/web/packages/cowsay/vignettes/cowsay_tutorial.html) package is a fun way to print text animal art.
+The [`cowsay`](https://cran.r-project.org/web/packages/cowsay/vignettes/cowsay_tutorial.html) package is a fun way to print text animal art.
 
 ```{r cowsay}
 cowsay::say(what = "hello world!", by = "cow")
@@ -404,20 +404,20 @@ It's also a good rule of thumb to keep each line of code less than 75 characters
 
 <p style="line-height: 1.5em;">
 
-Separating all functions into standalone scripts is not a revolutionary idea -- in fact, this is precisely how R packages are written! For example, see the [`{dplyr}` github repo's /R folder](https://github.com/tidyverse/dplyr/tree/master/R) which contains all dplyr functions in one directory. When you call `library(dplyr)` you're essentially sourcing all of these functions into your environment.
+Separating all functions into standalone scripts is not a revolutionary idea -- in fact, this is precisely how R packages are written! For example, see the [`dplyr` github repo's /R folder](https://github.com/tidyverse/dplyr/tree/master/R) which contains all dplyr functions in one directory. When you call `library(dplyr)` you're essentially sourcing all of these functions into your environment.
 
 </p>
 
 <p style="line-height: 1.5em;">
 
-If project management and reproducible data pipelines are interesting to you, check out the [`{targets}` R package](https://docs.ropensci.org/targets/index.qmd). A similar framework for Shiny Apps exists called [`{golem}`](https://thinkr-open.github.io/golem/), which also includes `{usethis}`-like commands that streamline common chores in Shiny App development.
+If project management and reproducible data pipelines are interesting to you, check out the [`targets` R package](https://docs.ropensci.org/targets/index.qmd). A similar framework for Shiny Apps exists called [`golem`](https://thinkr-open.github.io/golem/), which also includes `usethis`-like commands that streamline common chores in Shiny App development.
 
 </p>
 :::
 
 <br>
 
-# `{renv}`
+# `renv`
 
 We use RProjects because we expect that whoever else opens your code on their machine is likely to have a different project root path, and using an RProject ensures your code is portable between different computers with different root project paths (e.g., `~/Documents/Github/myproject` versus `C:\Users\louis\Documents\myproject`).
 
@@ -441,7 +441,7 @@ Even the version of R itself changes, although base R changes very slowly and th
 
 The solution to this problem is for everyone to use the same versions of packages (and `R`), which is to say that collaborators should use the same ***development environment***. This is a common concept across programming languages.
 
-[`{renv}`](https://rstudio.github.io/renv/articles/renv.html) manages your package environment and makes it easy to share it with others by creating and curating a "lock" file (`renv.lock`) in the root project directory. When starting a project, create the file with `renv::init()`, install packages as you go along, and update the lockfile with `renv::snapshot()`. When a collaborator opens your project (for example, after cloning it from Github), all they need to do is open the `.RProj` file and `{renv}` will automatically set up the development environment captured in the lock file.
+[`renv`](https://rstudio.github.io/renv/articles/renv.html) manages your package environment and makes it easy to share it with others by creating and curating a "lock" file (`renv.lock`) in the root project directory. When starting a project, create the file with `renv::init()`, install packages as you go along, and update the lockfile with `renv::snapshot()`. When a collaborator opens your project (for example, after cloning it from Github), all they need to do is open the `.RProj` file and `renv` will automatically set up the development environment captured in the lock file.
 
 <aside>
 
@@ -449,7 +449,7 @@ The `renv.lock` file is a JSON file with information on the version of R and the
 
 </aside>
 
-If you find yourself needing to share important analyses, perhaps that run on a production server, you should look into `{renv}`. For most day-to-day data science that you don't plan on sharing or working collaboratively on, it may be unnecessary.
+If you find yourself needing to share important analyses, perhaps that run on a production server, you should look into `renv`. For most day-to-day data science that you don't plan on sharing or working collaboratively on, it may be unnecessary.
 
 <br>
 
