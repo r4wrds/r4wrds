@@ -28,9 +28,8 @@ Check out the [RMarkdown Gallery](https://rmarkdown.rstudio.com/gallery.html) fo
 
 </aside>
 
-(ref:AHrmdplot) *Illustration by @allison_horst*
 
-```{r rmarkdownwiz, eval=TRUE, echo=FALSE, out.width='100%', fig.cap='(ref:AHrmdplot)'}
+```{r rmarkdownwiz, eval=TRUE, echo=FALSE, out.width='100%', fig.cap="*Illustration by @allison_horst*"}
 
 knitr::include_graphics("images/rmarkdown_wizards.png")
 
@@ -40,9 +39,8 @@ knitr::include_graphics("images/rmarkdown_wizards.png")
 
 Depending on the tasks you are faced with, analysis is rarely something that happens a single time. We are constantly faced with tasks (sometimes small, sometimes large) that have repetitive information, or repetitive steps to complete. Making this process more reproducible by using reusable tools (*e.g. `dplyr`*) and skills (**R/Rmarkdown!**) means you save your future self time and energy, as well as make it easier to communicate and share your work.
 
-(ref:AHreproducible) *Illustrations from the [Openscapes](https://www.openscapes.org/) blog [Tidy Data for reproducibility, efficiency, and collaboration](https://www.openscapes.org/blog/2020/10/12/tidy-data/) by Julia Lowndes and Allison Horst"*
 
-```{r reproducible, eval=TRUE, echo=FALSE, out.width='100%', fig.cap='(ref:AHreproducible)'}
+```{r reproducible, eval=TRUE, echo=FALSE, out.width='100%', fig.cap="*Illustrations from the [Openscapes](https://www.openscapes.org/) blog [Tidy Data for reproducibility, efficiency, and collaboration](https://www.openscapes.org/blog/2020/10/12/tidy-data/) by Julia Lowndes and Allison Horst\"*"}
 
 knitr::include_graphics("images/tidydata_5.jpg")
 

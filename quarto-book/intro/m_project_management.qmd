@@ -209,9 +209,8 @@ In fact, we should all make our default setting a blank slate. We should only be
 
  > In RStudio, set this via *Tools > Global Options*
  
-(ref:workspaceDef) *Change defaults to never save your workspace to `.RData`! (Credit to Jenny Bryan and Jim Hester at [rstats.wtf](https://rstats.wtf/save-source.html))*
 
-```{r tidyplotgraphic, eval=TRUE, out.width='100%', fig.cap='(ref:workspaceDef)', preview = TRUE}
+```{r tidyplotgraphic, eval=TRUE, out.width='100%', fig.cap="*Change defaults to never save your workspace to `.RData`! (Credit to Jenny Bryan and Jim Hester at [rstats.wtf](https://rstats.wtf/save-source.html))*", preview = TRUE}
 
 knitr::include_graphics(path="images/rstudio-workspace-default.png")
 

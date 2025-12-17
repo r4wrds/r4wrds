@@ -29,10 +29,9 @@ knitr::opts_chunk$set(out.width="100%")
 
 Data visualization allows us to effectively explore data in an Exploratory Data Analysis (EDA), and allows us to communicate the results of an analysis or modeling exercise. A powerful package for data visualization in R is **`ggplot2`** (part of the **`tidyverse`** set of packages). **`ggplot2`** stands for "**g**rammar of **g**raphics **plot**" and generally provides a semantic syntax for data visualization that breaks down graphs in terms of *aesthetics*, *geoms*, *coordinates*, *scales*, and more, which allows users to create visualizations that range from simple to extraordinarily complex. The act of creating visualizations is not only useful, but also fun and motivating, so we cover it early, before more advanced data manipulation in subsequent modules. By the end of this module you will be able to create beautiful ggplots made entirely in R, and take your first steps towards reproducible and elegant data visualization.
 
-(ref:ah-ggplot) *Illustration by @allison_horst.*
 
 
-```{r ggplot-evl, eval=TRUE, echo=FALSE, out.width='80%', fig.cap='(ref:ah-ggplot)'}
+```{r ggplot-evl, eval=TRUE, echo=FALSE, out.width='80%', fig.cap="*Illustration by @allison_horst.*"}
 knitr::include_graphics("images/ggplot2.png")
 ```
 
@@ -53,21 +52,18 @@ knitr::include_graphics("images/mandala.png")
 </aside>
 
 
-(ref:cedric) *[Evolution of a ggplot](https://www.cedricscherer.com/2019/05/17/the-evolution-of-a-ggplot-ep.-1/), by Cedric Scherer shows how one can progressively refine and customize a gpplot.*
 
-```{r ggplot-evol, eval=TRUE, echo=FALSE, out.width='80%', fig.cap='(ref:cedric)'}
+```{r ggplot-evol, eval=TRUE, echo=FALSE, out.width='80%', fig.cap="*[Evolution of a ggplot](https://www.cedricscherer.com/2019/05/17/the-evolution-of-a-ggplot-ep.-1/), by Cedric Scherer shows how one can progressively refine and customize a gpplot.*"}
 knitr::include_graphics("images/ggplot_evolution.gif")
 ```
 
-(ref:timo) *Created by [Timo Grossenbacher](https://timogrossenbacher.ch/2016/12/beautiful-thematic-maps-with-ggplot2-only/) @grssnbchr.*
 
-```{r p1, eval=TRUE, echo=FALSE, out.width='80%', fig.cap='(ref:timo)'}
+```{r p1, eval=TRUE, echo=FALSE, out.width='80%', fig.cap="*Created by [Timo Grossenbacher](https://timogrossenbacher.ch/2016/12/beautiful-thematic-maps-with-ggplot2-only/) @grssnbchr.*"}
 knitr::include_graphics("images/switzerland.png")
 ```
 
-(ref:cedric2) *Travelling to Outer Space by [Cédric Scherer](https://www.cedricscherer.com/top/dataviz/) @CedScherer.*
 
-```{r p2, eval=TRUE, echo=FALSE, out.width='80%', fig.cap='(ref:cedric2)'}
+```{r p2, eval=TRUE, echo=FALSE, out.width='80%', fig.cap="*Travelling to Outer Space by [Cédric Scherer](https://www.cedricscherer.com/top/dataviz/) @CedScherer.*"}
 knitr::include_graphics("images/2020_29_Astronauts_blur_color.png")
 ```
 

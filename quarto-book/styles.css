@@ -37,27 +37,6 @@ pre {
 
 /* add a summary click box option */
 
-/* turn off arrow completely in summary box */
-summary::-webkit-details-marker {
-  display: none;
-}
-
-/* make marker something before click */
-summary::before {
-    font-family: "Font Awesome 5 Free"; 
-    font-weight: 900; 
-    content: "\f13a";
-    color: #228B22;
-}
-
-/* and after click */
-details[open] summary:before {
-    font-family: "Font Awesome 5 Free"; 
-    font-weight: 900; 
-    content: "\f139";
-    color: gray;
-}
-
 .challenge-ans-title {
   font-size: 18px;
   line-height: 1.5em;

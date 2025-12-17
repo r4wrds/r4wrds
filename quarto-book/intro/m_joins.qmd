@@ -27,10 +27,9 @@ options(scipen = 14)
 
 We often need to take several datasets and merge them into a single dataset that we can use for analysis. This "**join**" can at times be tricky, and can be made more so if we aren't exactly sure what data matches up between the two datasets, or if the same data is named differently in each dataframe. Sometimes joining data can resemble more of a gridlock than a clean and seamless merge.
 
-(ref:gridlockWiki) Merging Data? *(source Wikipedia Commons)*
 
 <center>
-```{r gridlock, echo=FALSE, fig.cap="(ref:gridlockWiki)", out.height="50%", preview = TRUE}
+```{r gridlock, echo=FALSE, fig.cap="Merging Data? *(source Wikipedia Commons)*", out.height="50%", preview = TRUE}
 
 # "https://upload.wikimedia.org/wikipedia/commons/8/82/New_York_City_Gridlock.jpg"
 
@@ -111,9 +110,8 @@ compare_df_cols(gw_stations, gw_perf, gw_measurements)
 
 Now we'd like to know if there are similar data columns between the groundwater datasets and the CalEnviroscreen data. To do this let's inspect our `stations` and `calenviro` data with either `head` or `names` or `str`. All will tell us similar information. At this point, we know we can tie the groundwater data together, but we need to find something to crosswalk or join the CalEnviroscreen data to the groundwater data. In this case, the CalEnviroscreen data are at a census tract level, and contain data with ZIP codes, counties, and census tracts.
 
-(ref:AHmeetdata) *Artwork by @allison_horst*
 
-```{r AHmeetData, echo=FALSE, out.width="80%", fig.cap="(ref:AHmeetdata)"}
+```{r AHmeetData, echo=FALSE, out.width="80%", fig.cap="*Artwork by @allison_horst*"}
 
 include_graphics("https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/make-your-own-stats-cartoons/ex_2.png")
 
@@ -314,9 +312,8 @@ Error: `by` must be supplied when `x` and `y` have no common variables.
 Run `rlang::last_error()` to see where the error occurred.
 ```
 
-(ref:facewiggle) *Artwork by @allison_horst*
 
-```{r face, echo=FALSE, out.height="2%", fig.cap="(ref:facewiggle)"}
+```{r face, echo=FALSE, out.height="2%", fig.cap="*Artwork by @allison_horst*"}
 
 include_graphics("images/faces_squiggle.png")
 

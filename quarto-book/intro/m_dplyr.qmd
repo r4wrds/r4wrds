@@ -26,10 +26,9 @@ suppressPackageStartupMessages(library(tidyverse))
 
 Data wrangling is usually the part of any data analysis project that takes the most time. Although it may not necessarily be fun, it is foundational to all the work that follows. Often, data wrangling also takes significantly longer than actually performing the data analysis or creating a data visualization, so do not panic if, in the future, you find yourself spending a lot of time on this phase. Once you learn some core approaches and tools, you can deal with nearly any dataset you may face!
 
-(ref:AHtidyplot) *Illustration by @allison_horst, from Hadley Wickham's talk "The Joy of Functional Programming (for Data Science)"*
 
 
-```{r tidywrangle, eval=TRUE, echo=FALSE, out.width='100%', fig.cap='(ref:AHtidyplot)'}
+```{r tidywrangle, eval=TRUE, echo=FALSE, out.width='100%', fig.cap="*Illustration by @allison_horst, from Hadley Wickham's talk \"The Joy of Functional Programming (for Data Science)\"*"}
 
 # these are all from Allison Horst: https://github.com/allisonhorst/stats-illustrations
 # CITE AS: "Artwork by @allison_horst"

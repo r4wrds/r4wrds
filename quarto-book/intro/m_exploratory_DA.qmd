@@ -32,9 +32,8 @@ mapview::mapviewOptions(fgb = FALSE)
 
 This process can be applied to any data, and is foundational to data science. Ultimately it is how we understand and then communicate our data.
 
-(ref:ah-openscapes) *Illustration by @allison_horst for Dr. Julia Lowndes useR!2019 keynote.*
 
-```{r, eval=TRUE, echo=FALSE, out.width='80%', fig.cap='(ref:ah-openscapes)'}
+```{r, eval=TRUE, echo=FALSE, out.width='80%', fig.cap="*Illustration by @allison_horst for Dr. Julia Lowndes useR!2019 keynote.*"}
 knitr::include_graphics("images/environmental-data-science-r4ds-general.jpg")
 ```
 
@@ -54,9 +53,8 @@ Our dataset contains observations of groundwater level measurements at monitorin
 
 To provide context for our analysis, the groundwater elevation dataset is based on measurements of the depth to groundwater in an aquifer system. These measurements are taken at individual wells (Figure 2).
 
-(ref:aquifer) *Wells at different locations and depths in an aquifer, from [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Floridan_block_diagram.png).*
 
-```{r gw-model, echo = FALSE, out.width="100%", fig.cap='(ref:aquifer)'}
+```{r gw-model, echo = FALSE, out.width="100%", fig.cap="*Wells at different locations and depths in an aquifer, from [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Floridan_block_diagram.png).*"}
 knitr::include_graphics("images/aquifer.png")
 ```
 

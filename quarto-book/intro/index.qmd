@@ -50,9 +50,8 @@ In this course, we start from first principles and assume no prior experience wi
  - Data presentation and communication with RMarkdown
 
 
-(ref:AHRemoteR) *Artwork by @allison_horst*
 
-```{r remoteLearning, eval=TRUE, echo=FALSE, out.width='60%', fig.cap='(ref:AHRemoteR)'}
+```{r remoteLearning, eval=TRUE, echo=FALSE, out.width='60%', fig.cap="*Artwork by @allison_horst*"}
 
 knitr::include_graphics(path = "https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/monster_support.jpg")
 

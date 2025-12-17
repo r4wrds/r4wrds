@@ -49,9 +49,8 @@ In this course, we will move more quickly, assume familiarity with basic `R` ski
 -   Intermediate mapmaking and spatial data processing
 -   Integrating version control in projects with git
 
-(ref:AHRemoteR) *Artwork by @allison_horst*
 
-```{r remoteLearning, eval=TRUE, echo=FALSE, out.width='50%', fig.cap='(ref:AHRemoteR)'}
+```{r remoteLearning, eval=TRUE, echo=FALSE, out.width='50%', fig.cap="*Artwork by @allison_horst*"}
 
 knitr::include_graphics(path = "https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/monster_support.jpg")
 

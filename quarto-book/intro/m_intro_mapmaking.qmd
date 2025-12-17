@@ -41,9 +41,8 @@ There are a variety of spatial mapping/plotting packages in R. However, the best
 `sf` stands for "simple features" which is a way of representing spatial data. See the R [**`sf`** package documentation](https://r-spatial.github.io/sf/) for more details. "*Sticky geometry*" in the figure means that all geometry information is contained in a single column, and that column follows the data, no matter how you work with it. 
 </aside>
 
-(ref:ah-sf) *Illustration by @allison_horst.*
 
-```{r, eval=TRUE, echo=FALSE, out.width='80%', fig.cap='(ref:ah-sf)'}
+```{r, eval=TRUE, echo=FALSE, out.width='80%', fig.cap="*Illustration by @allison_horst.*"}
 knitr::include_graphics("images/sf.png")
 ```
 

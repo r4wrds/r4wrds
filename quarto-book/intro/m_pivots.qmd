@@ -35,9 +35,8 @@ Ultimately spreadsheets (or any list or table of data) attempt to take **human r
 
 Typically when we look at data, we want it to be in a "tidy" format. Data in a tidy format, means that each **column** is a unique variable, and each **row** is a unique observation of data. Furthermore, any information we want the computer to retain should be stored as `variables` and not in side comments or coloring. This makes it possible for a computer to easily interpret these data, and avoids any unnecessary conversions or loss of data.
 
-(ref:tidyData1) *Illustrations from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst*
 
-```{r tidydata, echo=FALSE, fig.cap="(ref:tidyData1)"}
+```{r tidydata, echo=FALSE, fig.cap="*Illustrations from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst*"}
 include_graphics("images/tidydata_1.jpg")
 ```
 
@@ -45,9 +44,8 @@ include_graphics("images/tidydata_1.jpg")
 
 In reality, we will generally encounter non-tidy data in the wild. Messy data comes in many forms and it exists *everywhere*. Much of data science hinges on cleaning up and reformatting data so it can be used in some way other than the form it exists in. The good news is the concept of tidy data can be applied to *any* dataset, and there are some very straightforward tips to make this easy to implement!
 
-(ref:tidyData2) *Illustrations from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst*
 
-```{r tidydata2, echo=FALSE, fig.cap="(ref:tidyData2)"}
+```{r tidydata2, echo=FALSE, fig.cap="*Illustrations from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst*"}
 include_graphics("images/tidydata_2.jpg")
 ```
 
@@ -55,9 +53,8 @@ include_graphics("images/tidydata_2.jpg")
 
 The great news is we can use a similar set of tools to deal with tidying and cleaning our data, and once we've learned these tools, there are few datasets that will stand in your way (though some may take longer than others!). An important thing to learn is that ***tidy data starts the moment we begin recording information***. The more we can collect and update data in a "*tidy*" fashion, the less cleaning and wrangling is required to work with that data.
 
-(ref:tidyData3) *Illustrations from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst*
 
-```{r tidydata3, echo=FALSE, fig.cap="(ref:tidyData3)"}
+```{r tidydata3, echo=FALSE, fig.cap="*Illustrations from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst*"}
 include_graphics("images/tidydata_3.jpg")
 ```
 
@@ -221,9 +218,8 @@ ces <- ces %>%
 
 ```
 
-(ref:across) *Illustration by @allison_horst*
 
-```{r across, echo=FALSE, out.width="%80", fig.cap="(ref:across)"}
+```{r across, echo=FALSE, out.width="%80", fig.cap="*Illustration by @allison_horst*"}
 include_graphics("images/dplyr_across.png")
 ```
 
@@ -274,9 +270,8 @@ There are many additional options within the `tidyr` `pivot_` functions. We reco
 
 Happy wrangling!
 
-(ref:tidyData6) *Illustrations from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst*
 
-```{r tidydata6, echo=FALSE, fig.cap="(ref:tidyData6)"}
+```{r tidydata6, echo=FALSE, fig.cap="*Illustrations from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst*"}
 include_graphics("images/tidydata_6.jpeg")
 ```
 

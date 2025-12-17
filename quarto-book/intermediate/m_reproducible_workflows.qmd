@@ -38,9 +38,8 @@ There is still further automation potential. We can write another program to cal
 Any time we have a fully automated program that runs on its own, **logging** should be implemented. Logging allows us to monitor an automated process, and diagnose and quickly fix anything that went wrong.  
 </aside>
 
-(ref:automate-fig) *Automation is like watering a row of plants. Each program is like a bucket that waters one plant at a time. Wrapping the programs into a single "master switch" control script is like installing drip irrigation so that all plants are watered at once. In order to fully automate, we can set a task scheduler, which is like adding a timer onto our drip irrigation system.*
 
-```{r automate-fig, eval=TRUE, echo=FALSE, out.width='100%', fig.cap='(ref:automate-fig)', preview = TRUE}
+```{r automate-fig, eval=TRUE, echo=FALSE, out.width='100%', fig.cap="*Automation is like watering a row of plants. Each program is like a bucket that waters one plant at a time. Wrapping the programs into a single \"master switch\" control script is like installing drip irrigation so that all plants are watered at once. In order to fully automate, we can set a task scheduler, which is like adding a timer onto our drip irrigation system.*", preview = TRUE}
 knitr::include_graphics(here("images", "automation.png"))
 ```
 
@@ -58,9 +57,8 @@ To demonstrate varying degrees of automation in a real-life example and extend o
 
 The California Department of Water Resources publishes a routine report on groundwater level conditions that shows groundwater level trends on a point-by-point basis. Short-term (i.e., 1, 3, and 5 year) and long-term trends (i.e., 10 and 20 years) are displayed in the report.
 
-(ref:ca-dwr-fig) *The ["California Groundwater Conditions Update - Spring 2020", DWR (2020)](https://water.ca.gov/-/media/DWR-Website/Web-Pages/Programs/Groundwater-Management/Data-and-Tools/Files/Maps/Groundwater-Level-Change/DOTMAP_Reports/Spring-2020-Groundwater-DOTMAP-Report.pdf) demonstrates the rate and direction of groundwater level change over different time periods, shown here is the 20000-2020 trend.*
 
-```{r ca-dwr, eval=TRUE, echo=FALSE, fig.cap='(ref:ca-dwr-fig)'}
+```{r ca-dwr, eval=TRUE, echo=FALSE, fig.cap="*The [\"California Groundwater Conditions Update - Spring 2020\", DWR (2020)](https://water.ca.gov/-/media/DWR-Website/Web-Pages/Programs/Groundwater-Management/Data-and-Tools/Files/Maps/Groundwater-Level-Change/DOTMAP_Reports/Spring-2020-Groundwater-DOTMAP-Report.pdf) demonstrates the rate and direction of groundwater level change over different time periods, shown here is the 20000-2020 trend.*"}
 knitr::include_graphics(here("images", "dwr_gwl.png"))
 ```
 
@@ -913,17 +911,15 @@ As a data scientist, you'll often perform once-over ad-hoc analyses. You may or 
 
 > Will the time saved in the future by automation exceed the time spent automating the process now? If so, automate.
 
-(ref:automate-xkcd2-fig) *Figure credit: [xkcd, 1205](https://xkcd.com/1205/)*
 
-```{r time-fig, eval=TRUE, echo=FALSE, out.width='75%',fig.cap='(ref:automate-xkcd2-fig)'}
+```{r time-fig, eval=TRUE, echo=FALSE, out.width='75%',fig.cap="*Figure credit: [xkcd, 1205](https://xkcd.com/1205/)*"}
 knitr::include_graphics(here("images", "is_it_worth_the_time.png"))
 ```
 
 Don't underestimate the time it can take to automate.
 
-(ref:automate-xkcd-fig) *Figure credit: [xkcd, 1319](https://xkcd.com/1319/)*
 
-```{r no-automate-fig, eval=TRUE, echo=FALSE, out.width='75%',fig.cap='(ref:automate-xkcd-fig)'}
+```{r no-automate-fig, eval=TRUE, echo=FALSE, out.width='75%',fig.cap="*Figure credit: [xkcd, 1319](https://xkcd.com/1319/)*"}
 knitr::include_graphics(here("images", "automation_xkcd.png"))
 ```
 
