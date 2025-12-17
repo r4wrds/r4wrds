@@ -339,38 +339,20 @@ Code chunk labels show up in the outline, so making them informative is good. No
 
 </aside>
 
-    ```{r make-nwis-sf, echo=TRUE, eval=TRUE}`r ''`
-
-    library(sf)
-    # make nwis_sites spatial by converting to sf
-    nwis_sites_sf <- st_as_sf(nwis_sites, coords=c("X", "Y"), remove=FALSE, crs=4326)
-
-    ```
+```{r make-nwis-sf, echo=TRUE, eval=TRUE}
+library(sf)
+# make nwis_sites spatial by converting to sf
+nwis_sites_sf <- st_as_sf(nwis_sites, coords = c("X", "Y"), remove = FALSE, crs = 4326)
+```
 
 Next we can make our map with `mapview()`. Note, there may be a minor rendering issue with `mapview`. Adding `fgb=FALSE` seems to address this![^5] Note, here we are going to hide our code (`echo = FALSE` in the code chunk options) so that we only show the results!
 
 [^5]: `mapview` is not a static package. Rather, it's under active development. At the time of writing, the solution to inserting mapview objects into an html document is to use `mapviewOptions(fgb=FALSE)`. In the future, this may change so that it's not needed and mapview objects in an html document "just work". A benefit of using open source projects is that conversations about these fixes and updates can sometimes come from the package developers themselves, as in the case of [this mapview issue discussed on Github that provided our fix](https://github.com/r-spatial/mapview/issues/312).
 
-
-    ```{r make-nwis-mapview, echo=FALSE, eval=TRUE}`r ''`
-
-    library(mapview)
-    mapviewOptions(fgb=FALSE)
-
-    mapview(nwis_sites_sf, col.regions="cyan4", layer="NWIS Sites")
-
-    ```
-    
-```{r mapview, echo=FALSE, eval=TRUE}
-
-library(sf)
+```{r make-nwis-mapview, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE}
 library(mapview)
 mapviewOptions(fgb=FALSE)
-
-nwis_sites_sf <- st_as_sf(nwis_sites, coords=c("X", "Y"), remove=FALSE, crs=4326)
-
 mapview(nwis_sites_sf, col.regions="cyan4", layer="NWIS Sites")
-
 ```
 
 ## Extending R Markdown
@@ -390,6 +372,5 @@ Here's a sample of some good resources that are freely available online:
 
 
 <br>  
-
 
 
