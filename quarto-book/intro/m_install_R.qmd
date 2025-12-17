@@ -87,11 +87,11 @@ Once installed, RStudio should be accessible from the start menu.  Start up RStu
 
  - **Verify your installed R version**: Ideally you should be running the latest stable release. If you have an older version, please install the newest version using the instructions above.
 
- - Here is what a current R version looks like.
- 
-    ```{r, echo=FALSE, eval=TRUE}
-    version$version.string
-    ```
+Here is what a current R version looks like:
+
+```{r, echo=FALSE, eval=TRUE}
+version$version.string
+```
 
 ## Step 3. Install R Packages
 
@@ -244,5 +244,4 @@ c("tidyverse", "sf", "viridis", "mapview") %in% installed.packages()
 If you have successfully installed packages, you should see a list of "`TRUE`" repeated once for each package listed inside the `c( )`.
 
 <br> 
-
 
