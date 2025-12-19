@@ -1,5 +1,5 @@
 ---
-title: "{sf} and map making in R"
+title: "`sf` and map making in R"
 description: 'Spatial data and Mapmaking 101
 
   '
@@ -22,28 +22,27 @@ mapviewOptions(fgb = FALSE)
 **Learning objectives**
  
  - Read spatial data
- - Understand how to convert a dataframe into an {sf} object  
- - Practice transforming {sf} spatial data between projections
+ - Understand how to convert a dataframe into an `sf` object  
+ - Practice transforming `sf` spatial data between projections
  - Demonstrate a spatial join, `st_intersection()`
  - Create interactive webmaps
- - Create static maps with the base `plot()` method and {ggplot2}
+ - Create static maps with the base `plot()` method and `ggplot2`
  - Save/export static maps  
 
 :::
 
-## Geospatial data with {sf}
+## Geospatial data with `sf`
 
 R is a powerful tool for working with spatial data and making maps. Within R, you can do nearly everything that a GUI type program can do (e.g., ArcGIS or QGIS), and moreover, you can write a script to automate or scale up routine analyses, thus saving time on repetitive tasks and ensuring you create reproducible workflows.  
 
-There are a variety of spatial mapping/plotting packages in R. However, the best option being used widely for vector-based spatial data in R is the **`{sf}`** package. **`{sf}`** is a powerful, clean, and fairly straightforward approach because it has an easy to use syntax, it is fast and it can do most if not all of the tasks commonly done in other geospatial software programs. Even better, **`{sf}`** spatial objects are simply data.frames with a `geometry` column, so all of the tidy, wrangle, join, and plot capabilities from {dplyr} and {ggplot2} also work on **`{sf}`** objects. Therefore, it is possible to use R to address all your data processing needs in a single environment without the need to move between tools for tabular data (e.g., Excel) and geospatial data (e.g., ArcGIS or QGIS).  
+There are a variety of spatial mapping/plotting packages in R. However, the best option being used widely for vector-based spatial data in R is the **`sf`** package. **`sf`** is a powerful, clean, and fairly straightforward approach because it has an easy to use syntax, it is fast and it can do most if not all of the tasks commonly done in other geospatial software programs. Even better, **`sf`** spatial objects are simply data.frames with a `geometry` column, so all of the tidy, wrangle, join, and plot capabilities from `dplyr` and `ggplot2` also work on **`sf`** objects. Therefore, it is possible to use R to address all your data processing needs in a single environment without the need to move between tools for tabular data (e.g., Excel) and geospatial data (e.g., ArcGIS or QGIS).  
 
 <aside>
-`sf` stands for "simple features" which is a way of representing spatial data. See the R [**`{sf}`** package documentation](https://r-spatial.github.io/sf/) for more details. "*Sticky geometry*" in the figure means that all geometry information is contained in a single column, and that column follows the data, no matter how you work with it. 
+`sf` stands for "simple features" which is a way of representing spatial data. See the R [**`sf`** package documentation](https://r-spatial.github.io/sf/) for more details. "*Sticky geometry*" in the figure means that all geometry information is contained in a single column, and that column follows the data, no matter how you work with it. 
 </aside>
 
-(ref:ah-sf) *Illustration by @allison_horst.*
 
-```{r, eval=TRUE, echo=FALSE, out.width='80%', fig.cap='(ref:ah-sf)'}
+```{r, eval=TRUE, echo=FALSE, out.width='80%', fig.cap="*Illustration by @allison_horst.*"}
 knitr::include_graphics("images/sf.png")
 ```
 
@@ -67,7 +66,7 @@ st_intersection(stations, sac) %>%
 
 ### Reading spatial data
 
-The **`{sf}`** package can read spatial data in various formats (e.g., shapefile, GeoJSON, PostGIS, kml), and is very straightforward if the data is already spatial, requiring only a call to the function `st_read()`.
+The **`sf`** package can read spatial data in various formats (e.g., shapefile, GeoJSON, PostGIS, kml), and is very straightforward if the data is already spatial, requiring only a call to the function `st_read()`.
 
 
 ```{r st-read}
@@ -89,7 +88,7 @@ colnames(sac)
 
 ### Converting a dataframe to sf
 
-At other times, you may need to convert tabular data to a spatial format. To make an **`{sf}`** object, we are creating a `geometry` column. This contains all the geospatial information we need, and it lives within the dataframe. Importantly, this geometry column is "sticky", meaning whatever we do to our data (tidy, filter, mutate etc) the associated `geometry` column will stick with the data. What's awesome is this column can contain anything from information for a point to a line to a complex polygon -- all in one column. *To make an {sf} object, we need to know two important pieces of information...*
+At other times, you may need to convert tabular data to a spatial format. To make an **`sf`** object, we are creating a `geometry` column. This contains all the geospatial information we need, and it lives within the dataframe. Importantly, this geometry column is "sticky", meaning whatever we do to our data (tidy, filter, mutate etc) the associated `geometry` column will stick with the data. What's awesome is this column can contain anything from information for a point to a line to a complex polygon -- all in one column. *To make an `sf` object, we need to know two important pieces of information...*
 
  - **`coords`**: The columns that contain the geospatial coordinates (either name or column number)  
  - **`crs`**: The [projection](http://spatialreference.org/ref/epsg/) or [EPSG (CRS, SRID, etc)](http://epsg.io/) that the data in^[Coordinate reference systems are an entire lesson unto themselves. For a good overview, check out this [Data Carpentry lesson](https://datacarpentry.org/organization-geospatial/03-crs/index.qmd). ]
@@ -97,7 +96,7 @@ At other times, you may need to convert tabular data to a spatial format. To mak
 To practice, let's read all groundwater level monitoring stations in Sacramento County, `stations_sac.csv`, and convert this tabular data to an `sf` object with the function `st_as_sf()`. We will specify which columns contain the coordinates (**`coords`**), and what the projection, or coordinate reference system (**`crs`**) the data is in. In this case, we know the data is in NAD83, or EPSG 4269.  
 
 <aside>
-Notice that all functions in **`{sf}`** begin with an "`st_`" prefix. This makes it easy to type "st_" and use tab-completion to find `{sf}` functions, and it also makes it easier to read code and spot spatial transformations.  
+Notice that all functions in **`sf`** begin with an "`st_`" prefix. This makes it easy to type "st_" and use tab-completion to find `sf` functions, and it also makes it easier to read code and spot spatial transformations.  
 </aside>
 
 ```{r st-as-sf}
@@ -205,7 +204,7 @@ unique(stations_sac$COUNTY_NAME)
 
 But what if we didn't have the county data already, or if we wanted to filter these data by a polygon that wasn't detailed in one of the existing variables in our dataframe? In this case, we can use `st_intersection()` which is a **spatial join** that takes two arguments, the `sf` object we want to filter (`x`), and another `sf` object to filter by (`y`). If we use `x = all_gw_stations` and `y = sac` it will return all of the points in `all_gw_stations` that fall within `sac` county.
 
-Before performing the spatial join, we must re-project our data from a **geographic** coordinate reference system (CRS) to a **projected** coordinate reference system.^[A discussion on coordinate reference systems is a complex topic in and of itself, and for the purposes of this module, we summarize it as follows: A geographic CRS is **round** and based on *angular units* of degrees (lat/lng), whereas a projected CRS is **flat** and has *linear* units (meters or feet). Many functions in `{sf}` that make calculations on data expect a projected CRS, and can return inaccurate results if an object in a geographic CRS is used. This is a fascinating topic with lots written about it! For more reading see this [Esri blog](https://www.esri.com/arcgis-blog/products/arcgis-pro/mapping/gcs_vs_pcs/), the Data Carpentry [geospatial lesson](https://datacarpentry.org/organization-geospatial/03-crs/), and the [online Geocomputation with R book](https://geocompr.robinlovelace.net/reproj-geo-data.html).]
+Before performing the spatial join, we must re-project our data from a **geographic** coordinate reference system (CRS) to a **projected** coordinate reference system.^[A discussion on coordinate reference systems is a complex topic in and of itself, and for the purposes of this module, we summarize it as follows: A geographic CRS is **round** and based on *angular units* of degrees (lat/lng), whereas a projected CRS is **flat** and has *linear* units (meters or feet). Many functions in `sf` that make calculations on data expect a projected CRS, and can return inaccurate results if an object in a geographic CRS is used. This is a fascinating topic with lots written about it! For more reading see this [Esri blog](https://www.esri.com/arcgis-blog/products/arcgis-pro/mapping/gcs_vs_pcs/), the Data Carpentry [geospatial lesson](https://datacarpentry.org/organization-geospatial/03-crs/), and the [online Geocomputation with R book](https://geocompr.robinlovelace.net/reproj-geo-data.html).]
 
 ```{r st-intersection3, out.width"100%"}
 
@@ -235,7 +234,7 @@ ggplot() +
 
 ```
 
-There are many many more methods available beyond intersections, including area, distances, buffers, crops, voronoi polygons, nearest neighbor calculations, convex hull calculations, centroid calculations, and much, much more. The list of operations within `{sf}` are shown below.  
+There are many many more methods available beyond intersections, including area, distances, buffers, crops, voronoi polygons, nearest neighbor calculations, convex hull calculations, centroid calculations, and much, much more. The list of operations within `sf` are shown below.  
 
 ```{r sf-methods}
 methods(class = 'sfc')
@@ -245,9 +244,9 @@ To learn more about advanced spatial operations, see the [Spatial data module in
 
 
 
-## Plotting {sf} data
+## Plotting `sf` data
 
-With all of our spatial data in the same projection, we can start making maps! We will cover the built-in `plot()` method for `{sf}` objects, interactive maps with `{mapview}`, and plotting with `{ggplot2}`.  
+With all of our spatial data in the same projection, we can start making maps! We will cover the built-in `plot()` method for `sf` objects, interactive maps with `mapview`, and plotting with `ggplot2`.  
 
 ### Inspect data with `plot()`
 
@@ -266,9 +265,9 @@ plot(stations)
 ```
 
 
-## Interactive mapping with {mapview}
+## Interactive mapping with `mapview`
 
-One of the easiest and coolest packages you'll find for interactive mapping is **`{mapview}`**. As long as data are in `sf` format, you can quickly make an interactive map. First let's make sure we have an `sf` class of data.
+One of the easiest and coolest packages you'll find for interactive mapping is **`mapview`**. As long as data are in `sf` format, you can quickly make an interactive map. First let's make sure we have an `sf` class of data.
 
 ```{r sf-class}
 class(stations)
@@ -286,14 +285,14 @@ mapview(sac)
 
 ```
 
-We can add `{mapview}` objects to one another in the same way we add layers to a `ggplot`, by using a **`+`**. We can then toggle them on and off from the interactive map from the top-left hand layer control icon. We can also change the basemap layers being used on the map from this same menu.
+We can add `mapview` objects to one another in the same way we add layers to a `ggplot`, by using a **`+`**. We can then toggle them on and off from the interactive map from the top-left hand layer control icon. We can also change the basemap layers being used on the map from this same menu.
 
 ```{r mapview2, out.width="100%"}
 # combine sac and stations data
 mapview(sac) + mapview(stations) 
 ```
 
-Note that we can open a `{mapview}` object in our default web browser by clicking on the little box and arrow to expand and view. This is particularly helpful when pop-up tables contain dense information, as is the case with our `stations` dataframe.
+Note that we can open a `mapview` object in our default web browser by clicking on the little box and arrow to expand and view. This is particularly helpful when pop-up tables contain dense information, as is the case with our `stations` dataframe.
 
 ```{r mapview-expand, eval=TRUE, echo=FALSE, out.width='80%'}
 knitr::include_graphics("images/mapview_expand.png")
@@ -346,16 +345,16 @@ mapview(sac,                    # sacramento county sf polygon
 <details><summary class="extra-practice-title">Additional Info</summary>
   <div class="extra-practice-body">
   
-`{mapview}` is a great package for quickly visualizing and sharing spatial data. To export and save a .html map that can be shared with others, it's currently advisable to specify `mapviewOptions(fgb = FALSE)` after loading the library. This allows us to save the map as a self-contained html file. To do so, click on the **Viewer** tab, and then on **_Export_** > **_Save as Web Page_**. This `.html` file can then be zipped and emailed or shared, and opened in most web browsers.
+`mapview` is a great package for quickly visualizing and sharing spatial data. To export and save a .html map that can be shared with others, it's currently advisable to specify `mapviewOptions(fgb = FALSE)` after loading the library. This allows us to save the map as a self-contained html file. To do so, click on the **Viewer** tab, and then on **_Export_** > **_Save as Web Page_**. This `.html` file can then be zipped and emailed or shared, and opened in most web browsers.
 
   </div>
 </details
 
 <br>
 
-## Static maps with {ggplot2}
+## Static maps with `ggplot2`
 
-Interactive maps are useful for fast data exploration and integration into web applications, however, depending on the project, static maps may more appropriate for reports, presentations, and sharing. Mapmaking with `{sf}` objects in `{ggplot2}` follows the same syntax we practiced in the [ggplot2 module](m_ggplot.qmd#adding-geom_-layers), using the `geom_sf()` function. 
+Interactive maps are useful for fast data exploration and integration into web applications, however, depending on the project, static maps may more appropriate for reports, presentations, and sharing. Mapmaking with `sf` objects in `ggplot2` follows the same syntax we practiced in the [ggplot2 module](m_ggplot.qmd#adding-geom_-layers), using the `geom_sf()` function. 
 
 ### Basic use
 
@@ -366,7 +365,7 @@ p <- ggplot() +
   geom_sf(data = stations, color = "blue", alpha = 0.5) 
 ```
 
-Adding a north arrow and scale bar is achieved with the `{ggspatial}` package.
+Adding a north arrow and scale bar is achieved with the `ggspatial` package.
 
 ```{r geomsf2, out.width="100%", message = FALSE}
 p + 
@@ -379,7 +378,7 @@ p +
   theme_minimal()
 ```
 
-Just as before in {ggplot2}, we can connect an aesthetic, `aes`, like `color` to one of the column variables. We can also facet and change the `theme()`. For maps, `theme_void()` is useful because it removes graticules (grid lines), axis ticks, and labels which allows us to focus on the data explored in the plot.
+Just as before in `ggplot2`, we can connect an aesthetic, `aes`, like `color` to one of the column variables. We can also facet and change the `theme()`. For maps, `theme_void()` is useful because it removes graticules (grid lines), axis ticks, and labels which allows us to focus on the data explored in the plot.
 
 ```{r geomsf3, out.width="100%", message = FALSE}
 p <- ggplot() +
@@ -436,7 +435,7 @@ ggplot() +
 
 ### Customizing maps in ggplot2
 
-Because we're working in {ggplot2}, we can also `facet_wrap()` and customize the `theme()`.
+Because we're working in `ggplot2`, we can also `facet_wrap()` and customize the `theme()`.
 
 ```{r geomsf4, out.width="100%", message = FALSE}
 # facet the plot we created above, p, by the well use
@@ -500,13 +499,13 @@ ggsave("results/sac_well_depth_type.png", p, height = 5, width = 8)
 
 ## Additional Resources
 
-We covered 3 common frameworks in which to plot spatial data in R: the `plot()` method for `{sf}` objects, `{mapview}` package, and `{ggplot2}`. Although these are popular and powerful approaches to visualize and map spatial data, other packages in the R ecosystem are available including:  
+We covered 3 common frameworks in which to plot spatial data in R: the `plot()` method for `sf` objects, `mapview` package, and `ggplot2`. Although these are popular and powerful approaches to visualize and map spatial data, other packages in the R ecosystem are available including:  
 
-* [`{leaflet}`](https://rstudio.github.io/leaflet/) and extensions like [`{leafpop}`](https://github.com/r-spatial/leafpop)  
-* [`{tmap}`](https://mtennekes.github.io/tmap/)  
-* [`{mapdeck}`](https://symbolixau.github.io/mapdeck/articles/mapdeck.html)  
-* [`{rasterVis}`](https://oscarperpinan.github.io/rastervis/) for raster data  
-* [`{plotly}`](https://plotly-r.com/maps.html)  
+* [`leaflet`](https://rstudio.github.io/leaflet/) and extensions like [`leafpop`](https://github.com/r-spatial/leafpop)  
+* [`tmap`](https://mtennekes.github.io/tmap/)  
+* [`mapdeck`](https://symbolixau.github.io/mapdeck/articles/mapdeck.html)  
+* [`rasterVis`](https://oscarperpinan.github.io/rastervis/) for raster data  
+* [`plotly`](https://plotly-r.com/maps.html)  
 
 The online books/guides [*Geocomputation with R*](https://geocompr.robinlovelace.net/), [*RSpatial.org*](https://rspatial.org/), and [*Spatial Data Science*](https://keen-swartz-3146c4.netlify.app/) are additional resources for a deeper dive into spatial data processing and mapping in R.  
 

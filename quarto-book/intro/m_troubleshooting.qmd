@@ -124,7 +124,7 @@ Once you understand this predictable structure of help documentation, you can in
 
 |label | interpretation |
 |------|----------------|
-|`mean {base}` | Function name {package}  |
+|`mean `base`` | Function name `package`  |
 |`Arithmetic Mean` | Short function description |  
 |`Description` | More detailed function description  |
 |`Usage` | Function usage, showing the name and order of arguments  |
@@ -140,9 +140,9 @@ Once you understand this predictable structure of help documentation, you can in
 
 <font color="#009E73">**Challenge 1**</font> 
 
-1. Read the help for the `ggplot` function from the `{ggplot2}` package. 
-    - Hint: try using **`?ggplot2::ggplot`.** Here the "**`::`**" allows us to specify a *`{package}::{function}`*
-2. Read the help for two functions from `{dplyr}`: `mutate` and `filter`. Are there other packages with a `filter` function? How do you know?
+1. Read the help for the `ggplot` function from the `ggplot2` package. 
+    - Hint: try using **`?ggplot2::ggplot`.** Here the "**`::`**" allows us to specify a *``package`::`function``*
+2. Read the help for two functions from `dplyr`: `mutate` and `filter`. Are there other packages with a `filter` function? How do you know?
 3. Read the help for two other functions you've encountered in this course.  
 
 :::

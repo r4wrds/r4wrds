@@ -64,7 +64,7 @@ Data come in many formats, and `R` has utilities for reading and writing all kin
 
 ### csv (comma separated values) 
 
-The comma separated value, or `.csv`, is a simple and effective way to store tabular data. To read a csv file, we first import the {`readr`} library, which contains the function `read_csv()`. Let's read a file from our `data/gwl` folder that contains station information for groundwater level monitoring sites in California. You can also type "data/" and press **Tab** with your cursor just after the "/" to view all files in that path.
+The comma separated value, or `.csv`, is a simple and effective way to store tabular data. To read a csv file, we first import the `readr` library, which contains the function `read_csv()`. Let's read a file from our `data/gwl` folder that contains station information for groundwater level monitoring sites in California. You can also type "data/" and press **Tab** with your cursor just after the "/" to view all files in that path.
 
 ```{r read-csv}
 library(readr)
@@ -241,7 +241,7 @@ One quick difference between `.rds` and `.rda` files, for `.rds` files we can on
 
 ### sqlite
 
-SQLite is an open-source database format based on SQL that's useful for storing large datasets locally on your computer. The methods to connect to a SQLite database, list tables, read tables, and send queries are similar across other cloud databases you may encounter in the wild, like [Postgres](https://rpostgres.r-dbi.org/), and enterprise database systems like Microsoft Access. We use the `{here}` package to construct relative paths in the RProject.
+SQLite is an open-source database format based on SQL that's useful for storing large datasets locally on your computer. The methods to connect to a SQLite database, list tables, read tables, and send queries are similar across other cloud databases you may encounter in the wild, like [Postgres](https://rpostgres.r-dbi.org/), and enterprise database systems like Microsoft Access. We use the `here` package to construct relative paths in the RProject.
 
 ```{r, read-sql}
 library(RSQLite)

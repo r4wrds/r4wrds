@@ -81,9 +81,9 @@ It's important to adopt consistent and descriptive names in R. This isn't just f
 
 ## Use a Function from a Package
 
-We've already been doing this throughout the previous lessons with things like `read.csv()`, `dplyr::filter()`, or `ggplot2::ggplot()`, but let's use a new package to pull some surface water river flow data. Here we'll use the `{dataRetrieval}` package.
+We've already been doing this throughout the previous lessons with things like `read.csv()`, `dplyr::filter()`, or `ggplot2::ggplot()`, but let's use a new package to pull some surface water river flow data. Here we'll use the `dataRetrieval` package.
 
-### Getting Water Data with `{dataRetrieval}`
+### Getting Water Data with `dataRetrieval`
 
 The {[dataRetrieval](http://usgs-r.github.io/dataRetrieval/index.qmd)} package is a way to access hydrologic and water quality data from the USGS and EPA. There are several vignettes (or tutorials) available on the package website. Here, we will show how to download some surface water data from the American River near Sacramento. First we load the package with the functions we want to use. We load packages once per session. 
 
@@ -240,11 +240,11 @@ So what happened here? We made a function `cfs_to_cms()` to apply to our data. I
 
 ## More Practice
 
-This section uses some more functions, but with some more advanced applications. We'll want to have the `{sf}` package installed for the following code to work fully.
+This section uses some more functions, but with some more advanced applications. We'll want to have the `sf` package installed for the following code to work fully.
 
 ### Getting Water Quality Stations 
 
-What if we wanted to find all the possible water quality stations that are upstream or downstream of the gage we pulled data from earlier (`USGS: 11446500`)? A great function that will not only help us figure that out, but also help us pull in spatial data we can use to make maps is the **`findNLDI()`** function from the `{dataRetrieval}` package.
+What if we wanted to find all the possible water quality stations that are upstream or downstream of the gage we pulled data from earlier (`USGS: 11446500`)? A great function that will not only help us figure that out, but also help us pull in spatial data we can use to make maps is the **`findNLDI()`** function from the `dataRetrieval` package.
 
 The function **`findNLDI()`** has arguments for the type of data we want to use (`nwis`, `huc`,`location`), the direction along a stream to look (upstream or downstream, or in mainstem or tributaries), the data we want to get back (`find`), and the distance we should search upstream or downstream (`distance_km`).
 
@@ -265,7 +265,7 @@ names(amer_ds_nimbus)
 
 ```
 
-Note, this returned a named *list* of dataframes. We can access individual parts of a list just as we can access a single column in a dataframe using the `$`. This function returned 5 parts, the `origin` which is the site we used to start our search, the `UM_nwissite` which is the NWIS sites upstream on the mainstem from our USGS gage, the `DM_nwissite` which is the NWIS sites downstream of our USGS gage, and finally, a mainstem flowline upstream and downstream of our gage. These are dataframes with an underlying spatial component, which is nice because it allows us to easily map and visualize these data if we want. See the [mapmaking lesson](m_intro_mapmaking.qmd) for more info.The dataframes are an `sf` class, from the [simple features {sf} package](https://r-spatial.github.io/sf/), but they can also be converted to into a dataframe. 
+Note, this returned a named *list* of dataframes. We can access individual parts of a list just as we can access a single column in a dataframe using the `$`. This function returned 5 parts, the `origin` which is the site we used to start our search, the `UM_nwissite` which is the NWIS sites upstream on the mainstem from our USGS gage, the `DM_nwissite` which is the NWIS sites downstream of our USGS gage, and finally, a mainstem flowline upstream and downstream of our gage. These are dataframes with an underlying spatial component, which is nice because it allows us to easily map and visualize these data if we want. See the [mapmaking lesson](m_intro_mapmaking.qmd) for more info.The dataframes are an `sf` class, from the [simple features `sf` package](https://r-spatial.github.io/sf/), but they can also be converted to into a dataframe. 
 
 ```{r nwisDF, eval=TRUE, echo=TRUE}
 
@@ -348,10 +348,10 @@ write_rds(amer_ds_nimbus, path = "data/nwis_sites_amer_ds_nimbus_sf.rds")
 
 There are many packages that work with water or water data. Here's a list of just a few that you may find interesting or helpful. The R CRAN repository has a list of all packages that relate to [Hydrology](https://cran.r-project.org/web/views/Hydrology.html) that is also a good place to look.
 
- - **{dataRetrieval}**
- - **{nhdplusTools}**
- - **{EGRET}**
- - **{geoknife}**
+ - **`dataRetrieval`**
+ - **`nhdplusTools`**
+ - **`EGRET`**
+ - **`geoknife`**
 
 
 <br>  

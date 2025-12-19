@@ -25,7 +25,7 @@ What makes an *Intermediate `R` user*? This course is most relevant and targeted
 
 -   Took the [Introductory R4WRDS](../intro/index.qmd) course
 -   Regularly use `R` and want improve their efficiency and skill set
--   Have a general understanding and proficiency in using `{dplyr}`, `{ggplot2}`, `{sf}`, and `{rmarkdown}`
+-   Have a general understanding and proficiency in using `dplyr`, `ggplot2`, `sf`, and `rmarkdown`
 -   Understand (and use) general best practices for data science in `R`
 
 <br>
@@ -49,9 +49,8 @@ In this course, we will move more quickly, assume familiarity with basic `R` ski
 -   Intermediate mapmaking and spatial data processing
 -   Integrating version control in projects with git
 
-(ref:AHRemoteR) *Artwork by @allison_horst*
 
-```{r remoteLearning, eval=TRUE, echo=FALSE, out.width='50%', fig.cap='(ref:AHRemoteR)'}
+```{r remoteLearning, eval=TRUE, echo=FALSE, out.width='50%', fig.cap="*Artwork by @allison_horst*"}
 
 knitr::include_graphics(path = "https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/monster_support.jpg")
 

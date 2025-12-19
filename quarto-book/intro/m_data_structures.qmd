@@ -372,7 +372,7 @@ R **recycles** the string "Rich", repeating it 3 times. This is convenient, but 
 
 The `tibble` is a modern `data.frame` with stricter recycling rules, R-friendly print behavior (prints only the first 10 rows and shows column types), and a [few more features](https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html) that make them more predictable and less likely to lead to bugs.
 
-To use `tibble` data types, we need to read our data with one of the [`{tidyverse}`](https://www.tidyverse.org/) packages,[`{readr}`](https://readr.tidyverse.org/). 
+To use `tibble` data types, we need to read our data with one of the [`tidyverse`](https://www.tidyverse.org/) packages,[`readr`](https://readr.tidyverse.org/). 
 When we read `stations` with `read_csv()` it reads it in as a tibble, which we can verify with `class(stations)`. We can always convert `stations` back to just a data.frame and print it to console by running `data.frame(stations)`. 
 
 ```{r, df-stations}

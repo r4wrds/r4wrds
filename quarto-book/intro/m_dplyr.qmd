@@ -18,18 +18,17 @@ suppressPackageStartupMessages(library(tidyverse))
  
  - Learn how to approach tidying and transforming datasets
  - Understand how to use the pipe (`%>%`) to chain operations together
- - Learn the core **`{dplyr}`** tools including functions (`select`, `filter`, `group_by`, `summarize`)
+ - Learn the core **`dplyr`** tools including functions (`select`, `filter`, `group_by`, `summarize`)
 
 :::
 
-## Data wrangling with **{dplyr}**
+## Data wrangling with **`dplyr`**
 
 Data wrangling is usually the part of any data analysis project that takes the most time. Although it may not necessarily be fun, it is foundational to all the work that follows. Often, data wrangling also takes significantly longer than actually performing the data analysis or creating a data visualization, so do not panic if, in the future, you find yourself spending a lot of time on this phase. Once you learn some core approaches and tools, you can deal with nearly any dataset you may face!
 
-(ref:AHtidyplot) *Illustration by @allison_horst, from Hadley Wickham's talk "The Joy of Functional Programming (for Data Science)"*
 
 
-```{r tidywrangle, eval=TRUE, echo=FALSE, out.width='100%', fig.cap='(ref:AHtidyplot)'}
+```{r tidywrangle, eval=TRUE, echo=FALSE, out.width='100%', fig.cap="*Illustration by @allison_horst, from Hadley Wickham's talk \"The Joy of Functional Programming (for Data Science)\"*"}
 
 # these are all from Allison Horst: https://github.com/allisonhorst/stats-illustrations
 # CITE AS: "Artwork by @allison_horst"
@@ -75,7 +74,7 @@ Common operations that occur during data wrangling:
 * **`arrange`** rows by a variable
 * **`summarize`** a variable conditional on others
 
-The **`{dplyr}`** package provides easy tools for these common data manipulation tasks and is a core package from the [{tidyverse}](https://www.tidyverse.org/) suite of packages. The philosophy of **`{dplyr}`** is that **one** function does **one** thing and the name of the function says what it does. 
+The **`dplyr`** package provides easy tools for these common data manipulation tasks and is a core package from the [`tidyverse`](https://www.tidyverse.org/) suite of packages. The philosophy of **`dplyr`** is that **one** function does **one** thing and the name of the function says what it does. 
 
 ### Start from Scratch
 
@@ -86,7 +85,7 @@ Any reproducible analysis should be easily repeated. Using code in a script allo
 
 ### Import Libraries and Data 
 
-First we need to load the libraries that we'll be using. Let's the `{tidyverse}` packages (which includes `{dplyr}` and `{ggplot2}`).
+First we need to load the libraries that we'll be using. Let's the `tidyverse` packages (which includes `dplyr` and `ggplot2`).
 
 ```{r load-libs, eval=FALSE}
 library(tidyverse)
@@ -109,7 +108,7 @@ Below your code that imports the dataset, let's make a new section! Go to **`Cod
 
 ## `filter` rows
 
-One of the most common steps to slicing data is to **filter rows** of a dataframe. We can filter by a variable (e.g., column name) or by a condition (i.e., only values greater than 100). Remember, `{dplyr}` is designed so that *one* function does *one* thing, and the name of the function says what it does. 
+One of the most common steps to slicing data is to **filter rows** of a dataframe. We can filter by a variable (e.g., column name) or by a condition (i.e., only values greater than 100). Remember, `dplyr` is designed so that *one* function does *one* thing, and the name of the function says what it does. 
 
 ```{r filterArt, eval=TRUE, echo=FALSE, out.width='80%', fig.cap="Artwork by @allison_horst"}
 
@@ -338,7 +337,7 @@ ggplot(data = stations_base1) +
 
 ## `group_by` & `summarize`
 
-The final core `{dplyr}` "verbs" to be aware of are `group_by` and `summarize`. These are really useful to transform your data into an entirely **new** dataset, and to do many operations at once based on different columns (variables) within your dataset.
+The final core `dplyr` "verbs" to be aware of are `group_by` and `summarize`. These are really useful to transform your data into an entirely **new** dataset, and to do many operations at once based on different columns (variables) within your dataset.
 
 For example let's say we want a count of how many records exist for each county. We can use **`group_by`** and **`count`**.
 
@@ -478,7 +477,7 @@ stations %>%
 
 ### Remember to `ungroup`
 
-A common blunder that can impact downstream analyses, or even the current analysis you may want to do is forgetting to ungroup. `{dplyr}` is smart, and will do exactly as you program it to do, but when you use `group_by`, your output dataframe **will retain those groups** for future use. This can be helpful in some cases, but it's important to keep an eye on and be aware of (for when it's *not* helpful). We can always use `class()` to better check this. Let's try some code from above and check with `class()`.
+A common blunder that can impact downstream analyses, or even the current analysis you may want to do is forgetting to ungroup. `dplyr` is smart, and will do exactly as you program it to do, but when you use `group_by`, your output dataframe **will retain those groups** for future use. This can be helpful in some cases, but it's important to keep an eye on and be aware of (for when it's *not* helpful). We can always use `class()` to better check this. Let's try some code from above and check with `class()`.
 
 ```{r ungroup, eval=T, echo=T}
 
@@ -501,7 +500,7 @@ stations_by_cnty_use <- ungroup(stations_by_cnty_use)
 class(stations_by_cnty_use)
 ```
 
-Congratulations! You've made it through `{dplyr}`. There are many more great options and tricks within `{dplyr}`, but hopefully this will get you going.
+Congratulations! You've made it through `dplyr`. There are many more great options and tricks within `dplyr`, but hopefully this will get you going.
 
 <br>  
 

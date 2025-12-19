@@ -16,8 +16,8 @@ Welcome! **r4wrds** (R for Water Resources Data Science) is a two-part learning 
 **Introductory Fundamentals** focus on the essentials you need to feel confident in R:
 
 - Installing and updating R/RStudio, organizing projects, and managing files.
-- Importing messy spreadsheets, working with tidy data structures, and transforming data with `{dplyr}`.
-- Building plots with `{ggplot2}`, creating reports with R Markdown, and troubleshooting common errors.
+- Importing messy spreadsheets, working with tidy data structures, and transforming data with `dplyr`.
+- Building plots with `ggplot2`, creating reports with R Markdown, and troubleshooting common errors.
 - Beginning spatial analysis, joins, functions, and exploratory data analysis.
 
 **Intermediate Workflows** build on that foundation with skills you’ll use on production projects:

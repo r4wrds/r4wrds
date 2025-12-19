@@ -128,9 +128,9 @@ mapview(
 
 ```
 
-### Use `{leaflet}`
+### Use `leaflet`
 
-We used {`mapview`} above, but we could also use the `{leaflet}` package to make a more customizable map with some fancy icons and a measuring tool, to calculate how far each location is from a point of interest, or the the total area that encompasses all our points.
+We used `mapview` above, but we could also use the `leaflet` package to make a more customizable map with some fancy icons and a measuring tool, to calculate how far each location is from a point of interest, or the the total area that encompasses all our points.
 
 ```{r leaflet}
 
@@ -173,7 +173,7 @@ m  # Print the map
 
 ## Using D3
 
-A powerful visualization tool is the [D3.js](https://d3js.org) (javascript) library, which has some amazing options. What's great is there are ways to easily translate your R code into D3, via packages like [{`r2d3`}](https://rstudio.github.io/r2d3/index.qmd).
+A powerful visualization tool is the [D3.js](https://d3js.org) (javascript) library, which has some amazing options. What's great is there are ways to easily translate your R code into D3, via packages like [`r2d3`](https://rstudio.github.io/r2d3/index.qmd).
 
 Here's an example of a calendar visualization, based on the stock market open and close between 2006 and 2010.
 
@@ -254,7 +254,7 @@ saveWidget(p, file = "output/network_interactive.html")
 
 ## Plotly
 
-Another great tool for interacting with data is the `{plotly}` package, which if using the `{ggplot2}` framework, has a very handy `ggplotly()` function which you can wrap around pretty much any `ggplot` to turn a static plot into an interactive one. This allows you to click, hover, zoom, etc. inside your plot, and is a very useful tool for exploring data.
+Another great tool for interacting with data is the `plotly` package, which if using the `ggplot2` framework, has a very handy `ggplotly()` function which you can wrap around pretty much any `ggplot` to turn a static plot into an interactive one. This allows you to click, hover, zoom, etc. inside your plot, and is a very useful tool for exploring data.
 
 For example, say you were asked to find the date of a peak flow for a given year, or an outlier in a graph. We could figure this out with `dplyr::filter()` and additional queries of our data, but it would also be easy to visually look and see the date of peak flow on a plot. This is where the power of `plotly` can be very helpful.
 
@@ -311,7 +311,7 @@ Whatever the visualization, if it communicates data in a way that provides new i
 ## Additional Resources
 
 -   [Rmarkdown Flexdashboard](https://pkgs.rstudio.com/flexdashboard/)
--   [`{r2d3}` Visualizations](https://rstudio.github.io/r2d3/index.qmd)
+-   [`r2d3` Visualizations](https://rstudio.github.io/r2d3/index.qmd)
 -   [RGraph Gallery](https://www.r-graph-gallery.com/index.qmd)
 -   All things [Shiny](https://shiny.rstudio.com/gallery/)
 -   [Network visualization](https://kateto.net/network-visualization)

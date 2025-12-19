@@ -38,9 +38,8 @@ There is still further automation potential. We can write another program to cal
 Any time we have a fully automated program that runs on its own, **logging** should be implemented. Logging allows us to monitor an automated process, and diagnose and quickly fix anything that went wrong.  
 </aside>
 
-(ref:automate-fig) *Automation is like watering a row of plants. Each program is like a bucket that waters one plant at a time. Wrapping the programs into a single "master switch" control script is like installing drip irrigation so that all plants are watered at once. In order to fully automate, we can set a task scheduler, which is like adding a timer onto our drip irrigation system.*
 
-```{r automate-fig, eval=TRUE, echo=FALSE, out.width='100%', fig.cap='(ref:automate-fig)', preview = TRUE}
+```{r automate-fig, eval=TRUE, echo=FALSE, out.width='100%', fig.cap="*Automation is like watering a row of plants. Each program is like a bucket that waters one plant at a time. Wrapping the programs into a single \"master switch\" control script is like installing drip irrigation so that all plants are watered at once. In order to fully automate, we can set a task scheduler, which is like adding a timer onto our drip irrigation system.*", preview = TRUE}
 knitr::include_graphics(here("images", "automation.png"))
 ```
 
@@ -58,9 +57,8 @@ To demonstrate varying degrees of automation in a real-life example and extend o
 
 The California Department of Water Resources publishes a routine report on groundwater level conditions that shows groundwater level trends on a point-by-point basis. Short-term (i.e., 1, 3, and 5 year) and long-term trends (i.e., 10 and 20 years) are displayed in the report.
 
-(ref:ca-dwr-fig) *The ["California Groundwater Conditions Update - Spring 2020", DWR (2020)](https://water.ca.gov/-/media/DWR-Website/Web-Pages/Programs/Groundwater-Management/Data-and-Tools/Files/Maps/Groundwater-Level-Change/DOTMAP_Reports/Spring-2020-Groundwater-DOTMAP-Report.pdf) demonstrates the rate and direction of groundwater level change over different time periods, shown here is the 20000-2020 trend.*
 
-```{r ca-dwr, eval=TRUE, echo=FALSE, fig.cap='(ref:ca-dwr-fig)'}
+```{r ca-dwr, eval=TRUE, echo=FALSE, fig.cap="*The [\"California Groundwater Conditions Update - Spring 2020\", DWR (2020)](https://water.ca.gov/-/media/DWR-Website/Web-Pages/Programs/Groundwater-Management/Data-and-Tools/Files/Maps/Groundwater-Level-Change/DOTMAP_Reports/Spring-2020-Groundwater-DOTMAP-Report.pdf) demonstrates the rate and direction of groundwater level change over different time periods, shown here is the 20000-2020 trend.*"}
 knitr::include_graphics(here("images", "dwr_gwl.png"))
 ```
 
@@ -115,7 +113,7 @@ d <- filter(d, COUNTY_NAME == "Sacramento")
 
 <br>
 
-We use copied URLs here, but for large, standardized websites you can use [`{rvest}` and SelectorGadget](https://rvest.tidyverse.org/articles/articles/selectorgadget.html) to automate scraping URLs and other data. We also used `purrr::reduce()` to recursively `left_join()` a list of dataframes. This is a powerful concept, because the alternative is to manually `left_join()` each list element. Read up on `?reduce` to learn more.
+We use copied URLs here, but for large, standardized websites you can use [`rvest` and SelectorGadget](https://rvest.tidyverse.org/articles/articles/selectorgadget.html) to automate scraping URLs and other data. We also used `purrr::reduce()` to recursively `left_join()` a list of dataframes. This is a powerful concept, because the alternative is to manually `left_join()` each list element. Read up on `?reduce` to learn more.
 
 <br>
 
@@ -181,7 +179,7 @@ ggplot(d_recent) +
   geom_smooth(aes(MSMT_DATE, WSE), method = "lm", se = FALSE)
 ```
 
-However, this isn't quite what we need. What we need is a linear model for *each and every one of the individual stations in this dataset*. `{ggplot2}` is great for visualizing what we are looking for. For example, here are a few of the monitoring sites, each with a unique linear model, which can be viewed with `facet_wrap()`.
+However, this isn't quite what we need. What we need is a linear model for *each and every one of the individual stations in this dataset*. `ggplot2` is great for visualizing what we are looking for. For example, here are a few of the monitoring sites, each with a unique linear model, which can be viewed with `facet_wrap()`.
 
 ```{r gwl-3}
 d_recent %>% 
@@ -192,7 +190,7 @@ d_recent %>%
   facet_wrap(~SITE_CODE)
 ```
 
- Now, it's time to calculate those numbers with `lm()`. We will use `{broom}` to tidy up model results in a clean dataframe. Note that because the class of our `MSMT_DATE` column is `"POSIXct"`, the units returned for our coefficient $\beta_1$ will be in $ft/sec$ rather than the more intuitive $ft/yr$, thus we define a function to handle the conversion from $ft/sec$ to $ft/yr$. For the entire dataset the average annual change in groundwater level over the 20 year timeframe is:
+ Now, it's time to calculate those numbers with `lm()`. We will use `broom` to tidy up model results in a clean dataframe. Note that because the class of our `MSMT_DATE` column is `"POSIXct"`, the units returned for our coefficient $\beta_1$ will be in $ft/sec$ rather than the more intuitive $ft/yr$, thus we define a function to handle the conversion from $ft/sec$ to $ft/yr$. For the entire dataset the average annual change in groundwater level over the 20 year timeframe is:
 
 ```{r gwl-sac}
 # convert from seconds to years
@@ -860,7 +858,7 @@ As with all things in coding, there are many ways to accomplish this, but some w
 
 Notice that `f_wcr_import()` has an argument `county`. To scale the analysis to Placer county, we would simply change the `county` argument to `"Placer"`. However, you may notice that `f_wcr_visualize_map()` and `f_wcr_visualize_timeseries()` both depend on a Sacramento county polygon, so you can swap that out with a Placer county polygon and be off to the races.  
 
-However, if you wanted to scale this to the state, you'd need to assemble polygons for all counties in the state. That sounds time consuming. However, as with most things, it's good practice to google what feels like a common problem, because chances are you're not the first person with this problem! In fact, there's a great way to grab county data from directly within `R` using the `{maps}` package. 
+However, if you wanted to scale this to the state, you'd need to assemble polygons for all counties in the state. That sounds time consuming. However, as with most things, it's good practice to google what feels like a common problem, because chances are you're not the first person with this problem! In fact, there's a great way to grab county data from directly within `R` using the `maps` package. 
 
 ```{r, maps-pkg}
 library(maps)
@@ -871,7 +869,7 @@ plot(counties)
 
 With all California counties in hand, we can re-write the function to filter this polygon to the county of interest. 
 
-Going one step further, if we had a dataset of groundwater levels across the entire US, `{maps}` has county polygons for each county, so it wouldn't be difficult to extend our code to a nationwide analysis. 
+Going one step further, if we had a dataset of groundwater levels across the entire US, `maps` has county polygons for each county, so it wouldn't be difficult to extend our code to a nationwide analysis. 
 
 
 </div>
@@ -891,7 +889,7 @@ Task schedulers vary by system. In general, they run a program at defined interv
 -   [How to set up `cron`, an open source task scheduler for Linux](https://www.richpauloo.com/post/crontabs/)    
 
 <aside>
-Also check out the [`{taskscheduleR}`](https://github.com/bnosac/taskscheduleR) and [`{cronR}`](https://github.com/bnosac/cronR) packages for Windows and Linux, which have RStudio add-ins.
+Also check out the [`taskscheduleR`](https://github.com/bnosac/taskscheduleR) and [`cronR`](https://github.com/bnosac/cronR) packages for Windows and Linux, which have RStudio add-ins.
 </aside>
 
 
@@ -901,8 +899,8 @@ Whenever code is running without your supervision on a task scheduler, things ma
 
 A full discussion of logging is out of scope for this lesson, but you can learn more about logging by browsing these packages:
 
-- [`{lgr}`](https://github.com/s-fleck/lgr)  
-- [`{logger}`](https://github.com/daroczig/logger/)  
+- [`lgr`](https://github.com/s-fleck/lgr)  
+- [`logger`](https://github.com/daroczig/logger/)  
 
 
 <br>
@@ -913,17 +911,15 @@ As a data scientist, you'll often perform once-over ad-hoc analyses. You may or 
 
 > Will the time saved in the future by automation exceed the time spent automating the process now? If so, automate.
 
-(ref:automate-xkcd2-fig) *Figure credit: [xkcd, 1205](https://xkcd.com/1205/)*
 
-```{r time-fig, eval=TRUE, echo=FALSE, out.width='75%',fig.cap='(ref:automate-xkcd2-fig)'}
+```{r time-fig, eval=TRUE, echo=FALSE, out.width='75%',fig.cap="*Figure credit: [xkcd, 1205](https://xkcd.com/1205/)*"}
 knitr::include_graphics(here("images", "is_it_worth_the_time.png"))
 ```
 
 Don't underestimate the time it can take to automate.
 
-(ref:automate-xkcd-fig) *Figure credit: [xkcd, 1319](https://xkcd.com/1319/)*
 
-```{r no-automate-fig, eval=TRUE, echo=FALSE, out.width='75%',fig.cap='(ref:automate-xkcd-fig)'}
+```{r no-automate-fig, eval=TRUE, echo=FALSE, out.width='75%',fig.cap="*Figure credit: [xkcd, 1319](https://xkcd.com/1319/)*"}
 knitr::include_graphics(here("images", "automation_xkcd.png"))
 ```
 

@@ -19,20 +19,19 @@ knitr::opts_chunk$set(out.width="100%")
 **Learning objectives**
  
  - Learn how to create beautiful and informative plots from data  
- - Understand the grammar of graphics implemented in **`{ggplot2}`** and how to create plots in "layers"  
- - Learn core **`{ggplot2}`** geometries like `geom_point()`, `geom_line()`, `geom_col()`, `geom_boxplot()`, `geom_histogram()` 
+ - Understand the grammar of graphics implemented in **`ggplot2`** and how to create plots in "layers"  
+ - Learn core **`ggplot2`** geometries like `geom_point()`, `geom_line()`, `geom_col()`, `geom_boxplot()`, `geom_histogram()` 
  - Understand how to customize and save plots
 
 :::
   
-## Data visualization with **{ggplot2}**
+## Data visualization with **`ggplot2`**
 
-Data visualization allows us to effectively explore data in an Exploratory Data Analysis (EDA), and allows us to communicate the results of an analysis or modeling exercise. A powerful package for data visualization in R is **`{ggplot2}`** (part of the **`{tidyverse}`** set of packages). **`{ggplot2}`** stands for "**g**rammar of **g**raphics **plot**" and generally provides a semantic syntax for data visualization that breaks down graphs in terms of *aesthetics*, *geoms*, *coordinates*, *scales*, and more, which allows users to create visualizations that range from simple to extraordinarily complex. The act of creating visualizations is not only useful, but also fun and motivating, so we cover it early, before more advanced data manipulation in subsequent modules. By the end of this module you will be able to create beautiful ggplots made entirely in R, and take your first steps towards reproducible and elegant data visualization.
-
-(ref:ah-ggplot) *Illustration by @allison_horst.*
+Data visualization allows us to effectively explore data in an Exploratory Data Analysis (EDA), and allows us to communicate the results of an analysis or modeling exercise. A powerful package for data visualization in R is **`ggplot2`** (part of the **`tidyverse`** set of packages). **`ggplot2`** stands for "**g**rammar of **g**raphics **plot**" and generally provides a semantic syntax for data visualization that breaks down graphs in terms of *aesthetics*, *geoms*, *coordinates*, *scales*, and more, which allows users to create visualizations that range from simple to extraordinarily complex. The act of creating visualizations is not only useful, but also fun and motivating, so we cover it early, before more advanced data manipulation in subsequent modules. By the end of this module you will be able to create beautiful ggplots made entirely in R, and take your first steps towards reproducible and elegant data visualization.
 
 
-```{r ggplot-evl, eval=TRUE, echo=FALSE, out.width='80%', fig.cap='(ref:ah-ggplot)'}
+
+```{r ggplot-evl, eval=TRUE, echo=FALSE, out.width='80%', fig.cap="*Illustration by @allison_horst.*"}
 knitr::include_graphics("images/ggplot2.png")
 ```
 
@@ -40,11 +39,11 @@ knitr::include_graphics("images/ggplot2.png")
 
 ## Examples
 
-Before we begin, below are a few plots created entirely with **`{ggplot2}`** to illustrate the possibilities for data visualization enabled by this package. 
+Before we begin, below are a few plots created entirely with **`ggplot2`** to illustrate the possibilities for data visualization enabled by this package. 
 
-These are only a few examples of the many possibilities that can be made. Because ggplots are so customizable, some people even use **`{ggplot2}`** to create artwork^[See https://art.djnavarro.net/ or https://www.data-imaginist.com/art]. Once you are familiar with how to customize a ggplot, you may be surprised to see them appear in major news outlets and scientific publications.  
+These are only a few examples of the many possibilities that can be made. Because ggplots are so customizable, some people even use **`ggplot2`** to create artwork^[See https://art.djnavarro.net/ or https://www.data-imaginist.com/art]. Once you are familiar with how to customize a ggplot, you may be surprised to see them appear in major news outlets and scientific publications.  
 
-<aside> **`{ggplot2}`** art by [Antonio Sánchez Chinchón](https://fronkonstin.com/2018/03/11/mandalas-colored/) @aschinchon.
+<aside> **`ggplot2`** art by [Antonio Sánchez Chinchón](https://fronkonstin.com/2018/03/11/mandalas-colored/) @aschinchon.
 
 ```{r p3, eval=TRUE, echo=FALSE, out.width='100%'}
 knitr::include_graphics("images/mandala.png")
@@ -53,28 +52,25 @@ knitr::include_graphics("images/mandala.png")
 </aside>
 
 
-(ref:cedric) *[Evolution of a ggplot](https://www.cedricscherer.com/2019/05/17/the-evolution-of-a-ggplot-ep.-1/), by Cedric Scherer shows how one can progressively refine and customize a gpplot.*
 
-```{r ggplot-evol, eval=TRUE, echo=FALSE, out.width='80%', fig.cap='(ref:cedric)'}
+```{r ggplot-evol, eval=TRUE, echo=FALSE, out.width='80%', fig.cap="*[Evolution of a ggplot](https://www.cedricscherer.com/2019/05/17/the-evolution-of-a-ggplot-ep.-1/), by Cedric Scherer shows how one can progressively refine and customize a gpplot.*"}
 knitr::include_graphics("images/ggplot_evolution.gif")
 ```
 
-(ref:timo) *Created by [Timo Grossenbacher](https://timogrossenbacher.ch/2016/12/beautiful-thematic-maps-with-ggplot2-only/) @grssnbchr.*
 
-```{r p1, eval=TRUE, echo=FALSE, out.width='80%', fig.cap='(ref:timo)'}
+```{r p1, eval=TRUE, echo=FALSE, out.width='80%', fig.cap="*Created by [Timo Grossenbacher](https://timogrossenbacher.ch/2016/12/beautiful-thematic-maps-with-ggplot2-only/) @grssnbchr.*"}
 knitr::include_graphics("images/switzerland.png")
 ```
 
-(ref:cedric2) *Travelling to Outer Space by [Cédric Scherer](https://www.cedricscherer.com/top/dataviz/) @CedScherer.*
 
-```{r p2, eval=TRUE, echo=FALSE, out.width='80%', fig.cap='(ref:cedric2)'}
+```{r p2, eval=TRUE, echo=FALSE, out.width='80%', fig.cap="*Travelling to Outer Space by [Cédric Scherer](https://www.cedricscherer.com/top/dataviz/) @CedScherer.*"}
 knitr::include_graphics("images/2020_29_Astronauts_blur_color.png")
 ```
 
 
 ## Creating your first ggplot
 
-To begin, we load the **`{ggplot2}`** package. We can load it independently, but let's load it along with the **`{tidyverse}`** suite of R packages used in this course. We also need to load some data. Below we load a pre-processed dataframe that we'll create later in the module on joins and binds.
+To begin, we load the **`ggplot2`** package. We can load it independently, but let's load it along with the **`tidyverse`** suite of R packages used in this course. We also need to load some data. Below we load a pre-processed dataframe that we'll create later in the module on joins and binds.
 
 ```{r, eval = FALSE, include = FALSE}
 # create joined data to use in ggplot lesson
@@ -157,12 +153,12 @@ ggplot(data = <DATA>) +
   <GEOM_FUNCTION>(mapping = aes(<MAPPINGS>))
 ```
 
-<aside> See a full list of available geoms on the **`{ggplot2}`** [online documentation](https://ggplot2.tidyverse.org/reference/).  
+<aside> See a full list of available geoms on the **`ggplot2`** [online documentation](https://ggplot2.tidyverse.org/reference/).  
 </aside>
 
-We start creating a plot with the `ggplot()` function with our data (`data = gwl`). With {`ggplot2`}, each layer or piece of the ggplot is added by using a `+`.  We added a `geom_line()` which connects data points with a line, but there are many other geoms, including `geom_point()`, `geom_col()`, `geom_boxplot()`, `geom_histogram()`, and so on. Inside each `geom_`, there are many options, but the core arguments that allow us to tell the `geom_line()` function to put the date on the x-axis and depth to groundwater on the y-axis are arguments **`data`** and **`mapping`** . For the **`data`**, we are using the data specified in the `ggplot(data = gwl)` line, which means that data is available for any future layer or `geom` we use. To specify what pieces go on the x-axis and y-axis, we use the mapped aesthetics, `mapping = aes(x = MSMT_DATE, y = GSE_WSE)`.  
+We start creating a plot with the `ggplot()` function with our data (`data = gwl`). With `ggplot2`, each layer or piece of the ggplot is added by using a `+`.  We added a `geom_line()` which connects data points with a line, but there are many other geoms, including `geom_point()`, `geom_col()`, `geom_boxplot()`, `geom_histogram()`, and so on. Inside each `geom_`, there are many options, but the core arguments that allow us to tell the `geom_line()` function to put the date on the x-axis and depth to groundwater on the y-axis are arguments **`data`** and **`mapping`** . For the **`data`**, we are using the data specified in the `ggplot(data = gwl)` line, which means that data is available for any future layer or `geom` we use. To specify what pieces go on the x-axis and y-axis, we use the mapped aesthetics, `mapping = aes(x = MSMT_DATE, y = GSE_WSE)`.  
 
-In practice, we don't need to explicitly write out all of the full argument names. **`{ggplot2}`** understands that mapping `aes(MSMT_DATE, GSE_WSE)` means that the measurement date and depth to groundwater belong on the x and y axis respectively. However, it is always a good idea to explicitly specify the **`data`** argument no matter what to avoid potential errors.
+In practice, we don't need to explicitly write out all of the full argument names. **`ggplot2`** understands that mapping `aes(MSMT_DATE, GSE_WSE)` means that the measurement date and depth to groundwater belong on the x and y axis respectively. However, it is always a good idea to explicitly specify the **`data`** argument no matter what to avoid potential errors.
 
 <aside>
 If using more than one dataframe, you can specify data in each geom function, rather than in `ggplot()`.  
@@ -435,7 +431,7 @@ dev.off()
 
 ### Saving with `ggsave()`
 
-Another way to save ggplots that involves less code is to use the `ggsave()` function. By default, `ggsave()` height and width arguments are understood to be in units of inches. This approach *only* works with plots that have been generated using the `{ggplot2}` package. To save different file types, we simply change the file extension to the format we want.
+Another way to save ggplots that involves less code is to use the `ggsave()` function. By default, `ggsave()` height and width arguments are understood to be in units of inches. This approach *only* works with plots that have been generated using the `ggplot2` package. To save different file types, we simply change the file extension to the format we want.
 
 ```{r ggsv}
 ggsave("results/my_plot_ggsave.pdf", my_plot, height = 10, width = 7)
@@ -445,7 +441,7 @@ ggsave("results/my_plot_ggsave.png", my_plot)
 
 ## Colorblindness
 
-[Global estimates](https://www.colourblindawareness.org/colour-blindness/) suggest that 8% of men and 0.5% of women experience some form of colorblindness. When creating data visualizations, default palettes may not be colorblind-safe. Fortunately, **`{ggplot2}`** includes options for colorblind-safe scales. These can be used with both `color` and `fill` aesthetics by adding the `scale_<color or fill>_viridis_<c or d>` functions to our ggplots. 
+[Global estimates](https://www.colourblindawareness.org/colour-blindness/) suggest that 8% of men and 0.5% of women experience some form of colorblindness. When creating data visualizations, default palettes may not be colorblind-safe. Fortunately, **`ggplot2`** includes options for colorblind-safe scales. These can be used with both `color` and `fill` aesthetics by adding the `scale_<color or fill>_viridis_<c or d>` functions to our ggplots. 
 
 ```{r vir, preview = TRUE}
 ggplot(data = gwl_10) +
@@ -463,7 +459,7 @@ ggplot(data = gwl) +
   scale_color_viridis_c(trans = "date")
 ```
 
-We can toggle color palettes, and reverse them. See the [{viridis} vignette](https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html) for more info. 
+We can toggle color palettes, and reverse them. See the [`viridis` vignette](https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html) for more info. 
 
 <aside> Color is a vibrantly discussed and very customizable in R. A few resources for color palette selection include [colorbrewer2](https://colorbrewer2.org/), [sciviscolor.org](https://sciviscolor.org/), and [colorgorical](http://vrl.cs.brown.edu/color).
 </aside>
@@ -552,7 +548,7 @@ Just about every aspect of plots can be customized with arguments in the `theme(
 Built-in themes are also a quick way to change the look of your plots. Let's start over with a basic plot, view some built-in themes.
 
 <aside>
-For even more themes, check out the [**`{ggthemes}`** package](https://github.com/jrnold/ggthemes).
+For even more themes, check out the [**`ggthemes`** package](https://github.com/jrnold/ggthemes).
 </aside>
 
 ```{r theme}
@@ -573,7 +569,7 @@ p + theme_dark(base_size = 18)
 
 <font color="#009E73">**Extra Practice**</font> 
 
-There are many built-in themes in **{`ggplot2`}**. Add a theme you haven't tried before to the `p` object from above. Type "theme_" and hit _Tab_ to view options.  
+There are many built-in themes in **`ggplot2`**. Add a theme you haven't tried before to the `p` object from above. Type "theme_" and hit _Tab_ to view options.  
 
 :::
 
@@ -593,7 +589,7 @@ p + theme_classic()
 
 ## Extending ggplot2
 
-If you want to learn more about `{ggplot2}`, check out these two free online resources:  
+If you want to learn more about `ggplot2`, check out these two free online resources:  
 
 - [ggplot2: elegant graphics for data analysis](https://ggplot2-book.org/index.qmd): This is the definitive ggplot2 guide written by the package author that emphasizes code and ggplot2 fundamental skills and concepts.  
 - [Fundamentals of Data Visualization](https://clauswilke.com/dataviz/): This book emphasizes principles of good data visualization that will inform the graphics you create.  

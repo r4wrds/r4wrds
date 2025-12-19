@@ -16,8 +16,8 @@ library(knitr)
 ::: {.obj}
 **Learning objectives**
 
--   Learn to extend and use `{sf}` with aquatic data from NHD sources
--   Mapping with `{tmap}`
+-   Learn to extend and use `sf` with aquatic data from NHD sources
+-   Mapping with `tmap`
 -   Advanced spatial operations with vector data
 :::
 
@@ -52,7 +52,7 @@ library(tmaptools) # mapping tools
 
 ### River Data: Find Nearest USGS Station
 
-We've demonstrated how to join data and crop data in R, but let's use some alternate options to download new data. We'll focus on surface water here, and look at how we can download and map flowlines in R. Much of the USGS data network can be queried and downloaded in `R`. This may include data on water quality, river discharge, water temperature, spatial basins, and NHD flowlines. The {`dataRetrieval`} package is an excellent option for these operations.
+We've demonstrated how to join data and crop data in R, but let's use some alternate options to download new data. We'll focus on surface water here, and look at how we can download and map flowlines in R. Much of the USGS data network can be queried and downloaded in `R`. This may include data on water quality, river discharge, water temperature, spatial basins, and NHD flowlines. The `dataRetrieval` package is an excellent option for these operations.
 
 Let's find a few groundwater stations to use. Here we'll grab one close to the American River and one close to the Cosumnes just for demonstration purposes, but this could be any X/Y point, or set of points you are interested in.
 
@@ -64,7 +64,7 @@ Note, the X/Y points don't need to fall on a river! The function will look for t
 
 #### Groundwater Data
 
-Iteration...remember {`purrr`}? Let's use it here!
+Iteration...remember `purrr`? Let's use it here!
 
 ```{r get-stations}
 
@@ -134,7 +134,7 @@ Let's look only at mainstem flowlines from our locations of interest, and return
 
 <aside>
 
-If there are issues running the `findNLDI` function via `{dataRetrieval}`, data can be downloaded with: `load(url("https://github.com/r4wrds/r4wrds/raw/main/intermediate/data/dataRetrieval_all_nldi_data.rda"))`.
+If there are issues running the `findNLDI` function via `dataRetrieval`, data can be downloaded with: `load(url("https://github.com/r4wrds/r4wrds/raw/main/intermediate/data/dataRetrieval_all_nldi_data.rda"))`.
 
 </aside>
 
@@ -299,7 +299,7 @@ Why did we use `st_drop_geometry()`? Sometimes it's cleaner (and faster) to oper
 
 #### Download USGS Data with NLDI
 
-Now we have our stations of interest, and our climate data, let's download river flow and water temperature data with the `{dataRetrieval}` package.
+Now we have our stations of interest, and our climate data, let's download river flow and water temperature data with the `dataRetrieval` package.
 
 ```{r download-nldi}
 
@@ -381,7 +381,7 @@ Now we have the data, let's plot!
 
 In the plots above, we see the gaps in data are connected when using a line plot.
 Ideally, we would prefer to visualize these data with gaps (no line) where there is no data.
-To do this, we can leverage handy functions from the `{tidyr}` package: `complete()` and `fill()`.
+To do this, we can leverage handy functions from the `tidyr` package: `complete()` and `fill()`.
 
 </p>
 
@@ -425,18 +425,18 @@ usgs_wTemp2 <- usgs_wTemp %>%
 
 
 
-## Make a Map with `{tmap}`
+## Make a Map with `tmap`
 
-One final component that we haven't covered much is how to create a publication ready-map. We can do this using the `{ggplot2}` package in conjunction with `geom_sf()`, or we can use some alternate packages which are built specifically to work with spatial data and use a similar code structure to `{ggplot2}`.  
+One final component that we haven't covered much is how to create a publication ready-map. We can do this using the `ggplot2` package in conjunction with `geom_sf()`, or we can use some alternate packages which are built specifically to work with spatial data and use a similar code structure to `ggplot2`.  
 
-The `{tmap}` and `{tmaptools}` are excellent options to create a nice map that can be used in any report or publication. First, let's load the packages we'll use. 
+The `tmap` and `tmaptools` are excellent options to create a nice map that can be used in any report or publication. First, let's load the packages we'll use. 
 
 ```{r tmap-load}
 library(tmap)
 library(tmaptools)
 ```
 
-Now we build our layers using a similar structure as `{ggplot2}`.
+Now we build our layers using a similar structure as `ggplot2`.
 
 ```{r tmap, preview = TRUE}
 

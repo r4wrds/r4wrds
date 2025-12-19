@@ -18,7 +18,7 @@ library(tidyverse)
 
 -   Understand the costs and benefits of loops and functional programming\
 -   Practice iteration with `for` loops\
--   Practice iteration with `lapply()` and the `{purrr}` family of functions\
+-   Practice iteration with `lapply()` and the `purrr` family of functions\
 -   Understand how interact with the `list` object type\
 :::
 
@@ -185,7 +185,7 @@ Notice that we don't need to initialize a list to store output, or keep track of
 
 ## `map()`
 
-The `map` family of functions in the `{purrr}` package improves on base `R`'s `apply` functions with simplified syntax, type-specific output that makes it harder to accidentally create errors, and convenience functions for common operations. When we combine `map()` with pipes (`%>%`) we can greatly simplify our code.
+The `map` family of functions in the `purrr` package improves on base `R`'s `apply` functions with simplified syntax, type-specific output that makes it harder to accidentally create errors, and convenience functions for common operations. When we combine `map()` with pipes (`%>%`) we can greatly simplify our code.
 
 First, to mimic what we did with `lapply()` above:
 

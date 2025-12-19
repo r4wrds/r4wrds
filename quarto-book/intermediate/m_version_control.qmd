@@ -86,9 +86,8 @@ Thus, successful version control is not just about effectively using tools like 
 
 ![*Learn to leverage the power of git for things other than just a backup!* (Figure from <https://xkcd.com/1597/>)](images/xkcd_using_git.png){.external width="60%"}
 
-(ref:xkcdGit) *Learn to leverage the power of git for things other than just a backup! (Figure from <https://xkcd.com/1597/>).*
 
-```{r, fig.cap='(ref:xkcdGit)', out.width='60%', echo=FALSE, eval=FALSE, out.extra="class=external"}
+```{r, fig.cap="*Learn to leverage the power of git for things other than just a backup! (Figure from <https://xkcd.com/1597/>).*", out.width='60%', echo=FALSE, eval=FALSE, out.extra="class=external"}
 
 include_graphics(here("images/xkcd_using_git.png"))
 
@@ -274,9 +273,8 @@ Let's create a new branch called `jo_download_data`. Ideally, each team member w
 include_graphics(here("images/new_branch_1.png"))
 ```
 
-(ref:startingBranch) <font color="#5f3dc4">**Jo**</font> creates a new branch from <font color="#e67700">**`main`**</font> to write a data download script in `R`.
 
-```{r startingBranch, eval=TRUE, echo=FALSE, fig.cap='(ref:startingBranch)', out.height='80%'}
+```{r startingBranch, eval=TRUE, echo=FALSE, fig.cap="<font color=\"#5f3dc4\">**Jo**</font> creates a new branch from <font color=\"#e67700\">**`main`**</font> to write a data download script in `R`.", out.height='80%'}
 
 include_graphics(here("images/jo_data_gather_branch.png"))
 

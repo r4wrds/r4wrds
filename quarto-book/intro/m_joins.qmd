@@ -27,10 +27,9 @@ options(scipen = 14)
 
 We often need to take several datasets and merge them into a single dataset that we can use for analysis. This "**join**" can at times be tricky, and can be made more so if we aren't exactly sure what data matches up between the two datasets, or if the same data is named differently in each dataframe. Sometimes joining data can resemble more of a gridlock than a clean and seamless merge.
 
-(ref:gridlockWiki) Merging Data? *(source Wikipedia Commons)*
 
 <center>
-```{r gridlock, echo=FALSE, fig.cap="(ref:gridlockWiki)", out.height="50%", preview = TRUE}
+```{r gridlock, echo=FALSE, fig.cap="Merging Data? *(source Wikipedia Commons)*", out.height="50%", preview = TRUE}
 
 # "https://upload.wikimedia.org/wikipedia/commons/8/82/New_York_City_Gridlock.jpg"
 
@@ -43,7 +42,7 @@ knitr::include_graphics("images/New_York_City_Gridlock.jpeg")
 
 The trick that makes a join possible is to have one or more shared variables across each dataset. This may be an ID column, or a specific [data class](m_data_structures.qmd#basic-object-classes). Importantly, these data can actually have different column names, but typically each needs to have the same *class* of data (i.e., `character` and `character`) and some shared observations across each dataset in order to **join** the datasets.
 
-While this may seem daunting at first, it's not! R has some excellent tools built into the **`{dplyr}`** package that make joining datasets fairly straightforward. First let's import some data we can use to join. Here we will build off of the datasets we used in the [previous {dplyr} module](m_dplyr.qmd). 
+While this may seem daunting at first, it's not! R has some excellent tools built into the **`dplyr`** package that make joining datasets fairly straightforward. First let's import some data we can use to join. Here we will build off of the datasets we used in the [previous `dplyr` module](m_dplyr.qmd). 
 
 First let's load the libraries and data we'll be using. We'll be continuing to use some groundwater data as shown in previous modules, including a dataframe of **`stations`**, **`measurements`** through time, and information on **`perforations`**. We'll also *join* these data to the [CalEnviroscreen dataset](https://oehha.ca.gov/calenviroscreen) which "*identifies California communities by census tract that are disproportionately burdened by, and vulnerable to, multiple sources of pollution*". One of the most notable uses of the CalEnviroscreen dataset has been to inform CalEPA’s identification of disadvantaged communities. We'll be using CalEnviroscreen v3.0 in the code that follows.
 
@@ -111,9 +110,8 @@ compare_df_cols(gw_stations, gw_perf, gw_measurements)
 
 Now we'd like to know if there are similar data columns between the groundwater datasets and the CalEnviroscreen data. To do this let's inspect our `stations` and `calenviro` data with either `head` or `names` or `str`. All will tell us similar information. At this point, we know we can tie the groundwater data together, but we need to find something to crosswalk or join the CalEnviroscreen data to the groundwater data. In this case, the CalEnviroscreen data are at a census tract level, and contain data with ZIP codes, counties, and census tracts.
 
-(ref:AHmeetdata) *Artwork by @allison_horst*
 
-```{r AHmeetData, echo=FALSE, out.width="80%", fig.cap="(ref:AHmeetdata)"}
+```{r AHmeetData, echo=FALSE, out.width="80%", fig.cap="*Artwork by @allison_horst*"}
 
 include_graphics("https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/make-your-own-stats-cartoons/ex_2.png")
 
@@ -132,7 +130,7 @@ What do we see? Looks like we have county names in both of these datasets, but t
 
 ## Join Types
 
-There are quite a few different join types that are available via the **{dplyr}** package. Here are some great animations by [Garrick Aden-Buie](https://www.garrickadenbuie.com/project/tidyexplain/#usage) that help illustrate the various join types. 
+There are quite a few different join types that are available via the **`dplyr`** package. Here are some great animations by [Garrick Aden-Buie](https://www.garrickadenbuie.com/project/tidyexplain/#usage) that help illustrate the various join types. 
 
 ### Left Join
 
@@ -314,9 +312,8 @@ Error: `by` must be supplied when `x` and `y` have no common variables.
 Run `rlang::last_error()` to see where the error occurred.
 ```
 
-(ref:facewiggle) *Artwork by @allison_horst*
 
-```{r face, echo=FALSE, out.height="2%", fig.cap="(ref:facewiggle)"}
+```{r face, echo=FALSE, out.height="2%", fig.cap="*Artwork by @allison_horst*"}
 
 include_graphics("images/faces_squiggle.png")
 
@@ -422,7 +419,7 @@ sac_gw_all <- sac_gw_all %>%
 
 ## Save it Out!
 
-Remember how to do this? Let's save this using an R specific format, `.rds`, because it will retain the formatting and allow us to import/read in the data using whatever name we prefer. Here we'll use the `write_rds()` function from the `{readr}` package (part of the `{tidyverse}`). 
+Remember how to do this? Let's save this using an R specific format, `.rds`, because it will retain the formatting and allow us to import/read in the data using whatever name we prefer. Here we'll use the `write_rds()` function from the `readr` package (part of the `tidyverse`). 
 
 ```{r saveOut, echo=T, eval=T}
 

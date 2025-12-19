@@ -35,9 +35,8 @@ Ultimately spreadsheets (or any list or table of data) attempt to take **human r
 
 Typically when we look at data, we want it to be in a "tidy" format. Data in a tidy format, means that each **column** is a unique variable, and each **row** is a unique observation of data. Furthermore, any information we want the computer to retain should be stored as `variables` and not in side comments or coloring. This makes it possible for a computer to easily interpret these data, and avoids any unnecessary conversions or loss of data.
 
-(ref:tidyData1) *Illustrations from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst*
 
-```{r tidydata, echo=FALSE, fig.cap="(ref:tidyData1)"}
+```{r tidydata, echo=FALSE, fig.cap="*Illustrations from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst*"}
 include_graphics("images/tidydata_1.jpg")
 ```
 
@@ -45,9 +44,8 @@ include_graphics("images/tidydata_1.jpg")
 
 In reality, we will generally encounter non-tidy data in the wild. Messy data comes in many forms and it exists *everywhere*. Much of data science hinges on cleaning up and reformatting data so it can be used in some way other than the form it exists in. The good news is the concept of tidy data can be applied to *any* dataset, and there are some very straightforward tips to make this easy to implement!
 
-(ref:tidyData2) *Illustrations from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst*
 
-```{r tidydata2, echo=FALSE, fig.cap="(ref:tidyData2)"}
+```{r tidydata2, echo=FALSE, fig.cap="*Illustrations from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst*"}
 include_graphics("images/tidydata_2.jpg")
 ```
 
@@ -55,9 +53,8 @@ include_graphics("images/tidydata_2.jpg")
 
 The great news is we can use a similar set of tools to deal with tidying and cleaning our data, and once we've learned these tools, there are few datasets that will stand in your way (though some may take longer than others!). An important thing to learn is that ***tidy data starts the moment we begin recording information***. The more we can collect and update data in a "*tidy*" fashion, the less cleaning and wrangling is required to work with that data.
 
-(ref:tidyData3) *Illustrations from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst*
 
-```{r tidydata3, echo=FALSE, fig.cap="(ref:tidyData3)"}
+```{r tidydata3, echo=FALSE, fig.cap="*Illustrations from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst*"}
 include_graphics("images/tidydata_3.jpg")
 ```
 
@@ -192,7 +189,7 @@ Although there is a potential risk to accidentally add a space in a blank cell, 
 
 ## Pivoting
 
-When we enter data in a spreadsheet, the data is typically oriented in a ***wide*** format. This makes entry easier and is generally easier for us to see, enter, and explore the data. Although ***wide*** data is more human-friendly for data entry, ***long*** data is much better for analysis and visualization. In particular, in `R`, the `{ggplot}` package prefers data in a ***long*** format, which facilitates easier filtering, grouping, and faceting of the data.
+When we enter data in a spreadsheet, the data is typically oriented in a ***wide*** format. This makes entry easier and is generally easier for us to see, enter, and explore the data. Although ***wide*** data is more human-friendly for data entry, ***long*** data is much better for analysis and visualization. In particular, in `R`, the `ggplot` package prefers data in a ***long*** format, which facilitates easier filtering, grouping, and faceting of the data.
 
 ### Wide to Long
 
@@ -210,7 +207,7 @@ We know these data should all be numeric, so let's fix this using some `dplyr` k
 
 <aside>
 
-Note, we need to use backticks for \``column names`\` because there are spaces and characters in our column names that aren't permitted by default in R. Tidy column names are helpful for this. See the excellent [`{janitor}`](http://sfirke.github.io/janitor/) package for more info.
+Note, we need to use backticks for \``column names`\` because there are spaces and characters in our column names that aren't permitted by default in R. Tidy column names are helpful for this. See the excellent [`janitor`](http://sfirke.github.io/janitor/) package for more info.
 
 </aside>
 
@@ -221,9 +218,8 @@ ces <- ces %>%
 
 ```
 
-(ref:across) *Illustration by @allison_horst*
 
-```{r across, echo=FALSE, out.width="%80", fig.cap="(ref:across)"}
+```{r across, echo=FALSE, out.width="%80", fig.cap="*Illustration by @allison_horst*"}
 include_graphics("images/dplyr_across.png")
 ```
 
@@ -236,7 +232,7 @@ ncol(ces) # number of columns
 nrow(ces) # number of rows
 ```
 
-So, if we want to reformat or `pivot` this data from a wide format (there are `r ncol(ces)` columns, many of which are distinct variables measured as part of the CES calculation), we want to retain certain columns and collapse others. Let's focus on collapsing all the columns that are used to calculate the CES scores into a single column. So from `Ozone:Pop. Char. Pctl`, we should have one column we'll call `CES_variables` which will be all the various variable names from these columns, and a `CES_value` which will be the value associated with each of the columns we are collapsing or combining. We need the `{tidyr}` package for this, which is loaded as part of the `{tidyverse}`.
+So, if we want to reformat or `pivot` this data from a wide format (there are `r ncol(ces)` columns, many of which are distinct variables measured as part of the CES calculation), we want to retain certain columns and collapse others. Let's focus on collapsing all the columns that are used to calculate the CES scores into a single column. So from `Ozone:Pop. Char. Pctl`, we should have one column we'll call `CES_variables` which will be all the various variable names from these columns, and a `CES_value` which will be the value associated with each of the columns we are collapsing or combining. We need the `tidyr` package for this, which is loaded as part of the `tidyverse`.
 
 ```{r pivot-long, warning=FALSE}
 
@@ -254,7 +250,7 @@ dim(ces_long)
 str(ces_long)
 ```
 
-Wow! We just condensed our dataset from wide to long by collapsing 46 variables into a single column. That means there is some duplication in the data, but these data will be much easier to work with in {`ggplot`} or other downstream analyses in R. We can double check this worked as expected, because the original wide dataset had `r nrow(ces)` observations, so if we multiply `r nrow(ces)` * 46 variables, we should get the total number of observations in the `ces_long` dataset (n=`r nrow(ces)*46`).
+Wow! We just condensed our dataset from wide to long by collapsing 46 variables into a single column. That means there is some duplication in the data, but these data will be much easier to work with in `ggplot` or other downstream analyses in R. We can double check this worked as expected, because the original wide dataset had `r nrow(ces)` observations, so if we multiply `r nrow(ces)` * 46 variables, we should get the total number of observations in the `ces_long` dataset (n=`r nrow(ces)*46`).
 
 ### Long to Wide
 
@@ -270,13 +266,12 @@ ces_wide <- pivot_wider(data = ces_long,
 ```
 
 
-There are many additional options within the {tidyr} `pivot_` functions. We recommend further reading on [*pivoting at R4DS*](https://r4ds.had.co.nz/tidy-data.html#pivoting) and the [*`{tidyr}` pivoting vignette*](https://tidyr.tidyverse.org/articles/pivot.html), as well as checking out the `separate()` and `unite()` functions from the same package.
+There are many additional options within the `tidyr` `pivot_` functions. We recommend further reading on [*pivoting at R4DS*](https://r4ds.had.co.nz/tidy-data.html#pivoting) and the [*`tidyr` pivoting vignette*](https://tidyr.tidyverse.org/articles/pivot.html), as well as checking out the `separate()` and `unite()` functions from the same package.
 
 Happy wrangling!
 
-(ref:tidyData6) *Illustrations from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst*
 
-```{r tidydata6, echo=FALSE, fig.cap="(ref:tidyData6)"}
+```{r tidydata6, echo=FALSE, fig.cap="*Illustrations from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst*"}
 include_graphics("images/tidydata_6.jpeg")
 ```
 
