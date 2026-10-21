@@ -10,3 +10,5 @@ site_libs/
 **/data_output/
 
 /.quarto/
+
+**/*.quarto_ipynb
