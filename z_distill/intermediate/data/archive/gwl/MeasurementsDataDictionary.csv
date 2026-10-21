@@ -1,0 +1,20 @@
+column,type,label,description
+STN_ID,numeric,Station ID,Sequential number assigned to each record in the EWM_STATION table
+SITE_CODE,text,Site Code,Location based 18 character alphanumeric code assigned to each well
+WLM_ID,numeric,Water Level Measurement Unique Id,Unique database identifier for water level measurement
+MSMT_DATE,timestamp,Water Level Measurement Date (PST),Date/Time (in PST) the groundwater level measurement was collected
+WLM_RPE,numeric,RPE for a specific water level measurement record,Reference Point Elevation used to collect the groundwater level measurement in feet referenced to the North American Vertical Datum of 1988 (NAVD88)
+WLM_GSE,numeric,GSE for a specific water level measurement record,Ground Surface Elevation at the well site  in feet referenced to the North American Vertical Datum of 1988 (NAVD88)
+RDNG_WS,numeric,Reading at WS,"Reading on the measurement device at water surface.  Typically 0 for electric tape.  Generally used for steel tape measurements, however typically is not 0"
+RDNG_RP,numeric,Reading at RP,Reading shown on the measurement device at reference point
+WSE,numeric,WS Elevation,Water Surface Elevation in feet referenced to the North American Vertical Datum of 1988 (NAVD88)
+RPE_WSE,numeric,RPE to WSE ,Depth below reference point or the distance from reference point to water surface in feet
+GSE_WSE,numeric,GSE to WSE,Depth below ground surface or the distance from ground surface to water surface in feet
+WLM_QA_DESC,text,Water Level Measurement Quality Description,Quality assurance description for groundwater level measurement (questionable or no measurement code)
+WLM_DESC,text,Water Level Measurement Method Description,Description of water level measurement method
+WLM_ACC_DESC,text,Water Level Measurement Accuracy Description,Description for accuracy of water level (elevation) measurement
+WLM_ORG_ID,numeric,Water Level Measurement Organization ID,The Organization ID of the data collector
+WLM_ORG_NAME,text,Water Level Measurement Organization/Agency Name,Water level measurement organization/agency full name - Linked to WLM_ORG_ID
+MSMT_CMT,text,Water Level Measurement  Comments,Comments about a specific measurement
+COOP_AGENCY_ORG_ID,numeric,Cooperating Organization Identifier,Unique database identifier for organization providing water level measurement
+COOP_ORG_NAME,text,Cooperating Organization Name,Name of organization providing water level measurement

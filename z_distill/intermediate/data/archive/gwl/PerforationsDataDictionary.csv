@@ -1,0 +1,5 @@
+column,type,label,description
+STN_ID,numeric,Station ID,Sequential number assigned to each record in the EWM_STATION table. Database unique identifier (key).
+SITE_CODE,text,Site Code,Location based 18 character alphanumeric code assigned to each well. Database alternate unique identifier (key).
+TOP_PRF,numeric,Top Perforation (feet bgs),Depth of the top of screen interval as measured in positive feet below ground surface
+BOT_PRF,numeric,Bottom Perforation (feet bgs),Depth of the bottom of screen interval  as measured in positive feet below ground surface

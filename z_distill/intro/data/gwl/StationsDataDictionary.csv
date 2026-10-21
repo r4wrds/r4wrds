@@ -1,0 +1,16 @@
+column,type,label,description
+STN_ID,numeric,Station ID,Sequential number assigned to each record in the EWM_STATION table. Database unique identifier (key).
+SITE_CODE,text,Site Code,Location based 18 character alphanumeric code assigned to each well. Database alternate unique identifier (key).
+SWN,text,State Well Number,DWR State Well Number
+WELL_NAME,text,Local Well Name,"Local well identification / local well name, number, or code"
+LATITUDE,numeric,Latitude,Latitude (NAD83)
+LONGITUDE,numeric,Longitude,Longitude (NAD83)
+WLM_METHOD,text,Water Level Measurement Method,Method used to measure water levels
+WLM_ACC,text,Water Level Measurement Accuracy,Measurement accuracy
+BASIN_CODE,text,Basin Subbasin Number,Basin Subbasin Number
+BASIN_NAME,text,Basin Subbasin Name,Basin Subbasin Name
+COUNTY_NAME,text,County,County Name
+WELL_DEPTH,text,Well Depth (feet bgs),Total depth of well casing or well open borehole in feet below ground surface.
+WELL_USE,text,Well Use Type,"Description of well use (Observation, Residential, etc.)"
+WELL_TYPE,text,Well Completion Type,"Single well, nested well, or other"
+WCR_NO,text,WCR Number,DWR Well Completion Report Number (OSWCR Legacy Log Number)
