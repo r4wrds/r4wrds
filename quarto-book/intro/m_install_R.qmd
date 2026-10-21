@@ -66,7 +66,7 @@ Using R alone is possible, but less ideal (and less fun!). RStudio is an open-so
 ### *macOS*: Download and install RStudio Desktop (free)
 
  - Go to the [RStudio](https://www.rstudio.com/products/rstudio/download/#download) download page
- - Under Installers select **RStudio x.yy.zzz - Mac OS X 10.6+ (64-bit)** (where x, y, and z represent version numbers)
+ - Under Installers select **RStudio x.yy.zzz - Mac OS X 14+ (64-bit)** (where x, y, and z represent version numbers)
  - Double click the file to install RStudio
  - Once it’s installed, open RStudio to make sure it works and you don’t get any error messages.
 
@@ -148,8 +148,8 @@ And you see a message similar to below (yours will probably look different!!):
 ```
  There are binary versions available but the source versions are later:
           binary source needs_compilation
-sf         1.0-6  1.0-7             FALSE
-mapview   2.10.3 2.11.0              TRUE
+sf         1.1-1  1.1-3             FALSE
+mapview   2.11.1 2.11.4              TRUE
 
 Do you want to install from sources the packages which need compilation? (Yes/no/cancel) 
 ```
@@ -165,7 +165,7 @@ Just make sure to type "**No**" at the end of the line and hit `Enter`!
 
 To install `sf` successfully from source, Windows users will need to install [Rtools](https://cran.r-project.org/bin/windows/Rtools/). Download the 64-bit compiler. **Use the "R-release" version, not the R-devel version.** R-release is the stable version, and the devel version is in development. 
 
-Ensure that the Rtools installation matches the version of R you downloaded. For example if you downloaded R version 4.2.3, you would want Rtools version 4.2. 
+Ensure that the Rtools installation matches the version of R you downloaded. For example if you downloaded R version 4.5.3, you would want Rtools version 4.5. 
 
 
 ### `MacOS` Geospatial Instructions (from source): 
@@ -200,7 +200,7 @@ Success should return something like this (not an error message) when you load t
 
 ```r
 library(sf)
-# Linking to GEOS 3.11.0, GDAL 3.5.3, PROJ 9.1.0; sf_use_s2() is TRUE
+# Linking to GEOS 3.13.0, GDAL 3.8.5, PROJ 9.5.1; sf_use_s2() is TRUE
 ```
 
 <aside>
